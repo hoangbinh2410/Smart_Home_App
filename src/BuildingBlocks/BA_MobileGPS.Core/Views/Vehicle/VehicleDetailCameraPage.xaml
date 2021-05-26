@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.VehicleDetailCameraPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Chi tiết"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Column="2"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <controls:IconView
+                    Margin="5,0,10,0"
+                    Source="ic_refresh.png"
+                    StyleClass="TopIconView">
+                    <controls:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <tabView:SfTabView
+            x:Name="tabview"
+            BackgroundColor="{DynamicResource PrimaryColor}"
+            DisplayMode="Text"
+            VisibleHeaderCount="2">
+
+            <tabView:SfTabView.SelectionIndicatorSettings>
+                <tabView:SelectionIndicatorSettings
+                    Position="Fill"
+                    StrokeThickness="10"
+                    Color="#00ABE1" />
+            </tabView:SfTabView.SelectionIndicatorSettings>
+
+            <tabView:SfTabItem
+                Title="Hiện trạng"
+                SelectionColor="{DynamicResource WhiteColor}"
+                TitleFontAttributes="Bold"
+                TitleFontColor="White"
+                TitleFontSize="14">
+                <tabView:SfTabItem.Content>
+                    <views:VehicleDetailTab />
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+
+            <tabView:SfTabItem
+                Title="BA CAM"
+                SelectionColor="{DynamicResource WhiteColor}"
+                TitleFontAttributes="Bold"
+                TitleFontColor="White"
+                TitleFontSize="14">
+                <tabView:SfTabItem.Content>
+                    <views:BACamDetailTab />
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+        </tabView:SfTabView>
+    </ContentPage.Content>
+</ContentPage>

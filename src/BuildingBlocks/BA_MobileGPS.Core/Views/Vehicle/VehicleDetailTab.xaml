@@ -1,0 +1,2003 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.VehicleDetailTab"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyIndicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:converters="clr-namespace:BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    BackgroundColor="White">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:NMConverter x:Key="NMConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+        </ResourceDictionary>
+        <Style TargetType="busyIndicator:SfBusyIndicator">
+            <Setter Property="AnimationType" Value="Cupertino" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="EnableAnimation" Value="True" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="ViewBoxHeight" Value="50" />
+            <Setter Property="ViewBoxWidth" Value="50" />
+            <Setter Property="Duration" Value="0.8" />
+        </Style>
+    </ContentView.Resources>
+    <Grid RowSpacing="0">
+        <ScrollView
+            Margin="0,0,0,70"
+            Orientation="Vertical"
+            VerticalOptions="StartAndExpand"
+            VerticalScrollBarVisibility="Never">
+            <StackLayout BackgroundColor="{StaticResource WhiteColor}" Spacing="0">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  phần thu phí trong trường hợp xe nợ phí  -->
+                    <Grid
+                        Grid.Row="0"
+                        IsVisible="{Binding InforDetail.IsExpried}"
+                        RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <sharpnado:MaterialFrame
+                            Grid.Row="0"
+                            Padding="10"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            LightThemeBackgroundColor="{StaticResource GrayColor}"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="{i18n:TranslateResource DetailVehicle_Label_InforFee}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Grid.Row="1"
+                            Padding="10,0,10,0"
+                            BackgroundColor="White"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+
+                                <Grid
+                                    Grid.Row="0"
+                                    Padding="10"
+                                    HorizontalOptions="FillAndExpand"
+                                    RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Text="{Binding MessageInforChargeMoney}"
+                                        TextColor="Red" />
+                                </Grid>
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                    </Grid>
+                    <!--  phần hiển thị thông tin chi tiết SIM  -->
+                    <Grid Grid.Row="1" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <sharpnado:MaterialFrame
+                            Grid.Row="0"
+                            Padding="10"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            LightThemeBackgroundColor="{StaticResource GrayColor}"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="{i18n:TranslateResource DetailVehicle_Label_InforSIM}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Grid.Row="1"
+                            Padding="10,0,10,0"
+                            BackgroundColor="White"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <sharpnado:MaterialFrame.Content>
+                                <StackLayout Grid.Row="0" Spacing="0">
+
+                                    <!--  Số điện thoại  -->
+                                    <Grid RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_phone_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_SimPhoneNumber}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.SIMPhoneNumber}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Ngày đăng ký  -->
+                                    <Grid RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_time_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_JoinSystemDate}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.JoinSystemDate, Converter={StaticResource DateConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Ngày hết hạn  -->
+                                    <!--<Grid IsVisible="{Binding InforDetail.MCExpried, Converter={StaticResource HasDataConverter}}" RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="1" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Padding="0,10,0,10"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal">
+                                                <controls:IconView
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="Center"
+                                                    Source="ic_time_black.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="20" />
+
+                                                <Label
+                                                    Text="{i18n:TranslateResource DetailVehicle_Label_Vehicle_Expiration_Date}"
+                                                    VerticalOptions="Center"
+                                                    VerticalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{Binding InforDetail.MCExpried, Converter={StaticResource DateConverter}}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+
+                                            <BoxView
+                                                Grid.Row="1"
+                                                Grid.ColumnSpan="2"
+                                                BackgroundColor="{StaticResource GrayColor}"
+                                                HeightRequest="0.5"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="Start" />
+                                        </Grid>-->
+                                </StackLayout>
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                    </Grid>
+
+                    <!--  phần hiển thị thông tin chi tiết của xe  -->
+                    <Grid Grid.Row="2" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <sharpnado:MaterialFrame
+                            Grid.Row="0"
+                            Padding="10"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            LightThemeBackgroundColor="{StaticResource GrayColor}"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="{i18n:TranslateResource DetailVehicle_Label_TileInforVehicle}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Grid.Row="1"
+                            Padding="10,0,10,0"
+                            BackgroundColor="White"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+
+                                <StackLayout Spacing="0">
+
+                                    <!--  biển kiểm soát  -->
+                                    <Grid
+                                        x:Name="xxVehiclePlate"
+                                        Grid.Row="0"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_vehicleplate.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_VehiclePlate}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehiclePlate}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  IMEI  -->
+                                    <Grid Grid.Row="1" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            Spacing="10">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_lisence.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="IMEI"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.IMEI}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Địa chỉ  -->
+                                    <Grid Grid.Row="1" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_location_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <!--  {Binding InforCommonVehicle.IconVehicle}  -->
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding Address}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Tọa độ  -->
+                                    <Grid
+                                        Grid.Row="2"
+                                        IsVisible="{Binding IsShowCoordinates}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_coordinates.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Coordinates}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding Coordinates}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  thời gian  -->
+                                    <Grid Grid.Row="3" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_time_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Time}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding VehicleTime, Converter={StaticResource DateTimeConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Vân tốc  -->
+                                    <Grid Grid.Row="4" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_velocity.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Speed}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding VelocityGPS, Converter={StaticResource VelocityConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Động cơ  -->
+                                    <Grid Grid.Row="5" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_engine.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Engineer}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding EngineState}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  km trong ngày  -->
+                                    <Grid Grid.Row="6" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_distance.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_KilometInToDay}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding TotalKm, Converter={StaticResource KmConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+                                    <!--  km trong tháng  -->
+                                    <Grid
+                                        Grid.Row="7"
+                                        IsVisible="true"
+                                        RowSpacing="0">
+                                        <Grid.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding KmInMonth}"
+                                                TargetType="Grid"
+                                                Value="0">
+                                                <Setter Property="IsVisible" Value="false" />
+                                            </DataTrigger>
+                                        </Grid.Triggers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_distance.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_KilometInMonth}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding KmInMonth, Converter={StaticResource KmConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  KM tích luỹ  -->
+                                    <Grid
+                                        Grid.Row="8"
+                                        IsVisible="{Binding InforDetail.KilometAccumulated, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_distance.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_KilometAccumulated}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.KilometAccumulated, Converter={StaticResource KmConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Dừng đỗ  -->
+                                    <Grid
+                                        Grid.Row="9"
+                                        IsVisible="{Binding InforDetail.StopCount, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_filter_stop.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_CountStopVehicle}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.StopCount, Converter={StaticResource CountStopParkingConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+                                    <!--  Đang đỗ  -->
+                                    <Grid
+                                        Grid.Row="10"
+                                        IsVisible="{Binding InforDetail.IsShowParkingVehicleNow}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_parking.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_ParkingVehicleNow}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding StopTime, Converter={StaticResource MinutesToStringShortConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Dừng đỗ nổ máy  -->
+                                    <Grid
+                                        Grid.Row="11"
+                                        IsVisible="{Binding InforDetail.IsShowParkingTurnOnVehicle}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_location_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_ParkingTurnOnVehecle}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.ParkingTurnOnVehecle, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Điều hoà  -->
+                                    <Grid Grid.Row="12" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_air_conditioner.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_AirCondition}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource AirConditionerConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Số lần mở cửa  -->
+                                    <Grid
+                                        Grid.Row="13"
+                                        IsVisible="{Binding InforDetail.VehicleHtn.DoorOpenCount, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_count_door_open.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_CountOpenDoor}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.DoorOpenCount}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Ben / Cẩu  -->
+                                    <Grid
+                                        Grid.Row="14"
+                                        IsVisible="{Binding InforDetail.Crane, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_crane.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Ben_Crane}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource CraneConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Nhiên liệu  -->
+                                    <Grid
+                                        Grid.Row="15"
+                                        IsVisible="{Binding IsFuelVisible}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_nl.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Fuel}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding Fuel}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <!--  Using linear progress bar  -->
+                                        <progressBar:SfLinearProgressBar
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            Progress="{Binding FuelProgress}"
+                                            ProgressColor="{StaticResource PrimaryColor}"
+                                            TrackColor="{StaticResource GrayColor}"
+                                            TrackHeight="8" />
+
+                                        <BoxView
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Nhiệt độ  -->
+                                    <Grid
+                                        Grid.Row="16"
+                                        IsVisible="{Binding Temperature, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_temperature.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Temperature}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding Temperature}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Bê tông  -->
+                                    <Grid
+                                        Grid.Row="17"
+                                        IsVisible="{Binding InforDetail.ConcretePump, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_concrete_moving.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Concrete}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource ConcreteConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Thẻ nhớ  -->
+                                    <Grid Grid.Row="18" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_save.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_MemoryStick}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.MemoryStatusLabel, Converter={StaticResource MemoryStickConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Cửa  -->
+                                    <Grid
+                                        Grid.Row="19"
+                                        IsVisible="{Binding InforDetail.Door, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_save.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_Door}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource DoorOpenConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  VIN  -->
+                                    <Grid
+                                        Grid.Row="19"
+                                        IsVisible="{Binding InforDetail.VehicleHtn.VIN, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_vin.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="VIN"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.VIN}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+                                </StackLayout>
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                    </Grid>
+
+                    <!--  phần hiển thị thông tin BGT  -->
+                    <Grid Grid.Row="3" RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <sharpnado:MaterialFrame
+                            Grid.Row="0"
+                            Padding="10"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            LightThemeBackgroundColor="{StaticResource GrayColor}"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="{i18n:TranslateResource DetailVehicle_Label_InforBGT}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+
+                        <sharpnado:MaterialFrame
+                            Grid.Row="1"
+                            Padding="10,0,10,0"
+                            BackgroundColor="White"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <sharpnado:MaterialFrame.Content>
+                                <StackLayout Grid.Row="0" Spacing="0">
+                                    <!--  Lái xe  -->
+                                    <Grid Grid.Row="0" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_user.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_DriverName}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.DriverName}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Bằng lái  -->
+                                    <Grid Grid.Row="1" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            Spacing="10">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_lisence.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_DriverLicense}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.DriverLicense}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Điện thoại  -->
+                                    <Grid Grid.Row="2" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_phone_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_DriverPhone}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.MobileNumber}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Thời gian lái xe liên tục  -->
+                                    <Grid Grid.Row="3" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_time_running.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_MinutesOfDrivingTimeContinuous}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.MinutesOfDrivingTimeContinuous, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Thời gian lái xe trong ngày  -->
+                                    <Grid Grid.Row="4" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_turnon_time_on_day.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_MinutesOfDrivingTimeInDay}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.MinutesOfDrivingTimeInDay, Converter={StaticResource MinutesOfDrivingTimeConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Quá tốc độ  -->
+                                    <Grid Grid.Row="5" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_alert_speeding.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_SpeedOverCount}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.SpeedOverCount, Converter={StaticResource CountStopParkingConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Sở quản lý  -->
+                                    <Grid Grid.Row="6" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_company.png"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="{i18n:TranslateResource DetailVehicle_Label_DepartmentOfManagement}"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.DepartmentManager}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+
+                                    <!--  Camera  -->
+                                    <Grid
+                                        Grid.Row="8"
+                                        IsVisible="{Binding IsCameraEnable}"
+                                        RowSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_camera.png"
+                                                WidthRequest="20" />
+                                            <Label
+                                                Text="Camera giám sát"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+                                        <controls:IconView
+                                            Grid.Column="1"
+                                            Margin="0,0,20,0"
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="25"
+                                            HorizontalOptions="End"
+                                            Source="ic_livestream.png"
+                                            WidthRequest="25">
+                                            <controls:IconView.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding GotoCameraPageComamnd}" CommandParameter="Video" />
+                                            </controls:IconView.GestureRecognizers>
+                                        </controls:IconView>
+                                    </Grid>
+                                </StackLayout>
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                    </Grid>
+
+                    <!--  phần hiển thị thông tin chi tiết SIM  -->
+                    <Grid
+                        Grid.Row="4"
+                        IsVisible="{Binding ShowPaperInfor}"
+                        RowSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <sharpnado:MaterialFrame
+                            Grid.Row="0"
+                            Padding="10"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            LightThemeBackgroundColor="{StaticResource GrayColor}"
+                            VerticalOptions="FillAndExpand">
+
+                            <sharpnado:MaterialFrame.Content>
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Text="Ngày đến hạn"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Grid.Row="1"
+                            Padding="10,0,10,0"
+                            BackgroundColor="White"
+                            CornerRadius="0"
+                            HasShadow="False"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand">
+                            <sharpnado:MaterialFrame.Content>
+                                <Grid Grid.Row="0" RowSpacing="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <!--  ngày đăng kiểm  -->
+                                    <Grid
+                                        Grid.Row="0"
+                                        IsVisible="{Binding DateOfRegistration, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_time_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="Ngày đăng kiểm"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding DateOfRegistration, Converter={StaticResource DateConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+                                    <!--  ngày bảo hiểm  -->
+                                    <Grid
+                                        Grid.Row="1"
+                                        IsVisible="{Binding InsuranceDate, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_time_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+                                            <Label
+                                                Text="Ngày hết hạn bảo hiểm"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InsuranceDate, Converter={StaticResource DateConverter}}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
+                                </Grid>
+                            </sharpnado:MaterialFrame.Content>
+                        </sharpnado:MaterialFrame>
+                    </Grid>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+        <pancakeview:PancakeView VerticalOptions="End">
+            <pancakeview:PancakeView.Shadow>
+                <pancakeview:DropShadow
+                    BlurRadius="2"
+                    Offset="0,0"
+                    Color="Black" />
+            </pancakeview:PancakeView.Shadow>
+
+            <controls:HorizontalList
+                Padding="10"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                ItemsSource="{Binding MenuItems}"
+                ListOrientation="Horizontal"
+                SelectedCommand="{Binding SelectedMenuCommand}">
+                <controls:HorizontalList.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="0"
+                            VerticalOptions="CenterAndExpand">
+                            <controls:IconView
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="{Binding Icon}"
+                                WidthRequest="20" />
+                            <Label
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Title}"
+                                TextColor="Black" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:HorizontalList.ItemTemplate>
+            </controls:HorizontalList>
+        </pancakeview:PancakeView>
+        <busyIndicator:SfBusyIndicator IsBusy="{Binding IsBusy}" />
+    </Grid>
+</ContentView>
