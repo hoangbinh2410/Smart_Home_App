@@ -46,7 +46,7 @@
                     Source="ic_refresh.png"
                     StyleClass="TopIconView">
                     <controls:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                        <TapGestureRecognizer Command="{Binding RefeshCommand}" />
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
             </StackLayout>
