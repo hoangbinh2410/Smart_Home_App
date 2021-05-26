@@ -182,7 +182,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Dung lượng khả dụng "
+                                            Text="Dung lượng gói cước "
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -191,7 +191,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding SimCardServiceInfo.Capacity, StringFormat='{0} GB'}"
+                                        Text="{Binding SimCardServiceInfo.Capacity, StringFormat='{0} MB'}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
