@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
@@ -616,8 +615,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, CarActive }
                 };
-
-                await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                }
             });
         }
 
@@ -668,7 +673,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                 }
-
             });
         }
 
@@ -711,7 +715,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                 }
-
             });
         }
 
