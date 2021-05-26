@@ -6,7 +6,7 @@ using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
-
+using BA_MobileGPS.Utilities.Helpers;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -274,6 +274,12 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return storageDevices; }
             set { SetProperty(ref storageDevices, value); }
         }
+
+        private double storageProgress;
+        public double StorageProgress { get => storageProgress; set => SetProperty(ref storageProgress, value); }
+
+        private string storageValue = "0/0 GB";
+        public string StorageValue { get => storageValue; set => SetProperty(ref storageValue, value); }
 
         private string channelString;
 
@@ -572,7 +578,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         if (model.StorageDevices != null)
                         {
-                            StorageDevices = model.StorageDevices.FirstOrDefault();
+                            StorageDevices = model.StorageDevices[1];
+                            if (StorageDevices.TotalSize > 0)
+                            {
+                                var totalSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, StorageDevices.TotalSize), 1);
+                                var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, StorageDevices.FreeSize), 1);
+                                StorageProgress = 100 - ((freeSize / totalSize) * 100);
+                                StorageValue = (totalSize - freeSize) + "/" + totalSize + " GB";
+                            }
                         }
                     }
                 }

@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     BackgroundColor="White">
     <ContentView.Resources>
@@ -573,6 +574,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackLayout
                                         Grid.Row="0"
@@ -594,17 +596,30 @@
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
 
-                                    <Label
+                                    <!--  Using linear progress bar  -->
+                                    <progressBar:SfLinearProgressBar
                                         Grid.Row="0"
                                         Grid.Column="1"
+                                        Margin="10"
+                                        HeightRequest="10"
+                                        HorizontalOptions="FillAndExpand"
+                                        Progress="{Binding StorageProgress}"
+                                        ProgressColor="#0959A0"
+                                        TrackColor="#c9dbea"
+                                        TrackHeight="10"
+                                        VerticalOptions="CenterAndExpand" />
+
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="2"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="30/50 GB"
+                                        Text="{Binding StorageValue}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
                                     <BoxView
                                         Grid.Row="1"
-                                        Grid.ColumnSpan="2"
+                                        Grid.ColumnSpan="3"
                                         BackgroundColor="{StaticResource GrayColor}"
                                         HeightRequest="0.5"
                                         HorizontalOptions="FillAndExpand"
@@ -740,7 +755,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Tính năng video "
+                                            Text="Phiên bản app :"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
