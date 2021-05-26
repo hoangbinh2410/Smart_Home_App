@@ -8,7 +8,6 @@
     xmlns:converters="clr-namespace:BA_MobileGPS.Core"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:prism="http://prismlibrary.com"
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     BackgroundColor="White">
@@ -754,7 +753,6 @@
                                             VerticalOptions="Start" />
                                     </Grid>
 
-
                                     <!--  KM tích luỹ  -->
                                     <Grid
                                         Grid.Row="8"
@@ -1357,6 +1355,56 @@
                                             HorizontalOptions="FillAndExpand"
                                             VerticalOptions="Start" />
                                     </Grid>
+
+                                    <!--  VIN  -->
+                                    <Grid
+                                        Grid.Row="19"
+                                        IsVisible="{Binding InforDetail.VehicleHtn.VIN, Converter={StaticResource HasDataConverter}}"
+                                        RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="1" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Padding="0,10,0,10"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal">
+                                            <controls:IconView
+                                                Foreground="{StaticResource PrimaryColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="Center"
+                                                Source="ic_vin.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="20" />
+
+                                            <Label
+                                                Text="VIN"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Center" />
+                                        </StackLayout>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding InforDetail.VehicleHtn.VIN}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+
+                                        <BoxView
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="2"
+                                            BackgroundColor="{StaticResource GrayColor}"
+                                            HeightRequest="0.5"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="Start" />
+                                    </Grid>
                                 </StackLayout>
                             </sharpnado:MaterialFrame.Content>
                         </sharpnado:MaterialFrame>
@@ -1947,7 +1995,6 @@
                                 TextColor="Black" />
                         </StackLayout>
                     </DataTemplate>
-
                 </controls:HorizontalList.ItemTemplate>
             </controls:HorizontalList>
         </pancakeview:PancakeView>

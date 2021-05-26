@@ -4436,7 +4436,7 @@
 
         InputRegisterExport = 1210,
         FeedbackSend = 1211,
-        ChangePassword= 1322,
+        ChangePassword = 1322,
 
         /// <summary>
         /// Tin nhắn online tầu cá
@@ -4456,6 +4456,8 @@
         /// <summary>
         /// Chỉnh sửa thông tin giấy tờ
         /// </summary>
-        PaperUpdate = 2023
+        PaperUpdate = 2023,
+
+        UploadVideoStream = 1373
     }
 }

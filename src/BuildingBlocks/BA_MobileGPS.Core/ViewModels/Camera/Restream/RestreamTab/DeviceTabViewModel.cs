@@ -317,9 +317,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (VideoSlected != null && VideoSlected.Data != null)
+                if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
                 {
-                    var parameters = new NavigationParameters
+                    if (VideoSlected != null && VideoSlected.Data != null)
+                    {
+                        var parameters = new NavigationParameters
                       {
                           { "UploadVideo", new CameraUploadRequest(){
                                CustomerId =  UserInfo.XNCode,
@@ -331,7 +333,12 @@ namespace BA_MobileGPS.Core.ViewModels
                           } }
                      };
 
-                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
+                        var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
                 }
             });
         }
@@ -340,9 +347,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (obj != null)
+                if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
                 {
-                    var parameters = new NavigationParameters
+                    if (obj != null)
+                    {
+                        var parameters = new NavigationParameters
                       {
                           { "UploadVideo", new CameraUploadRequest(){
                                CustomerId =  UserInfo.XNCode,
@@ -354,7 +363,12 @@ namespace BA_MobileGPS.Core.ViewModels
                           } }
                      };
 
-                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
+                        var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
                 }
             });
         }
