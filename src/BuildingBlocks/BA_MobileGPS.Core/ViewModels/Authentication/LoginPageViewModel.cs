@@ -324,6 +324,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                         DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
                                         break;
+
+                                    case LoginStatus.UserLoginOnlyWeb:
+
+                                        DisplayMessage.ShowMessageInfo("Tài khoản này chỉ được phép đăng nhập trên Web");
+                                        break;
                                 }
                             }
                         }

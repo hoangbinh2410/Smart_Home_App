@@ -133,11 +133,11 @@ namespace BA_MobileGPS.Core
             {
                 return "ic_ltesignal2.png";
             }
-            else if (percent > 50 && percent <= 75)
+            else if (percent > 50 && percent <= 90)
             {
                 return "ic_ltesignal3.png";
             }
-            else if (percent > 75 && percent <= 100)
+            else if (percent > 90 && percent <= 100)
             {
                 return "ic_ltesignal4.png";
             }

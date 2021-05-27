@@ -7,6 +7,7 @@
         LoginFailed = 2,
         UpdateRequired = 3,
         Locked = 4,
-        WrongAppType = 5
+        WrongAppType = 5,
+        UserLoginOnlyWeb = 6
     }
 }
