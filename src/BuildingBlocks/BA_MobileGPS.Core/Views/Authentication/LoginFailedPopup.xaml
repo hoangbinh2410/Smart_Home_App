@@ -39,7 +39,7 @@
                     VerticalOptions="Start"
                     WidthRequest="20">
                     <controls:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
                 <StackLayout
