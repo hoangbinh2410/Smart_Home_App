@@ -417,7 +417,7 @@
                         <sharpnado:MaterialFrame.Content>
                             <Label
                                 HorizontalOptions="StartAndExpand"
-                                Text="Thông tin gói cước"
+                                Text="Thông tin thiết bị"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </sharpnado:MaterialFrame.Content>
@@ -777,7 +777,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding StreamDevices.Firmware}" />
-                                                <Span Text=" " />
+                                                <Span Text=", " />
                                                 <Span Text="{Binding StreamDevices.CameraApp}" />
                                             </FormattedString>
                                         </Label.FormattedText>

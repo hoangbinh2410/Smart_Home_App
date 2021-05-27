@@ -61,7 +61,7 @@ namespace BA_MobileGPS.Entities
         public int CameraStatus { get; set; }
         public int Channel { get; set; }
         public int ErrorCode { get; set; }
-        public bool IsHasCamera { get; set; }
+        public bool HasCamera { get; set; }
         public bool IsPlug { get; set; }
         public bool IsRecording { get; set; }
         public bool IsStreaming { get; set; }
