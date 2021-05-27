@@ -39,7 +39,7 @@ namespace BA_MobileGPS.Entities
         public DateTime UpdatedTime { get; set; }
         public string VehicleName { get; set; }
         public string CameraApp { get; set; }
-        public NetworkDataType NetType { get; set; }
+        public int NetType { get; set; }
         public int NetBand { get; set; }
         public int CSQ { get; set; }
 
@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Entities
         public long FreeSize { get; set; }
         public bool IsInserted { get; set; }
         public long TotalSize { get; set; }
-        public int Type { get; set; }
+        public int? Type { get; set; }
     }
 
     public class StreamStartResponse : ResponseStreamBase<List<StreamStart>>
