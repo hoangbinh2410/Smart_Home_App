@@ -381,6 +381,9 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("7")]
         public string MobileNumber { set; get; }
+
+        [JsonProperty("8")]
+        public string VIN { set; get; }
     }
 
     public class VehicleNl

@@ -93,6 +93,29 @@ namespace BA_MobileGPS.Core.ViewModels
                         UpdateLanguage(languageRespone);
                     }
                 }
+                else if (parameters.TryGetValue("LoginFailedPopup", out bool isforgot))
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        if (isforgot)
+                        {
+                            await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                        }
+                        else
+                        {
+                            var actioncall = await PageDialog.DisplayAlertAsync("Thông báo",
+                                string.Format("Vui lòng gọi đến số {0} để được hỗ trợ", MobileSettingHelper.HotlineGps),
+                                "Liên hệ", "Bỏ qua");
+                            if (actioncall)
+                            {
+                                if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+                                {
+                                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                                }
+                            }
+                        }
+                    });
+                }
             }
         }
 
@@ -271,22 +294,22 @@ namespace BA_MobileGPS.Core.ViewModels
                                         }
                                         else
                                         {
-                                            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
                                             StaticSettings.User = null;
+                                            Device.BeginInvokeOnMainThread(async () =>
+                                            {
+                                                await PageDialog.DisplayAlertAsync("Thông báo", MobileResource.Login_Message_AccountPasswordIncorrect, "Quên mật khẩu", "Quên tài khoản");
+                                            });
                                         }
                                         break;
 
                                     case LoginStatus.LoginFailed://Đăng nhập không thành công
-
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountPasswordIncorrect);
-
                                         StaticSettings.User = null;
-
+                                        OnLoginFailed();
                                         break;
 
                                     case LoginStatus.UpdateRequired:
                                         StaticSettings.User = null;
-
+                                      
                                         break;
 
                                     case LoginStatus.Locked://Tài khoản đang bị khóa
@@ -300,6 +323,11 @@ namespace BA_MobileGPS.Core.ViewModels
                                     case LoginStatus.WrongAppType:
 
                                         DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
+                                        break;
+
+                                    case LoginStatus.UserLoginOnlyWeb:
+
+                                        DisplayMessage.ShowMessageInfo("Tài khoản này chỉ được phép đăng nhập trên Web");
                                         break;
                                 }
                             }
@@ -523,6 +551,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        private async void OnLoginFailed()
+        {
+            await NavigationService.NavigateAsync("LoginFailedPopup");
         }
 
         /// <summary>Kiểm tra mạng lấy lại thông tin khi có mạng</summary>

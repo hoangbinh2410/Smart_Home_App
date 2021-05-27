@@ -23,7 +23,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -605,8 +605,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, param }
                 };
-
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, useModalNavigation: true, true);
+                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                }
             });
         }
 
@@ -668,13 +674,30 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<Vehicle>(selected);
-                var parameters = new NavigationParameters
+                if (selected.HasImage || selected.IsQcvn31)
                 {
-                    { ParameterKey.Vehicle, param }
-                };
+                    var param = _mapper.MapProperties<Vehicle>(selected);
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.Vehicle, param }
+                    };
 
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
+                    await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              selected.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
             });
         }
 
@@ -696,17 +719,34 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-                var storagePermission = await PermissionHelper.CheckStoragePermissions();
-                if (photoPermission && storagePermission)
+                if (selected.HasVideo)
                 {
-                    var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
-                    var parameters = new NavigationParameters
+                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                    if (photoPermission && storagePermission)
+                    {
+                        var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                        var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
                      };
 
-                    var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                        var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              selected.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
                 }
             });
         }

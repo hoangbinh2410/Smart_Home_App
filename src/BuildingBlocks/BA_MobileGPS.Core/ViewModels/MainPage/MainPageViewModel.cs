@@ -40,8 +40,10 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
+        private readonly IStreamCameraService streamCameraService;
         private Timer timer;
         private Timer timerSyncData;
+        private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
@@ -53,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
             IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
-            IPapersInforService papersInforService)
+            IPapersInforService papersInforService, IStreamCameraService streamCameraService)
             : base(navigationService)
         {
             this.papersInforService = papersInforService;
@@ -68,14 +70,17 @@ namespace BA_MobileGPS.Core.ViewModels
             this.alertHubService = alertHubService;
             this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
+            this.streamCameraService = streamCameraService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
             SetTimeServer();
+            DisposeEventAggregator();
             EventAggregator.GetEvent<OnResumeEvent>().Subscribe(OnResumePage);
             EventAggregator.GetEvent<OnSleepEvent>().Subscribe(OnSleepPage);
             EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(SelectedCompanyChanged);
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
+            EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
             InitSystemType();
         }
@@ -125,21 +130,27 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
-            if (IsLoaded)
+            timer.Stop();
+            timer.Dispose();
+            timerSyncData.Stop();
+            timerSyncData.Dispose();
+            if (cts != null)
             {
-                base.OnDestroy();
-                timer.Stop();
-                timer.Dispose();
-                timerSyncData.Stop();
-                timerSyncData.Dispose();
-                EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
-                EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
-                EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
-                EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
-                EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
-                DisconnectSignalR();
-                IsLoaded = false;
+                cts.Cancel();
+                cts.Dispose();
             }
+            DisposeEventAggregator();
+            DisconnectSignalR();
+        }
+
+        private void DisposeEventAggregator()
+        {
+            EventAggregator.GetEvent<OnResumeEvent>().Unsubscribe(OnResumePage);
+            EventAggregator.GetEvent<OnSleepEvent>().Unsubscribe(OnSleepPage);
+            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(SelectedCompanyChanged);
+            EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
+            EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
+            EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
         }
 
         private void InitVehilceOnline()
@@ -234,7 +245,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
-        private bool IsLoaded { get; set; }
         private int SystemType { get; set; } = 51;
 
         #endregion Property
@@ -990,6 +1000,198 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             }
+        }
+
+        private bool isSendUpload = false;
+
+        private void UploadVideoRestream(VideoRestreamInfo obj)
+        {
+            if (obj != null && obj.Data != null)
+            {
+                GlobalResources.Current.TotalVideoUpload = obj.Data.Count;
+                GlobalResources.Current.TotalVideoUploaded = 0;
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
+                });
+
+                int index = 0;
+                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+                 {
+                     if (!isSendUpload && index <= obj.Data.Count)
+                     {
+                         RunOnBackground(async () =>
+                         {
+                             isSendUpload = true;
+                             return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                             {
+                                 Channel = obj.Channel,
+                                 CustomerID = UserInfo.XNCode,
+                                 StartTime = obj.Data[index].StartTime,
+                                 EndTime = obj.Data[index].EndTime,
+                                 VehicleName = obj.VehicleName
+                             });
+                         }, (result) =>
+                         {
+                             if (result != null && result.Data)
+                             {
+                                 UploadFileStatus(obj, obj.Data[index]);
+                                 index++;
+                             }
+                             else
+                             {
+                                 isSendUpload = false;
+                             }
+                         });
+                         if (index >= obj.Data.Count)
+                         {
+                             return false;
+                         }
+                         else
+                         {
+                             return true;
+                         }
+                     }
+                     else
+                     {
+                         if (index >= obj.Data.Count)
+                         {
+                             return false;
+                         }
+                         else
+                         {
+                             return true;
+                         }
+                     }
+                 });
+            }
+        }
+
+        private void UploadFileStatus(VideoRestreamInfo info, VideoUploadTimeInfo video)
+        {
+            RunOnBackground(async () =>
+            {
+                return await CheckStatusUploadFile(info, video.FileName);
+            }, (isUploaded) =>
+           {
+               if (isUploaded)
+               {
+                   isSendUpload = false;
+
+                   GlobalResources.Current.TotalVideoUploaded++;
+                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
+                   {
+                       GlobalResources.Current.TotalVideoUploaded = 0;
+                       GlobalResources.Current.TotalVideoUpload = 0;
+                       EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
+                   }
+
+                   InsertLogVideo(info, video);
+
+                   Device.BeginInvokeOnMainThread(() =>
+                   {
+                       DisplayMessage.ShowMessageInfo("File " + video.FileName + " đã được tải thành công");
+                   });
+               }
+               else
+               {
+                   isSendUpload = false;
+                   GlobalResources.Current.TotalVideoUpload--;
+                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
+                   {
+                       GlobalResources.Current.TotalVideoUploaded = 0;
+                       GlobalResources.Current.TotalVideoUpload = 0;
+                       EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
+                   }
+                   DisplayMessage.ShowMessageInfo("File " + video.FileName + " không tải được lên server");
+               }
+           });
+        }
+
+        private async Task<bool> CheckStatusUploadFile(VideoRestreamInfo obj, string filename)
+        {
+            var result = false;
+            try
+            {
+                cts = new System.Threading.CancellationTokenSource();
+                int indexwhile = 0;
+                while (!result && !cts.IsCancellationRequested)
+                {
+                    indexwhile++;
+                    if (indexwhile == 10)
+                    {
+                        if (cts != null)
+                        {
+                            cts.Cancel();
+                            cts.Dispose();
+                        }
+                    }
+                    else
+                    {
+                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, obj.VehicleName, obj.Channel);
+                        if (respone != null)
+                        {
+                            if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
+                                && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((filename.ToUpper() + ".mp4")) == true)
+                            {
+                                result = true;
+                                if (cts != null)
+                                {
+                                    cts.Cancel();
+                                    cts.Dispose();
+                                }
+                            }
+                            else
+                            {
+                                await Task.Delay(10000, cts.Token);
+                            }
+                        }
+                        else
+                        {
+                            if (cts != null)
+                            {
+                                cts.Cancel();
+                                cts.Dispose();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return result;
+        }
+
+        private void InsertLogVideo(VideoRestreamInfo info, VideoUploadTimeInfo video)
+        {
+            var request = new SaveVideoByUserRequest()
+            {
+                Channel = info.Channel,
+                FK_VehicleID = info.VehicleID,
+                FK_CompanyID = CurrentComanyID,
+                StartTime = video.StartTime,
+                EndTime = video.EndTime,
+                Description = string.IsNullOrEmpty(video.Note) ? "" : video.Note,
+                IsFavorite = false,
+                IsSave = true,
+                Thumbnail = "",
+                VideoName = video.FileName,
+                CreatedUser = UserInfo.UserId,
+            };
+
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.InsertLogVideo(request);
+            },
+            (result) =>
+            {
+                if (result)
+                {
+                }
+            });
         }
 
         #endregion PrivateMethod

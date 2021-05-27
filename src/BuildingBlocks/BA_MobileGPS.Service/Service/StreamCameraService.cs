@@ -353,5 +353,43 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<PackageBACameraRespone> GetPackageByXnPlate(PackageBACameraRequest request)
+        {
+            var result = new PackageBACameraRespone();
+            try
+            {
+                string url = $"{ApiUri.POST_GetPACKETBYXNPLATE}";
+                var respone = await requestProvider.PostAsync<PackageBACameraRequest, ResponseBaseV2<PackageBACameraRespone>>(url, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> InsertLogVideo(SaveVideoByUserRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.INSERT_LOG_VIDEO}";
+                var respone = await requestProvider.PostAsync<SaveVideoByUserRequest, ResponseBaseV2<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

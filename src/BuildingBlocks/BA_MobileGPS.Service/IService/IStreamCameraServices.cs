@@ -58,6 +58,10 @@ namespace BA_MobileGPS.Service.IService
         Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request);
 
         Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null);
+
+        Task<PackageBACameraRespone> GetPackageByXnPlate(PackageBACameraRequest request);
+
+        Task<bool> InsertLogVideo(SaveVideoByUserRequest request);
     }
 
     public enum ConditionType

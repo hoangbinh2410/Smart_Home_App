@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
@@ -616,8 +615,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, CarActive }
                 };
-
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                }
             });
         }
 
@@ -638,31 +643,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = new Vehicle()
+                if (CarActive.HasImage || CarActive.IsQcvn31)
                 {
-                    VehiclePlate = CarActive.VehiclePlate,
-                    VehicleId = CarActive.VehicleId,
-                    Imei = CarActive.Imei,
-                    PrivateCode = CarActive.PrivateCode
-                };
-                var parameters = new NavigationParameters
-                {
-                    { ParameterKey.Vehicle, param }
-                };
-
-                await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
-            });
-        }
-
-        public void GotoVideoPage()
-        {
-            SafeExecute(async () =>
-            {
-                var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-                var storagePermission = await PermissionHelper.CheckStoragePermissions();
-                if (photoPermission && storagePermission)
-                {
-                    var param = new CameraLookUpVehicleModel()
+                    var param = new Vehicle()
                     {
                         VehiclePlate = CarActive.VehiclePlate,
                         VehicleId = CarActive.VehicleId,
@@ -670,11 +653,67 @@ namespace BA_MobileGPS.Core.ViewModels
                         PrivateCode = CarActive.PrivateCode
                     };
                     var parameters = new NavigationParameters
+                {
+                    { ParameterKey.Vehicle, param }
+                };
+
+                    await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+        public void GotoVideoPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (CarActive.HasVideo)
+                {
+                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                    if (photoPermission && storagePermission)
+                    {
+                        var param = new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = CarActive.VehiclePlate,
+                            VehicleId = CarActive.VehicleId,
+                            Imei = CarActive.Imei,
+                            PrivateCode = CarActive.PrivateCode
+                        };
+                        var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
                      };
 
-                    await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                        await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
                 }
             });
         }

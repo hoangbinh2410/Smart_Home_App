@@ -23,7 +23,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>GISVIET</string>
 	<key>CFBundleIdentifier</key>
-	<string>vn.gisvietgps.gpsmobile</string>
+	<string>vn.gisviet.gpsmobile</string>
 	<key>CFBundleName</key>
 	<string>GISVIET</string>
 	<key>CFBundleLocalizations</key>

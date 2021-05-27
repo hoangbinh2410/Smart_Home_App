@@ -11,11 +11,13 @@
     Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle=""
+    NavigationPage.HasNavigationBar="False"
     SelectedTabColor="{DynamicResource MainTabSelectedColor}"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
 
     <TabbedPage.Children>
-        <views:DeviceTab Title="{i18n:TranslateResource Camera_ChildTab_Device}" IconImageSource="ic_device" />
+        <views:DeviceTab Title="Thiết bị" IconImageSource="ic_device" />
+        <views:MyVideoTab Title="Yêu cầu" IconImageSource="ic_myvideo" />
         <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />
         <views:MyVideoTab Title="{i18n:TranslateResource Camera_ChildTab_MyVideo}" IconImageSource="ic_myvideo" />-->
     </TabbedPage.Children>

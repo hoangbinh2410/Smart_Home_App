@@ -67,6 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
             itemsSource = new List<ChildStackSource>();
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SelectedChannelCommand = new DelegateCommand<object>(SelectedChannel);
+            HelpVideoCommand = new DelegateCommand(HelpVideo);
             EventAggregator.GetEvent<SendErrorCameraEvent>().Subscribe(SetErrorChannelCamera);
         }
 
@@ -506,6 +507,8 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ICommand ShareTappedCommand { get; }
 
+        public DelegateCommand HelpVideoCommand { get; private set; }
+
         private async void ShareTapped()
         {
             try
@@ -581,6 +584,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             mCameraVehicle = deviceResponseData.CameraChannels;
                             var query = (from p in ChannelCamera
                                          join pts in deviceResponseData.CameraChannels on p.Channel equals pts.Channel
+                                         where pts.HasCamera == true
                                          select p).ToList();
                             ChannelCamera = query.ToObservableCollection();
                             SetItemsSource(listCam);
@@ -851,6 +855,14 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 channelcame.Status = ChannelCameraStatus.Error;
             }
+        }
+
+        private void HelpVideo()
+        {
+            SafeExecute(async () =>
+            {
+                await PageDialog.DisplayAlertAsync("Thông báo", "Các xe sử dụng gói cước không tích hợp tính năng xem video sẽ không được hiển thị trên tính năng này", "Bỏ qua");
+            });
         }
 
         #endregion Private method

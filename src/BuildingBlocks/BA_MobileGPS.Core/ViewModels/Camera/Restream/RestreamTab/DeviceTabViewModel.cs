@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Entities;
@@ -8,10 +9,12 @@ using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -25,6 +28,11 @@ namespace BA_MobileGPS.Core.ViewModels
     public class DeviceTabViewModel : RestreamChildVMBase
     {
         public ICommand UploadToCloudTappedCommand { get; }
+
+        public ICommand UploadToCloudInListTappedCommand { get; }
+
+        public ICommand ScreenShotTappedCommand { get; }
+
         public ICommand ReLoadCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
         public ICommand SearchCommand { get; }
@@ -37,11 +45,13 @@ namespace BA_MobileGPS.Core.ViewModels
             IScreenOrientServices screenOrientServices) : base(navigationService, cameraService, screenOrientServices)
         {
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
+            UploadToCloudInListTappedCommand = new DelegateCommand<RestreamVideoModel>(UploadToCloudInListTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
+            ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
@@ -305,32 +315,62 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void UploadToCloudTapped()
         {
-            // var req = new StartRestreamRequest()
-            // {
-            //     Channel = videoSlected.Data.Channel,
-            //     CustomerID = customerId,
-            //     StartTime = videoSlected.VideoStartTime,
-            //     EndTime = videoSlected.VideoEndTime,
-            //     VehicleName = bks
-            // };
-            // RunOnBackground(async () =>
-            // {
-            //     return await streamCameraService.UploadToCloud(req);
-            // }, (res) =>
-            //{
-            //    Device.BeginInvokeOnMainThread(() =>
-            //    {
-            //        if (res?.Data != null && res.Data)
-            //        {
-            //            DisplayMessage.ShowMessageError("UpLoad thành công");
-            //        }
-            //        else
-            //        {
-            //            DisplayMessage.ShowMessageError("Có sự cố khi upload");
-            //        }
-            //    });
+            SafeExecute(async () =>
+            {
+                if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
+                {
+                    if (VideoSlected != null && VideoSlected.Data != null)
+                    {
+                        var parameters = new NavigationParameters
+                      {
+                          { "UploadVideo", new CameraUploadRequest(){
+                               CustomerId =  UserInfo.XNCode,
+                               FromDate = VideoSlected.VideoStartTime,
+                               ToDate = VideoSlected.VideoEndTime,
+                               Channel = VideoSlected.Data.Channel,
+                               VehiclePlate =Vehicle.VehiclePlate,
+                               VehicleID=Vehicle.VehicleId
+                          } }
+                     };
 
-            //});
+                        var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
+                }
+            });
+        }
+
+        private void UploadToCloudInListTapped(RestreamVideoModel obj)
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
+                {
+                    if (obj != null)
+                    {
+                        var parameters = new NavigationParameters
+                      {
+                          { "UploadVideo", new CameraUploadRequest(){
+                               CustomerId =  UserInfo.XNCode,
+                               FromDate = obj.VideoStartTime,
+                               ToDate = obj.VideoEndTime,
+                               Channel = obj.Data.Channel,
+                               VehiclePlate =Vehicle.VehiclePlate,
+                               VehicleID=Vehicle.VehicleId
+                          } }
+                     };
+
+                        var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
+                }
+            });
         }
 
         /// <summary>
@@ -515,20 +555,21 @@ namespace BA_MobileGPS.Core.ViewModels
                            if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
                            {
                                result.UserMessage = "";
-
-                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
-                               if (action)
+                               if (PopupNavigation.Instance.PopupStack.Count <= 0)
                                {
-                                   var parameters = new NavigationParameters();
-                                   parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                   var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
+                                   if (action)
                                    {
-                                       VehicleId = Vehicle.VehicleId,
-                                       VehiclePlate = Vehicle.VehiclePlate,
-                                       PrivateCode = Vehicle.PrivateCode
-                                   });
-                                   await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                                       var parameters = new NavigationParameters();
+                                       parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                       {
+                                           VehicleId = Vehicle.VehicleId,
+                                           VehiclePlate = Vehicle.VehiclePlate,
+                                           PrivateCode = Vehicle.PrivateCode
+                                       });
+                                       await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                                   }
                                }
-
                            }
                            ErrorMessenger = result.UserMessage;
                        });
@@ -813,6 +854,29 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             GetListVideoDataFrom();
             CloseVideo();
+        }
+
+        private void TakeSnapShot()
+        {
+            try
+            {
+                if (VideoSlected != null)
+                {
+                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
+                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
+                    var fileName = current + ".jpg";
+                    var filePath = Path.Combine(folderPath, fileName);
+                    MediaPlayer.TakeSnapshot(0, filePath, 0, 0);
+                    if (File.Exists(filePath))
+                    {
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
         }
 
         #endregion PrivateMethod

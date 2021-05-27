@@ -30,4 +30,25 @@ namespace BA_MobileGPS.Core
             return null;
         }
     }
+
+    public class BackgroundSelectedVideoConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return (Color)Application.Current.Resources["GrayColor"];
+            }
+            if ((bool)value)
+            {
+                return (Color)Application.Current.Resources["PrimaryColor"];
+            }
+            return (Color)Application.Current.Resources["GrayColor"];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }

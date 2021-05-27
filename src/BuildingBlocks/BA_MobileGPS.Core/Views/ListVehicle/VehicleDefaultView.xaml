@@ -116,6 +116,7 @@
                             Text="{Binding CurrentAddress}"
                             VerticalOptions="Center" />
                     </StackLayout>
+
                     <StackLayout
                         IsVisible="{Binding MessageBAP, Converter={StaticResource StringToBoolConverter}}"
                         Orientation="Horizontal"
@@ -132,8 +133,22 @@
                             TextColor="Red"
                             VerticalOptions="Center" />
                     </StackLayout>
-                </StackLayout>
 
+                    <StackLayout
+                        IsVisible="{Binding IsQcvn31, Converter={StaticResource InvertBooleanConverter}}"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <controls:IconView Source="ic_infor_light.png" />
+                        <Label
+                            FontSize="12"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            Text="Gói cước không tích hợp tính năng định vị"
+                            TextColor="Red"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
             <!--<controls:IconView
                 Margin="10"
