@@ -13,7 +13,6 @@
     <ContentView.Resources>
         <ResourceDictionary>
             <converters:BoolToStringConverter x:Key="BoolToStringConverter" />
-            <converters:NetworkCamConverter x:Key="NetworkCamConverter" />
             <converters:StorageTypeConverter x:Key="StorageTypeConverter" />
             <converters:NetworkTypeConverter x:Key="NetworkTypeConverter" />
             <converters:CSQIconConverter x:Key="CSQIconConverter" />
@@ -611,6 +610,7 @@
                                         Margin="10"
                                         HeightRequest="10"
                                         HorizontalOptions="FillAndExpand"
+                                        IsVisible="{Binding StorageDevices.TotalSize, Converter={StaticResource ZeroBooleanConverter}}"
                                         Progress="{Binding StorageProgress}"
                                         ProgressColor="#0959A0"
                                         TrackColor="#c9dbea"
@@ -725,6 +725,7 @@
                                         Grid.Column="2"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
+                                        IsVisible="{Binding StreamDevices.NetType, Converter={StaticResource ZeroBooleanConverter}}"
                                         Source="{Binding StreamDevices.CSQ, Converter={StaticResource CSQIconConverter}}"
                                         VerticalOptions="Center"
                                         WidthRequest="20" />

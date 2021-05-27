@@ -46,33 +46,13 @@ namespace BA_MobileGPS.Core
         }
     }
 
-    public class NetworkCamConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null)
-            {
-                return "Unknown";
-            }
-            if (!string.IsNullOrEmpty(value.ToString()))
-                return value;
-            else
-                return "Unknown";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
-
     public class NetworkTypeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
             {
-                return "Unknown";
+                return "";
             }
             return ((NetworkDataType)value).ToDescription();
         }
@@ -89,7 +69,7 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return "Unknown";
+                return "";
             }
             else
             {
@@ -105,7 +85,7 @@ namespace BA_MobileGPS.Core
                     case 2:
                         return "USB Stick";
                 }
-                return "Unknown";
+                return "";
             }
         }
 
