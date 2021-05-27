@@ -68,6 +68,9 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Compile Update="Views\Authentication\LoginFailedPopup.xaml.cs">
+	    <DependentUpon>LoginFailedPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	    <SubType>Code</SubType>
