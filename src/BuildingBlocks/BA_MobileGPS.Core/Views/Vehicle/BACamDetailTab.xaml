@@ -17,7 +17,7 @@
             <converters:StorageTypeConverter x:Key="StorageTypeConverter" />
             <converters:NetworkTypeConverter x:Key="NetworkTypeConverter" />
             <converters:CSQIconConverter x:Key="CSQIconConverter" />
-
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
         </ResourceDictionary>
         <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
@@ -337,6 +337,7 @@
                                         FontFamily="{StaticResource myFontLatoBold}"
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding ServerServiceInfo.HasImageCapture, Converter={StaticResource BoolToStringConverter}}"
+                                        TextColor="{Binding ServerServiceInfo.HasImageCapture, Converter={StaticResource BoolToColorConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -385,6 +386,7 @@
                                         FontFamily="{StaticResource myFontLatoBold}"
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding ServerServiceInfo.HasVideoStream, Converter={StaticResource BoolToStringConverter}}"
+                                        TextColor="{Binding ServerServiceInfo.HasVideoStream, Converter={StaticResource BoolToColorConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 

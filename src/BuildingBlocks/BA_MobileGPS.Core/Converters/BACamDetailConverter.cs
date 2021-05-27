@@ -26,6 +26,26 @@ namespace BA_MobileGPS.Core
         }
     }
 
+    public class BoolToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return (Color)Application.Current.Resources["DangerousColor"];
+            }
+            if ((bool)value)
+                return (Color)Application.Current.Resources["PrimaryColor"];
+            else
+                return (Color)Application.Current.Resources["DangerousColor"];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
     public class NetworkCamConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -104,20 +124,20 @@ namespace BA_MobileGPS.Core
                 return "ic_ltesignal.png";
             }
             var data = (int)value;
-            var percent = (data / 31) * 100;
-            if (percent >= 1 && percent < 25)
+            double percent = (data / 31f) * 100;
+            if (percent >= 1 && percent <= 25)
             {
                 return "ic_ltesignal1.png";
             }
-            else if (percent >= 25 && percent < 50)
+            else if (percent > 25 && percent <= 50)
             {
                 return "ic_ltesignal2.png";
             }
-            else if (percent >= 50 && percent < 75)
+            else if (percent > 50 && percent <= 75)
             {
                 return "ic_ltesignal3.png";
             }
-            else if (percent >= 75 && percent <= 100)
+            else if (percent > 75 && percent <= 100)
             {
                 return "ic_ltesignal4.png";
             }
