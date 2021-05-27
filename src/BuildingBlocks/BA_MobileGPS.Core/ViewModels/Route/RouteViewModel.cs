@@ -994,7 +994,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    if (PlaySpeed <= 8)
+                    if (PlaySpeed < 8)
                     {
                         PlaySpeed *= 2;
                     }
