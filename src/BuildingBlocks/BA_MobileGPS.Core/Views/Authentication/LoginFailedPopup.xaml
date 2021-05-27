@@ -31,17 +31,6 @@
                 <pancakeview:Border Thickness="1" Color="{StaticResource PrimaryColor}" />
             </pancakeview:PancakeView.Border>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <controls:IconView
-                    Foreground="{DynamicResource BlackColor}"
-                    HeightRequest="20"
-                    HorizontalOptions="End"
-                    Source="ic_close.png"
-                    VerticalOptions="Start"
-                    WidthRequest="20">
-                    <controls:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding CloseCommand}" />
-                    </controls:IconView.GestureRecognizers>
-                </controls:IconView>
                 <StackLayout
                     HorizontalOptions="FillAndExpand"
                     Spacing="20"
@@ -94,6 +83,17 @@
                             TextColor="{DynamicResource PrimaryColor}" />
                     </Grid>
                 </StackLayout>
+                <controls:IconView
+                    Foreground="{DynamicResource BlackColor}"
+                    HeightRequest="20"
+                    HorizontalOptions="End"
+                    Source="ic_close.png"
+                    VerticalOptions="Start"
+                    WidthRequest="20">
+                    <controls:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CloseCommand}" />
+                    </controls:IconView.GestureRecognizers>
+                </controls:IconView>
             </Grid>
         </pancakeview:PancakeView>
     </pages:PopupPage.Content>
