@@ -304,12 +304,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                     case LoginStatus.LoginFailed://Đăng nhập không thành công
                                         StaticSettings.User = null;
-
+                                        OnLoginFailed();
                                         break;
 
                                     case LoginStatus.UpdateRequired:
                                         StaticSettings.User = null;
-                                        OnLoginFailed();
+                                      
                                         break;
 
                                     case LoginStatus.Locked://Tài khoản đang bị khóa

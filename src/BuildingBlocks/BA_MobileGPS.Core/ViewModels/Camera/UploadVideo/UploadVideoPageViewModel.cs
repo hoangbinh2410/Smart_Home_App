@@ -124,7 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (GlobalResources.Current.TotalVideoUpload > 0)
                 {
-                    DisplayMessage.ShowMessageInfo("Đang có video được tải. Bạn vui lòng đợi tải xong thì mới được tải tiêp");
+                    DisplayMessage.ShowMessageInfo("Đang có video được tải. Bạn vui lòng đợi tải xong thì mới được tải tiếp");
                 }
                 else
                 {
