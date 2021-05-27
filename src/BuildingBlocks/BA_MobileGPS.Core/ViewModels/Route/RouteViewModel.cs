@@ -258,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool playControlEnabled;
         public bool PlayControlEnabled { get => !playControlEnabled; set => SetProperty(ref playControlEnabled, value); }
-        private double SPEED_MAX = 16;
+        private double SPEED_MAX = 12;
         private int BaseTimeMoving = 800;
         private int BaseTimeRotating = 250;
 
@@ -782,6 +782,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 PageDialog.DisplayAlertAsync("", ex.Message, MobileResource.Common_Button_OK);
             }
         }
+
         private void PlayStop()
         {
             SafeExecute(async () =>
@@ -993,7 +994,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    PlaySpeed *= 2;
+                    if (PlaySpeed <= 8)
+                    {
+                        PlaySpeed *= 2;
+                    }
+                    else
+                    {
+                        PlaySpeed = 12;
+                    }
                 }
             });
         }

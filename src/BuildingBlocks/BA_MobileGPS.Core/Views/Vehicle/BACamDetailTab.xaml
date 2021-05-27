@@ -16,6 +16,8 @@
             <converters:NetworkCamConverter x:Key="NetworkCamConverter" />
             <converters:StorageTypeConverter x:Key="StorageTypeConverter" />
             <converters:NetworkTypeConverter x:Key="NetworkTypeConverter" />
+            <converters:CSQIconConverter x:Key="CSQIconConverter" />
+
         </ResourceDictionary>
         <Style TargetType="busyIndicator:SfBusyIndicator">
             <Setter Property="AnimationType" Value="Cupertino" />
@@ -721,7 +723,7 @@
                                         Grid.Column="2"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
-                                        Source="ic_ltesignal.png"
+                                        Source="{Binding StreamDevices.CSQ, Converter={StaticResource CSQIconConverter}}"
                                         VerticalOptions="Center"
                                         WidthRequest="20" />
 
