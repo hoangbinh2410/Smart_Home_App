@@ -773,6 +773,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
+                                        IsVisible="{Binding StreamDevices.Firmware, Converter={StaticResource HasDataConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center">
                                         <Label.FormattedText>
