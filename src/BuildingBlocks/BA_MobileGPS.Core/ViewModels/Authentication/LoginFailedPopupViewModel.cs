@@ -10,10 +10,21 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand ForgotUserNameCommand { get; }
 
+        public ICommand CloseCommand { get; }
+
         public LoginFailedPopupViewModel(INavigationService navigationService) : base(navigationService)
         {
             ForgotPasswordCommand = new DelegateCommand(ForgotPassword);
             ForgotUserNameCommand = new DelegateCommand(ForgotUserName);
+            CloseCommand = new DelegateCommand(Close);
+        }
+
+        private void Close()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.GoBackAsync();
+            });
         }
 
         private void ForgotUserName()
