@@ -100,7 +100,7 @@
                                         Grid.Column="1"
                                         FontFamily="{StaticResource myFontLatoBold}"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding ServerServiceInfo.Code, Converter={StaticResource NetworkCamConverter}}"
+                                        Text="{Binding ServerServiceInfo.Code}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -147,7 +147,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding SimCardServiceInfo.Network, Converter={StaticResource NetworkCamConverter}}"
+                                        Text="{Binding SimCardServiceInfo.Network}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -417,7 +417,7 @@
                         <sharpnado:MaterialFrame.Content>
                             <Label
                                 HorizontalOptions="StartAndExpand"
-                                Text="Thông tin gói cước"
+                                Text="Thông tin thiết bị"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </sharpnado:MaterialFrame.Content>
@@ -777,7 +777,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding StreamDevices.Firmware}" />
-                                                <Span Text=" " />
+                                                <Span Text=", " />
                                                 <Span Text="{Binding StreamDevices.CameraApp}" />
                                             </FormattedString>
                                         </Label.FormattedText>
