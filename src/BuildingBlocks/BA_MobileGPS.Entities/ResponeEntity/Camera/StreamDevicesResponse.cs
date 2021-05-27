@@ -41,6 +41,7 @@ namespace BA_MobileGPS.Entities
         public string CameraApp { get; set; }
         public NetworkDataType NetType { get; set; }
         public int NetBand { get; set; }
+        public int CSQ { get; set; }
 
         public string VehiclePlate
         {

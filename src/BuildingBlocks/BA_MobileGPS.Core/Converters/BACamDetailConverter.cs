@@ -55,7 +55,6 @@ namespace BA_MobileGPS.Core
                 return "Unknown";
             }
             return ((NetworkDataType)value).ToDescription();
-
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -88,6 +87,42 @@ namespace BA_MobileGPS.Core
                 }
                 return "Unknown";
             }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class CSQIconConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "ic_ltesignal.png";
+            }
+            var data = (int)value;
+            var percent = (data / 31) * 100;
+            if (percent >= 1 && percent < 25)
+            {
+                return "ic_ltesignal1.png";
+            }
+            else if (percent >= 25 && percent < 50)
+            {
+                return "ic_ltesignal2.png";
+            }
+            else if (percent >= 50 && percent < 75)
+            {
+                return "ic_ltesignal3.png";
+            }
+            else if (percent >= 75 && percent <= 100)
+            {
+                return "ic_ltesignal4.png";
+            }
+
+            return "ic_ltesignal.png";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
