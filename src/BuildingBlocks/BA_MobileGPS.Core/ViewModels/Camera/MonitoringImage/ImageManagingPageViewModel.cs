@@ -36,6 +36,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand RefeshCommand { get; set; }
 
+        public DelegateCommand SelectVehicleImageCommand { get; private set; }
+
+        public DelegateCommand HelpImageCommand { get; private set; }
+
         public ImageManagingPageViewModel(INavigationService navigationService,
             IStreamCameraService streamCameraService,
             IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> lastViewVehicleRepository) : base(navigationService)
@@ -50,9 +54,19 @@ namespace BA_MobileGPS.Core.ViewModels
             TapCommandListGroup = new DelegateCommand<ItemTappedEventArgs>(TapListGroup);
             LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             RefeshCommand = new DelegateCommand(RefeshImage);
+            SelectVehicleImageCommand = new DelegateCommand(SelectVehicleImage);
+            HelpImageCommand = new DelegateCommand(HelpImage);
             CarSearch = string.Empty;
             PageCount = 5;
             PageIndex = 0;
+        }
+
+        private void HelpImage()
+        {
+            SafeExecute(async () =>
+            {
+                await PageDialog.DisplayAlertAsync("Thông báo", "Các xe sử dụng gói cước không tích hợp tính năng xem hình ảnh sẽ không được hiển thị trên tính năng này", "Bỏ qua");
+            });
         }
 
         public override void Initialize(INavigationParameters parameters)
@@ -71,6 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = UserBehaviorType.Start
             });
         }
+
         public override void OnDestroy()
         {
             base.OnDestroy();
@@ -600,6 +615,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 respone[1] = count > 3 ? 80 : 40;
             }
             return respone;
+        }
+
+        private void SelectVehicleImage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleImage },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                        });
+            });
         }
     }
 }

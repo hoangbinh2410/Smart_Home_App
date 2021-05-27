@@ -26,7 +26,6 @@ namespace BA_MobileGPS.Service
             _serializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                DateTimeZoneHandling = DateTimeZoneHandling.Local,
                 NullValueHandling = NullValueHandling.Ignore
             };
             _serializerSettings.Converters.Add(new StringEnumConverter());

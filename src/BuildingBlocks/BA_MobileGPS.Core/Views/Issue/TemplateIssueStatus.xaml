@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="BA_MobileGPS.Core.Views.TemplateIssueStatus"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
+    mc:Ignorable="d">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <StackLayout
+        Orientation="Horizontal"
+        Spacing="10"
+        VerticalOptions="Center">
+
+        <StackLayout
+            HorizontalOptions="Center"
+            Orientation="Vertical"
+            Spacing="0"
+            VerticalOptions="Start">
+
+            <BoxView
+                Margin="0,0,0,0"
+                BackgroundColor="#00ADE5"
+                CornerRadius="10"
+                HeightRequest="20"
+                WidthRequest="20" />
+            <BoxView
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                IsVisible="{Binding IsShowLine}"
+                WidthRequest="5"
+                Color="{Binding LineColor}" />
+        </StackLayout>
+
+        <!--  MESSAGE  -->
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            Spacing="20"
+            VerticalOptions="StartAndExpand">
+            <StackLayout
+                HorizontalOptions="Start"
+                Orientation="Horizontal"
+                VerticalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    FontFamily="{StaticResource myFontLatoBold}"
+                    FontSize="15"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Text="{Binding Status}"
+                    TextColor="#2F3542" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand">
+                <icons:IconView
+                    Foreground="#2F3542"
+                    HeightRequest="20"
+                    HorizontalOptions="Center"
+                    Source="ic_time_black.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <Label
+                    FontAttributes="Bold"
+                    Text="{Binding DateChangeStatus, Converter={StaticResource DateTimeViewConverter}}"
+                    TextColor="#2F3542" />
+            </StackLayout>
+            <BoxView
+                Margin="0,10,0,0"
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="End"
+                Color="#CED6E0" />
+        </StackLayout>
+    </StackLayout>
+</ContentView>

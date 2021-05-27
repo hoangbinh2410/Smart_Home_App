@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BA_MobileGPS.Utilities.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -37,6 +38,10 @@ namespace BA_MobileGPS.Entities
         public List<StorageDevices> StorageDevices { get; set; }
         public DateTime UpdatedTime { get; set; }
         public string VehicleName { get; set; }
+        public string CameraApp { get; set; }
+        public int NetType { get; set; }
+        public int NetBand { get; set; }
+        public int CSQ { get; set; }
 
         public string VehiclePlate
         {
@@ -56,6 +61,7 @@ namespace BA_MobileGPS.Entities
         public int CameraStatus { get; set; }
         public int Channel { get; set; }
         public int ErrorCode { get; set; }
+        public bool HasCamera { get; set; }
         public bool IsPlug { get; set; }
         public bool IsRecording { get; set; }
         public bool IsStreaming { get; set; }
@@ -63,6 +69,7 @@ namespace BA_MobileGPS.Entities
         public int StreamingStatus { get; set; }
         public int StreamingTimeout { get; set; }
         public int StreamingTotal { get; set; }
+        public int FPS { get; set; }
     }
 
     public class Coreboard
@@ -75,18 +82,18 @@ namespace BA_MobileGPS.Entities
     public class StorageDevices
     {
         public int ErrorCode { get; set; }
-        public object FreeSize { get; set; }
+        public long FreeSize { get; set; }
         public bool IsInserted { get; set; }
-        public object TotalSize { get; set; }
-        public int Type { get; set; }
+        public long TotalSize { get; set; }
+        public int? Type { get; set; }
     }
 
     public class StreamStartResponse : ResponseStreamBase<List<StreamStart>>
     {
     }
+
     public class RestreamStartResponese : ResponseStreamBase<StreamStart>
     {
-
     }
 
     public class StreamStart
@@ -106,7 +113,6 @@ namespace BA_MobileGPS.Entities
 
     public class RestreamUploadResponse : ResponseStreamBase<bool>
     {
-
     }
 
     public class CaptureImageGroup

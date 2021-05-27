@@ -1,9 +1,13 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
+using Prism.Commands;
 using Prism.Navigation;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -11,12 +15,13 @@ namespace BA_MobileGPS.Core.ViewModels
     public class IssuesDetailPageViewModel : ViewModelBase
     {
         private readonly IIssueService _issueService;
+        public ICommand ReloadCommand { get; private set; }
 
         public IssuesDetailPageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
         {
-            Title = "Danh sách yêu cầu hỗ trợ";
+            Title = "Chi tiết phản hồi";
+            ReloadCommand = new DelegateCommand(Reload);
             _issueService = issueService;
-            isNotFinish = false;
         }
 
         #region Property
@@ -24,11 +29,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private IssuesRespone issue;
         public IssuesRespone Issue { get => issue; set => SetProperty(ref issue, value); }
 
-        private ObservableCollection<IssuesDetailRespone> listIssue = new ObservableCollection<IssuesDetailRespone>();
-        public ObservableCollection<IssuesDetailRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
-
-        private bool isNotFinish;
-        public bool IsNotFinish { get => isNotFinish; set => SetProperty(ref isNotFinish, value); }
+        private ObservableCollection<IssueStatusRespone> listIssue = new ObservableCollection<IssueStatusRespone>();
+        public ObservableCollection<IssueStatusRespone> ListIssue { get => listIssue; set => SetProperty(ref listIssue, value); }
 
         #endregion Property
 
@@ -46,7 +48,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Issue = new IssuesRespone();
                 Issue.IssueCode = issuecode;
-                GetListIssueActive(issuecode);
                 GetListIssue();
             }
         }
@@ -76,39 +77,72 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await _issueService.GetIssueByIssueCode(Issue.IssueCode);
             }, (result) =>
             {
-                if (result != null && result.Count > 0)
+                if (result != null)
                 {
-                    var lst = result.OrderBy(x => x.CreatedDate).ToList();
-                    var isFinish = result.FirstOrDefault(x => x.Status == Entities.Enums.IssuesStatusEnums.Finish);
-                    if (isFinish == null)
+                    Issue.ContentRequest = result.ContentRequest;
+                    Issue.DateRequest = result.DateRequest;
+                    Issue.DueDate = result.DueDate;
+                    Issue.IssueCode = result.IssueCode;
+                    var lstStatus = new List<IssueStatusRespone>();
+                    var lst = result.IssueStatus.OrderBy(x => x.DateChangeStatus).ToList();
+                    bool isShowDueDate = true;
+                    var modelRequest = new IssueStatusRespone()
                     {
-                        IsNotFinish = true;
-                    }
-                    for (int i = 0; i < lst.Count; i++)
+                        DateChangeStatus = Issue.DateRequest,
+                        IsShowLine = true,
+                        LineColor = Color.FromHex("#A2E8FF"),
+                        Status = "Gửi yêu cầu hỗ trợ"
+                    };
+                    if (lst != null && lst.Count > 0)
                     {
-                        var lastitem = lst.Last();
-                        if (lastitem.Status != Entities.Enums.IssuesStatusEnums.Finish)
+                        for (int i = 0; i < lst.Count; i++)
                         {
-                            lst[i].IsFinishStep = false;
-                        }
-                        else
-                        {
-                            lst[i].IsFinishStep = true;
+                            if (i == lst.Count - 1)
+                            {
+                                if (lst[i].DateChangeStatus < result.DueDate)
+                                {
+                                    lst[i].IsShowLine = true;
+                                    lst[i].LineColor = Color.FromHex("#CED6E0");
+                                }
+                                else
+                                {
+                                    isShowDueDate = false;
+                                    lst[i].IsShowLine = false;
+                                }
+                            }
+                            else
+                            {
+                                lst[i].IsShowLine = true;
+                                lst[i].LineColor = Color.FromHex("#A2E8FF");
+                            }
                         }
                     }
-                    ListIssue = lst.ToObservableCollection();
+                    else
+                    {
+                        modelRequest.LineColor = Color.FromHex("#CED6E0");
+                    }
+                    if (isShowDueDate)
+                    {
+                        lst.Add(new IssueStatusRespone()
+                        {
+                            DateChangeStatus = Issue.DueDate,
+                            IsShowLine = false,
+                            IsDueDate = true,
+                            Status = "Lịch hẹn hoàn thành"
+                        });
+                    }
+                    lstStatus.Add(modelRequest);
+                    lstStatus.AddRange(lst);
+                    ListIssue = lstStatus.ToObservableCollection();
                 }
-            });
+            }, showLoading: true);
         }
 
-        private void GetListIssueActive(string issueCode)
+        private void Reload()
         {
-            RunOnBackground(async () =>
+            SafeExecute(() =>
             {
-                return await _issueService.GetIssueByCompanyID(CurrentComanyID);
-            }, (result) =>
-            {
-                Issue = result.FirstOrDefault(x => x.IssueCode == issueCode);
+                GetListIssue();
             });
         }
 

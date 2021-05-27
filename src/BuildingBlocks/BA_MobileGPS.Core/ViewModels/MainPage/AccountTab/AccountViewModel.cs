@@ -83,9 +83,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = "Phản hồi thông tin khách hàng",
                 Icon = "ic_customersupport.png",
                 UseModalNavigation = true,
-                Url = "BaseNavigationPage/UploadVideoPage",
+                Url = "NavigationPage/ListIssuePage",
                 MenuType = MenuType.DeviceManual,
-                IsEnable = false,
+                IsEnable = UserInfo.UserType == UserType.CustomerUser ? false : true,
                 IconColor = Color.FromHex("#FF9900")
             });
             // Hướng dẫn sử dụng

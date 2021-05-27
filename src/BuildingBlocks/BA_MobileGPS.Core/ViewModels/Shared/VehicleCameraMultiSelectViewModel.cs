@@ -91,6 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var listcam = (from a in lstcamera
                            join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
+                           where (b.HasVideo == true)
                            select new CameraLookUpVehicleModel()
                            {
                                CameraChannels = a.CameraChannels?.Select(x => x.Channel).ToList(),

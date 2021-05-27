@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -20,27 +20,51 @@
         <ResourceDictionary>
             <converter:FavoritesIssueColorConverter x:Key="FavoritesColorConverter" />
             <converter:StatusIssueColorConverter x:Key="StatusIssueColorConverter" />
-            <converter:StatusIssueNameConverter x:Key="StatusIssueNameConverter" />
+            <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
-        <Grid VerticalOptions="Center">
-            <icons:IconView
-                Foreground="{DynamicResource WhiteColor}"
-                HeightRequest="25"
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
                 HorizontalOptions="Start"
                 Source="ic_close.png"
                 VerticalOptions="Center">
-                <icons:IconView.GestureRecognizers>
+                <ffImage:CachedImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                </icons:IconView.GestureRecognizers>
-            </icons:IconView>
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
             <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
                 HorizontalOptions="Center"
-                StyleClass="GroupTitleLabel,BoldText"
+                LineBreakMode="TailTruncation"
                 Text="{Binding Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
+
+            <ffImage:CachedImage
+                Grid.Column="2"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_refresh.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReloadCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
@@ -93,31 +117,7 @@
                         </StackLayout>
                     </pancake:PancakeView>
 
-                    <pancake:PancakeView
-                        Padding="0"
-                        BackgroundColor="{StaticResource WhiteColor}"
-                        CornerRadius="20"
-                        HeightRequest="40"
-                        VerticalOptions="Center"
-                        WidthRequest="40">
-                        <pancake:PancakeView.Shadow>
-                            <pancake:DropShadow
-                                BlurRadius="3"
-                                Offset="0,0"
-                                Color="Black" />
-                        </pancake:PancakeView.Shadow>
-                        <pancake:PancakeView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding PushStatusIssueCommand}" />
-                        </pancake:PancakeView.GestureRecognizers>
-                        <icons:IconView
-                            Foreground="{StaticResource PrimaryColor}"
-                            HeightRequest="25"
-                            HorizontalOptions="Center"
-                            Source="ic_filter.png"
-                            VerticalOptions="Center"
-                            WidthRequest="25" />
-                    </pancake:PancakeView>
-                    <pancake:PancakeView
+                    <!--<pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
                         CornerRadius="20"
@@ -140,7 +140,8 @@
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="Center"
                             WidthRequest="20" />
-                    </pancake:PancakeView>
+                    </pancake:PancakeView>-->
+
                     <pancake:PancakeView
                         Padding="0"
                         BackgroundColor="{StaticResource WhiteColor}"
@@ -175,7 +176,6 @@
                                 VerticalOptions="Center"
                                 WidthRequest="25" />
                         </StackLayout>
-
                     </pancake:PancakeView>
                 </StackLayout>
 
@@ -207,7 +207,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -249,7 +249,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -274,7 +274,7 @@
                 VerticalOptions="FillAndExpand">
                 <syncfusionList:SfListView
                     x:Name="listView"
-                    ItemSize="110"
+                    AutoFitMode="DynamicHeight"
                     ItemSpacing="5"
                     ItemsSource="{Binding ListIssue, Mode=TwoWay}"
                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
@@ -305,13 +305,13 @@
                                             FontSize="{StaticResource FontSize12}"
                                             HorizontalOptions="FillAndExpand"
                                             LineBreakMode="NoWrap"
-                                            Text="{Binding CreatedDate, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding DateRequest, Converter={StaticResource DateTimeViewConverter}}"
                                             VerticalOptions="Center" />
                                         <Label
                                             Grid.Column="2"
                                             HorizontalOptions="End"
                                             LineBreakMode="TailTruncation"
-                                            Text="{Binding Content}"
+                                            Text="{Binding ContentRequest}"
                                             VerticalOptions="Center" />
                                         <icons:IconView
                                             Grid.Column="3"
@@ -348,6 +348,7 @@
                                                 WidthRequest="20" />
 
                                             <Label
+                                                FontFamily="{StaticResource myFontLatoBold}"
                                                 Text="Lịch hẹn"
                                                 TextColor="{StaticResource PrimaryColor}"
                                                 VerticalOptions="Center"
@@ -356,14 +357,18 @@
 
                                         <Label
                                             Grid.Column="1"
+                                            FontFamily="{StaticResource myFontLatoBold}"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding DueDate, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding DueDate, Converter={StaticResource DateTimeViewConverter}}"
                                             TextColor="#FF6348"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </Grid>
 
-                                    <Grid Grid.Row="0" RowSpacing="0">
+                                    <Grid
+                                        Grid.Row="0"
+                                        ColumnSpacing="10"
+                                        RowSpacing="0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -381,6 +386,7 @@
                                                 WidthRequest="20" />
 
                                             <Label
+                                                FontFamily="{StaticResource myFontLatoBold}"
                                                 Text="Trạng thái"
                                                 TextColor="{StaticResource PrimaryColor}"
                                                 VerticalOptions="Center"
@@ -392,7 +398,21 @@
                                             FontAttributes="Bold"
                                             FontFamily="{StaticResource myFontLatoBold}"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding Status, Converter={StaticResource StatusIssueNameConverter}}"
+                                            HorizontalTextAlignment="End"
+                                            IsVisible="{Binding Status, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                                            LineBreakMode="WordWrap"
+                                            Text="{Binding Status}"
+                                            TextColor="{StaticResource PrimaryColor}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontFamily="{StaticResource myFontLatoBold}"
+                                            HorizontalOptions="EndAndExpand"
+                                            IsVisible="{Binding Status, Converter={StaticResource IsEmptyDataConverter}}"
+                                            LineBreakMode="WordWrap"
+                                            Text="Chưa xử lý"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />

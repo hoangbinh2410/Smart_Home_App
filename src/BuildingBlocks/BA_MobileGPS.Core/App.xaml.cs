@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Styles;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities.Constant;
 using Prism;
+using Prism.DryIoc;
 using Prism.Events;
 using Prism.Ioc;
 using Xamarin.Forms;
@@ -15,14 +16,12 @@ using Xamarin.Forms.Xaml;
 
 namespace BA_MobileGPS.Core
 {
-    public partial class App
+    public partial class App : PrismApplication
     {
         public App(IPlatformInitializer initializer = null) : base(initializer)
         {
             _eventAggregator = Current.Container.Resolve<IEventAggregator>();
         }
-
-
 
         private readonly IEventAggregator _eventAggregator;
 

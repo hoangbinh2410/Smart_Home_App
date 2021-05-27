@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
-namespace DowloadVideo.Converter
+namespace BA_MobileGPS.Core
 {
     public class ValueProgressBarConverter : IValueConverter
     {
@@ -11,6 +9,7 @@ namespace DowloadVideo.Converter
         {
             return (double)value / 100;
         }
+
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             return null;
