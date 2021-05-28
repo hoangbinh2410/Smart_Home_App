@@ -99,7 +99,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (isforgot)
                         {
-                            await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                            if (MobileSettingHelper.IsUseForgotpassword)
+                            {
+                                await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                            }
+                            else
+                            {
+                                await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                            }
                         }
                         else
                         {

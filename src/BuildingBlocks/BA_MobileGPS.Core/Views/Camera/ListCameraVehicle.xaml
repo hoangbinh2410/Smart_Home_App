@@ -45,6 +45,7 @@
                 VerticalOptions="Center" />
 
             <controls:IconView
+                Grid.Column="2"
                 Foreground="{DynamicResource WhiteColor}"
                 HeightRequest="25"
                 HorizontalOptions="End"
