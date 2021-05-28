@@ -54,7 +54,7 @@ namespace BA_MobileGPS.Core.Views
             googleMap.UiSettings.RotateGesturesEnabled = false;
             googleMap.PinClicked += MapOnPinClicked;
             googleMap.MapClicked += Map_MapClicked;
-            googleMap.CameraChanged += GoogleMap_CameraChanged;
+            //googleMap.CameraChanged += GoogleMap_CameraChanged;
             mCarActive = new VehicleOnline();
             mCurrentVehicleList = new List<VehicleOnline>();
             btnDirectvehicleOnline.IsVisible = false;
@@ -62,16 +62,16 @@ namespace BA_MobileGPS.Core.Views
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
 
-        private async void GoogleMap_CameraChanged(object sender, CameraChangedEventArgs e)
-        {
-            if (e.Position.Zoom < MobileSettingHelper.MinZoomLevelGoogleMap)
-            {
-                CameraPosition cameraPosition = new CameraPosition(e.Position.Target, MobileSettingHelper.MinZoomLevelGoogleMap + 1);
-                CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
-                googleMap.InitialCameraUpdate = cameraUpdate;
-                await googleMap.AnimateCamera(cameraUpdate);
-            }
-        }
+        //private async void GoogleMap_CameraChanged(object sender, CameraChangedEventArgs e)
+        //{
+        //    if (e.Position.Zoom < MobileSettingHelper.MinZoomLevelGoogleMap)
+        //    {
+        //        CameraPosition cameraPosition = new CameraPosition(e.Position.Target, MobileSettingHelper.MinZoomLevelGoogleMap + 1);
+        //        CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(cameraPosition);
+        //        googleMap.InitialCameraUpdate = cameraUpdate;
+        //        await googleMap.AnimateCamera(cameraUpdate);
+        //    }
+        //}
 
         #endregion Contructor
 
