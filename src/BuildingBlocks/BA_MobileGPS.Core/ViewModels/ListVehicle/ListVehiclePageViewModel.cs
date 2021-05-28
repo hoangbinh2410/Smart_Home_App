@@ -605,7 +605,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, param }
                 };
-                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                if (selected.HasImage || selected.HasVideo)
                 {
                     await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
                 }
