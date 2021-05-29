@@ -150,7 +150,7 @@
                                 Foreground="{StaticResource PrimaryColor}"
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="ic_groupcar.png"
+                                Source="ic_user.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                             <Label
