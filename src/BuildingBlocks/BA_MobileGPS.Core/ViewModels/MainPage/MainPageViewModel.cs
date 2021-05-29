@@ -100,9 +100,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     TryExecute(async () =>
                     {
                         await ConnectSignalR();
-                        GetCountVehicleDebtMoney();
-                        InsertOrUpdateAppDevice();
                         PushPageFileBase();
+                        InsertOrUpdateAppDevice();
                     });
 
                     return false;
@@ -1008,8 +1007,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (!isOpen)
                 {
+                    GetCountVehicleDebtMoney();
                     GetNoticePopup();
                 }
+            }
+            else if (!isOpen)
+            {
+                GetCountVehicleDebtMoney();
+                GetNoticePopup();
             }
         }
 
