@@ -191,5 +191,37 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
+
+        public async Task<AlertMaskModel> GetAlertMaskDetail(string urlImage)
+        {
+            var result = new AlertMaskModel();
+            try
+            {
+                //var url = string.Format(ApiUri.GET_ALERT_MASK_DETAIL + "?UserId={0}", urlImage);
+
+                //var data = await _IRequestProvider.GetAsync<ResponseBaseV2<AlertMaskModel>>(url);
+
+                //if (data != null)
+                //{
+                //    result = data.Data;
+                //}
+                result = new AlertMaskModel()
+                {
+                    Url = "https://vcdn-giaitri.vnecdn.net/2021/05/13/TONY5278-3034-1620894437.jpg",
+                    VehiclePlate = "89A16705",
+                    CurrentAddress = "Ngọc Lịch Trưng Trắc Văn Lâm Hưng Yên",
+                    TimeStart = DateTime.Now,
+                    CountUserNotMask = 2,
+                    CountUserUseMask = 8,
+                    Latitude = 21.019626,
+                    Longitude = 105.893983
+                };
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
     }
 }
