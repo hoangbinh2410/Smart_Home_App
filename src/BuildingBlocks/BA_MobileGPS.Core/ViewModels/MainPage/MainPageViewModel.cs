@@ -102,7 +102,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         await ConnectSignalR();
                         GetCountVehicleDebtMoney();
                         InsertOrUpdateAppDevice();
-                        GetNoticePopup();
                         PushPageFileBase();
                     });
 
@@ -739,7 +738,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OneSignalOpend(bool obj)
         {
-            PushPageFileBase();
+            PushPageFileBase(true);
         }
 
         private void GetCountAlert()
@@ -965,7 +964,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void PushPageFileBase()
+        private void PushPageFileBase(bool isOpen = false)
         {
             //nếu người dùng click vào mở thông báo firebase thì vào trang thông báo luôn
             if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
@@ -998,6 +997,18 @@ namespace BA_MobileGPS.Core.ViewModels
                             });
                         });
                     }
+                }
+                else if (Settings.ReceivedNotificationType == (((int)FirebaseNotificationTypeEnum.AlertMask).ToString()))
+                {
+                    Settings.ReceivedNotificationType = string.Empty;
+                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
+                    {
+                        ShowImage(Settings.ReceivedNotificationValue);
+                    }
+                }
+                else if (!isOpen)
+                {
+                    GetNoticePopup();
                 }
             }
         }
@@ -1192,6 +1203,47 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                 }
             });
+        }
+
+        /// <summary>Xem chi tiết ảnh</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/6/2020   created
+        /// </Modified>
+        private void ShowImage(string url)
+        {
+            var lstphotoImages = new List<Photo>()
+            {
+                new Photo()
+                {
+                    URL=url,
+                    Title="Cảnh báo không đeo khẩu trang",
+                    Info=""
+                }
+            };
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                new PhotoBrowser
+                {
+                    Photos = new List<Photo>(lstphotoImages),
+                    ActionButtonPressed = (index) =>
+                    {
+                        PhotoBrowser.Close();
+                    },
+                    StartIndex = 0,
+                    EnableGrid = true
+                }.Show();
+            }
+            else
+            {
+                new PhotoBrowser
+                {
+                    Photos = new List<Photo>(lstphotoImages),
+                    ActionButtonPressed = null,
+                    StartIndex = 0,
+                    EnableGrid = true
+                }.Show();
+            }
         }
 
         #endregion PrivateMethod
