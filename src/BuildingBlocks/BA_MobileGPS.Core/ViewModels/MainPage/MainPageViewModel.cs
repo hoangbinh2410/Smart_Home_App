@@ -1217,7 +1217,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private async void ShowMaskImage(string url)
         {
-            await NavigationService.NavigateAsync("AlertMaskDetailPage", parameters: new NavigationParameters
+            await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
                                      {
                                     { ParameterKey.AlertMask, url }
                                     }, useModalNavigation: true);
