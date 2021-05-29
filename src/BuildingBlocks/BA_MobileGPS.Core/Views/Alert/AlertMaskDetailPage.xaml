@@ -216,7 +216,7 @@
                         ErrorPlaceholder="camera_placeholder.png"
                         HorizontalOptions="FillAndExpand"
                         LoadingPlaceholder="camera_placeholder.png"
-                        Source="{Binding ImageUrl}"
+                        Source="{Binding AlertMaskModel.Url}"
                         VerticalOptions="FillAndExpand" />
                     <controls:FontAwesomeIcon
                         Margin="8"
