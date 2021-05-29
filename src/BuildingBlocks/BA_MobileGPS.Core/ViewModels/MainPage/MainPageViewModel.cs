@@ -1002,7 +1002,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Settings.ReceivedNotificationType = string.Empty;
                     if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
                     {
-                        ShowImage(Settings.ReceivedNotificationValue);
+                        ShowMaskImage(Settings.ReceivedNotificationValue);
                     }
                 }
                 else if (!isOpen)
@@ -1215,40 +1215,12 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// linhlv  2/6/2020   created
         /// </Modified>
-        private void ShowImage(string url)
+        private async void ShowMaskImage(string url)
         {
-            var lstphotoImages = new List<Photo>()
-            {
-                new Photo()
-                {
-                    URL=url,
-                    Title="Cảnh báo không đeo khẩu trang",
-                    Info=""
-                }
-            };
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                new PhotoBrowser
-                {
-                    Photos = new List<Photo>(lstphotoImages),
-                    ActionButtonPressed = (index) =>
-                    {
-                        PhotoBrowser.Close();
-                    },
-                    StartIndex = 0,
-                    EnableGrid = true
-                }.Show();
-            }
-            else
-            {
-                new PhotoBrowser
-                {
-                    Photos = new List<Photo>(lstphotoImages),
-                    ActionButtonPressed = null,
-                    StartIndex = 0,
-                    EnableGrid = true
-                }.Show();
-            }
+            await NavigationService.NavigateAsync("AlertMaskDetailPage", parameters: new NavigationParameters
+                                     {
+                                    { ParameterKey.AlertMask, url }
+                                    }, useModalNavigation: true);
         }
 
         #endregion PrivateMethod

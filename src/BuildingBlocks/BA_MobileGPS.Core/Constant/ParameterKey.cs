@@ -53,5 +53,7 @@
         public const string IsLoginAnnouncement = "IsLoginAnnouncement";
 
         public const string IssuesKey = "IssuesKey";
+
+        public const string AlertMask = "AlertMask";
     }
 }
