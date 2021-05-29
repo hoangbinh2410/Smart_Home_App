@@ -22,6 +22,6 @@ namespace BA_MobileGPS.Service
 
         Task<ResponseBaseV2<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
 
-        Task<AlertMaskModel> GetAlertMaskDetail(string urlImage);
+        Task<AlertMaskModel> GetAlertMaskDetail(Guid id);
     }
 }

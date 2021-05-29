@@ -1215,11 +1215,11 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// linhlv  2/6/2020   created
         /// </Modified>
-        private async void ShowMaskImage(string url)
+        private async void ShowMaskImage(string id)
         {
             await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
                                      {
-                                    { ParameterKey.AlertMask, url }
+                                    { ParameterKey.AlertMask, new Guid(id) }
                                     }, useModalNavigation: true);
         }
 
