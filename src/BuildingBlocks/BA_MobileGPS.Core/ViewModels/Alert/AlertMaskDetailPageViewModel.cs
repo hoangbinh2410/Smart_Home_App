@@ -13,9 +13,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class AlertMaskDetailPageViewModel : ViewModelBase
     {
-        private string imageUrl;
-        public string ImageUrl { get => imageUrl; set => SetProperty(ref imageUrl, value); }
-
         private AlertMaskModel alertMaskModel;
         public AlertMaskModel AlertMaskModel { get => alertMaskModel; set => SetProperty(ref alertMaskModel, value); }
 
@@ -44,18 +41,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.TryGetValue(ParameterKey.AlertMask, out string url))
+            if (parameters.TryGetValue(ParameterKey.AlertMask, out Guid id))
             {
-                ImageUrl = url;
-                GetAlertMaskDetail();
+                GetAlertMaskDetail(id);
             }
         }
 
-        private void GetAlertMaskDetail()
+        private void GetAlertMaskDetail(Guid id)
         {
             RunOnBackground(async () =>
             {
-                return await alertService.GetAlertMaskDetail(ImageUrl);
+                return await alertService.GetAlertMaskDetail(id);
             }, (result) =>
             {
                 if (result != null && !string.IsNullOrEmpty(result.Url))
@@ -91,7 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 new Photo()
                 {
-                    URL= ImageUrl,
+                    URL= AlertMaskModel.Url,
                     Title=AlertMaskModel.CurrentAddress,
                     Info= ""
                 }
@@ -136,7 +132,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (await PermissionHelper.CheckStoragePermissions())
                 {
-                    downloader.DownloadFile(ImageUrl, "GPS-Camera");
+                    downloader.DownloadFile(AlertMaskModel.Url, "GPS-Camera");
                 }
             });
         }
