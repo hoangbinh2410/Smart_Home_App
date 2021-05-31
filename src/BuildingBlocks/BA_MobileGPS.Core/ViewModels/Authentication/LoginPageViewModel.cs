@@ -48,13 +48,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (!isLogout)
                 {
-                    PushPageFileBase();
+                    GetMobileVersion();
                 }
             }
             else
             {
                 GetMobileSetting();
-                PushPageFileBase();
+                GetMobileVersion();
             }
         }
 
@@ -316,7 +316,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                     case LoginStatus.UpdateRequired:
                                         StaticSettings.User = null;
-                                      
+
                                         break;
 
                                     case LoginStatus.Locked://Tài khoản đang bị khóa
@@ -578,37 +578,6 @@ namespace BA_MobileGPS.Core.ViewModels
             if (e.NetworkAccess == NetworkAccess.Internet)
             {
                 GetMobileSetting();
-            }
-        }
-
-        /// <summary>Lấy thông tin từ firebase</summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/26/2020   created
-        /// </Modified>
-        private void PushPageFileBase()
-        {
-            //nếu người dùng click vào mở thông báo firebase thì vào trang thông báo luôn
-            if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
-            {
-                if (Settings.ReceivedNotificationType == (((int)FormOfNoticeTypeEnum.NoticeWhenLogin).ToString()))
-                {
-                    Settings.ReceivedNotificationType = string.Empty;
-                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
-                    {
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            await NavigationService.NavigateAsync("NotificationPopupWhenLogin", parameters: new NavigationParameters
-                             {
-                                 { ParameterKey.NotificationForm, Settings.ReceivedNotificationValue }
-                            });
-                        });
-                    }
-                }
-            }
-            else
-            {
-                GetMobileVersion();
             }
         }
 
