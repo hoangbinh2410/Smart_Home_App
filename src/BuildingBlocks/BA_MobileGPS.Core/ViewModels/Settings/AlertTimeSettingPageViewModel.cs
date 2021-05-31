@@ -100,7 +100,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         Id = AlertConfigRequest.Id,
                         FK_CompanyID = AlertConfigRequest.FK_CompanyID,
-                        FK_UserID = AlertConfigRequest.FK_UserID,
+                        FK_UserID = UserInfo.UserId,
                         AlertTypeIDs = AlertConfigRequest.AlertTypeIDs,
                         VehicleIDs = AlertConfigRequest.VehicleIDs,
                         ReceiveTimes = ReceiveTimes
