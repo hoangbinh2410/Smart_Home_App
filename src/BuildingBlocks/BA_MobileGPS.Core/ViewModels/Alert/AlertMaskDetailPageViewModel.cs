@@ -58,20 +58,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     AlertMaskModel = result;
 
-                    Pins.Clear();
-                    Pins.Add(new Pin()
+                    Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                     {
-                        Type = PinType.Place,
-                        Label = result.VehiclePlate,
-                        Anchor = new Point(.5, .5),
-                        Address = result.CurrentAddress,
-                        Position = new Position(result.Latitude, result.Longitude),
-                        Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                        IsDraggable = false,
-                        Tag = "CAMERA" + result.VehiclePlate
+                        Pins.Clear();
+                        Pins.Add(new Pin()
+                        {
+                            Type = PinType.Place,
+                            Label = result.VehiclePlate,
+                            Anchor = new Point(.5, .5),
+                            Address = result.CurrentAddress,
+                            Position = new Position(result.Latitude, result.Longitude),
+                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                            IsDraggable = false,
+                            Tag = "CAMERA" + result.VehiclePlate
+                        });
+                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(result.Latitude, result.Longitude), 14), TimeSpan.FromMilliseconds(10));
+                        SelectedPin = Pins[0];
+                        return false;
                     });
-                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(result.Latitude, result.Longitude), 14), TimeSpan.FromMilliseconds(10));
-                    SelectedPin = Pins[0];
                 }
             }, showLoading: true);
         }
