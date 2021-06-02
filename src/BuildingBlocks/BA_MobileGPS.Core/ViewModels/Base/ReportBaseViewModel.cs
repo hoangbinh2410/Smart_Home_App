@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 
 using Prism;
+using Prism.Commands;
 using Prism.Ioc;
 using Prism.Navigation;
 
@@ -67,10 +68,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public virtual string ReportTitle => MobileSettingHelper.ConfigTitleDefaultReport;
 
+        public DelegateCommand SelectVehicleReportCommand { get; private set; }
         public ReportBaseViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             ReportBaseService = PrismApplicationBase.Current.Container.Resolve<TService>();
+            SelectVehicleReportCommand = new DelegateCommand(SelectVehicleReport);
         }
 
         public ReportBaseViewModel(INavigationService navigationService, IReportBaseService<TRequest, TResponse> reportBaseService)
@@ -81,14 +84,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            if (parameters.TryGetValue(ParameterKey.Vehicle, out Vehicle vehicle))
+            if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehiclePlate)
             {
-                Vehicle = vehicle;
+                Vehicle = vehiclePlate;
 
                 OnVehicleSelected();
             }
-
-            if (parameters.TryGetValue(ParameterKey.Company, out Company company))
+            else if (parameters.TryGetValue(ParameterKey.Company, out Company company))
             {
                 Company = company;
 
@@ -249,6 +251,20 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public virtual void SaveShowHideComlumn()
         {
+        }
+
+
+        private void SelectVehicleReport()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleReport },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                        });
+            });
         }
     }
 }

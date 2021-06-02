@@ -310,7 +310,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var alertConfigRequest = new AlertUserConfigurationsRequest()
                     {
                         Id = AlertConfigRequest.Id,
-                        FK_UserID = AlertConfigRequest.FK_UserID,
+                        FK_UserID = UserInfo.UserId,
                         FK_CompanyID = AlertConfigRequest.FK_CompanyID,
                         AlertTypeIDs = AlertConfigRequest.AlertTypeIDs,
                         VehicleIDs = VehicleIDs,

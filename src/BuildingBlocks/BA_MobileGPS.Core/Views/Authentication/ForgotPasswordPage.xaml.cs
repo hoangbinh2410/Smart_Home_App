@@ -6,16 +6,8 @@ namespace BA_MobileGPS.Core.Views
     {
         public ForgotPasswordPage()
         {
-            try
-            {
-                InitializeComponent();
-            }
-            catch (System.Exception exx)
-            {
-
-                throw;
-            }
-            
+            InitializeComponent();
+            hotline.Text = MobileSettingHelper.HotlineGps;
         }
     }
 }

@@ -93,6 +93,7 @@
         public const string GET_ALERT_USER_CONFIGURATIONS = "api/v2/alerts/getalertuserconfigurationbyuserid";
 
         public const string SEND_ALERT_USER_CONFIG = "api/v2/alerts/insertorupdateuseralertconfig";
+        public const string GET_ALERT_MASK_DETAIL = "api/v2/alerts/getalertmaskdetail";
 
         #endregion alert
 
