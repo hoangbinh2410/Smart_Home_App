@@ -14,6 +14,9 @@ namespace BA_MobileGPS.Entities
         Notice = 2,
 
         [Description("Issue")]
-        Issue = 3
+        Issue = 3,
+
+        [Description("AlertMask")]
+        AlertMask = 4,
     }
 }

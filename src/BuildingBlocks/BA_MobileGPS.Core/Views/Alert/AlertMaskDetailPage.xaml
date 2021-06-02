@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.AlertMaskDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    Title="Không đeo khẩu trang"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Không đeo khẩu trang"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+
+            <!--<ffImage:CachedImage
+                Grid.Column="2"
+                Margin="0,0,5,0"
+                HeightRequest="20"
+                HorizontalOptions="Start"
+                Source="ic_download.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DownloadImageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>-->
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout
+            HorizontalOptions="FillAndExpand"
+            Spacing="5"
+            VerticalOptions="FillAndExpand">
+            <sharpnado:MaterialFrame
+                Padding="15,10"
+                BackgroundColor="WhiteSmoke"
+                BorderColor="{DynamicResource GrayColor}"
+                CornerRadius="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start">
+                <StackLayout Spacing="10">
+                    <!--  Biển số xe  -->
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_vehicleplate.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Biển kiểm soát: "
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            FontSize="16"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.VehiclePlate}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+
+
+                    </Grid>
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_time_black.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Thời gian :"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_user.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Không đeo khẩu trang :"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.CountUserNotMask, StringFormat='{0} người'}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <controls:IconView
+                                Foreground="{StaticResource PrimaryColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_groupcar.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Đeo khẩu trang :"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.CountUserUseMask, StringFormat='{0} người'}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+                </StackLayout>
+
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Margin="5,0,5,0"
+                Padding="0"
+                HasShadow="False"
+                HeightRequest="300"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ffImage:CachedImage
+                        Aspect="AspectFill"
+                        BitmapOptimizations="True"
+                        DownsampleToViewSize="True"
+                        ErrorPlaceholder="camera_placeholder.png"
+                        HorizontalOptions="FillAndExpand"
+                        LoadingPlaceholder="camera_placeholder.png"
+                        Source="{Binding AlertMaskModel.Url}"
+                        VerticalOptions="FillAndExpand" />
+                    <controls:FontAwesomeIcon
+                        Margin="8"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="End"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Zoom}"
+                        TextColor="#FFFFFF"
+                        VerticalOptions="Start">
+                        <controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TabImageCommand}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:FontAwesomeIcon>
+                </Grid>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Margin="5,0,5,5"
+                Padding="0"
+                HasShadow="False"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True"
+                VerticalOptions="FillAndExpand">
+                <core:Map
+                    x:Name="Map"
+                    HorizontalOptions="FillAndExpand"
+                    SelectedPin="{Binding SelectedPin}"
+                    VerticalOptions="FillAndExpand">
+                    <core:Map.Behaviors>
+                        <googlemapsBehaviors:BindingPinsBehavior Value="{Binding Pins}" />
+                        <googlemapsBehaviors:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
+                    </core:Map.Behaviors>
+                </core:Map>
+            </sharpnado:MaterialFrame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

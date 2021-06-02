@@ -100,10 +100,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     TryExecute(async () =>
                     {
                         await ConnectSignalR();
-                        GetCountVehicleDebtMoney();
-                        InsertOrUpdateAppDevice();
-                        GetNoticePopup();
                         PushPageFileBase();
+                        InsertOrUpdateAppDevice();
                     });
 
                     return false;
@@ -739,7 +737,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OneSignalOpend(bool obj)
         {
-            PushPageFileBase();
+            PushPageFileBase(true);
         }
 
         private void GetCountAlert()
@@ -965,7 +963,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void PushPageFileBase()
+        private void PushPageFileBase(bool isOpen = false)
         {
             //nếu người dùng click vào mở thông báo firebase thì vào trang thông báo luôn
             if (!string.IsNullOrEmpty(Settings.ReceivedNotificationType))
@@ -999,6 +997,24 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                     }
                 }
+                else if (Settings.ReceivedNotificationType == (((int)FirebaseNotificationTypeEnum.AlertMask).ToString()))
+                {
+                    Settings.ReceivedNotificationType = string.Empty;
+                    if (!string.IsNullOrEmpty(Settings.ReceivedNotificationValue))
+                    {
+                        ShowMaskImage(Settings.ReceivedNotificationValue);
+                    }
+                }
+                else if (!isOpen)
+                {
+                    GetCountVehicleDebtMoney();
+                    GetNoticePopup();
+                }
+            }
+            else if (!isOpen)
+            {
+                GetCountVehicleDebtMoney();
+                GetNoticePopup();
             }
         }
 
@@ -1192,6 +1208,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                 }
             });
+        }
+
+        /// <summary>Xem chi tiết ảnh</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/6/2020   created
+        /// </Modified>
+        private async void ShowMaskImage(string id)
+        {
+            await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
+                                     {
+                                    { ParameterKey.AlertMask, new Guid(id) }
+                                    }, useModalNavigation: true);
         }
 
         #endregion PrivateMethod

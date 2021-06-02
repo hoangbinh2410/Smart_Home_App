@@ -191,5 +191,26 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
+
+        public async Task<AlertMaskModel> GetAlertMaskDetail(Guid id)
+        {
+            var result = new AlertMaskModel();
+            try
+            {
+                var url = string.Format(ApiUri.GET_ALERT_MASK_DETAIL + "?id={0}", id);
+
+                var data = await _IRequestProvider.GetAsync<ResponseBaseV2<AlertMaskModel>>(url);
+
+                if (data != null)
+                {
+                    result = data.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
     }
 }

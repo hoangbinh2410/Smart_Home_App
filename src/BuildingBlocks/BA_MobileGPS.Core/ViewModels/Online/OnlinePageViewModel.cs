@@ -615,7 +615,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, CarActive }
                 };
-                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                if ((CarActive.HasImage || CarActive.HasVideo)
+                 && ((CheckPermision((int)PermissionKeyNames.TrackingVideosView)
+                 || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))))
                 {
                     await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
                 }
@@ -643,7 +645,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CarActive.HasImage || CarActive.IsQcvn31)
+                if (CarActive.HasImage)
                 {
                     var param = new Vehicle()
                     {
