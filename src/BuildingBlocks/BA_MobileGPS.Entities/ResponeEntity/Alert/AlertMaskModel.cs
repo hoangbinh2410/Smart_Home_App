@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
@@ -29,5 +30,9 @@ namespace BA_MobileGPS.Entities
         public int CountUserNotMask { get; set; }
 
         public int CountUserUseMask { get; set; }
+
+        public List<int> ListMask { get; set; }
+
+        public List<int> ListNoMask { get; set; }
     }
 }
