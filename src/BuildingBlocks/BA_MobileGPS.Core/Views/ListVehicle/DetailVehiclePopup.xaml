@@ -70,7 +70,7 @@
                 Margin="10,10,10,0"
                 CollectionPadding="0"
                 HorizontalOptions="FillAndExpand"
-                ItemHeight="80"
+                ItemHeight="90"
                 ItemSpacing="10"
                 ItemWidth="90"
                 ListLayout="Grid"

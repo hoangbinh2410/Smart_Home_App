@@ -77,7 +77,7 @@ namespace BA_MobileGPS.Core.Views
             }
             else
             {
-                lsvMenu.HeightRequest = 180;
+                lsvMenu.HeightRequest = 200;
             }
 
             if (lstresource.Count == 4)
