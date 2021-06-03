@@ -67,12 +67,15 @@ namespace BA_MobileGPS.Core.ViewModels
                           {
                               Content = string.Empty;
 
-                              Device.BeginInvokeOnMainThread(async () =>
+                              if (!string.IsNullOrEmpty(notice.Linkview))
                               {
-                                  await Launcher.OpenAsync(new Uri(notice.Linkview));
+                                  Device.BeginInvokeOnMainThread(async () =>
+                                  {
+                                      await Launcher.OpenAsync(new Uri(notice.Linkview));
 
-                                  await NavigationService.GoBackAsync();
-                              });
+                                      await NavigationService.GoBackAsync();
+                                  });
+                              }
                           }
                       }
                   });
