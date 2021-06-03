@@ -78,7 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
                        }
                        else
                        {
-                           DisplayMessage.ShowMessageInfo("Không thể phát Wifi trên thiết bị của bạn. Bạn vui lòng kiểm tra lại");
+                           DisplayMessage.ShowMessageInfo("Wifi trên thiết bị chưa bật thành công, vui lòng thử lại");
                        }
                    }, showLoading: true);
                 }
