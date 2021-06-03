@@ -214,8 +214,19 @@
                             FontSize="16"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            Text="Mở trình duyệt web bất kỳ như Chrome, Cốc Cốc, Safari,… và nhập địa chỉ: 192.168.43.1:8080 "
-                            VerticalOptions="Center" />
+                            Text=""
+                            VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Mở trình duyệt web bất kỳ như Chrome, Cốc Cốc, Safari,… và nhập địa chỉ: " />
+                                    <Span Text="192.168.43.1:8080" TextColor="#00ADE5">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding GotoLinkExportCommand}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                     </Grid>
 
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
@@ -257,7 +268,18 @@
                     HorizontalTextAlignment="Start"
                     Text="Chi tiết vui lòng xem video hướng dẫn tại đây."
                     VerticalOptions="EndAndExpand"
-                    VerticalTextAlignment="End" />
+                    VerticalTextAlignment="End">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Chi tiết vui lòng xem video hướng dẫn" />
+                            <Span Text=" tại đây." TextColor="#00ADE5">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GotoLinkHelpCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
             </StackLayout>
             <StackLayout
                 Grid.Row="2"
@@ -269,7 +291,7 @@
                     Color="Gray" />
                 <Button
                     Margin="10"
-                    Command="{Binding UploadVideoCommand}"
+                    Command="{Binding SetHostspotCommand}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
