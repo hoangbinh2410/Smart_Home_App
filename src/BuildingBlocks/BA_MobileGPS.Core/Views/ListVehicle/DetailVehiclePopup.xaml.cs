@@ -60,12 +60,16 @@ namespace BA_MobileGPS.Core.Views
                 Icon = "ic_videolive.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
-            //list.Add(new MenuItem
-            //{
-            //    Title = "Nhiên liệu",
-            //    Icon = "ic_fuel.png",
-            //    IsEnable = CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline),
-            //});
+            if (!CheckPermision((int)PermissionKeyNames.TrackingVideosView))
+            {
+                list.Add(new MenuItem
+                {
+                    Title = "Nhiên liệu",
+                    Icon = "ic_fuel.png",
+                    IsEnable = CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline),
+                });
+            }
+
             var lstresource = list.Where(x => x.IsEnable == true).ToList();
             if (lstresource.Count <= 3)
             {
