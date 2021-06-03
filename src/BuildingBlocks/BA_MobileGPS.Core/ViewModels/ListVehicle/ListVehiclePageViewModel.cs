@@ -763,18 +763,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (selected.HasVideo)
                 {
-                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
-                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
-                    if (photoPermission && storagePermission)
-                    {
-                        var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
-                        var parameters = new NavigationParameters
+                    var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                    var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
                      };
 
-                        var a = await NavigationService.NavigateAsync("BaseNavigationPage/ExportVideoPage", parameters, true, true);
-                    }
+                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/ExportVideoPage", parameters, true, true);
                 }
                 else
                 {
