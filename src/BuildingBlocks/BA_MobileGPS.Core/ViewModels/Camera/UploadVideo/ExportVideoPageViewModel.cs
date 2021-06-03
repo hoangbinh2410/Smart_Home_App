@@ -54,30 +54,33 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SetHostspot()
         {
-            SafeExecute(async () =>
+            SafeExecute(() =>
             {
                 if (Vehicle != null && Vehicle.VehicleId > 0)
                 {
-                    DependencyService.Get<IHUDProvider>().DisplayProgress("");
-                    var result = await _streamCameraService.SetHotspot(UserInfo.XNCode, Vehicle.VehiclePlate, 1);
-                    if (result)
+                    RunOnBackground(async () =>
                     {
-                        DependencyService.Get<IHUDProvider>().Dismiss();
-                        Device.BeginInvokeOnMainThread(async () =>
-                        {
-                            var messgae = string.Format("Wifi trên thiết bị đang được bật!\nVui lòng kết nối điện thoại của bạn với wifi “{0}” để trích xuất dữ liệu từ thiết bị này.", Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6));
-                            var action = await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đến cài đặt", "Bỏ qua");
-                            if (action)
-                            {
-                                DependencyService.Get<ISettingsService>().OpenWifiSettings();
-                            }
-                        });
-                    }
-                    else
-                    {
-                        DependencyService.Get<IHUDProvider>().Dismiss();
-                        DisplayMessage.ShowMessageInfo("Không thể phát Wifi trên thiết bị của bạn. Bạn vui lòng kiểm tra lại");
-                    }
+                        return await _streamCameraService.SetHotspot(UserInfo.XNCode, Vehicle.VehiclePlate, 1);
+                    },
+                   (result) =>
+                   {
+                       if (result)
+                       {
+                           Device.BeginInvokeOnMainThread(async () =>
+                           {
+                               var messgae = string.Format("Wifi trên thiết bị đang được bật!\nVui lòng kết nối điện thoại của bạn với wifi “{0}” để trích xuất dữ liệu từ thiết bị này.", Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6));
+                               var action = await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đến cài đặt", "Bỏ qua");
+                               if (action)
+                               {
+                                   DependencyService.Get<ISettingsService>().OpenWifiSettings();
+                               }
+                           });
+                       }
+                       else
+                       {
+                           DisplayMessage.ShowMessageInfo("Không thể phát Wifi trên thiết bị của bạn. Bạn vui lòng kiểm tra lại");
+                       }
+                   }, showLoading: true);
                 }
                 else
                 {
