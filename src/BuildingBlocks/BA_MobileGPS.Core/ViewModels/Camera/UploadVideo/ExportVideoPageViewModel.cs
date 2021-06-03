@@ -68,17 +68,22 @@ namespace BA_MobileGPS.Core.ViewModels
                        {
                            Device.BeginInvokeOnMainThread(async () =>
                            {
-                               var messgae = string.Format("Wifi trên thiết bị đang được bật!\nVui lòng kết nối điện thoại của bạn với wifi “{0}” để trích xuất dữ liệu từ thiết bị này.", Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6));
-                               var action = await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đến cài đặt", "Bỏ qua");
-                               if (action)
-                               {
-                                   DependencyService.Get<ISettingsService>().OpenWifiSettings();
-                               }
+                               var wifname = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6);
+                               var password = string.Format("ba@{0}", DateTime.Now.ToString("ddmmyy"));
+                               var messgae = string.Format("Wifi trên thiết bị đang được bật!\nVui lòng kết nối điện thoại của bạn với wifi “{0}” với mật khẩu: {1}",
+                                   wifname, password);
+                               await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đến cài đặt");
+                               DependencyService.Get<ISettingsService>().OpenWifiSettings();
                            });
                        }
                        else
                        {
-                           DisplayMessage.ShowMessageInfo("Wifi trên thiết bị chưa bật thành công, vui lòng thử lại");
+                           Device.BeginInvokeOnMainThread(async () =>
+                           {
+                               var messgae = string.Format("Wifi trên phương tiện không được bật thành công!\nVui lòng thử lại hoặc gọi số tổng đài {0} để được hỗ trợ",
+                                   MobileSettingHelper.HotlineGps);
+                               await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đồng ý");
+                           });
                        }
                    }, showLoading: true);
                 }
