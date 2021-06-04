@@ -683,6 +683,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (selected.HasImage || selected.IsQcvn31)
                 {
                     var param = _mapper.MapProperties<Vehicle>(selected);
+                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
+                    if (model != null)
+                    {
+                        param.VehiclePlate = model.VehiclePlate;
+                        param.VehicleId = model.VehicleId;
+                        param.Imei = model.Imei;
+                        param.PrivateCode = model.PrivateCode;
+                    }
                     var parameters = new NavigationParameters
                     {
                         { ParameterKey.Vehicle, param }
@@ -732,6 +740,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (photoPermission && storagePermission)
                     {
                         var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
+                        if (model != null)
+                        {
+                            param.VehiclePlate = model.VehiclePlate;
+                            param.VehicleId = model.VehicleId;
+                            param.Imei = model.Imei;
+                            param.PrivateCode = model.PrivateCode;
+                        }
                         var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
@@ -764,6 +780,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (selected.HasVideo)
                 {
                     var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
+                    if (model != null)
+                    {
+                        param.VehiclePlate = model.VehiclePlate;
+                        param.VehicleId = model.VehicleId;
+                        param.Imei = model.Imei;
+                        param.PrivateCode = model.PrivateCode;
+                    }
                     var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }

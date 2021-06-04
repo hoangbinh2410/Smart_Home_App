@@ -95,35 +95,6 @@
                     TextColor="#00ADE5" />
 
                 <StackLayout Margin="20,0,10,0" Spacing="30">
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
-                        <Frame
-                            Grid.Column="0"
-                            Padding="0"
-                            BackgroundColor="{StaticResource PrimaryColor}"
-                            CornerRadius="12"
-                            HasShadow="False"
-                            HeightRequest="24"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            WidthRequest="24">
-                            <Grid>
-                                <Label
-                                    FontSize="18"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Text="1"
-                                    TextColor="{StaticResource WhiteColor}"
-                                    VerticalOptions="Center" />
-                            </Grid>
-                        </Frame>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="16"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="Chọn phương tiện trích xuất dữ liệu."
-                            VerticalOptions="Center" />
-                    </Grid>
 
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                         <Frame
@@ -141,7 +112,7 @@
                                     FontSize="18"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
-                                    Text="2"
+                                    Text="1"
                                     TextColor="{StaticResource WhiteColor}"
                                     VerticalOptions="Center" />
                             </Grid>
@@ -171,7 +142,7 @@
                                     FontSize="18"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
-                                    Text="3"
+                                    Text="2"
                                     TextColor="{StaticResource WhiteColor}"
                                     VerticalOptions="Center" />
                             </Grid>
@@ -181,9 +152,38 @@
                             FontSize="16"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            Text="Mở cài đặt wifi trên điện thoại và thực hiện kết nối với wifi của thiết bị (Tên Wifi bắt đầu là BKS  của phương tiện vừa chọn)"
+                            Text="Mở cài đặt wifi trên điện thoại và thực hiện kết nối với wifi của thiết bị."
                             VerticalOptions="Center" />
                     </Grid>
+
+                    <StackLayout Margin="30,0,0,0" IsVisible="{Binding Vehicle.PrivateCode, Converter={StaticResource HasDataConverter}}">
+                        <Label
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Tên wifi: " />
+                                    <Span Text="{Binding WifiName}" TextColor="#00ADE5" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Mật khẩu : " />
+                                    <Span Text="{Binding WifiPassword}" TextColor="#00ADE5" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
 
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                         <Frame
@@ -201,7 +201,7 @@
                                     FontSize="18"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
-                                    Text="4"
+                                    Text="3"
                                     TextColor="{StaticResource WhiteColor}"
                                     VerticalOptions="Center" />
                             </Grid>
@@ -229,11 +229,11 @@
                 </StackLayout>
 
                 <Label
-                    Margin="20,0,20,30"
+                    Margin="0,0,0,10"
                     FontAttributes="Italic"
                     FontFamily="{StaticResource myFontRobotoItalic}"
-                    HorizontalOptions="Start"
-                    HorizontalTextAlignment="Start"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
                     Text="Chi tiết vui lòng xem video hướng dẫn tại đây."
                     VerticalOptions="EndAndExpand"
                     VerticalTextAlignment="End">
