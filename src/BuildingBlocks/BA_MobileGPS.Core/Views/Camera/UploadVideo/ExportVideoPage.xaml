@@ -95,7 +95,7 @@
                     TextColor="#00ADE5" />
 
                 <StackLayout Margin="20,0,10,0" Spacing="30">
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                         <Frame
                             Grid.Column="0"
                             Padding="0"
@@ -125,7 +125,7 @@
                             VerticalOptions="Center" />
                     </Grid>
 
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                         <Frame
                             Grid.Column="0"
                             Padding="0"
@@ -151,11 +151,11 @@
                             FontSize="16"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            Text="Bật wifi của thiết bị trên phương tiện đã chọn."
+                            Text="Bấm nút Bật wifi để thực hiện bật wifi của thiết bị trên phương tiện đã chọn."
                             VerticalOptions="Center" />
                     </Grid>
 
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                         <Frame
                             Grid.Column="0"
                             Padding="0"
@@ -181,11 +181,11 @@
                             FontSize="16"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            Text="Mở cài đặt wifi trên điện thoại và kết nối với mạng WiFi có tên là BSK-IMEI, và mật khẩu wifi là bacam@ddmmyy"
+                            Text="Mở cài đặt wifi trên điện thoại và thực hiện kết nối với wifi của thiết bị (Tên Wifi bắt đầu là BKS  của phương tiện vừa chọn)"
                             VerticalOptions="Center" />
                     </Grid>
 
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
                         <Frame
                             Grid.Column="0"
                             Padding="0"
@@ -215,45 +215,16 @@
                             VerticalOptions="Center">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Mở trình duyệt web bất kỳ như Chrome, Cốc Cốc, Safari,… và nhập địa chỉ: " />
-                                    <Span Text="192.168.43.1:8080" TextColor="#00ADE5">
+                                    <Span Text="Mở trình duyệt (Chrome, FireFox, Safari,…) trên điện thoại và nhập địa chỉ:" />
+                                    <Span Text="192.168.43.1:8080 " TextColor="#00ADE5">
                                         <Span.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding GotoLinkExportCommand}" />
                                         </Span.GestureRecognizers>
                                     </Span>
+                                    <Span Text="để thực hiện trích xuất dữ liệu" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                    </Grid>
-
-                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
-                        <Frame
-                            Grid.Column="0"
-                            Padding="0"
-                            BackgroundColor="{StaticResource PrimaryColor}"
-                            CornerRadius="12"
-                            HasShadow="False"
-                            HeightRequest="24"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            WidthRequest="24">
-                            <Grid>
-                                <Label
-                                    FontSize="18"
-                                    HorizontalOptions="Center"
-                                    HorizontalTextAlignment="Center"
-                                    Text="5"
-                                    TextColor="{StaticResource WhiteColor}"
-                                    VerticalOptions="Center" />
-                            </Grid>
-                        </Frame>
-                        <Label
-                            Grid.Column="1"
-                            FontSize="16"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="Tại trang trích xuất dữ liệu, tìm kiếm theo kênh camera, khoảng thời gian muốn xem và tải video về máy."
-                            VerticalOptions="Center" />
                     </Grid>
                 </StackLayout>
 
