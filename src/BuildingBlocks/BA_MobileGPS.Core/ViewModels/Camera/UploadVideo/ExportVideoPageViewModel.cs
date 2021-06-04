@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
                            Device.BeginInvokeOnMainThread(async () =>
                            {
                                var wifname = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6);
-                               var password = string.Format("ba@{0}", DateTime.Now.ToString("ddmmyy"));
+                               var password = string.Format("ba@{0}", DateTime.Now.ToString("ddMMyy"));
                                var messgae = string.Format("Wifi trên thiết bị đang được bật!\nVui lòng kết nối điện thoại của bạn với wifi “{0}” với mật khẩu: {1}",
                                    wifname, password);
                                await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đến cài đặt");

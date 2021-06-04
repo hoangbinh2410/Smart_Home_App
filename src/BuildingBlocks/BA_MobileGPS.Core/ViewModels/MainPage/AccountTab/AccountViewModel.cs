@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "NavigationPage/ListIssuePage",
                 MenuType = MenuType.DeviceManual,
-                IsEnable = UserInfo.UserType == UserType.CustomerUser ? false : true,
+                IsEnable = true,
                 IconColor = Color.FromHex("#FF9900")
             });
             // Hướng dẫn sử dụng
