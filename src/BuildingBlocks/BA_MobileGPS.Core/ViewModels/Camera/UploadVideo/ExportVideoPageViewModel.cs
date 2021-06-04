@@ -36,6 +36,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
+                WifiName = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6);
+                WifiPassword = string.Format("ba@{0}", DateTime.Now.ToString("ddMMyy"));
             }
 
             base.OnNavigatedTo(parameters);
@@ -43,6 +45,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
+
+        private string wifiName;
+        public string WifiName { get => wifiName; set => SetProperty(ref wifiName, value); }
+
+        private string wifiPassword;
+        public string WifiPassword { get => wifiPassword; set => SetProperty(ref wifiPassword, value); }
 
         private void SelectVehicleCamera()
         {
@@ -68,11 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
                        {
                            Device.BeginInvokeOnMainThread(async () =>
                            {
-                               var wifname = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6);
-                               var password = string.Format("ba@{0}", DateTime.Now.ToString("ddMMyy"));
-                               var messgae = string.Format("Wifi trên thiết bị đang được bật!\nVui lòng kết nối điện thoại của bạn với wifi “{0}” với mật khẩu: {1}",
-                                   wifname, password);
-                               await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đến cài đặt");
+                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bật wifi thiết bị thành công! Tìm và kết nối với wifi của thiết bị trong cài đặt wifi", "Đến cài đặt", "Đóng");
                                DependencyService.Get<ISettingsService>().OpenWifiSettings();
                            });
                        }
@@ -80,9 +84,9 @@ namespace BA_MobileGPS.Core.ViewModels
                        {
                            Device.BeginInvokeOnMainThread(async () =>
                            {
-                               var messgae = string.Format("Wifi trên phương tiện không được bật thành công!\nVui lòng thử lại hoặc gọi số tổng đài {0} để được hỗ trợ",
+                               var messgae = string.Format("Bật wifi thiết bị không thành công! Vui lòng thử lại hoặc gọi số tổng đài {0} để được hỗ trợ ",
                                    MobileSettingHelper.HotlineGps);
-                               await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đồng ý");
+                               await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đóng");
                            });
                        }
                    }, showLoading: true);
