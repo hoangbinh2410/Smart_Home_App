@@ -129,6 +129,8 @@
         MinZoomLevelGoogleMap,
         LinkFacebook,
         LinkZalo,
-        LinkTiktok
+        LinkTiktok,
+        LinkExportVideoCamera,
+        LinkHelpExportVideoCamera
     }
 }

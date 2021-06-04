@@ -102,7 +102,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await Launcher.OpenAsync(new Uri("http://192.168.43.1:8080"));
+                await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkExportVideoCamera));
             });
         }
 
@@ -110,7 +110,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await Launcher.OpenAsync(new Uri("https://www.youtube.com/watch?v=3KHS015dexo"));
+                await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkHelpExportVideoCamera));
             });
         }
     }
