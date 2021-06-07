@@ -8,7 +8,7 @@
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    Title="Tải về server"
+    Title="Trích xuất dữ liệu"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="White">
     <ContentPage.Resources>

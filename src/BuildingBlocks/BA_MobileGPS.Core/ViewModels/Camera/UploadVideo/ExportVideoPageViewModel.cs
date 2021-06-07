@@ -76,8 +76,11 @@ namespace BA_MobileGPS.Core.ViewModels
                        {
                            Device.BeginInvokeOnMainThread(async () =>
                            {
-                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bật wifi thiết bị thành công! Tìm và kết nối với wifi của thiết bị trong cài đặt wifi", "Đến cài đặt", "Đóng");
-                               DependencyService.Get<ISettingsService>().OpenWifiSettings();
+                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bật wifi thiết bị thành công! Tìm và kết nối với wifi của thiết bị trong cài đặt wifi", "Cài đặt Wifi", "Đóng");
+                               if (action)
+                               {
+                                   DependencyService.Get<ISettingsService>().OpenWifiSettings();
+                               }
                            });
                        }
                        else
