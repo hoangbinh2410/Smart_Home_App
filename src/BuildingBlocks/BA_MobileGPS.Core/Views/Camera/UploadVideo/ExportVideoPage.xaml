@@ -105,7 +105,7 @@
                             HasShadow="False"
                             HeightRequest="24"
                             HorizontalOptions="Center"
-                            VerticalOptions="Center"
+                            VerticalOptions="Start"
                             WidthRequest="24">
                             <Grid>
                                 <Label
@@ -123,7 +123,7 @@
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             Text="Bấm nút Bật wifi để thực hiện bật wifi của thiết bị trên phương tiện đã chọn."
-                            VerticalOptions="Center" />
+                            VerticalOptions="Start" />
                     </Grid>
 
                     <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
@@ -135,7 +135,7 @@
                             HasShadow="False"
                             HeightRequest="24"
                             HorizontalOptions="Center"
-                            VerticalOptions="Center"
+                            VerticalOptions="Start"
                             WidthRequest="24">
                             <Grid>
                                 <Label
@@ -153,7 +153,7 @@
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             Text="Mở cài đặt wifi trên điện thoại và thực hiện kết nối với wifi của thiết bị."
-                            VerticalOptions="Center" />
+                            VerticalOptions="Start" />
                     </Grid>
 
                     <StackLayout Margin="30,0,0,0" IsVisible="{Binding Vehicle.PrivateCode, Converter={StaticResource HasDataConverter}}">
@@ -194,7 +194,7 @@
                             HasShadow="False"
                             HeightRequest="24"
                             HorizontalOptions="Center"
-                            VerticalOptions="Center"
+                            VerticalOptions="Start"
                             WidthRequest="24">
                             <Grid>
                                 <Label
@@ -212,7 +212,7 @@
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             Text=""
-                            VerticalOptions="Center">
+                            VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Mở trình duyệt (Chrome, FireFox, Safari,…) trên điện thoại và nhập địa chỉ:" />
