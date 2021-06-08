@@ -142,7 +142,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
-                GetListIssue();
+                if (Issue != null && !string.IsNullOrEmpty(Issue.IssueCode))
+                {
+                    GetListIssue();
+                }
             });
         }
 
