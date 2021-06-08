@@ -222,6 +222,8 @@
         public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
         public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
+        public const string SET_HOSTSPOT = "api/stream/sethospot";
+        
 
         #endregion Camera
 

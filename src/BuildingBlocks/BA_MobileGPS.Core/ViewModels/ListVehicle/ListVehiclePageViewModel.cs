@@ -111,6 +111,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GotoVideoPage(currentVehicle);
                 }
+                else if (action == "Trích xuất video")
+                {
+                    GotoExportVideoPage(currentVehicle);
+                }
             }
         }
 
@@ -679,6 +683,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (selected.HasImage || selected.IsQcvn31)
                 {
                     var param = _mapper.MapProperties<Vehicle>(selected);
+                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
+                    if (model != null)
+                    {
+                        param.VehiclePlate = model.VehiclePlate;
+                        param.VehicleId = model.VehicleId;
+                        param.Imei = model.Imei;
+                        param.PrivateCode = model.PrivateCode;
+                    }
                     var parameters = new NavigationParameters
                     {
                         { ParameterKey.Vehicle, param }
@@ -728,6 +740,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (photoPermission && storagePermission)
                     {
                         var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
+                        if (model != null)
+                        {
+                            param.VehiclePlate = model.VehiclePlate;
+                            param.VehicleId = model.VehicleId;
+                            param.Imei = model.Imei;
+                            param.PrivateCode = model.PrivateCode;
+                        }
                         var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
@@ -735,6 +755,45 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
                     }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              selected.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+        public void GotoExportVideoPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                if (selected.HasVideo)
+                {
+                    var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
+                    if (model != null)
+                    {
+                        param.VehiclePlate = model.VehiclePlate;
+                        param.VehicleId = model.VehicleId;
+                        param.Imei = model.Imei;
+                        param.PrivateCode = model.PrivateCode;
+                    }
+                    var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/ExportVideoPage", parameters, true, true);
                 }
                 else
                 {

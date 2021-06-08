@@ -187,7 +187,7 @@ namespace BA_MobileGPS.Core
 
         public static int TimeVehicleOffline => Get(MobileConfigurationNames.TimeVehicleOffline, 2);
 
-        public static string LinkYoutube => Get(MobileConfigurationNames.LinkYoutube, "https://www.youtube.com/channel/UC0vfDfFTKXXV_d7m86b1MhQ");
+        public static string LinkYoutube => Get(MobileConfigurationNames.LinkYoutube, "https://www.youtube.com/c/BAGPS");
 
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
 
@@ -233,6 +233,16 @@ namespace BA_MobileGPS.Core
         public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 5);
 
         public static bool UseCameraRTMP => Get(MobileConfigurationNames.UseUserBehavior, false);
+
+        public static string LinkFacebook => Get(MobileConfigurationNames.LinkFacebook, "https://www.facebook.com/bagps.vn");
+
+        public static string LinkZalo => Get(MobileConfigurationNames.LinkZalo, "https://zalo.me/1958838581480438876");
+
+        public static string LinkTiktok => Get(MobileConfigurationNames.LinkTiktok, "https://www.tiktok.com/@bagps");
+
+        public static string LinkExportVideoCamera => Get(MobileConfigurationNames.LinkExportVideoCamera, "http://192.168.43.1:8080");
+
+        public static string LinkHelpExportVideoCamera => Get(MobileConfigurationNames.LinkHelpExportVideoCamera, "https://www.youtube.com/watch?v=3KHS015dexo");
 
     }
 }

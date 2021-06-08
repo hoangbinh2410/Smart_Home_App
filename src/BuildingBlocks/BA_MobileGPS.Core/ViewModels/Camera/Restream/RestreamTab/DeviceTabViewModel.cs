@@ -317,7 +317,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
+                if (!CheckPermision((int)PermissionKeyNames.UploadVideoStream))
                 {
                     if (VideoSlected != null && VideoSlected.Data != null)
                     {
@@ -347,7 +347,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
+                if (!CheckPermision((int)PermissionKeyNames.UploadVideoStream))
                 {
                     if (obj != null)
                     {

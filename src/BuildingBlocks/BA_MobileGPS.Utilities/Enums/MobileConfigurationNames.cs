@@ -126,6 +126,11 @@
         UseHelper,
         UseUserBehavior,
         UseCameraRTMP,
-        MinZoomLevelGoogleMap
+        MinZoomLevelGoogleMap,
+        LinkFacebook,
+        LinkZalo,
+        LinkTiktok,
+        LinkExportVideoCamera,
+        LinkHelpExportVideoCamera
     }
 }

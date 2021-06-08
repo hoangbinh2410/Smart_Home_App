@@ -38,6 +38,42 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsEnable = true
                 });
             }
+            // Facebook
+            list.Add(new LoginPopupItem
+            {
+                Title = "Facebook",
+                Icon = "ic_facebook.png",
+                Url = MobileSettingHelper.LinkFacebook,
+                ItemType = LoginPopupItemType.Facebook,
+                IsEnable = true
+            });
+            // Zalo
+            list.Add(new LoginPopupItem
+            {
+                Title = "Zalo",
+                Icon = "ic_zalo.png",
+                Url = MobileSettingHelper.LinkZalo,
+                ItemType = LoginPopupItemType.Zalo,
+                IsEnable = true
+            });
+            // Youtube
+            list.Add(new LoginPopupItem
+            {
+                Title = "Youtube",
+                Icon = "ic_youtube.png",
+                Url = MobileSettingHelper.LinkYoutube,
+                ItemType = LoginPopupItemType.Youtube,
+                IsEnable = true
+            });
+            // Tiktok
+            list.Add(new LoginPopupItem
+            {
+                Title = "Tiktok",
+                Icon = "ic_tiktok.png",
+                Url = MobileSettingHelper.LinkTiktok,
+                ItemType = LoginPopupItemType.Tiktok,
+                IsEnable = true
+            });
             // Mạng lưới
             list.Add(new LoginPopupItem
             {
@@ -132,5 +168,9 @@ namespace BA_MobileGPS.Core.ViewModels
         Network,
         RegisterSupport,
         BAGPSExperience,
+        Facebook,
+        Zalo,
+        Tiktok,
+        Youtube
     }
 }

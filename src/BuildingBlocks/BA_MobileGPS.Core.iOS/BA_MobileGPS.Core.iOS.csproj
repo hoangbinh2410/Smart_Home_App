@@ -128,10 +128,10 @@
       <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>19.1.0.65</Version>
+      <Version>19.1.0.67</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>19.1.0.65</Version>
+      <Version>19.1.0.67</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.iOS">
       <Version>3.3.10</Version>
@@ -152,7 +152,7 @@
       <Version>5.0.0.2012</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
-      <Version>3.10.5</Version>
+      <Version>3.10.6</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
       <Version>4.2.0</Version>
@@ -172,20 +172,20 @@
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.65" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.65" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.67" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.67" />
     <PackageReference Include="Toast.iOS">
       <Version>1.2.0</Version>
     </PackageReference>
@@ -2490,6 +2490,51 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_ltesignal4%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_facebook%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_facebook%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_tiktok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_tiktok%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_tiktok%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_youtube.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_youtube%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_youtube%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_zalo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_zalo%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_zalo%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_videoplaceholder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_videoplaceholder%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_videoplaceholder%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

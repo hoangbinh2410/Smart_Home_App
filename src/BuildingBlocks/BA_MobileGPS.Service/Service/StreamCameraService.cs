@@ -391,5 +391,24 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<bool> SetHotspot(int xncode, string vehiclePlate, int state)
+        {
+            var result = false;
+            try
+            {
+                string url = string.Format(ApiUri.SET_HOSTSPOT + "?xncode={0}&vehiclePlate={1}&state={2}", xncode, vehiclePlate, state);
+                var response = await requestProvider.GetAsync<ResponseBaseV2<bool>>(url);
+                if (response != null && response.Data)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

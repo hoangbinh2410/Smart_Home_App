@@ -50,6 +50,8 @@ namespace BA_MobileGPS.Entities
 
         public byte KindID { set; get; }
 
+        public string Imei { set; get; }
+
         private DateTime daturityDate;
         public DateTime MaturityDate { get => daturityDate; set => SetProperty(ref daturityDate, value); }
 

@@ -654,6 +654,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         Imei = CarActive.Imei,
                         PrivateCode = CarActive.PrivateCode
                     };
+                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == CarActive.VehiclePlate + "_C");
+                    if (model != null)
+                    {
+                        param.VehiclePlate = model.VehiclePlate;
+                        param.VehicleId = model.VehicleId;
+                        param.Imei = model.Imei;
+                        param.PrivateCode = model.PrivateCode;
+                    }
                     var parameters = new NavigationParameters
                 {
                     { ParameterKey.Vehicle, param }
@@ -695,6 +703,14 @@ namespace BA_MobileGPS.Core.ViewModels
                             Imei = CarActive.Imei,
                             PrivateCode = CarActive.PrivateCode
                         };
+                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == CarActive.VehiclePlate + "_C");
+                        if (model != null)
+                        {
+                            param.VehiclePlate = model.VehiclePlate;
+                            param.VehicleId = model.VehicleId;
+                            param.Imei = model.Imei;
+                            param.PrivateCode = model.PrivateCode;
+                        }
                         var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }

@@ -2,7 +2,9 @@
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using FFImageLoading;
 using Prism.Navigation;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +27,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
 
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
+
+        private ImageSource _sourceImage;
+
+        public ImageSource SourceImage
+        {
+            get { return _sourceImage; }
+            set { SetProperty(ref _sourceImage, value); }
+        }
 
         private readonly IDownloader downloader;
         private readonly IAlertService alertService;
@@ -57,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && !string.IsNullOrEmpty(result.Url))
                 {
                     AlertMaskModel = result;
-
+                    DrawLine(result.Url, result.ListMask, result.ListNoMask);
                     Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                     {
                         Pins.Clear();
@@ -166,6 +176,54 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             downloader.OnFileDownloaded -= Downloader_OnFileDownloaded;
+        }
+
+        private async void DrawLine(string url, List<int> listMask, List<int> listNoMask)
+        {
+            var stream = await ImageService.Instance.LoadUrl(url).AsJPGStreamAsync();
+            var bitmap = SKBitmap.Decode(stream);
+            var canvas = new SKCanvas(bitmap);
+            if (listMask != null && listMask.Count > 0 && listMask.Count % 4 == 0)
+            {
+                for (int i = 0; i < listMask.Count; i = i + 4)
+                {
+                    var rect = SKRect.Create(listMask[i], listMask[i + 1], listMask[i + 2], listMask[i + 3]);
+                    // the brush (fill with blue)
+                    var paint = new SKPaint
+                    {
+                        Style = SKPaintStyle.Stroke,
+                        StrokeWidth = 2,
+                        Color = SKColor.Parse("#4BF70C")
+                    };
+                    // draw stroke
+                    canvas.DrawRect(rect, paint);
+                }
+            }
+            if (listNoMask != null && listNoMask.Count > 0 && listNoMask.Count % 4 == 0)
+            {
+                for (int i = 0; i < listNoMask.Count; i = i + 4)
+                {
+                    var rect = SKRect.Create(listNoMask[i], listNoMask[i + 1], listNoMask[i + 2], listNoMask[i + 3]);
+                    // the brush (fill with blue)
+                    var paint = new SKPaint
+                    {
+                        Style = SKPaintStyle.Stroke,
+                        StrokeWidth = 2,
+                        Color = SKColor.Parse("#ff0000")
+                    };
+                    // draw stroke
+                    canvas.DrawRect(rect, paint);
+                }
+            }
+
+            var imageSK = SKImage.FromBitmap(bitmap);
+            SKData encoded = imageSK.Encode();
+            // get a stream over the encoded data
+            var streamend = encoded.AsStream();
+            SourceImage = ImageSource.FromStream(() => streamend);
+
+            imageSK.Dispose();
+            bitmap.Dispose();
         }
     }
 }
