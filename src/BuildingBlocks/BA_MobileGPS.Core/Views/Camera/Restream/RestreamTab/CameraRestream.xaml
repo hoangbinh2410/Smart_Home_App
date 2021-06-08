@@ -17,7 +17,7 @@
 
     <TabbedPage.Children>
         <views:DeviceTab Title="Thiết bị" IconImageSource="ic_device" />
-        <views:MyVideoTab Title="Yêu cầu" IconImageSource="ic_myvideo" />
+        <views:MyVideoTab Title="Tải về" IconImageSource="ic_myvideo" />
         <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />
         <views:MyVideoTab Title="{i18n:TranslateResource Camera_ChildTab_MyVideo}" IconImageSource="ic_myvideo" />-->
     </TabbedPage.Children>
