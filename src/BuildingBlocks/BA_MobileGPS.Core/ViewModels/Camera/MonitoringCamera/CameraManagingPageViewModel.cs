@@ -691,20 +691,26 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="chanel">kênh</param>
         private void SendRequestTime(int timeSecond, int chanel)
         {
-            RunOnBackground(async () =>
+            if (Vehicle != null && Vehicle.VehicleId > 0)
             {
-                var response = await _streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
+                RunOnBackground(async () =>
                 {
-                    xnCode = currentXnCode,
-                    Duration = timeSecond,
-                    VehiclePlate = Vehicle.VehiclePlate,
-                    Channel = chanel
+                    return await _streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
+                    {
+                        xnCode = currentXnCode,
+                        Duration = timeSecond,
+                        VehiclePlate = Vehicle.VehiclePlate,
+                        Channel = chanel
+                    });
+                },
+                (response) =>
+                {
+                    if (response != null && !response.Data) // false : try request again
+                    {
+                        SendRequestTime(timeSecond, chanel);
+                    }
                 });
-                if (!response.Data) // false : try request again
-                {
-                    SendRequestTime(timeSecond, chanel);
-                }
-            });
+            }
         }
 
         /// <summary>
