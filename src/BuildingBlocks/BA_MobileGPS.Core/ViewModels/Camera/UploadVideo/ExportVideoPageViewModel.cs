@@ -36,7 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
-                WifiName = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 6);
+                WifiName = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 8);
                 WifiPassword = string.Format("bacam@{0}", DateTime.Now.ToString("ddMMyy"));
             }
 
