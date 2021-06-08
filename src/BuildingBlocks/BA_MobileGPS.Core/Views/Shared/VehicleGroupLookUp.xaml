@@ -123,9 +123,7 @@
                 Spacing="10">
                 <!--  Image for display svg image  -->
                 <ffsvg:SvgCachedImage
-                    Margin="{x:OnIdiom Phone='0,0,0,0',
-                                       Desktop='0',
-                                       Tablet='0'}"
+                    Margin="0"
                     HeightRequest="200"
                     Source="NoItem.svg"
                     VerticalOptions="Center"
