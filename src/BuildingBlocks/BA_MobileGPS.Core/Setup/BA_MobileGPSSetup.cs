@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<LoginFailedPopup, LoginFailedPopupViewModel>("LoginFailedPopup");
             containerRegistry.RegisterForNavigation<AlertMaskDetailPage, AlertMaskDetailPageViewModel>("AlertMaskDetailPage");
             containerRegistry.RegisterForNavigation<ExportVideoPage, ExportVideoPageViewModel>("ExportVideoPage");
-
+            containerRegistry.RegisterForNavigation<PackageCameraPage, PackageCameraPageViewModel>("PackageCameraPage");
         }
     }
 }
