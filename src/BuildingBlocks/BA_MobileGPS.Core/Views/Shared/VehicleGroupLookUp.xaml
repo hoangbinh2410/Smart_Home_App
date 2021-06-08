@@ -14,8 +14,9 @@
     <StackLayout
         BackgroundColor="{DynamicResource WhiteColor}"
         HorizontalOptions="FillAndExpand"
-        Spacing="0"
+        Spacing="10"
         VerticalOptions="FillAndExpand">
+
         <inputLayout:SfTextInputLayout
             Margin="10,0,10,0"
             Padding="0"
@@ -37,6 +38,7 @@
                 </Entry.Behaviors>
             </Entry>
         </inputLayout:SfTextInputLayout>
+
         <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
@@ -116,14 +118,12 @@
             <StackLayout
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
-               BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 IsVisible="{Binding HasVehicleGroup, Converter={StaticResource InvertBooleanConverter}}"
                 Spacing="10">
                 <!--  Image for display svg image  -->
                 <ffsvg:SvgCachedImage
-                    Margin="{x:OnIdiom Phone='0,0,0,0',
-                                       Desktop='0',
-                                       Tablet='0'}"
+                    Margin="0"
                     HeightRequest="200"
                     Source="NoItem.svg"
                     VerticalOptions="Center"
