@@ -28,7 +28,6 @@
             <Grid
                 Grid.Row="0"
                 ColumnDefinitions=".5*,.5*"
-                IsVisible="{Binding IsFullScreenOff}"
                 StyleClass="TitleBarGrid">
                 <StackLayout
                     Grid.Column="0"
@@ -73,7 +72,6 @@
                 <!--  Khu vực tìm kiếm  -->
                 <Grid
                     Padding="5"
-                    IsVisible="{Binding IsFullScreenOff}"
                     RowDefinitions="*,*,Auto"
                     RowSpacing="5">
 

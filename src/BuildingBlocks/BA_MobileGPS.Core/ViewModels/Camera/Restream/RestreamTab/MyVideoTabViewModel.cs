@@ -1,8 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
-using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -10,37 +8,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows.Input;
-using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class MyVideoTabViewModel : RestreamChildVMBase
+    public class MyVideoTabViewModel : ViewModelBase
     {
-        public ICommand ScreenShotTappedCommand { get; }
-
+        public ICommand VideoItemTapCommand { get; set; }
         public ICommand SelectVehicleCameraCommand { get; }
 
         public ICommand SearchCommand { get; }
 
-        /// <summary>
-        /// Chụp ảnh màn hình
-        /// </summary>
-        public ICommand DowloadVideoCommand { get; }
-
-        public ICommand DowloadVideoInListTappedCommand { get; }
-
-        public ICommand PreviousVideoCommand { get; }
-
-        public ICommand NextVideoCommand { get; }
-
-        private readonly IDownloadVideoService _downloadService;
-
-        public MyVideoTabViewModel(INavigationService navigationService,
-          IStreamCameraService cameraService,
-          IScreenOrientServices screenOrientServices, IDownloadVideoService downloadService) : base(navigationService, cameraService, screenOrientServices)
+        public MyVideoTabViewModel(INavigationService navigationService) : base(navigationService)
         {
-            _downloadService = downloadService;
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
@@ -81,12 +61,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnResume()
         {
             base.OnResume();
-            DependencyService.Get<IScreenOrientServices>().ForcePortrait();
-
-            //if (MediaPlayer != null)
-            //{
-            //    MediaPlayer.Play();
-            //}
         }
 
         #endregion Lifecycle
