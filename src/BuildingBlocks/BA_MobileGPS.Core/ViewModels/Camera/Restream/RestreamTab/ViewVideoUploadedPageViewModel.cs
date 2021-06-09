@@ -1,18 +1,26 @@
-﻿using BA_MobileGPS.Core.Constant;
+﻿using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -32,12 +40,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand NextVideoCommand { get; }
 
         private readonly IDownloadVideoService _downloadService;
+        private readonly IVehicleRouteService _vehicleRouteService;
 
         public ViewVideoUploadedPageViewModel(INavigationService navigationService,
-          IStreamCameraService cameraService,
+          IStreamCameraService cameraService, IVehicleRouteService vehicleRouteService,
           IScreenOrientServices screenOrientServices, IDownloadVideoService downloadService) : base(navigationService, cameraService, screenOrientServices)
         {
             _downloadService = downloadService;
+            _vehicleRouteService = vehicleRouteService;
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             DowloadVideoCommand = new DelegateCommand(DowloadVideo);
             DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInListTapped);
@@ -96,6 +106,13 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+        private RouteHistoryResponse RouteHistory;
+        public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
+
+        public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
+        public MoveCameraRequest MoveCameraRequest { get; } = new MoveCameraRequest();
+
+        public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
         public string BusyIndicatorText { get; set; }
 
@@ -163,6 +180,235 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region PrivateMethod
+
+        private void GetHistoryRoute()
+        {
+            var currentCompany = Settings.CurrentCompany;
+            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
+            RunOnBackground(async () =>
+            {
+                return await _vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
+                {
+                    UserId = currentCompany?.UserId ?? UserInfo.UserId,
+                    CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
+                    VehiclePlate = "",
+                    FromDate = DateTime.Now,
+                    ToDate = DateTime.Now,
+                });
+            }, (result) =>
+            {
+                if (result != null)
+                {
+                    try
+                    {
+                        ClearRoute();
+
+                        RouteHistory = result;
+
+                        InitRoute();
+                    }
+                    catch (Exception)
+                    {
+                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                    }
+                }
+                else
+                {
+                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                }
+                Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
+            });
+        }
+
+
+        private void InitRoute()
+        {
+            try
+            {
+                if (RouteHistory.DirectionDetail == null)
+                    return;
+
+                var listLatLng = GeoHelper.DecodePoly(RouteHistory.DirectionDetail);
+
+                if (listLatLng == null || listLatLng.Count == 0)
+                {
+                    return;
+                }
+
+                if (listLatLng.Count == 1)
+                {
+                    listLatLng.Add(new Position(listLatLng[0].Latitude, listLatLng[0].Longitude));
+                    RouteHistory.TimePoints.AddedTimes.Add(RouteHistory.TimePoints.AddedTimes[0]);
+                }
+
+                var startTime = RouteHistory.TimePoints.StartTime;
+                List<VehicleRoute> listRoute = new List<VehicleRoute>();
+                void AddRoute(int index)
+                {
+                    var route = new VehicleRoute()
+                    {
+                        Index = index,
+                        Latitude = listLatLng[index].Latitude,
+                        Longitude = listLatLng[index].Longitude,
+                        State = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        Velocity = RouteHistory.VelocityPoints[index],
+                        Time = startTime
+                    };
+
+                    listRoute.Add(route);
+                }
+
+                AddRoute(0);
+
+                startTime = startTime.AddSeconds(RouteHistory.TimePoints.AddedTimes[0]);
+
+                for (int i = 1; i < listLatLng.Count; i++)
+                {
+                    startTime = startTime.AddSeconds(RouteHistory.TimePoints.AddedTimes[i]);
+
+                    if (listLatLng[i - 1].Latitude == listLatLng[i].Latitude
+                        && listLatLng[i - 1].Longitude == listLatLng[i].Longitude
+                        && !RouteHistory.StatePoints.Any(stp => stp.StartIndex == i && i == stp.EndIndex))
+                        continue;
+
+                    AddRoute(i);
+                }
+                if (listRoute.Count == 1)
+                {
+                    listRoute.Add(listRoute[0].DeepCopy());
+                }
+
+                if (listRoute !=null && listRoute.Count > 0)
+                {
+                    DrawRoute(listRoute);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                PageDialog.DisplayAlertAsync("Init Route Error", ex.Message, MobileResource.Common_Button_OK);
+            }
+        }
+
+        private void DrawLine(List<VehicleRoute> listRoute)
+        {
+            var line = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#4285f4"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
+            line.Positions.Add(new Position(listRoute[0].Latitude, listRoute[0].Longitude));
+
+            for (int i = 0; i < listRoute.Count; i++)
+            {
+                line.Positions.Add(new Position(listRoute[i].Latitude, listRoute[i].Longitude));
+                if (listRoute[i].State != null && listRoute[i].State.State == StateType.Stop)
+                {
+                    DrawStopPoint(listRoute[i]);
+                }
+            }
+            Polylines.Add(line);
+        }
+
+        private void DrawMarkerStartEnd(List<VehicleRoute> listRoute)
+        {
+            Pins.Add(new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Bắt đầu",
+                Position = new Position(listRoute[0].Latitude, listRoute[0].Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_start.png"),
+                ZIndex = 0,
+                Tag = "pin_start_route",
+                IsDraggable = false
+            });
+
+            Pins.Add(new Pin()
+            {
+                Type = PinType.Place,
+                Label = "Kết thúc",
+                Position = new Position(listRoute[listRoute.Count - 1].Latitude, listRoute[listRoute.Count - 1].Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_end.png"),
+                ZIndex = 0,
+                Tag = "pin_end_route",
+                IsDraggable = false
+            });
+        }
+
+        private void DrawStopPoint(VehicleRoute vehicle)
+        {
+            var pin = new Pin()
+            {
+                Type = PinType.Place,
+                Label = PinLabel(vehicle),
+                Anchor = new Point(.5, .5),
+                Position = new Position(vehicle.Latitude, vehicle.Longitude),
+                Icon = BitmapDescriptorFactory.FromResource("ic_stop.png"),
+                Tag = "state_stop_route",
+                ZIndex = 1,
+                IsDraggable = false
+            };
+
+            Pins.Add(pin);
+        }
+
+        private string PinLabel(VehicleRoute vehicle)
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+                return string.Format("{0} {1}", vehicle.State.StartTime.FormatDateTimeWithSecond(), vehicle.State.Duration.SecondsToString());
+            else
+                return string.Format("{0} {1}: {2}", vehicle.State.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.State.Duration.SecondsToStringShort());
+        }
+
+        private void DrawDiretionMarker(List<VehicleRoute> listRoute)
+        {
+            List<DirectionMarker> diretionList = new List<DirectionMarker>();
+            for (int i = 0; i < listRoute.Count - 1; i++)
+            {
+                diretionList.Add(new DirectionMarker().InitDirectionPoint(
+                        listRoute[i].Latitude,
+                        listRoute[i].Longitude,
+                        listRoute[i + 1].Latitude,
+                        listRoute[i + 1].Longitude,
+                        listRoute[i].Time.FormatDateTimeWithSecond()));
+            }
+            // Lưu giá trị index được vẽ marker
+            int indexDraw = 0;
+            for (int i = 0; i < diretionList.Count - 1; i++)
+            {
+                // Tính hướng tối thiểu
+                float phi = Math.Abs(diretionList[i].Direction
+                        - diretionList[i + 1].Direction) % 360;
+                float directionMin = phi > 180 ? 360 - phi : phi;
+                // Tính khoản cách tối thiểu
+                float distance = (float)GeoHelper.ComputeDistanceBetween(
+                        diretionList[indexDraw].Position.Latitude, diretionList[indexDraw].Position.Longitude,
+                        diretionList[indexDraw + 1].Position.Latitude, diretionList[indexDraw + 1].Position.Longitude);
+                if (directionMin > 30 || distance > 1200)
+                {
+                    var pin = diretionList[indexDraw].DrawPointDiretion();
+                    Pins.Add(pin);
+                    indexDraw = i + 1;
+                }
+            }
+        }
+
+        private void ClearRoute()
+        {
+            if (Polylines != null)
+                Polylines.Clear();
+            if (Pins != null)
+                Pins.Clear();
+        }
+
+        private void DrawRoute(List<VehicleRoute> listRoute)
+        {
+            DrawMarkerStartEnd(listRoute);
+            DrawDiretionMarker(listRoute);
+            DrawLine(listRoute);
+        }
 
         private void InitVLC(string url)
         {
@@ -323,16 +569,6 @@ namespace BA_MobileGPS.Core.ViewModels
             InitVLC(obj.Link);
 
             VideoSlected = obj; // Set màu select cho item
-        }
-
-        /// <summary>
-        /// Đóng video : Đóng khi current tab thay đổi
-        /// Chức năng trên player : không làm (đã confirm)
-        /// </summary>
-        private void CloseVideo()
-        {
-            //can remove media plaer de tranh loi man hinh den
-            DisposeVLC();
         }
 
         private void VideoSelectedChange(VideoUploadInfo obj)

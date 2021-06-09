@@ -233,7 +233,6 @@
                     <googlemapsBehaviors:BindingPinsBehavior Value="{Binding Pins}" />
                     <googlemapsBehaviors:PinClickedToCommandBehavior Command="{Binding PinClickedCommand}" />
                     <googlemapsBehaviors:BindingPolylinesBehavior Value="{Binding Polylines}" />
-                    <googlemapsBehaviors:BindingPolygonsBehavior Value="{Binding Boundaries}" />
                     <googlemapsBehaviors:MoveCameraBehavior Request="{Binding MoveCameraRequest}" />
                     <googlemapsBehaviors:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
                 </cluster:Map.Behaviors>
