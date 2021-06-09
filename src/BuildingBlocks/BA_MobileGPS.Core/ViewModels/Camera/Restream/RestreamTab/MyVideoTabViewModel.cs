@@ -3,18 +3,12 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
-using BA_MobileGPS.Utilities.Extensions;
-using LibVLCSharp.Shared;
-using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -48,12 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             _downloadService = downloadService;
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
-            ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
-            DowloadVideoCommand = new DelegateCommand(DowloadVideo);
-            DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInListTapped);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
-            PreviousVideoCommand = new DelegateCommand(PreviousVideo);
-            NextVideoCommand = new DelegateCommand(NextVideo);
             SearchCommand = new DelegateCommand(SearchData);
             vehicle = new CameraLookUpVehicleModel();
         }
@@ -77,23 +66,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC();
-            //InitVLC();
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
-            DisposeVLC();
         }
 
         public override void OnSleep()
         {
-            if (MediaPlayer != null)
-            {
-                MediaPlayer.Pause();
-            }
             base.OnSleep();
         }
 
@@ -131,36 +112,12 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateEnd, value);
         }
 
-        public string BusyIndicatorText { get; set; }
-
         private ObservableCollection<VideoUploadInfo> videoItemsSource;
 
         /// <summary>
         /// Source ảnh để chọn video
         /// </summary>
         public ObservableCollection<VideoUploadInfo> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
-
-        private bool mediaPlayerVisible;
-
-        public bool MediaPlayerVisible
-        {
-            get => mediaPlayerVisible; set => SetProperty(ref mediaPlayerVisible, value);
-        }
-
-        private LibVLC libVLC;
-
-        public LibVLC LibVLC
-        {
-            get { return libVLC; }
-            set { SetProperty(ref libVLC, value); }
-        }
-
-        private MediaPlayer mediaPlayer;
-
-        public MediaPlayer MediaPlayer
-        {
-            get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
-        }
 
         private VideoUploadInfo videoSlected;
 
@@ -174,38 +131,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SetProperty(ref videoSlected, value);
             }
-        }
-
-        private double _progressValue;
-
-        public double ProgressValue
-        {
-            get { return _progressValue; }
-            set { SetProperty(ref _progressValue, value); }
-        }
-
-        private bool _isDownloading;
-
-        public bool IsDownloading
-        {
-            get { return _isDownloading; }
-            set { SetProperty(ref _isDownloading, value); }
-        }
-
-        private bool _autoSwitch = true;
-
-        public bool AutoSwitch
-        {
-            get { return _autoSwitch; }
-            set { SetProperty(ref _autoSwitch, value); }
-        }
-
-        private double _seekBarValue;
-
-        public double SeekBarValue
-        {
-            get { return _seekBarValue; }
-            set { SetProperty(ref _seekBarValue, value); }
         }
 
         #endregion Property
@@ -245,40 +170,104 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                if (ValidateInput())
+                //if (ValidateInput())
+                //{
+                //    VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
+                //    pageIndex = 0;
+                //    RunOnBackground(async () =>
+                //    {
+                //        return await streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
+                //        {
+                //            CustomerId = UserInfo.XNCode,
+                //            Date = DateStart.Date,
+                //            VehicleNames = Vehicle.VehiclePlate
+                //        });
+                //    }, (result) =>
+                //    {
+                //        if (result != null && result.Count > 0)
+                //        {
+                //            var lstvideo = new List<VideoUploadInfo>();
+                //            foreach (var item in result)
+                //            {
+                //                foreach (var item1 in item.Data)
+                //                {
+                //                    item1.Channel = item.Channel;
+                //                }
+                //                lstvideo.AddRange(item.Data);
+                //            }
+                //            if (lstvideo != null && lstvideo.Count > 0)
+                //            {
+                //                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
+                //                VideoItemsSource = video.ToObservableCollection();
+                //            }
+                //        }
+                //    }, showLoading: true);
+                //}
+                var video = new List<VideoUploadInfo>();
+                video.Add(new VideoUploadInfo()
                 {
-                    VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
-                    pageIndex = 0;
-                    RunOnBackground(async () =>
-                    {
-                        return await streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
-                        {
-                            CustomerId = UserInfo.XNCode,
-                            Date = DateStart.Date,
-                            VehicleNames = Vehicle.VehiclePlate
-                        });
-                    }, (result) =>
-                    {
-                        if (result != null && result.Count > 0)
-                        {
-                            var lstvideo = new List<VideoUploadInfo>();
-                            foreach (var item in result)
-                            {
-                                foreach (var item1 in item.Data)
-                                {
-                                    item1.Channel = item.Channel;
-                                }
-                                lstvideo.AddRange(item.Data);
-                            }
-                            //var lstvideo = result.Where(x => x.VehicleName == Vehicle.VehiclePlate)?.Data;
-                            if (lstvideo != null && lstvideo.Count > 0)
-                            {
-                                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
-                                VideoItemsSource = video.ToObservableCollection();
-                            }
-                        }
-                    }, showLoading: true);
-                }
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploading
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.UploadError
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.WaitingUpload
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploaded
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploaded
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploaded
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploaded
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploaded
+                });
+                video.Add(new VideoUploadInfo()
+                {
+                    Channel = 1,
+                    FileName = "29H123456_CH1_000000323.mp4",
+                    StartTime = DateTime.Now,
+                    Status = VideoUploadStatus.Uploaded
+                });
+                VideoItemsSource = video.ToObservableCollection();
             }
             catch (Exception ex)
             {
@@ -289,195 +278,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SearchData()
         {
             GetListVideoDataFrom();
-            CloseVideo();
-        }
-
-        private void InitVLC(string url)
-        {
-            try
-            {
-                MediaPlayer = new MediaPlayer(LibVLC);
-                MediaPlayer.TimeChanged += Media_TimeChanged;
-                MediaPlayer.EndReached += Media_EndReached;
-                MediaPlayer.EncounteredError += Media_EncounteredError;
-                MediaPlayer.SnapshotTaken += MediaPlayer_SnapshotTaken;
-                MediaPlayer.Media = new Media(libVLC, new Uri(url));
-                MediaPlayer.Play();
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void MediaPlayer_SnapshotTaken(object sender, MediaPlayerSnapshotTakenEventArgs e)
-        {
-            if (File.Exists(e.Filename))
-            {
-                DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(e.Filename);
-            }
-        }
-
-        private void DisposeVLC()
-        {
-            try
-            {
-                if (MediaPlayer != null)
-                {
-                    MediaPlayer.TimeChanged -= Media_TimeChanged;
-                    MediaPlayer.EndReached -= Media_EndReached;
-                    MediaPlayer.EncounteredError -= Media_EncounteredError;
-                    MediaPlayer.SnapshotTaken -= MediaPlayer_SnapshotTaken;
-
-                    if (MediaPlayer.Media != null)
-                    {
-                        MediaPlayer.Media?.Dispose();
-                        MediaPlayer.Media = null;
-                    }
-
-                    var media = MediaPlayer;
-                    MediaPlayer = null;
-                    media?.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        /// <summary>
-        /// Err : Fail connect server
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        ///
-        private void Media_EncounteredError(object sender, EventArgs e)
-        {
-        }
-
-        /// <summary>
-        /// Err : BỊ abort sau 10s không nhận tín hiệu từ server
-        /// hoặc hết video hoặc video bị gọi đóng từ thiết bị khác
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Media_EndReached(object sender, EventArgs e)
-        {
-        }
-
-        private void Media_TimeChanged(object sender, MediaPlayerTimeChangedEventArgs e)
-        {
-            if (MediaPlayer.Time > 1 && BusyIndicatorActive)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    BusyIndicatorActive = false;
-                });
-            }
-        }
-
-        public void SeekBarValueChanged(double value)
-        {
-            if (value <= 0)
-            {
-                if (AutoSwitch && isSelectPreOrNext == false)
-                {
-                    NextVideo();
-                    isSelectPreOrNext = false;
-                }
-                else
-                {
-                    isSelectPreOrNext = false;
-                }
-            }
-            else
-            {
-                isSelectPreOrNext = false;
-            }
-        }
-
-        private bool isSelectPreOrNext = false;
-
-        private void NextVideo()
-        {
-            if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
-            {
-                isSelectPreOrNext = true;
-                var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
-                if (index >= VideoItemsSource.Count - 1)
-                {
-                    return;
-                }
-                else
-                {
-                    VideoSlected = VideoItemsSource[index + 1];
-                }
-                InitVideoVideo(VideoSlected);
-
-                isSelectPreOrNext = false;
-            }
-        }
-
-        private void PreviousVideo()
-        {
-            if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
-            {
-                isSelectPreOrNext = true;
-                var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
-                if (index == 0)
-                {
-                    return;
-                }
-                else
-                {
-                    VideoSlected = VideoItemsSource[index - 1];
-                }
-
-                InitVideoVideo(VideoSlected);
-
-                isSelectPreOrNext = false;
-            }
-        }
-
-        private void InitVideoVideo(VideoUploadInfo obj)
-        {
-            if (MediaPlayerVisible)
-            {
-                CloseVideo();
-            }
-            foreach (var item in VideoItemsSource)
-            {
-                if (item.FileName == obj.FileName)
-                {
-                    item.IsSelected = true;
-                }
-                else { item.IsSelected = false; }
-            }
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                IsError = false;
-                BusyIndicatorActive = true;
-                MediaPlayerVisible = true; // Bật layout media lên
-            });
-            // init ở đây :
-            InitVLC(obj.Link);
-
-            VideoSlected = obj; // Set màu select cho item
-        }
-
-        /// <summary>
-        /// Đóng video : Đóng khi current tab thay đổi
-        /// Chức năng trên player : không làm (đã confirm)
-        /// </summary>
-        private void CloseVideo()
-        {
-            if (MediaPlayerVisible)
-            {
-                MediaPlayerVisible = false;
-            }
-            //can remove media plaer de tranh loi man hinh den
-            DisposeVLC();
         }
 
         private void VideoSelectedChange(VideoUploadInfo obj)
@@ -486,87 +286,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SafeExecute(() =>
                 {
-                    isSelectPreOrNext = true;
-                    InitVideoVideo(obj);
                 });
             }
-        }
-
-        private void TakeSnapShot()
-        {
-            try
-            {
-                if (VideoSlected != null)
-                {
-                    var folderPath = DependencyService.Get<ICameraSnapShotServices>().GetFolderPath();
-                    var current = DateTime.Now.ToString("yyyyMMddHHmmss");
-                    var fileName = current + ".jpg";
-                    var filePath = Path.Combine(folderPath, fileName);
-                    bool result = MediaPlayer.TakeSnapshot(0, filePath, 0, 0);
-                    //if (File.Exists(filePath) && result)
-                    //{
-                    //    DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
-                    //}
-                }
-            }
-            catch (Exception ex)
-            {
-                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-        }
-
-        private void DowloadVideo()
-        {
-            SafeExecute(async () =>
-            {
-                if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
-                {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
-                    if (action)
-                    {
-                        var progressIndicator = new Progress<double>(ReportProgress);
-                        var cts = new CancellationTokenSource();
-                        IsDownloading = true;
-                        var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-                        if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
-                        {
-                            await _downloadService.DownloadFileAsync(VideoSlected.Link, progressIndicator, cts.Token);
-                        }
-                    }
-                }
-            });
-        }
-
-        internal void ReportProgress(double value)
-        {
-            ProgressValue = value;
-            if (value == 100)
-            {
-                DisplayMessage.ShowMessageInfo("Đã tải video thành công");
-                IsDownloading = false;
-            }
-        }
-
-        private void DowloadVideoInListTapped(VideoUploadInfo obj)
-        {
-            SafeExecute(async () =>
-            {
-                if (obj != null && !string.IsNullOrEmpty(obj.Link))
-                {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
-                    if (action)
-                    {
-                        var progressIndicator = new Progress<double>(ReportProgress);
-                        var cts = new CancellationTokenSource();
-                        IsDownloading = true;
-                        var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<StoragePermission>();
-                        if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
-                        {
-                            await _downloadService.DownloadFileAsync(obj.Link, progressIndicator, cts.Token);
-                        }
-                    }
-                }
-            });
         }
 
         #endregion PrivateMethod

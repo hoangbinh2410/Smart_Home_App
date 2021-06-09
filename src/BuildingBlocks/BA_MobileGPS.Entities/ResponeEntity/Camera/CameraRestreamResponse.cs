@@ -94,28 +94,19 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("s")]
         public DateTime StartTime { get; set; }
 
-        [JsonProperty("t")]
-        public int Duration { get; set; }
-
         [JsonProperty("f")]
         public string FileName { get; set; }
 
         [JsonProperty("l")]
         public string Link { get; set; }
 
-        [JsonProperty("i")]
-        public string ImageUrl { get; set; }
-
-        [JsonProperty("d")]
-        public string Description { get; set; }
-
         [JsonIgnore]
         public byte Channel { get; set; }
 
-        private bool isSelected = false;
+        private VideoUploadStatus status = VideoUploadStatus.Uploaded;
 
         [JsonIgnore]
-        public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
+        public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
     }
 
     public class DeviceTabVideoInfoResponse : BaseResponse<List<RestreamVideoTimeInfo>>
@@ -132,5 +123,13 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("d")]
         public byte Duration { get; set; } = 0;
+    }
+
+    public enum VideoUploadStatus
+    {
+        Uploaded = 0,
+        Uploading = 1,
+        WaitingUpload = 2,
+        UploadError = 3
     }
 }
