@@ -200,7 +200,7 @@
 	  <EmbeddedResource Update="Views\Camera\Package\PackageCameraPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\CameraTimeChart.xaml">
+	  <EmbeddedResource Update="Views\Camera\CameraTimeChart\CameraTimeChart.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\RestreamTab\BACloudTab.xaml">
