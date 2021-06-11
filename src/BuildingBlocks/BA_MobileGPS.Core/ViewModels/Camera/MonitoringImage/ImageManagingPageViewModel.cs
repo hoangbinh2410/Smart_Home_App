@@ -240,7 +240,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehicleId = vehiclecam.VehicleId,
                         VehiclePlate = vehiclecam.VehiclePlate,
-                        PrivateCode = vehiclecam.PrivateCode,
+                        PrivateCode = vehiclecam.VehiclePlate,
                         Imei = vehiclecam.Imei
                     };
 
