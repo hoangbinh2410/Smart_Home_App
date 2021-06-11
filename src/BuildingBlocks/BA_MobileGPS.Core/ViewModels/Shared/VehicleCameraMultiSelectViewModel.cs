@@ -89,33 +89,48 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void MappingCamera(List<VehicleCamera> lstcamera)
         {
-            var listcam = (from a in lstcamera
-                           join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
-                           where (b.HasVideo == true)
-                           select new CameraLookUpVehicleModel()
-                           {
-                               VehiclePlate = b.VehiclePlate,
-                               VehicleId = b.VehicleId,
-                               GroupIDs = b.GroupIDs,
-                               IconImage = b.IconImage,
-                               Imei = b.Imei,
-                               PrivateCode = b.PrivateCode,
-                               SortOrder = b.SortOrder,
-                               VehicleTime = b.VehicleTime,
-                               Velocity = b.Velocity
-                           }).Distinct().OrderByDescending(x => x.SortOrder).ToList();
-
-            if (!string.IsNullOrEmpty(listSelectedPlates))
+            var lstCamera = new List<CameraLookUpVehicleModel>();
+            var lstvehicle = StaticSettings.ListVehilceOnline;
+            foreach (var item in lstcamera)
             {
-                foreach (var item in listcam)
+                var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
+                var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
+                if (model != null)
                 {
-                    if (listSelectedPlates.Contains(item.VehiclePlate))
+                    lstCamera.Add(new CameraLookUpVehicleModel()
                     {
-                        item.IsSelected = true;
+                        VehiclePlate = model.VehiclePlate,
+                        VehicleId = model.VehicleId,
+                        GroupIDs = model.GroupIDs,
+                        IconImage = model.IconImage,
+                        Imei = model.Imei,
+                        PrivateCode = item.VehiclePlate,
+                        SortOrder = model.SortOrder,
+                        VehicleTime = model.VehicleTime,
+                        Velocity = model.Velocity
+                    });
+                }
+                else
+                {
+                    var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
+                    if (model_c != null)
+                    {
+                        lstCamera.Add(new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = model.VehiclePlate,
+                            VehicleId = model.VehicleId,
+                            GroupIDs = model.GroupIDs,
+                            IconImage = model.IconImage,
+                            Imei = model.Imei,
+                            PrivateCode = item.VehiclePlate,
+                            SortOrder = model.SortOrder,
+                            VehicleTime = model.VehicleTime,
+                            Velocity = model.Velocity
+                        });
                     }
                 }
             }
-          
+            var listcam = lstCamera.Distinct().OrderByDescending(x => x.SortOrder).ToList();
             ListVehicleOrigin.Clear();
             ListVehicle.Clear();
 

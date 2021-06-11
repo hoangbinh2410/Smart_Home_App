@@ -102,11 +102,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                CarSearch = vehiclePlate.VehiclePlate;
+                ValidateVehicleCamera(vehiclePlate);
                 ShowImage();
-            }
-            else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
-            {
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
@@ -163,6 +160,23 @@ namespace BA_MobileGPS.Core.ViewModels
         public ObservableCollection<string> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
 
         private List<string> mVehicleString { get; set; }
+
+        private void ValidateVehicleCamera(Vehicle vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                if (model != null)
+                {
+                    CarSearch = model.VehiclePlate;
+                }
+                else
+                {
+                    CarSearch = vehicle.VehiclePlate;
+                }
+            }
+        }
 
         private void LoadMoreItems(object obj)
         {
