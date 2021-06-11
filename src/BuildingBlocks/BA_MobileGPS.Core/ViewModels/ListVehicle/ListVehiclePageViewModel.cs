@@ -609,11 +609,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, param }
                 };
-                if ((selected.HasImage || selected.HasVideo)
-                && (CheckPermision((int)PermissionKeyNames.TrackingVideosView)
-                || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView)))
+                if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
                 {
-                    await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                    var plate = selected.VehiclePlate.Contains("_C") ? selected.VehiclePlate : selected.VehiclePlate + "_C";
+                    var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                    if (model != null)
+                    {
+                        await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                    }
+                    else
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                    }
                 }
                 else
                 {
