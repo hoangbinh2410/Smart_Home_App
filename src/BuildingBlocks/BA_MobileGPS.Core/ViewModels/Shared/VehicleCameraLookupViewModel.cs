@@ -93,7 +93,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         lstCamera.Add(new CameraLookUpVehicleModel()
                         {
-                            VehiclePlate = model.VehiclePlate,
+                            VehiclePlate = item.VehiclePlate,
                             VehicleId = model.VehicleId,
                             GroupIDs = model.GroupIDs,
                             IconImage = model.IconImage,
@@ -111,7 +111,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             lstCamera.Add(new CameraLookUpVehicleModel()
                             {
-                                VehiclePlate = model_c.VehiclePlate,
+                                VehiclePlate = item.VehiclePlate,
                                 VehicleId = model_c.VehicleId,
                                 GroupIDs = model_c.GroupIDs,
                                 IconImage = model_c.IconImage,
@@ -139,7 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 return;
             }
-           
+
         }
 
         private void SearchVehicle(TextChangedEventArgs args)
