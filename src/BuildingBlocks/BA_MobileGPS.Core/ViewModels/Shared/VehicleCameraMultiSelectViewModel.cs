@@ -1,15 +1,10 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Service.IService;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -24,6 +19,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private static List<CameraLookUpVehicleModel> ListVehicleOrigin = new List<CameraLookUpVehicleModel>();
         private readonly IStreamCameraService cameraService;
         private string listSelectedPlates { get; set; }
+
         public VehicleCameraMultiSelectViewModel(INavigationService navigationService, IStreamCameraService cameraService) : base(navigationService)
         {
             this.cameraService = cameraService;
@@ -33,6 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #region Binding
+
         private List<CameraLookUpVehicleModel> listVehicle = new List<CameraLookUpVehicleModel>();
         public List<CameraLookUpVehicleModel> ListVehicle { get => listVehicle; set => SetProperty(ref listVehicle, value); }
 
@@ -42,9 +39,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand TapListVehicleCommand { get; }
         public ICommand SearchVehicleCommand { get; }
 
-        #endregion
+        #endregion Binding
 
         #region life cycle
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -60,10 +58,12 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
         }
-        #endregion
+
+        #endregion life cycle
+
         #region Function
+
         private void GetVehicleCamera()
         {
             if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
@@ -99,7 +99,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     lstCamera.Add(new CameraLookUpVehicleModel()
                     {
-                        VehiclePlate = model.VehiclePlate,
+                        VehiclePlate = item.VehiclePlate,
                         VehicleId = model.VehicleId,
                         GroupIDs = model.GroupIDs,
                         IconImage = model.IconImage,
@@ -117,7 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         lstCamera.Add(new CameraLookUpVehicleModel()
                         {
-                            VehiclePlate = model_c.VehiclePlate,
+                            VehiclePlate = item.VehiclePlate,
                             VehicleId = model_c.VehicleId,
                             GroupIDs = model_c.GroupIDs,
                             IconImage = model_c.IconImage,
@@ -191,12 +191,11 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-
         private void Confirm()
         {
             SafeExecute(async () =>
             {
-                var listGroupSelected = ListVehicleOrigin.Where(x=>x.IsSelected).ToList();
+                var listGroupSelected = ListVehicleOrigin.Where(x => x.IsSelected).ToList();
 
                 await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
@@ -204,6 +203,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }, true, true);
             });
         }
-        #endregion
+
+        #endregion Function
     }
 }

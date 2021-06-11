@@ -179,11 +179,27 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <returns></returns>
         private string GetVehiclesHaveCamera(List<VehicleCamera> lstcamera)
         {
-            var listVehicles = (from a in lstcamera
-                                join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
-                                select b.VehiclePlate).ToList();
-
-            return string.Join(",", listVehicles);
+            var lstCamera = new List<string>();
+            var lstvehicle = StaticSettings.ListVehilceOnline;
+            foreach (var item in lstcamera)
+            {
+                var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
+                var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
+                if (model != null)
+                {
+                    lstCamera.Add(item.VehiclePlate);
+                }
+                else
+                {
+                    var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
+                    if (model_c != null)
+                    {
+                        lstCamera.Add(item.VehiclePlate);
+                    }
+                }
+            }
+            var listcam = lstCamera.ToList();
+            return string.Join(",", listcam);
         }
 
         /// <summary>
