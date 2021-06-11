@@ -102,6 +102,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         await ConnectSignalR();
                         PushPageFileBase();
                         InsertOrUpdateAppDevice();
+                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView))
+                        {
+                            GetVehicleIsCamera();
+                        }
                     });
 
                     return false;
@@ -638,6 +642,28 @@ namespace BA_MobileGPS.Core.ViewModels
                     StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
                 }
             });
+        }
+
+        private void GetVehicleIsCamera()
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                return;
+            }
+            else
+            {
+                RunOnBackground(async () =>
+                {
+                    return await streamCameraService.GetListVehicleHasCamera(UserInfo.XNCode);
+                },
+                (lst) =>
+                {
+                    if (lst != null && lst.Count > 0)
+                    {
+                        StaticSettings.ListVehilceCamera = lst;
+                    }
+                });
+            }
         }
 
         private void SyncVehicleOnline()

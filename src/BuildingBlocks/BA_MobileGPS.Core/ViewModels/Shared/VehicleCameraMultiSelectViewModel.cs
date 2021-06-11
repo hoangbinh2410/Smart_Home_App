@@ -74,27 +74,26 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 RunOnBackground(async () =>
                 {
-                    return await cameraService.GetListVehicleCamera(UserInfo.XNCode);
+                    return await cameraService.GetListVehicleHasCamera(UserInfo.XNCode);
                 },
                 (lst) =>
                 {
-                    if (lst != null && lst.Data?.Count > 0)
+                    if (lst != null && lst.Count > 0)
                     {
-                        StaticSettings.ListVehilceCamera = lst.Data;
-                        MappingCamera(lst.Data);
+                        StaticSettings.ListVehilceCamera = lst;
+                        MappingCamera(lst);
                     }
                 });
             }
         }
 
-        private void MappingCamera(List<StreamDevices> lstcamera)
+        private void MappingCamera(List<VehicleCamera> lstcamera)
         {
             var listcam = (from a in lstcamera
                            join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
                            where (b.HasVideo == true)
                            select new CameraLookUpVehicleModel()
                            {
-                               CameraChannels = a.CameraChannels?.Select(x => x.Channel).ToList(),
                                VehiclePlate = b.VehiclePlate,
                                VehicleId = b.VehicleId,
                                GroupIDs = b.GroupIDs,

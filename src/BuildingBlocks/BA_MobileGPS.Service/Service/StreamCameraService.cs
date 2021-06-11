@@ -410,5 +410,24 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode)
+        {
+            var respone = new List<VehicleCamera>();
+            try
+            {
+                string url = string.Format(ApiUri.GET_LISTVEHICLECAMERA + "?type={0}&xnCode={1}", (int)ConditionType.MXN, xncode);
+                var result = await requestProvider.GetAsync<ResponseBaseV2<List<VehicleCamera>>>(url);
+                if (result != null && result.Data != null)
+                {
+                    respone = result.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return respone;
+        }
     }
 }
