@@ -117,15 +117,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         lstCamera.Add(new CameraLookUpVehicleModel()
                         {
-                            VehiclePlate = model.VehiclePlate,
-                            VehicleId = model.VehicleId,
-                            GroupIDs = model.GroupIDs,
-                            IconImage = model.IconImage,
-                            Imei = model.Imei,
+                            VehiclePlate = model_c.VehiclePlate,
+                            VehicleId = model_c.VehicleId,
+                            GroupIDs = model_c.GroupIDs,
+                            IconImage = model_c.IconImage,
+                            Imei = model_c.Imei,
                             PrivateCode = item.VehiclePlate,
-                            SortOrder = model.SortOrder,
-                            VehicleTime = model.VehicleTime,
-                            Velocity = model.Velocity
+                            SortOrder = model_c.SortOrder,
+                            VehicleTime = model_c.VehicleTime,
+                            Velocity = model_c.Velocity
                         });
                     }
                 }
