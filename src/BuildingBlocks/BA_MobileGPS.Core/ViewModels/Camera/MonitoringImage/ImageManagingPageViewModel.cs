@@ -233,32 +233,44 @@ namespace BA_MobileGPS.Core.ViewModels
             //chuyên trang danh sách camera
             SafeExecute(async () =>
             {
-                var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == (string)obj);
-                if (vehicleOnline != null)
+                var vehiclecam = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == (string)obj + "_C");
+                if (vehiclecam != null)
                 {
                     var vehicle = new Vehicle
                     {
-                        VehicleId = vehicleOnline.VehicleId,
-                        VehiclePlate = vehicleOnline.VehiclePlate,
-                        PrivateCode = vehicleOnline.PrivateCode,
-                        GroupIDs = vehicleOnline.GroupIDs,
-                        Imei = vehicleOnline.Imei
+                        VehicleId = vehiclecam.VehicleId,
+                        VehiclePlate = vehiclecam.VehiclePlate,
+                        PrivateCode = vehiclecam.PrivateCode,
+                        Imei = vehiclecam.Imei
                     };
 
                     var parameters = new NavigationParameters
                     {
-                        { ParameterKey.VehicleRoute, vehicle }
+                        { ParameterKey.Vehicle, vehicle }
                     };
 
                     await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, true);
                 }
                 else
                 {
-                    var parameters = new NavigationParameters
+                    var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == (string)obj);
+                    if (vehicleOnline != null)
                     {
-                        { ParameterKey.VehiclePlate, obj }
-                    };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
+                        var vehicle = new Vehicle
+                        {
+                            VehicleId = vehicleOnline.VehicleId,
+                            VehiclePlate = vehicleOnline.VehiclePlate,
+                            PrivateCode = vehicleOnline.PrivateCode,
+                            Imei = vehicleOnline.Imei
+                        };
+
+                        var parameters = new NavigationParameters
+                        {
+                            { ParameterKey.Vehicle, vehicle }
+                        };
+
+                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, true);
+                    }
                 }
             });
         }
