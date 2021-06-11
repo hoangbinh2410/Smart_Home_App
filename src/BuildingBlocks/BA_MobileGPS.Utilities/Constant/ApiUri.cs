@@ -223,7 +223,8 @@
         public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
         public const string SET_HOSTSPOT = "api/stream/sethospot";
-        
+        public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
+
 
         #endregion Camera
 

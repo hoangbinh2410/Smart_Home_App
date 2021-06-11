@@ -67,6 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             LibVLCSharp.Shared.Core.Initialize();
             LibVLC = new LibVLC("--no-rtsp-tcp");
+            SetChannelSource();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -80,13 +81,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 Vehicle = vehicleDetail;
                 DateStart = selectDate.Date;
                 DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);
-                SetChannelSource(vehicleDetail.CameraChannels);
                 SearchData();
             }
             else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
-                SetChannelSource(vehicle.CameraChannels);
             }
         }
 
@@ -770,10 +769,11 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Set dữ liệu cho picker channel
         /// Hard 4 kênh (Đã confirm)
         /// </summary>
-        private void SetChannelSource(List<int> lstchannel)
+        private void SetChannelSource()
         {
             try
             {
+                var lstchannel = new List<int>() { 1, 2, 3, 4 };
                 var source = new List<ChannelModel>();
                 source.Add(new ChannelModel() { Name = "Tất cả kênh", Value = 0 });
                 if (lstchannel != null)

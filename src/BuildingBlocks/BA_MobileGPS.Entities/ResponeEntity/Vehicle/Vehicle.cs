@@ -38,8 +38,6 @@ namespace BA_MobileGPS.Entities
 
     public class CameraLookUpVehicleModel : Vehicle,INotifyPropertyChanged
     {
-        public List<int> CameraChannels { get; set; }
-
         private bool isSelected;
         public bool IsSelected
         {

@@ -78,7 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
-                Vehicle = vehicle;
+                GetVehicleCamera(vehicle);
                 ReLoadAllCamera();
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
@@ -592,6 +592,51 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             });
+        }
+
+        private void GetVehicleCamera(CameraLookUpVehicleModel vehicle)
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                ValidateVehicleCamera(vehicle);
+            }
+            else
+            {
+                RunOnBackground(async () =>
+                {
+                    return await _streamCameraService.GetListVehicleHasCamera(UserInfo.XNCode);
+                },
+                (lst) =>
+                {
+                    if (lst != null && lst.Count > 0)
+                    {
+                        StaticSettings.ListVehilceCamera = lst;
+                        ValidateVehicleCamera(vehicle);
+                    }
+                });
+            }
+        }
+
+        private void ValidateVehicleCamera(CameraLookUpVehicleModel vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                if (model != null)
+                {
+                    Vehicle = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = model.VehiclePlate,
+                        Imei = model.Imei,
+                        PrivateCode = model.VehiclePlate
+                    };
+                }
+                else
+                {
+                    Vehicle = vehicle;
+                }
+            }
         }
 
         /// <summary>
