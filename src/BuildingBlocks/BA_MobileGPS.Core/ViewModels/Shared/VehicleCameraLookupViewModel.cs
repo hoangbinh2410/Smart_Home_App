@@ -48,6 +48,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
             GetVehicleCamera();
         }
 
@@ -76,31 +81,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void MappingCamera(List<VehicleCamera> lstcamera)
         {
-            var lstCamera = new List<CameraLookUpVehicleModel>();
-            var lstvehicle = StaticSettings.ListVehilceOnline;
-            foreach (var item in lstcamera)
+            try
             {
-                var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
-                var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
-                if (model != null)
+                var lstCamera = new List<CameraLookUpVehicleModel>();
+                var lstvehicle = StaticSettings.ListVehilceOnline;
+                foreach (var item in lstcamera)
                 {
-                    lstCamera.Add(new CameraLookUpVehicleModel()
-                    {
-                        VehiclePlate = model.VehiclePlate,
-                        VehicleId = model.VehicleId,
-                        GroupIDs = model.GroupIDs,
-                        IconImage = model.IconImage,
-                        Imei = model.Imei,
-                        PrivateCode = item.VehiclePlate,
-                        SortOrder = model.SortOrder,
-                        VehicleTime = model.VehicleTime,
-                        Velocity = model.Velocity
-                    });
-                }
-                else
-                {
-                    var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
-                    if (model_c != null)
+                    var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
+                    var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
+                    if (model != null)
                     {
                         lstCamera.Add(new CameraLookUpVehicleModel()
                         {
@@ -115,17 +104,42 @@ namespace BA_MobileGPS.Core.ViewModels
                             Velocity = model.Velocity
                         });
                     }
+                    else
+                    {
+                        var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
+                        if (model_c != null)
+                        {
+                            lstCamera.Add(new CameraLookUpVehicleModel()
+                            {
+                                VehiclePlate = model_c.VehiclePlate,
+                                VehicleId = model_c.VehicleId,
+                                GroupIDs = model_c.GroupIDs,
+                                IconImage = model_c.IconImage,
+                                Imei = model_c.Imei,
+                                PrivateCode = item.VehiclePlate,
+                                SortOrder = model_c.SortOrder,
+                                VehicleTime = model_c.VehicleTime,
+                                Velocity = model_c.Velocity
+                            });
+                        }
+                    }
                 }
+                var listcam = lstCamera.Distinct().OrderByDescending(x => x.SortOrder).ToList();
+                ListVehicleOrigin.Clear();
+                ListVehicle.Clear();
+
+                ListVehicleOrigin = listcam;
+
+                ListVehicle = listcam;
+
+                HasVehicle = ListVehicle.Count > 0;
             }
-            var listcam = lstCamera.Distinct().OrderByDescending(x => x.SortOrder).ToList();
-            ListVehicleOrigin.Clear();
-            ListVehicle.Clear();
+            catch (System.Exception ex)
+            {
 
-            ListVehicleOrigin = listcam;
-
-            ListVehicle = listcam;
-
-            HasVehicle = ListVehicle.Count > 0;
+                return;
+            }
+           
         }
 
         private void SearchVehicle(TextChangedEventArgs args)
