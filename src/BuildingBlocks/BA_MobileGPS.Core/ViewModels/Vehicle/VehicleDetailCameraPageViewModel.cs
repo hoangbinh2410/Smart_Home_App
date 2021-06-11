@@ -60,8 +60,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 TryExecute(async () =>
                 {
+                    ValidateVehicleCamera(cardetail.VehiclePlate);
                     PK_VehicleID = (int)cardetail.VehicleId;
-                    VehiclePlate = cardetail.VehiclePlate;
                     PrivateCode = cardetail.PrivateCode;
                     if (cardetail.CurrentAddress != null)
                     {
@@ -356,6 +356,23 @@ namespace BA_MobileGPS.Core.ViewModels
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
+        private void ValidateVehicleCamera(string vehiclePlate)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehiclePlate + "_C");
+                if (model != null)
+                {
+                    VehiclePlate = model.VehiclePlate;
+                }
+                else
+                {
+                    VehiclePlate = vehiclePlate;
+                }
+            }
+        }
+
         /// <summary>
         /// Load tất cả dữ liệu về thông tin chi tiết 1 xe
         /// </summary>
@@ -587,7 +604,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (model.CameraChannels != null && model.CameraChannels.Count > 0)
                         {
                             ChannelString = string.Join(",", model.CameraChannels.Select(x => x.Channel));
-                            var channelActive = model.CameraChannels.Where(x => x.HasCamera == true).ToList();
+                            var channelActive = model.CameraChannels.Where(x => x.HasCamera == true && x.IsPlug == true).ToList();
                             if (channelActive != null && channelActive.Count > 0)
                             {
                                 ChannelActive = string.Join(",", channelActive.Select(x => x.Channel));
