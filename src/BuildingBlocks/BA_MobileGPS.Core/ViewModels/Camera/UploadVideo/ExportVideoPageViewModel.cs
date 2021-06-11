@@ -4,6 +4,7 @@ using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Linq;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -35,7 +36,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
-                Vehicle = vehicle;
+                ValidateVehicleCamera(vehicle);
                 WifiName = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 8);
                 WifiPassword = string.Format("bacam@{0}", DateTime.Now.ToString("ddMMyy"));
             }
@@ -51,6 +52,28 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private string wifiPassword;
         public string WifiPassword { get => wifiPassword; set => SetProperty(ref wifiPassword, value); }
+
+        private void ValidateVehicleCamera(CameraLookUpVehicleModel vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                if (model != null)
+                {
+                    Vehicle = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = model.VehiclePlate,
+                        Imei = model.Imei,
+                        PrivateCode = model.VehiclePlate
+                    };
+                }
+                else
+                {
+                    Vehicle = vehicle;
+                }
+            }
+        }
 
         private void SelectVehicleCamera()
         {
