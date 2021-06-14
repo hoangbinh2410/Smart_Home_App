@@ -449,6 +449,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     parameters.Add(ParameterKey.Vehicle, new CameraLookUpVehicleModel() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
+                if (obj.Url == "NavigationPage/ImageManagingPage")
+                {
+                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                }
                 if (obj.Url == "NavigationPage/ChartFuelReportPage")
                 {
                     parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
