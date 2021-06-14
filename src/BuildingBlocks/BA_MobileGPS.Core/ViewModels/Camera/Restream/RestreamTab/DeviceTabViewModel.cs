@@ -653,7 +653,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
                 return false;
             }
-            else if (Vehicle == null || Vehicle.VehicleId == 0)
+            else if (Vehicle == null || string.IsNullOrEmpty(Vehicle.VehiclePlate))
             {
                 DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
                 return false;

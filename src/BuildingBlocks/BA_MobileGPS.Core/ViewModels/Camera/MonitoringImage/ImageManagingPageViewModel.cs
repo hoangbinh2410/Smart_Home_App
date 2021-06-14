@@ -364,31 +364,43 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var mlistVehicle = new List<string>();
                 var mlistVehicleFavorites = new List<string>();
+                var lstplate = new List<string>();
+                mVehicleString = new List<string>();
+                var listVehicleCamera = StaticSettings.ListVehilceCamera;
                 var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                 if (VehicleGroups != null && VehicleGroups.Length > 0)
                 {
-                    mVehicleString = listOnline.FindAll(v => v.GroupIDs.Split(',').ToList()
+                    lstplate = listOnline.FindAll(v => v.GroupIDs.Split(',').ToList()
                         .Exists(g => VehicleGroups.Contains(Convert.ToInt32(g))))
                         .Select(x => x.VehiclePlate).ToList();
                 }
                 else
                 {
-                    mVehicleString = listOnline.Select(x => x.VehiclePlate).ToList();
+                    lstplate = listOnline.Select(x => x.VehiclePlate).ToList();
                 }
+
                 // Lấy danh sách ưa thích
-                foreach (var item in mVehicleString)
+                foreach (var item in lstplate)
                 {
-                    if (Settings.FavoritesVehicleImage.Contains(item))
+                    string plate = item;
+                    if (listVehicleCamera != null)
                     {
-                        mlistVehicleFavorites.Add(item);
+                        var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == item + "_C");
+                        if (model != null)
+                        {
+                            plate = model.VehiclePlate;
+                        }
+                    }
+                    if (Settings.FavoritesVehicleImage.Contains(plate))
+                    {
+                        mlistVehicleFavorites.Add(plate);
                     }
                     else
                     {
-                        mlistVehicle.Add(item);
+                        mlistVehicle.Add(plate);
                     }
                 }
-                //add
-                mVehicleString = new List<string>();
+               
                 if (mlistVehicleFavorites.Count > 0 && mlistVehicleFavorites != null)
                 {
                     mVehicleString.AddRange(mlistVehicleFavorites);
