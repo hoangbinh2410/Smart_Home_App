@@ -37,6 +37,25 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
+        public async Task<List<IssuesRespone>> GetIssueByUserID(Guid userID)
+        {
+            List<IssuesRespone> result = new List<IssuesRespone>();
+            try
+            {
+                string url = $"{ApiUri.GET_ISSUE_BYUSERID}?UserID={userID}";
+                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<IssuesDetailRespone> GetIssueByIssueCode(string issueCode)
         {
             IssuesDetailRespone result = new IssuesDetailRespone();
