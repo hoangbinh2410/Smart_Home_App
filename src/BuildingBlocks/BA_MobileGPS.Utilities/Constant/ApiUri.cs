@@ -313,6 +313,8 @@
         #region Issue
         public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
 
+        public const string GET_ISSUE_BYUSERID = "api/issue/getissuebyuserid";
+
         public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
         #endregion
     }
