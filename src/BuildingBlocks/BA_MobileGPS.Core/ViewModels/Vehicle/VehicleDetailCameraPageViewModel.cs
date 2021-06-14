@@ -60,6 +60,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 TryExecute(async () =>
                 {
+                    VehiclePlate = cardetail.VehiclePlate;
                     ValidateVehicleCamera(cardetail.VehiclePlate);
                     PK_VehicleID = (int)cardetail.VehicleId;
                     PrivateCode = cardetail.PrivateCode;
@@ -119,6 +120,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public int PK_VehicleID { get; set; }
 
         public string VehiclePlate { get; set; }
+
+        public string VehiclePlateCamera { get; set; }
 
         public string PrivateCode { get; set; }
 
@@ -364,11 +367,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehiclePlate + "_C");
                 if (model != null)
                 {
-                    VehiclePlate = model.VehiclePlate;
+                    VehiclePlateCamera = model.VehiclePlate;
                 }
                 else
                 {
-                    VehiclePlate = vehiclePlate;
+                    VehiclePlateCamera = vehiclePlate;
                 }
             }
         }
@@ -399,7 +402,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     InforDetail = response;
                     if (response.VehicleNl != null)
                     {
-                        IsFuelVisible = response.VehicleNl.IsUseFuel;
+                        var permisstion = CheckPermision((int)PermissionKeyNames.ShowFuelOnStatusOnline);
+                        IsFuelVisible = response.VehicleNl.IsUseFuel && permisstion;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
                         FuelProgress = (response.VehicleNl.NumberOfLiters / response.VehicleNl.Capacity) * 100;
                     }
@@ -562,13 +566,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await streamCameraService.GetPackageByXnPlate(new PackageBACameraRequest()
                 {
                     XNCode = UserInfo.XNCode,
-                    LstPlate = new List<string>() { VehiclePlate }
+                    LstPlate = new List<string>() { VehiclePlateCamera }
                 });
             }, (result) =>
             {
                 if (result != null && result.Data != null)
                 {
-                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlateCamera);
                     if (model != null)
                     {
                         if (model.ServerServiceInfoEnt != null)
@@ -592,12 +596,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, VehiclePlate);
+                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, VehiclePlateCamera);
             }, (result) =>
             {
                 if (result != null && result.Data != null)
                 {
-                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlateCamera);
                     if (model != null)
                     {
                         StreamDevices = model;

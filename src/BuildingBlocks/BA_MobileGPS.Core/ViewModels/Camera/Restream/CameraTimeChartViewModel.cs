@@ -408,24 +408,46 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (obj is ItemTappedEventArgs even)
                 {
                     var item = (RestreamChartData)even.ItemData;
-                    var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
-                    if (vehicle != null)
+                    var vehiclecam = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                    if (vehiclecam != null)
                     {
                         var vehicleModel = new CameraLookUpVehicleModel()
                         {
-                            VehiclePlate = item.VehiclePlate,
-                            VehicleId = vehicle.VehicleId,
-                            PrivateCode = vehicle.PrivateCode,
+                            VehiclePlate = vehiclecam.VehiclePlate,
+                            VehicleId = vehiclecam.VehicleId,
+                            PrivateCode = vehiclecam.PrivateCode,
                         };
                         var param = new NavigationParameters()
-                {
-                    {ParameterKey.SelectDate,selectedDate },
-                    {ParameterKey.VehiclePlate,vehicleModel }
-                };
+                        {
+                            {ParameterKey.SelectDate,selectedDate },
+                            {ParameterKey.VehiclePlate,vehicleModel }
+                        };
                         SafeExecute(async () =>
                         {
                             var a = await NavigationService.NavigateAsync("CameraRestream", param);
                         });
+                    }
+                    else
+                    {
+                        var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                        if (vehicleOnline != null)
+                        {
+                            var vehicleModel = new CameraLookUpVehicleModel()
+                            {
+                                VehiclePlate = item.VehiclePlate,
+                                VehicleId = vehicleOnline.VehicleId,
+                                PrivateCode = item.VehiclePlate,
+                            };
+                            var param = new NavigationParameters()
+                            {
+                                {ParameterKey.SelectDate,selectedDate },
+                                {ParameterKey.VehiclePlate,vehicleModel }
+                            };
+                            SafeExecute(async () =>
+                            {
+                                var a = await NavigationService.NavigateAsync("CameraRestream", param);
+                            });
+                        }
                     }
                 }
             }

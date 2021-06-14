@@ -316,7 +316,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     InforDetail = response;
                     if (response.VehicleNl != null)
                     {
-                        IsFuelVisible = response.VehicleNl.IsUseFuel;
+                        var permisstion = CheckPermision((int)PermissionKeyNames.ShowFuelOnStatusOnline);
+                        IsFuelVisible = response.VehicleNl.IsUseFuel && permisstion;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
                         FuelProgress = (response.VehicleNl.NumberOfLiters / response.VehicleNl.Capacity) * 100;
                     }
