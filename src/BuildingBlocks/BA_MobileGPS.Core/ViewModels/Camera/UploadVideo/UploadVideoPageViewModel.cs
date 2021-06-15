@@ -131,21 +131,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
                     if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                     {
-                        bool isvalid = true;
                         foreach (var item in lstvideoSelected)
                         {
-                            if (!string.IsNullOrEmpty(item.Note))
-                            {
-                                var DangerousChar = "^[^ ' \"<>%$/&]*$";
-                                var dangerList = DangerousChar.ToCharArray();
-                                foreach (var str in dangerList)
-                                {
-                                    if (item.Note.Contains(str))
-                                    {
-                                        isvalid = false;
-                                    }
-                                }
-                            }
                             //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s
                             var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
                             if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
@@ -153,24 +140,17 @@ namespace BA_MobileGPS.Core.ViewModels
                                 item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
                             }
                         }
-                        if (isvalid)
-                        {
-                            await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
-                            
-                            await NavigationService.GoBackAsync();
+                        await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
 
-                            EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
-                            {
-                                Channel = VideoRestreamInfo.Channel,
-                                Data = lstvideoSelected,
-                                VehicleName = VideoRestreamInfo.VehicleName,
-                                VehicleID = RequestInfo.VehicleID
-                            });
-                        }
-                        else
+                        await NavigationService.GoBackAsync();
+
+                        EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
                         {
-                            DisplayMessage.ShowMessageInfo("Bạn không được nhập các ký tự đặc biệt [,',\",<,>,/, &,]");
-                        }
+                            Channel = VideoRestreamInfo.Channel,
+                            Data = lstvideoSelected,
+                            VehicleName = VideoRestreamInfo.VehicleName,
+                            VehicleID = RequestInfo.VehicleID
+                        });
                     }
                     else
                     {
