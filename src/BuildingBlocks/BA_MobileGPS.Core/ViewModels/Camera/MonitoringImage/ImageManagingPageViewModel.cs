@@ -102,11 +102,8 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                CarSearch = vehiclePlate.VehiclePlate;
+                ValidateVehicleCamera(vehiclePlate);
                 ShowImage();
-            }
-            else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
-            {
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
@@ -164,6 +161,23 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<string> mVehicleString { get; set; }
 
+        private void ValidateVehicleCamera(Vehicle vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                if (model != null)
+                {
+                    CarSearch = model.VehiclePlate;
+                }
+                else
+                {
+                    CarSearch = vehicle.VehiclePlate;
+                }
+            }
+        }
+
         private void LoadMoreItems(object obj)
         {
             var listview = obj as Syncfusion.ListView.XForms.SfListView;
@@ -219,32 +233,44 @@ namespace BA_MobileGPS.Core.ViewModels
             //chuyên trang danh sách camera
             SafeExecute(async () =>
             {
-                var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == (string)obj);
-                if (vehicleOnline != null)
+                var vehiclecam = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == (string)obj);
+                if (vehiclecam != null)
                 {
                     var vehicle = new Vehicle
                     {
-                        VehicleId = vehicleOnline.VehicleId,
-                        VehiclePlate = vehicleOnline.VehiclePlate,
-                        PrivateCode = vehicleOnline.PrivateCode,
-                        GroupIDs = vehicleOnline.GroupIDs,
-                        Imei = vehicleOnline.Imei
+                        VehicleId = vehiclecam.VehicleId,
+                        VehiclePlate = vehiclecam.VehiclePlate,
+                        PrivateCode = vehiclecam.VehiclePlate,
+                        Imei = vehiclecam.Imei
                     };
 
                     var parameters = new NavigationParameters
                     {
-                        { ParameterKey.VehicleRoute, vehicle }
+                        { ParameterKey.Vehicle, vehicle }
                     };
 
                     await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, true);
                 }
                 else
                 {
-                    var parameters = new NavigationParameters
+                    var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == (string)obj);
+                    if (vehicleOnline != null)
                     {
-                        { ParameterKey.VehiclePlate, obj }
-                    };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
+                        var vehicle = new Vehicle
+                        {
+                            VehicleId = vehicleOnline.VehicleId,
+                            VehiclePlate = vehicleOnline.VehiclePlate,
+                            PrivateCode = vehicleOnline.PrivateCode,
+                            Imei = vehicleOnline.Imei
+                        };
+
+                        var parameters = new NavigationParameters
+                        {
+                            { ParameterKey.Vehicle, vehicle }
+                        };
+
+                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, useModalNavigation: true, true);
+                    }
                 }
             });
         }
@@ -338,31 +364,43 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var mlistVehicle = new List<string>();
                 var mlistVehicleFavorites = new List<string>();
+                var lstplate = new List<string>();
+                mVehicleString = new List<string>();
+                var listVehicleCamera = StaticSettings.ListVehilceCamera;
                 var listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65 && x.MessageId != 254 && x.MessageId != 128).ToList();
                 if (VehicleGroups != null && VehicleGroups.Length > 0)
                 {
-                    mVehicleString = listOnline.FindAll(v => v.GroupIDs.Split(',').ToList()
+                    lstplate = listOnline.FindAll(v => v.GroupIDs.Split(',').ToList()
                         .Exists(g => VehicleGroups.Contains(Convert.ToInt32(g))))
                         .Select(x => x.VehiclePlate).ToList();
                 }
                 else
                 {
-                    mVehicleString = listOnline.Select(x => x.VehiclePlate).ToList();
+                    lstplate = listOnline.Select(x => x.VehiclePlate).ToList();
                 }
+
                 // Lấy danh sách ưa thích
-                foreach (var item in mVehicleString)
+                foreach (var item in lstplate)
                 {
-                    if (Settings.FavoritesVehicleImage.Contains(item))
+                    string plate = item;
+                    if (listVehicleCamera != null)
                     {
-                        mlistVehicleFavorites.Add(item);
+                        var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == item + "_C");
+                        if (model != null)
+                        {
+                            plate = model.VehiclePlate;
+                        }
+                    }
+                    if (Settings.FavoritesVehicleImage.Contains(plate))
+                    {
+                        mlistVehicleFavorites.Add(plate);
                     }
                     else
                     {
-                        mlistVehicle.Add(item);
+                        mlistVehicle.Add(plate);
                     }
                 }
-                //add
-                mVehicleString = new List<string>();
+               
                 if (mlistVehicleFavorites.Count > 0 && mlistVehicleFavorites != null)
                 {
                     mVehicleString.AddRange(mlistVehicleFavorites);

@@ -64,6 +64,8 @@ namespace BA_MobileGPS.Service.IService
         Task<bool> InsertLogVideo(SaveVideoByUserRequest request);
 
         Task<bool> SetHotspot(int xncode, string vehiclePlate, int state);
+
+        Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode);
     }
 
     public enum ConditionType

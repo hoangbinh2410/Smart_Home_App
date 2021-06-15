@@ -119,6 +119,7 @@
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <BundleResource Include="Resources\bluetooth.json" />
     <BundleResource Include="Resources\internetconnection.json" />
+    <BundleResource Include="Resources\Roboto-Italic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

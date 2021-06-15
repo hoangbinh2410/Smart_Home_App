@@ -78,7 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Check parameter key
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
-                Vehicle = vehicle;
+                GetVehicleCamera(vehicle);
                 ReLoadAllCamera();
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
@@ -594,6 +594,51 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        private void GetVehicleCamera(CameraLookUpVehicleModel vehicle)
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                ValidateVehicleCamera(vehicle);
+            }
+            else
+            {
+                RunOnBackground(async () =>
+                {
+                    return await _streamCameraService.GetListVehicleHasCamera(UserInfo.XNCode);
+                },
+                (lst) =>
+                {
+                    if (lst != null && lst.Count > 0)
+                    {
+                        StaticSettings.ListVehilceCamera = lst;
+                        ValidateVehicleCamera(vehicle);
+                    }
+                });
+            }
+        }
+
+        private void ValidateVehicleCamera(CameraLookUpVehicleModel vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                if (model != null)
+                {
+                    Vehicle = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = model.VehiclePlate,
+                        Imei = model.Imei,
+                        PrivateCode = model.VehiclePlate
+                    };
+                }
+                else
+                {
+                    Vehicle = vehicle;
+                }
+            }
+        }
+
         /// <summary>
         /// add
         /// </summary>
@@ -691,20 +736,26 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="chanel">kênh</param>
         private void SendRequestTime(int timeSecond, int chanel)
         {
-            RunOnBackground(async () =>
+            if (Vehicle != null && Vehicle.VehicleId > 0)
             {
-                var response = await _streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
+                RunOnBackground(async () =>
                 {
-                    xnCode = currentXnCode,
-                    Duration = timeSecond,
-                    VehiclePlate = Vehicle.VehiclePlate,
-                    Channel = chanel
+                    return await _streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
+                    {
+                        xnCode = currentXnCode,
+                        Duration = timeSecond,
+                        VehiclePlate = Vehicle.VehiclePlate,
+                        Channel = chanel
+                    });
+                },
+                (response) =>
+                {
+                    if (response != null && !response.Data) // false : try request again
+                    {
+                        SendRequestTime(timeSecond, chanel);
+                    }
                 });
-                if (!response.Data) // false : try request again
-                {
-                    SendRequestTime(timeSecond, chanel);
-                }
-            });
+            }
         }
 
         /// <summary>

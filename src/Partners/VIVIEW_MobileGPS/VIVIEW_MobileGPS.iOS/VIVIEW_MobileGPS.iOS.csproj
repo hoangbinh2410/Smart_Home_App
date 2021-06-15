@@ -120,6 +120,7 @@
     <ITunesArtwork Include="iTunesArtwork%402x" />
     <ITunesArtwork Include="iTunesArtwork" />
     <BundleResource Include="Resources\internetconnection.json" />
+    <BundleResource Include="Resources\Roboto-Italic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\Contents.json">

@@ -60,8 +60,9 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 TryExecute(async () =>
                 {
-                    PK_VehicleID = (int)cardetail.VehicleId;
                     VehiclePlate = cardetail.VehiclePlate;
+                    ValidateVehicleCamera(cardetail.VehiclePlate);
+                    PK_VehicleID = (int)cardetail.VehicleId;
                     PrivateCode = cardetail.PrivateCode;
                     if (cardetail.CurrentAddress != null)
                     {
@@ -119,6 +120,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public int PK_VehicleID { get; set; }
 
         public string VehiclePlate { get; set; }
+
+        public string VehiclePlateCamera { get; set; }
 
         public string PrivateCode { get; set; }
 
@@ -356,6 +359,23 @@ namespace BA_MobileGPS.Core.ViewModels
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
+        private void ValidateVehicleCamera(string vehiclePlate)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehiclePlate + "_C");
+                if (model != null)
+                {
+                    VehiclePlateCamera = model.VehiclePlate;
+                }
+                else
+                {
+                    VehiclePlateCamera = vehiclePlate;
+                }
+            }
+        }
+
         /// <summary>
         /// Load tất cả dữ liệu về thông tin chi tiết 1 xe
         /// </summary>
@@ -382,7 +402,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     InforDetail = response;
                     if (response.VehicleNl != null)
                     {
-                        IsFuelVisible = response.VehicleNl.IsUseFuel;
+                        var permisstion = CheckPermision((int)PermissionKeyNames.ShowFuelOnStatusOnline);
+                        IsFuelVisible = response.VehicleNl.IsUseFuel && permisstion;
                         Fuel = string.Format("{0}/{1}L", response.VehicleNl.NumberOfLiters, response.VehicleNl.Capacity);
                         FuelProgress = (response.VehicleNl.NumberOfLiters / response.VehicleNl.Capacity) * 100;
                     }
@@ -526,6 +547,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     parameters.Add(ParameterKey.Vehicle, new CameraLookUpVehicleModel() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
                 }
+                if (obj.Url == "NavigationPage/ImageManagingPage")
+                {
+                    parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
+                }
                 if (obj.Url == "NavigationPage/ChartFuelReportPage")
                 {
                     parameters.Add(ParameterKey.Vehicle, new Vehicle() { VehicleId = PK_VehicleID, VehiclePlate = VehiclePlate, PrivateCode = PrivateCode });
@@ -545,13 +570,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await streamCameraService.GetPackageByXnPlate(new PackageBACameraRequest()
                 {
                     XNCode = UserInfo.XNCode,
-                    LstPlate = new List<string>() { VehiclePlate }
+                    LstPlate = new List<string>() { VehiclePlateCamera }
                 });
             }, (result) =>
             {
                 if (result != null && result.Data != null)
                 {
-                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlateCamera);
                     if (model != null)
                     {
                         if (model.ServerServiceInfoEnt != null)
@@ -575,12 +600,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, VehiclePlate);
+                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, VehiclePlateCamera);
             }, (result) =>
             {
                 if (result != null && result.Data != null)
                 {
-                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlate);
+                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlateCamera);
                     if (model != null)
                     {
                         StreamDevices = model;
@@ -609,7 +634,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.FreeSize), 1);
                                     var useSize = totalSize - freeSize;
                                     StorageProgress = (useSize / totalSize) * 100;
-                                    StorageValue = useSize + "/" + totalSize + " GB";
+                                    StorageValue = Math.Round(useSize, 1) + "/" + totalSize + " GB";
                                 }
                             }
                         }

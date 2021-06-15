@@ -258,7 +258,7 @@
                 ItemsSource="{Binding MenuItems}"
                 ListOrientation="Horizontal"
                 SelectedCommand="{Binding SelectedMenuCommand}"
-                Spacing="10"
+                Spacing="7"
                 VerticalOptions="CenterAndExpand">
                 <controls:HorizontalList.ItemTemplate>
                     <DataTemplate>

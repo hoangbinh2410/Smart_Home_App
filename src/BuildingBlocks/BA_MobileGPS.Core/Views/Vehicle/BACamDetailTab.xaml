@@ -606,7 +606,7 @@
                                         IsVisible="{Binding StorageDevices.TotalSize, Converter={StaticResource ZeroBooleanConverter}}"
                                         Progress="{Binding StorageProgress}"
                                         ProgressColor="#0959A0"
-                                        TrackColor="#c9dbea"
+                                        TrackColor="#E9E8E8"
                                         TrackHeight="10"
                                         VerticalOptions="CenterAndExpand" />
 

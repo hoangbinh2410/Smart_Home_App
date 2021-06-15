@@ -116,7 +116,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await _issueService.GetIssueByCompanyID(CurrentComanyID);
+                return await _issueService.GetIssueByUserID(UserInfo.UserId);
             }, (result) =>
             {
                 foreach (var item in result)

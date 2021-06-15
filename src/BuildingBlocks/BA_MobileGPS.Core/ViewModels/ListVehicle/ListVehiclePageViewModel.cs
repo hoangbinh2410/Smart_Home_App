@@ -609,11 +609,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.CarDetail, param }
                 };
-                if ((selected.HasImage || selected.HasVideo)
-                && (CheckPermision((int)PermissionKeyNames.TrackingVideosView)
-                || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView)))
+                if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
                 {
-                    await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                    var plate = selected.VehiclePlate.Contains("_C") ? selected.VehiclePlate : selected.VehiclePlate + "_C";
+                    var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                    if (model != null)
+                    {
+                        await NavigationService.NavigateAsync("NavigationPage/VehicleDetailCameraPage", parameters, true, true);
+                    }
+                    else
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/VehicleDetailPage", parameters, true, true);
+                    }
                 }
                 else
                 {
@@ -683,14 +690,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (selected.HasImage || selected.IsQcvn31)
                 {
                     var param = _mapper.MapProperties<Vehicle>(selected);
-                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
-                    if (model != null)
-                    {
-                        param.VehiclePlate = model.VehiclePlate;
-                        param.VehicleId = model.VehicleId;
-                        param.Imei = model.Imei;
-                        param.PrivateCode = model.PrivateCode;
-                    }
                     var parameters = new NavigationParameters
                     {
                         { ParameterKey.Vehicle, param }
@@ -740,14 +739,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (photoPermission && storagePermission)
                     {
                         var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
-                        var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
-                        if (model != null)
-                        {
-                            param.VehiclePlate = model.VehiclePlate;
-                            param.VehicleId = model.VehicleId;
-                            param.Imei = model.Imei;
-                            param.PrivateCode = model.PrivateCode;
-                        }
                         var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
@@ -780,14 +771,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (selected.HasVideo)
                 {
                     var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
-                    var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == selected.VehiclePlate + "_C");
-                    if (model != null)
-                    {
-                        param.VehiclePlate = model.VehiclePlate;
-                        param.VehicleId = model.VehicleId;
-                        param.Imei = model.Imei;
-                        param.PrivateCode = model.PrivateCode;
-                    }
                     var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }

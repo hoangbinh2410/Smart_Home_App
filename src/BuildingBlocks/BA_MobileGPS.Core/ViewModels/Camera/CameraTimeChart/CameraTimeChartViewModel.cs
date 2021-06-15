@@ -57,7 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            GetAllChartData();           
+            GetAllChartData();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -86,6 +86,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushToFromDatePageCommand { get; }
 
         private string selectedVehiclePlates;
+
         /// <summary>
         /// Danh sách xe được chọn ở entry tìm kiếm xe
         /// </summary>
@@ -96,6 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<RestreamChartData> chartItemsSource;
+
         /// <summary>
         /// Source danh sách biểu đồ
         /// </summary>
@@ -106,12 +108,14 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime selectedDate;
+
         /// <summary>
         /// Ngày được chọn ở ô chọn ngày
         /// </summary>
         public virtual DateTime SelectedDate { get => selectedDate; set => SetProperty(ref selectedDate, value); }
 
         private DateTime maxTime;
+
         /// <summary>
         /// Thời gian tối đa của dữ liệu trên 1 biểu đồ,
         /// hỗ trợ hiển thị theo interval trục y
@@ -123,6 +127,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private DateTime minTime;
+
         /// <summary>
         /// Thời gian tối thiểu của dữ liệu trên 1 biểu đồ,
         /// hỗ trợ hiển thị theo interval trục y
@@ -136,6 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Binding
 
         #region function
+
         /// <summary>
         /// Load dữ liệu tất cả biểu dồ của xe có trên hệ thống, infinite scroll
         /// </summary>
@@ -151,33 +157,51 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 RunOnBackground(async () =>
                 {
-                    return await cameraService.GetListVehicleCamera(UserInfo.XNCode);
+                    return await cameraService.GetListVehicleHasCamera(UserInfo.XNCode);
                 },
                 (lst) =>
                 {
-                    if (lst?.Data?.Count > 0)
+                    if (lst?.Count > 0)
                     {
-                        StaticSettings.ListVehilceCamera = lst.Data;
-                        var vehicleString = GetVehiclesHaveCamera(lst.Data);
+                        StaticSettings.ListVehilceCamera = lst;
+                        var vehicleString = GetVehiclesHaveCamera(lst);
                         GetChartData(vehicleString);
                     }
                 });
             }
         }
+
         /// <summary>
         /// Kiểm tra xe có cam, dựa vào so sánh với pnc
         /// </summary>
         /// <param name="lstcamera">danh sách xe từ pnc</param>
         /// StaticSettings.ListVehilceOnline : danh sách xe online, init từ trang online (code behind)
         /// <returns></returns>
-        private string GetVehiclesHaveCamera(List<StreamDevices> lstcamera)
+        private string GetVehiclesHaveCamera(List<VehicleCamera> lstcamera)
         {
-            var listVehicles = (from a in lstcamera
-                                join b in StaticSettings.ListVehilceOnline on a.VehiclePlate.ToUpper() equals b.VehiclePlate.ToUpper()
-                                select b.VehiclePlate).ToList();
-
-            return string.Join(",", listVehicles);
+            var lstCamera = new List<string>();
+            var lstvehicle = StaticSettings.ListVehilceOnline;
+            foreach (var item in lstcamera)
+            {
+                var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
+                var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
+                if (model != null)
+                {
+                    lstCamera.Add(item.VehiclePlate);
+                }
+                else
+                {
+                    var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
+                    if (model_c != null)
+                    {
+                        lstCamera.Add(item.VehiclePlate);
+                    }
+                }
+            }
+            var listcam = lstCamera.ToList();
+            return string.Join(",", listcam);
         }
+
         /// <summary>
         /// Lấy dữ liệu biểu đồ theo chuỗi biển số
         /// </summary>
@@ -230,8 +254,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 IsBusy = false;
             });
-
         }
+
         /// <summary>
         /// Lỗi init UI biểu đồ nếu trục X không có giá trị
         /// </summary>
@@ -250,6 +274,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             };
         }
+
         /// <summary>
         /// infinite scroll
         /// </summary>
@@ -276,6 +301,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsBusy = false;
             }
         }
+
         /// <summary>
         /// Command canexcute
         /// </summary>
@@ -306,8 +332,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
+
         /// <summary>
         /// Mở popup chọn ngày
         /// </summary>
@@ -323,6 +349,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
+
         /// <summary>
         /// Dữ liệu ngày chọn trả về
         /// </summary>
@@ -356,6 +383,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
+
         /// <summary>
         /// CHọn xe từ dánh sách, chọn nhiều
         /// </summary>
@@ -368,6 +396,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleCameraMultiSelect", param, useModalNavigation: true, animated: true);
             });
         }
+
         /// <summary>
         /// Chuyển qua trang xem lại
         /// </summary>
@@ -379,42 +408,54 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (obj is ItemTappedEventArgs even)
                 {
                     var item = (RestreamChartData)even.ItemData;
-                    var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
-                    if (vehicle != null)
+                    var vehiclecam = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                    if (vehiclecam != null)
                     {
-                        var chanels = StaticSettings.ListVehilceCamera
-                                                    .FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate)?
-                                                    .CameraChannels?
-                                                    .Select(y => y.Channel)
-                                                    .ToList();
-
                         var vehicleModel = new CameraLookUpVehicleModel()
                         {
-                            VehiclePlate = item.VehiclePlate,
-                            VehicleId = vehicle.VehicleId,
-                            PrivateCode = vehicle.PrivateCode,
-                            CameraChannels = chanels != null ? chanels : new List<int>()
+                            VehiclePlate = vehiclecam.VehiclePlate,
+                            VehicleId = vehiclecam.VehicleId,
+                            PrivateCode = vehiclecam.PrivateCode,
                         };
                         var param = new NavigationParameters()
-                {
-                    {ParameterKey.SelectDate,selectedDate },
-                    {ParameterKey.VehiclePlate,vehicleModel }
-                };
+                        {
+                            {ParameterKey.SelectDate,selectedDate },
+                            {ParameterKey.VehiclePlate,vehicleModel }
+                        };
                         SafeExecute(async () =>
                         {
                             var a = await NavigationService.NavigateAsync("CameraRestream", param);
                         });
                     }
+                    else
+                    {
+                        var vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == item.VehiclePlate);
+                        if (vehicleOnline != null)
+                        {
+                            var vehicleModel = new CameraLookUpVehicleModel()
+                            {
+                                VehiclePlate = item.VehiclePlate,
+                                VehicleId = vehicleOnline.VehicleId,
+                                PrivateCode = item.VehiclePlate,
+                            };
+                            var param = new NavigationParameters()
+                            {
+                                {ParameterKey.SelectDate,selectedDate },
+                                {ParameterKey.VehiclePlate,vehicleModel }
+                            };
+                            SafeExecute(async () =>
+                            {
+                                var a = await NavigationService.NavigateAsync("CameraRestream", param);
+                            });
+                        }
+                    }
                 }
-
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-
         }
-
 
         #endregion function
     }
