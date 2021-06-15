@@ -1,11 +1,13 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms.Extensions;
@@ -18,9 +20,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectVehicleCameraCommand { get; }
 
         public ICommand SearchCommand { get; }
+        private readonly IStreamCameraService _streamCameraService;
 
-        public MyVideoTabViewModel(INavigationService navigationService) : base(navigationService)
+        public MyVideoTabViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
+            _streamCameraService = streamCameraService;
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
@@ -144,104 +148,61 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                //if (ValidateInput())
-                //{
-                //    VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
-                //    pageIndex = 0;
-                //    RunOnBackground(async () =>
-                //    {
-                //        return await streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
-                //        {
-                //            CustomerId = UserInfo.XNCode,
-                //            Date = DateStart.Date,
-                //            VehicleNames = Vehicle.VehiclePlate
-                //        });
-                //    }, (result) =>
-                //    {
-                //        if (result != null && result.Count > 0)
-                //        {
-                //            var lstvideo = new List<VideoUploadInfo>();
-                //            foreach (var item in result)
-                //            {
-                //                foreach (var item1 in item.Data)
-                //                {
-                //                    item1.Channel = item.Channel;
-                //                }
-                //                lstvideo.AddRange(item.Data);
-                //            }
-                //            if (lstvideo != null && lstvideo.Count > 0)
-                //            {
-                //                var video = lstvideo.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
-                //                VideoItemsSource = video.ToObservableCollection();
-                //            }
-                //        }
-                //    }, showLoading: true);
-                //}
-                var video = new List<VideoUploadInfo>();
-                video.Add(new VideoUploadInfo()
+                if (ValidateInput())
                 {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploading
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.UploadError
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.WaitingUpload
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploaded
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploaded
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploaded
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploaded
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploaded
-                });
-                video.Add(new VideoUploadInfo()
-                {
-                    Channel = 1,
-                    FileName = "29H123456_CH1_000000323.mp4",
-                    StartTime = DateTime.Now,
-                    Status = VideoUploadStatus.Uploaded
-                });
-                VideoItemsSource = video.ToObservableCollection();
+                    VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
+                    RunOnBackground(async () =>
+                    {
+                        return await _streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
+                        {
+                            CustomerId = UserInfo.XNCode,
+                            Date = DateStart.Date,
+                            VehicleNames = Vehicle.VehiclePlate
+                        });
+                    }, (result) =>
+                    {
+                        if (result != null && result.Count > 0)
+                        {
+                            var lstvideoupload = new List<VideoUploadInfo>();
+                            foreach (var item in result)
+                            {
+                                foreach (var item1 in item.Data)
+                                {
+                                    item1.Channel = item.Channel;
+                                }
+                                lstvideoupload.AddRange(item.Data);
+                            }
+                            if (lstvideoupload != null && lstvideoupload.Count > 0)
+                            {
+                                var lstvideo = new List<VideoUploadInfo>();
+                                lstvideo.Add(new VideoUploadInfo()
+                                {
+                                    Channel = 1,
+                                    FileName = "29H123456_CH1_000000323.mp4",
+                                    StartTime = DateTime.Now,
+                                    Status = VideoUploadStatus.Uploading
+                                });
+                                lstvideo.Add(new VideoUploadInfo()
+                                {
+                                    Channel = 1,
+                                    FileName = "29H123456_CH1_000000323.mp4",
+                                    StartTime = DateTime.Now,
+                                    Status = VideoUploadStatus.UploadError
+                                });
+                                lstvideo.Add(new VideoUploadInfo()
+                                {
+                                    Channel = 1,
+                                    FileName = "29H123456_CH1_000000323.mp4",
+                                    StartTime = DateTime.Now,
+                                    Status = VideoUploadStatus.WaitingUpload
+                                });
+                                var video = lstvideoupload.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
+                                lstvideo.AddRange(video);
+                                VideoItemsSource = lstvideo.ToObservableCollection();
+                            }
+                        }
+                    }, showLoading: true);
+                }
             }
             catch (Exception ex)
             {

@@ -203,7 +203,7 @@
 	  <EmbeddedResource Update="Views\Camera\CameraTimeChart\CameraTimeChart.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\RestreamTab\BACloudTab.xaml">
+	  <EmbeddedResource Update="Views\Camera\Restream\BACloudTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml">
@@ -236,7 +236,7 @@
 	  <EmbeddedResource Update="Views\Authentication\ChangePasswordForgotPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\RestreamTab\ViewVideoUploadedPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Restream\ViewVideoUploadedPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\UploadVideo\ExportVideoPage.xaml">
@@ -269,7 +269,7 @@
 	  <EmbeddedResource Update="Views\DetailCamera.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\RestreamTab\DeviceTab.xaml">
+	  <EmbeddedResource Update="Views\Camera\Restream\DeviceTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\DownloadVideo.xaml">
@@ -369,7 +369,7 @@
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\RestreamTab\MyVideoTab.xaml">
+	  <EmbeddedResource Update="Views\Camera\Restream\MyVideoTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">

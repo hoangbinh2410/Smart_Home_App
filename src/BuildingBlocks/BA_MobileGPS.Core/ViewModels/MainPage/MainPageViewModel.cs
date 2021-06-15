@@ -1216,7 +1216,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 FK_CompanyID = CurrentComanyID,
                 StartTime = video.StartTime,
                 EndTime = video.EndTime,
-                Description = string.IsNullOrEmpty(video.Note) ? "" : video.Note,
+                Description = "",
                 IsFavorite = false,
                 IsSave = true,
                 Thumbnail = "",
