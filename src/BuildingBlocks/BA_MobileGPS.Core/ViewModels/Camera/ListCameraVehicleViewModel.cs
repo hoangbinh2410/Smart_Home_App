@@ -98,10 +98,34 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                VehiclePlate = vehiclePlate.VehiclePlate;
-                VehicleSelected = vehiclePlate;
+                ValidateVehicleCamera(vehiclePlate);
 
                 GetListCamera(true);
+            }
+        }
+
+        private void ValidateVehicleCamera(Vehicle vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                if (model != null)
+                {
+                    VehiclePlate = model.VehiclePlate;
+                    VehicleSelected = new Vehicle
+                    {
+                        VehicleId = model.VehicleId,
+                        VehiclePlate = model.VehiclePlate,
+                        PrivateCode = model.VehiclePlate,
+                        Imei = model.Imei
+                    };
+                }
+                else
+                {
+                    VehiclePlate = vehicle.VehiclePlate;
+                    VehicleSelected = vehicle;
+                }
             }
         }
 

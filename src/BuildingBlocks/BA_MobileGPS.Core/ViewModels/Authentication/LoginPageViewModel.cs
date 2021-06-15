@@ -378,6 +378,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         await Launcher.OpenAsync(new Uri(item.Url));
                         break;
 
+                    case LoginPopupItemType.Facebook:
+                    case LoginPopupItemType.Zalo:
+                    case LoginPopupItemType.Youtube:
+                    case LoginPopupItemType.Tiktok:
+                        await Launcher.OpenAsync(new Uri(item.Url));
+                        break;
                     default:
                         _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true, true);
                         break;

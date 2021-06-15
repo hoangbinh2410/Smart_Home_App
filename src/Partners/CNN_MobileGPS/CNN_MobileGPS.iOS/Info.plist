@@ -34,6 +34,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Italic.ttf</string>
 		<string>Roboto-Regular.ttf</string>
 		<string>fa-brands-400.ttf</string>
 		<string>fa-regular-400.ttf</string>
@@ -73,9 +74,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>5.3.0</string>
+	<string>5.4.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.3.0</string>
+	<string>5.4.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>

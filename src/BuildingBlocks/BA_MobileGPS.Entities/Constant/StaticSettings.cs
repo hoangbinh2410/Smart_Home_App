@@ -15,7 +15,7 @@ namespace BA_MobileGPS.Entities
 
         public static List<VehicleOnline> ListVehilceOnline { get; set; }
 
-        public static List<StreamDevices> ListVehilceCamera { get; set; }
+        public static List<VehicleCamera> ListVehilceCamera { get; set; }
 
         public static List<VehicleDebtMoneyResponse> ListVehilceDebtMoney { get; set; }
 

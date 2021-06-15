@@ -26,26 +26,26 @@
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.5.0" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.65" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.65" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.1.0.67" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.67" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-		<PackageReference Include="Com.OneSignal" Version="3.10.5" />
+		<PackageReference Include="Com.OneSignal" Version="3.10.6" />
 		<PackageReference Include="Microsoft.AppCenter" Version="4.2.0" />
 		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.2.0" />
 		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.2.0" />
@@ -197,6 +197,9 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\Package\PackageCameraPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\CameraTimeChart.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -231,6 +234,9 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Authentication\ChangePasswordForgotPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\UploadVideo\ExportVideoPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\UploadVideo\UploadVideoPage.xaml">

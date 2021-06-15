@@ -222,6 +222,9 @@
         public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
         public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
+        public const string SET_HOSTSPOT = "api/stream/sethospot";
+        public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
+
 
         #endregion Camera
 
@@ -309,6 +312,8 @@
 
         #region Issue
         public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+
+        public const string GET_ISSUE_BYUSERID = "api/issue/getissuebyuserid";
 
         public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
         #endregion
