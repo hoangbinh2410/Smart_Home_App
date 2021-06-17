@@ -1024,7 +1024,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
             {
-                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
                      //nếu ko còn video nào upload thì ngừng timmer
                      if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
