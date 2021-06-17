@@ -143,7 +143,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 EndTime = item.EndTime,
                                 FileName = item.FileName,
                                 Status = VideoUploadStatus.WaitingUpload,
-                                VehicleName = VideoRestreamInfo.VehicleName
+                                VehicleName = VideoRestreamInfo.VehicleName,
+                                VehicleID = VideoRestreamInfo.VehicleID
                             };
                             StaticSettings.ListVideoUpload.Add(video);
                         }
@@ -158,7 +159,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                     EndTime=item.EndTime,
                                     FileName=item.FileName,
                                     Status=VideoUploadStatus.WaitingUpload,
-                                    VehicleName=VideoRestreamInfo.VehicleName
+                                    VehicleName=VideoRestreamInfo.VehicleName,
+                                    VehicleID = VideoRestreamInfo.VehicleID
                                 }
                             };
                         }
@@ -166,6 +168,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
 
                     await NavigationService.GoBackAsync();
+
+                    EventAggregator.GetEvent<UploadVideoEvent>().Publish(true);
                 }
                 else
                 {

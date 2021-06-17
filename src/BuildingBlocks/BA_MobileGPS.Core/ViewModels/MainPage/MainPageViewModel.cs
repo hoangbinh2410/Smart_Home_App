@@ -335,13 +335,6 @@ namespace BA_MobileGPS.Core.ViewModels
             await identityHubService.Connect();
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
-
-            //if (CheckPermision((int)PermissionKeyNames.AdminAlertView))
-            //{
-            //    // Khởi tạo alertlR
-            //    await alertHubService.Connect();
-            //    alertHubService.onReceiveAlertSignalR += OnReceiveAlertSignalR;
-            //}
             if (MobileSettingHelper.UseUserBehavior)
             {
                 await userBahaviorHubService.Connect();
@@ -352,7 +345,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Fullname = UserInfo.FullName,
                     Username = UserInfo.UserName,
                     XNCode = UserInfo.XNCode,
-                    SystemType = 54,
+                    SystemType = SystemType,
                     MenuKey = Entities.Enums.MenuKeyEnums.ModuleOnline,
                     Time = StaticSettings.TimeServer.Ticks,
                     TimeType = UserBehaviorType.Start,
@@ -484,23 +477,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     EventAggregator.GetEvent<ReceiveSendCarEvent>().Publish(vehicle);
                 }
-            }
-        }
-
-        private void OnReceiveAlertSignalR(object sender, string e)
-        {
-            var alert = JsonConvert.DeserializeObject<AlertSignalRModel>(e);
-
-            if (alert != null)
-            {
-                if (MobileUserSettingHelper.ShowNotification)
-                {
-                    DisplayMessage.ShowMessageInfo(alert.WarningContent);
-                }
-
-                EventAggregator.GetEvent<RecieveAlertEvent>().Publish(alert);
-
-                GlobalResources.Current.TotalAlert++;
             }
         }
 
@@ -1053,60 +1029,72 @@ namespace BA_MobileGPS.Core.ViewModels
                     var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
                 });
 
-                int index = 0;
-                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                  {
-                     var videoUploading = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.Uploading);
-                     if (videoUploading == null)
+                     //nếu ko còn video nào upload thì ngừng timmer
+                     if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
                      {
-                         var videowaiting = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.WaitingUpload);
-                         if (videowaiting != null)
-                         {
-                             RunOnBackground(async () =>
-                             {
-                                 return await streamCameraService.UploadToCloud(new StartRestreamRequest()
-                                 {
-                                     Channel = videowaiting.Channel,
-                                     CustomerID = UserInfo.XNCode,
-                                     StartTime = videowaiting.StartTime,
-                                     EndTime = videowaiting.EndTime,
-                                     VehicleName = videowaiting.VehicleName
-                                 });
-                             }, (result) =>
-                             {
-                                 if (result != null && result.Data)
-                                 {
-                                     //UploadFileStatus(obj, obj.Data[index]);
-                                     index++;
-                                 }
-                             });
-                             return true;
-                         }
-                         else
-                         {
-                             return false;
-                         }
+                         return false;
                      }
                      else
                      {
-                         return true;
+                         var videoUploading = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.Uploading);
+                         if (videoUploading == null)
+                         {
+                             var videowaiting = StaticSettings.ListVideoUpload.Where(x => x.Status == VideoUploadStatus.WaitingUpload).ToList()?[0];
+                             if (videowaiting != null)
+                             {
+                                 videowaiting.Status = VideoUploadStatus.Uploading;
+                                 RunOnBackground(async () =>
+                                  {
+                                      return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                                      {
+                                          Channel = videowaiting.Channel,
+                                          CustomerID = UserInfo.XNCode,
+                                          StartTime = videowaiting.StartTime,
+                                          EndTime = videowaiting.EndTime,
+                                          VehicleName = videowaiting.VehicleName
+                                      });
+                                  }, (result) =>
+                                  {
+                                      if (result != null && result.Data)
+                                      {
+                                          UploadFileStatus(videowaiting);
+                                      }
+                                  });
+                                 return true;
+                             }
+                             else
+                             {
+                                 return false;
+                             }
+                         }
+                         else
+                         {
+                             return true;
+                         }
                      }
                  });
             }
         }
 
-        private void UploadFileStatus(VideoRestreamInfo info, VideoUploadTimeInfo video)
+        private void UploadFileStatus(VideoUpload video)
         {
             RunOnBackground(async () =>
             {
-                return await CheckStatusUploadFile(info, video.FileName);
+                return await CheckStatusUploadFile(video);
             }, (isUploaded) =>
            {
                if (isUploaded)
                {
+                   if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+                   {
+                       StaticSettings.ListVideoUpload.Remove(video);
+                   }
+
                    EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
 
-                   InsertLogVideo(info, video);
+                   InsertLogVideo(video);
 
                    Device.BeginInvokeOnMainThread(() =>
                    {
@@ -1115,13 +1103,18 @@ namespace BA_MobileGPS.Core.ViewModels
                }
                else
                {
+                   if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+                   {
+                       StaticSettings.ListVideoUpload[0].Status = VideoUploadStatus.UploadError;
+                   }
+
                    EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
                    DisplayMessage.ShowMessageInfo("File " + video.FileName + " không tải được lên server");
                }
            });
         }
 
-        private async Task<bool> CheckStatusUploadFile(VideoRestreamInfo obj, string filename)
+        private async Task<bool> CheckStatusUploadFile(VideoUpload video)
         {
             var result = false;
             try
@@ -1141,11 +1134,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, obj.VehicleName, obj.Channel);
+                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, video.VehicleName, video.Channel);
                         if (respone != null)
                         {
                             if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
-                                && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((filename.ToUpper() + ".mp4")) == true)
+                                && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((video.FileName.ToUpper() + ".mp4")) == true)
                             {
                                 result = true;
                                 if (cts != null)
@@ -1177,12 +1170,12 @@ namespace BA_MobileGPS.Core.ViewModels
             return result;
         }
 
-        private void InsertLogVideo(VideoRestreamInfo info, VideoUploadTimeInfo video)
+        private void InsertLogVideo(VideoUpload video)
         {
             var request = new SaveVideoByUserRequest()
             {
-                Channel = info.Channel,
-                FK_VehicleID = info.VehicleID,
+                Channel = video.Channel,
+                FK_VehicleID = video.VehicleID,
                 FK_CompanyID = CurrentComanyID,
                 StartTime = video.StartTime,
                 EndTime = video.EndTime,

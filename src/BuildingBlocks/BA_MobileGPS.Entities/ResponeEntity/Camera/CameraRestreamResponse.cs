@@ -106,6 +106,7 @@ namespace BA_MobileGPS.Entities
 
     public class VideoUpload : BaseModel
     {
+        public long VehicleID { get; set; }
         public string VehicleName { get; set; }
 
         public DateTime StartTime { get; set; }
