@@ -1024,11 +1024,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
             {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
-                });
-
                 Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                  {
                      //nếu ko còn video nào upload thì ngừng timmer

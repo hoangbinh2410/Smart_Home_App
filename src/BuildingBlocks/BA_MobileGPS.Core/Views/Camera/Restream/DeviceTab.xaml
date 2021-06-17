@@ -58,7 +58,7 @@
                     TextColor="White"
                     VerticalOptions="End" />
 
-                <icons:IconView
+                <!--<icons:IconView
                     Grid.Column="1"
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
@@ -70,7 +70,7 @@
                     <icons:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ViewProssesUploadCommand}" />
                     </icons:IconView.GestureRecognizers>
-                </icons:IconView>
+                </icons:IconView>-->
             </Grid>
             <Grid
                 Grid.Row="1"

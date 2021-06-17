@@ -1,6 +1,5 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels.Base;
-using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;
@@ -16,8 +15,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FullScreenTappedCommand { get; }
         public ICommand VideoItemTapCommand { get; set; }
 
-        public ICommand ViewProssesUploadCommand { get; }
-
         public RestreamChildVMBase(INavigationService navigationService,
             IStreamCameraService cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService)
@@ -25,7 +22,6 @@ namespace BA_MobileGPS.Core.ViewModels
             streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
-            ViewProssesUploadCommand = new DelegateCommand(ViewProssesUpload);
             IsFullScreenOff = true;
             IsError = false;
         }
@@ -80,14 +76,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else screenOrientServices.ForcePortrait();
                 IsFullScreenOff = !isFullScreenOff;
-            });
-        }
-
-        private void ViewProssesUpload()
-        {
-            SafeExecute(async() =>
-            {
-                var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
             });
         }
 
