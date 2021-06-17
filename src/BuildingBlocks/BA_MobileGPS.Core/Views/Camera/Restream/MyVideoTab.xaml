@@ -7,7 +7,6 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
@@ -215,7 +214,7 @@
                 <Grid
                     Grid.Row="1"
                     RowDefinitions="Auto,*"
-                    RowSpacing="0">
+                    RowSpacing="10">
 
                     <StackLayout
                         Grid.Row="0"
@@ -226,61 +225,127 @@
                             Text="Danh sách video"
                             VerticalOptions="Center" />
                     </StackLayout>
+                    <ScrollView Grid.Row="1">
+                        <StackLayout>
+                            <StackLayout
+                                x:Name="lstVideoUpload"
+                                Grid.Row="1"
+                                Padding="5,0"
+                                BindableLayout.ItemsSource="{Binding ListVideoUpload}"
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="10"
+                                VerticalOptions="Start">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                <icons:IconView
+                                                    Grid.Column="0"
+                                                    Foreground="#CED6E0"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="Start"
+                                                    Source="ic_videoplaceholder.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30" />
 
-                    <!--  Danh sách video  -->
-                    <icons:HorizontalList
-                        x:Name="listview"
-                        Grid.Row="1"
-                        Padding="5,0"
-                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
-                        SelectedCommand="{Binding VideoItemTapCommand}"
-                        Spacing="5">
-                        <icons:HorizontalList.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Padding="10" ColumnDefinitions="Auto,*,Auto">
-                                    <icons:IconView
-                                        Grid.Column="0"
-                                        Foreground="{Binding Status, Converter={StaticResource UploadIconPlacehoderColorConverter}}"
-                                        HeightRequest="30"
-                                        HorizontalOptions="Start"
-                                        Source="ic_videoplaceholder.png"
-                                        VerticalOptions="Center"
-                                        WidthRequest="30" />
+                                                <StackLayout
+                                                    Grid.Column="1"
+                                                    Padding="10,0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="Center">
+                                                    <Label HorizontalOptions="Start" Text="{Binding FileName, StringFormat='{0}.mp4'}" />
+                                                    <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                                <Span Text=" - " />
+                                                                <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <icons:IconView
+                                                    Grid.Column="2"
+                                                    Foreground="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}"
+                                                    HeightRequest="20"
+                                                    Source="{Binding Status, Converter={StaticResource UploadStatusIconConverter}}"
+                                                    WidthRequest="20" />
 
-                                    <StackLayout
-                                        Grid.Column="1"
-                                        Padding="10,0"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="Center">
-                                        <Label HorizontalOptions="Start" Text="{Binding FileName}" />
-                                        <Label HorizontalOptions="Start" Text="2 MB" />
-                                        <!--<Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                                    <Span Text=" - " />
-                                                    <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>-->
-                                    </StackLayout>
-                                    <icons:IconView
-                                        Grid.Column="2"
-                                        Foreground="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}"
-                                        HeightRequest="20"
-                                        Source="{Binding Status, Converter={StaticResource UploadStatusIconConverter}}"
-                                        WidthRequest="20">
-                                        <icons:IconView.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
-                                        </icons:IconView.GestureRecognizers>
-                                    </icons:IconView>
-                                </Grid>
-                            </DataTemplate>
-                        </icons:HorizontalList.ItemTemplate>
-                    </icons:HorizontalList>
 
-                    <StackLayout
-                        Grid.Row="1"
+                                            </Grid>
+                                            <BoxView
+                                                BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                                HeightRequest="1"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="End" />
+                                        </StackLayout>
+
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <!--  Danh sách video  -->
+                            <StackLayout
+                                x:Name="listview"
+                                Grid.Row="2"
+                                Padding="5,0"
+                                BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
+                                Spacing="10">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                <icons:IconView
+                                                    Grid.Column="0"
+                                                    Foreground="#00ADE5"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="Start"
+                                                    Source="ic_videoplaceholder.png"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30" />
+
+                                                <StackLayout
+                                                    Grid.Column="1"
+                                                    Padding="10,0"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="Center">
+                                                    <Label HorizontalOptions="Start" Text="{Binding FileName}" />
+                                                    <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                                <Span Text=" - " />
+                                                                <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <icons:IconView
+                                                    Grid.Column="2"
+                                                    Foreground="{StaticResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    Source="ic_dowload.png"
+                                                    WidthRequest="20">
+                                                    <icons:IconView.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
+                                                    </icons:IconView.GestureRecognizers>
+                                                </icons:IconView>
+                                            </Grid>
+                                            <BoxView
+                                                BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                                HeightRequest="1"
+                                                HorizontalOptions="FillAndExpand"
+                                                VerticalOptions="End" />
+                                        </StackLayout>
+
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+
+                    <!--<StackLayout
+                        Grid.Row="2"
                         BackgroundColor="Transparent"
                         HorizontalOptions="Center"
                         IsVisible="{Binding VideoItemsSource, Converter={StaticResource IsEmptyDataConverter}}"
@@ -296,7 +361,7 @@
                             Text="Không có dữ liệu video"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalTextAlignment="Center" />
-                    </StackLayout>
+                    </StackLayout>-->
                 </Grid>
             </Grid>
         </Grid>

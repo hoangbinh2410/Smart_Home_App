@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -29,6 +30,8 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
             vehicle = new CameraLookUpVehicleModel();
+            EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
+            EventAggregator.GetEvent<UploadFinishVideoEvent>().Subscribe(UploadFinishVideo);
         }
 
         #region Lifecycle
@@ -36,6 +39,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            GetListVideoUpload();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -55,6 +59,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
+            EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
+            EventAggregator.GetEvent<UploadFinishVideoEvent>().Unsubscribe(UploadFinishVideo);
         }
 
         public override void OnSleep()
@@ -89,6 +95,13 @@ namespace BA_MobileGPS.Core.ViewModels
             get => dateEnd;
             set => SetProperty(ref dateEnd, value);
         }
+
+        private ObservableCollection<VideoUpload> listVideoUpload;
+
+        /// <summary>
+        /// Source ảnh để chọn video
+        /// </summary>
+        public ObservableCollection<VideoUpload> ListVideoUpload { get => listVideoUpload; set => SetProperty(ref listVideoUpload, value); }
 
         private ObservableCollection<VideoUploadInfo> videoItemsSource;
 
@@ -175,27 +188,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (lstvideoupload != null && lstvideoupload.Count > 0)
                             {
                                 var lstvideo = new List<VideoUploadInfo>();
-                                //lstvideo.Add(new VideoUploadInfo()
-                                //{
-                                //    Channel = 1,
-                                //    FileName = "29H123456_CH1_000000323.mp4",
-                                //    StartTime = DateTime.Now,
-                                //    Status = VideoUploadStatus.Uploading
-                                //});
-                                //lstvideo.Add(new VideoUploadInfo()
-                                //{
-                                //    Channel = 1,
-                                //    FileName = "29H123456_CH1_000000323.mp4",
-                                //    StartTime = DateTime.Now,
-                                //    Status = VideoUploadStatus.UploadError
-                                //});
-                                //lstvideo.Add(new VideoUploadInfo()
-                                //{
-                                //    Channel = 1,
-                                //    FileName = "29H123456_CH1_000000323.mp4",
-                                //    StartTime = DateTime.Now,
-                                //    Status = VideoUploadStatus.WaitingUpload
-                                //});
                                 var video = lstvideoupload.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
                                 lstvideo.AddRange(video);
                                 VideoItemsSource = lstvideo.ToObservableCollection();
@@ -207,6 +199,18 @@ namespace BA_MobileGPS.Core.ViewModels
             catch (Exception ex)
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void GetListVideoUpload()
+        {
+            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+            {
+                ListVideoUpload = new ObservableCollection<VideoUpload>(StaticSettings.ListVideoUpload);
+            }
+            else
+            {
+                ListVideoUpload = new ObservableCollection<VideoUpload>();
             }
         }
 
@@ -223,6 +227,29 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                 });
             }
+        }
+
+        private void UploadVideoRestream(bool obj)
+        {
+            GetListVideoUpload();
+            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+            {
+                //nếu ko còn video nào upload thì ngừng timmer
+                if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    GetListVideoUpload();
+                    return true;
+                }
+            });
+        }
+
+        private void UploadFinishVideo(bool obj)
+        {
+            GetListVideoUpload();
         }
 
         #endregion PrivateMethod
