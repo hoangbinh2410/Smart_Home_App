@@ -19,7 +19,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            TotalVideoUploaded = GlobalResources.Current.TotalVideoUpload;
         }
         public override void OnDestroy()
         {

@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -122,40 +123,53 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (GlobalResources.Current.TotalVideoUpload > 0)
+                var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
+                if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                 {
-                    DisplayMessage.ShowMessageInfo("Đang có video được tải. Bạn vui lòng đợi tải xong thì mới được tải tiếp");
+                    foreach (var item in lstvideoSelected)
+                    {
+                        //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s
+                        var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
+                        if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
+                        {
+                            item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
+                        }
+                        if (StaticSettings.ListVideoUpload != null)
+                        {
+                            var video = new VideoUpload()
+                            {
+                                Channel = VideoRestreamInfo.Channel,
+                                StartTime = item.StartTime,
+                                EndTime = item.EndTime,
+                                FileName = item.FileName,
+                                Status = VideoUploadStatus.WaitingUpload,
+                                VehicleName = VideoRestreamInfo.VehicleName
+                            };
+                            StaticSettings.ListVideoUpload.Add(video);
+                        }
+                        else
+                        {
+                            StaticSettings.ListVideoUpload = new List<VideoUpload>()
+                            {
+                                new VideoUpload()
+                                {
+                                    Channel=VideoRestreamInfo.Channel,
+                                    StartTime=item.StartTime,
+                                    EndTime=item.EndTime,
+                                    FileName=item.FileName,
+                                    Status=VideoUploadStatus.WaitingUpload,
+                                    VehicleName=VideoRestreamInfo.VehicleName
+                                }
+                            };
+                        }
+                    }
+                    await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
+
+                    await NavigationService.GoBackAsync();
                 }
                 else
                 {
-                    var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
-                    if (lstvideoSelected != null && lstvideoSelected.Count > 0)
-                    {
-                        foreach (var item in lstvideoSelected)
-                        {
-                            //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s
-                            var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
-                            if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
-                            {
-                                item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
-                            }
-                        }
-                        await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
-
-                        await NavigationService.GoBackAsync();
-
-                        EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
-                        {
-                            Channel = VideoRestreamInfo.Channel,
-                            Data = lstvideoSelected,
-                            VehicleName = VideoRestreamInfo.VehicleName,
-                            VehicleID = RequestInfo.VehicleID
-                        });
-                    }
-                    else
-                    {
-                        DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
-                    }
+                    DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
                 }
             });
         }

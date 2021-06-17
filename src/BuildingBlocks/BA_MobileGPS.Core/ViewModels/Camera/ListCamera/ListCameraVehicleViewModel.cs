@@ -127,6 +127,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleSelected = vehicle;
                 }
             }
+            else
+            {
+                VehiclePlate = vehicle.VehiclePlate;
+                VehicleSelected = vehicle;
+            }
         }
 
         private bool CanLoadMoreItems(object obj)

@@ -87,14 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async() =>
             {
-                if (GlobalResources.Current.TotalVideoUpload > 0)
-                {
-                    var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo("Không có video nào được Upload");
-                }
+                var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
             });
         }
 

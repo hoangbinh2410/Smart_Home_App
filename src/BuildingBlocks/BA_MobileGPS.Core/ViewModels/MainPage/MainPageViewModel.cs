@@ -1044,15 +1044,10 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private bool isSendUpload = false;
-
-        private void UploadVideoRestream(VideoRestreamInfo obj)
+        private void UploadVideoRestream(bool arg)
         {
-            if (obj != null && obj.Data != null)
+            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
             {
-                GlobalResources.Current.TotalVideoUpload = obj.Data.Count;
-                GlobalResources.Current.TotalVideoUploaded = 0;
-
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     var a = await NavigationService.NavigateAsync("UploadVideoProssessPage", null, true, true);
@@ -1061,50 +1056,40 @@ namespace BA_MobileGPS.Core.ViewModels
                 int index = 0;
                 Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
-                     if (!isSendUpload && index <= obj.Data.Count)
+                     var videoUploading = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.Uploading);
+                     if (videoUploading == null)
                      {
-                         RunOnBackground(async () =>
+                         var videowaiting = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.WaitingUpload);
+                         if (videowaiting != null)
                          {
-                             isSendUpload = true;
-                             return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                             RunOnBackground(async () =>
                              {
-                                 Channel = obj.Channel,
-                                 CustomerID = UserInfo.XNCode,
-                                 StartTime = obj.Data[index].StartTime,
-                                 EndTime = obj.Data[index].EndTime,
-                                 VehicleName = obj.VehicleName
+                                 return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                                 {
+                                     Channel = videowaiting.Channel,
+                                     CustomerID = UserInfo.XNCode,
+                                     StartTime = videowaiting.StartTime,
+                                     EndTime = videowaiting.EndTime,
+                                     VehicleName = videowaiting.VehicleName
+                                 });
+                             }, (result) =>
+                             {
+                                 if (result != null && result.Data)
+                                 {
+                                     //UploadFileStatus(obj, obj.Data[index]);
+                                     index++;
+                                 }
                              });
-                         }, (result) =>
-                         {
-                             if (result != null && result.Data)
-                             {
-                                 UploadFileStatus(obj, obj.Data[index]);
-                                 index++;
-                             }
-                             else
-                             {
-                                 isSendUpload = false;
-                             }
-                         });
-                         if (index >= obj.Data.Count)
-                         {
-                             return false;
+                             return true;
                          }
                          else
                          {
-                             return true;
+                             return false;
                          }
                      }
                      else
                      {
-                         if (index >= obj.Data.Count)
-                         {
-                             return false;
-                         }
-                         else
-                         {
-                             return true;
-                         }
+                         return true;
                      }
                  });
             }
@@ -1119,15 +1104,7 @@ namespace BA_MobileGPS.Core.ViewModels
            {
                if (isUploaded)
                {
-                   isSendUpload = false;
-
-                   GlobalResources.Current.TotalVideoUploaded++;
-                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
-                   {
-                       GlobalResources.Current.TotalVideoUploaded = 0;
-                       GlobalResources.Current.TotalVideoUpload = 0;
-                       EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
-                   }
+                   EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
 
                    InsertLogVideo(info, video);
 
@@ -1138,14 +1115,7 @@ namespace BA_MobileGPS.Core.ViewModels
                }
                else
                {
-                   isSendUpload = false;
-                   GlobalResources.Current.TotalVideoUpload--;
-                   if (GlobalResources.Current.TotalVideoUploaded == GlobalResources.Current.TotalVideoUpload)
-                   {
-                       GlobalResources.Current.TotalVideoUploaded = 0;
-                       GlobalResources.Current.TotalVideoUpload = 0;
-                       EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
-                   }
+                   EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
                    DisplayMessage.ShowMessageInfo("File " + video.FileName + " không tải được lên server");
                }
            });

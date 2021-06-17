@@ -4,14 +4,6 @@ using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
-    public class CameraRestreamInfoResponse : BaseResponse<List<CameraRestreamInfo>>
-    {
-    }
-
-    public class VideoNotUploadResponse : ResponseBaseV2<VideoRestreamInfo>
-    {
-    }
-
     public class CameraRestreamInfo
     {
         [JsonProperty("v")]
@@ -68,10 +60,6 @@ namespace BA_MobileGPS.Entities
         public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
     }
 
-    public class CameraRestreamUploadResponse : BaseResponse<List<CameraRestreamUploadInfo>>
-    {
-    }
-
     public class CameraRestreamUploadInfo
     {
         [JsonProperty("v")]
@@ -104,10 +92,6 @@ namespace BA_MobileGPS.Entities
         public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
     }
 
-    public class DeviceTabVideoInfoResponse : BaseResponse<List<RestreamVideoTimeInfo>>
-    {
-    }
-
     public class RestreamVideoTimeInfo : VideoTimeInfo
     {
         [JsonProperty("i")]
@@ -118,6 +102,22 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("d")]
         public byte Duration { get; set; } = 0;
+    }
+
+    public class VideoUpload : BaseModel
+    {
+        public string VehicleName { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public string FileName { get; set; }
+
+        public byte Channel { get; set; }
+
+        private VideoUploadStatus status = VideoUploadStatus.Uploaded;
+        public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
     }
 
     public enum VideoUploadStatus

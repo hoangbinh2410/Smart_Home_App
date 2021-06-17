@@ -176,6 +176,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     CarSearch = vehicle.VehiclePlate;
                 }
             }
+            else
+            {
+                CarSearch = vehicle.VehiclePlate;
+            }
         }
 
         private void LoadMoreItems(object obj)
@@ -400,7 +404,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         mlistVehicle.Add(plate);
                     }
                 }
-               
+
                 if (mlistVehicleFavorites.Count > 0 && mlistVehicleFavorites != null)
                 {
                     mVehicleString.AddRange(mlistVehicleFavorites);

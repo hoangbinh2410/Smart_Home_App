@@ -175,27 +175,27 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (lstvideoupload != null && lstvideoupload.Count > 0)
                             {
                                 var lstvideo = new List<VideoUploadInfo>();
-                                lstvideo.Add(new VideoUploadInfo()
-                                {
-                                    Channel = 1,
-                                    FileName = "29H123456_CH1_000000323.mp4",
-                                    StartTime = DateTime.Now,
-                                    Status = VideoUploadStatus.Uploading
-                                });
-                                lstvideo.Add(new VideoUploadInfo()
-                                {
-                                    Channel = 1,
-                                    FileName = "29H123456_CH1_000000323.mp4",
-                                    StartTime = DateTime.Now,
-                                    Status = VideoUploadStatus.UploadError
-                                });
-                                lstvideo.Add(new VideoUploadInfo()
-                                {
-                                    Channel = 1,
-                                    FileName = "29H123456_CH1_000000323.mp4",
-                                    StartTime = DateTime.Now,
-                                    Status = VideoUploadStatus.WaitingUpload
-                                });
+                                //lstvideo.Add(new VideoUploadInfo()
+                                //{
+                                //    Channel = 1,
+                                //    FileName = "29H123456_CH1_000000323.mp4",
+                                //    StartTime = DateTime.Now,
+                                //    Status = VideoUploadStatus.Uploading
+                                //});
+                                //lstvideo.Add(new VideoUploadInfo()
+                                //{
+                                //    Channel = 1,
+                                //    FileName = "29H123456_CH1_000000323.mp4",
+                                //    StartTime = DateTime.Now,
+                                //    Status = VideoUploadStatus.UploadError
+                                //});
+                                //lstvideo.Add(new VideoUploadInfo()
+                                //{
+                                //    Channel = 1,
+                                //    FileName = "29H123456_CH1_000000323.mp4",
+                                //    StartTime = DateTime.Now,
+                                //    Status = VideoUploadStatus.WaitingUpload
+                                //});
                                 var video = lstvideoupload.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
                                 lstvideo.AddRange(video);
                                 VideoItemsSource = lstvideo.ToObservableCollection();
