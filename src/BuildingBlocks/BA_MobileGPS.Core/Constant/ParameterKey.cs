@@ -55,5 +55,6 @@
         public const string IssuesKey = "IssuesKey";
 
         public const string AlertMask = "AlertMask";
+        public const string VideoUploaded = "VideoUploaded";
     }
 }

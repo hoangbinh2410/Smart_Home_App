@@ -121,6 +121,23 @@ namespace BA_MobileGPS.Entities
         public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
     }
 
+    public class VideoUploadedInfo
+    {
+        public long VehicleID { get; set; }
+
+        public string VehicleName { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public string Link { get; set; }
+
+        public string FileName { get; set; }
+
+        public byte Channel { get; set; }
+    }
+
     public enum VideoUploadStatus
     {
         Uploaded = 0,

@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.GoogleMap.Behaviors;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
@@ -65,21 +66,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey(ParameterKey.VideoUploaded)
+               && parameters.GetValue<VideoUploadedInfo>(ParameterKey.VideoUploaded) is VideoUploadedInfo videoupload)
+            {
+                InitVideoVideo(videoupload);
+                GetHistoryRoute(videoupload);
+            }
         }
 
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC();
-            InitVideoVideo(new VideoUploadInfo()
-            {
-                Channel = 1,
-                FileName = "29H123456_CH1_000000323.mp4",
-                Link = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                StartTime = DateTime.Now,
-                Status = VideoUploadStatus.Uploaded
-            });
         }
 
         public override void OnDestroy()
@@ -106,6 +103,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
         private RouteHistoryResponse RouteHistory;
         public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
 
@@ -131,12 +129,12 @@ namespace BA_MobileGPS.Core.ViewModels
             get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
         }
 
-        private VideoUploadInfo videoSlected;
+        private VideoUploadedInfo videoSlected;
 
         /// <summary>
         /// Ảnh được focus
         /// </summary>
-        public VideoUploadInfo VideoSlected
+        public VideoUploadedInfo VideoSlected
         {
             get => videoSlected;
             set
@@ -181,7 +179,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
-        private void GetHistoryRoute()
+        private void GetHistoryRoute(VideoUploadedInfo obj)
         {
             var currentCompany = Settings.CurrentCompany;
             Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
@@ -191,9 +189,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
                     CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
-                    VehiclePlate = "",
-                    FromDate = DateTime.Now,
-                    ToDate = DateTime.Now,
+                    VehiclePlate = obj.VehicleName,
+                    FromDate = obj.StartTime,
+                    ToDate = obj.EndTime,
                 });
             }, (result) =>
             {
@@ -219,7 +217,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
             });
         }
-
 
         private void InitRoute()
         {
@@ -278,11 +275,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     listRoute.Add(listRoute[0].DeepCopy());
                 }
 
-                if (listRoute !=null && listRoute.Count > 0)
+                if (listRoute != null && listRoute.Count > 0)
                 {
                     DrawRoute(listRoute);
                 }
-                
+
+                MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(listRoute[0].Latitude, listRoute[0].Longitude), 14d)));
             }
             catch (Exception ex)
             {
@@ -558,8 +556,11 @@ namespace BA_MobileGPS.Core.ViewModels
             //}
         }
 
-        private void InitVideoVideo(VideoUploadInfo obj)
+        private void InitVideoVideo(VideoUploadedInfo obj)
         {
+            LibVLCSharp.Shared.Core.Initialize();
+            LibVLC = new LibVLC();
+
             Device.BeginInvokeOnMainThread(() =>
             {
                 IsError = false;
@@ -571,7 +572,7 @@ namespace BA_MobileGPS.Core.ViewModels
             VideoSlected = obj; // Set màu select cho item
         }
 
-        private void VideoSelectedChange(VideoUploadInfo obj)
+        private void VideoSelectedChange(VideoUploadedInfo obj)
         {
             if (obj != null)
             {
@@ -594,10 +595,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     var fileName = current + ".jpg";
                     var filePath = Path.Combine(folderPath, fileName);
                     bool result = MediaPlayer.TakeSnapshot(0, filePath, 0, 0);
-                    //if (File.Exists(filePath) && result)
-                    //{
-                    //    DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
-                    //}
+                    if (File.Exists(filePath) && result)
+                    {
+                        DependencyService.Get<ICameraSnapShotServices>().SaveSnapShotToGalery(filePath);
+                    }
                 }
             }
             catch (Exception ex)

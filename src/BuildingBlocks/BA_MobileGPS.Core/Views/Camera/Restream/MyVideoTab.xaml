@@ -295,6 +295,9 @@
                                     <DataTemplate>
                                         <StackLayout>
                                             <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                <Grid.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
+                                                </Grid.GestureRecognizers>
                                                 <icons:IconView
                                                     Grid.Column="0"
                                                     Foreground="#00ADE5"
