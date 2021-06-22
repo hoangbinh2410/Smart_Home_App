@@ -9,6 +9,7 @@
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     x:Name="root"
     Title="Tải về"
@@ -23,9 +24,10 @@
         <converter:UploadIconPlacehoderColorConverter x:Key="UploadIconPlacehoderColorConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*">
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
             <Grid
                 Grid.Row="0"
+                Margin="0"
                 ColumnDefinitions=".5*,.5*"
                 StyleClass="TitleBarGrid">
                 <StackLayout
@@ -64,309 +66,382 @@
                 </icons:IconView>-->
             </Grid>
 
-            <Grid
+            <tabView:SfTabView
+                x:Name="tabview"
                 Grid.Row="1"
-                RowDefinitions="Auto,*"
-                RowSpacing="0">
-                <!--  Khu vực tìm kiếm  -->
-                <Grid
-                    Padding="5"
-                    RowDefinitions="*,*,Auto"
-                    RowSpacing="5">
+                BackgroundColor="{DynamicResource PrimaryColor}"
+                DisplayMode="Text"
+                VisibleHeaderCount="2">
 
-                    <StackLayout Orientation="Horizontal">
-                        <pancake:PancakeView
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="19"
-                            HeightRequest="38"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="Center">
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow
-                                    BlurRadius="2"
-                                    Offset="0,0"
-                                    Color="Black" />
-                            </pancake:PancakeView.Shadow>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
+                <tabView:SfTabView.SelectionIndicatorSettings>
+                    <tabView:SelectionIndicatorSettings
+                        Position="Fill"
+                        StrokeThickness="10"
+                        Color="#00ABE1" />
+                </tabView:SfTabView.SelectionIndicatorSettings>
+
+                <tabView:SfTabItem
+                    Title="Video đang tải"
+                    SelectionColor="{DynamicResource WhiteColor}"
+                    TitleFontAttributes="Bold"
+                    TitleFontColor="White"
+                    TitleFontSize="14">
+                    <tabView:SfTabItem.Content>
+                        <Grid
+                            Grid.Row="1"
+                            BackgroundColor="White"
+                            RowDefinitions="Auto,*"
+                            RowSpacing="10">
+
                             <StackLayout
-                                Padding="10,0"
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
-                                VerticalOptions="Center">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
-                                </StackLayout.GestureRecognizers>
-                                <Entry
-                                    x:Name="entrySearch"
-                                    FontSize="14"
-                                    HorizontalOptions="FillAndExpand"
-                                    InputTransparent="True"
-                                    PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                    Text="{Binding Vehicle.PrivateCode}"
-                                    TextColor="{DynamicResource TextPrimaryColor}"
-                                    VerticalOptions="Center">
-                                    <Entry.Effects>
-                                        <effects:BorderlessEffect />
-                                    </Entry.Effects>
-                                </Entry>
-                                <icons:IconView
-                                    Foreground="{DynamicResource BlackColor}"
-                                    HeightRequest="15"
-                                    HorizontalOptions="End"
-                                    Source="ic_sortdown"
-                                    VerticalOptions="Center"
-                                    WidthRequest="15" />
+                                Grid.Row="0"
+                                Padding="5,5"
+                                Orientation="Horizontal">
+                                <Label
+                                    StyleClass="BoldText"
+                                    Text="Danh sách video đang tải"
+                                    VerticalOptions="Center" />
                             </StackLayout>
-                        </pancake:PancakeView>
-                    </StackLayout>
+                            <ScrollView Grid.Row="1">
+                                <StackLayout>
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        Padding="5,0"
+                                        BindableLayout.ItemsSource="{Binding ListVideoUpload}"
+                                        HorizontalOptions="FillAndExpand"
+                                        Spacing="10"
+                                        VerticalOptions="Start">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout>
+                                                    <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                        <icons:IconView
+                                                            Grid.Column="0"
+                                                            Foreground="#CED6E0"
+                                                            HeightRequest="30"
+                                                            HorizontalOptions="Start"
+                                                            Source="ic_videoplaceholder.png"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="30" />
 
-                    <Grid
-                        Grid.Row="1"
-                        ColumnDefinitions="*,*,40"
-                        ColumnSpacing="10">
-                        <pancake:PancakeView
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="18"
-                            HeightRequest="35"
-                            VerticalOptions="Center">
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow
-                                    BlurRadius="2"
-                                    Offset="0,0"
-                                    Color="{DynamicResource BlackColor}" />
-                            </pancake:PancakeView.Shadow>
-                            <views:DateTimePickerView
-                                x:Name="dtStart"
-                                BorderColor="Transparent"
-                                DateSelectedCommand="{Binding DateSelectedCommand}"
-                                DateTime="{Binding DateStart}"
-                                FontSize="13"
-                                HorizontalOptions="FillAndExpand"
-                                IconColor="{DynamicResource PrimaryColor}"
-                                PickerMode="Popup"
-                                VerticalOptions="FillAndExpand" />
-                        </pancake:PancakeView>
-                        <pancake:PancakeView
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="18"
-                            HeightRequest="35"
-                            VerticalOptions="Center">
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow
-                                    BlurRadius="2"
-                                    Offset="0,0"
-                                    Color="{DynamicResource BlackColor}" />
-                            </pancake:PancakeView.Shadow>
-                            <views:DateTimePickerView
-                                x:Name="dtEnd"
-                                BorderColor="Transparent"
-                                DateSelectedCommand="{Binding DateSelectedCommand}"
-                                DateTime="{Binding DateEnd}"
-                                FontSize="13"
-                                HorizontalOptions="FillAndExpand"
-                                IconColor="{DynamicResource PrimaryColor}"
-                                PickerMode="Popup"
-                                VerticalOptions="FillAndExpand" />
-                        </pancake:PancakeView>
-                        <pancake:PancakeView
-                            Grid.Column="2"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="18"
-                            HeightRequest="35"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            WidthRequest="35">
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow
-                                    BlurRadius="2"
-                                    Offset="0,0"
-                                    Color="{DynamicResource BlackColor}" />
-                            </pancake:PancakeView.Shadow>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SearchCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
-                            <icons:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource WhiteColor}"
-                                HeightRequest="20"
-                                Source="ic_search.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </pancake:PancakeView>
-                    </Grid>
+                                                        <StackLayout
+                                                            Grid.Column="1"
+                                                            Padding="10,0"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            VerticalOptions="Center">
+                                                            <Label HorizontalOptions="Start" Text="{Binding VehicleName}" />
+                                                            <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding StartTime, Converter={StaticResource TimeConverter}}" />
+                                                                        <Span Text=" - " />
+                                                                        <Span Text="{Binding EndTime, Converter={StaticResource TimeConverter}}" />
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </StackLayout>
+                                                        <icons:IconView
+                                                            Grid.Column="2"
+                                                            Foreground="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}"
+                                                            HeightRequest="20"
+                                                            Source="{Binding Status, Converter={StaticResource UploadStatusIconConverter}}"
+                                                            WidthRequest="20" />
 
-                    <BoxView
-                        Grid.Row="2"
-                        Margin="0,10,0,0"
-                        BackgroundColor="{StaticResource TextPlaceHolderColor}"
-                        HeightRequest="1"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Center" />
-                </Grid>
-                <!--  Khu vực video và danh sách  -->
-                <Grid
-                    Grid.Row="1"
-                    RowDefinitions="Auto,*"
-                    RowSpacing="10">
 
-                    <StackLayout
-                        Grid.Row="0"
-                        Padding="5,5"
-                        Orientation="Horizontal">
-                        <Label
-                            StyleClass="BoldText"
-                            Text="Danh sách video"
-                            VerticalOptions="Center" />
-                    </StackLayout>
-                    <ScrollView Grid.Row="1">
-                        <StackLayout>
+                                                    </Grid>
+                                                    <BoxView
+                                                        BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                                        HeightRequest="1"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="End" />
+                                                </StackLayout>
+
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ScrollView>
+
                             <StackLayout
-                                x:Name="lstVideoUpload"
                                 Grid.Row="1"
-                                Padding="5,0"
-                                BindableLayout.ItemsSource="{Binding ListVideoUpload}"
-                                HorizontalOptions="FillAndExpand"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding ListVideoUpload, Converter={StaticResource IsEmptyDataConverter}}"
                                 Spacing="10"
-                                VerticalOptions="Start">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
-                                                <icons:IconView
-                                                    Grid.Column="0"
-                                                    Foreground="#CED6E0"
-                                                    HeightRequest="30"
-                                                    HorizontalOptions="Start"
-                                                    Source="ic_videoplaceholder.png"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="30" />
-
-                                                <StackLayout
-                                                    Grid.Column="1"
-                                                    Padding="10,0"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    VerticalOptions="Center">
-                                                    <Label HorizontalOptions="Start" Text="{Binding FileName, StringFormat='{0}.mp4'}" />
-                                                    <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
-                                                        <Label.FormattedText>
-                                                            <FormattedString>
-                                                                <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                                                <Span Text=" - " />
-                                                                <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
-                                                            </FormattedString>
-                                                        </Label.FormattedText>
-                                                    </Label>
-                                                </StackLayout>
-                                                <icons:IconView
-                                                    Grid.Column="2"
-                                                    Foreground="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}"
-                                                    HeightRequest="20"
-                                                    Source="{Binding Status, Converter={StaticResource UploadStatusIconConverter}}"
-                                                    WidthRequest="20" />
-
-
-                                            </Grid>
-                                            <BoxView
-                                                BackgroundColor="{StaticResource TextPlaceHolderColor}"
-                                                HeightRequest="1"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="End" />
-                                        </StackLayout>
-
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
+                                VerticalOptions="Center">
+                                <ffsvg:SvgCachedImage
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="200"
+                                    Source="NoPhotos.svg"
+                                    VerticalOptions="Center"
+                                    WidthRequest="200" />
+                                <Label
+                                    Text="Không có dữ liệu video"
+                                    TextColor="{DynamicResource TextPrimaryColor}"
+                                    VerticalTextAlignment="Center" />
                             </StackLayout>
+                        </Grid>
+                    </tabView:SfTabItem.Content>
+                </tabView:SfTabItem>
 
-                            <!--  Danh sách video  -->
-                            <StackLayout
-                                x:Name="listview"
-                                Grid.Row="2"
-                                Padding="5,0"
-                                BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
-                                Spacing="10">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
-                                                <Grid.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
-                                                </Grid.GestureRecognizers>
-                                                <icons:IconView
-                                                    Grid.Column="0"
-                                                    Foreground="#00ADE5"
-                                                    HeightRequest="30"
-                                                    HorizontalOptions="Start"
-                                                    Source="ic_videoplaceholder.png"
-                                                    VerticalOptions="Center"
-                                                    WidthRequest="30" />
+                <tabView:SfTabItem
+                    Title="Video đã tải"
+                    SelectionColor="{DynamicResource WhiteColor}"
+                    TitleFontAttributes="Bold"
+                    TitleFontColor="White"
+                    TitleFontSize="14">
+                    <tabView:SfTabItem.Content>
+                        <Grid
+                            BackgroundColor="White"
+                            RowDefinitions="Auto,*"
+                            RowSpacing="0">
+                            <!--  Khu vực tìm kiếm  -->
+                            <Grid
+                                Padding="5"
+                                RowDefinitions="*,*,Auto"
+                                RowSpacing="5">
 
-                                                <StackLayout
-                                                    Grid.Column="1"
-                                                    Padding="10,0"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    VerticalOptions="Center">
-                                                    <Label HorizontalOptions="Start" Text="{Binding FileName}" />
-                                                    <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
-                                                        <Label.FormattedText>
-                                                            <FormattedString>
-                                                                <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                                                <Span Text=" - " />
-                                                                <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
-                                                            </FormattedString>
-                                                        </Label.FormattedText>
-                                                    </Label>
-                                                </StackLayout>
-                                                <icons:IconView
-                                                    Grid.Column="2"
-                                                    Foreground="{StaticResource PrimaryColor}"
-                                                    HeightRequest="20"
-                                                    Source="ic_dowload.png"
-                                                    WidthRequest="20">
-                                                    <icons:IconView.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
-                                                    </icons:IconView.GestureRecognizers>
-                                                </icons:IconView>
-                                            </Grid>
-                                            <BoxView
-                                                BackgroundColor="{StaticResource TextPlaceHolderColor}"
-                                                HeightRequest="1"
+                                <StackLayout Orientation="Horizontal">
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
+                                        CornerRadius="19"
+                                        HeightRequest="38"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Center">
+                                        <pancake:PancakeView.Shadow>
+                                            <pancake:DropShadow
+                                                BlurRadius="2"
+                                                Offset="0,0"
+                                                Color="Black" />
+                                        </pancake:PancakeView.Shadow>
+                                        <pancake:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
+                                        </pancake:PancakeView.GestureRecognizers>
+                                        <StackLayout
+                                            Padding="10,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="Center">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding SelectVehicleCameraCommand}" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Entry
+                                                x:Name="entrySearch"
+                                                FontSize="14"
                                                 HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="End" />
+                                                InputTransparent="True"
+                                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                                Text="{Binding Vehicle.PrivateCode}"
+                                                TextColor="{DynamicResource TextPrimaryColor}"
+                                                VerticalOptions="Center">
+                                                <Entry.Effects>
+                                                    <effects:BorderlessEffect />
+                                                </Entry.Effects>
+                                            </Entry>
+                                            <icons:IconView
+                                                Foreground="{DynamicResource BlackColor}"
+                                                HeightRequest="15"
+                                                HorizontalOptions="End"
+                                                Source="ic_sortdown"
+                                                VerticalOptions="Center"
+                                                WidthRequest="15" />
                                         </StackLayout>
+                                    </pancake:PancakeView>
+                                </StackLayout>
 
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
-                        </StackLayout>
-                    </ScrollView>
+                                <Grid
+                                    Grid.Row="1"
+                                    ColumnDefinitions="*,*,40"
+                                    ColumnSpacing="10">
+                                    <pancake:PancakeView
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
+                                        CornerRadius="18"
+                                        HeightRequest="35"
+                                        VerticalOptions="Center">
+                                        <pancake:PancakeView.Shadow>
+                                            <pancake:DropShadow
+                                                BlurRadius="2"
+                                                Offset="0,0"
+                                                Color="{DynamicResource BlackColor}" />
+                                        </pancake:PancakeView.Shadow>
+                                        <views:DateTimePickerView
+                                            x:Name="dtStart"
+                                            BorderColor="Transparent"
+                                            DateSelectedCommand="{Binding DateSelectedCommand}"
+                                            DateTime="{Binding DateStart}"
+                                            FontSize="13"
+                                            HorizontalOptions="FillAndExpand"
+                                            IconColor="{DynamicResource PrimaryColor}"
+                                            PickerMode="Popup"
+                                            VerticalOptions="FillAndExpand" />
+                                    </pancake:PancakeView>
+                                    <pancake:PancakeView
+                                        Grid.Column="1"
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
+                                        CornerRadius="18"
+                                        HeightRequest="35"
+                                        VerticalOptions="Center">
+                                        <pancake:PancakeView.Shadow>
+                                            <pancake:DropShadow
+                                                BlurRadius="2"
+                                                Offset="0,0"
+                                                Color="{DynamicResource BlackColor}" />
+                                        </pancake:PancakeView.Shadow>
+                                        <views:DateTimePickerView
+                                            x:Name="dtEnd"
+                                            BorderColor="Transparent"
+                                            DateSelectedCommand="{Binding DateSelectedCommand}"
+                                            DateTime="{Binding DateEnd}"
+                                            FontSize="13"
+                                            HorizontalOptions="FillAndExpand"
+                                            IconColor="{DynamicResource PrimaryColor}"
+                                            PickerMode="Popup"
+                                            VerticalOptions="FillAndExpand" />
+                                    </pancake:PancakeView>
+                                    <pancake:PancakeView
+                                        Grid.Column="2"
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource PrimaryColor}"
+                                        CornerRadius="18"
+                                        HeightRequest="35"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        WidthRequest="35">
+                                        <pancake:PancakeView.Shadow>
+                                            <pancake:DropShadow
+                                                BlurRadius="2"
+                                                Offset="0,0"
+                                                Color="{DynamicResource BlackColor}" />
+                                        </pancake:PancakeView.Shadow>
+                                        <pancake:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SearchCommand}" />
+                                        </pancake:PancakeView.GestureRecognizers>
+                                        <icons:IconView
+                                            Margin="6"
+                                            Foreground="{DynamicResource WhiteColor}"
+                                            HeightRequest="20"
+                                            Source="ic_search.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                    </pancake:PancakeView>
+                                </Grid>
 
-                    <!--<StackLayout
-                        Grid.Row="2"
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="Center"
-                        IsVisible="{Binding VideoItemsSource, Converter={StaticResource IsEmptyDataConverter}}"
-                        Spacing="10"
-                        VerticalOptions="Center">
-                        <ffsvg:SvgCachedImage
-                            BackgroundColor="Transparent"
-                            HeightRequest="200"
-                            Source="NoPhotos.svg"
-                            VerticalOptions="Center"
-                            WidthRequest="200" />
-                        <Label
-                            Text="Không có dữ liệu video"
-                            TextColor="{DynamicResource TextPrimaryColor}"
-                            VerticalTextAlignment="Center" />
-                    </StackLayout>-->
-                </Grid>
-            </Grid>
+                                <BoxView
+                                    Grid.Row="2"
+                                    Margin="0,10,0,0"
+                                    BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                    HeightRequest="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                            <!--  Khu vực video và danh sách  -->
+                            <Grid
+                                Grid.Row="1"
+                                RowDefinitions="Auto,*"
+                                RowSpacing="10">
+
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Padding="5,5"
+                                    Orientation="Horizontal">
+                                    <Label
+                                        StyleClass="BoldText"
+                                        Text="Danh sách video đã tải"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                                <ScrollView Grid.Row="1">
+                                    <StackLayout>
+                                        <!--  Danh sách video  -->
+                                        <StackLayout
+                                            x:Name="listview"
+                                            Grid.Row="2"
+                                            Padding="5,0"
+                                            BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
+                                            Spacing="10">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout>
+                                                        <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                            <Grid.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
+                                                            </Grid.GestureRecognizers>
+                                                            <icons:IconView
+                                                                Grid.Column="0"
+                                                                Foreground="#00ADE5"
+                                                                HeightRequest="30"
+                                                                HorizontalOptions="Start"
+                                                                Source="ic_videoplaceholder.png"
+                                                                VerticalOptions="Center"
+                                                                WidthRequest="30" />
+
+                                                            <StackLayout
+                                                                Grid.Column="1"
+                                                                Padding="10,0"
+                                                                HorizontalOptions="FillAndExpand"
+                                                                VerticalOptions="Center">
+                                                                <Label HorizontalOptions="Start" Text="{Binding FileName}" />
+                                                                <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
+                                                                    <Label.FormattedText>
+                                                                        <FormattedString>
+                                                                            <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
+                                                                            <Span Text=" - " />
+                                                                            <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                                        </FormattedString>
+                                                                    </Label.FormattedText>
+                                                                </Label>
+                                                            </StackLayout>
+                                                            <icons:IconView
+                                                                Grid.Column="2"
+                                                                Foreground="{StaticResource PrimaryColor}"
+                                                                HeightRequest="20"
+                                                                Source="ic_dowload.png"
+                                                                WidthRequest="20">
+                                                                <icons:IconView.GestureRecognizers>
+                                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
+                                                                </icons:IconView.GestureRecognizers>
+                                                            </icons:IconView>
+                                                        </Grid>
+                                                        <BoxView
+                                                            BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                                            HeightRequest="1"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            VerticalOptions="End" />
+                                                    </StackLayout>
+
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ScrollView>
+
+                                <StackLayout
+                                    Grid.Row="1"
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding VideoItemsSource, Converter={StaticResource IsEmptyDataConverter}}"
+                                    Spacing="10"
+                                    VerticalOptions="Center">
+                                    <ffsvg:SvgCachedImage
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="200"
+                                        Source="NoPhotos.svg"
+                                        VerticalOptions="Center"
+                                        WidthRequest="200" />
+                                    <Label
+                                        Text="Không có dữ liệu video"
+                                        TextColor="{DynamicResource TextPrimaryColor}"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                            </Grid>
+                        </Grid>
+                    </tabView:SfTabItem.Content>
+                </tabView:SfTabItem>
+            </tabView:SfTabView>
+
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

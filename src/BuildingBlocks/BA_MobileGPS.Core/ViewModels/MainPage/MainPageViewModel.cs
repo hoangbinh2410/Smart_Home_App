@@ -1024,7 +1024,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
             {
-                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
+                Device.StartTimer(TimeSpan.FromSeconds(10), () =>
                  {
                      //nếu ko còn video nào upload thì ngừng timmer
                      if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
@@ -1039,7 +1039,6 @@ namespace BA_MobileGPS.Core.ViewModels
                              var videowaiting = StaticSettings.ListVideoUpload.Where(x => x.Status == VideoUploadStatus.WaitingUpload).ToList()?[0];
                              if (videowaiting != null)
                              {
-                                 videowaiting.Status = VideoUploadStatus.Uploading;
                                  RunOnBackground(async () =>
                                   {
                                       return await streamCameraService.UploadToCloud(new StartRestreamRequest()
@@ -1054,6 +1053,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                   {
                                       if (result != null && result.Data)
                                       {
+                                          videowaiting.Status = VideoUploadStatus.Uploading;
                                           UploadFileStatus(videowaiting);
                                       }
                                   });
