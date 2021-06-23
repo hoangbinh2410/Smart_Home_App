@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.Views
 
         private void SeekBar_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            vm.SeekBarValueChanged(e.NewValue);
+            
         }
     }
 }

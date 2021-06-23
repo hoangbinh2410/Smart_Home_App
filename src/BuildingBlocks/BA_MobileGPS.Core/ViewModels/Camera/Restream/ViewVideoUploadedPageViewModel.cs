@@ -508,34 +508,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
-        public void SeekBarValueChanged(double value)
-        {
-            if (value <= 0)
-            {
-                if (AutoSwitch && isSelectPreOrNext == false)
-                {
-                    NextVideo();
-                    isSelectPreOrNext = false;
-                }
-                else
-                {
-                    isSelectPreOrNext = false;
-                }
-            }
-            else
-            {
-                isSelectPreOrNext = false;
-            }
-        }
-
-        private bool isSelectPreOrNext = false;
-
         private void NextVideo()
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
             {
-                isSelectPreOrNext = true;
                 var index = VideoItemsSource.FindIndex(VideoSlected);
                 if (index >= VideoItemsSource.Count - 1)
                 {
@@ -547,7 +523,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 InitVideoVideo(VideoSlected);
                 GetHistoryRoute(VideoSlected);
-                isSelectPreOrNext = false;
             }
         }
 
@@ -555,7 +530,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
             {
-                isSelectPreOrNext = true;
                 var index = VideoItemsSource.FindIndex(VideoSlected);
                 if (index == 0)
                 {
@@ -568,7 +542,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 InitVideoVideo(VideoSlected);
                 GetHistoryRoute(VideoSlected);
-                isSelectPreOrNext = false;
             }
         }
 
@@ -585,18 +558,6 @@ namespace BA_MobileGPS.Core.ViewModels
             InitVLC(obj.Link);
 
             VideoSlected = obj; // Set màu select cho item
-        }
-
-        private void VideoSelectedChange(VideoUploadInfo obj)
-        {
-            if (obj != null)
-            {
-                SafeExecute(() =>
-                {
-                    isSelectPreOrNext = true;
-                    InitVideoVideo(obj);
-                });
-            }
         }
 
         private void TakeSnapShot()
