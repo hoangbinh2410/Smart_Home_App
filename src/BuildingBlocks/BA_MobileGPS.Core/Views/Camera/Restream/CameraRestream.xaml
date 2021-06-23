@@ -10,7 +10,7 @@
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle=""
     NavigationPage.HasNavigationBar="False"
-    SelectedTabColor="{DynamicResource MainTabSelectedColor}"
+    SelectedTabColor="#00ADE5"
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
 
     <TabbedPage.Children>

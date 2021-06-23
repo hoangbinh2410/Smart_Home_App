@@ -112,11 +112,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     var ischeckall = result.Data.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
                     if (ischeckall != null && ischeckall.Count > 0)
                     {
-                        IsCheckAll = true;
+                        IsShowBtnUpload = true;
                     }
                     else
                     {
-                        IsCheckAll = false;
                         IsShowBtnUpload = false;
                     }
                 }

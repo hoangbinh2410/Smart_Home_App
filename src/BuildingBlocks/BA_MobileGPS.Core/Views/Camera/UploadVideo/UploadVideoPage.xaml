@@ -42,7 +42,7 @@
                 Grid.Row="1"
                 Padding="10"
                 Spacing="20">
-                <StackLayout HorizontalOptions="FillAndExpand" IsVisible="{Binding IsShowBtnUpload}">
+                <StackLayout HorizontalOptions="FillAndExpand">
                     <checkbox:SfCheckBox
                         x:Name="checkAll"
                         CheckedColor="#2D6CCA"
@@ -51,6 +51,7 @@
                         FontAttributes="Bold"
                         HorizontalOptions="Start"
                         IsChecked="{Binding IsCheckAll}"
+                        IsEnabled="{Binding IsShowBtnUpload}"
                         Text="Tất cả" />
                     <BoxView
                         BackgroundColor="{StaticResource TextPlaceHolderColor}"
