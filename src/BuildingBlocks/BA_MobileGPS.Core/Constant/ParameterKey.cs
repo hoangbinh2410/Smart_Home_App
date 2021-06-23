@@ -56,6 +56,7 @@
 
         public const string AlertMask = "AlertMask";
         public const string VideoUploaded = "VideoUploaded";
+        public const string LstVideoUploaded = "LstVideoUploaded";
         public const string GotoMyVideoPage = "GotoMyVideoPage";
         
     }

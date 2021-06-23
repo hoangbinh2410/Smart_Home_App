@@ -229,15 +229,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var parameters = new NavigationParameters
                     {
-                        { ParameterKey.VideoUploaded, new VideoUploadedInfo(){
-                            Channel=obj.Channel,
-                            FileName=obj.FileName,
-                            Link=obj.Link,
-                            StartTime=obj.StartTime,
-                            VehicleName=Vehicle.VehiclePlate,
-                            VehicleID=Vehicle.VehicleId,
-                            EndTime=obj.StartTime.AddMinutes(2)
-                        } },
+                        {   ParameterKey.VideoUploaded, obj
+                        },
+                        {
+                            ParameterKey.LstVideoUploaded, VideoItemsSource.ToList()
+                        }
                     };
                     _ = await NavigationService.NavigateAsync("BaseNavigationPage/ViewVideoUploadedPage", parameters, useModalNavigation: true, animated: true);
                 });

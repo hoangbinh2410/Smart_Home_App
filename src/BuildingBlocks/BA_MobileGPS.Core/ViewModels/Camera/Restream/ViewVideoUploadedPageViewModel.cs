@@ -9,6 +9,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Plugin.Permissions;
 using Prism.Commands;
@@ -71,8 +72,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.VideoUploaded)
-               && parameters.GetValue<VideoUploadedInfo>(ParameterKey.VideoUploaded) is VideoUploadedInfo videoupload)
+               && parameters.GetValue<VideoUploadInfo>(ParameterKey.VideoUploaded) is VideoUploadInfo videoupload
+               && parameters.GetValue<List<VideoUploadInfo>>(ParameterKey.LstVideoUploaded) is List<VideoUploadInfo> lstVideo)
             {
+                VideoSlected = videoupload;
+                VideoItemsSource = lstVideo;
+                LibVLCSharp.Shared.Core.Initialize();
+                LibVLC = new LibVLC();
                 InitVideoVideo(videoupload);
                 GetHistoryRoute(videoupload);
             }
@@ -108,7 +114,27 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
+        public List<VideoUploadInfo> VideoItemsSource;
+
+        private VideoUploadInfo videoSlected;
+
+        /// <summary>
+        /// Ảnh được focus
+        /// </summary>
+        public VideoUploadInfo VideoSlected
+        {
+            get => videoSlected;
+            set
+            {
+                SetProperty(ref videoSlected, value);
+            }
+        }
+
+        /// <summary>
+        /// Source ảnh để chọn video
+        /// </summary>
         private RouteHistoryResponse RouteHistory;
+
         public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
@@ -131,20 +157,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public MediaPlayer MediaPlayer
         {
             get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
-        }
-
-        private VideoUploadedInfo videoSlected;
-
-        /// <summary>
-        /// Ảnh được focus
-        /// </summary>
-        public VideoUploadedInfo VideoSlected
-        {
-            get => videoSlected;
-            set
-            {
-                SetProperty(ref videoSlected, value);
-            }
         }
 
         private double _progressValue;
@@ -183,7 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
-        private void GetHistoryRoute(VideoUploadedInfo obj)
+        private void GetHistoryRoute(VideoUploadInfo obj)
         {
             var currentCompany = Settings.CurrentCompany;
             Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
@@ -284,7 +296,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     DrawRoute(listRoute);
                 }
 
-                MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(listRoute[0].Latitude, listRoute[0].Longitude), 14d)));
+                MoveCameraRequest.MoveCamera(CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(listRoute[0].Latitude, listRoute[0].Longitude), 18d)));
             }
             catch (Exception ex)
             {
@@ -521,49 +533,48 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void NextVideo()
         {
-            //if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
-            //{
-            //    isSelectPreOrNext = true;
-            //    var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
-            //    if (index >= VideoItemsSource.Count - 1)
-            //    {
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        VideoSlected = VideoItemsSource[index + 1];
-            //    }
-            //    InitVideoVideo(VideoSlected);
-
-            //    isSelectPreOrNext = false;
-            //}
+            if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+            {
+                isSelectPreOrNext = true;
+                var index = VideoItemsSource.FindIndex(VideoSlected);
+                if (index >= VideoItemsSource.Count - 1)
+                {
+                    return;
+                }
+                else
+                {
+                    VideoSlected = VideoItemsSource[index + 1];
+                }
+                InitVideoVideo(VideoSlected);
+                GetHistoryRoute(VideoSlected);
+                isSelectPreOrNext = false;
+            }
         }
 
         private void PreviousVideo()
         {
-            //if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
-            //{
-            //    isSelectPreOrNext = true;
-            //    var index = VideoItemsSource.ToList().FindIndex(VideoSlected);
-            //    if (index == 0)
-            //    {
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        VideoSlected = VideoItemsSource[index - 1];
-            //    }
+            if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+            {
+                isSelectPreOrNext = true;
+                var index = VideoItemsSource.FindIndex(VideoSlected);
+                if (index == 0)
+                {
+                    return;
+                }
+                else
+                {
+                    VideoSlected = VideoItemsSource[index - 1];
+                }
 
-            //    InitVideoVideo(VideoSlected);
-
-            //    isSelectPreOrNext = false;
-            //}
+                InitVideoVideo(VideoSlected);
+                GetHistoryRoute(VideoSlected);
+                isSelectPreOrNext = false;
+            }
         }
 
-        private void InitVideoVideo(VideoUploadedInfo obj)
+        private void InitVideoVideo(VideoUploadInfo obj)
         {
-            LibVLCSharp.Shared.Core.Initialize();
-            LibVLC = new LibVLC();
+            DisposeVLC();
 
             Device.BeginInvokeOnMainThread(() =>
             {
@@ -576,7 +587,7 @@ namespace BA_MobileGPS.Core.ViewModels
             VideoSlected = obj; // Set màu select cho item
         }
 
-        private void VideoSelectedChange(VideoUploadedInfo obj)
+        private void VideoSelectedChange(VideoUploadInfo obj)
         {
             if (obj != null)
             {
@@ -664,7 +675,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
 
         private void PinClicked(PinClickedEventArgs args)
         {
