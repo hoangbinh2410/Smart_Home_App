@@ -71,9 +71,11 @@
                                 ColumnDefinitions="Auto,*,Auto"
                                 ColumnSpacing="20"
                                 HorizontalOptions="FillAndExpand"
+                                RowDefinitions="*,1"
                                 VerticalOptions="Start">
                                 <checkbox:SfCheckBox
                                     x:Name="cboUploadVideo"
+                                    Grid.Row="0"
                                     Grid.Column="0"
                                     CheckedColor="#2D6CCA"
                                     ControlSize="15"
@@ -84,6 +86,7 @@
                                     WidthRequest="30" />
 
                                 <StackLayout
+                                    Grid.Row="0"
                                     Grid.Column="1"
                                     HorizontalOptions="Start"
                                     Orientation="Horizontal"
@@ -116,7 +119,9 @@
                                     </StackLayout>
 
                                 </StackLayout>
+
                                 <controls:IconView
+                                    Grid.Row="0"
                                     Grid.Column="2"
                                     Margin="10,0,10,0"
                                     Foreground="Green"
@@ -125,6 +130,14 @@
                                     Source="ic_upgrade.png"
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
+
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3"
+                                    BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                    HeightRequest="1"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="End" />
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
@@ -146,7 +159,7 @@
                             <Span Text="Đến " />
                             <Span Text="Danh sách tải về" TextColor="#00ADE5">
                                 <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding GotoLinkHelpCommand}" />
+                                    <TapGestureRecognizer Command="{Binding GotoMyVideoPageCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
                             <Span Text=" để xem và tải video về máy tính" />

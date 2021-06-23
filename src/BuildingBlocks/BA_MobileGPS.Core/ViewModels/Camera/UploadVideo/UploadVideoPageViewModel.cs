@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -17,10 +18,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private CancellationTokenSource cts = new CancellationTokenSource();
         public ICommand UploadVideoCommand { get; }
 
+        public ICommand GotoMyVideoPageCommand { get; }
+
         public UploadVideoPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             this.streamCameraService = streamCameraService;
             UploadVideoCommand = new Command(UploadVideo);
+            GotoMyVideoPageCommand = new Command(GotoMyVideoPage);
             isCheckAll = true;
         }
 
@@ -175,6 +179,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
                 }
+            });
+        }
+
+        private void GotoMyVideoPage(object obj)
+        {
+            SafeExecute(async () =>
+            {
+                var navigationPara = new NavigationParameters();
+                navigationPara.Add(ParameterKey.GotoMyVideoPage, true);
+                await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
+
             });
         }
     }
