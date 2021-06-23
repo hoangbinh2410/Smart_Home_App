@@ -15,7 +15,7 @@ namespace BA_MobileGPS.Core.Views
         public ViewVideoUploadedPage()
         {
             InitializeComponent();
-            map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
+            map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), 18d);
             map.IsUseCluster = false;
             map.IsTrafficEnabled = false;
             map.UiSettings.ZoomGesturesEnabled = true;
