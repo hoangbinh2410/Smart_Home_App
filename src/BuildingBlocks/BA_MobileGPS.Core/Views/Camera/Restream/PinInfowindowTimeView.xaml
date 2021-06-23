@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     AnchorX="0.5"
     AnchorY="0.5"
+    BackgroundColor="Transparent"
     HeightRequest="35"
     HorizontalOptions="FillAndExpand"
     VerticalOptions="FillAndExpand"
