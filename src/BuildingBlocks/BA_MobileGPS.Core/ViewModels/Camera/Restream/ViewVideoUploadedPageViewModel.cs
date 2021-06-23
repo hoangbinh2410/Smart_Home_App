@@ -323,7 +323,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Position = new Position(listRoute[0].Latitude, listRoute[0].Longitude),
                 Icon = BitmapDescriptorFactory.FromView(new PinInfowindowTimeView(listRoute[0].Time.FormatTime())),
                 ZIndex = 0,
-                Tag = "pin_start_route",
+                Tag = listRoute[0].Time.FormatTime(),
                 IsDraggable = false
             });
 
@@ -334,7 +334,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Position = new Position(listRoute[listRoute.Count - 1].Latitude, listRoute[listRoute.Count - 1].Longitude),
                 Icon = BitmapDescriptorFactory.FromView(new PinInfowindowTimeView(listRoute.Last().Time.FormatTime())),
                 ZIndex = 0,
-                Tag = "pin_end_route",
+                Tag = listRoute.Last().Time.FormatTime(),
                 IsDraggable = false
             });
         }
