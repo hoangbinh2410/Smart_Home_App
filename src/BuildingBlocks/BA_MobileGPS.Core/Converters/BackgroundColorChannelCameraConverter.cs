@@ -129,13 +129,13 @@ namespace BA_MobileGPS.Core
         }
     }
 
-    public class UploadIconPlacehoderColorConverter : IValueConverter
+    public class UploadTextStatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
             {
-                return Color.FromHex("#00ADE5");
+                return "Đã tải";
             }
             else
             {
@@ -143,19 +143,19 @@ namespace BA_MobileGPS.Core
                 switch (status)
                 {
                     case VideoUploadStatus.Uploaded:
-                        return Color.FromHex("#00ADE5");
+                        return "Đã tải";
 
                     case VideoUploadStatus.Uploading:
-                        return Color.FromHex("#CED6E0");
+                        return "Đang tải";
 
                     case VideoUploadStatus.WaitingUpload:
-                        return Color.FromHex("#CED6E0");
+                        return "Chờ tải";
 
                     case VideoUploadStatus.UploadError:
-                        return Color.FromHex("#CED6E0");
+                        return "Có lỗi khi tải";
 
                     default:
-                        return Color.FromHex("#00ADE5");
+                        return "Đã tải";
                 }
             }
         }

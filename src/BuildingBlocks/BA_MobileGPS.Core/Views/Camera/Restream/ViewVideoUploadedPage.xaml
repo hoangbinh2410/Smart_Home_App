@@ -168,7 +168,7 @@
                 <!--  Chi tiết video được chọn  -->
                 <StackLayout
                     Grid.Row="1"
-                    Padding="10,0,10,5"
+                    Padding="10"
                     BackgroundColor="#3D3D3D"
                     HorizontalOptions="FillAndExpand"
                     IsVisible="{Binding IsFullScreenOff}"
@@ -177,13 +177,23 @@
                         <StackLayout HorizontalOptions="StartAndExpand" Spacing="0">
                             <Label
                                 HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
                                 StyleClass="BoldText"
-                                Text="{Binding VideoSlected.FileName}"
-                                TextColor="{DynamicResource WhiteColor}" />
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="{Binding VideoSlected.StartTime, Converter={StaticResource DateTimeViewConverter}}"
-                                TextColor="{DynamicResource WhiteColor}" />
+                                TextColor="{DynamicResource WhiteColor}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding VideoSlected.VehicleName}" />
+                                        <Span Text=" · " />
+                                        <Span Text="{Binding VideoSlected.Channel, StringFormat='Kênh {0}'}" />
+                                        <Span Text=" · " />
+                                        <Span Text="{Binding VideoSlected.StartTime, Converter={StaticResource TimeConverter}}" />
+                                        <Span Text=" - " />
+                                        <Span Text="{Binding VideoSlected.EndTime, Converter={StaticResource TimeConverter}}" />
+
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
                         </StackLayout>
                         <StackLayout
                             HorizontalOptions="EndAndExpand"

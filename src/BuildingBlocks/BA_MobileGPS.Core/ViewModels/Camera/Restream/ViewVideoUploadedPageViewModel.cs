@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -40,6 +41,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand NextVideoCommand { get; }
 
+        public ICommand PinClickedCommand { get; }
+
         private readonly IDownloadVideoService _downloadService;
         private readonly IVehicleRouteService _vehicleRouteService;
 
@@ -54,6 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
             DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInListTapped);
             PreviousVideoCommand = new DelegateCommand(PreviousVideo);
             NextVideoCommand = new DelegateCommand(NextVideo);
+            PinClickedCommand = new Command<PinClickedEventArgs>(PinClicked);
         }
 
         #region Lifecycle
@@ -317,7 +321,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = PinType.Place,
                 Label = "Bắt đầu",
                 Position = new Position(listRoute[0].Latitude, listRoute[0].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("ic_start.png"),
+                Icon = BitmapDescriptorFactory.FromView(new PinInfowindowTimeView(listRoute[0].Time.FormatTime())),
                 ZIndex = 0,
                 Tag = "pin_start_route",
                 IsDraggable = false
@@ -328,7 +332,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = PinType.Place,
                 Label = "Kết thúc",
                 Position = new Position(listRoute[listRoute.Count - 1].Latitude, listRoute[listRoute.Count - 1].Longitude),
-                Icon = BitmapDescriptorFactory.FromResource("ic_end.png"),
+                Icon = BitmapDescriptorFactory.FromView(new PinInfowindowTimeView(listRoute.Last().Time.FormatTime())),
                 ZIndex = 0,
                 Tag = "pin_end_route",
                 IsDraggable = false
@@ -659,6 +663,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             });
+        }
+
+
+        private void PinClicked(PinClickedEventArgs args)
+        {
+            if (!"state_stop_route".Equals(args.Pin.Tag) && !"direction_route".Equals(args.Pin.Tag))
+            {
+                args.Handled = true;
+                return;
+            }
+            args.Handled = false;
         }
 
         #endregion PrivateMethod

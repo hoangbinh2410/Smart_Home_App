@@ -182,6 +182,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 foreach (var item1 in item.Data)
                                 {
                                     item1.Channel = item.Channel;
+                                    item1.VehicleName = item.VehicleName;
+                                    item1.EndTime = item1.StartTime.AddSeconds(item1.Duration);
                                 }
                                 lstvideoupload.AddRange(item.Data);
                             }
@@ -235,7 +237,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             VehicleName=Vehicle.VehiclePlate,
                             VehicleID=Vehicle.VehicleId,
                             EndTime=obj.StartTime.AddMinutes(2)
-
                         } },
                     };
                     _ = await NavigationService.NavigateAsync("BaseNavigationPage/ViewVideoUploadedPage", parameters, useModalNavigation: true, animated: true);

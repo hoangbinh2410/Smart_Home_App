@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Grid
+    x:Class="BA_MobileGPS.Core.Views.PinInfowindowTimeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    AnchorX="0.5"
+    AnchorY="0.5"
+    HeightRequest="35"
+    HorizontalOptions="FillAndExpand"
+    VerticalOptions="FillAndExpand"
+    WidthRequest="60">
+
+    <Image
+        Aspect="AspectFit"
+        HeightRequest="30"
+        HorizontalOptions="StartAndExpand"
+        Source="ic_route_time.png"
+        VerticalOptions="StartAndExpand"
+        WidthRequest="60" />
+
+    <Label
+        x:Name="txt"
+        Margin="15,5,5,5"
+        BackgroundColor="Transparent"
+        FontAttributes="Bold"
+        FontFamily="{StaticResource myFontLatoBold}"
+        FontSize="13"
+        HorizontalOptions="Start"
+        TextColor="White"
+        VerticalOptions="Start" />
+
+</Grid>

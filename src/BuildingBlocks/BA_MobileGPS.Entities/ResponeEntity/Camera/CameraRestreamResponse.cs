@@ -80,11 +80,20 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("f")]
         public string FileName { get; set; }
 
+        [JsonProperty("t")]
+        public int Duration { get; set; }
+
         [JsonProperty("l")]
         public string Link { get; set; }
 
         [JsonIgnore]
         public byte Channel { get; set; }
+
+        [JsonIgnore]
+        public string VehicleName { get; set; }
+
+        [JsonIgnore]
+        public DateTime EndTime { get; set; }
 
         private VideoUploadStatus status = VideoUploadStatus.Uploaded;
 

@@ -2536,5 +2536,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_videoplaceholder%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_route_time.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
