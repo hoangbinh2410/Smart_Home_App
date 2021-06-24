@@ -1036,28 +1036,36 @@ namespace BA_MobileGPS.Core.ViewModels
                          var videoUploading = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.Uploading);
                          if (videoUploading == null)
                          {
-                             var videowaiting = StaticSettings.ListVideoUpload.Where(x => x.Status == VideoUploadStatus.WaitingUpload).ToList()?[0];
-                             if (videowaiting != null)
+                             var lstvideowating = StaticSettings.ListVideoUpload.Where(x => x.Status == VideoUploadStatus.WaitingUpload).ToList();
+                             if (lstvideowating != null && lstvideowating.Count > 0)
                              {
-                                 RunOnBackground(async () =>
-                                  {
-                                      return await streamCameraService.UploadToCloud(new StartRestreamRequest()
-                                      {
-                                          Channel = videowaiting.Channel,
-                                          CustomerID = UserInfo.XNCode,
-                                          StartTime = videowaiting.StartTime,
-                                          EndTime = videowaiting.EndTime,
-                                          VehicleName = videowaiting.VehicleName
-                                      });
-                                  }, (result) =>
-                                  {
-                                      if (result != null && result.Data)
-                                      {
-                                          videowaiting.Status = VideoUploadStatus.Uploading;
-                                          UploadFileStatus(videowaiting);
-                                      }
-                                  });
-                                 return true;
+                                 var videowaiting = lstvideowating[0];
+                                 if (videowaiting != null)
+                                 {
+                                     RunOnBackground(async () =>
+                                     {
+                                         return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                                         {
+                                             Channel = videowaiting.Channel,
+                                             CustomerID = UserInfo.XNCode,
+                                             StartTime = videowaiting.StartTime,
+                                             EndTime = videowaiting.EndTime,
+                                             VehicleName = videowaiting.VehicleName
+                                         });
+                                     }, (result) =>
+                                     {
+                                         if (result != null && result.Data)
+                                         {
+                                             videowaiting.Status = VideoUploadStatus.Uploading;
+                                             UploadFileStatus(videowaiting);
+                                         }
+                                     });
+                                     return true;
+                                 }
+                                 else
+                                 {
+                                     return false;
+                                 }
                              }
                              else
                              {
