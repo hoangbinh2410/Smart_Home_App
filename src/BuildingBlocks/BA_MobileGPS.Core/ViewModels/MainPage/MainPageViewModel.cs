@@ -1141,7 +1141,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (respone != null)
                         {
                             if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
-                                && respone.TotalCount > 0 && respone.UploadedFiles != null && respone.UploadedFiles.Contains((respone.CurrentFile.ToUpper())) == true)
+                                && respone.TotalCount > 0 || (respone.UploadedFiles != null && respone.UploadedFiles.Contains((respone.CurrentFile.ToUpper())) == true))
                             {
                                 result = true;
                                 if (cts != null)
