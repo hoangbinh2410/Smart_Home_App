@@ -1119,7 +1119,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 while (!result && !cts.IsCancellationRequested)
                 {
                     indexwhile++;
-                    if (indexwhile == 10)
+                    if (indexwhile == 15)
                     {
                         if (cts != null)
                         {
