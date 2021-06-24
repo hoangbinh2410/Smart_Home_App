@@ -1101,7 +1101,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                    Device.BeginInvokeOnMainThread(() =>
                    {
-                       DisplayMessage.ShowMessageInfo("File " + video.FileName + " đã được tải thành công");
+                       DisplayMessage.ShowMessageInfo("Tải video " + video.FileName + " về server thành công");
                    });
                }
                else

@@ -193,7 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                         }
                     }
-                    await PageDialog.DisplayAlertAsync("Thông báo", string.Format("{0} video đang được tải về server", lstvideoSelected.Count), "Đóng");
+                    await PageDialog.DisplayAlertAsync("Thông báo", string.Format("{0} video đang được tải về server. Quý khách vui lòng xem video đã tải trong tab tải về", lstvideoSelected.Count), "Đóng");
 
                     await NavigationService.GoBackAsync();
 
