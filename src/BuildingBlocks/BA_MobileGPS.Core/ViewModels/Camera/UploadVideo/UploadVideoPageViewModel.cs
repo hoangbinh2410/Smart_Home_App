@@ -133,7 +133,9 @@ namespace BA_MobileGPS.Core.ViewModels
                                 item.Status = VideoUploadStatus.NotUpload;
                             }
                         }
-                        if (item.IsSelected == true && item.IsUploaded == false && item.Status == VideoUploadStatus.NotUpload)
+                        if (item.IsSelected == true
+                        && item.IsUploaded == false
+                        && (item.Status == VideoUploadStatus.NotUpload || item.Status == VideoUploadStatus.UploadError))
                         {
                             IsShowBtnUpload = true;
                         }
@@ -164,16 +166,24 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         if (StaticSettings.ListVideoUpload != null)
                         {
-                            var video = new VideoUpload()
+                            var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.StartTime == item.StartTime);
+                            if (model != null)
                             {
-                                Channel = VideoRestreamInfo.Channel,
-                                StartTime = item.StartTime,
-                                EndTime = item.EndTime,
-                                Status = VideoUploadStatus.WaitingUpload,
-                                VehicleName = VideoRestreamInfo.VehicleName,
-                                VehicleID = VideoRestreamInfo.VehicleID
-                            };
-                            StaticSettings.ListVideoUpload.Add(video);
+                                model.Status = VideoUploadStatus.WaitingUpload;
+                            }
+                            else
+                            {
+                                var video = new VideoUpload()
+                                {
+                                    Channel = VideoRestreamInfo.Channel,
+                                    StartTime = item.StartTime,
+                                    EndTime = item.EndTime,
+                                    Status = VideoUploadStatus.WaitingUpload,
+                                    VehicleName = VideoRestreamInfo.VehicleName,
+                                    VehicleID = VideoRestreamInfo.VehicleID
+                                };
+                                StaticSettings.ListVideoUpload.Add(video);
+                            }
                         }
                         else
                         {

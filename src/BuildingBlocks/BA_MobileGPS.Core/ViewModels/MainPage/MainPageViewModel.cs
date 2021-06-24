@@ -1108,7 +1108,13 @@ namespace BA_MobileGPS.Core.ViewModels
                {
                    if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
                    {
-                       StaticSettings.ListVideoUpload[0].Status = VideoUploadStatus.UploadError;
+                       foreach (var item in StaticSettings.ListVideoUpload)
+                       {
+                           if (item.StartTime == video.StartTime)
+                           {
+                               item.Status = VideoUploadStatus.UploadError;
+                           }
+                       }
                    }
 
                    EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
