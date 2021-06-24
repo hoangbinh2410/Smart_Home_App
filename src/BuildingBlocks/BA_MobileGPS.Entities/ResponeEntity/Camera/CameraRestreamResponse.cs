@@ -48,9 +48,6 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("e")]
         public DateTime EndTime { get; set; }
 
-        [JsonProperty("f")]
-        public string FileName { get; set; }
-
         [JsonProperty("u")]
         public bool IsUploaded { get; set; }
 
@@ -126,8 +123,6 @@ namespace BA_MobileGPS.Entities
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
-
-        public string FileName { get; set; }
 
         public byte Channel { get; set; }
 

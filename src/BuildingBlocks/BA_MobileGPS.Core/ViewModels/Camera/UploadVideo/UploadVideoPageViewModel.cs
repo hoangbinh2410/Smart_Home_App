@@ -118,7 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
                             {
-                                var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.FileName.Equals(item.FileName));
+                                var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.StartTime.Equals(item.StartTime));
                                 if (model != null)
                                 {
                                     item.Status = model.Status;
@@ -169,7 +169,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 Channel = VideoRestreamInfo.Channel,
                                 StartTime = item.StartTime,
                                 EndTime = item.EndTime,
-                                FileName = item.FileName,
                                 Status = VideoUploadStatus.WaitingUpload,
                                 VehicleName = VideoRestreamInfo.VehicleName,
                                 VehicleID = VideoRestreamInfo.VehicleID
@@ -185,7 +184,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                     Channel=VideoRestreamInfo.Channel,
                                     StartTime=item.StartTime,
                                     EndTime=item.EndTime,
-                                    FileName=item.FileName,
                                     Status=VideoUploadStatus.WaitingUpload,
                                     VehicleName=VideoRestreamInfo.VehicleName,
                                     VehicleID = VideoRestreamInfo.VehicleID

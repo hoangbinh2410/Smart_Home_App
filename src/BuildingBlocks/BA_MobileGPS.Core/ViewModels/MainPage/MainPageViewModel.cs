@@ -1101,7 +1101,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                    Device.BeginInvokeOnMainThread(() =>
                    {
-                       DisplayMessage.ShowMessageInfo("Tải video " + video.FileName + " về server thành công");
+                       DisplayMessage.ShowMessageInfo("Tải video về server thành công");
                    });
                }
                else
@@ -1112,7 +1112,7 @@ namespace BA_MobileGPS.Core.ViewModels
                    }
 
                    EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
-                   DisplayMessage.ShowMessageError("File " + video.FileName + " không tải được lên server");
+                   DisplayMessage.ShowMessageError("File không tải được lên server");
                }
            });
         }
@@ -1186,7 +1186,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsFavorite = false,
                 IsSave = true,
                 Thumbnail = "",
-                VideoName = video.FileName,
+                VideoName = "",
                 CreatedUser = UserInfo.UserId,
             };
 
