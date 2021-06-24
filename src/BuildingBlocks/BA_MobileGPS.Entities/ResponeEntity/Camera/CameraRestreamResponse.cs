@@ -58,6 +58,11 @@ namespace BA_MobileGPS.Entities
 
         [JsonIgnore]
         public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
+
+        private VideoUploadStatus status = VideoUploadStatus.NotUpload;
+
+        [JsonIgnore]
+        public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
     }
 
     public class CameraRestreamUploadInfo
@@ -149,9 +154,10 @@ namespace BA_MobileGPS.Entities
 
     public enum VideoUploadStatus
     {
-        Uploaded = 0,
-        Uploading = 1,
-        WaitingUpload = 2,
-        UploadError = 3
+        NotUpload = 0,
+        Uploaded = 1,
+        Uploading = 2,
+        WaitingUpload = 3,
+        UploadError = 4
     }
 }

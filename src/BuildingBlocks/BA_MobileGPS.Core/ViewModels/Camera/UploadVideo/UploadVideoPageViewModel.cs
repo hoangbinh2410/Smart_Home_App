@@ -108,16 +108,41 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && result.Data != null && result.Data.Count > 0)
                 {
                     VideoRestreamInfo = result;
+                    foreach (var item in result.Data)
+                    {
+                        if (item.IsUploaded)
+                        {
+                            item.Status = VideoUploadStatus.Uploaded;
+                        }
+                        else
+                        {
+                            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+                            {
+                                var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.FileName.Equals(item.FileName));
+                                if (model != null)
+                                {
+                                    item.Status = model.Status;
+                                }
+                                else
+                                {
+                                    item.Status = VideoUploadStatus.NotUpload;
+                                }
+                            }
+                            else
+                            {
+                                item.Status = VideoUploadStatus.NotUpload;
+                            }
+                        }
+                        if (item.IsSelected == true && item.IsUploaded == false && item.Status == VideoUploadStatus.NotUpload)
+                        {
+                            IsShowBtnUpload = true;
+                        }
+                        else
+                        {
+                            IsShowBtnUpload = false;
+                        }
+                    }
                     ListVideo = result.Data.OrderBy(x => x.StartTime).ToObservableCollection();
-                    var ischeckall = result.Data.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
-                    if (ischeckall != null && ischeckall.Count > 0)
-                    {
-                        IsShowBtnUpload = true;
-                    }
-                    else
-                    {
-                        IsShowBtnUpload = false;
-                    }
                 }
             }, showLoading: true);
         }
@@ -168,7 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                         }
                     }
-                    await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
+                    await PageDialog.DisplayAlertAsync("Thông báo", string.Format("{0} video đang được tải về server", lstvideoSelected.Count), "Đóng");
 
                     await NavigationService.GoBackAsync();
 
@@ -188,7 +213,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 var navigationPara = new NavigationParameters();
                 navigationPara.Add(ParameterKey.GotoMyVideoPage, true);
                 await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
-
             });
         }
     }

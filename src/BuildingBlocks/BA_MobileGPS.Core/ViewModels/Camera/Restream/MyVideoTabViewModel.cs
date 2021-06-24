@@ -1,7 +1,9 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
+using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -19,16 +22,20 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         public ICommand VideoItemTapCommand { get; set; }
         public ICommand SelectVehicleCameraCommand { get; }
+        public ICommand DowloadVideoInListTappedCommand { get; }
 
         public ICommand SearchCommand { get; }
         private readonly IStreamCameraService _streamCameraService;
+        private readonly IDownloadVideoService _downloadService;
 
-        public MyVideoTabViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
+        public MyVideoTabViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IDownloadVideoService downloadService) : base(navigationService)
         {
             _streamCameraService = streamCameraService;
+            _downloadService = downloadService;
             VideoItemTapCommand = new DelegateCommand<VideoUploadInfo>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
+            DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInList);
             vehicle = new CameraLookUpVehicleModel();
             EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UploadFinishVideoEvent>().Subscribe(UploadFinishVideo);
@@ -208,7 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
             {
-                ListVideoUpload = new ObservableCollection<VideoUpload>(StaticSettings.ListVideoUpload);
+                ListVideoUpload = new ObservableCollection<VideoUpload>(StaticSettings.ListVideoUpload.OrderBy(x => x.Status).ThenBy(x => x.StartTime));
             }
             else
             {
@@ -263,6 +270,34 @@ namespace BA_MobileGPS.Core.ViewModels
             GetListVideoUpload();
         }
 
+
+        private void DowloadVideoInList(VideoUploadInfo obj)
+        {
+            SafeExecute(async () =>
+            {
+                if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    if (action)
+                    {
+                        var progressIndicator = new Progress<double>(ReportProgress);
+                        var cts = new CancellationTokenSource();
+                        var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.StoragePermission>();
+                        if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
+                        {
+                            await _downloadService.DownloadFileAsync(VideoSlected.Link, progressIndicator, cts.Token);
+                        }
+                    }
+                }
+            });
+        }
+        internal void ReportProgress(double value)
+        {
+            if (value == 100)
+            {
+                DisplayMessage.ShowMessageInfo("Đã tải video thành công");
+            }
+        }
         #endregion PrivateMethod
     }
 }

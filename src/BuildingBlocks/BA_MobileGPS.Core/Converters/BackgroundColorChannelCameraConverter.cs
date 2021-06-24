@@ -54,6 +54,84 @@ namespace BA_MobileGPS.Core
             return null;
         }
     }
+    public class UploadStatusIsEnableConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return true;
+            }
+            else
+            {
+                var status = (VideoUploadStatus)value;
+                switch (status)
+                {
+                    case VideoUploadStatus.NotUpload:
+                        return true;
+
+                    case VideoUploadStatus.Uploaded:
+                        return false;
+
+                    case VideoUploadStatus.Uploading:
+                        return false;
+
+                    case VideoUploadStatus.WaitingUpload:
+                        return false;
+
+                    case VideoUploadStatus.UploadError:
+                        return true;
+
+                    default:
+                        return true;
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+    public class UploadStatusIsVisibleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+            else
+            {
+                var status = (VideoUploadStatus)value;
+                switch (status)
+                {
+                    case VideoUploadStatus.NotUpload:
+                        return false;
+
+                    case VideoUploadStatus.Uploaded:
+                        return true;
+
+                    case VideoUploadStatus.Uploading:
+                        return true;
+
+                    case VideoUploadStatus.WaitingUpload:
+                        return true;
+
+                    case VideoUploadStatus.UploadError:
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 
     public class UploadStatusIconConverter : IValueConverter
     {
@@ -68,6 +146,9 @@ namespace BA_MobileGPS.Core
                 var status = (VideoUploadStatus)value;
                 switch (status)
                 {
+                    case VideoUploadStatus.NotUpload:
+                        return "";
+
                     case VideoUploadStatus.Uploaded:
                         return "ic_dowload.png";
 
