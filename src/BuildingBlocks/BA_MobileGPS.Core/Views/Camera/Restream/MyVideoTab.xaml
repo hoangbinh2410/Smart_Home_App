@@ -387,6 +387,8 @@
                                                                         <Span Text="{Binding StartTime, Converter={StaticResource TimeConverter}}" />
                                                                         <Span Text=" - " />
                                                                         <Span Text="{Binding EndTime, Converter={StaticResource TimeConverter}}" />
+                                                                        <Span Text=" · " />
+                                                                        <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
                                                                         <Span Text=" · " TextColor="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}" />
                                                                         <Span Text="{Binding Status, Converter={StaticResource UploadTextStatusConverter}}" TextColor="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}" />
                                                                     </FormattedString>
