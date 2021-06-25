@@ -130,6 +130,43 @@
                                                 WidthRequest="15" />
                                         </StackLayout>
                                     </pancake:PancakeView>
+
+                                    <pancake:PancakeView
+                                        Padding="10,0"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
+                                        CornerRadius="18"
+                                        HeightRequest="35"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center">
+                                        <pancake:PancakeView.Shadow>
+                                            <pancake:DropShadow
+                                                BlurRadius="2"
+                                                Offset="0,0"
+                                                Color="Black" />
+                                        </pancake:PancakeView.Shadow>
+                                        <Grid>
+                                            <Picker
+                                                Title="Chọn kênh"
+                                                FontSize="{DynamicResource MyFontSize}"
+                                                HorizontalTextAlignment="Start"
+                                                ItemDisplayBinding="{Binding Name}"
+                                                ItemsSource="{Binding ListChannel}"
+                                                SelectedItem="{Binding SelectedChannel}"
+                                                TitleColor="{DynamicResource PrimaryColor}"
+                                                WidthRequest="120">
+                                                <Picker.Effects>
+                                                    <effects:BorderlessEffect />
+                                                </Picker.Effects>
+                                            </Picker>
+                                            <icons:IconView
+                                                Foreground="{DynamicResource BlackColor}"
+                                                HeightRequest="15"
+                                                HorizontalOptions="End"
+                                                Source="ic_sortdown"
+                                                VerticalOptions="Center"
+                                                WidthRequest="15" />
+                                        </Grid>
+                                    </pancake:PancakeView>
                                 </StackLayout>
 
                                 <Grid

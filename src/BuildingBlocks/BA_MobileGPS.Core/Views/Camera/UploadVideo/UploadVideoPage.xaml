@@ -165,7 +165,7 @@
                                     <TapGestureRecognizer Command="{Binding GotoMyVideoPageCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
-                            <Span Text=" để xem và tải video về máy tính" />
+                            <Span Text=" để xem và tải video về điện thoại" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>

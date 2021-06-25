@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Plugin.Permissions;
@@ -39,6 +40,8 @@ namespace BA_MobileGPS.Core.ViewModels
             vehicle = new CameraLookUpVehicleModel();
             EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UploadFinishVideoEvent>().Subscribe(UploadFinishVideo);
+            listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
+            selectedChannel = listChannel[0];
         }
 
         #region Lifecycle
@@ -46,6 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            SetChannelSource();
             GetListVideoUpload();
         }
 
@@ -130,10 +134,61 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref videoSlected, value);
             }
         }
+        private List<ChannelModel> listChannel;
 
+        /// <summary>
+        /// Danh sách kênh
+        /// </summary>
+        public List<ChannelModel> ListChannel
+        {
+            get { return listChannel; }
+            set { SetProperty(ref listChannel, value); }
+        }
+        private ChannelModel selectedChannel;
+
+        /// <summary>
+        /// Kênh được chọn
+        /// </summary>
+        public ChannelModel SelectedChannel
+        {
+            get { return selectedChannel; }
+            set { SetProperty(ref selectedChannel, value); }
+        }
         #endregion Property
 
         #region PrivateMethod
+
+        /// <summary>
+        /// Set dữ liệu cho picker channel
+        /// Hard 4 kênh (Đã confirm)
+        /// </summary>
+        private void SetChannelSource()
+        {
+            try
+            {
+                var lstchannel = new List<int>() { 1, 2, 3, 4 };
+                var source = new List<ChannelModel>();
+                source.Add(new ChannelModel() { Name = "Tất cả kênh", Value = 0 });
+                if (lstchannel != null)
+                {
+                    foreach (var item in lstchannel)
+                    {
+                        var temp = new ChannelModel()
+                        {
+                            Value = item,
+                            Name = string.Format("Kênh {0}", item)
+                        };
+                        source.Add(temp);
+                    }
+                }
+                ListChannel = source;
+                SelectedChannel = source.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
 
         private bool ValidateInput()
         {
@@ -197,7 +252,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (lstvideoupload != null && lstvideoupload.Count > 0)
                             {
                                 var lstvideo = new List<VideoUploadInfo>();
-                                var video = lstvideoupload.Where(x => x.StartTime >= DateStart && x.StartTime <= DateEnd).OrderBy(x => x.StartTime).ToList();
+                                var video = lstvideoupload.Where(x => x.StartTime >= DateStart
+                                && x.StartTime <= DateEnd
+                                && (x.Channel == SelectedChannel.Value
+                                || SelectedChannel.Value == 0
+                                || SelectedChannel == null)).OrderBy(x => x.StartTime).ToList();
                                 lstvideo.AddRange(video);
                                 VideoItemsSource = lstvideo.ToObservableCollection();
                             }
