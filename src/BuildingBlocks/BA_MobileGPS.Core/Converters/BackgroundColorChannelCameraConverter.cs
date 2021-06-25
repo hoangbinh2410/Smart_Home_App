@@ -179,7 +179,7 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return "c_upgrade.png";
+                return "ic_uploadsucces.png";
             }
             else
             {
@@ -190,7 +190,7 @@ namespace BA_MobileGPS.Core
                         return "";
 
                     case VideoUploadStatus.Uploaded:
-                        return "c_upgrade.png";
+                        return "ic_uploadsucces.png";
 
                     case VideoUploadStatus.Uploading:
                         return "ic_cloud_upload.png";
@@ -202,7 +202,7 @@ namespace BA_MobileGPS.Core
                         return "ic_info_outline_white.png";
 
                     default:
-                        return "c_upgrade.png";
+                        return "ic_uploadsucces.png";
                 }
             }
         }
