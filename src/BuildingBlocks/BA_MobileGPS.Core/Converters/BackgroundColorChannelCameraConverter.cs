@@ -173,6 +173,46 @@ namespace BA_MobileGPS.Core
         }
     }
 
+    public class UploadStatusIconUploadConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return "c_upgrade.png";
+            }
+            else
+            {
+                var status = (VideoUploadStatus)value;
+                switch (status)
+                {
+                    case VideoUploadStatus.NotUpload:
+                        return "";
+
+                    case VideoUploadStatus.Uploaded:
+                        return "c_upgrade.png";
+
+                    case VideoUploadStatus.Uploading:
+                        return "ic_cloud_upload.png";
+
+                    case VideoUploadStatus.WaitingUpload:
+                        return "ic_time_black";
+
+                    case VideoUploadStatus.UploadError:
+                        return "ic_info_outline_white.png";
+
+                    default:
+                        return "c_upgrade.png";
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
     public class UploadStatusColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

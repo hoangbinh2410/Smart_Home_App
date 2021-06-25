@@ -12,7 +12,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converter:TimeSecondConverter x:Key="TimeSecondConverter" />
-            <converter:UploadStatusIconConverter x:Key="UploadStatusIconConverter" />
+            <converter:UploadStatusIconUploadConverter x:Key="UploadStatusIconUploadConverter" />
             <converter:UploadStatusColorConverter x:Key="UploadStatusColorConverter" />
             <converter:UploadStatusIsVisibleConverter x:Key="UploadStatusIsVisibleConverter" />
             <converter:UploadStatusIsEnableConverter x:Key="UploadStatusIsEnableConverter" />
@@ -21,7 +21,10 @@
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*,Auto" RowSpacing="5">
             <StackLayout Grid.Row="0" Padding="20,10,20,10">
-                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                <Label
+                    FontSize="15"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Quý khách đang tải video của xe: " />
@@ -36,6 +39,7 @@
                 <Label
                     FontAttributes="Italic"
                     FontFamily="{StaticResource myFontRobotoItalic}"
+                    FontSize="15"
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
                     Text="Video tải trực tiếp từ thiết bị và được chia nhỏ thành các phần để tối ưu đường truyền và dung lượng lưu trữ. Quý khách có thể chọn phần video muốn tải về."
@@ -130,7 +134,7 @@
                                     Foreground="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}"
                                     HorizontalOptions="End"
                                     IsVisible="{Binding Status, Converter={StaticResource UploadStatusIsVisibleConverter}}"
-                                    Source="{Binding Status, Converter={StaticResource UploadStatusIconConverter}}"
+                                    Source="{Binding Status, Converter={StaticResource UploadStatusIconUploadConverter}}"
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
 

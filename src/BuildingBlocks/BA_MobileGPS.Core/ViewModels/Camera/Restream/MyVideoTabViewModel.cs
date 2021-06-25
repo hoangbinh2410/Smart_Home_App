@@ -134,6 +134,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref videoSlected, value);
             }
         }
+
         private List<ChannelModel> listChannel;
 
         /// <summary>
@@ -144,6 +145,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return listChannel; }
             set { SetProperty(ref listChannel, value); }
         }
+
         private ChannelModel selectedChannel;
 
         /// <summary>
@@ -154,6 +156,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return selectedChannel; }
             set { SetProperty(ref selectedChannel, value); }
         }
+
         #endregion Property
 
         #region PrivateMethod
@@ -195,6 +198,11 @@ namespace BA_MobileGPS.Core.ViewModels
             if (dateStart > dateEnd)
             {
                 DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                return false;
+            }
+            if (dateStart.Date != dateEnd.Date)
+            {
+                DisplayMessage.ShowMessageInfo("Không tìm kiếm xuyên ngày");
                 return false;
             }
             else if (Vehicle == null || Vehicle.VehicleId == 0)
@@ -329,7 +337,6 @@ namespace BA_MobileGPS.Core.ViewModels
             GetListVideoUpload();
         }
 
-
         private void DowloadVideoInList(VideoUploadInfo obj)
         {
             SafeExecute(async () =>
@@ -350,6 +357,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         internal void ReportProgress(double value)
         {
             if (value == 100)
@@ -357,6 +365,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Đã tải video thành công");
             }
         }
+
         #endregion PrivateMethod
     }
 }

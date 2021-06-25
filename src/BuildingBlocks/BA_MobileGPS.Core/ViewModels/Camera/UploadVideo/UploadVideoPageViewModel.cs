@@ -133,16 +133,17 @@ namespace BA_MobileGPS.Core.ViewModels
                                 item.Status = VideoUploadStatus.NotUpload;
                             }
                         }
-                        if (item.IsSelected == true
-                        && item.IsUploaded == false
-                        && (item.Status == VideoUploadStatus.NotUpload || item.Status == VideoUploadStatus.UploadError))
-                        {
-                            IsShowBtnUpload = true;
-                        }
-                        else
-                        {
-                            IsShowBtnUpload = false;
-                        }
+                    }
+                    var ischeckall = result.Data.FirstOrDefault(x => x.IsSelected == true
+                    && x.IsUploaded == false
+                    && (x.Status == VideoUploadStatus.NotUpload || x.Status == VideoUploadStatus.UploadError));
+                    if (ischeckall != null)
+                    {
+                        IsShowBtnUpload = true;
+                    }
+                    else
+                    {
+                        IsShowBtnUpload = false;
                     }
                     ListVideo = result.Data.OrderBy(x => x.StartTime).ToObservableCollection();
                 }
@@ -180,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     EndTime = item.EndTime,
                                     Status = VideoUploadStatus.WaitingUpload,
                                     VehicleName = VideoRestreamInfo.VehicleName,
-                                    VehicleID = VideoRestreamInfo.VehicleID
+                                    VehicleID = RequestInfo.VehicleID
                                 };
                                 StaticSettings.ListVideoUpload.Add(video);
                             }
@@ -196,7 +197,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     EndTime=item.EndTime,
                                     Status=VideoUploadStatus.WaitingUpload,
                                     VehicleName=VideoRestreamInfo.VehicleName,
-                                    VehicleID = VideoRestreamInfo.VehicleID
+                                    VehicleID = RequestInfo.VehicleID
                                 }
                             };
                         }
