@@ -359,7 +359,7 @@
                 IsClippedToBounds="True"
                 Opacity="1"
                 VerticalOptions="Start"
-                WidthRequest="170">
+                WidthRequest="180">
                 <Grid>
                     <ContentView BackgroundColor="{DynamicResource WhiteColor}" Opacity=".9" />
                     <StackLayout
@@ -373,15 +373,11 @@
                             VerticalOptions="CenterAndExpand">
                             <Label
                                 x:Name="lblTitle"
-                                Grid.Row="0"
-                                Grid.Column="0"
                                 FontAttributes="Bold"
                                 HorizontalOptions="StartAndExpand"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                             <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
                                 FontAttributes="Bold"
                                 FontFamily="{StaticResource myFontLatoBold}"
                                 HorizontalOptions="End"

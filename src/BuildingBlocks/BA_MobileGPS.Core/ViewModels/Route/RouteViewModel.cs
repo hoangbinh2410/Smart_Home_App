@@ -204,7 +204,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private double runKm;
         public double RunKm { get => runKm; set => SetProperty(ref runKm, value); }
-
+        public List<double> RunKMs = new List<double>();
         private VehicleRoute currentRoute;
         public VehicleRoute CurrentRoute { get => currentRoute; set => SetProperty(ref currentRoute, value); }
 
@@ -667,13 +667,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 ZIndex = 1
             };
             line.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
-
+            double kmmin = 0;
+            RunKMs = new List<double>();
             for (int i = 0; i < ListRoute.Count; i++)
             {
                 line.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
                 if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
                 {
                     DrawStopPoint(ListRoute[i]);
+                }
+                if (i < ListRoute.Count - 1)
+                {
+                    double km = GeoHelper.CalculateDistanceByKm(ListRoute[i].Latitude, ListRoute[i].Longitude, ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude);
+                    kmmin = kmmin + km;
+                    RunKMs.Add(kmmin);
+                }
+                else
+                {
+                    RunKMs.Add(DateKm);
                 }
             }
             Polylines.Add(line);
@@ -760,6 +771,8 @@ namespace BA_MobileGPS.Core.ViewModels
             PlayCurrent = 0;
             PlayControlEnabled = false;
             DateKm = 0;
+            if (RunKMs != null)
+                RunKMs.Clear();
             RunKm = 0;
             CurrentRoute = null;
         }
@@ -827,30 +840,28 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PlayCurrent++;
                 CurrentRoute = ListRoute[PlayCurrent];
+                RunKm = RunKMs[PlayCurrent];
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     if (CurrentRoute == null)
                         return;
-                    double km = GeoHelper.CalculateDistanceByKm(item.Position.Latitude, item.Position.Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude);
-                    if (km > 0)
-                    {
-                        RunKm = RunKm + km;
-                    }
+
                     RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
-                    {
-                        if (CurrentRoute == null)
-                            return;
-                        MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
-                        {
-                            if (PlayCurrent + 1 > PlayMax || !IsPlaying)
-                            {
-                                RunKm = DateKm;
-                                IsPlaying = false;
-                                return;
-                            }
-                            SuperInteligent(item, itemLable);
-                        });
-                    });
+                         {
+                             if (CurrentRoute == null)
+                                 return;
+                             MarkerAnimation(item, itemLable, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
+                             {
+                                 if (PlayCurrent + 1 > PlayMax || !IsPlaying)
+                                 {
+                                     RunKm = DateKm;
+                                     IsPlaying = false;
+                                     return;
+                                 }
+
+                                 SuperInteligent(item, itemLable);
+                             });
+                         });
                 });
             }
             catch (Exception ex)
