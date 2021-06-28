@@ -970,6 +970,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 CurrentRoute = ListRoute[PlayCurrent];
+                RunKm = RunKMs[PlayCurrent];
                 var doubeMarker = Pins.Where(x => x.Label == Vehicle.PrivateCode).ToList();
                 if (doubeMarker != null && doubeMarker.Count > 1)
                 {
