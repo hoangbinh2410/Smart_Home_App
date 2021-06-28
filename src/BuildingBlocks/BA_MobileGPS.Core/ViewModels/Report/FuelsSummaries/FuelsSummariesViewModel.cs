@@ -120,6 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ToDate = request.ToDate;
                 VehicleSelect.VehicleId = long.Parse(request.VehicleIDs);
                 VehicleSelect.VehiclePlate = request.VehiclePlate;
+                VehicleSelect.PrivateCode = request.VehiclePlate;
                 PrivateCode = request.VehiclePlate;
                 SearchDataCommand.Execute(null);
             }
