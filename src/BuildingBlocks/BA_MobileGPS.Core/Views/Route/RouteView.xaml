@@ -359,7 +359,7 @@
                 IsClippedToBounds="True"
                 Opacity="1"
                 VerticalOptions="Start"
-                WidthRequest="180">
+                WidthRequest="200">
                 <Grid>
                     <ContentView BackgroundColor="{DynamicResource WhiteColor}" Opacity=".9" />
                     <StackLayout

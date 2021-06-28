@@ -854,7 +854,6 @@ namespace BA_MobileGPS.Core.ViewModels
                              {
                                  if (PlayCurrent + 1 > PlayMax || !IsPlaying)
                                  {
-                                     RunKm = DateKm;
                                      IsPlaying = false;
                                      return;
                                  }
