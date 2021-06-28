@@ -385,9 +385,16 @@
                                 FontAttributes="Bold"
                                 FontFamily="{StaticResource myFontLatoBold}"
                                 HorizontalOptions="End"
-                                Text="{Binding DateKm, StringFormat='{}{0:###,###,##0.##} km'}"
                                 TextColor="Black"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding RunKm, StringFormat='{}{0:###,###,##0.##}'}" />
+                                        <Span Text="/" />
+                                        <Span Text="{Binding DateKm, StringFormat='{}{0:###,###,##0.##} km'}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </StackLayout>
 
                         <BoxView
@@ -431,7 +438,6 @@
                                     TextColor="{DynamicResource PrimaryColor}" />
                             </StackLayout>
                         </StackLayout>
-
                     </StackLayout>
                 </Grid>
             </Frame>
@@ -494,6 +500,5 @@
                     VerticalOptions="Center" />
             </pancake:PancakeView>
         </StackLayout>
-
     </StackLayout>
 </ContentView>

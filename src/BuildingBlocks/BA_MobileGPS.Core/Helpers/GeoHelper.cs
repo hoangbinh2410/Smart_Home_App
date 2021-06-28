@@ -21,25 +21,49 @@ namespace BA_MobileGPS.Core
 
         public static double DistanceCalculatorCoordinate(double lng, double lat, double lngPre, double latPre)
         {
-            double P1X = lng * (Math.PI / 180);
-            double P1Y = lat * (Math.PI / 180);
-            double P2X = lngPre * (Math.PI / 180);
-            double P2Y = latPre * (Math.PI / 180);
-            double Kc = 0;
-            double Temp = 0;
+            if (lng == lngPre && lat == latPre)
+            {
+                return 0;
+            }
 
-            Kc = P2X - P1X;
-            Temp = Math.Cos(Kc);
-            Temp = Temp * Math.Cos(P2Y);
-            Temp = Temp * Math.Cos(P1Y);
+            double kc, t;
+            double p1x = lng * (Math.PI) / 180;
+            double p1y = lat * (Math.PI) / 180;
+            double p2x = lngPre * (Math.PI) / 180;
+            double p2y = latPre * (Math.PI) / 180;
 
-            Kc = Math.Sin(P1Y);
-            Kc = Kc * Math.Sin(P2Y);
-            Temp = Temp + Kc;
-            Kc = Math.Acos(Temp);
-            Kc = Kc * 6376;
+            kc = p2x - p1x;
+            kc = Math.Abs(kc);
+            t = Math.Cos(kc);
+            t = t * Math.Cos(p2y);
+            t = t * Math.Cos(p1y);
+            kc = Math.Sin(p1y);
+            kc = kc * Math.Sin(p2y);
+            t = t + kc;
+            kc = Math.Acos(t);
+            kc = kc * 6378137;
 
-            return Kc;
+            return (int)kc;
+        }
+        /// <summary>
+        /// Tinh khoang cach giua 2 toa do
+        /// Ham nay doi ten tu ham tren theo dung convention
+        /// Đơn vị tính theo Kilomet (KM)
+        /// </summary>
+        /// <param name="lng1">Kinh độ 1.</param>
+        /// <param name="lat1">Vĩ độ 1.</param>
+        /// <param name="lng2">Kinh độ 2.</param>
+        /// <param name="lat2">Vĩ độ 2.</param>
+        /// <returns></returns>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// trungtq  4/3/2013   created
+        /// </Modified>
+        public static double CalculateDistanceByKm(double longitude1, double latitude1, double longitude2, double latitude2)
+        {
+            double distance = DistanceCalculatorCoordinate(longitude1, latitude1, longitude2, latitude2);
+
+            return (distance > 0) ? Convert.ToDouble(distance / 1000) : 0;
         }
 
         /// <summary>

@@ -202,6 +202,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private float dateKm;
         public float DateKm { get => dateKm; set => SetProperty(ref dateKm, value); }
 
+        private double runKm;
+        public double RunKm { get => runKm; set => SetProperty(ref runKm, value); }
+
         private VehicleRoute currentRoute;
         public VehicleRoute CurrentRoute { get => currentRoute; set => SetProperty(ref currentRoute, value); }
 
@@ -757,6 +760,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PlayCurrent = 0;
             PlayControlEnabled = false;
             DateKm = 0;
+            RunKm = 0;
             CurrentRoute = null;
         }
 
@@ -827,6 +831,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (CurrentRoute == null)
                         return;
+                    double km = GeoHelper.CalculateDistanceByKm(item.Position.Latitude, item.Position.Longitude, CurrentRoute.Latitude, CurrentRoute.Longitude);
+                    if (km > 0)
+                    {
+                        RunKm = RunKm + km;
+                    }
                     RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                     {
                         if (CurrentRoute == null)
@@ -835,10 +844,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (PlayCurrent + 1 > PlayMax || !IsPlaying)
                             {
+                                RunKm = DateKm;
                                 IsPlaying = false;
                                 return;
                             }
-
                             SuperInteligent(item, itemLable);
                         });
                     });
