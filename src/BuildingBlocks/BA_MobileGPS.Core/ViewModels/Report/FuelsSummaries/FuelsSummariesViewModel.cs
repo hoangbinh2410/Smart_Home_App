@@ -112,18 +112,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
 
-            //TempFileName = "Book1.xlsx";
-
-            if (parameters.TryGetValue(ParameterKey.ReportFuelsSummariesTotalSelected, out FuelsSummariesTotalRequest request))
-            {
-                FromDate = request.FromDate;
-                ToDate = request.ToDate;
-                VehicleSelect.VehicleId = long.Parse(request.VehicleIDs);
-                VehicleSelect.VehiclePlate = request.VehiclePlate;
-                VehicleSelect.PrivateCode = request.VehiclePlate;
-                PrivateCode = request.VehiclePlate;
-                SearchDataCommand.Execute(null);
-            }
             EventAggregator.GetEvent<UserBehaviorEvent>().Publish(new UserBehaviorModel()
             {
                 Page = Entities.Enums.MenuKeyEnums.FUELCONSUMPTIONDAILY,
@@ -134,9 +122,22 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.TryGetValue(ParameterKey.Vehicle, out Vehicle request))
+            if (parameters.TryGetValue(ParameterKey.ReportFuelsSummariesTotalSelected, out FuelsSummariesTotalRequest request))
             {
+                FromDate = request.FromDate;
+                ToDate = request.ToDate;
+                VehicleSelect = new Vehicle()
+                {
+                    VehicleId = long.Parse(request.VehicleIDs),
+                    VehiclePlate = request.VehiclePlate,
+                    PrivateCode = request.PrivateCode
+                };
                 PrivateCode = request.VehiclePlate;
+                SearchDataCommand.Execute(null);
+            }
+            else if (parameters.TryGetValue(ParameterKey.Vehicle, out Vehicle vehicle))
+            {
+                PrivateCode = vehicle.VehiclePlate;
             }
         }
 
