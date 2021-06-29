@@ -680,17 +680,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     double km = GeoHelper.CalculateDistanceByKm(ListRoute[i].Latitude, ListRoute[i].Longitude, ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude);
                     var hour = DateEnd.Subtract(DateStart).TotalHours;
-                    if (hour >= 23)
+                    if (hour >= 24)
                     {
-                        kmmin = kmmin + km + (0.008f * hour);
+                        kmmin = kmmin + km + 0.021f;
                     }
-                    else if (hour < 8 && hour > 4)
+                    else if (hour < 24 && hour >= 8)
                     {
-                        kmmin = kmmin + km + 0.01f;
+                        kmmin = kmmin + km + 0.015f;
                     }
-                    else if (hour < 1 && hour > 2)
+                    else if (hour < 8 && hour >= 4)
                     {
-                        kmmin = kmmin + km + 0.005f;
+                        kmmin = kmmin + km + 0.012f;
+                    }
+                    else if (hour <= 1 && hour < 4)
+                    {
+                        kmmin = kmmin + km + 0.008f;
                     }
                     RunKMs.Add(kmmin);
                 }
