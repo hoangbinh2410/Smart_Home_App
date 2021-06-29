@@ -679,7 +679,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (i < ListRoute.Count - 1)
                 {
                     double km = GeoHelper.CalculateDistanceByKm(ListRoute[i].Latitude, ListRoute[i].Longitude, ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude);
-                    kmmin = kmmin + km + (0.005f * DateEnd.Subtract(DateStart).TotalHours);
+                    var hour = DateEnd.Subtract(DateStart).TotalHours;
+                    if (hour >= 23)
+                    {
+                        kmmin = kmmin + km + (0.008f * hour);
+                    }
+                    else if (hour < 8 && hour > 4)
+                    {
+                        kmmin = kmmin + km + 0.01f;
+                    }
+                    else if (hour < 1 && hour > 2)
+                    {
+                        kmmin = kmmin + km + 0.005f;
+                    }
                     RunKMs.Add(kmmin);
                 }
                 else
