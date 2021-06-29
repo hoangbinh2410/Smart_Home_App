@@ -375,7 +375,7 @@
                                 x:Name="lblTitle"
                                 FontAttributes="Bold"
                                 FontFamily="{StaticResource myFontLatoBold}"
-                                FontSize="18"
+                                FontSize="16"
                                 HorizontalOptions="Start"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
