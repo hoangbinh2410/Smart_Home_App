@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <converter:TimeSecondConverter x:Key="TimeSecondConverter" />
             <converter:UploadStatusIconUploadConverter x:Key="UploadStatusIconUploadConverter" />
-            <converter:UploadStatusColorConverter x:Key="UploadStatusColorConverter" />
+            <converter:UploadStatusColorUploadConverter x:Key="UploadStatusColorUploadConverter" />
             <converter:UploadStatusIsVisibleConverter x:Key="UploadStatusIsVisibleConverter" />
             <converter:UploadStatusIsEnableConverter x:Key="UploadStatusIsEnableConverter" />
         </ResourceDictionary>
@@ -131,7 +131,7 @@
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     Margin="10,0,10,0"
-                                    Foreground="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}"
+                                    Foreground="{Binding Status, Converter={StaticResource UploadStatusColorUploadConverter}}"
                                     HorizontalOptions="End"
                                     IsVisible="{Binding Status, Converter={StaticResource UploadStatusIsVisibleConverter}}"
                                     Source="{Binding Status, Converter={StaticResource UploadStatusIconUploadConverter}}"

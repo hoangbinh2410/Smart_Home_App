@@ -213,6 +213,43 @@ namespace BA_MobileGPS.Core
         }
     }
 
+    public class UploadStatusColorUploadConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return Color.FromHex("#8BC34A");
+            }
+            else
+            {
+                var status = (VideoUploadStatus)value;
+                switch (status)
+                {
+                    case VideoUploadStatus.Uploaded:
+                        return Color.FromHex("#8BC34A");
+
+                    case VideoUploadStatus.Uploading:
+                        return Color.FromHex("#00ADE5");
+
+                    case VideoUploadStatus.WaitingUpload:
+                        return (Color)Application.Current.Resources["TextSecondaryColor"];
+
+                    case VideoUploadStatus.UploadError:
+                        return (Color)Application.Current.Resources["DangerousColor"];
+
+                    default:
+                        return Color.FromHex("#8BC34A");
+                }
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
     public class UploadStatusColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

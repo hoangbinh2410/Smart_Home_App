@@ -24,6 +24,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand VideoItemTapCommand { get; set; }
         public ICommand SelectVehicleCameraCommand { get; }
         public ICommand DowloadVideoInListTappedCommand { get; }
+        public ICommand HelpUploadCommand { get; }
+
 
         public ICommand SearchCommand { get; }
         private readonly IStreamCameraService _streamCameraService;
@@ -37,6 +39,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             SearchCommand = new DelegateCommand(SearchData);
             DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInList);
+            HelpUploadCommand = new DelegateCommand(HelpUpload);
             vehicle = new CameraLookUpVehicleModel();
             EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UploadFinishVideoEvent>().Subscribe(UploadFinishVideo);
@@ -365,6 +368,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Đã tải video thành công");
             }
         }
+
+        private void HelpUpload()
+        {
+            SafeExecute(async () =>
+            {
+
+                await PageDialog.DisplayAlertAsync("Thông báo", "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Bỏ qua");
+            });
+        }
+
 
         #endregion PrivateMethod
     }

@@ -50,6 +50,19 @@
                     Text="Danh sách tải về"
                     TextColor="White"
                     VerticalOptions="End" />
+
+                <icons:IconView
+                    Grid.Column="1"
+                    Foreground="{DynamicResource WhiteColor}"
+                    HeightRequest="25"
+                    HorizontalOptions="EndAndExpand"
+                    Source="ic_help.png"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="25">
+                    <icons:IconView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding HelpUploadCommand}" />
+                    </icons:IconView.GestureRecognizers>
+                </icons:IconView>
             </Grid>
 
             <tabView:SfTabView
