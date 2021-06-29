@@ -102,7 +102,7 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref dateStart, value);
         }
 
-        private DateTime dateEnd = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
+        private DateTime dateEnd = DateTime.Now;
 
         public DateTime DateEnd
         {
