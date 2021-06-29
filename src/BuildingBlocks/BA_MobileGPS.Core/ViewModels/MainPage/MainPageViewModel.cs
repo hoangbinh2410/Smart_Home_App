@@ -1024,6 +1024,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
             {
+                int errorwhile = 0;
                 Device.StartTimer(TimeSpan.FromSeconds(5), () =>
                  {
                      //nếu ko còn video nào upload thì ngừng timmer
@@ -1056,8 +1057,17 @@ namespace BA_MobileGPS.Core.ViewModels
                                      {
                                          if (result != null && result.Data)
                                          {
+                                             errorwhile = 0;
                                              videowaiting.Status = VideoUploadStatus.Uploading;
                                              UploadFileStatus(videowaiting);
+                                         }
+                                         else
+                                         {
+                                             errorwhile++;
+                                             if (errorwhile == 30)
+                                             {
+                                                 videowaiting.Status = VideoUploadStatus.UploadError;
+                                             }
                                          }
                                      });
                                      return true;
