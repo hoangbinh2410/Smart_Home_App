@@ -22,7 +22,6 @@
         <converter:UploadStatusIconConverter x:Key="UploadStatusIconConverter" />
         <converter:UploadStatusColorConverter x:Key="UploadStatusColorConverter" />
         <converter:UploadTextStatusConverter x:Key="UploadTextStatusConverter" />
-        <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
