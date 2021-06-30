@@ -611,8 +611,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         StreamDevices = model;
                         if (model.CameraChannels != null && model.CameraChannels.Count > 0)
                         {
-                            ChannelString = string.Join(",", model.CameraChannels.Select(x => x.Channel));
-                            var channelActive = model.CameraChannels.Where(x => x.HasCamera == true).ToList();
+                            ChannelString = string.Join(",", model.CameraChannels.Where(x => x.State == 0 || x.State == 1).Select(x => x.Channel));
+                            var channelActive = model.CameraChannels.Where(x => x.State == 0).ToList();
                             if (channelActive != null && channelActive.Count > 0)
                             {
                                 ChannelActive = string.Join(",", channelActive.Select(x => x.Channel));

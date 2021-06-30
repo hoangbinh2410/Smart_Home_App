@@ -21,7 +21,14 @@ namespace BA_MobileGPS.Core.Views
                 if (item.FindByName("cboUploadVideo") is SfCheckBox cboUploadVideo && item.BindingContext is VideoUploadTimeInfo video)
                 {
                     cboUploadVideo.StateChanged -= cboUploadVideo_StateChanged;
-                    video.IsSelected = checkAll.IsChecked.Value;
+                    if (video.Status == VideoUploadStatus.NotUpload || video.Status == VideoUploadStatus.UploadError)
+                    {
+                        video.IsSelected = checkAll.IsChecked.Value;
+                    }
+                    else
+                    {
+                        video.IsSelected = true;
+                    }
                     cboUploadVideo.StateChanged += cboUploadVideo_StateChanged;
                 }
             }

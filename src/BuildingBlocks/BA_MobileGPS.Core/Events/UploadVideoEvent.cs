@@ -3,7 +3,7 @@ using Prism.Events;
 
 namespace BA_MobileGPS.Core
 {
-    public class UploadVideoEvent : PubSubEvent<VideoRestreamInfo>
+    public class UploadVideoEvent : PubSubEvent<bool>
     {
     }
 

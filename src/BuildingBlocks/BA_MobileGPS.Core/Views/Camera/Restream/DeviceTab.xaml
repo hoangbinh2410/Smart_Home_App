@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="BA_MobileGPS.Core.Views.MyVideoTab"
+    x:Class="BA_MobileGPS.Core.Views.DeviceTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
@@ -15,8 +15,8 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="root"
-    Title="Yêu cầu"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <Style TargetType="indicator:SfBusyIndicator">
@@ -29,9 +29,6 @@
             <Setter Property="Duration" Value="0.8" />
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
-        <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
-        <converter:BackgroundSelectedVideoConverter x:Key="BackgroundSelectedVideoConverter" />
-
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
@@ -61,7 +58,7 @@
                     TextColor="White"
                     VerticalOptions="End" />
 
-                <icons:IconView
+                <!--<icons:IconView
                     Grid.Column="1"
                     Foreground="{DynamicResource WhiteColor}"
                     HeightRequest="25"
@@ -73,9 +70,8 @@
                     <icons:IconView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ViewProssesUploadCommand}" />
                     </icons:IconView.GestureRecognizers>
-                </icons:IconView>
+                </icons:IconView>-->
             </Grid>
-
             <Grid
                 Grid.Row="1"
                 RowDefinitions="Auto,*"
@@ -133,6 +129,42 @@
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
                             </StackLayout>
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Padding="10,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="18"
+                            HeightRequest="35"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="2"
+                                    Offset="0,0"
+                                    Color="Black" />
+                            </pancake:PancakeView.Shadow>
+                            <Grid>
+                                <Picker
+                                    Title="Chọn kênh"
+                                    FontSize="{DynamicResource MyFontSize}"
+                                    HorizontalTextAlignment="Start"
+                                    ItemDisplayBinding="{Binding Name}"
+                                    ItemsSource="{Binding ListChannel}"
+                                    SelectedItem="{Binding SelectedChannel}"
+                                    TitleColor="{DynamicResource PrimaryColor}"
+                                    WidthRequest="120">
+                                    <Picker.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Picker.Effects>
+                                </Picker>
+                                <icons:IconView
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Source="ic_sortdown"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
                         </pancake:PancakeView>
                     </StackLayout>
 
@@ -215,6 +247,7 @@
                         </pancake:PancakeView>
                     </Grid>
                 </Grid>
+
                 <!--  Khu vực video và danh sách  -->
                 <Grid
                     x:Name="mainLayout"
@@ -232,12 +265,11 @@
                     <!--  // Height set ở code  -->
                     <Grid
                         x:Name="mainTopLayout"
-                        Grid.Row="0"
                         IsVisible="{Binding MediaPlayerVisible}"
                         RowDefinitions="*,Auto,1"
                         RowSpacing="0">
                         <!--  Video  -->
-                        <pancake:PancakeView BackgroundColor="{DynamicResource BlackColor}" HeightRequest="250">
+                        <pancake:PancakeView BackgroundColor="{DynamicResource BlackColor}">
                             <Grid>
                                 <vlc:MediaPlayerElement
                                     HorizontalOptions="Fill"
@@ -245,7 +277,7 @@
                                     MediaPlayer="{Binding MediaPlayer}"
                                     VerticalOptions="Fill">
                                     <vlc:MediaPlayerElement.PlaybackControls>
-                                        <vlc:PlaybackControls IsAudioTracksSelectionButtonVisible="True" IsSeekBarVisible="True">
+                                        <vlc:PlaybackControls>
                                             <vlc:PlaybackControls.ControlTemplate>
                                                 <ControlTemplate>
                                                     <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
@@ -257,41 +289,29 @@
                                                                 <StackLayout
                                                                     Margin="20,0,0,0"
                                                                     Orientation="Horizontal"
-                                                                    Spacing="10">
-                                                                    <Button
-                                                                        Command="{Binding Source={x:Reference root}, Path=BindingContext.PreviousVideoCommand}"
-                                                                        FontSize="20"
-                                                                        HeightRequest="30"
-                                                                        Style="{TemplateBinding RewindButtonStyle}"
-                                                                        VerticalOptions="CenterAndExpand"
-                                                                        WidthRequest="30" />
+                                                                    Spacing="0">
                                                                     <Button
                                                                         x:Name="PlayPauseButton"
                                                                         FontSize="20"
                                                                         HeightRequest="30"
                                                                         Style="{TemplateBinding PlayPauseButtonStyle}"
-                                                                        VerticalOptions="CenterAndExpand"
                                                                         WidthRequest="30" />
-
-                                                                    <Button
-                                                                        Command="{Binding Source={x:Reference root}, Path=BindingContext.NextVideoCommand}"
-                                                                        FontSize="20"
-                                                                        HeightRequest="30"
-                                                                        Style="{TemplateBinding SeekButtonStyle}"
-                                                                        VerticalOptions="CenterAndExpand"
-                                                                        WidthRequest="30" />
-
-                                                                    <Label
-                                                                        x:Name="RemainingTimeLabel"
-                                                                        Style="{TemplateBinding RemainingTimeLabelStyle}"
-                                                                        VerticalOptions="CenterAndExpand" />
                                                                 </StackLayout>
                                                                 <StackLayout
-                                                                    Margin="0,0,40,0"
+                                                                    Margin="0,0,20,0"
                                                                     HorizontalOptions="EndAndExpand"
                                                                     Orientation="Horizontal"
                                                                     Spacing="13"
                                                                     VerticalOptions="Center">
+                                                                    <!--<icons:IconView
+                                                                    Foreground="{DynamicResource WhiteColor}"
+                                                                    HeightRequest="25"
+                                                                    Source="ic_cloud_upload.png"
+                                                                    WidthRequest="25">
+                                                                    <icons:IconView.GestureRecognizers>
+                                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudTappedCommand}" />
+                                                                    </icons:IconView.GestureRecognizers>
+                                                                </icons:IconView>-->
                                                                     <icons:IconView
                                                                         Foreground="{DynamicResource WhiteColor}"
                                                                         HeightRequest="25"
@@ -311,11 +331,6 @@
                                                                     </icons:IconView>
                                                                 </StackLayout>
                                                             </StackLayout>
-                                                            <Slider
-                                                                x:Name="SeekBar"
-                                                                Style="{TemplateBinding SeekBarStyle}"
-                                                                ValueChanged="SeekBar_ValueChanged"
-                                                                Value="{Binding SeekBarValue}" />
                                                         </StackLayout>
                                                     </StackLayout>
                                                 </ControlTemplate>
@@ -325,7 +340,7 @@
                                 </vlc:MediaPlayerElement>
 
                                 <indicator:SfBusyIndicator
-                                    Title="Loadding...."
+                                    Title="Video đang load trực tiếp từ thiết bị. Vui lòng chờ trong giây lát."
                                     IsBusy="{Binding BusyIndicatorActive}"
                                     TextColor="{DynamicResource WhiteColor}"
                                     TextSize="10" />
@@ -369,11 +384,11 @@
                                     <Label
                                         HorizontalOptions="Start"
                                         StyleClass="BoldText"
-                                        Text="{Binding VideoSlected.FileName}"
+                                        Text="{Binding VideoSlected.VideoStartTime, Converter={StaticResource DateTimeViewConverter}}"
                                         TextColor="{DynamicResource WhiteColor}" />
                                     <Label
                                         HorizontalOptions="Start"
-                                        Text="{Binding VideoSlected.StartTime, Converter={StaticResource DateTimeViewConverter}}"
+                                        Text="{Binding VideoSlected.VideoName}"
                                         TextColor="{DynamicResource WhiteColor}" />
                                 </StackLayout>
                                 <StackLayout
@@ -392,10 +407,10 @@
                                     <icons:IconView
                                         Foreground="{DynamicResource WhiteColor}"
                                         HeightRequest="20"
-                                        Source="ic_dowload.png"
+                                        Source="ic_cloud_upload.png"
                                         WidthRequest="20">
                                         <icons:IconView.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding DowloadVideoCommand}" />
+                                            <TapGestureRecognizer Command="{Binding UploadToCloudTappedCommand}" />
                                         </icons:IconView.GestureRecognizers>
                                     </icons:IconView>
 
@@ -406,46 +421,43 @@
                                         WidthRequest="20" />-->
                                 </StackLayout>
                             </StackLayout>
-
-                            <ProgressBar
-                                Margin="10,0"
-                                HorizontalOptions="Fill"
-                                IsVisible="{Binding IsDownloading}"
-                                Progress="{Binding ProgressValue, Converter={StaticResource ValueProgressBarConverter}}"
-                                ProgressColor="Green" />
                         </StackLayout>
                     </Grid>
 
                     <!--  Tự động phát  -->
                     <StackLayout
                         Grid.Row="1"
-                        Padding="5,5"
+                        Padding="5,0"
                         Orientation="Horizontal">
                         <Label
                             StyleClass="BoldText"
                             Text="Danh sách video"
                             VerticalOptions="Center" />
-
-                        <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
-                            <Label Text="Phát tự động" VerticalOptions="Center" />
-                            <Switch IsToggled="{Binding AutoSwitch}" />
-                        </StackLayout>
                     </StackLayout>
 
                     <!--  Danh sách video  -->
-                    <icons:HorizontalList
+                    <xforms:SfListView
                         x:Name="listview"
                         Grid.Row="2"
                         Padding="5,0"
-                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
-                        SelectedCommand="{Binding VideoItemTapCommand}"
-                        Spacing="10">
-                        <icons:HorizontalList.ItemTemplate>
+                        AutoFitMode="DynamicHeight"
+                        IsScrollBarVisible="True"
+                        ItemSpacing="5"
+                        ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
+                        LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                        LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
+                        LoadMoreOption="Auto"
+                        SelectedItem="{Binding VideoSlected}"
+                        SelectionBackgroundColor="{DynamicResource BlueColor}"
+                        SelectionGesture="Tap"
+                        SelectionMode="Single"
+                        TapCommand="{Binding VideoItemTapCommand}">
+                        <xforms:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Frame
                                         Padding="0"
-                                        BorderColor="{Binding IsSelected, Converter={StaticResource BackgroundSelectedVideoConverter}}"
+                                        BorderColor="{StaticResource GrayColor}"
                                         HasShadow="False"
                                         HeightRequest="270">
                                         <Grid
@@ -455,22 +467,13 @@
                                             <Grid
                                                 Padding="2"
                                                 BackgroundColor="Black"
-                                                HeightRequest="250"
                                                 VerticalOptions="FillAndExpand">
-                                                <ff:CachedImage Aspect="Fill" Source="{Binding ImageUrl}" />
+                                                <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
                                                 <icons:IconView
                                                     Foreground="{DynamicResource WhiteColor}"
                                                     HeightRequest="30"
                                                     HorizontalOptions="Center"
-                                                    IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
-                                                    Source="ic_play.png"
-                                                    VerticalOptions="Center" />
-                                                <icons:IconView
-                                                    Foreground="{DynamicResource WhiteColor}"
-                                                    HeightRequest="30"
-                                                    HorizontalOptions="Center"
-                                                    IsVisible="{Binding IsSelected}"
-                                                    Source="ic_pause.png"
+                                                    Source="ic_play"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     Margin="0,0,10,10"
@@ -479,7 +482,6 @@
                                                     TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="End" />
                                             </Grid>
-
                                             <StackLayout
                                                 Grid.Row="1"
                                                 Padding="10,5"
@@ -489,24 +491,11 @@
                                                     <Label
                                                         HorizontalOptions="Start"
                                                         StyleClass="BoldText"
-                                                        Text="{Binding FileName}" />
+                                                        Text="{Binding VideoStartTime, Converter={StaticResource DateTimeViewConverter}}" />
                                                     <Label
                                                         HorizontalOptions="Start"
-                                                        HorizontalTextAlignment="Start"
-                                                        StyleClass="BoldText">
-                                                        <Label.FormattedText>
-                                                            <FormattedString>
-                                                                <Span Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}" />
-                                                                <Span Text=" - " />
-                                                                <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
-                                                            </FormattedString>
-                                                        </Label.FormattedText>
-                                                    </Label>
-
-                                                    <Label
-                                                        HorizontalOptions="Start"
-                                                        LineBreakMode="TailTruncation"
-                                                        Text="{Binding Description}" />
+                                                        StyleClass="BoldText"
+                                                        Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
                                                 </StackLayout>
                                                 <StackLayout
                                                     HorizontalOptions="EndAndExpand"
@@ -516,10 +505,10 @@
                                                     <icons:IconView
                                                         Foreground="#2F3542"
                                                         HeightRequest="20"
-                                                        Source="ic_dowload.png"
+                                                        Source="ic_cloud_upload.png"
                                                         WidthRequest="20">
                                                         <icons:IconView.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.UploadToCloudInListTappedCommand}" CommandParameter="{Binding .}" />
                                                         </icons:IconView.GestureRecognizers>
                                                     </icons:IconView>
 
@@ -534,8 +523,8 @@
                                     </Frame>
                                 </Grid>
                             </DataTemplate>
-                        </icons:HorizontalList.ItemTemplate>
-                    </icons:HorizontalList>
+                        </xforms:SfListView.ItemTemplate>
+                    </xforms:SfListView>
 
                     <StackLayout
                         Grid.Row="2"

@@ -9,6 +9,7 @@ using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Navigation.TabbedPages;
 using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 using System;
@@ -86,6 +87,10 @@ namespace BA_MobileGPS.Core.ViewModels
             else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
+            }
+            else if (parameters.ContainsKey(ParameterKey.GotoMyVideoPage) && parameters.GetValue<bool>(ParameterKey.GotoMyVideoPage) is bool obj)
+            {
+                GotoMyVideoPage();
             }
         }
 
@@ -877,6 +882,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+
+        private void GotoMyVideoPage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.SelectTabAsync("MyVideoTab", null);
+            });
         }
 
         #endregion PrivateMethod

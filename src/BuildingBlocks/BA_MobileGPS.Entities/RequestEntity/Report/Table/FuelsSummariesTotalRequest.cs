@@ -11,5 +11,7 @@ namespace BA_MobileGPS.Entities
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
+
+        public string PrivateCode { set; get; }
     }
 }

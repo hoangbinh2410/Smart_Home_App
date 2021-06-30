@@ -54,7 +54,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{7383C5
 		src\BuildingBlocks\Library\Shared\BA.Utilities.dll = src\BuildingBlocks\Library\Shared\BA.Utilities.dll
 		src\BuildingBlocks\Library\Shared\Plugin.BLE.Abstractions.dll = src\BuildingBlocks\Library\Shared\Plugin.BLE.Abstractions.dll
 		src\BuildingBlocks\Library\Shared\Plugin.BLE.dll = src\BuildingBlocks\Library\Shared\Plugin.BLE.dll
-		src\BuildingBlocks\Library\Shared\Prism.Plugin.Popups.dll = src\BuildingBlocks\Library\Shared\Prism.Plugin.Popups.dll
 		src\BuildingBlocks\Library\Shared\StaxiCrypt.dll = src\BuildingBlocks\Library\Shared\StaxiCrypt.dll
 	EndProjectSection
 EndProject

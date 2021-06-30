@@ -1,23 +1,27 @@
-﻿using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.ViewModels;
 using Prism.Navigation;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class MyVideoTab : ContentPage, INavigationAware
+    public partial class ViewVideoUploadedPage : ContentPage, INavigationAware
     {
         private readonly double portraitHeight = Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height /
-                                                Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
+                                                 Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density;
 
         private readonly double videoHeightRatio = 3.2;
-        private MyVideoTabViewModel vm;
+        private ViewVideoUploadedPageViewModel vm;
 
-        public MyVideoTab()
+        public ViewVideoUploadedPage()
         {
             InitializeComponent();
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
-            vm = (MyVideoTabViewModel)BindingContext;
+            map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), 18d);
+            map.IsUseCluster = false;
+            map.IsTrafficEnabled = false;
+            map.UiSettings.ZoomGesturesEnabled = true;
+            map.UiSettings.ZoomControlsEnabled = false;
+            map.UiSettings.RotateGesturesEnabled = false;
+            vm = (ViewVideoUploadedPageViewModel)BindingContext;
         }
 
         protected override void OnAppearing()
@@ -54,7 +58,7 @@ namespace BA_MobileGPS.Core.Views
 
         private void SeekBar_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            vm.SeekBarValueChanged(e.NewValue);
+            
         }
     }
 }
