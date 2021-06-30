@@ -146,6 +146,22 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref selectedChannel, value); }
         }
 
+        private double _progressValue;
+
+        public double ProgressValue
+        {
+            get { return _progressValue; }
+            set { SetProperty(ref _progressValue, value); }
+        }
+
+        private bool _isDownloading;
+
+        public bool IsDownloading
+        {
+            get { return _isDownloading; }
+            set { SetProperty(ref _isDownloading, value); }
+        }
+
         #endregion Property
 
         #region PrivateMethod
@@ -337,6 +353,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
                         var cts = new CancellationTokenSource();
+                        IsDownloading = true;
                         var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.StoragePermission>();
                         if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
                         {
@@ -349,9 +366,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         internal void ReportProgress(double value)
         {
+            ProgressValue = value;
             if (value == 100)
             {
-                DisplayMessage.ShowMessageInfo("Đã tải video thành công");
+                DisplayMessage.ShowMessageInfo("Video đã được tải thành công về máy của bạn");
+                IsDownloading = false;
             }
         }
 
