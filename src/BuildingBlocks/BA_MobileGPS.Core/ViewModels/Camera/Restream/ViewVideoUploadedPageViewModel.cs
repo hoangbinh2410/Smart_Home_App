@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -46,13 +47,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IDownloadVideoService _downloadService;
         private readonly IVehicleRouteService _vehicleRouteService;
+        private readonly IGeocodeService _geocodeService;
 
         public ViewVideoUploadedPageViewModel(INavigationService navigationService,
           IStreamCameraService cameraService, IVehicleRouteService vehicleRouteService,
-          IScreenOrientServices screenOrientServices, IDownloadVideoService downloadService) : base(navigationService, cameraService, screenOrientServices)
+          IScreenOrientServices screenOrientServices, IDownloadVideoService downloadService,
+          IGeocodeService geocodeService) : base(navigationService, cameraService, screenOrientServices)
         {
             _downloadService = downloadService;
             _vehicleRouteService = vehicleRouteService;
+            _geocodeService = geocodeService;
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
             DowloadVideoCommand = new DelegateCommand(DowloadVideo);
             DowloadVideoInListTappedCommand = new DelegateCommand<VideoUploadInfo>(DowloadVideoInListTapped);
@@ -113,6 +117,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private CancellationTokenSource ctsAddress = new CancellationTokenSource();
 
         public List<VideoUploadInfo> VideoItemsSource;
 
@@ -508,6 +514,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
+
         private void NextVideo()
         {
             if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
@@ -644,6 +651,25 @@ namespace BA_MobileGPS.Core.ViewModels
                 args.Handled = true;
                 return;
             }
+            args.Handled = false;
+            if (ctsAddress != null)
+                ctsAddress.Cancel();
+
+            ctsAddress = new CancellationTokenSource();
+
+            Task.Run(async () =>
+            {
+                if (ctsAddress.IsCancellationRequested)
+                    throw new Exception();
+                return await _geocodeService.GetAddressByLatLng(CurrentComanyID, args.Pin.Position.Latitude.ToString(), args.Pin.Position.Longitude.ToString());
+            }, ctsAddress.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion && !ctsAddress.IsCancellationRequested)
+                {
+                    args.Pin.Address = task.Result;
+                }
+            }));
+
             args.Handled = false;
         }
 
