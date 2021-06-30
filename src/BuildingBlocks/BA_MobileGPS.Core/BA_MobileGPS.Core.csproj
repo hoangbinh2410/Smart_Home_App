@@ -24,6 +24,7 @@
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.7.9" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
+		<PackageReference Include="Prism.Plugin.Popups" Version="8.0.76" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.5.1" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.1.0.69" />
@@ -61,11 +62,6 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Entities\BA_MobileGPS.Entities.csproj" />
 	  <ProjectReference Include="..\BA_MobileGPS.Service\BA_MobileGPS.Service.csproj" />
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Reference Include="Prism.Plugin.Popups">
-	    <HintPath>..\Library\Shared\Prism.Plugin.Popups.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
 	  <Compile Update="Views\Authentication\LoginFailedPopup.xaml.cs">
