@@ -124,20 +124,6 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ObservableCollection<VideoUploadInfo> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
 
-        private VideoUploadInfo videoSlected;
-
-        /// <summary>
-        /// Ảnh được focus
-        /// </summary>
-        public VideoUploadInfo VideoSlected
-        {
-            get => videoSlected;
-            set
-            {
-                SetProperty(ref videoSlected, value);
-            }
-        }
-
         private List<ChannelModel> listChannel;
 
         /// <summary>
@@ -344,7 +330,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+                if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
                     var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
                     if (action)
@@ -354,7 +340,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.StoragePermission>();
                         if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
                         {
-                            await _downloadService.DownloadFileAsync(VideoSlected.Link, progressIndicator, cts.Token);
+                            await _downloadService.DownloadFileAsync(obj.Link, progressIndicator, cts.Token);
                         }
                     }
                 }
