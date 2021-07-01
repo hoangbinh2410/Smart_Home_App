@@ -134,7 +134,7 @@ namespace VMS_MobileGPS.ViewModels
                                     IsCar = true
                                 });
                             }
-                            ConfigDetail();
+                            ConfigDetail(location.Latitude, location.Longitude);
                         }
                     });
                 }
@@ -207,16 +207,14 @@ namespace VMS_MobileGPS.ViewModels
                         });
                     }
                 }
-                ConfigDetail();
+                ConfigDetail(obj.Lat, obj.Lng);
             });
         }
 
-        private void ConfigDetail()
+        private void ConfigDetail(double lat,double lng)
         {
             if (Markers != null && Markers.Count > 0)
             {
-                var lat = Convert.ToDouble(Markers[0].Latitude.Replace(",", "."), CultureInfo.InvariantCulture);
-                var lng = Convert.ToDouble(Markers[0].Longitude.Replace(",", "."), CultureInfo.InvariantCulture);
                 MarkerPosition = string.Join(", ", GeoHelper.LatitudeToDergeeMinSec(lat), GeoHelper.LongitudeToDergeeMinSec(lng));
             }
         }

@@ -19,19 +19,5 @@
         public int TotalAlert { get => totalAlert; set => SetProperty(ref totalAlert, value, relatedProperty: nameof(TotalAlertDisplay)); }
 
         public string TotalAlertDisplay => TotalAlert > 100 ? "99+" : TotalAlert.ToString();
-
-        private int totalVideoUpload;
-
-        public int TotalVideoUpload
-        {
-            get => totalVideoUpload; set => SetProperty(ref totalVideoUpload, value);
-        }
-
-        private int totalVideoUploaded;
-
-        public int TotalVideoUploaded
-        {
-            get => totalVideoUploaded; set => SetProperty(ref totalVideoUploaded, value);
-        }
     }
 }

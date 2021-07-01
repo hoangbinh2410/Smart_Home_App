@@ -1,6 +1,8 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -16,10 +18,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private CancellationTokenSource cts = new CancellationTokenSource();
         public ICommand UploadVideoCommand { get; }
 
+        public ICommand GotoMyVideoPageCommand { get; }
+
         public UploadVideoPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             this.streamCameraService = streamCameraService;
             UploadVideoCommand = new Command(UploadVideo);
+            GotoMyVideoPageCommand = new Command(GotoMyVideoPage);
             isCheckAll = true;
         }
 
@@ -103,17 +108,44 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && result.Data != null && result.Data.Count > 0)
                 {
                     VideoRestreamInfo = result;
-                    ListVideo = result.Data.OrderBy(x => x.StartTime).ToObservableCollection();
-                    var ischeckall = result.Data.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
-                    if (ischeckall != null && ischeckall.Count > 0)
+                    foreach (var item in result.Data)
                     {
-                        IsCheckAll = true;
+                        if (item.IsUploaded)
+                        {
+                            item.Status = VideoUploadStatus.Uploaded;
+                        }
+                        else
+                        {
+                            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+                            {
+                                var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.StartTime.Equals(item.StartTime));
+                                if (model != null)
+                                {
+                                    item.Status = model.Status;
+                                }
+                                else
+                                {
+                                    item.Status = VideoUploadStatus.NotUpload;
+                                }
+                            }
+                            else
+                            {
+                                item.Status = VideoUploadStatus.NotUpload;
+                            }
+                        }
+                    }
+                    var ischeckall = result.Data.FirstOrDefault(x => x.IsSelected == true
+                    && x.IsUploaded == false
+                    && (x.Status == VideoUploadStatus.NotUpload || x.Status == VideoUploadStatus.UploadError));
+                    if (ischeckall != null)
+                    {
+                        IsShowBtnUpload = true;
                     }
                     else
                     {
-                        IsCheckAll = false;
                         IsShowBtnUpload = false;
                     }
+                    ListVideo = result.Data.OrderBy(x => x.StartTime).ToObservableCollection();
                 }
             }, showLoading: true);
         }
@@ -122,61 +154,74 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (GlobalResources.Current.TotalVideoUpload > 0)
+                var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
+                if (lstvideoSelected != null && lstvideoSelected.Count > 0)
                 {
-                    DisplayMessage.ShowMessageInfo("Đang có video được tải. Bạn vui lòng đợi tải xong thì mới được tải tiếp");
-                }
-                else
-                {
-                    var lstvideoSelected = ListVideo.Where(x => x.IsSelected == true && x.IsUploaded == false).ToList();
-                    if (lstvideoSelected != null && lstvideoSelected.Count > 0)
+                    foreach (var item in lstvideoSelected)
                     {
-                        bool isvalid = true;
-                        foreach (var item in lstvideoSelected)
+                        //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s
+                        var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
+                        if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
                         {
-                            if (!string.IsNullOrEmpty(item.Note))
-                            {
-                                var DangerousChar = "^[^ ' \"<>%$/&]*$";
-                                var dangerList = DangerousChar.ToCharArray();
-                                foreach (var str in dangerList)
-                                {
-                                    if (item.Note.Contains(str))
-                                    {
-                                        isvalid = false;
-                                    }
-                                }
-                            }
-                            //nếu end-start nhỏ hơn 60s thì phải thêm s cho nó đủ 60s
-                            var totals = item.EndTime.Subtract(item.StartTime).TotalSeconds;
-                            if (item.EndTime.Subtract(item.StartTime).TotalSeconds < 60)
-                            {
-                                item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
-                            }
+                            item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
                         }
-                        if (isvalid)
+                        if (StaticSettings.ListVideoUpload != null)
                         {
-                            await PageDialog.DisplayAlertAsync("Thông báo", "Video đang được tải về server. Quý khách có thể xem các video đã tải trên tab Yêu cầu", "Đóng");
-                            
-                            await NavigationService.GoBackAsync();
-
-                            EventAggregator.GetEvent<UploadVideoEvent>().Publish(new VideoRestreamInfo()
+                            var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.StartTime == item.StartTime);
+                            if (model != null)
                             {
-                                Channel = VideoRestreamInfo.Channel,
-                                Data = lstvideoSelected,
-                                VehicleName = VideoRestreamInfo.VehicleName,
-                                VehicleID = RequestInfo.VehicleID
-                            });
+                                model.Status = VideoUploadStatus.WaitingUpload;
+                            }
+                            else
+                            {
+                                var video = new VideoUpload()
+                                {
+                                    Channel = VideoRestreamInfo.Channel,
+                                    StartTime = item.StartTime,
+                                    EndTime = item.EndTime,
+                                    Status = VideoUploadStatus.WaitingUpload,
+                                    VehicleName = VideoRestreamInfo.VehicleName,
+                                    VehicleID = RequestInfo.VehicleID
+                                };
+                                StaticSettings.ListVideoUpload.Add(video);
+                            }
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo("Bạn không được nhập các ký tự đặc biệt [,',\",<,>,/, &,]");
+                            StaticSettings.ListVideoUpload = new List<VideoUpload>()
+                            {
+                                new VideoUpload()
+                                {
+                                    Channel=VideoRestreamInfo.Channel,
+                                    StartTime=item.StartTime,
+                                    EndTime=item.EndTime,
+                                    Status=VideoUploadStatus.WaitingUpload,
+                                    VehicleName=VideoRestreamInfo.VehicleName,
+                                    VehicleID = RequestInfo.VehicleID
+                                }
+                            };
                         }
                     }
-                    else
-                    {
-                        DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
-                    }
+                    await PageDialog.DisplayAlertAsync("Thông báo", string.Format("{0} video đang được tải về server. Quý khách vui lòng xem video đã tải trong tab tải về", lstvideoSelected.Count), "Đóng");
+
+                    await NavigationService.GoBackAsync();
+
+                    EventAggregator.GetEvent<UploadVideoEvent>().Publish(true);
                 }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
+                }
+            });
+        }
+
+        private void GotoMyVideoPage(object obj)
+        {
+            SafeExecute(async () =>
+            {
+                var navigationPara = new NavigationParameters();
+                navigationPara.Add(ParameterKey.GotoMyVideoPage, true);
+                await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
             });
         }
     }

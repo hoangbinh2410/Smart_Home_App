@@ -157,7 +157,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.POST_RESTREAM_INFOR}";
-                var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamInfoResponse>(url, request);
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, BaseResponse<List<CameraRestreamInfo>>>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
@@ -176,7 +176,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.POST_RESTREAM_LISTUPLOAD}";
-                var response = await requestProvider.PostAsync<CameraRestreamRequest, CameraRestreamUploadResponse>(url, request);
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, BaseResponse<List<CameraRestreamUploadInfo>>>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
@@ -195,7 +195,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.POST_LISTVIDEONOTUPLOAD}";
-                var response = await requestProvider.PostAsync<CameraUploadRequest, VideoNotUploadResponse>(url, request);
+                var response = await requestProvider.PostAsync<CameraUploadRequest, ResponseBaseV2<VideoRestreamInfo>>(url, request);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;

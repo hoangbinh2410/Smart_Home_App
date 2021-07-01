@@ -209,7 +209,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleIDs = VehicleSelect.VehicleId.ToString(),
                     VehiclePlate = VehicleSelect.VehiclePlate,
                     FromDate = FromDate,
-                    ToDate = ToDate
+                    ToDate = ToDate,
+                    PrivateCode = VehicleSelect.PrivateCode
                 };
 
                 var p = new NavigationParameters
