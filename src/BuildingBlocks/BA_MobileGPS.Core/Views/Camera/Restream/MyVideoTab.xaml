@@ -286,6 +286,12 @@
                                 </StackLayout>
                                 <ScrollView Grid.Row="1">
                                     <StackLayout>
+                                        <ProgressBar
+                                            Margin="0"
+                                            HorizontalOptions="Fill"
+                                            IsVisible="{Binding IsDownloading}"
+                                            Progress="{Binding ProgressValue, Converter={StaticResource ValueProgressBarConverter}}"
+                                            ProgressColor="Green" />
                                         <!--  Danh sách video  -->
                                         <StackLayout
                                             x:Name="listview"

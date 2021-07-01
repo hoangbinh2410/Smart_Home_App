@@ -124,20 +124,6 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </summary>
         public ObservableCollection<VideoUploadInfo> VideoItemsSource { get => videoItemsSource; set => SetProperty(ref videoItemsSource, value); }
 
-        private VideoUploadInfo videoSlected;
-
-        /// <summary>
-        /// Ảnh được focus
-        /// </summary>
-        public VideoUploadInfo VideoSlected
-        {
-            get => videoSlected;
-            set
-            {
-                SetProperty(ref videoSlected, value);
-            }
-        }
-
         private List<ChannelModel> listChannel;
 
         /// <summary>
@@ -158,6 +144,22 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return selectedChannel; }
             set { SetProperty(ref selectedChannel, value); }
+        }
+
+        private double _progressValue;
+
+        public double ProgressValue
+        {
+            get { return _progressValue; }
+            set { SetProperty(ref _progressValue, value); }
+        }
+
+        private bool _isDownloading;
+
+        public bool IsDownloading
+        {
+            get { return _isDownloading; }
+            set { SetProperty(ref _isDownloading, value); }
         }
 
         #endregion Property
@@ -344,17 +346,18 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
+                if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
                     var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
                         var cts = new CancellationTokenSource();
+                        IsDownloading = true;
                         var permissionStatus = await CrossPermissions.Current.RequestPermissionAsync<Plugin.Permissions.StoragePermission>();
                         if (permissionStatus == Plugin.Permissions.Abstractions.PermissionStatus.Granted)
                         {
-                            await _downloadService.DownloadFileAsync(VideoSlected.Link, progressIndicator, cts.Token);
+                            await _downloadService.DownloadFileAsync(obj.Link, progressIndicator, cts.Token);
                         }
                     }
                 }
@@ -363,9 +366,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         internal void ReportProgress(double value)
         {
+            ProgressValue = value;
             if (value == 100)
             {
-                DisplayMessage.ShowMessageInfo("Đã tải video thành công");
+                DisplayMessage.ShowMessageInfo("Video đã được tải thành công về máy của bạn");
+                IsDownloading = false;
             }
         }
 

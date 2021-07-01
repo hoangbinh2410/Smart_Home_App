@@ -78,8 +78,7 @@ namespace BA_MobileGPS.Core.iOS
         { 
             typeof(CameraManagingPage),
             typeof(DeviceTab),
-            typeof(BACloudTab),
-            typeof(MyVideoTab)
+            typeof(ViewVideoUploadedPage)
         };
     }
 }
