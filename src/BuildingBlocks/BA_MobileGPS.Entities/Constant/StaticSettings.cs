@@ -25,6 +25,8 @@ namespace BA_MobileGPS.Entities
 
         public static List<Company> ListCompany { get; set; }
 
+        public static List<VideoUpload> ListVideoUpload { get; set; }
+
         public static DateTime TimeServer { get; set; }
 
         public static DateTime LastSyncTime { get; set; }
@@ -43,6 +45,7 @@ namespace BA_MobileGPS.Entities
             ListVehilceCamera = null;
             ListVehilceFree = null;
             ListCompany = null;
+            ListVideoUpload = null;
             LastSyncTime = DateTime.Now;
         }
 

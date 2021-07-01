@@ -42,12 +42,19 @@ namespace BA_MobileGPS.Core.Droid
 
         public static Bitmap ConvertViewToBitmap(Android.Views.View v)
         {
-            v.Measure(Android.Views.View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified), Android.Views.View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified));
-            v.Layout(0, 0, v.MeasuredWidth, v.MeasuredHeight);
-            Bitmap bitmap = Bitmap.CreateBitmap(v.MeasuredWidth, v.MeasuredHeight, Bitmap.Config.Argb8888);
-            Canvas canvas = new Canvas(bitmap);
-            v.Draw(canvas);
-            return bitmap;
+            try
+            {
+                v.Measure(Android.Views.View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified), Android.Views.View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified));
+                v.Layout(0, 0, v.MeasuredWidth, v.MeasuredHeight);
+                Bitmap bitmap = Bitmap.CreateBitmap(v.MeasuredWidth, v.MeasuredHeight, Bitmap.Config.Argb8888);
+                Canvas canvas = new Canvas(bitmap);
+                v.Draw(canvas);
+                return bitmap;
+            }
+            catch (System.Exception)
+            {
+                return Bitmap.CreateBitmap(v.MeasuredWidth, v.MeasuredHeight, Bitmap.Config.Argb8888);
+            }
         }
 
         public static Task<Android.Gms.Maps.Model.BitmapDescriptor> ConvertViewToBitmapDescriptor(Android.Views.View v)

@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Utilities.Enums;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -70,6 +69,7 @@ namespace BA_MobileGPS.Entities
         public int StreamingTimeout { get; set; }
         public int StreamingTotal { get; set; }
         public int FPS { get; set; }
+        public int State { get; set; }
     }
 
     public class Coreboard
