@@ -57,5 +57,29 @@ namespace BA_MobileGPS.Service
             }
             return respone;
         }
+
+        public async Task<ValidatedReportRespone> ValidateDateTimeReport(Guid UserId,
+          DateTime FromDate, DateTime ToDate)
+        {
+            ValidatedReportRespone respone = new ValidatedReportRespone();
+            respone.State = StateValidateReport.None;
+
+            try
+            {
+                string url = $"{ApiUri.GET_VALIDATEDATETIME}?UserId={UserId}&FromDate={FromDate.ToString("yyyy-MM-dd HH:mm:ss")}&ToDate={ToDate.ToString("yyyy-MM-dd HH:mm:ss")}";
+
+                var result = await RequestProvider.GetAsync<ResponseBaseV2<ValidatedReportRespone>>(url);
+                if (result != null && result.Data != null)
+                {
+                    respone = result.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+
+            return respone;
+        }
     }
 }

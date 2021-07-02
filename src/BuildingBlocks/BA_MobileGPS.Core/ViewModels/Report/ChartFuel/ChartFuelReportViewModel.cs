@@ -102,7 +102,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (Vehicle != null)
             {
-                GetData();
+                GetDataChart();
                 IsShowInfo = false;
             }
         }
@@ -117,7 +117,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (Vehicle != null)
                     {
-                        GetData();
+                        GetDataChart();
                         IsShowInfo = false;
                     }
                 }
@@ -136,7 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (Vehicle != null)
             {
-                GetData();
+                GetDataChart();
                 IsShowInfo = false;
             }
         }
@@ -232,6 +232,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 FromDate = FromDate,
                 ToDate = ToDate
             };
+        }
+
+        private async void GetDataChart()
+        {
+            var isvalid = await ValidateDateTimeReport();
+            if (isvalid)
+            {
+                GetData();
+            }
         }
 
         private DataTemplate trackballLabelTemplate;
