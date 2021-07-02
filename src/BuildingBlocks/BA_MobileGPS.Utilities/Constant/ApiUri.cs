@@ -180,7 +180,7 @@
         #endregion Vehicle detail
 
         #region report
-
+        public const string GET_VALIDATEDATETIME = "api/reports/validatedatetimereport";
         public const string GET_REPORTTEMPERATURE = "api/reports/temperature";
         public const string GET_REPORTADDRESS = "api/reports/address";
         public const string GET_MACHINEVEHICLE = "api/reports/machine";

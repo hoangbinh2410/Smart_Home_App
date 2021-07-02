@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using BA_MobileGPS.Entities;
+using System;
+using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service
 {
@@ -11,5 +13,8 @@ namespace BA_MobileGPS.Service
         Task<TResponse> GetMoreData();
 
         Task<int> GetCount();
+
+        Task<ValidatedReportRespone> ValidateDateTimeReport(Guid UserId,
+          DateTime FromDate, DateTime ToDate);
     }
 }

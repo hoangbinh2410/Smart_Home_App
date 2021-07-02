@@ -11,6 +11,7 @@ using Prism.Navigation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using Xamarin.Forms;
@@ -69,6 +70,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public virtual string ReportTitle => MobileSettingHelper.ConfigTitleDefaultReport;
 
         public DelegateCommand SelectVehicleReportCommand { get; private set; }
+
         public ReportBaseViewModel(INavigationService navigationService)
             : base(navigationService)
         {
@@ -193,6 +195,59 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        public async Task<bool> ValidateDateTimeReport()
+        {
+            bool result = true;
+            try
+            {
+                if (!ValidateInput())
+                {
+                    result = false;
+                }
+                else
+                {
+                    var validate = await ReportBaseService.ValidateDateTimeReport(UserInfo.UserId, FromDate, ToDate);
+                    if (validate != null)
+                    {
+                        switch (validate.State)
+                        {
+                            case StateValidateReport.None:
+                                result = true;
+                                break;
+
+                            case StateValidateReport.Success:
+                                result = true;
+                                break;
+
+                            case StateValidateReport.OverDateConfig:
+                                result = false;
+                                DisplayMessage.ShowMessageInfo(validate.Message);
+                                break;
+
+                            case StateValidateReport.DateFuture:
+                                result = false;
+                                DisplayMessage.ShowMessageInfo(validate.Message);
+                                break;
+
+                            case StateValidateReport.FromDateOverToDate:
+                                result = false;
+                                DisplayMessage.ShowMessageInfo(validate.Message);
+                                break;
+
+                            default:
+                                result = true;
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
         public virtual void OnGetDataSuccess()
         {
         }
@@ -252,7 +307,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public virtual void SaveShowHideComlumn()
         {
         }
-
 
         private void SelectVehicleReport()
         {

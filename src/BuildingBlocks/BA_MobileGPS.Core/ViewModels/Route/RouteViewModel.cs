@@ -435,10 +435,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         case ValidatedHistoryRouteState.OverDateConfig:
                             if (result.MinDate != null && result.MaxDate != null)
                             {
-                                if (result.MinDate > result.MaxDate)
-                                    PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateFromDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
-                                else
-                                    PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MinDate != null)
                             {

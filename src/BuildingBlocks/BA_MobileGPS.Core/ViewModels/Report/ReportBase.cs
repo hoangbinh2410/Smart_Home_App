@@ -99,8 +99,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-      
-
         #region Property
 
         // có load dữ liệu sau khi load form không - mặc định là false
@@ -333,6 +331,52 @@ namespace BA_MobileGPS.Core.ViewModels
             return true;
         }
 
+        private async Task<bool> ValidateDateTimeReport()
+        {
+            bool result = true;
+            try
+            {
+                var validate = await BaseServiceReport.ValidateDateTimeReport(UserInfo.UserId, FromDate, ToDate);
+                if (validate != null)
+                {
+                    switch (validate.State)
+                    {
+                        case StateValidateReport.None:
+                            result = true;
+                            break;
+
+                        case StateValidateReport.Success:
+                            result = true;
+                            break;
+
+                        case StateValidateReport.OverDateConfig:
+                            result = false;
+                            DisplayMessage.ShowMessageInfo(validate.Message);
+                            break;
+
+                        case StateValidateReport.DateFuture:
+                            result = false;
+                            DisplayMessage.ShowMessageInfo(validate.Message);
+                            break;
+
+                        case StateValidateReport.FromDateOverToDate:
+                            result = false;
+                            DisplayMessage.ShowMessageInfo(validate.Message);
+                            break;
+
+                        default:
+                            result = true;
+                            break;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+
         public virtual TInputModel SetDataInput()
         {
             return new TInputModel();
@@ -342,10 +386,18 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var input = SetDataInput();
-                if (input == null) input = new TInputModel();
-                var response = await BaseServiceReport.GetData(input);
-                return response ?? new List<TResult>();
+                var isvalid = await ValidateDateTimeReport();
+                if (isvalid)
+                {
+                    var input = SetDataInput();
+                    if (input == null) input = new TInputModel();
+                    var response = await BaseServiceReport.GetData(input);
+                    return response ?? new List<TResult>();
+                }
+                else
+                {
+                    return new List<TResult>();
+                }
             }
             catch (Exception ex)
             {
@@ -436,6 +488,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         public virtual void UpdateDateTime(PickerDateTimeResponse param)
         {
             if (param != null)
@@ -453,6 +506,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         public async void ExcuteExportExcell()
         {
             try
@@ -608,7 +662,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public virtual void FillDataTableExcell(IList<TResult> data, ref IWorksheet worksheet)
         {
         }
-
 
         private void SelectVehicleReport()
         {
