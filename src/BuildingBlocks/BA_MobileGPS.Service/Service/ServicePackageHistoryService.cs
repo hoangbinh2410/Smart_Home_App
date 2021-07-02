@@ -76,6 +76,11 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
+        public Task<ValidatedReportRespone> ValidateDateTimeReport(Guid UserId, DateTime FromDate, DateTime ToDate)
+        {
+            throw new NotImplementedException();
+        }
+
         //public Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(dynamic request)
         //{
         //    throw new NotImplementedException();
