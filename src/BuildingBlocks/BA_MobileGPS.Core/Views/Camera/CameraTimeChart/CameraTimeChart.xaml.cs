@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BA_MobileGPS.Core.Resources;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -8,6 +9,10 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
             NavigationPage.SetBackButtonTitle(this, string.Empty);
+            title.Text = MobileResource.Camera_Lable_Chart;
+            timehasvideo.Text = MobileResource.Camera_Lable_TimeHasVideo;
+            timesavevideo.Text = MobileResource.Camera_Lable_TimeSaveVideo;
+            txtnote.Text = MobileResource.Camera_Lable_NoteChart;
         }
     }
 }

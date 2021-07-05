@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using Prism.Navigation;
@@ -202,7 +203,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                         }
                     }
-                    await PageDialog.DisplayAlertAsync("Thông báo", string.Format("{0} video đang được tải về server. Quý khách vui lòng xem video đã tải trong tab tải về", lstvideoSelected.Count), "Đóng");
+                    await PageDialog.DisplayAlertAsync(MobileResource.Camera_Alert_Title, string.Format("{0} {1}", lstvideoSelected.Count, MobileResource.UploadVideoTo_Alert_NoteUploaded), MobileResource.Common_Label_Close);
 
                     await NavigationService.GoBackAsync();
 

@@ -34,9 +34,9 @@
                 </icons:IconView.GestureRecognizers>
             </icons:IconView>
             <Label
+                x:Name="title"
                 HorizontalOptions="Center"
                 StyleClass="GroupTitleLabel,BoldText"
-                Text="{i18n:TranslateResource CameraImage_Label_TitlelPage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <icons:IconView

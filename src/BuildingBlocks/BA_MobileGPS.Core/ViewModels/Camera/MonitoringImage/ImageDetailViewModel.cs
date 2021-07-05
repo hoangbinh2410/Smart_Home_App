@@ -317,7 +317,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         //File.Delete(FilePath);
                     }
 
-                    await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh thành công", "OK");
+                    await PageDialog.DisplayAlertAsync("Camera", MobileResource.Image_Alert_SaveImageSuccess, "OK");
                 }
                 else
                 {

@@ -145,6 +145,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_TitleShowHideColumn => Get(MobileResourceNames.Common_Label_TitleShowHideColumn, "Ẩn hiện cột", "Show Hide Column");
 
+        public static string Common_Label_All => Get(MobileResourceNames.Common_Label_All, "Tất cả", "All");
+
         #endregion Report Common
 
         #region datetime picker

@@ -844,7 +844,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     //	Kênh không active  không thay đổi
                     if (item.Status == ChannelCameraStatus.Error)
                     {
-                        DisplayMessage.ShowMessageInfo($"Kênh {item.Channel} không hoạt động");
+                        DisplayMessage.ShowMessageInfo($"{MobileResource.Camera_Lable_Channel} {item.Channel} không hoạt động");
                         return;
                     }
                     if (mCameraVehicle != null && mCameraVehicle.Count > 0)
@@ -888,7 +888,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageWarning($"Kênh {item.Channel} không hoạt động");
+                            DisplayMessage.ShowMessageWarning($"{MobileResource.Camera_Lable_Channel} {item.Channel} không hoạt động");
                         }
                     }
                 }
@@ -912,7 +912,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PageDialog.DisplayAlertAsync("Thông báo", "Các xe sử dụng gói cước không tích hợp tính năng xem video sẽ không được hiển thị trên tính năng này", "Bỏ qua");
+                await PageDialog.DisplayAlertAsync(MobileResource.Camera_Alert_Title, MobileResource.Camera_Alert_HelpContent, MobileResource.Common_Message_Skip);
             });
         }
 

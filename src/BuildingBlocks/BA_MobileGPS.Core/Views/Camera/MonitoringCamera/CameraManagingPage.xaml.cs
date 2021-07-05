@@ -29,7 +29,9 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            title.Text = MobileResource.Camera_Title_Camera_Streaming;
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            autorenewal.Text = MobileResource.Camera_Checkbox_AutoRenewal;
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
