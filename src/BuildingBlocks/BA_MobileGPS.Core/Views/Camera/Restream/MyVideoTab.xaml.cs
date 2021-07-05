@@ -8,6 +8,7 @@ namespace BA_MobileGPS.Core.Views
         public MyVideoTab()
         {
             InitializeComponent();
+            title.Text = MobileResource.Camera_ChildTab_BACloud;
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
         }
     }

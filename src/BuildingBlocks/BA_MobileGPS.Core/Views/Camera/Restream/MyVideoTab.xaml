@@ -45,10 +45,10 @@
                     </icons:IconView>
                 </StackLayout>
                 <Label
+                    x:Name="title"
                     Grid.ColumnSpan="2"
                     FontSize="16"
                     HorizontalOptions="Center"
-                    Text="Danh sách tải về"
                     TextColor="White"
                     VerticalOptions="End" />
 

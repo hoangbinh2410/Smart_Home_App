@@ -167,7 +167,7 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="{Binding Channel, StringFormat='{}Kênh: {0}'}"
+                                        Text="{Binding Channel, StringFormat='{}CH: {0}'}"
                                         VerticalOptions="Center" />
                                     <icons:IconView
                                         Grid.Row="2"
