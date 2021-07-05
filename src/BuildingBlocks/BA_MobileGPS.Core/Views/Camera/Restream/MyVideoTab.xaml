@@ -6,6 +6,7 @@
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -80,7 +81,7 @@
                 </tabView:SfTabView.SelectionIndicatorSettings>
 
                 <tabView:SfTabItem
-                    Title="Video đã tải"
+                    Title="{i18n:TranslateResource Camera_Title_Downloadedvideo}"
                     SelectionColor="{DynamicResource WhiteColor}"
                     TitleFontAttributes="Bold"
                     TitleFontColor="White"
@@ -281,7 +282,7 @@
                                     Orientation="Horizontal">
                                     <Label
                                         StyleClass="BoldText"
-                                        Text="Danh sách video đã tải"
+                                        Text="{i18n:TranslateResource Camera_Title_ListDownloadingvideo}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
                                 <ScrollView Grid.Row="1">
@@ -384,7 +385,7 @@
                 </tabView:SfTabItem>
 
                 <tabView:SfTabItem
-                    Title="Video đang tải"
+                    Title="{i18n:TranslateResource Camera_Title_Downloadingvideo}"
                     SelectionColor="{DynamicResource WhiteColor}"
                     TitleFontAttributes="Bold"
                     TitleFontColor="White"
@@ -402,7 +403,7 @@
                                 Orientation="Horizontal">
                                 <Label
                                     StyleClass="BoldText"
-                                    Text="Danh sách video đang tải"
+                                    Text="{i18n:TranslateResource Camera_Title_ListDownloadingvideo}"
                                     VerticalOptions="Center" />
                             </StackLayout>
                             <ScrollView Grid.Row="1">
