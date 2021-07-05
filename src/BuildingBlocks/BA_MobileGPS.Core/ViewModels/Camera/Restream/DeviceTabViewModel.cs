@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
             vehicle = new CameraLookUpVehicleModel();
-            listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
+            listChannel = new List<ChannelModel> { new ChannelModel() { Name = MobileResource.Camera_Lable_AllChannel, Value = 0 } };
             selectedChannel = listChannel[0];
         }
 
