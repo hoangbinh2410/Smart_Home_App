@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Syncfusion.XForms.Buttons;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace BA_MobileGPS.Core.Views
         public UploadVideoPage()
         {
             InitializeComponent();
+            Title = MobileResource.Camera_Title_UploadVideoToServer;
+            txtNote.Text = MobileResource.Camera_Lable_NoteUploadVideoToServer;
+            checkAll.Text = MobileResource.Common_Label_All;
             checkAll.StateChanged += CheckAll_StateChanged;
         }
 

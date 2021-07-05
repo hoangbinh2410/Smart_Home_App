@@ -519,6 +519,7 @@
         Common_Message_NoDataJoinDay,
         Common_Message_ErrorOverDateSearch,
         Common_Label_TitleShowHideColumn,
+        Common_Label_All,
 
         PourFuelReport_Label_TitlePage,
         PourFuelReport_Label_TitleDetailPage,
@@ -867,6 +868,23 @@
         Camera_ChildTab_Device,
         Camera_ChildTab_BACloud,
         Camera_ChildTab_MyVideo,
+        Camera_Alert_Title,
+        Camera_Alert_HelpContent,
+        Camera_Checkbox_AutoRenewal,
+        Camera_Lable_Channel,
+        Camera_Lable_Chart,
+        Camera_Lable_TimeHasVideo,
+        Camera_Lable_TimeSaveVideo,
+        Camera_Lable_NoteChart,
+        Camera_Title_UploadVideoToServer,
+        Camera_Title_NoteDowLoadFile,
+        Camera_Lable_NoteUploadVideoToServer,
+        UploadVideoTo_Alert_NoteUploaded,
+        #endregion
+
+        #region Image
+        Image_Lable_ImageMonitoring,
+        Image_Alert_SaveImageSuccess,
         #endregion
 
         #region Helper

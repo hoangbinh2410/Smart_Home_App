@@ -12,6 +12,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
             entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            title.Text = MobileResource.Image_Lable_ImageMonitoring;
             ImagePanel.Children.Add(new Template4Image());
         }
 
