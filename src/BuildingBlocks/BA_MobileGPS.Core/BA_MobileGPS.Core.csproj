@@ -431,6 +431,9 @@
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamOverview.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Report\QCVN31Speed\QCVN31SpeedReport.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
