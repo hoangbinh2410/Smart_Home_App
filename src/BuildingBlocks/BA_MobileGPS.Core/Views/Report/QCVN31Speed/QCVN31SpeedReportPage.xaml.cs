@@ -1,11 +1,10 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class QCVN31SpeedReport : ContentPage
+    public partial class QCVN31SpeedReportPage : ContentPage
     {
-        public QCVN31SpeedReport()
+        public QCVN31SpeedReportPage()
         {
             InitializeComponent();
             FixColumTablet();
