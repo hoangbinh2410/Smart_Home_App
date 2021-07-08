@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 ValidateVehicleCamera(vehicle);
                 WifiName = Vehicle.VehiclePlate + "-" + Vehicle.Imei.Substring(Vehicle.Imei.Length - 8);
-                WifiPassword = string.Format("bacam@{0}", DateTime.Now.ToString("ddMMyy"));
+                WifiPassword = string.Format("bacam@{0}", DateTime.Now.ToString("ddMMyyyy"));
             }
 
             base.OnNavigatedTo(parameters);
