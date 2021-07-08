@@ -623,7 +623,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { ParameterKey.ReportFuelsSummariesSelected, model }
                 };
-                await NavigationService.NavigateAsync("ChartFuelReportPage", p, useModalNavigation: true, true);
+                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", p, useModalNavigation: true, true);
             });
         }
     }
