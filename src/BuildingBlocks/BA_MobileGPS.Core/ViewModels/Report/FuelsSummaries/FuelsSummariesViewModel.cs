@@ -619,6 +619,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
                 model.VehiclePlate = VehicleSelect.VehiclePlate;
                 model.PrivateCode= VehicleSelect.PrivateCode;
+                model.FK_VehicleID= VehicleSelect.VehicleId;
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportFuelsSummariesSelected, model }
