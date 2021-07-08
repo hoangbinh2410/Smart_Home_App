@@ -163,7 +163,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var favourites = result.Where(s => s.IsFavorited).ToList();
             GenerateFavouriteMenu(favourites);
             var notFavorites = result.Where(s => !s.IsFavorited).ToList();
-
+            notFavorites.Add(new HomeMenuItemViewModel() { MenuKey = "QCVN31SpeedReport", NameByCulture = "Báo cáo tốc độ của xe" });
             GenerateListFeatures(notFavorites);
             HasFavorite = FavouriteMenuItems.Count != 0;
             StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());
