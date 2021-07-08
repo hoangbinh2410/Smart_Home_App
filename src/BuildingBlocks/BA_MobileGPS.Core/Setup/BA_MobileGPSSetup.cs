@@ -231,7 +231,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ExportVideoPage, ExportVideoPageViewModel>("ExportVideoPage");
             containerRegistry.RegisterForNavigation<PackageCameraPage, PackageCameraPageViewModel>("PackageCameraPage");
             containerRegistry.RegisterForNavigation<ViewVideoUploadedPage, ViewVideoUploadedPageViewModel>("ViewVideoUploadedPage");
-            containerRegistry.RegisterForNavigation<QCVN31SpeedReport, QCVN31SpeedReportViewModel>("QCVN31SpeedReport");
+            containerRegistry.RegisterForNavigation<QCVN31SpeedReportPage, QCVN31SpeedReportViewModel>("QCVN31SpeedReportPage");
         }
     }
 }

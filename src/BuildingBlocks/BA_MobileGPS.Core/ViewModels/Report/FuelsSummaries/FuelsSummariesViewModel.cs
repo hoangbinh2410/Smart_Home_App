@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
 
             DetailVehicleCommand = new DelegateCommand<int?>(ExecuteDetailVehicle);
-
+            PushToChartCommand = new DelegateCommand<int?>(PushToChart);
             OpenPopupCommand = new DelegateCommand(OpenPopup);
 
             DisplayComlumnHide();
@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IsExportExcel = CheckPermision((int)PermissionKeyNames.FuelConsumptionDailyExport);
         }
 
+        public ICommand PushToChartCommand { get; private set; }
         public ICommand DetailVehicleCommand { get; private set; }
 
         public ICommand OpenPopupCommand { get; set; }
@@ -609,6 +610,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
             return true;
+        }
+
+        private void PushToChart(int? obj)
+        {
+            SafeExecute(async () =>
+            {
+                var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
+                model.VehiclePlate = VehicleSelect.VehiclePlate;
+                model.PrivateCode= VehicleSelect.PrivateCode;
+                var p = new NavigationParameters
+                {
+                    { ParameterKey.ReportFuelsSummariesSelected, model }
+                };
+                await NavigationService.NavigateAsync("ChartFuelReportPage", p, useModalNavigation: true, true);
+            });
         }
     }
 }

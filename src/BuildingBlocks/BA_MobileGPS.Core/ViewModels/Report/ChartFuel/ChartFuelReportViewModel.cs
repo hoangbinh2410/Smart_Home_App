@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Extensions;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
@@ -93,6 +94,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 Page = Entities.Enums.MenuKeyEnums.MobileFuelChart,
                 Type = UserBehaviorType.End
             });
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.TryGetValue(ParameterKey.ReportFuelsSummariesSelected, out FuelsSummariesModel fuel))
+            {
+                if (fuel != null)
+                {
+                    FromDate = new DateTime(fuel.Date.Year, fuel.Date.Month, fuel.Date.Day, 0, 0, 0);
+                    ToDate = new DateTime(fuel.Date.Year, fuel.Date.Month, fuel.Date.Day, 23, 59, 59);
+                    Vehicle = new Vehicle()
+                    {
+                        VehiclePlate = fuel.VehiclePlate,
+                        VehicleId = fuel.FK_VehicleID,
+                        PrivateCode = fuel.PrivateCode,
+                    };
+                    GetDataChart();
+                }
+            }
         }
 
         private void DateSelected()

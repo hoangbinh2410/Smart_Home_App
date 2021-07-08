@@ -143,6 +143,9 @@
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Report\QCVN31Speed\QCVN31SpeedReportPage.xaml.cs">
+	    <DependentUpon>QCVN31SpeedReportPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
@@ -431,7 +434,7 @@
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamOverview.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Report\QCVN31Speed\QCVN31SpeedReport.xaml">
+	  <EmbeddedResource Update="Views\Report\QCVN31Speed\QCVN31SpeedReportPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
