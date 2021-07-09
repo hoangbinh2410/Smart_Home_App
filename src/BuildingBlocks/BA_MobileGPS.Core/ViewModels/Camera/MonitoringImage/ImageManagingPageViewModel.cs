@@ -237,7 +237,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //chuyên trang danh sách camera
             SafeExecute(async () =>
             {
-                var vehiclecam = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == (string)obj);
+                var vehiclecam = StaticSettings.ListVehilceCamera?.FirstOrDefault(x => x.VehiclePlate == (string)obj);
                 if (vehiclecam != null)
                 {
                     var vehicle = new Vehicle
