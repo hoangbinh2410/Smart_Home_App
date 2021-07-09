@@ -293,6 +293,22 @@
                                 <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
                             </sharpnado:MaterialFrame.GestureRecognizers>
                         </sharpnado:MaterialFrame>
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            CornerRadius="21"
+                            HeightRequest="42"
+                            IsVisible="{Binding IsShowRegisterSupport}"
+                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
+                            WidthRequest="42">
+                            <controls:IconView
+                                Margin="6"
+                                Foreground="{DynamicResource LoginIconColor}"
+                                Source="ic_chatsupport.png"
+                                VerticalOptions="CenterAndExpand" />
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushtoRegisterSupportCommand}" NumberOfTapsRequired="1" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                        </sharpnado:MaterialFrame>
                     </StackLayout>
                     <controls:IconView
                         Margin="0,0,20,0"

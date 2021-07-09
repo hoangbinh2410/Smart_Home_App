@@ -24,18 +24,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IAuthenticationService authenticationService;
         private readonly IMobileSettingService mobileSettingService;
-        private readonly INotificationService notificationService;
 
         public LoginPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
-            IMobileSettingService mobileSettingService,
-            INotificationService notificationService)
+            IMobileSettingService mobileSettingService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
             this.mobileSettingService = mobileSettingService;
-            this.notificationService = notificationService;
             InitValidations();
+            isShowRegisterSupport = false;
         }
 
         #endregion Constructor
@@ -46,6 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (parameters.TryGetValue(ParameterKey.Logout, out bool isLogout))
             {
+                IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
                 if (!isLogout)
                 {
                     GetMobileVersion();
@@ -158,6 +157,18 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private bool isShowRegisterSupport;
+
+        public bool IsShowRegisterSupport
+        {
+            get => isShowRegisterSupport;
+            set
+            {
+                SetProperty(ref isShowRegisterSupport, value);
+                RaisePropertyChanged();
+            }
+        }
+
         #endregion Property
 
         #region ICommand
@@ -167,6 +178,14 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+            });
+        });
+
+        public ICommand PushtoRegisterSupportCommand => new DelegateCommand(() =>
+        {
+            SafeExecute(async () =>
+            {
+                _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
             });
         });
 
@@ -433,6 +452,7 @@ namespace BA_MobileGPS.Core.ViewModels
                if (result != null && result.Count > 0)
                {
                    MobileSettingHelper.SetData(result);
+                   IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
                }
            });
         }
