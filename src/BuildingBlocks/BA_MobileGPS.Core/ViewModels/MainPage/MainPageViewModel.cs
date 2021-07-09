@@ -102,7 +102,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         await ConnectSignalR();
                         PushPageFileBase();
                         InsertOrUpdateAppDevice();
-                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView))
+                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
                         {
                             GetVehicleIsCamera();
                         }
