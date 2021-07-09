@@ -22,7 +22,6 @@ namespace BA_MobileGPS.Core.Droid
         private Dictionary<int, NativeBitmapDescriptor> mIcons;
         private IconClusterGenerator mIconGenerator;
         private ShapeDrawable mColoredCircleBackground;
-        private readonly Android.Gms.Maps.GoogleMap nativeMap;
         /**
  * If cluster size is less than this size, display individual markers.
  */
