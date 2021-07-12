@@ -19,7 +19,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
             lblMore.Text = MobileResource.Route_Label_More.Trim().ToUpper();
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            entrySearch.Placeholder = MobileResource.Online_Label_SeachVehicle2;
             lblTitle.Text = MobileResource.Route_Label_Title;
             map.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
             map.IsUseCluster = false;

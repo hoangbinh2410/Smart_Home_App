@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.Views
         {
             base.OnAppearing();
             title.Text = MobileResource.Camera_Title_Camera_Streaming;
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            entrySearch.Placeholder = MobileResource.Online_Label_SeachVehicle2;
             autorenewal.Text = MobileResource.Camera_Checkbox_AutoRenewal;
         }
 
