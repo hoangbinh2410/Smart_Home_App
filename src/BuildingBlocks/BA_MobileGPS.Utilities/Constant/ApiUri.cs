@@ -226,7 +226,16 @@
         public const string SET_HOSTSPOT = "api/stream/sethospot";
         public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
 
-
+        public const string GET_DEVICESINFO = "api/v2/stream/devices";
+        public const string POST_DEVICESTART = "api/v2/stream/start";
+        public const string POST_DEVICESTOP = "api/v2/stream/stop";
+        public const string POST_DEVICEPING = "api/v2/stream/ping";
+        public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
+        public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
+        public const string POST_UPLOADSTART = "api/v2/stream/uploadstart";
+        public const string POST_UPLOADSTOP = "api/v2/stream/uploadstop";
+        public const string POST_UPLOADPROGRESS = "api/v2/stream/uploadprogress";
+        public const string POST_HOSTSPOT = "api/v2/stream/sethospot";
         #endregion Camera
 
         #region Guide
