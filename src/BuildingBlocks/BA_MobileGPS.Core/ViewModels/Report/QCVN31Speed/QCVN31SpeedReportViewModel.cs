@@ -145,6 +145,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 message = MobileResource.Common_Message_NoSelectVehiclePlate;
                 return false;
             }
+            // check thời gian có vượt quá khoảng cho phép hay không
+            if ((ToDate - FromDate).TotalDays > 2)
+            {
+                message = "Hệ thống hỗ trợ lấy dữ liệu trong khoảng 2 ngày liên tiếp";
+                return false;
+            }
             return true;
         }
     }

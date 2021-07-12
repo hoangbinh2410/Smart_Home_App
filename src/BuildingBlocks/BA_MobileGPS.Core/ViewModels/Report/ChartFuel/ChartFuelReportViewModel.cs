@@ -4,7 +4,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
-
+using BA_MobileGPS.Utilities.Extensions;
 using FFImageLoading.Forms;
 
 using Prism;
@@ -179,7 +179,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TrackballCreated(ChartTrackballCreatedEventArgs e)
         {
-            TryExecute(() =>
+            SafeExecute(() =>
             {
                 if (e.ChartPointsInfo != null && e.ChartPointsInfo.Count > 0)
                 {
@@ -197,8 +197,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (cts.IsCancellationRequested)
                             return default;
 
-                        var sumary = e.ChartPointsInfo.Select(c => c.DataPoint).Cast<FuelChartDisplay>().OrderBy(c => c.Id).ToList();
-
+                        var sumary = e.ChartPointsInfo.Select(c => c.DataPoint).Cast<FuelChartDisplay>().OrderBy(c => c.Id).DistinctBy(x => x.Id).ToList();
                         sumary.Add(new FuelChartDisplay()
                         {
                             Title = MobileResource.ChartFuelReport_Total,
