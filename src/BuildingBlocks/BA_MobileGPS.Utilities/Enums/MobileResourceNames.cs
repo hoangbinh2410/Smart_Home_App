@@ -895,7 +895,9 @@
 
         #region Image
         Image_Lable_ImageMonitoring,
+        Image_Lable_Nearestvehicle,
         Image_Alert_SaveImageSuccess,
+        Image_Lable_Totalnumberimages,
         #endregion
 
         #region Helper
