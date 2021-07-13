@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -39,7 +40,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly string muteIconSource = "ic_mute";
         private Timer timer;
         private int counterRequestPing = 15;
-        private string currentXnCode { get; set; }
         private string currentIMEI { get; set; }
         private const int maxTimeCameraRemain = 600; //second
         private readonly int maxLoadingTime = 60; //second
@@ -48,7 +48,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion internal property
 
-        public CameraManagingPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService, IGeocodeService geocodeService) : base(navigationService)
+        public CameraManagingPageViewModel(INavigationService navigationService,
+            IStreamCameraService streamCameraService, IGeocodeService geocodeService) : base(navigationService)
         {
             _geocodeService = geocodeService;
             _streamCameraService = streamCameraService;
@@ -547,32 +548,37 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="bks">Biển số xe</param>
         private void GetCameraInfor(string bks)
         {
-            StreamDevicesResponse deviceResponse = null;
+            StreamDevice deviceResponse = null;
             TryExecute(async () =>
             {
                 using (new HUDService())
                 {
-                    deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, bks);
-                    // only 1 data
-                    var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
-                    if (deviceResponseData != null)
+                    deviceResponse = await _streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                     {
-                        currentXnCode = deviceResponseData.XnCode;
-                        currentIMEI = deviceResponseData.IMEI;
-                        CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
-                        CurrentTime = deviceResponseData.DeviceTime;
+                        ConditionType = (int)ConditionType.BKS,
+                        ConditionValues = new List<string>() { bks },
+                        Source = (int)CameraSourceType.App,
+                        User = UserInfo.UserName
+                    });
+                    if (deviceResponse != null)
+                    {
+                        currentIMEI = deviceResponse.IMEI;
+                        CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponse.Lat.ToString(), deviceResponse.Lng.ToString());
+                        CurrentTime = deviceResponse.Time;
 
-                        if (deviceResponseData.CameraChannels != null && deviceResponseData.CameraChannels.Count > 0)
+                        if (deviceResponse.Channels != null && deviceResponse.Channels.Count > 0)
                         {
                             var listCam = new List<CameraManagement>();
-                            foreach (var item in deviceResponseData.CameraChannels)
+                            foreach (var item in deviceResponse.Channels)
                             {
-                                var request = new StreamStartRequest()
+                                var request = new CameraStartRequest()
                                 {
                                     Channel = item.Channel,
-                                    IMEI = currentIMEI,
-                                    VehiclePlate = Vehicle.VehiclePlate,
-                                    xnCode = currentXnCode
+                                    Duration = 180,
+                                    VehicleName = Vehicle.VehiclePlate,
+                                    CustomerID = UserInfo.XNCode,
+                                    Source = (int)CameraSourceType.App,
+                                    User = UserInfo.UserName
                                 };
                                 // var res = await RequestStartCam(item.Channel);
                                 var cam = new CameraManagement(maxLoadingTime,
@@ -581,9 +587,9 @@ namespace BA_MobileGPS.Core.ViewModels
                                     request, EventAggregator);
                                 listCam.Add(cam);
                             }
-                            mCameraVehicle = deviceResponseData.CameraChannels;
+                            mCameraVehicle = deviceResponse.Channels;
                             var query = (from p in ChannelCamera
-                                         join pts in deviceResponseData.CameraChannels on p.Channel equals pts.Channel
+                                         join pts in deviceResponse.Channels on p.Channel equals pts.Channel
                                          where pts.State == 0 || pts.State == 1
                                          select p).ToList();
                             ChannelCamera = query.ToObservableCollection();
@@ -738,19 +744,22 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (Vehicle != null && Vehicle.VehicleId > 0)
             {
+                var request = new CameraStartRequest()
+                {
+                    Channel = chanel,
+                    Duration = 180,
+                    VehicleName = Vehicle.VehiclePlate,
+                    CustomerID = UserInfo.XNCode,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName
+                };
                 RunOnBackground(async () =>
                 {
-                    return await _streamCameraService.RequestMoreStreamTime(new StreamPingRequest()
-                    {
-                        xnCode = currentXnCode,
-                        Duration = timeSecond,
-                        VehiclePlate = Vehicle.VehiclePlate,
-                        Channel = chanel
-                    });
+                    return await _streamCameraService.DevicesPing(request);
                 },
                 (response) =>
                 {
-                    if (response != null && !response.Data) // false : try request again
+                    if (!response) // false : try request again
                     {
                         SendRequestTime(timeSecond, chanel);
                     }
@@ -819,12 +828,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (Vehicle != null && !string.IsNullOrEmpty(Vehicle.VehiclePlate))
                     {
-                        var deviceResponse = await _streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
-                        var deviceResponseData = deviceResponse?.Data?.FirstOrDefault();
-                        if (deviceResponseData != null)
+                        var deviceResponse = await _streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                         {
-                            CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponseData.Latitude.ToString(), deviceResponseData.Longitude.ToString());
-                            CurrentTime = deviceResponseData.DeviceTime;
+                            ConditionType = (int)ConditionType.BKS,
+                            ConditionValues = new List<string>() { Vehicle.VehiclePlate },
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName
+                        });
+                        if (deviceResponse != null)
+                        {
+                            CurrentAddress = await _geocodeService.GetAddressByLatLng(CurrentComanyID, deviceResponse.Lat.ToString(), deviceResponse.Lng.ToString());
+                            CurrentTime = deviceResponse.Time;
                         }
                     }
                 }
@@ -861,12 +875,14 @@ namespace BA_MobileGPS.Core.ViewModels
                                     if (itemcam.IsShow)
                                     {
                                         itemcam.Status = ChannelCameraStatus.Selected;
-                                        var request = new StreamStartRequest()
+                                        var request = new CameraStartRequest()
                                         {
                                             Channel = itemcam.Channel,
-                                            IMEI = currentIMEI,
-                                            VehiclePlate = Vehicle.VehiclePlate,
-                                            xnCode = currentXnCode
+                                            Duration = 180,
+                                            VehicleName = Vehicle.VehiclePlate,
+                                            CustomerID = UserInfo.XNCode,
+                                            Source = (int)CameraSourceType.App,
+                                            User = UserInfo.UserName
                                         };
                                         var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
                                         listCam.Add(cam);

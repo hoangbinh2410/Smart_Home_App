@@ -10,6 +10,12 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("StreamRequests")]
         public List<StreamUserRequest> StreamUserRequests { get; set; }
+
+        [JsonProperty("PlaybackRequests")]
+        public List<PlaybackUserRequest> PlaybackRequests { get; set; }
+
+        [JsonProperty("UploadRequests")]
+        public List<UploadUserRequest> UploadRequests { get; set; }
     }
 
     public class StreamUserRequest

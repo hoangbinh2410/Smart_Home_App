@@ -1,7 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

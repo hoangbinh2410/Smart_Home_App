@@ -14,7 +14,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class ExportVideoPageViewModel : ViewModelBase
     {
-        private readonly IStreamCameraV2Service _streamCameraService;
+        private readonly IStreamCameraService _streamCameraService;
         public ICommand SetHostspotCommand { get; }
 
         public ICommand GotoLinkExportCommand { get; }
@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand SelectVehicleCameraCommand { get; }
 
-        public ExportVideoPageViewModel(INavigationService navigationService, IStreamCameraV2Service streamCameraService) : base(navigationService)
+        public ExportVideoPageViewModel(INavigationService navigationService, IStreamCameraService streamCameraService) : base(navigationService)
         {
             _streamCameraService = streamCameraService;
             SetHostspotCommand = new DelegateCommand(SetHostspot);

@@ -7,7 +7,6 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
@@ -50,7 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IGeocodeService _geocodeService;
 
         public ViewVideoUploadedPageViewModel(INavigationService navigationService,
-          IStreamCameraV2Service cameraService, IVehicleRouteService vehicleRouteService,
+          IStreamCameraService cameraService, IVehicleRouteService vehicleRouteService,
           IScreenOrientServices screenOrientServices, IDownloadVideoService downloadService,
           IGeocodeService geocodeService) : base(navigationService, cameraService, screenOrientServices)
         {

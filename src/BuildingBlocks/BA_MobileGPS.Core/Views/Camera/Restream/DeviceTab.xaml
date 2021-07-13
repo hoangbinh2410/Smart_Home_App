@@ -467,7 +467,7 @@
                                                 Padding="2"
                                                 BackgroundColor="Black"
                                                 VerticalOptions="FillAndExpand">
-                                                <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
+                                                <ff:CachedImage Aspect="Fill" Source="{Binding ImageUrl, Mode=OneWay}" />
                                                 <icons:IconView
                                                     Foreground="{DynamicResource WhiteColor}"
                                                     HeightRequest="30"
@@ -494,7 +494,7 @@
                                                     <Label
                                                         HorizontalOptions="Start"
                                                         StyleClass="BoldText"
-                                                        Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                        Text="{Binding Channel, StringFormat='Kênh {0}'}" />
                                                 </StackLayout>
                                                 <StackLayout
                                                     HorizontalOptions="EndAndExpand"

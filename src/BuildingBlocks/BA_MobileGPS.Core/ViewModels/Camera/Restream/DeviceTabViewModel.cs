@@ -43,13 +43,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectVehicleCameraCommand { get; }
 
         private CancellationTokenSource cts = new CancellationTokenSource();
-        private readonly IStreamCameraService streamCameraService;
 
         public DeviceTabViewModel(INavigationService navigationService,
-            IStreamCameraV2Service cameraService,
-            IScreenOrientServices screenOrientServices, IStreamCameraService streamCameraService) : base(navigationService, cameraService, screenOrientServices)
+            IStreamCameraService cameraService,
+            IScreenOrientServices screenOrientServices) : base(navigationService, cameraService, screenOrientServices)
         {
-            this.streamCameraService = streamCameraService;
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             UploadToCloudInListTappedCommand = new DelegateCommand<RestreamVideoModel>(UploadToCloudInListTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
@@ -232,9 +230,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 Task.Run(async () =>
                 {
                     await Task.Delay(4000, cts.Token);
-                    if (videoSlected?.Data != null)
+                    if (videoSlected != null && !string.IsNullOrEmpty(videoSlected.Link))
                     {
-                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
+                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected.Link));
                         MediaPlayer.Play();
                     }
                 }, cts.Token);
@@ -264,9 +262,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 Task.Run(async () =>
                 {
                     await Task.Delay(4000, cts.Token);
-                    if (videoSlected?.Data != null)
+                    if (videoSlected != null && !string.IsNullOrEmpty(videoSlected.Link))
                     {
-                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected?.Data.Link));
+                        MediaPlayer.Media = new Media(libVLC, new Uri(videoSlected.Link));
                         MediaPlayer.Play();
                     }
                 }, cts.Token);
@@ -328,7 +326,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (CheckPermision((int)PermissionKeyNames.UploadVideoStream))
                 {
-                    if (VideoSlected != null && VideoSlected.Data != null)
+                    if (VideoSlected != null)
                     {
                         var parameters = new NavigationParameters
                       {
@@ -336,7 +334,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                CustomerId =  UserInfo.XNCode,
                                FromDate = VideoSlected.VideoStartTime,
                                ToDate = VideoSlected.VideoEndTime,
-                               Channel = VideoSlected.Data.Channel,
+                               Channel = VideoSlected.Channel,
                                VehiclePlate =Vehicle.VehiclePlate,
                                VehicleID=Vehicle.VehicleId
                           } }
@@ -366,7 +364,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                CustomerId =  UserInfo.XNCode,
                                FromDate = obj.VideoStartTime,
                                ToDate = obj.VideoEndTime,
-                               Channel = obj.Data.Channel,
+                               Channel = obj.Channel,
                                VehiclePlate =Vehicle.VehiclePlate,
                                VehicleID=Vehicle.VehicleId
                           } }
@@ -474,7 +472,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var req = new PlaybackStopRequest()
                 {
-                    Channel = VideoSlected.Data.Channel,
+                    Channel = VideoSlected.Channel,
                     CustomerID = UserInfo.XNCode,
                     VehicleName = Vehicle.VehiclePlate,
                     Source = (int)CameraSourceType.App,
@@ -483,12 +481,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 Task.Run(async () =>
                 {
-                    var result = await streamCameraV2Service.StopPlayback(req);
+                    var result = await streamCameraService.StopPlayback(req);
                     if (result)
                     {
                         await Task.Delay(3000, cts.Token);
                         // check xem đã tắt chưa, nếu chưa sẽ gọi lại tắt
-                        var res = await streamCameraV2Service.GetDevicesInfo(new StreamDeviceRequest()
+                        var res = await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                         {
                             ConditionType = (int)ConditionType.BKS,
                             ConditionValues = new List<string>() { Vehicle.VehiclePlate },
@@ -497,7 +495,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                         if (res != null)
                         {
-                            var data = res?.Cameras?.FirstOrDefault(x => x.Channel == VideoSlected.Data.Channel);
+                            var data = res?.Channels?.FirstOrDefault(x => x.Channel == VideoSlected.Channel);
                             if (data != null && !CameraStatusExtension.IsRestreaming(data.CameraStatus))
                             {
                                 if (IsActive)
@@ -530,7 +528,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var start = new PlaybackStartRequest()
                 {
-                    Channel = VideoSlected.Data.Channel,
+                    Channel = VideoSlected.Channel,
                     CustomerID = UserInfo.XNCode,
                     StartTime = VideoSlected.VideoStartTime,
                     EndTime = VideoSlected.VideoEndTime,
@@ -540,7 +538,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
                 Task.Run(async () =>
                 {
-                    var result = await streamCameraV2Service.StartPlayback(start);
+                    var result = await streamCameraService.StartPlayback(start);
                     if (result != null)
                     {
                         if (result.StreamingRequests != null && result.StreamingRequests.Count > 0)
@@ -574,11 +572,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 InitVLC();
                                 MediaPlayer.Media = new Media(libVLC, new Uri(result.Link));
                                 MediaPlayer.Play();
-                                VideoSlected.Data = new StreamStart()
-                                {
-                                    Channel = result.Channel,
-                                    Link = result.Link
-                                };
+                                VideoSlected.Channel = result.Channel;
+                                VideoSlected.Link = result.Link;
                             }
                             else
                             {
@@ -616,7 +611,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var loopIndex = 0;
             var start = new PlaybackStartRequest()
             {
-                Channel = VideoSlected.Data.Channel,
+                Channel = VideoSlected.Channel,
                 CustomerID = UserInfo.XNCode,
                 StartTime = VideoSlected.VideoStartTime,
                 EndTime = VideoSlected.VideoEndTime,
@@ -628,16 +623,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 while (isLoadingCamera && loopIndex <= 7 && IsActive && !cts.IsCancellationRequested)
                 {
-                    var deviceStatus = await streamCameraV2Service.GetDevicesInfo(new StreamDeviceRequest()
+                    var deviceStatus = await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                     {
                         ConditionType = (int)ConditionType.BKS,
                         ConditionValues = new List<string>() { Vehicle.VehiclePlate },
                         Source = (int)CameraSourceType.App,
                         User = UserInfo.UserName
                     });
-                    if (deviceStatus != null && deviceStatus.Cameras != null)
+                    if (deviceStatus != null && deviceStatus.Channels != null)
                     {
-                        var streamDevice = deviceStatus.Cameras.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
+                        var streamDevice = deviceStatus.Channels.FirstOrDefault(x => x.Channel == videoSlected.Channel);
                         if (streamDevice?.CameraStatus != null)
                         {
                             var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
@@ -647,7 +642,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 result = true;
                             }
                             // Neu trang thai chưa thay đổi => gọi lại start
-                            else await streamCameraV2Service.StartPlayback(start);
+                            else await streamCameraService.StartPlayback(start);
                         }
                         loopIndex++;
                         if (isLoadingCamera && loopIndex <= 7)
@@ -762,11 +757,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 var videoModel = new RestreamVideoModel()
                                 {
-                                    VideoImageSource = video.Image,
+                                    ImageUrl = video.Image,
                                     VideoStartTime = video.StartTime,
                                     VideoEndTime = video.EndTime,
                                     VideoTime = video.EndTime - video.StartTime,
-                                    Data = new StreamStart() { Channel = video.Channel },
+                                    Channel = video.Channel
                                 };
 
                                 videoModel.VideoName = string.Format("Camera{0}_{1}", video.Channel,

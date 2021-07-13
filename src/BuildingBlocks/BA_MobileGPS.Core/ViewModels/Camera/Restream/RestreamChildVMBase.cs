@@ -9,17 +9,17 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class RestreamChildVMBase : TabbedPageChildVMBase
     {
-        protected readonly IStreamCameraV2Service streamCameraV2Service;
+        protected readonly IStreamCameraService streamCameraService;
         protected readonly IScreenOrientServices screenOrientServices;
 
         public ICommand FullScreenTappedCommand { get; }
         public ICommand VideoItemTapCommand { get; set; }
 
         public RestreamChildVMBase(INavigationService navigationService,
-            IStreamCameraV2Service cameraService,
+            IStreamCameraService cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService)
         {
-            streamCameraV2Service = cameraService;
+            streamCameraService = cameraService;
             this.screenOrientServices = screenOrientServices;
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             IsFullScreenOff = true;

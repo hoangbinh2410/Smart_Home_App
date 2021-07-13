@@ -1,12 +1,15 @@
 ﻿using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -25,12 +28,12 @@ namespace BA_MobileGPS.Core.Models
         private bool internalError { get; set; }
         private bool loadingErr { get; set; }
         private readonly IStreamCameraService streamCameraService;
-        private StreamStartRequest startRequest { get; set; }
+        private CameraStartRequest startRequest { get; set; }
         private CancellationTokenSource cts = new CancellationTokenSource();
         private readonly IEventAggregator _eventAggregator;
 
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, StreamStartRequest startRequest, IEventAggregator eventAggregator)
+            IStreamCameraService streamCameraService, CameraStartRequest startRequest, IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
@@ -45,7 +48,7 @@ namespace BA_MobileGPS.Core.Models
             this.startRequest = startRequest;
             Channel = startRequest.Channel;
             _eventAggregator = eventAggregator;
-            StartWorkUnit(startRequest.VehiclePlate);
+            StartWorkUnit(startRequest.VehicleName);
         }
 
         private LibVLC libVLC;
@@ -87,12 +90,12 @@ namespace BA_MobileGPS.Core.Models
             }
         }
 
-        private StreamStart data;
+        private CameraStartRespone data;
 
         /// <summary>
         /// Save current data
         /// </summary>
-        public StreamStart Data
+        public CameraStartRespone Data
         {
             get { return data; }
             set
@@ -202,7 +205,7 @@ namespace BA_MobileGPS.Core.Models
                         {
                             Task.Run(async () =>
                             {
-                                var requestStartResponse = await streamCameraService.StartStream(startRequest);
+                                var requestStartResponse = await streamCameraService.DevicesStart(startRequest);
                             });
                         }
                     }
@@ -295,14 +298,29 @@ namespace BA_MobileGPS.Core.Models
             Task.Run(async () =>
             {
                 //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
-                var requestStartResponse = await streamCameraService.StartStream(startRequest);
-                // case trả về mã lỗi # 0 => báo lỗi
-                if (requestStartResponse.StatusCode == 0)
+                var requestStartResponse = await streamCameraService.DevicesStart(startRequest);
+                if (requestStartResponse != null && requestStartResponse.Data != null)
                 {
-                    var startData = requestStartResponse?.Data?.FirstOrDefault();
-                    if (startData != null)
+                    if (requestStartResponse.Data.PlaybackRequests != null && requestStartResponse.Data.PlaybackRequests.Count > 0)
                     {
-                        Data = startData;
+                        Data = new CameraStartRespone()
+                        {
+                            Channel = Channel,
+                            Link = string.Empty
+                        };
+                        if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                        {
+                            requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
+                        }
+                        else
+                        {
+                            _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                        }
+                        SetError(requestStartResponse.UserMessage);
+                    }
+                    else
+                    {
+                        Data = requestStartResponse.Data;
                         if (!countLoadingTimer.Enabled && counter == maxLoadingTime)
                         {
                             countLoadingTimer.Start();
@@ -311,23 +329,6 @@ namespace BA_MobileGPS.Core.Models
                         //Check status:
                         StartTrackDeviceStatus(vehicle);
                     }
-                }
-                else
-                {
-                    Data = new StreamStart()
-                    {
-                        Channel = Channel,
-                        Link = string.Empty
-                    };
-                    if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
-                    {
-                        requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
-                    }
-                    else
-                    {
-                        _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    }
-                    SetError(requestStartResponse.UserMessage);
                 }
             });
         }
@@ -342,11 +343,16 @@ namespace BA_MobileGPS.Core.Models
                 {
                     while (!IsLoaded && MediaPlayer != null)
                     {
-                        var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, vehicle);
-                        var device = deviceStatus?.Data?.FirstOrDefault();
-                        if (device != null && device.CameraChannels != null)
+                        var device = await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                         {
-                            var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == Data.Channel);
+                            ConditionType = (int)ConditionType.BKS,
+                            ConditionValues = new List<string>() { vehicle },
+                            Source = (int)CameraSourceType.App,
+                            User = StaticSettings.User.UserName
+                        });
+                        if (device != null && device.Channels != null)
+                        {
+                            var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Data.Channel);
 
                             if (streamDevice != null && streamDevice.IsStreaming)
                             {

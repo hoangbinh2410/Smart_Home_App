@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -1045,17 +1046,19 @@ namespace BA_MobileGPS.Core.ViewModels
                                  {
                                      RunOnBackground(async () =>
                                      {
-                                         return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                                         return await streamCameraService.UploadToServerStart(new UploadStartRequest()
                                          {
                                              Channel = videowaiting.Channel,
                                              CustomerID = UserInfo.XNCode,
                                              StartTime = videowaiting.StartTime,
                                              EndTime = videowaiting.EndTime,
-                                             VehicleName = videowaiting.VehicleName
+                                             VehicleName = videowaiting.VehicleName,
+                                             Source = (int)CameraSourceType.App,
+                                             User = UserInfo.UserName,
                                          });
                                      }, (result) =>
                                      {
-                                         if (result != null && result.Data)
+                                         if (result != null)
                                          {
                                              errorwhile = 0;
                                              videowaiting.Status = VideoUploadStatus.Uploading;
@@ -1153,22 +1156,33 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, video.VehicleName, video.Channel);
+                        var respone = await streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
+                        {
+                            CustomerID = UserInfo.XNCode,
+                            VehicleName = new List<string>() { video.VehicleName },
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName,
+                        });
                         if (respone != null)
                         {
-                            if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
-                                && respone.TotalCount > 0 || (respone.UploadedFiles != null && respone.UploadedFiles.Contains((respone.CurrentFile.ToUpper())) == true))
+                            var data = respone.FirstOrDefault(x => x.VehicleName == video.VehicleName);
+                            if (data != null)
                             {
-                                result = true;
-                                if (cts != null)
+                                if (data.FinishCount + data.ErrorCount == data.TotalCount
+                                    && data.TotalCount > 0 || (data.UploadedFiles != null
+                                    && data.UploadedFiles.Contains((data.CurrentFile.ToUpper())) == true))
                                 {
-                                    cts.Cancel();
-                                    cts.Dispose();
+                                    result = true;
+                                    if (cts != null)
+                                    {
+                                        cts.Cancel();
+                                        cts.Dispose();
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                await Task.Delay(10000, cts.Token);
+                                else
+                                {
+                                    await Task.Delay(10000, cts.Token);
+                                }
                             }
                         }
                         else

@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -262,9 +263,9 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref simCardServiceInfo, value); }
         }
 
-        private StreamDevices streamDevices = new StreamDevices();
+        private StreamDevice streamDevices = new StreamDevice();
 
-        public StreamDevices StreamDevices
+        public StreamDevice StreamDevices
         {
             get { return streamDevices; }
             set { SetProperty(ref streamDevices, value); }
@@ -278,9 +279,9 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref coreboard, value); }
         }
 
-        private StorageDevices storageDevices = new StorageDevices();
+        private Storage storageDevices = new Storage();
 
-        public StorageDevices StorageDevices
+        public Storage StorageDevices
         {
             get { return storageDevices; }
             set { SetProperty(ref storageDevices, value); }
@@ -600,42 +601,44 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             RunOnBackground(async () =>
             {
-                return await streamCameraService.GetDevicesStatus(ConditionType.BKS, VehiclePlateCamera);
+                return await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
+                {
+                    ConditionType = (int)ConditionType.BKS,
+                    ConditionValues = new List<string>() { VehiclePlateCamera },
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName
+                });
             }, (result) =>
             {
-                if (result != null && result.Data != null)
+                if (result != null)
                 {
-                    var model = result.Data.FirstOrDefault(x => x.VehiclePlate == VehiclePlateCamera);
-                    if (model != null)
+                    StreamDevices = result;
+                    if (result.Channels != null && result.Channels.Count > 0)
                     {
-                        StreamDevices = model;
-                        if (model.CameraChannels != null && model.CameraChannels.Count > 0)
+                        ChannelString = string.Join(",", result.Channels.Where(x => x.State == 0 || x.State == 1).Select(x => x.Channel));
+                        var channelActive = result.Channels.Where(x => x.State == 0).ToList();
+                        if (channelActive != null && channelActive.Count > 0)
                         {
-                            ChannelString = string.Join(",", model.CameraChannels.Where(x => x.State == 0 || x.State == 1).Select(x => x.Channel));
-                            var channelActive = model.CameraChannels.Where(x => x.State == 0).ToList();
-                            if (channelActive != null && channelActive.Count > 0)
-                            {
-                                ChannelActive = string.Join(",", channelActive.Select(x => x.Channel));
-                            }
+                            ChannelActive = string.Join(",", channelActive.Select(x => x.Channel));
                         }
-                        if (model.Coreboard != null)
+                    }
+                    if (result.Coreboard != null)
+                    {
+                        Coreboard = result.Coreboard;
+                    }
+                    if (result.Storages != null)
+                    {
+                        var storage = result.Storages.FirstOrDefault(x => x.IsInserted == true && x.Total > 0);
+                        if (storage != null)
                         {
-                            Coreboard = model.Coreboard;
-                        }
-                        if (model.StorageDevices != null)
-                        {
-                            var storage = model.StorageDevices.FirstOrDefault(x => x.IsInserted == true && x.TotalSize > 0);
-                            if (storage != null)
+                            StorageDevices = storage;
+                            if (storage.Total > 0)
                             {
-                                StorageDevices = storage;
-                                if (storage.TotalSize > 0)
-                                {
-                                    var totalSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.TotalSize), 1);
-                                    var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.FreeSize), 1);
-                                    var useSize = totalSize - freeSize;
-                                    StorageProgress = (useSize / totalSize) * 100;
-                                    StorageValue = Math.Round(useSize, 1) + "/" + totalSize + " GB";
-                                }
+                                var totalSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.Total), 1);
+                                var freeSize = Math.Round(StorageConverter.Convert(Differential.ByteToGiga, storage.Free), 1);
+                                var useSize = totalSize - freeSize;
+                                StorageProgress = (useSize / totalSize) * 100;
+                                StorageValue = Math.Round(useSize, 1) + "/" + totalSize + " GB";
                             }
                         }
                     }

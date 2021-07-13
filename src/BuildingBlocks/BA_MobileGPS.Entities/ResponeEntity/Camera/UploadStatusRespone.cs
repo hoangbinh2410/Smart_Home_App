@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
@@ -12,5 +13,6 @@ namespace BA_MobileGPS.Entities
         public int FinishCount { get; set; }
         public int TotalCount { get; set; }
         public DateTime UpdatedTime { get; set; }
+        public List<string> UploadedFiles { get; set; }
     }
 }

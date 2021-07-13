@@ -10,22 +10,6 @@ namespace BA_MobileGPS.Entities
         public DateTime Date { get; set; } // Ngày cần lây dũ liệu
     }
 
-    public class StartRestreamRequest
-    {
-        public int CustomerID { get; set; }
-        public string VehicleName { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public int Channel { get; set; }
-    }
-
-    public class StopRestreamRequest
-    {
-        public int CustomerID { get; set; }
-        public string VehicleName { get; set; }
-        public int Channel { get; set; }
-    }
-
     public class CameraUploadRequest
     {
         public int CustomerId { get; set; }
