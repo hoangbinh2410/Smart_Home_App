@@ -22,6 +22,7 @@ namespace BA_MobileGPS.Entities
 
     public class CameraChannelv2
     {
+        public int CameraStatus { get; set; }
         public int Channel { get; set; }
         public int FPS { get; set; }
         public bool Record { get; set; }

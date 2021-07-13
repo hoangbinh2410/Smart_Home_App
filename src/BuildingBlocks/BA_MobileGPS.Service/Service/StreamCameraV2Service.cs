@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace BA_MobileGPS.Service.Service
+namespace BA_MobileGPS.Service
 {
     public class StreamCameraV2Service : IStreamCameraV2Service
     {

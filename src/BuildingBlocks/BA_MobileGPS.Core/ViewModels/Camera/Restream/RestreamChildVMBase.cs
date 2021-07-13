@@ -1,6 +1,6 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels.Base;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;
@@ -9,17 +9,17 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class RestreamChildVMBase : TabbedPageChildVMBase
     {
-        protected readonly IStreamCameraService streamCameraService;
+        protected readonly IStreamCameraV2Service streamCameraV2Service;
         protected readonly IScreenOrientServices screenOrientServices;
 
         public ICommand FullScreenTappedCommand { get; }
         public ICommand VideoItemTapCommand { get; set; }
 
         public RestreamChildVMBase(INavigationService navigationService,
-            IStreamCameraService cameraService,
+            IStreamCameraV2Service cameraService,
             IScreenOrientServices screenOrientServices) : base(navigationService)
         {
-            streamCameraService = cameraService;
+            streamCameraV2Service = cameraService;
             this.screenOrientServices = screenOrientServices;
             FullScreenTappedCommand = new DelegateCommand(FullScreenTapped);
             IsFullScreenOff = true;

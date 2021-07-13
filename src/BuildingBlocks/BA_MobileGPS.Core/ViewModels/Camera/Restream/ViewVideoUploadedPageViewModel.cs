@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IGeocodeService _geocodeService;
 
         public ViewVideoUploadedPageViewModel(INavigationService navigationService,
-          IStreamCameraService cameraService, IVehicleRouteService vehicleRouteService,
+          IStreamCameraV2Service cameraService, IVehicleRouteService vehicleRouteService,
           IScreenOrientServices screenOrientServices, IDownloadVideoService downloadService,
           IGeocodeService geocodeService) : base(navigationService, cameraService, screenOrientServices)
         {

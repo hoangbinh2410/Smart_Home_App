@@ -7,12 +7,15 @@ namespace BA_MobileGPS.Entities
     {
         public int Channel { get; set; }
         public string Link { get; set; }
-        public object StreamingRequests { get; set; }
+
+        [JsonProperty("StreamingRequests")]
+        public List<StreamUserRequest> StreamingRequests { get; set; }
 
         [JsonProperty("PlaybackRequests")]
         public List<PlaybackUserRequest> PlaybackRequests { get; set; }
 
-        public object UploadRequests { get; set; }
+        [JsonProperty("UploadRequests")]
+        public List<UploadUserRequest> UploadRequests { get; set; }
     }
 
     public class PlaybackUserRequest

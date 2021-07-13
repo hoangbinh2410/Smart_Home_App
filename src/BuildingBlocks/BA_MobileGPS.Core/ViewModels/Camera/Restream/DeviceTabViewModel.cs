@@ -5,6 +5,8 @@ using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
@@ -41,11 +43,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectVehicleCameraCommand { get; }
 
         private CancellationTokenSource cts = new CancellationTokenSource();
+        private readonly IStreamCameraService streamCameraService;
 
         public DeviceTabViewModel(INavigationService navigationService,
-            IStreamCameraService cameraService,
-            IScreenOrientServices screenOrientServices) : base(navigationService, cameraService, screenOrientServices)
+            IStreamCameraV2Service cameraService,
+            IScreenOrientServices screenOrientServices, IStreamCameraService streamCameraService) : base(navigationService, cameraService, screenOrientServices)
         {
+            this.streamCameraService = streamCameraService;
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             UploadToCloudInListTappedCommand = new DelegateCommand<RestreamVideoModel>(UploadToCloudInListTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
@@ -468,30 +472,41 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var req = new StopRestreamRequest()
+                var req = new PlaybackStopRequest()
                 {
                     Channel = VideoSlected.Data.Channel,
                     CustomerID = UserInfo.XNCode,
-                    VehicleName = Vehicle.VehiclePlate
+                    VehicleName = Vehicle.VehiclePlate,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
                 };
 
                 Task.Run(async () =>
                 {
-                    var res1 = await streamCameraService.StopRestream(req);
-                    if (res1 != null)
+                    var result = await streamCameraV2Service.StopPlayback(req);
+                    if (result)
                     {
                         await Task.Delay(3000, cts.Token);
                         // check xem đã tắt chưa, nếu chưa sẽ gọi lại tắt
-                        var res = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
-                        var data = res?.Data?.FirstOrDefault()?.CameraChannels?.FirstOrDefault(x => x.Channel == VideoSlected.Data.Channel);
-                        if (data != null && !CameraStatusExtension.IsRestreaming(data.CameraStatus))
+                        var res = await streamCameraV2Service.GetDevicesInfo(new StreamDeviceRequest()
                         {
-                            if (IsActive)
+                            ConditionType = (int)ConditionType.BKS,
+                            ConditionValues = new List<string>() { Vehicle.VehiclePlate },
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName
+                        });
+                        if (res != null)
+                        {
+                            var data = res?.Cameras?.FirstOrDefault(x => x.Channel == VideoSlected.Data.Channel);
+                            if (data != null && !CameraStatusExtension.IsRestreaming(data.CameraStatus))
                             {
-                                StartRestream();
+                                if (IsActive)
+                                {
+                                    StartRestream();
+                                }
                             }
+                            else StopAndStartRestream();
                         }
-                        else StopAndStartRestream();
                     }
                 }, cts.Token);
             }
@@ -513,29 +528,57 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                var start = new StartRestreamRequest()
+                var start = new PlaybackStartRequest()
                 {
                     Channel = VideoSlected.Data.Channel,
                     CustomerID = UserInfo.XNCode,
                     StartTime = VideoSlected.VideoStartTime,
                     EndTime = VideoSlected.VideoEndTime,
-                    VehicleName = Vehicle.VehiclePlate
+                    VehicleName = Vehicle.VehiclePlate,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
                 };
                 Task.Run(async () =>
                 {
-                    var result = await streamCameraService.StartRestream(start);
-                    if (result.StatusCode == 0)
+                    var result = await streamCameraV2Service.StartPlayback(start);
+                    if (result != null)
                     {
-                        if (result?.Data != null)
+                        if (result.StreamingRequests != null && result.StreamingRequests.Count > 0)
+                        {
+                            Device.BeginInvokeOnMainThread(async () =>
+                            {
+                                IsError = true;
+                                if (PopupNavigation.Instance.PopupStack.Count <= 0)
+                                {
+                                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
+                                    if (action)
+                                    {
+                                        var parameters = new NavigationParameters();
+                                        parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                                        {
+                                            VehicleId = Vehicle.VehicleId,
+                                            VehiclePlate = Vehicle.VehiclePlate,
+                                            PrivateCode = Vehicle.PrivateCode
+                                        });
+                                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                                    }
+                                }
+                            });
+                        }
+                        else
                         {
                             var isSteaming = await CheckDeviceStatus();
                             if (isSteaming)
                             {
                                 // init ở đây :
                                 InitVLC();
-                                MediaPlayer.Media = new Media(libVLC, new Uri(result.Data.Link));
+                                MediaPlayer.Media = new Media(libVLC, new Uri(result.Link));
                                 MediaPlayer.Play();
-                                VideoSlected.Data = result.Data;
+                                VideoSlected.Data = new StreamStart()
+                                {
+                                    Channel = result.Channel,
+                                    Link = result.Link
+                                };
                             }
                             else
                             {
@@ -546,38 +589,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 });
                             }
                         }
-                        else
-                        {
-                            // Video dang duoc xem tu thiet bi khác
-                            StopAndStartRestream();
-                        }
-                    }
-                    else
-                    {
-                        Device.BeginInvokeOnMainThread(async () =>
-                       {
-                           IsError = true;
-                           if (result.StatusCode == StatusCodeCamera.ERROR_PLAYBACK_BY_STREAMING)
-                           {
-                               result.UserMessage = "";
-                               if (PopupNavigation.Instance.PopupStack.Count <= 0)
-                               {
-                                   var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
-                                   if (action)
-                                   {
-                                       var parameters = new NavigationParameters();
-                                       parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
-                                       {
-                                           VehicleId = Vehicle.VehicleId,
-                                           VehiclePlate = Vehicle.VehiclePlate,
-                                           PrivateCode = Vehicle.PrivateCode
-                                       });
-                                       await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                                   }
-                               }
-                           }
-                           ErrorMessenger = result.UserMessage;
-                       });
                     }
                 }, cts.Token);
             }
@@ -603,23 +614,30 @@ namespace BA_MobileGPS.Core.ViewModels
             isLoadingCamera = true;
             var result = false;
             var loopIndex = 0;
-            var start = new StartRestreamRequest()
+            var start = new PlaybackStartRequest()
             {
                 Channel = VideoSlected.Data.Channel,
                 CustomerID = UserInfo.XNCode,
                 StartTime = VideoSlected.VideoStartTime,
                 EndTime = VideoSlected.VideoEndTime,
-                VehicleName = Vehicle.VehiclePlate
+                VehicleName = Vehicle.VehiclePlate,
+                Source = (int)CameraSourceType.App,
+                User = UserInfo.UserName,
             };
             try
             {
                 while (isLoadingCamera && loopIndex <= 7 && IsActive && !cts.IsCancellationRequested)
                 {
-                    var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, Vehicle.VehiclePlate);
-                    var device = deviceStatus?.Data?.FirstOrDefault();
-                    if (device != null && device.CameraChannels != null)
+                    var deviceStatus = await streamCameraV2Service.GetDevicesInfo(new StreamDeviceRequest()
                     {
-                        var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
+                        ConditionType = (int)ConditionType.BKS,
+                        ConditionValues = new List<string>() { Vehicle.VehiclePlate },
+                        Source = (int)CameraSourceType.App,
+                        User = UserInfo.UserName
+                    });
+                    if (deviceStatus != null && deviceStatus.Cameras != null)
+                    {
+                        var streamDevice = deviceStatus.Cameras.FirstOrDefault(x => x.Channel == videoSlected.Data.Channel);
                         if (streamDevice?.CameraStatus != null)
                         {
                             var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
@@ -629,7 +647,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 result = true;
                             }
                             // Neu trang thai chưa thay đổi => gọi lại start
-                            else await streamCameraService.StartRestream(start);
+                            else await streamCameraV2Service.StartPlayback(start);
                         }
                         loopIndex++;
                         if (isLoadingCamera && loopIndex <= 7)
@@ -884,7 +902,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 LoggerHelper.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-
 
         private void GotoMyVideoPage()
         {
