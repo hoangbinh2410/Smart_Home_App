@@ -495,7 +495,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (res != null)
                         {
                             var data = res?.Channels?.FirstOrDefault(x => x.Channel == VideoSlected.Channel);
-                            if (data != null && !CameraStatusExtension.IsRestreaming(data.CameraStatus))
+                            if (data != null && !CameraStatusExtension.IsRestreaming(data.Status))
                             {
                                 if (IsActive)
                                 {
@@ -671,9 +671,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (deviceStatus != null && deviceStatus.Channels != null)
                     {
                         var streamDevice = deviceStatus.Channels.FirstOrDefault(x => x.Channel == videoSlected.Channel);
-                        if (streamDevice?.CameraStatus != null)
+                        if (streamDevice?.Status != null)
                         {
-                            var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.CameraStatus);
+                            var isStreaming = CameraStatusExtension.IsRestreaming(streamDevice.Status);
                             if (isStreaming)
                             {
                                 isLoadingCamera = false;

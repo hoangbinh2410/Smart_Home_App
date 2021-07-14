@@ -354,15 +354,15 @@ namespace BA_MobileGPS.Core.Models
                         {
                             var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Data.Channel);
 
-                            if (streamDevice != null && streamDevice.IsStreaming)
+                            if (streamDevice != null && streamDevice.Stream)
                             {
-                                if (streamDevice.StreamingTotal != oldTotalPackage
-                                    && streamDevice.StreamingTimeout != oldTimeout)
+                                if (streamDevice.STotal != oldTotalPackage
+                                    && streamDevice.STimeout != oldTimeout)
                                 {
                                     //Set url nếu internal Err đã raise hoặc lần đầu khởi tạo.
                                     SetUrlMedia();
-                                    oldTimeout = streamDevice.StreamingTimeout;
-                                    oldTotalPackage = streamDevice.StreamingTotal;
+                                    oldTimeout = streamDevice.STimeout;
+                                    oldTotalPackage = streamDevice.STotal;
                                 }
                                 else loadingErr = true;
                             }

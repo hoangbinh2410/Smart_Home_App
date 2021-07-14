@@ -1,8 +1,4 @@
 ﻿using BA_MobileGPS.Utilities.Enums;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BA_MobileGPS.Core.Extensions
 {
@@ -16,9 +12,8 @@ namespace BA_MobileGPS.Core.Extensions
 
         public static bool IsRestreaming(int state)
         {
-
-            if (state == (int)VideoStatusEnum.Restreaming 
-                || state == (int)VideoStatusEnum.LiveStreamAndRestream 
+            if (state == (int)VideoStatusEnum.Restreaming
+                || state == (int)VideoStatusEnum.LiveStreamAndRestream
                 || state == (int)VideoStatusEnum.RestreamAndUpload
                 || state == (int)VideoStatusEnum.LiveStreamAndRestreamAndUpload)
             {
@@ -26,6 +21,7 @@ namespace BA_MobileGPS.Core.Extensions
             }
             else return false;
         }
+
         //private int[] ConvertToBit(int state)
         //{
         //    BitArray b = new BitArray(new byte[] { state });

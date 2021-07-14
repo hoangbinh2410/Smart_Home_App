@@ -271,14 +271,6 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref streamDevices, value); }
         }
 
-        private Coreboard coreboard = new Coreboard();
-
-        public Coreboard Coreboard
-        {
-            get { return coreboard; }
-            set { SetProperty(ref coreboard, value); }
-        }
-
         private Storage storageDevices = new Storage();
 
         public Storage StorageDevices
@@ -622,13 +614,9 @@ namespace BA_MobileGPS.Core.ViewModels
                             ChannelActive = string.Join(",", channelActive.Select(x => x.Channel));
                         }
                     }
-                    if (result.Coreboard != null)
-                    {
-                        Coreboard = result.Coreboard;
-                    }
                     if (result.Storages != null)
                     {
-                        var storage = result.Storages.FirstOrDefault(x => x.IsInserted == true && x.Total > 0);
+                        var storage = result.Storages.FirstOrDefault(x => x.State == true && x.Total > 0);
                         if (storage != null)
                         {
                             StorageDevices = storage;
