@@ -20,6 +20,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            FromDate = DateTime.Now.AddHours(-1);
+            ToDate = DateTime.Now;
         }
 
         public override void OnDestroy()
@@ -116,7 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     //  các tốc độ
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = DateTimeHelper.FormatDateTime(data[i].Velocities);
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].Velocities;
 
                     // ghi chú
                     numbercolum += 1;
