@@ -927,14 +927,37 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void SetErrorErrorDoubleStremingCamera(PlaybackUserRequest obj)
+        /// <summary>
+        /// Gọi api stop streaming
+        /// </summary>
+        /// <param name="req"></param>
+        private void StopPlayback(int channel)
+        {
+            SafeExecute(async () =>
+            {
+                var start = new PlaybackStopRequest()
+                {
+                    Channel = channel,
+                    CustomerID = UserInfo.XNCode,
+                    VehicleName = Vehicle.VehiclePlate,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                };
+                var result = await _streamCameraService.StopPlayback(start);
+                if (result)
+                {
+                }
+            });
+        }
+
+        private void SetErrorErrorDoubleStremingCamera(Tuple<PlaybackUserRequest, int> obj)
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
                 if (PopupNavigation.Instance.PopupStack.Count <= 0)
                 {
-                    var message = string.Format("BKS {0} đang ở chế độ xem lại bởi {1} ({2}), do vậy không thể phát trực tiếp.\n" +
-                        " Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem lại để chuyển sang chế độ phát trực tiếp", Vehicle.VehiclePlate, obj.User, ((CameraSourceType)obj.Source).ToDescription());
+                    var message = string.Format("Thiết bị đang ở chế độ xem lại bởi {0} ({1}), do vậy không thể phát trực tiếp.\n" +
+                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem của {0} lại để xem video", obj.Item1.User, ((CameraSourceType)obj.Item1.Source).ToDescription());
                     var alert = DependencyService.Get<IAlert>();
                     var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
                     if (action == "Xem hình ảnh")
@@ -950,11 +973,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else if (action == "Dừng xem lại")
                     {
-
-                    }
-                    else
-                    {
-
+                        StopPlayback(obj.Item2);
                     }
                 }
             });

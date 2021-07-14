@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Entities;
 using Prism.Events;
+using System;
 
 namespace BA_MobileGPS.Core
 {
@@ -7,7 +8,7 @@ namespace BA_MobileGPS.Core
     {
     }
 
-    public class SendErrorDoubleStremingCameraEvent : PubSubEvent<PlaybackUserRequest>
+    public class SendErrorDoubleStremingCameraEvent : PubSubEvent<Tuple<PlaybackUserRequest, int>>
     {
     }
 }

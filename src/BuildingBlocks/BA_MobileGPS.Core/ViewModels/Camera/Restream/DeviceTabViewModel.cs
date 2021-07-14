@@ -7,7 +7,6 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Commands;
@@ -543,25 +542,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (result.StreamingRequests != null && result.StreamingRequests.Count > 0)
                         {
-                            Device.BeginInvokeOnMainThread(async () =>
-                            {
-                                IsError = true;
-                                if (PopupNavigation.Instance.PopupStack.Count <= 0)
-                                {
-                                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Thiết bị đang ở chế độ phát trực tiếp, quý khách vui lòng làm theo chỉ dẫn sau:\nCách 1: Tắt xem trực tiếp để chuyển sang chế độ xem lại video \nCách 2: Chuyển đến trang xem lại hình ảnh", "Xem hình ảnh", "Bỏ qua");
-                                    if (action)
-                                    {
-                                        var parameters = new NavigationParameters();
-                                        parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
-                                        {
-                                            VehicleId = Vehicle.VehicleId,
-                                            VehiclePlate = Vehicle.VehiclePlate,
-                                            PrivateCode = Vehicle.PrivateCode
-                                        });
-                                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                                    }
-                                }
-                            });
+                            SetErrorErrorDoubleStremingCamera(result.StreamingRequests.First());
                         }
                         else
                         {
@@ -595,6 +576,63 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
+        }
+
+        private void SetErrorErrorDoubleStremingCamera(StreamUserRequest obj)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                if (PopupNavigation.Instance.PopupStack.Count <= 0)
+                {
+                    var message = "Thiết bị đang được phát trực tiếp do vậy không thể sử dụng chế độ xem lại..\n" +
+                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại";
+                    var alert = DependencyService.Get<IAlert>();
+                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
+                    if (action == "Xem hình ảnh")
+                    {
+                        var parameters = new NavigationParameters();
+                        parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                        {
+                            VehicleId = Vehicle.VehicleId,
+                            VehiclePlate = Vehicle.VehiclePlate,
+                            PrivateCode = Vehicle.PrivateCode
+                        });
+                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                    }
+                    else if (action == "Dừng phát trực tiếp")
+                    {
+                        StopStreaming();
+                    }
+                }
+            });
+        }
+
+        /// <summary>
+        /// Gọi api stop streaming
+        /// </summary>
+        /// <param name="req"></param>
+        private void StopStreaming()
+        {
+            SafeExecute(async () =>
+            {
+                var start = new CameraStopRequest()
+                {
+                    Channel = VideoSlected.Channel,
+                    CustomerID = UserInfo.XNCode,
+                    VehicleName = Vehicle.VehiclePlate,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                };
+                var result = await streamCameraService.DevicesStop(start);
+                if (result)
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var message = string.Format("Quý khách bị ngắt kết nối do BKS 29H123456 - Kênh 1 được yêu cầu phát trực tiếp user12345 (Web)");
+                        await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
+                    });
+                }
+            });
         }
 
         /// <summary>
