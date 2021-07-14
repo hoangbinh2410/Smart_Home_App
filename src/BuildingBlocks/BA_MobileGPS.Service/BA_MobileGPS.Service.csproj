@@ -6,7 +6,7 @@
 	<ItemGroup>
 		<!--<PackageReference Include="AutoMapper" Version="10.0.0" />-->
 		<PackageReference Include="IdentityModel" Version="5.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.8" />
 		<PackageReference Include="Realm" Version="10.3.0" />
 	</ItemGroup>
 	<ItemGroup>
