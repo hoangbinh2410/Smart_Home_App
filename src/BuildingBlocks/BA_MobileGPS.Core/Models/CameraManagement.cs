@@ -8,6 +8,7 @@ using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -310,6 +311,7 @@ namespace BA_MobileGPS.Core.Models
                         };
                         if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
                         {
+                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(requestStartResponse.Data.PlaybackRequests.First());
                             requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
                         }
                         else

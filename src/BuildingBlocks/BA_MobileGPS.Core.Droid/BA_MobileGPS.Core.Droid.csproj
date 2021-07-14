@@ -62,6 +62,7 @@
     <Compile Include="CustomRender\NullableDatePickerRenderer.cs" />
     <Compile Include="CustomRender\ScaleImageView.cs" />
     <Compile Include="CustomRender\ZoomImageRenderer.cs" />
+    <Compile Include="DependencyServices\AndroidAlert.cs" />
     <Compile Include="DependencyServices\AndroidDownloader.cs" />
     <Compile Include="DependencyServices\Application.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />

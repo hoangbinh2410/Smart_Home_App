@@ -8,10 +8,11 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectedChannelCommand = new DelegateCommand<object>(SelectedChannel);
             HelpVideoCommand = new DelegateCommand(HelpVideo);
             EventAggregator.GetEvent<SendErrorCameraEvent>().Subscribe(SetErrorChannelCamera);
+            EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Subscribe(SetErrorErrorDoubleStremingCamera);
         }
 
         #region Life Cycle
@@ -135,6 +137,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SendErrorCameraEvent>().Unsubscribe(SetErrorChannelCamera);
+            EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Subscribe(SetErrorErrorDoubleStremingCamera);
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
@@ -922,6 +925,39 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 channelcame.Status = ChannelCameraStatus.Error;
             }
+        }
+
+        private void SetErrorErrorDoubleStremingCamera(PlaybackUserRequest obj)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                if (PopupNavigation.Instance.PopupStack.Count <= 0)
+                {
+                    var message = string.Format("BKS {0} đang ở chế độ xem lại bởi {1} ({2}), do vậy không thể phát trực tiếp.\n" +
+                        " Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem lại để chuyển sang chế độ phát trực tiếp", Vehicle.VehiclePlate, obj.User, ((CameraSourceType)obj.Source).ToDescription());
+                    var alert = DependencyService.Get<IAlert>();
+                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
+                    if (action == "Xem hình ảnh")
+                    {
+                        var parameters = new NavigationParameters();
+                        parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                        {
+                            VehicleId = Vehicle.VehicleId,
+                            VehiclePlate = Vehicle.VehiclePlate,
+                            PrivateCode = Vehicle.PrivateCode
+                        });
+                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                    }
+                    else if (action == "Dừng xem lại")
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            });
         }
 
         private void HelpVideo()
