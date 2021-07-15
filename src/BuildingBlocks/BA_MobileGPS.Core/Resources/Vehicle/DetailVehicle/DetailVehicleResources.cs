@@ -11,7 +11,7 @@ namespace BA_MobileGPS.Core.Resources
     /// </Modified>
     public partial class MobileResource
     {
-        public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Chi tiết xe", "Vehicle details");
+        public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Chi tiết xe", "Details");
         public static string DetailVehicleVMS_Label_TilePage => Get(MobileResourceNames.DetailVehicleVMS_Label_TilePage, "Thông tin tàu cá", "Fishing Boat Information");
         public static string DetailVehicle_Label_InforFee => Get(MobileResourceNames.DetailVehicle_Label_InforFee, "Thông tin phí", "Information Fee");
         public static string DetailVehicle_MessageFee => Get(MobileResourceNames.DetailVehicle_MessageFee, "Phương tiện sắp đến hạn thu phí ngày {0}", "The car is about to mature on a daily basis {0}");
