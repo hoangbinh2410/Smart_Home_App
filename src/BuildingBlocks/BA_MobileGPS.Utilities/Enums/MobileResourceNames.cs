@@ -482,6 +482,21 @@
         DetailVehicle_Label_Vehicle_Sim_Surplus,
         DetailVehicle_Label_Vehicle_Status_Current,
         DetailVehicle_Label_ExpirationDate,
+        DetailVehicle_Label_Status,
+        DetailVehicle_Label_Packageinformation,
+        DetailVehicle_Label_PackageName,
+        DetailVehicle_Label_Provider,
+        DetailVehicle_Label_Packagecapacity,
+        DetailVehicle_Label_DaysOfStorage,
+        DetailVehicle_Label_ChannelOfStorage,
+        DetailVehicle_Label_Positioning,
+        DetailVehicle_Label_Photo,
+        DetailVehicle_Label_Video,
+        DetailVehicle_Label_DeviceInformation,
+        DetailVehicle_Label_ChannelHasCamera,
+        DetailVehicle_Label_ActiveChannel,
+        DetailVehicle_Label_DriveCapacity,
+        DetailVehicle_Label_Network,
         #endregion vehicledetail
 
         #region datetimepicker
