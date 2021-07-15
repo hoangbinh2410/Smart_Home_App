@@ -343,7 +343,7 @@
 
                         <!--  thời gian  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="150"
+                            Width="130"
                             MappingName="DT"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -376,7 +376,7 @@
 
                         <!--  Số Lít ShowLiters  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="300"
+                            Width="250"
                             HeaderFontAttribute="Bold"
                             MappingName="Velocities"
                             TextAlignment="Center">
@@ -396,12 +396,12 @@
                                 <DataTemplate>
                                     <Label
                                         FontSize="{StaticResource FontSize10}"
-                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalOptions="StartAndExpand"
                                         HorizontalTextAlignment="Start"
                                         Text="{Binding Velocities}"
-                                        VerticalOptions="FillAndExpand"
+                                        VerticalOptions="CenterAndExpand"
                                         VerticalTextAlignment="Center"
-                                        XAlign="Center"
+                                        XAlign="Start"
                                         YAlign="Center" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.CellTemplate>
