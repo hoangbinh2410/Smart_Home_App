@@ -231,7 +231,6 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding CloudServiceInfo.Days, StringFormat='{0} ngày'}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center">
                                         <Label.FormattedText>
