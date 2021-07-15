@@ -11,7 +11,7 @@ namespace BA_MobileGPS.Service
         #region Device
         Task<StreamDevice> GetDevicesInfo(StreamDeviceRequest request);
 
-        Task<ResponseStreamBase<CameraStartRespone>> DevicesStart(CameraStartRequest request);
+        Task<ResponseStreamBase<List<CameraStartRespone>>> DevicesStart(CameraStartRequest request);
 
         Task<bool> DevicesStop(CameraStopRequest request);
 

@@ -13,8 +13,8 @@ namespace BA_MobileGPS.Entities
         public List<CameraChannel> Channels { get; set; }
         public string Customer { get; set; }
         public string IMEI { get; set; }
-        public int Lat { get; set; }
-        public int Lng { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
         public int Net { get; set; }
         public int State { get; set; }
         public List<Storage> Storages { get; set; }

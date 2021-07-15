@@ -5,6 +5,7 @@ using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -26,10 +27,10 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.GET_DEVICESINFO}";
-                var respone = await requestProvider.PostAsync<StreamDeviceRequest, ResponseStreamBase<StreamDevice>>(url, request);
+                var respone = await requestProvider.PostAsync<StreamDeviceRequest, ResponseStreamBase<List<StreamDevice>>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
-                    result = respone.Data;
+                    result = respone.Data.First();
                 }
             }
             catch (Exception ex)
@@ -39,13 +40,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<ResponseStreamBase<CameraStartRespone>> DevicesStart(CameraStartRequest request)
+        public async Task<ResponseStreamBase<List<CameraStartRespone>>> DevicesStart(CameraStartRequest request)
         {
-            var result = new ResponseStreamBase<CameraStartRespone>();
+            var result = new ResponseStreamBase<List<CameraStartRespone>>();
             try
             {
                 string url = $"{ApiUri.POST_DEVICESTART}";
-                var respone = await requestProvider.PostAsync<CameraStartRequest, ResponseStreamBase<CameraStartRespone>>(url, request);
+                var respone = await requestProvider.PostAsync<CameraStartRequest, ResponseStreamBase<List<CameraStartRespone>>>(url, request);
                 if (respone != null)
                 {
                     result = respone;
