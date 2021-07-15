@@ -233,7 +233,15 @@
                                         HorizontalOptions="EndAndExpand"
                                         Text="{Binding CloudServiceInfo.Days, StringFormat='{0} ngày'}"
                                         VerticalOptions="Center"
-                                        VerticalTextAlignment="Center" />
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding CloudServiceInfo.Days}" />
+                                                <Span Text=" " />
+                                                <Span Text="{i18n:TranslateResource Common_Label_Day}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
                                     <BoxView
                                         Grid.Row="1"
@@ -732,7 +740,6 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
                                 </Grid>
-
                             </StackLayout>
                         </sharpnado:MaterialFrame.Content>
                     </sharpnado:MaterialFrame>
