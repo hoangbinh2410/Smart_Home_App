@@ -544,7 +544,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             SetErrorErrorDoubleStremingCamera(result.StreamingRequests.First());
                         }
-                        else
+                        else if (!string.IsNullOrEmpty(result.Link))
                         {
                             var isSteaming = await CheckDeviceStatus();
                             if (isSteaming)
@@ -564,6 +564,14 @@ namespace BA_MobileGPS.Core.ViewModels
                                     ErrorMessenger = "Có lỗi khi kết nối server";
                                 });
                             }
+                        }
+                        else
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                IsError = true;
+                                ErrorMessenger = "Có lỗi khi kết nối server";
+                            });
                         }
                     }
                 }, cts.Token);
@@ -685,7 +693,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         loopIndex++;
                         if (isLoadingCamera && loopIndex <= 7)
                         {
-                            await Task.Delay(1500, cts.Token);
+                            await Task.Delay(3000, cts.Token);
                         }
                     }
                 }

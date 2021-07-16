@@ -297,27 +297,18 @@ namespace BA_MobileGPS.Core.Models
             Task.Run(async () =>
             {
                 //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
-                var requestStartResponse = await streamCameraService.DevicesStart(startRequest);
-                if (requestStartResponse != null && requestStartResponse.Data != null)
+                var result = await streamCameraService.DevicesStart(startRequest);
+                if (result != null && result.Data != null)
                 {
-                    var data = requestStartResponse.Data.FirstOrDefault();
-                    if (data.PlaybackRequests != null && data.PlaybackRequests.Count > 0)
+                    var data = result.Data.FirstOrDefault();
+                    if (data.PlaybackRequests != null
+                    && data.PlaybackRequests.Count > 0
+                    && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
                     {
-                        Data = new CameraStartRespone()
-                        {
-                            Channel = Channel,
-                            Link = string.Empty
-                        };
-                        if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
-                        {
-                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(new Tuple<PlaybackUserRequest, int>(data.PlaybackRequests.First(), Channel));
-                            requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
-                        }
-                        else
-                        {
-                            _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                        }
-                        SetError(requestStartResponse.UserMessage);
+                        Data = data;
+                        _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(new Tuple<PlaybackUserRequest, int>(data.PlaybackRequests.First(), Channel));
+                        result.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
+                        SetError(result.UserMessage);
                     }
                     else
                     {
@@ -339,7 +330,7 @@ namespace BA_MobileGPS.Core.Models
                         Link = string.Empty
                     };
                     _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(requestStartResponse.UserMessage);
+                    SetError(result.UserMessage);
                 }
             });
         }
@@ -378,7 +369,7 @@ namespace BA_MobileGPS.Core.Models
                                 else loadingErr = true;
                             }
                             else loadingErr = true;
-                            await Task.Delay(2000);
+                            await Task.Delay(3000);
                         }
                     }
                 });
