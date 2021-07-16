@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BA_MobileGPS.Core.Resources;
+using System;
 using System.Globalization;
-using System.Text;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
 {
-
     public class CameraChanelNameConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -16,7 +14,7 @@ namespace BA_MobileGPS.Core
                 return string.Empty;
             }
             var res = value.ToString();
-            return string.Format("Kênh {0}", res);
+            return string.Format("{0} {1}", MobileResource.Camera_Lable_Channel, res);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

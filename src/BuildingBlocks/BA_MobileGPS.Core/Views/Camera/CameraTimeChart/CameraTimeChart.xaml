@@ -48,12 +48,12 @@
                 </ffImage:CachedImage.GestureRecognizers>
             </ffImage:CachedImage>
             <Label
+                x:Name="title"
                 Grid.Column="1"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Xem lại video"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
@@ -91,7 +91,7 @@
                             FontSize="14"
                             HorizontalOptions="FillAndExpand"
                             InputTransparent="True"
-                            Placeholder="{i18n:TranslateResource Route_Label_SearchFishing}"
+                            Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding SelectedVehiclePlates}"
                             TextColor="{DynamicResource TextPrimaryColor}"
@@ -168,7 +168,7 @@
                         HeightRequest="20"
                         VerticalOptions="Center"
                         WidthRequest="20" />
-                    <Label Text="Thời gian có video" VerticalOptions="Center" />
+                    <Label x:Name="timehasvideo" VerticalOptions="Center" />
                 </StackLayout>
                 <StackLayout
                     Grid.Column="1"
@@ -182,15 +182,15 @@
                         VerticalOptions="Center"
                         WidthRequest="20" />
                     <Label
+                        x:Name="timesavevideo"
                         HorizontalOptions="Start"
-                        Text="Thời gian video đã lưu"
                         VerticalOptions="Center" />
                 </StackLayout>
                 <Label
+                    x:Name="txtnote"
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Start"
-                    Text="Thiết bị không ghi video khi phương tiện tắt máy."
                     TextColor="#18A0FB" />
             </Grid>
 

@@ -14,7 +14,6 @@
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:local="clr-namespace:BA_MobileGPS.Core.Behaviors.Trackball"
-    xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     Title="{Binding Title}"
     BackgroundColor="{DynamicResource WhiteColor}">
@@ -240,6 +239,108 @@
                         WidthRequest="25" />
                 </controls:MaterialFrame>-->
                 </Grid>
+
+                <!--  phần thông tin tổng hợp nhiên liệu  -->
+                <Grid
+                    Padding="10,0,10,15"
+                    IsVisible="{Binding FuelsSummariesItem, Converter={StaticResource HasDataConverter}}"
+                    RowSpacing="10"
+                    VerticalOptions="End">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="Bắt đầu: " />
+                                <Span Text="{Binding FuelsSummariesItem.FirstLits, StringFormat='{0:0.##} L'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="Tiêu thụ: " />
+                                <Span Text="{Binding FuelsSummariesItem.LiterConsumable, StringFormat='{0:0.##} L'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="Nạp: " />
+                                <Span Text="{Binding FuelsSummariesItem.PourTotal, StringFormat='{0:0.##} L'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="Hút: " />
+                                <Span Text="{Binding FuelsSummariesItem.SuckTotal, StringFormat='{0:0.##} L'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="{StaticResource myFontLatoBold}"
+                                    Text="Còn lại: " />
+                                <Span Text="{Binding FuelsSummariesItem.LastLits, StringFormat='{0:0.##} L'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+
                 <chart:SfChart
                     x:Name="Chart"
                     Margin="0,0,10,10"
@@ -282,6 +383,7 @@
                         <chart:NumericalAxis Minimum="0" />
                     </chart:SfChart.SecondaryAxis>
                 </chart:SfChart>
+
                 <Grid
                     Padding="10,0,10,15"
                     IsVisible="{Binding IsShowInfo}"

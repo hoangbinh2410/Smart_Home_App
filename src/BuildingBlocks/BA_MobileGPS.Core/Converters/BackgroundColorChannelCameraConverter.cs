@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using System;
 using System.Globalization;
@@ -54,6 +55,7 @@ namespace BA_MobileGPS.Core
             return null;
         }
     }
+
     public class UploadStatusIsEnableConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -93,6 +95,7 @@ namespace BA_MobileGPS.Core
             return null;
         }
     }
+
     public class UploadStatusIsVisibleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -293,7 +296,7 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return "Đã tải";
+                return MobileResource.Camera_Status_Downloaded;
             }
             else
             {
@@ -301,19 +304,19 @@ namespace BA_MobileGPS.Core
                 switch (status)
                 {
                     case VideoUploadStatus.Uploaded:
-                        return "Đã tải";
+                        return MobileResource.Camera_Status_Downloaded;
 
                     case VideoUploadStatus.Uploading:
-                        return "Đang tải";
+                        return MobileResource.Camera_Status_Downloading;
 
                     case VideoUploadStatus.WaitingUpload:
-                        return "Chờ tải";
+                        return MobileResource.Camera_Status_WaitingUpload;
 
                     case VideoUploadStatus.UploadError:
-                        return "Có lỗi khi tải";
+                        return MobileResource.Camera_Status_DownloadError;
 
                     default:
-                        return "Đã tải";
+                        return MobileResource.Camera_Status_Downloaded;
                 }
             }
         }

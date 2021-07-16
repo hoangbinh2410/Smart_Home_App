@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Utilities.Enums;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Utilities.Enums;
 using BA_MobileGPS.Utilities.Extensions;
 using System;
 using System.Globalization;
@@ -12,12 +13,12 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return "Không";
+                return MobileResource.Common_Button_No;
             }
             if ((bool)value)
-                return "Có";
+                return MobileResource.Common_Button_Yes;
             else
-                return "Không";
+                return MobileResource.Common_Button_No;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

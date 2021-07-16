@@ -3,10 +3,10 @@
     x:Class="BA_MobileGPS.Core.Views.CameraRestream"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:prism="http://prismlibrary.com"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
-    Title="Xem lại video"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle=""
     NavigationPage.HasNavigationBar="False"
@@ -14,9 +14,7 @@
     UnselectedTabColor="{DynamicResource MainTabUnSelectedTextColor}">
 
     <TabbedPage.Children>
-        <views:DeviceTab Title="Thiết bị" IconImageSource="ic_device" />
-        <views:MyVideoTab Title="Tải về" IconImageSource="ic_myvideo" />
-        <!--<views:BACloudTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_cloud" />
-        <views:MyVideoTab Title="{i18n:TranslateResource Camera_ChildTab_MyVideo}" IconImageSource="ic_myvideo" />-->
+        <views:DeviceTab Title="{i18n:TranslateResource Camera_ChildTab_Device}" IconImageSource="ic_device" />
+        <views:MyVideoTab Title="{i18n:TranslateResource Camera_ChildTab_BACloud}" IconImageSource="ic_myvideo" />
     </TabbedPage.Children>
 </icons:TabbedPageEx>

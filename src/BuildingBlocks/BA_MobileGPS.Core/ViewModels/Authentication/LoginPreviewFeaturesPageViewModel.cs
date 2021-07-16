@@ -93,14 +93,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = MobileSettingHelper.IsUseExperience
             });
             // Đăng kí tư vấn
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_RegisterSupport,
-                Icon = "ic_chatsupport.png",
-                Url = "BaseNavigationPage/RegisterConsultPage",
-                ItemType = LoginPopupItemType.RegisterSupport,
-                IsEnable = MobileSettingHelper.IsUseRegisterSupport
-            });
+            //list.Add(new LoginPopupItem
+            //{
+            //    Title = MobileResource.Login_Popup_RegisterSupport,
+            //    Icon = "ic_chatsupport.png",
+            //    Url = "BaseNavigationPage/RegisterConsultPage",
+            //    ItemType = LoginPopupItemType.RegisterSupport,
+            //    IsEnable = MobileSettingHelper.IsUseRegisterSupport
+            //});
             Items = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 

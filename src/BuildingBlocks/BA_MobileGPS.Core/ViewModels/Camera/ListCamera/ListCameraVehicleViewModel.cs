@@ -275,7 +275,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PageDialog.DisplayAlertAsync("Thông báo", "Các xe sử dụng gói cước không tích hợp tính năng xem hình ảnh sẽ không được hiển thị trên tính năng này", "Bỏ qua");
+                await PageDialog.DisplayAlertAsync(MobileResource.Camera_Alert_Title, MobileResource.Camera_Alert_HelpContent, MobileResource.Common_Message_Skip);
             });
         }
     }

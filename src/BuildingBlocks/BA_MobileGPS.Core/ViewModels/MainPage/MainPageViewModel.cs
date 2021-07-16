@@ -102,7 +102,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         await ConnectSignalR();
                         PushPageFileBase();
                         InsertOrUpdateAppDevice();
-                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView))
+                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
                         {
                             GetVehicleIsCamera();
                         }
@@ -1111,7 +1111,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                    Device.BeginInvokeOnMainThread(() =>
                    {
-                       DisplayMessage.ShowMessageInfo("Đã tải xong 1 video. Vui lòng xem trên tab Video đã tải");
+                       DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
                    });
                }
                else

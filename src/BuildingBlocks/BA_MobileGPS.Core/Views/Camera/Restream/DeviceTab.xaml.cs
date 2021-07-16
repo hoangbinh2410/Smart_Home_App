@@ -12,7 +12,9 @@ namespace BA_MobileGPS.Core.Views
         public DeviceTab()
         {
             InitializeComponent();
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            title.Text = MobileResource.Camera_Title_Retreaming;
+            entrySearch.Placeholder = MobileResource.Online_Label_SeachVehicle2;
+            txtlstvideo.Text = MobileResource.Camera_Lable_ListVideo;
         }
 
         protected override void OnAppearing()

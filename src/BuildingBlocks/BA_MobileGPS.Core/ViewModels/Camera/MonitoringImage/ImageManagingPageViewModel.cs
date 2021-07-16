@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
@@ -65,7 +66,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PageDialog.DisplayAlertAsync("Thông báo", "Các xe sử dụng gói cước không tích hợp tính năng xem hình ảnh sẽ không được hiển thị trên tính năng này", "Bỏ qua");
+                await PageDialog.DisplayAlertAsync(MobileResource.Camera_Alert_Title, MobileResource.Camera_Alert_HelpContent, MobileResource.Common_Message_Skip);
             });
         }
 
@@ -237,7 +238,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //chuyên trang danh sách camera
             SafeExecute(async () =>
             {
-                var vehiclecam = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == (string)obj);
+                var vehiclecam = StaticSettings.ListVehilceCamera?.FirstOrDefault(x => x.VehiclePlate == (string)obj);
                 if (vehiclecam != null)
                 {
                     var vehicle = new Vehicle
