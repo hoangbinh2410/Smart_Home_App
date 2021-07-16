@@ -85,9 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 // các tốc độ
                 numbercolum += 1;
                 worksheet.Range[numberrow, numbercolum].Text = "Các tốc độ (km/h)";
-                // ghi chú
-                numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Ghi chú";
+              
 
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
@@ -119,10 +117,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     //  các tốc độ
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = data[i].Velocities;
-
-                    // ghi chú
-                    numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:hh\\:mm}", data[i].Decription);
                 }
 
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();

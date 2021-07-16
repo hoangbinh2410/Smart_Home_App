@@ -33,7 +33,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Chi tiết"
+                Text="{Binding Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <ffImage:CachedImage

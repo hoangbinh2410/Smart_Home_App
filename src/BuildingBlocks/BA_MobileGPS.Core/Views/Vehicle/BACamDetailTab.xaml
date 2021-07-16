@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converters="clr-namespace:BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     BackgroundColor="White">
@@ -38,7 +39,7 @@
                         <sharpnado:MaterialFrame.Content>
                             <Label
                                 HorizontalOptions="StartAndExpand"
-                                Text="Thông tin gói cước"
+                                Text="{i18n:TranslateResource DetailVehicle_Label_Packageinformation}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </sharpnado:MaterialFrame.Content>
@@ -79,7 +80,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Tên gói cước"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_PackageName}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -127,7 +128,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Nhà mạng"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Provider}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -174,7 +175,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Dung lượng gói cước "
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Packagecapacity}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -221,7 +222,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Số ngày lưu trữ"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_DaysOfStorage}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -230,9 +231,16 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding CloudServiceInfo.Days, StringFormat='{0} ngày'}"
                                         VerticalOptions="Center"
-                                        VerticalTextAlignment="Center" />
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding CloudServiceInfo.Days}" />
+                                                <Span Text=" " />
+                                                <Span Text="{i18n:TranslateResource Common_Label_Day}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
                                     <BoxView
                                         Grid.Row="1"
@@ -268,7 +276,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Số kênh lưu trữ"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_ChannelOfStorage}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -315,7 +323,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Tính năng định vị"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Positioning}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -364,7 +372,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Tính năng ảnh"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Photo}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -413,7 +421,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Tính năng video "
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Video}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -455,7 +463,7 @@
                         <sharpnado:MaterialFrame.Content>
                             <Label
                                 HorizontalOptions="StartAndExpand"
-                                Text="Thông tin thiết bị"
+                                Text="{i18n:TranslateResource DetailVehicle_Label_DeviceInformation}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center" />
                         </sharpnado:MaterialFrame.Content>
@@ -495,7 +503,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Kênh lắp camera :"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_ChannelHasCamera}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -542,7 +550,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Kênh hoạt động :"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_ActiveChannel}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -590,7 +598,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Dung lượng ổ :"
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_DriveCapacity}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -700,7 +708,7 @@
                                             WidthRequest="20" />
 
                                         <Label
-                                            Text="Mạng kết nối : "
+                                            Text="{i18n:TranslateResource DetailVehicle_Label_Network}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
                                     </StackLayout>
@@ -731,7 +739,6 @@
                                         HorizontalOptions="FillAndExpand"
                                         VerticalOptions="Start" />
                                 </Grid>
-
                             </StackLayout>
                         </sharpnado:MaterialFrame.Content>
                     </sharpnado:MaterialFrame>

@@ -11,7 +11,7 @@ namespace BA_MobileGPS.Core.Resources
     /// </Modified>
     public partial class MobileResource
     {
-        public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Chi tiết", "Vehicle information");
+        public static string DetailVehicle_Label_TilePage => Get(MobileResourceNames.DetailVehicle_Label_TilePage, "Chi tiết xe", "Details");
         public static string DetailVehicleVMS_Label_TilePage => Get(MobileResourceNames.DetailVehicleVMS_Label_TilePage, "Thông tin tàu cá", "Fishing Boat Information");
         public static string DetailVehicle_Label_InforFee => Get(MobileResourceNames.DetailVehicle_Label_InforFee, "Thông tin phí", "Information Fee");
         public static string DetailVehicle_MessageFee => Get(MobileResourceNames.DetailVehicle_MessageFee, "Phương tiện sắp đến hạn thu phí ngày {0}", "The car is about to mature on a daily basis {0}");
@@ -70,5 +70,21 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailVehicle_Label_Vehicle_Status_Current => Get(MobileResourceNames.DetailVehicle_Label_Vehicle_Status_Current, "Trạng thái xe hiện tại", "Current vehicle status");
 
         public static string DetailVehicle_Label_ExpirationDate => Get(MobileResourceNames.DetailVehicle_Label_ExpirationDate, "Ngày hết hạn phí", "Expiration Date");
+
+        public static string DetailVehicle_Label_Status => Get(MobileResourceNames.DetailVehicle_Label_Status, "Hiện trạng", "Status");
+        public static string DetailVehicle_Label_Packageinformation => Get(MobileResourceNames.DetailVehicle_Label_Packageinformation, "Thông tin gói cước", "Package information");
+        public static string DetailVehicle_Label_PackageName => Get(MobileResourceNames.DetailVehicle_Label_PackageName, "Tên gói cước", "Package name");
+        public static string DetailVehicle_Label_Provider => Get(MobileResourceNames.DetailVehicle_Label_Provider, "Nhà mạng", "Provider");
+        public static string DetailVehicle_Label_Packagecapacity => Get(MobileResourceNames.DetailVehicle_Label_Packagecapacity, "Dung lượng gói cước", "Package capacity");
+        public static string DetailVehicle_Label_DaysOfStorage => Get(MobileResourceNames.DetailVehicle_Label_DaysOfStorage, "Số ngày lưu trữ", "Number of days of storage");
+        public static string DetailVehicle_Label_ChannelOfStorage => Get(MobileResourceNames.DetailVehicle_Label_ChannelOfStorage, "Số kênh lưu trữ", "Number of storage channels");
+        public static string DetailVehicle_Label_Positioning => Get(MobileResourceNames.DetailVehicle_Label_Positioning, "Tính năng định vị", "Positioning feature");
+        public static string DetailVehicle_Label_Video=> Get(MobileResourceNames.DetailVehicle_Label_Video, "Tính năng video", "Video features");
+        public static string DetailVehicle_Label_Photo => Get(MobileResourceNames.DetailVehicle_Label_Photo, "Tính năng ảnh", "Photo features");
+        public static string DetailVehicle_Label_DeviceInformation => Get(MobileResourceNames.DetailVehicle_Label_DeviceInformation, "Thông tin thiết bị", "Device Information");
+        public static string DetailVehicle_Label_ChannelHasCamera => Get(MobileResourceNames.DetailVehicle_Label_ChannelHasCamera, "Kênh lắp camera :", "Camera mounting channel");
+        public static string DetailVehicle_Label_ActiveChannel => Get(MobileResourceNames.DetailVehicle_Label_ActiveChannel, "Kênh hoạt động :", "Active channel");
+        public static string DetailVehicle_Label_DriveCapacity => Get(MobileResourceNames.DetailVehicle_Label_DriveCapacity, "Dung lượng ổ :", "Drive capacity");
+        public static string DetailVehicle_Label_Network => Get(MobileResourceNames.DetailVehicle_Label_Network, "Mạng kết nối :", "Network connection");
     }
 }

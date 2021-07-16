@@ -55,6 +55,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IsShowInfo { get => isShowInfo; set => SetProperty(ref isShowInfo, value); }
 
+        private FuelsSummariesModel fuelsSummariesItem;
+        public FuelsSummariesModel FuelsSummariesItem { get => fuelsSummariesItem; set => SetProperty(ref fuelsSummariesItem, value); }
+
         public ICommand DateSelectedCommand { get; }
         public ICommand TimeSelectingCommand { get; }
         public ICommand TimeSelectedCommand { get; }
@@ -112,6 +115,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehicleId = fuel.FK_VehicleID,
                         PrivateCode = fuel.PrivateCode,
                     };
+                    FuelsSummariesItem = fuel;
                     GetDataChart();
                 }
             }

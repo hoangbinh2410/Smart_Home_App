@@ -343,7 +343,7 @@
 
                         <!--  thời gian  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="150"
+                            Width="130"
                             MappingName="DT"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -376,7 +376,7 @@
 
                         <!--  Số Lít ShowLiters  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="300"
+                            Width="250"
                             HeaderFontAttribute="Bold"
                             MappingName="Velocities"
                             TextAlignment="Center">
@@ -396,47 +396,16 @@
                                 <DataTemplate>
                                     <Label
                                         FontSize="{StaticResource FontSize10}"
-                                        HorizontalOptions="FillAndExpand"
-                                        HorizontalTextAlignment="Center"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start"
                                         Text="{Binding Velocities}"
-                                        VerticalOptions="FillAndExpand"
+                                        VerticalOptions="CenterAndExpand"
                                         VerticalTextAlignment="Center"
-                                        XAlign="Center"
+                                        XAlign="Start"
                                         YAlign="Center" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.CellTemplate>
                         </syncDataGrid:GridTemplateColumn>
-
-                        <!--  Ghi chú  -->
-                        <syncDataGrid:GridTemplateColumn
-                            Width="100"
-                            MappingName="Decription"
-                            TextAlignment="Center">
-                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <Label
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="FillAndExpand"
-                                        Text="Ghi chú"
-                                        TextColor="{DynamicResource WhiteColor}"
-                                        VerticalOptions="FillAndExpand"
-                                        XAlign="Center"
-                                        YAlign="Center" />
-                                </DataTemplate>
-                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
-                            <syncDataGrid:GridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label
-                                        FontSize="{StaticResource FontSize10}"
-                                        HorizontalOptions="FillAndExpand"
-                                        Text="{Binding Decription}"
-                                        VerticalOptions="FillAndExpand"
-                                        XAlign="Center"
-                                        YAlign="Center" />
-                                </DataTemplate>
-                            </syncDataGrid:GridTemplateColumn.CellTemplate>
-                        </syncDataGrid:GridTemplateColumn>
-
                     </syncDataGrid:SfDataGrid.Columns>
                 </syncDataGrid:SfDataGrid>
 
