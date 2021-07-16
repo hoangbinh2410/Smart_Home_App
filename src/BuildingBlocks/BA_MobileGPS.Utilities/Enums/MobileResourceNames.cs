@@ -482,6 +482,21 @@
         DetailVehicle_Label_Vehicle_Sim_Surplus,
         DetailVehicle_Label_Vehicle_Status_Current,
         DetailVehicle_Label_ExpirationDate,
+        DetailVehicle_Label_Status,
+        DetailVehicle_Label_Packageinformation,
+        DetailVehicle_Label_PackageName,
+        DetailVehicle_Label_Provider,
+        DetailVehicle_Label_Packagecapacity,
+        DetailVehicle_Label_DaysOfStorage,
+        DetailVehicle_Label_ChannelOfStorage,
+        DetailVehicle_Label_Positioning,
+        DetailVehicle_Label_Photo,
+        DetailVehicle_Label_Video,
+        DetailVehicle_Label_DeviceInformation,
+        DetailVehicle_Label_ChannelHasCamera,
+        DetailVehicle_Label_ActiveChannel,
+        DetailVehicle_Label_DriveCapacity,
+        DetailVehicle_Label_Network,
         #endregion vehicledetail
 
         #region datetimepicker
@@ -519,6 +534,7 @@
         Common_Message_NoDataJoinDay,
         Common_Message_ErrorOverDateSearch,
         Common_Label_TitleShowHideColumn,
+        Common_Label_All,
 
         PourFuelReport_Label_TitlePage,
         PourFuelReport_Label_TitleDetailPage,
@@ -866,7 +882,37 @@
         Camera_Label_Start_Watch,
         Camera_ChildTab_Device,
         Camera_ChildTab_BACloud,
+        Camera_Lable_ListVideo,
         Camera_ChildTab_MyVideo,
+        Camera_Alert_Title,
+        Camera_Alert_HelpContent,
+        Camera_Checkbox_AutoRenewal,
+        Camera_Lable_Channel,
+        Camera_Lable_AllChannel,
+        Camera_Lable_Chart,
+        Camera_Lable_TimeHasVideo,
+        Camera_Lable_TimeSaveVideo,
+        Camera_Lable_NoteChart,
+        Camera_Title_UploadVideoToServer,
+        Camera_Title_NoteDowLoadFile,
+        Camera_Lable_NoteUploadVideoToServer,
+        UploadVideoTo_Alert_NoteUploaded,
+        Camera_Title_Downloadedvideo,
+        Camera_Title_Downloadingvideo,
+        Camera_Title_ListDownloadingvideo,
+        Camera_Status_ErrorConnect,
+        Camera_Status_Downloaded,
+        Camera_Status_WaitingUpload,
+        Camera_Status_Downloading,
+        Camera_Status_DownloadError,
+        Camera_Alert_DownloadedVideo,
+        #endregion
+
+        #region Image
+        Image_Lable_ImageMonitoring,
+        Image_Lable_Nearestvehicle,
+        Image_Alert_SaveImageSuccess,
+        Image_Lable_Totalnumberimages,
         #endregion
 
         #region Helper

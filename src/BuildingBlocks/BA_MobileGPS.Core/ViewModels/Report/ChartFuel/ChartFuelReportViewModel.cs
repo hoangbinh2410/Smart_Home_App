@@ -1,9 +1,10 @@
-﻿using BA_MobileGPS.Core.Extensions;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
-
+using BA_MobileGPS.Utilities.Extensions;
 using FFImageLoading.Forms;
 
 using Prism;
@@ -54,6 +55,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IsShowInfo { get => isShowInfo; set => SetProperty(ref isShowInfo, value); }
 
+        private FuelsSummariesModel fuelsSummariesItem;
+        public FuelsSummariesModel FuelsSummariesItem { get => fuelsSummariesItem; set => SetProperty(ref fuelsSummariesItem, value); }
+
         public ICommand DateSelectedCommand { get; }
         public ICommand TimeSelectingCommand { get; }
         public ICommand TimeSelectedCommand { get; }
@@ -93,6 +97,28 @@ namespace BA_MobileGPS.Core.ViewModels
                 Page = Entities.Enums.MenuKeyEnums.MobileFuelChart,
                 Type = UserBehaviorType.End
             });
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if (parameters.TryGetValue(ParameterKey.ReportFuelsSummariesSelected, out FuelsSummariesModel fuel))
+            {
+                if (fuel != null)
+                {
+                    FromDate = new DateTime(fuel.Date.Year, fuel.Date.Month, fuel.Date.Day, 0, 0, 0);
+                    ToDate = new DateTime(fuel.Date.Year, fuel.Date.Month, fuel.Date.Day, 23, 59, 59);
+                    Vehicle = new Vehicle()
+                    {
+                        VehiclePlate = fuel.VehiclePlate,
+                        VehicleId = fuel.FK_VehicleID,
+                        PrivateCode = fuel.PrivateCode,
+                    };
+                    FuelsSummariesItem = fuel;
+                    GetDataChart();
+                }
+            }
         }
 
         private void DateSelected()
@@ -157,7 +183,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void TrackballCreated(ChartTrackballCreatedEventArgs e)
         {
-            TryExecute(() =>
+            SafeExecute(() =>
             {
                 if (e.ChartPointsInfo != null && e.ChartPointsInfo.Count > 0)
                 {
@@ -175,8 +201,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (cts.IsCancellationRequested)
                             return default;
 
-                        var sumary = e.ChartPointsInfo.Select(c => c.DataPoint).Cast<FuelChartDisplay>().OrderBy(c => c.Id).ToList();
-
+                        var sumary = e.ChartPointsInfo.Select(c => c.DataPoint).Cast<FuelChartDisplay>().OrderBy(c => c.Id).DistinctBy(x => x.Id).ToList();
                         sumary.Add(new FuelChartDisplay()
                         {
                             Title = MobileResource.ChartFuelReport_Total,

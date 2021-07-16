@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.QCVN31SpeedReportPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core"
+    xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+    x:Name="this"
+    Title="Tốc độ của xe"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
+            <local:TableSummaryConverter x:Key="SummaryChangingFuelConverter" ColName="ChangingFuel" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Tốc độ của xe"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Column="2"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <controls:FontAwesomeIcon
+                    Margin="5,0,5,0"
+                    IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                    StyleClass="TopFontIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <AbsoluteLayout
+            BackgroundColor="{DynamicResource WhiteColor}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!--  phần tìm kiếm  -->
+                <Grid Padding="10" HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <!--  từ ngày  -->
+                    <Frame
+                        x:Name="txtfromdate"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="35"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <StackLayout
+                            Padding="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushToFromDateTimePageCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Entry
+                                FontSize="{StaticResource FontSize11}"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView
+                                Foreground="{DynamicResource BlackColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Source="ic_date_range_black.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </StackLayout>
+                    </Frame>
+                    <!--  đến ngày  -->
+                    <Frame
+                        x:Name="txttodate"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="35"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <StackLayout
+                            Padding="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushToEndDateTimePageCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Entry
+                                FontSize="{StaticResource FontSize11}"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView
+                                Foreground="{DynamicResource BlackColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Source="ic_date_range_black.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </StackLayout>
+                    </Frame>
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Orientation="Horizontal">
+                        <!--  button tìm kiếm  -->
+                        <sharpnado:MaterialFrame
+                            x:Name="btnKeySearch"
+                            Padding="0"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="CenterAndExpand"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="35">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_search.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                    </StackLayout>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  biển số xe  -->
+                        <Frame
+                            x:Name="cmbVihicle"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <StackLayout
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    FontSize="{StaticResource FontSize12}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="{i18n:TranslateResource Common_Label_Grid_VehiclePlate}"
+                                    Text="{Binding VehicleSelect.PrivateCode}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </StackLayout>
+                        </Frame>
+
+                        <checkbox:SfCheckBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5"
+                            FontSize="13"
+                            IsChecked="{Binding IsOptionData}"
+                            Text="Tùy chọn hiển thị" />
+                    </Grid>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Orientation="Horizontal">
+                        <!--  button ecxel  -->
+                        <sharpnado:MaterialFrame
+                            Padding="0"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding IsExportExcel}"
+                            LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="35">
+                            <sharpnado:MaterialFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
+                            </sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_excel.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </sharpnado:MaterialFrame>
+                    </StackLayout>
+                </Grid>
+
+                <syncDataGrid:SfDataGrid
+                    x:Name="dataGrid"
+                    Grid.Row="1"
+                    AllowLoadMore="False"
+                    AllowResizingColumn="True"
+                    AutoGenerateColumns="False"
+                    ColumnSizer="Auto"
+                    GridStyle="{StaticResource CustomDataGridStyle}"
+                    HorizontalOptions="FillAndExpand"
+                    IsBusy="{Binding IsBusy}"
+                    IsVisible="{Binding HasData}"
+                    ItemsSource="{Binding ListDataSearch}"
+                    ScrollingMode="PixelLine"
+                    VerticalOptions="FillAndExpand"
+                    VerticalOverScrollMode="None">
+
+                    <syncDataGrid:SfDataGrid.Columns>
+                        <!--  số thứ tự  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="30"
+                            MappingName="OrderNumber"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource PourFuelReport_Table_Serial}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{Binding OrderNumber}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  thời gian  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="130"
+                            MappingName="DT"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="Thời điểm"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="1">
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{Binding DT, Converter={StaticResource DateTimeConverter}}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Số Lít ShowLiters  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="250"
+                            HeaderFontAttribute="Bold"
+                            MappingName="Velocities"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="Các tốc độ (km/h)"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontSize="{StaticResource FontSize10}"
+                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{Binding Velocities}"
+                                        VerticalOptions="CenterAndExpand"
+                                        VerticalTextAlignment="Center"
+                                        XAlign="Start"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+                    </syncDataGrid:SfDataGrid.Columns>
+                </syncDataGrid:SfDataGrid>
+
+                <StackLayout
+                    Grid.Row="1"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
+                    Spacing="10"
+                    VerticalOptions="Center">
+                    <ffsvg:SvgCachedImage
+                        Margin="{x:OnIdiom Phone='0,0,0,0',
+                                           Desktop='0',
+                                           Tablet='0'}"
+                        HeightRequest="200"
+                        Source="NoItem.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="200" />
+                    <Label
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{i18n:TranslateResource Common_Message_NoData}"
+                        TextColor="{DynamicResource TextPrimaryColor}" />
+                </StackLayout>
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

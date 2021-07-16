@@ -3,14 +3,13 @@
     x:Class="BA_MobileGPS.Core.Views.DeviceTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:indicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
-    xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
@@ -51,10 +50,10 @@
                     </icons:IconView>
                 </StackLayout>
                 <Label
+                    x:Name="title"
                     Grid.ColumnSpan="2"
                     FontSize="16"
                     HorizontalOptions="Center"
-                    Text="Xem lại video"
                     TextColor="White"
                     VerticalOptions="End" />
 
@@ -430,8 +429,8 @@
                         Padding="5,0"
                         Orientation="Horizontal">
                         <Label
+                            x:Name="txtlstvideo"
                             StyleClass="BoldText"
-                            Text="Danh sách video"
                             VerticalOptions="Center" />
                     </StackLayout>
 
@@ -540,7 +539,7 @@
                             VerticalOptions="Center"
                             WidthRequest="200" />
                         <Label
-                            Text="Không có dữ liệu video"
+                            Text="{i18n:TranslateResource Common_Lable_NotFound}"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalTextAlignment="Center" />
                     </StackLayout>

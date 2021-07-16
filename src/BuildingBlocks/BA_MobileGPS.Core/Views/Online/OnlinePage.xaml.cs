@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.Views
             mCurrentVehicleList = new List<VehicleOnline>();
             btnDirectvehicleOnline.IsVisible = false;
             IsInitMarker = false;
-            entrySearch.Placeholder = MobileResource.Route_Label_SearchFishing;
+            entrySearch.Placeholder = MobileResource.Online_Label_SeachVehicle2;
         }
 
         //private async void GoogleMap_CameraChanged(object sender, CameraChangedEventArgs e)

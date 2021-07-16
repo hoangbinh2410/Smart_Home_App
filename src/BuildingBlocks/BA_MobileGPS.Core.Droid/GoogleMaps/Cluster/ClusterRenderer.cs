@@ -22,7 +22,6 @@ namespace BA_MobileGPS.Core.Droid
         private Dictionary<int, NativeBitmapDescriptor> mIcons;
         private IconClusterGenerator mIconGenerator;
         private ShapeDrawable mColoredCircleBackground;
-
         /**
  * If cluster size is less than this size, display individual markers.
  */
@@ -45,7 +44,7 @@ namespace BA_MobileGPS.Core.Droid
 
         protected override bool ShouldRenderAsCluster(ICluster cluster)
         {
-            return cluster.Size > MIN_CLUSTER_SIZE * 2;
+            return cluster.Size > MIN_CLUSTER_SIZE * 2 && map.CameraPosition.Zoom <= 20;
         }
 
         public void SetUpdateMarker(ClusteredMarker clusteredMarker)

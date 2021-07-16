@@ -918,7 +918,7 @@
                                     Width="100"
                                     ColumnSizer="Auto"
                                     IsHidden="{Binding ShowQuotaReality, Converter={StaticResource ShowHideColumnConverter}}"
-                                    MappingName="RealNormsOfGasonline"
+                                    MappingName="OrderNumber"
                                     TextAlignment="Center">
                                     <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                         <DataTemplate>
@@ -943,6 +943,48 @@
                                                 VerticalTextAlignment="Center"
                                                 XAlign="Center"
                                                 YAlign="Center" />
+                                        </DataTemplate>
+                                    </syncDataGrid:GridTemplateColumn.CellTemplate>
+                                </syncDataGrid:GridTemplateColumn>
+
+                                <!--  Xem biểu đồ  -->
+                                <syncDataGrid:GridTemplateColumn
+                                    Width="100"
+                                    ColumnSizer="Auto"
+                                    MappingName="RealNormsOfGasonline"
+                                    TextAlignment="Center">
+                                    <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="FillAndExpand"
+                                                Text="Xem biểu đồ"
+                                                TextColor="{DynamicResource WhiteColor}"
+                                                VerticalOptions="FillAndExpand"
+                                                XAlign="Center"
+                                                YAlign="Center" />
+                                        </DataTemplate>
+                                    </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                    <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackLayout
+                                                HorizontalOptions="CenterAndExpand"
+                                                Spacing="1"
+                                                VerticalOptions="CenterAndExpand">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding Path=BindingContext.PushToChartCommand, Source={x:Reference Name=this}}"
+                                                        CommandParameter="{Binding OrderNumber}"
+                                                        NumberOfTapsRequired="1" />
+                                                </StackLayout.GestureRecognizers>
+                                                <controls:IconView
+                                                    Foreground="{DynamicResource BlackColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Source="ic_chart.png"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="20" />
+                                            </StackLayout>
                                         </DataTemplate>
                                     </syncDataGrid:GridTemplateColumn.CellTemplate>
                                 </syncDataGrid:GridTemplateColumn>

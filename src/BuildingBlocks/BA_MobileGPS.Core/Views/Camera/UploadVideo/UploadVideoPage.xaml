@@ -6,7 +6,7 @@
     xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:converter="clr-namespace:BA_MobileGPS.Core"
-    Title="Tải về server"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     BackgroundColor="White">
 
     <ContentPage.Resources>
@@ -27,7 +27,7 @@
                     HorizontalTextAlignment="Center">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Quý khách đang tải video của xe: " />
+                            <Span Text="{i18n:TranslateResource Camera_Title_NoteDowLoadFile}" />
                             <Span Text="{Binding VideoRestreamInfo.VehicleName}" />
                             <Span Text=" - " />
                             <Span Text="Kênh " />
@@ -37,12 +37,12 @@
                 </Label>
 
                 <Label
+                    x:Name="txtNote"
                     FontAttributes="Italic"
                     FontFamily="{StaticResource myFontRobotoItalic}"
                     FontSize="15"
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
-                    Text="Video tải trực tiếp từ thiết bị và được chia nhỏ thành các phần để tối ưu đường truyền và dung lượng lưu trữ. Quý khách có thể chọn phần video muốn tải về."
                     TextColor="#0959A0" />
             </StackLayout>
             <StackLayout
@@ -58,8 +58,7 @@
                         FontAttributes="Bold"
                         HorizontalOptions="Start"
                         IsChecked="{Binding IsCheckAll}"
-                        IsEnabled="{Binding IsShowBtnUpload}"
-                        Text="Tất cả" />
+                        IsEnabled="{Binding IsShowBtnUpload}" />
                     <BoxView
                         BackgroundColor="{StaticResource TextPlaceHolderColor}"
                         HeightRequest="1"
@@ -158,7 +157,6 @@
                     Margin="0,0,0,10"
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
-                    Text="Chi tiết vui lòng xem video hướng dẫn tại đây."
                     VerticalOptions="End"
                     VerticalTextAlignment="End">
                     <Label.FormattedText>
@@ -184,7 +182,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     IsEnabled="{Binding IsShowBtnUpload}"
-                    Text="Tải về server"
+                    Text="{i18n:TranslateResource Camera_Title_UploadVideoToServer}"
                     VerticalOptions="Center"
                     WidthRequest="150" />
             </StackLayout>

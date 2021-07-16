@@ -223,8 +223,14 @@
                 Margin="10,0,0,10"
                 FontAttributes="Bold"
                 HorizontalOptions="StartAndExpand"
-                Text="{Binding Total, StringFormat='{}Tổng số ảnh: {0}'}"
-                TextColor="{DynamicResource TextPrimaryColor}" />
+                TextColor="{DynamicResource TextPrimaryColor}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{i18n:TranslateResource Image_Lable_Totalnumberimages}" />
+                        <Span Text="{Binding Total}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <Grid Grid.Row="1">
                 <sfList:SfListView
                     x:Name="listView"

@@ -196,6 +196,7 @@
         public const string GET_HISTORY_PACKAGE = "api/fishingvesselsms/historypackage";
         public const string GET_CURRENT_PACKAGE = "api/fishingvesselsms/packageinfor";
         public const string GET_SHIP_PACKAGE = "api/fishingvesselsms/shippackage";
+        public const string GET_GetQCVN31SpeedReport = "api/reports/getqcvn31report";
 
         #endregion report
 

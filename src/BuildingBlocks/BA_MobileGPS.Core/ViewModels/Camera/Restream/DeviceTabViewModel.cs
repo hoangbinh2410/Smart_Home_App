@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
@@ -57,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
             vehicle = new CameraLookUpVehicleModel();
-            listChannel = new List<ChannelModel> { new ChannelModel() { Name = "Tất cả kênh", Value = 0 } };
+            listChannel = new List<ChannelModel> { new ChannelModel() { Name = MobileResource.Camera_Lable_AllChannel, Value = 0 } };
             selectedChannel = listChannel[0];
         }
 
@@ -780,7 +781,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var lstchannel = new List<int>() { 1, 2, 3, 4 };
                 var source = new List<ChannelModel>();
-                source.Add(new ChannelModel() { Name = "Tất cả kênh", Value = 0 });
+                source.Add(new ChannelModel() { Name = MobileResource.Camera_Lable_AllChannel, Value = 0 });
                 if (lstchannel != null)
                 {
                     foreach (var item in lstchannel)
@@ -788,7 +789,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var temp = new ChannelModel()
                         {
                             Value = item,
-                            Name = string.Format("Kênh {0}", item)
+                            Name = string.Format("{0} {1}", MobileResource.Camera_Lable_Channel, item)
                         };
                         source.Add(temp);
                     }
