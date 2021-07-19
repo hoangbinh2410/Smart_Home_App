@@ -30,8 +30,14 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
                 taskCompletionSource.SetResult(cancel);
             }));
 
-            UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(alerController, animated: true, completionHandler: null);
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var vc = window.RootViewController;
+            while (vc.PresentedViewController != null)
+            {
+                vc = vc.PresentedViewController;
+            }
 
+            vc.PresentViewController(alerController, true, null);
             return taskCompletionSource.Task;
         }
     }
