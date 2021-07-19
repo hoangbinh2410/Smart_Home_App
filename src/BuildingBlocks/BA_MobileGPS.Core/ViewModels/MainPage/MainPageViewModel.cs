@@ -1165,7 +1165,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                         if (respone != null)
                         {
-                            var data = respone.FirstOrDefault(x => x.VehicleName == video.VehicleName);
+                            var data = respone.FirstOrDefault(x => x.VehicleName == video.VehicleName && x.Channel == video.Channel);
                             if (data != null)
                             {
                                 if (data.FinishCount + data.ErrorCount == data.TotalCount
