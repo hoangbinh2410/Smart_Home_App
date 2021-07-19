@@ -559,6 +559,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Device.BeginInvokeOnMainThread(async () =>
             {
                 IsError = true;
+                ErrorMessenger = "Thiết bị đang ở chế độ xem trực tiếp, quý khách vui lòng tắt xem trực tiếp để xem lại";
                 var message = "Thiết bị đang được phát trực tiếp do vậy không thể sử dụng chế độ xem lại..\n" +
                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại";
                 var alert = DependencyService.Get<IAlert>();
@@ -578,7 +579,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     StopStreaming();
                 }
-                ErrorMessenger = "Thiết bị đang ở chế độ xem trực tiếp, quý khách vui lòng tắt xem trực tiếp để xem lại";
             });
         }
 
