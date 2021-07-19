@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Service
 
         Task<bool> StopPlayback(PlaybackStopRequest request);
 
-        Task<UploadStartRespone> UploadToServerStart(UploadStartRequest request);
+        Task<ResponseStreamBase<UploadStartRespone>> UploadToServerStart(UploadStartRequest request);
 
         Task<bool> UploadToServerStop(UploadStopRequest request);
 

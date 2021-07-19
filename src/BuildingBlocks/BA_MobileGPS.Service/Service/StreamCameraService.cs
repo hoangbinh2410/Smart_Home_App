@@ -135,16 +135,16 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<UploadStartRespone> UploadToServerStart(UploadStartRequest request)
+        public async Task<ResponseStreamBase<UploadStartRespone>> UploadToServerStart(UploadStartRequest request)
         {
-            var result = new UploadStartRespone();
+            var result = new ResponseStreamBase<UploadStartRespone>();
             try
             {
                 string url = $"{ApiUri.POST_UPLOADSTART}";
                 var respone = await requestProvider.PostAsync<UploadStartRequest, ResponseStreamBase<UploadStartRespone>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
-                    result = respone.Data;
+                    result = respone;
                 }
             }
             catch (Exception ex)

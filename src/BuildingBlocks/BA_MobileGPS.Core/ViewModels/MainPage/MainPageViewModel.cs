@@ -1058,7 +1058,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                          });
                                      }, (result) =>
                                      {
-                                         if (result != null)
+                                         if (result != null && result.StatusCode == 0 && result.Data != null && result.Data.Channel > 0)
                                          {
                                              errorwhile = 0;
                                              videowaiting.Status = VideoUploadStatus.Uploading;
