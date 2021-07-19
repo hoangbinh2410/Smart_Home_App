@@ -592,27 +592,24 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsError = true;
                 ErrorMessenger = "Thiết bị đang ở chế độ xem trực tiếp, quý khách vui lòng tắt xem trực tiếp để xem lại";
-                if (PopupNavigation.Instance.PopupStack.Count <= 0)
+                var message = "Thiết bị đang được phát trực tiếp do vậy không thể sử dụng chế độ xem lại..\n" +
+                       "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại";
+                var alert = DependencyService.Get<IAlert>();
+                var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
+                if (action == "Xem hình ảnh")
                 {
-                    var message = "Thiết bị đang được phát trực tiếp do vậy không thể sử dụng chế độ xem lại..\n" +
-                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại";
-                    var alert = DependencyService.Get<IAlert>();
-                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
-                    if (action == "Xem hình ảnh")
+                    var parameters = new NavigationParameters();
+                    parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
                     {
-                        var parameters = new NavigationParameters();
-                        parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
-                        {
-                            VehicleId = Vehicle.VehicleId,
-                            VehiclePlate = Vehicle.VehiclePlate,
-                            PrivateCode = Vehicle.PrivateCode
-                        });
-                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                    }
-                    else if (action == "Dừng phát trực tiếp")
-                    {
-                        StopStreaming();
-                    }
+                        VehicleId = Vehicle.VehicleId,
+                        VehiclePlate = Vehicle.VehiclePlate,
+                        PrivateCode = Vehicle.PrivateCode
+                    });
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                }
+                else if (action == "Dừng phát trực tiếp")
+                {
+                    StopStreaming();
                 }
             });
         }
