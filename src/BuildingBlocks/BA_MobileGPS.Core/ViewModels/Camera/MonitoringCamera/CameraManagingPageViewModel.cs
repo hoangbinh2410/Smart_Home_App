@@ -457,7 +457,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && obj is CameraManagement item)
                 {
-                    if (item.Data != null && !string.IsNullOrEmpty(item.Data.Link))
+                    if (item.Data != null)
                     {
                         item.Clear();
                         item.StartWorkUnit(Vehicle.VehiclePlate);
@@ -946,6 +946,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 var result = await _streamCameraService.StopPlayback(start);
                 if (result)
                 {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await PageDialog.DisplayAlertAsync("Thông báo", "Dừng xem lại thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Đồng ý");
+                    });
                 }
             });
         }

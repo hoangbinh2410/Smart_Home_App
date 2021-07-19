@@ -590,6 +590,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
+                IsError = true;
+                ErrorMessenger = "Thiết bị đang ở chế độ xem trực tiếp, quý khách vui lòng tắt xem trực tiếp để xem lại";
                 if (PopupNavigation.Instance.PopupStack.Count <= 0)
                 {
                     var message = "Thiết bị đang được phát trực tiếp do vậy không thể sử dụng chế độ xem lại..\n" +
@@ -636,8 +638,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        var message = string.Format("Quý khách bị ngắt kết nối do BKS 29H123456 - Kênh 1 được yêu cầu phát trực tiếp user12345 (Web)");
-                        await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
+                        await PageDialog.DisplayAlertAsync("Thông báo", "Dừng xem trực tiếp thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Đồng ý");
                     });
                 }
             });
