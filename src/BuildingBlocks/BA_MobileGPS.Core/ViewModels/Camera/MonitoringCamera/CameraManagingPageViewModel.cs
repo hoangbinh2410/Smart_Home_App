@@ -960,8 +960,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (PopupNavigation.Instance.PopupStack.Count <= 0)
                 {
-                    var message = string.Format("Thiết bị đang ở chế độ xem lại bởi {0} ({1}), do vậy không thể phát trực tiếp.\n" +
-                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem của {0} lại để xem video", obj.Item1.User, ((CameraSourceType)obj.Item1.Source).ToDescription());
+                    var message = string.Format("BKS {0} - Kênh {1} đang được xem lại bởi {2} ({3}), do vậy không thể phát trực tiếp.\n" +
+                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem của {0} lại để xem video",
+                        Vehicle.PrivateCode,
+                        obj.Item2,
+                        obj.Item1.User,
+                        ((CameraSourceType)obj.Item1.Source).ToDescription());
                     var alert = DependencyService.Get<IAlert>();
                     var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
                     if (action == "Xem hình ảnh")
