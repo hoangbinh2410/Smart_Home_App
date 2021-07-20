@@ -616,7 +616,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     if (result.Storages != null)
                     {
-                        var storage = result.Storages.FirstOrDefault(x => x.State == true && x.Total > 0);
+                        var storage = result.Storages.FirstOrDefault(x => x.State == 0 && x.Total > 0);
                         if (storage != null)
                         {
                             StorageDevices = storage;

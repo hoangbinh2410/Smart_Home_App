@@ -36,7 +36,7 @@ namespace BA_MobileGPS.Entities
 
     public class Storage
     {
-        public bool State { get; set; }
+        public int State { get; set; }
         public long Free { get; set; }
         public long Total { get; set; }
         public int Type { get; set; }
