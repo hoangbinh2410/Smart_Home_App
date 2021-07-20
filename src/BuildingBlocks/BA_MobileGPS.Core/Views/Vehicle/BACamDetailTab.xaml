@@ -611,7 +611,7 @@
                                         CornerRadius="15"
                                         HeightRequest="10"
                                         HorizontalOptions="FillAndExpand"
-                                        IsVisible="{Binding StorageDevices.TotalSize, Converter={StaticResource ZeroBooleanConverter}}"
+                                        IsVisible="{Binding StorageDevices.Total, Converter={StaticResource ZeroBooleanConverter}}"
                                         Progress="{Binding StorageProgress}"
                                         ProgressColor="#0959A0"
                                         TrackColor="#E9E8E8"
