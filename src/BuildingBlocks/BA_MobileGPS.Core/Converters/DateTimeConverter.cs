@@ -32,6 +32,7 @@ namespace BA_MobileGPS.Core
             return default;
         }
     }
+
     public class DateTimeViewConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -56,6 +57,7 @@ namespace BA_MobileGPS.Core
             return default;
         }
     }
+
     public class DateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -381,19 +383,16 @@ namespace BA_MobileGPS.Core
             }
             else
             {
-                
                 try
                 {
-                    var result = System.Convert.ToInt32(value);
-                    TimeSpan t = TimeSpan.FromSeconds(result);
-                    res= string.Format("{0:D2}:{1:D2}",
-                        t.Minutes,
-                        t.Seconds);
+                    var totalSeconds = System.Convert.ToInt32(value);
+                    int seconds = totalSeconds % 60;
+                    int minutes = totalSeconds / 60;
+                    string time = minutes + ":" + seconds;
+                    res = time;
                 }
                 catch (Exception)
                 {
-
-                 
                 }
                 return res;
             }

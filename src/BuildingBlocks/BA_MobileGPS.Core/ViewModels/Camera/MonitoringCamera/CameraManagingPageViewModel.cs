@@ -12,7 +12,6 @@ using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
-using Rg.Plugins.Popup.Services;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -694,7 +693,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (selectedItem != null)
             {
-                selectedItem.TotalTime += minutes * 60;
+                var timelast = selectedItem.TotalTime;
+                selectedItem.TotalTime = timelast + minutes * 60;
                 TotalTime = selectedItem.TotalTime;
             }
         }
