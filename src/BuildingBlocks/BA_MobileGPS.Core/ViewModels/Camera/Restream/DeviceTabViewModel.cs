@@ -567,14 +567,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
                 if (action == "Xem hình ảnh")
                 {
-                    var parameters = new NavigationParameters();
-                    parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
+                    if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
                     {
-                        VehicleId = Vehicle.VehicleId,
-                        VehiclePlate = Vehicle.VehiclePlate,
-                        PrivateCode = Vehicle.PrivateCode
-                    });
-                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                        var parameters = new NavigationParameters();
+                        parameters.Add(ParameterKey.Vehicle, new Vehicle()
+                        {
+                            VehicleId = Vehicle.VehicleId,
+                            VehiclePlate = Vehicle.VehiclePlate,
+                            PrivateCode = Vehicle.PrivateCode
+                        });
+                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                    }
+                    else
+                    {
+                        DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
+                    }
                 }
                 else if (action == "Dừng phát trực tiếp")
                 {
