@@ -958,31 +958,29 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                if (PopupNavigation.Instance.PopupStack.Count <= 0)
+                var message = string.Format("BKS {0} - Kênh {1} đang được xem lại bởi {2} ({3}), do vậy không thể phát trực tiếp.\n" +
+                       "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem của {4} lại để xem video",
+                       Vehicle.PrivateCode,
+                       obj.Item2,
+                       obj.Item1.User,
+                       ((CameraSourceType)obj.Item1.Source).ToDescription(),
+                       obj.Item1.User);
+                var alert = DependencyService.Get<IAlert>();
+                var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
+                if (action == "Xem hình ảnh")
                 {
-                    var message = string.Format("BKS {0} - Kênh {1} đang được xem lại bởi {2} ({3}), do vậy không thể phát trực tiếp.\n" +
-                        "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem của {0} lại để xem video",
-                        Vehicle.PrivateCode,
-                        obj.Item2,
-                        obj.Item1.User,
-                        ((CameraSourceType)obj.Item1.Source).ToDescription());
-                    var alert = DependencyService.Get<IAlert>();
-                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
-                    if (action == "Xem hình ảnh")
+                    var parameters = new NavigationParameters();
+                    parameters.Add(ParameterKey.Vehicle, new Vehicle()
                     {
-                        var parameters = new NavigationParameters();
-                        parameters.Add(ParameterKey.VehicleRoute, new Vehicle()
-                        {
-                            VehicleId = Vehicle.VehicleId,
-                            VehiclePlate = Vehicle.VehiclePlate,
-                            PrivateCode = Vehicle.PrivateCode
-                        });
-                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                    }
-                    else if (action == "Dừng xem lại")
-                    {
-                        StopPlayback(obj.Item2);
-                    }
+                        VehicleId = Vehicle.VehicleId,
+                        VehiclePlate = Vehicle.VehiclePlate,
+                        PrivateCode = Vehicle.PrivateCode
+                    });
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                }
+                else if (action == "Dừng xem lại")
+                {
+                    StopPlayback(obj.Item2);
                 }
             });
         }
