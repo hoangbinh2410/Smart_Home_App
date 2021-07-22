@@ -110,7 +110,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 cts.Cancel();
                 cts.Dispose();
                 CloseVideo();
-                cts = new CancellationTokenSource();
             }
         }
 
@@ -483,7 +482,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await Task.Delay(5000, cts.Token);
+                        await Task.Delay(5000);
 
                         StartRestream();
                     });
