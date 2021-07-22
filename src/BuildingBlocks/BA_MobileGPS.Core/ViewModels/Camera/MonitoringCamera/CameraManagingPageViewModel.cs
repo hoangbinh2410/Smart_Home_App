@@ -959,7 +959,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Device.BeginInvokeOnMainThread(async () =>
             {
                 var message = string.Format("BKS {0} - Kênh {1} đang được xem lại bởi {2} ({3}), do vậy không thể phát trực tiếp.\n" +
-                       "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng xem của {4} lại để xem video",
+                       "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng chế độ xem lại của {4} để xem video.",
                        Vehicle.PrivateCode,
                        obj.Item2,
                        obj.Item1.User,
