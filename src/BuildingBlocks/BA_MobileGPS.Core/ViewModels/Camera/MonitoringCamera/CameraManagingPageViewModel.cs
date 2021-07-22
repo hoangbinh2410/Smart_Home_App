@@ -576,7 +576,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 var request = new CameraStartRequest()
                                 {
                                     Channel = item.Channel,
-                                    Duration = 180,
+                                    Duration = maxTimeCameraRemain,
                                     VehicleName = Vehicle.VehiclePlate,
                                     CustomerID = UserInfo.XNCode,
                                     Source = (int)CameraSourceType.App,
