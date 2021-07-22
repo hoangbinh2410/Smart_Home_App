@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Service
 
         Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request);
 
-        Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null);
+        Task<List<RestreamVideoTimeInfo>> GetListVideoPlayback(CameraPlaybackInfoRequest request);
 
         Task<PackageBACameraRespone> GetPackageByXnPlate(PackageBACameraRequest request);
 

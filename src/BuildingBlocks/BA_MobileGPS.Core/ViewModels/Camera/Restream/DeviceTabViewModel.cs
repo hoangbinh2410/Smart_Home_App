@@ -755,11 +755,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     RunOnBackground(async () =>
                     {
-                        return await streamCameraService.DeviceTabGetVideoInfor(UserInfo.XNCode,
-                            Vehicle.VehiclePlate,
-                            DateStart,
-                            DateEnd,
-                            SelectedChannel.Value);
+                        return await streamCameraService.GetListVideoPlayback(new CameraPlaybackInfoRequest()
+                        {
+                            XnCode = UserInfo.XNCode,
+                            VehiclePlate = Vehicle.VehiclePlate,
+                            Channel = SelectedChannel.Value,
+                            CompanyID = CurrentComanyID,
+                            FromDate = DateStart,
+                            ToDate = DateEnd
+                        });
                     }, (result) =>
                     {
                         if (result != null && result.Count > 0)

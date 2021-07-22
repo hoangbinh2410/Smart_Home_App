@@ -1,6 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.ResponeEntity.Camera;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
@@ -21,6 +19,7 @@ namespace BA_MobileGPS.Service.Service
         }
 
         #region Device
+
         public async Task<StreamDevice> GetDevicesInfo(StreamDeviceRequest request)
         {
             var result = new StreamDevice();
@@ -211,7 +210,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        #endregion
+        #endregion Device
 
         public async Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit)
         {
@@ -308,24 +307,20 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime,
-            DateTime toTime, int? channel = null)
+        public async Task<List<RestreamVideoTimeInfo>> GetListVideoPlayback(CameraPlaybackInfoRequest request)
         {
             var result = new List<RestreamVideoTimeInfo>();
             try
             {
-                if (channel == 0)
+                if (request.Channel == 0)
                 {
-                    channel = null;
+                    request.Channel = null;
                 }
-                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                string url = string.Format(ApiUri.GET_RESTREAM_DEVICETAB_VIDEO_INFOR +
-                    "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&channel={4}", xncode, vehiclePlate, from, to, channel);
-                var response = await requestProvider.GetAsync<BaseResponse<List<RestreamVideoTimeInfo>>>(url);
-                if (response != null && response.Data.Count > 0)
+                string url = $"{ApiUri.POST_LISTPLAYBACKINFO}";
+                var respone = await requestProvider.PostAsync<CameraPlaybackInfoRequest, ResponseStreamBase<List<RestreamVideoTimeInfo>>>(url, request);
+                if (respone != null && respone.Data != null)
                 {
-                    result = response.Data;
+                    result = respone.Data;
                 }
             }
             catch (Exception ex)
