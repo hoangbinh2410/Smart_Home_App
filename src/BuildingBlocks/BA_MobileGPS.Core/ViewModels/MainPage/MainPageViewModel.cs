@@ -42,6 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
         private readonly IStreamCameraService streamCameraService;
+        private readonly IUserService userService;
         private Timer timer;
         private Timer timerSyncData;
         private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
@@ -56,7 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
             IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
-            IPapersInforService papersInforService, IStreamCameraService streamCameraService)
+            IPapersInforService papersInforService, IStreamCameraService streamCameraService, IUserService userService)
             : base(navigationService)
         {
             this.papersInforService = papersInforService;
@@ -72,6 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
             this.streamCameraService = streamCameraService;
+            this.userService = userService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
@@ -425,8 +427,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                //Thoát khỏi nhóm nhận thông tin xe
-                identityHubService.PushMessageToUser(model.UserName.ToUpper(), model.Message);
+                GetUserInfoByUserName(model);
             }
             catch (Exception ex)
             {
@@ -821,6 +822,21 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         StaticSettings.TimeServer = DateTime.Now;
                     }
+                }
+            });
+        }
+
+        private void GetUserInfoByUserName(UserMessageEventModel model)
+        {
+            RunOnBackground(async () =>
+            {
+                return await userService.GetUserInfomation(model.UserName);
+            }, (result) =>
+            {
+                if (result != null && result.PK_UserID != Guid.Empty)
+                {
+                    //Thoát khỏi nhóm nhận thông tin xe
+                    identityHubService.PushMessageToUser(result.PK_UserID.ToString().ToUpper(), model.Message);
                 }
             });
         }

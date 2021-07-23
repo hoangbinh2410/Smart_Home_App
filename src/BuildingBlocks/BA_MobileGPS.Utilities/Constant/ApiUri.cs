@@ -155,6 +155,7 @@
         #region User
 
         public const string GET_USERINFOMATION = "api/user/getuserinfo";
+        public const string GET_USERBYUSERNAME = "api/user/getuserinfobyusername";
         public const string USER_UPDATE_AVATAR = "api/image/uploadimageuser";
         public const string USER_UPDATE_INFO = "api/user/updateuserinfor";
         public const string USER_SET_SETTINGS = "api/user/setusersetting";

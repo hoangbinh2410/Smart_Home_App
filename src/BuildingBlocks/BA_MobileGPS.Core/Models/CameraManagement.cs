@@ -384,7 +384,7 @@ namespace BA_MobileGPS.Core.Models
         {
             try
             {
-                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null))
+                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null) && !string.IsNullOrEmpty(Data.Link))
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
