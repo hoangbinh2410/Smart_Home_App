@@ -8,6 +8,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
@@ -584,7 +585,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (action == "Dừng phát trực tiếp")
                 {
-                    StopStreaming();
+                    StopStreaming(VideoSlected.Channel, obj);
                 }
             });
         }
@@ -593,7 +594,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Gọi api stop streaming
         /// </summary>
         /// <param name="req"></param>
-        private void StopStreaming()
+        private void StopStreaming(int channel, StreamUserRequest user)
         {
             SafeExecute(async () =>
             {
@@ -608,6 +609,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 var result = await streamCameraService.DevicesStop(start);
                 if (result)
                 {
+                    if (user.User.ToUpper() != UserInfo.UserName.ToUpper())
+                    {
+                        EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                        {
+                            UserName = user.User,
+                            Message = string.Format("Quý khách bị ngắt kết nối do BKS {0} - Kênh {1} được yêu cầu phát xem lại {2} ({3})", Vehicle.PrivateCode,
+                            channel,
+                            user.User,
+                            ((CameraSourceType)user.Source).ToDescription())
+                        });
+                    }
+
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         await PageDialog.DisplayAlertAsync("Thông báo", "Dừng xem trực tiếp thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Đồng ý");
