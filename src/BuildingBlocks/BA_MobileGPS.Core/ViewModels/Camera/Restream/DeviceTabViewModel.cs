@@ -518,7 +518,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (result.StreamingRequests != null && result.StreamingRequests.Count > 0)
                         {
-                            SetErrorErrorDoubleStremingCamera(result.StreamingRequests.First());
+                            SetErrorErrorDoubleStremingCamera(result.StreamingRequests);
                         }
                         else if (!string.IsNullOrEmpty(result.Link))
                         {
@@ -554,40 +554,44 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void SetErrorErrorDoubleStremingCamera(StreamUserRequest obj)
+        private void SetErrorErrorDoubleStremingCamera(List<StreamUserRequest> lst)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            var user = lst.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
+            if (user != null)
             {
-                IsError = true;
-                ErrorMessenger = "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại";
-                var message = string.Format("BKS {0} - Kênh {1} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
-                       "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại",
-                       Vehicle.PrivateCode, VideoSlected.Channel);
-                var alert = DependencyService.Get<IAlert>();
-                var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
-                if (action == "Xem hình ảnh")
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
+                    IsError = true;
+                    ErrorMessenger = "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại";
+                    var message = string.Format("BKS {0} - Kênh {1} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
+                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại",
+                           Vehicle.PrivateCode, VideoSlected.Channel);
+                    var alert = DependencyService.Get<IAlert>();
+                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
+                    if (action == "Xem hình ảnh")
                     {
-                        var parameters = new NavigationParameters();
-                        parameters.Add(ParameterKey.Vehicle, new Vehicle()
+                        if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
                         {
-                            VehicleId = Vehicle.VehicleId,
-                            VehiclePlate = Vehicle.VehiclePlate,
-                            PrivateCode = Vehicle.PrivateCode
-                        });
-                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                            var parameters = new NavigationParameters();
+                            parameters.Add(ParameterKey.Vehicle, new Vehicle()
+                            {
+                                VehicleId = Vehicle.VehicleId,
+                                VehiclePlate = Vehicle.VehiclePlate,
+                                PrivateCode = Vehicle.PrivateCode
+                            });
+                            await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
+                        }
                     }
-                    else
+                    else if (action == "Dừng phát trực tiếp")
                     {
-                        DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
+                        StopStreaming(VideoSlected.Channel, user);
                     }
-                }
-                else if (action == "Dừng phát trực tiếp")
-                {
-                    StopStreaming(VideoSlected.Channel, obj);
-                }
-            });
+                });
+            }
         }
 
         /// <summary>
