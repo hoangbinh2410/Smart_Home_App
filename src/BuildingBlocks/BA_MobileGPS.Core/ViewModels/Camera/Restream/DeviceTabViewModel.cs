@@ -660,8 +660,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 isLoadingCamera = false;
                                 result = true;
                             }
-                            // Neu trang thai chưa thay đổi => gọi lại start
-                            else await streamCameraService.StartPlayback(start);
                         }
                         loopIndex++;
                         if (isLoadingCamera && loopIndex <= 7)

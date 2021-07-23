@@ -136,7 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SendErrorCameraEvent>().Unsubscribe(SetErrorChannelCamera);
-            EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Subscribe(SetErrorErrorDoubleStremingCamera);
+            EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Unsubscribe(SetErrorErrorDoubleStremingCamera);
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
