@@ -71,6 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
             HelpVideoCommand = new DelegateCommand(HelpVideo);
             EventAggregator.GetEvent<SendErrorCameraEvent>().Subscribe(SetErrorChannelCamera);
             EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Subscribe(SetErrorErrorDoubleStremingCamera);
+            EventAggregator.GetEvent<UserMessageCameraEvent>().Subscribe(UserMessageCamera);
         }
 
         #region Life Cycle
@@ -137,6 +138,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             EventAggregator.GetEvent<SendErrorCameraEvent>().Unsubscribe(SetErrorChannelCamera);
             EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Unsubscribe(SetErrorErrorDoubleStremingCamera);
+            EventAggregator.GetEvent<UserMessageCameraEvent>().Unsubscribe(UserMessageCamera);
             ClearAllMediaPlayer();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
@@ -1001,6 +1003,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     StopPlayback(obj.Item2, obj.Item1);
                 }
+            });
+        }
+
+        private void UserMessageCamera(string message)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
             });
         }
 

@@ -55,6 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
+            EventAggregator.GetEvent<UserMessageCameraEvent>().Subscribe(UserMessageCamera);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
             InitDateTimeInSearch();
@@ -99,6 +100,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
             base.OnDestroy();
+            EventAggregator.GetEvent<UserMessageCameraEvent>().Unsubscribe(UserMessageCamera);
             DisposeVLC();
         }
 
@@ -941,6 +943,14 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.SelectTabAsync("MyVideoTab", null);
+            });
+        }
+
+        private void UserMessageCamera(string message)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
             });
         }
 

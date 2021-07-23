@@ -457,10 +457,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (!string.IsNullOrEmpty(message))
                 {
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
-                    });
+                    EventAggregator.GetEvent<UserMessageCameraEvent>().Publish(message);
                 }
             });
         }
