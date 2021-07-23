@@ -83,6 +83,8 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
             EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
+            EventAggregator.GetEvent<UserMessageEvent>().Subscribe(PushMessageToUser);
+
             InitSystemType();
         }
 
@@ -154,6 +156,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
             EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
+            EventAggregator.GetEvent<UserMessageEvent>().Unsubscribe(PushMessageToUser);
         }
 
         private void InitVehilceOnline()
@@ -336,6 +339,7 @@ namespace BA_MobileGPS.Core.ViewModels
             await identityHubService.Connect();
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser += onReceiveMessageToUser;
             if (MobileSettingHelper.UseUserBehavior)
             {
                 await userBahaviorHubService.Connect();
@@ -366,6 +370,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser -= onReceiveMessageToUser;
             await identityHubService.Disconnect();
 
             //thoát khỏi nhóm nhận xe
@@ -416,6 +421,19 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private void PushMessageToUser(UserMessageEventModel model)
+        {
+            try
+            {
+                //Thoát khỏi nhóm nhận thông tin xe
+                identityHubService.PushMessageToUser(model.UserName.ToUpper(), model.Message);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
         private void onReceivePushLogoutToUser(object sender, string message)
         {
             TryExecute(() =>
@@ -427,6 +445,20 @@ namespace BA_MobileGPS.Core.ViewModels
                         //Chỗ này sử lý logic khi server trả về trạng thái là thay đổi mật khẩu cần logout ra ngoài
                         Logout();
                         DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
+                    });
+                }
+            });
+        }
+
+        private void onReceiveMessageToUser(object sender, string message)
+        {
+            TryExecute(() =>
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
                     });
                 }
             });
