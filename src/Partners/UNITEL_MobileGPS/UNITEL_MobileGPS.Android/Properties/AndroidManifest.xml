@@ -28,13 +28,13 @@
 			<data android:scheme="smsto" />
 		</intent>
 	</queries>
-	<permission android:name="vn.bagps.gpsmobile.OneSignl.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-	<uses-permission android:name="vn.bagps.gpsmobile.permission.C2D_MESSAGE" />
+	<permission android:name="vn.unitel.gpsmobile.OneSignl.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="vn.unitel.gpsmobile.permission.C2D_MESSAGE" />
 	<application android:label="Unitel" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="true" android:requestLegacyExternalStorage="true">
 		<receiver android:name="com.onesignal.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-				<category android:name="vn.bagps.gpsmobile" />
+				<category android:name="vn.unitel.gpsmobile" />
 			</intent-filter>
 		</receiver>
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
