@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;

@@ -1,0 +1,12 @@
+﻿"CFBundleDisplayName" = "BA GPS";
+"CFBundleName" = "BA GPS";
+
+"NSLocationAlwaysUsageDescription" = "BA GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationWhenInUseUsageDescription" = "BA GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationUsageDescription" = "BA GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="BA GPS cần truy cập vị trí của bạn để có thể đề cử địa chỉ phù hợp, bạn có cho phép ứng dụng sử dụng vị trí của bạn không?";
+"NSCalendarsUsageDescription"="BA GPS cần bạn cho phép truy cập lịch của bạn để chọn thời gian, bạn có cho phép ứng dụng truy cập lịch của bạn không?";
+"NSCameraUsageDescription"="BA GPS cần bạn cho phép truy cập camera của bạn để chụp ảnh, bạn có cho phép ứng dụng truy cập camera của bạn không?";
+"NSPhotoLibraryUsageDescription"="BA GPS cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";
+"NSMicrophoneUsageDescription"="BA GPS cần bạn cho phép truy cập micro để quay video, bạn có cho phép ứng dụng truy cập micro của bạn không?";
+"NSPhotoLibraryAddUsageDescription"="BA GPS cần bạn cho phép truy cập thư viện ảnh để lấy ảnh của bạn, bạn có cho phép ứng dụng truy cập thư viện hình ảnh của bạn không?";

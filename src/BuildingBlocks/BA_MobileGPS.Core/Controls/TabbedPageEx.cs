@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Controls
 {
@@ -14,6 +11,5 @@ namespace BA_MobileGPS.Core.Controls
             set { SetValue(IsHiddenProperty, value); }
             get { return (bool)GetValue(IsHiddenProperty); }
         }
-
     }
 }

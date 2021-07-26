@@ -38,6 +38,8 @@ namespace BA_MobileGPS.Service
                     _connection.On("PushLogoutToAllUserInCompany", (string message) => onReceivePushLogoutToAllUserInCompany(this, message));
 
                     _connection.On("PushLogoutToUser", (string message) => onReceivePushLogoutToUser(this, message));
+
+                    _connection.On("PushMessageToUser", (string message) => onReceivePushMessageToUser(this, message));
                 }
             }
             catch (Exception ex)
@@ -116,6 +118,21 @@ namespace BA_MobileGPS.Service
             }
         }
 
+        public async void PushMessageToUser(string who, string message)
+        {
+            try
+            {
+                if (_connection.State == HubConnectionState.Connected)
+                {
+                    await _connection.InvokeAsync("PushMessageToUser", who, message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
         public event Action ConnectionReconnecting;
 
         public event Action ConnectionReconnected;
@@ -125,5 +142,7 @@ namespace BA_MobileGPS.Service
         public event EventHandler<string> onReceivePushLogoutToAllUserInCompany;
 
         public event EventHandler<string> onReceivePushLogoutToUser;
+
+        public event EventHandler<string> onReceivePushMessageToUser;
     }
 }

@@ -4,7 +4,7 @@ using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service;
 using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
@@ -26,7 +26,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectVehicleCameraCommand { get; }
         public ICommand DowloadVideoInListTappedCommand { get; }
         public ICommand HelpUploadCommand { get; }
-
 
         public ICommand SearchCommand { get; }
         private readonly IStreamCameraService _streamCameraService;
@@ -379,11 +378,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-
                 await PageDialog.DisplayAlertAsync("Thông báo", "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Bỏ qua");
             });
         }
-
 
         #endregion PrivateMethod
     }

@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -41,6 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
         private readonly IStreamCameraService streamCameraService;
+        private readonly IUserService userService;
         private Timer timer;
         private Timer timerSyncData;
         private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
@@ -55,7 +57,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
             IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
-            IPapersInforService papersInforService, IStreamCameraService streamCameraService)
+            IPapersInforService papersInforService, IStreamCameraService streamCameraService, IUserService userService)
             : base(navigationService)
         {
             this.papersInforService = papersInforService;
@@ -71,6 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
             this.streamCameraService = streamCameraService;
+            this.userService = userService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
@@ -82,6 +85,8 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
             EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
+            EventAggregator.GetEvent<UserMessageEvent>().Subscribe(PushMessageToUser);
+
             InitSystemType();
         }
 
@@ -153,6 +158,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
             EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
+            EventAggregator.GetEvent<UserMessageEvent>().Unsubscribe(PushMessageToUser);
         }
 
         private void InitVehilceOnline()
@@ -335,6 +341,7 @@ namespace BA_MobileGPS.Core.ViewModels
             await identityHubService.Connect();
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser += onReceiveMessageToUser;
             if (MobileSettingHelper.UseUserBehavior)
             {
                 await userBahaviorHubService.Connect();
@@ -365,6 +372,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser -= onReceiveMessageToUser;
             await identityHubService.Disconnect();
 
             //thoát khỏi nhóm nhận xe
@@ -415,6 +423,18 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private void PushMessageToUser(UserMessageEventModel model)
+        {
+            try
+            {
+                GetUserInfoByUserName(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
         private void onReceivePushLogoutToUser(object sender, string message)
         {
             TryExecute(() =>
@@ -427,6 +447,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         Logout();
                         DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
                     });
+                }
+            });
+        }
+
+        private void onReceiveMessageToUser(object sender, string message)
+        {
+            TryExecute(() =>
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    EventAggregator.GetEvent<UserMessageCameraEvent>().Publish(message);
                 }
             });
         }
@@ -792,6 +823,21 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        private void GetUserInfoByUserName(UserMessageEventModel model)
+        {
+            RunOnBackground(async () =>
+            {
+                return await userService.GetUserInfomation(model.UserName);
+            }, (result) =>
+            {
+                if (result != null && result.PK_UserID != Guid.Empty)
+                {
+                    //Thoát khỏi nhóm nhận thông tin xe
+                    identityHubService.PushMessageToUser(result.PK_UserID.ToString().ToUpper(), model.Message);
+                }
+            });
+        }
+
         private void GetCountVehicleDebtMoney()
         {
             if (MobileSettingHelper.IsUseVehicleDebtMoney)
@@ -1045,17 +1091,19 @@ namespace BA_MobileGPS.Core.ViewModels
                                  {
                                      RunOnBackground(async () =>
                                      {
-                                         return await streamCameraService.UploadToCloud(new StartRestreamRequest()
+                                         return await streamCameraService.UploadToServerStart(new UploadStartRequest()
                                          {
                                              Channel = videowaiting.Channel,
                                              CustomerID = UserInfo.XNCode,
                                              StartTime = videowaiting.StartTime,
                                              EndTime = videowaiting.EndTime,
-                                             VehicleName = videowaiting.VehicleName
+                                             VehicleName = videowaiting.VehicleName,
+                                             Source = (int)CameraSourceType.App,
+                                             User = UserInfo.UserName,
                                          });
                                      }, (result) =>
                                      {
-                                         if (result != null && result.Data)
+                                         if (result != null && result.StatusCode == 0 && result.Data != null && result.Data.Channel > 0)
                                          {
                                              errorwhile = 0;
                                              videowaiting.Status = VideoUploadStatus.Uploading;
@@ -1153,22 +1201,33 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, video.VehicleName, video.Channel);
+                        var respone = await streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
+                        {
+                            CustomerID = UserInfo.XNCode,
+                            VehicleName = new List<string>() { video.VehicleName },
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName,
+                        });
                         if (respone != null)
                         {
-                            if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
-                                && respone.TotalCount > 0 || (respone.UploadedFiles != null && respone.UploadedFiles.Contains((respone.CurrentFile.ToUpper())) == true))
+                            var data = respone.FirstOrDefault(x => x.VehicleName == video.VehicleName && x.Channel == video.Channel);
+                            if (data != null)
                             {
-                                result = true;
-                                if (cts != null)
+                                if (data.FinishCount + data.ErrorCount == data.TotalCount
+                                    && data.TotalCount > 0 || (data.UploadedFiles != null
+                                    && data.UploadedFiles.Contains((data.CurrentFile.ToUpper())) == true))
                                 {
-                                    cts.Cancel();
-                                    cts.Dispose();
+                                    result = true;
+                                    if (cts != null)
+                                    {
+                                        cts.Cancel();
+                                        cts.Dispose();
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                await Task.Delay(10000, cts.Token);
+                                else
+                                {
+                                    await Task.Delay(10000, cts.Token);
+                                }
                             }
                         }
                         else

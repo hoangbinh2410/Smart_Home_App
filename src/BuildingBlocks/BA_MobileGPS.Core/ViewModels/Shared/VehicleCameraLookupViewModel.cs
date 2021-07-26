@@ -1,6 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service;
 
 using Prism.Commands;
 using Prism.Navigation;
@@ -136,10 +136,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             catch (System.Exception ex)
             {
-
                 return;
             }
-
         }
 
         private void SearchVehicle(TextChangedEventArgs args)

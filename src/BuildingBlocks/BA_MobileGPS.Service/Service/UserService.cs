@@ -1,7 +1,9 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service
@@ -38,6 +40,25 @@ namespace BA_MobileGPS.Service
         public Task<UserInfoRespone> GetUserInfomation(Guid pk_userID)
         {
             return RequestProvider.GetAsync<UserInfoRespone>($"{ApiUri.GET_USERINFOMATION}?userId={pk_userID}");
+        }
+
+        public async Task<UserViewModel> GetUserInfomation(string username)
+        {
+            UserViewModel result = new UserViewModel();
+            try
+            {
+                string url = $"{ApiUri.GET_USERBYUSERNAME}?username={username}";
+                var response = await RequestProvider.GetAsync<ResponseBaseV2<UserViewModel>>(url);
+                if (response?.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
         }
     }
 }

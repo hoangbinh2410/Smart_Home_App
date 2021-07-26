@@ -155,6 +155,7 @@
         #region User
 
         public const string GET_USERINFOMATION = "api/user/getuserinfo";
+        public const string GET_USERBYUSERNAME = "api/user/getuserinfobyusername";
         public const string USER_UPDATE_AVATAR = "api/image/uploadimageuser";
         public const string USER_UPDATE_INFO = "api/user/updateuserinfor";
         public const string USER_SET_SETTINGS = "api/user/setusersetting";
@@ -220,13 +221,22 @@
         public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
         public const string POST_RESTREAM_UPLOADPROGRESS = "api/stream/uploadprogress";
         public const string POST_CHART_DATA = "api/stream/chartdata";
-        public const string GET_RESTREAM_DEVICETAB_VIDEO_INFOR = "api/v2/stream/restreamdevicetabvideo";
+        public const string POST_LISTPLAYBACKINFO = "api/v2/stream/getlistvideoplayback";
         public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
         public const string SET_HOSTSPOT = "api/stream/sethospot";
         public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
 
-
+        public const string GET_DEVICESINFO = "api/v2/stream/devices";
+        public const string POST_DEVICESTART = "api/v2/stream/start";
+        public const string POST_DEVICESTOP = "api/v2/stream/stop";
+        public const string POST_DEVICEPING = "api/v2/stream/ping";
+        public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
+        public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
+        public const string POST_UPLOADSTART = "api/v2/stream/uploadstart";
+        public const string POST_UPLOADSTOP = "api/v2/stream/uploadstop";
+        public const string POST_UPLOADPROGRESS = "api/v2/stream/uploadprogress";
+        public const string POST_HOSTSPOT = "api/v2/stream/sethospot";
         #endregion Camera
 
         #region Guide

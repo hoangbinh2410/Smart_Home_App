@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Service;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -91,7 +92,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     RunOnBackground(async () =>
                     {
-                        return await _streamCameraService.SetHotspot(UserInfo.XNCode, Vehicle.VehiclePlate, 1);
+                        return await _streamCameraService.SetHotspot(new SetHotspotRequest()
+                        {
+                            CustomerID = UserInfo.XNCode,
+                            Enable = true,
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName,
+                            VehicleName = Vehicle.VehiclePlate
+                        });
                     },
                    (result) =>
                    {
