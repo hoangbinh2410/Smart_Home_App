@@ -96,16 +96,16 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<PlaybackStartRespone> StartPlayback(PlaybackStartRequest request)
+        public async Task<ResponseStreamBase<PlaybackStartRespone>> StartPlayback(PlaybackStartRequest request)
         {
-            var result = new PlaybackStartRespone();
+            var result = new ResponseStreamBase<PlaybackStartRespone>();
             try
             {
                 string url = $"{ApiUri.POST_PLAYBACKSTART}";
                 var respone = await requestProvider.PostAsync<PlaybackStartRequest, ResponseStreamBase<PlaybackStartRespone>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
-                    result = respone.Data;
+                    result = respone;
                 }
             }
             catch (Exception ex)

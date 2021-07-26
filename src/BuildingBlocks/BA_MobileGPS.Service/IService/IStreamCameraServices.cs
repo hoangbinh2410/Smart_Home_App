@@ -17,7 +17,7 @@ namespace BA_MobileGPS.Service
 
         Task<bool> DevicesPing(CameraStartRequest request);
 
-        Task<PlaybackStartRespone> StartPlayback(PlaybackStartRequest request);
+        Task<ResponseStreamBase<PlaybackStartRespone>> StartPlayback(PlaybackStartRequest request);
 
         Task<bool> StopPlayback(PlaybackStopRequest request);
 

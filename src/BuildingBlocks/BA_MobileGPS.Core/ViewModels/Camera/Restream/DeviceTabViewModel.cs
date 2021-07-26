@@ -304,7 +304,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
                 DisposeVLC();
                 resetDeviceCounter = 0;
-                StopAndStartRestream();
+                StartRestream();
             }
             catch (Exception ex)
             {
@@ -412,6 +412,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
 
                 VideoSlected = item; // Set màu select cho item
+
                 StopAndStartRestream();
 
                 // Thay cho timer sau 62s, nếu vẫn có indicator=> lỗi.
@@ -485,7 +486,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await Task.Delay(5000);
+                       
+                        await Task.Delay(7000);
 
                         StartRestream();
                     });
@@ -516,23 +518,19 @@ namespace BA_MobileGPS.Core.ViewModels
                     return await streamCameraService.StartPlayback(start);
                 }, async (result) =>
                 {
-                    if (result != null)
+                    if (result != null && result.StatusCode == 0)
                     {
-                        if (result.StreamingRequests != null && result.StreamingRequests.Count > 0)
-                        {
-                            SetErrorErrorDoubleStremingCamera(result.StreamingRequests);
-                        }
-                        else if (!string.IsNullOrEmpty(result.Link))
+                        if (!string.IsNullOrEmpty(result.Data.Link))
                         {
                             var isSteaming = await CheckDeviceStatus();
                             if (isSteaming)
                             {
                                 // init ở đây :
                                 InitVLC();
-                                MediaPlayer.Media = new Media(libVLC, new Uri(result.Link));
+                                MediaPlayer.Media = new Media(libVLC, new Uri(result.Data.Link));
                                 MediaPlayer.Play();
-                                VideoSlected.Channel = result.Channel;
-                                VideoSlected.Link = result.Link;
+                                VideoSlected.Channel = result.Data.Channel;
+                                VideoSlected.Link = result.Data.Link;
                             }
                             else
                             {
@@ -550,6 +548,24 @@ namespace BA_MobileGPS.Core.ViewModels
                                 IsError = true;
                                 ErrorMessenger = "Có lỗi khi kết nối server";
                             });
+                        }
+                    }
+                    else
+                    {
+                        if (result != null)
+                        {
+                            if (result.Data != null && result.Data.StreamingRequests != null && result.Data.StreamingRequests.Count > 0)
+                            {
+                                SetErrorErrorDoubleStremingCamera(result.Data.StreamingRequests);
+                            }
+                            else
+                            {
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    IsError = true;
+                                    ErrorMessenger = result.UserMessage;
+                                });
+                            }
                         }
                     }
                 });
