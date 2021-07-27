@@ -46,6 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+            UrlBackgroudBottom = MobileSettingHelper.UrlBackgroudBottomHomePage;
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -64,6 +65,17 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Constructor
 
         #region Icommand
+
+        private string _urlBackgroudBottom;
+
+        public string UrlBackgroudBottom
+        {
+            get
+            {
+                return _urlBackgroudBottom;
+            }
+            set => SetProperty(ref _urlBackgroudBottom, value);
+        }
 
         public ICommand NavigateToFavoriteCommand => new Command(() =>
         {

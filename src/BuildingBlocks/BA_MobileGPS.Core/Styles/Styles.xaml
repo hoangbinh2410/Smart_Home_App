@@ -208,10 +208,6 @@
         <Setter Property="VerticalTextAlignment" Value="Center" />
     </Style>
 
-    <Style Class="HomePageBotImage" TargetType="ffImage:CachedImage">
-        <Setter Property="Source" Value="{DynamicResource HomePageBotImageSource}" />
-    </Style>
-
     <OnPlatform
         x:Key="HeightTitleBarGrid"
         x:TypeArguments="x:Double"

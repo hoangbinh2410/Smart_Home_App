@@ -244,5 +244,8 @@ namespace BA_MobileGPS.Core
 
         public static string LinkHelpExportVideoCamera => Get(MobileConfigurationNames.LinkHelpExportVideoCamera, "https://www.youtube.com/watch?v=3KHS015dexo");
 
+        public static string UrlBackgroudBottomHomePage => Get(MobileConfigurationNames.UrlBackgroudBottomHomePage, "bg_HomeBot");
+
+
     }
 }

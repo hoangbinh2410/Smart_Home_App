@@ -260,7 +260,7 @@
                             Aspect="Fill"
                             HeightRequest="150"
                             HorizontalOptions="Fill"
-                            StyleClass="HomePageBotImage" />
+                            Source="{Binding UrlBackgroudBottom}" />
                     </pancake:PancakeView>
                 </Grid>
             </ScrollView>
