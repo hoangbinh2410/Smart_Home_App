@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="58" android:versionName="5.5.0" package="vn.unitel.gpsmobile" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="58" android:versionName="5.5.0" package="utracking.unitel.com.la" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -28,13 +28,13 @@
 			<data android:scheme="smsto" />
 		</intent>
 	</queries>
-	<permission android:name="vn.unitel.gpsmobile.OneSignl.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-	<uses-permission android:name="vn.unitel.gpsmobile.permission.C2D_MESSAGE" />
+	<permission android:name="utracking.unitel.com.la.OneSignl.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="utracking.unitel.com.la.permission.C2D_MESSAGE" />
 	<application android:label="Unitel" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="true" android:requestLegacyExternalStorage="true">
 		<receiver android:name="com.onesignal.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
-				<category android:name="vn.unitel.gpsmobile" />
+				<category android:name="utracking.unitel.com.la" />
 			</intent-filter>
 		</receiver>
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true">
