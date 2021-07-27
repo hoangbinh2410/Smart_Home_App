@@ -77,7 +77,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.SelectDate)
+                  && (parameters.ContainsKey(ParameterKey.VehiclePlate)))
+            {
+                var selectDate = parameters.GetValue<DateTime>(ParameterKey.SelectDate);
+                var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
+                Vehicle = vehicleDetail;
+                DateStart = selectDate.Date;
+                DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);
+                SearchData();
+            }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
             }
