@@ -118,7 +118,7 @@
 			<Name>BA_MobileGPS.Core</Name>
 		</ProjectReference>
 		<ProjectReference Include="..\UNITEL_MobileGPS\UNITEL_MobileGPS.csproj">
-			<Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+			<Project>{096A4B9D-B072-4F98-91FA-FBF63A71ABA4}</Project>
 			<Name>UNITEL_MobileGPS</Name>
 		</ProjectReference>
 	</ItemGroup>
