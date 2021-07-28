@@ -264,6 +264,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     PK_LanguageID = 2
                 };
             }
+            else if (App.CurrentLanguage == CultureCountry.Laos)
+            {
+                Language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.English,
+                    Icon = "flag_la.png",
+                    Description = "ລາວ (ສ.ປ.ປ. ລາວ)",
+                    PK_LanguageID = 3
+                };
+            }
             else
             {
                 Language = new LanguageRespone()
@@ -403,6 +413,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     case LoginPopupItemType.Tiktok:
                         await Launcher.OpenAsync(new Uri(item.Url));
                         break;
+
                     default:
                         _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true, true);
                         break;

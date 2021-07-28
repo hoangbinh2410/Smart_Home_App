@@ -18,7 +18,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class LanguagePageViewModel : ViewModelBase
     {
-
         public LanguagePageViewModel(INavigationService navigationService,
             IEventAggregator eventAggregator, ILanguageService languageTypeService)
             : base(navigationService)
@@ -99,6 +98,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         PK_LanguageID = 2
                     },
                 };
+                if (App.AppType == AppType.Unitel)
+                {
+                    lst.Insert(0, new LanguageRespone()
+                    {
+                        CodeName = CultureCountry.Laos,
+                        Icon = "flag_la.png",
+                        Description = "ລາວ (ສ.ປ.ປ. ລາວ)",
+                        PK_LanguageID = 3
+                    });
+                    lst = lst.Where(x => x.Id == 2 && x.Id == 3).ToList();
+                }
                 if (lst != null && lst.Count > 0)
                 {
                     var groupedData =

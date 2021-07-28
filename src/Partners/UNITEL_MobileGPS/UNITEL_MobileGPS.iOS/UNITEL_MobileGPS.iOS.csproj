@@ -117,7 +117,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="vi.lproj\InfoPlist.strings" />
+    <BundleResource Include="lo.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\internetconnection.json" />
     <BundleResource Include="Resources\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Roboto-Italic.ttf" />
@@ -549,6 +549,9 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-88.png">
       <Visible>false</Visible>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_la.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

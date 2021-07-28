@@ -37,11 +37,7 @@ namespace BA_MobileGPS.Core.Resources
         {
             try
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 string value = Instance.GetType().GetProperty(key).GetValue(Instance)?.ToString() ?? key;
-                sw.Stop();
-                Debug.WriteLine(string.Format("MobileResourceGetProperty {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
                 return value;
             }
             catch
@@ -50,9 +46,23 @@ namespace BA_MobileGPS.Core.Resources
             }
         }
 
-        public static string Get(MobileResourceNames key, string defaultValue, string defaultValueEng)
+        public static string Get(MobileResourceNames key, string defaultValue,
+            string defaultValueEng,
+            string defaultValueLao = "")
         {
-            var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
+            var val = string.Empty;
+            if (App.CurrentLanguage == CultureCountry.English)
+            {
+                val = defaultValueEng;
+            }
+            else if (App.CurrentLanguage == CultureCountry.Laos)
+            {
+                val = defaultValueEng;
+            }
+            else
+            {
+                val = defaultValue;
+            }
             try
             {
                 var configDict = DicMobileResource;

@@ -17,6 +17,7 @@
         Viview = 12,
         Hdhq = 13,
         VMS = 14,
-        Moto = 15
+        Moto = 15,
+        Unitel = 1
     }
 }

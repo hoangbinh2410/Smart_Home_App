@@ -1,9 +1,7 @@
 ﻿using BA_MobileGPS.Core;
+using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
 using UNITEL_MobileGPS.Styles;
@@ -49,7 +47,8 @@ namespace UNITEL_MobileGPS
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
-            AppType = BA_MobileGPS.Entities.AppType.GisViet;
+            AppType = BA_MobileGPS.Entities.AppType.Unitel;
+            CurrentLanguage = CultureCountry.Laos;
         }
     }
 }
