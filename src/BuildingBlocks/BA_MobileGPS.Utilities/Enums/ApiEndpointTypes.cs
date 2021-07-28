@@ -36,5 +36,8 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://10.1.11.188:9990")]
         ServerDongLH,
+
+        [Description("http://115.84.179.34:8028")]
+        ServerUNITEL,
     }
 }
