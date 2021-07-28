@@ -592,7 +592,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
-                if (StaticSettings.ListVehilceOnline.Count > 1)
+                if (StaticSettings.ListVehilceOnline.Count > 1 && !MobileUserSettingHelper.UseGPSDefaut)
                 {
                     var listPositon = new List<Position>();
                     StaticSettings.ListVehilceOnline.ForEach(x =>
@@ -604,7 +604,14 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
-                    googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(StaticSettings.ListVehilceOnline[0].Lat, StaticSettings.ListVehilceOnline[0].Lng), MobileUserSettingHelper.Mapzoom));
+                    if (StaticSettings.ListVehilceOnline.Count == 1 && !MobileUserSettingHelper.UseGPSDefaut)
+                    {
+                        googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(StaticSettings.ListVehilceOnline[0].Lat, StaticSettings.ListVehilceOnline[0].Lng), MobileUserSettingHelper.Mapzoom));
+                    }
+                    else
+                    {
+                        googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
+                    }
                 }
             }
             else

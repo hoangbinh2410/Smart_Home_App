@@ -931,6 +931,7 @@
         Settings_Label_Title,
         Settings_Label_Enable_Cluster,
         Settings_Label_Show_Notification,
+        Settings_Label_UseGPSDefault,
         Settings_Label_SettingGenaral,
         Settings_Label_SettingAdvanced,
         Settings_Label_SettingMylocationMap,

@@ -52,6 +52,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     Name = MobileUserConfigurationNames.ShowNotification.ToString(),
                     Display = MobileResource.Settings_Label_Show_Notification,
                     Value = MobileUserSettingHelper.ShowNotification.ToString()
+                },
+                  new MobileUserSetting
+                {
+                    Name = MobileUserConfigurationNames.UseGPSDefaut.ToString(),
+                    Display = MobileResource.Settings_Label_UseGPSDefault,
+                    Value = MobileUserSettingHelper.UseGPSDefaut.ToString()
                 }
             };
 
