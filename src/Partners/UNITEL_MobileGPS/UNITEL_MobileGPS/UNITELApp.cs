@@ -49,6 +49,7 @@ namespace UNITEL_MobileGPS
             base.RegisterTypes(containerRegistry);
             AppType = BA_MobileGPS.Entities.AppType.Unitel;
             CurrentLanguage = CultureCountry.Laos;
+            CultureHelper.SetCulture();
         }
     }
 }
