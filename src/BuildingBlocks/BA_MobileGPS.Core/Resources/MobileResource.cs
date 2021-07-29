@@ -23,11 +23,7 @@ namespace BA_MobileGPS.Core.Resources
                 // Lazy load => design Pattern
                 if (instance == null)
                 {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
                     instance = new MobileResource();
-                    sw.Stop();
-                    Debug.WriteLine(string.Format("InstanceMobileResource: {0}", sw.ElapsedMilliseconds));
                 }
                 return instance;
             }
