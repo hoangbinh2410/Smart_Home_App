@@ -6,7 +6,6 @@ using Prism.Ioc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -43,22 +42,9 @@ namespace BA_MobileGPS.Core.Resources
         }
 
         public static string Get(MobileResourceNames key, string defaultValue,
-            string defaultValueEng,
-            string defaultValueLao = "")
+            string defaultValueEng)
         {
-            var val = string.Empty;
-            if (App.CurrentLanguage == CultureCountry.English)
-            {
-                val = defaultValueEng;
-            }
-            else if (App.CurrentLanguage == CultureCountry.Laos)
-            {
-                val = defaultValueEng;
-            }
-            else
-            {
-                val = defaultValue;
-            }
+            var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
             try
             {
                 var configDict = DicMobileResource;

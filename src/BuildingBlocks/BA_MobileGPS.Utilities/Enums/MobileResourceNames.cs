@@ -195,6 +195,7 @@
         Menu_TabItem_Vehicle,
         Menu_TabItem_Monitoring,
         Menu_TabItem_Voyage,
+        Menu_TabItem_Route,
         Menu_TabItem_Account,
         Home_Label_Highlight,
         Home_Label_Features,

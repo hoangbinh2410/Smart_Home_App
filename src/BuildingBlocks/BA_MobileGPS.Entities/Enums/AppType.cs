@@ -18,6 +18,6 @@
         Hdhq = 13,
         VMS = 14,
         Moto = 15,
-        Unitel = 1
+        Unitel = 0
     }
 }

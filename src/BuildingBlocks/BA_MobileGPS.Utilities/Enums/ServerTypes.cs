@@ -60,7 +60,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("10.1.11.131")]
         ServerNamth,
 
-        [Description("http://125.212.226.154:6656")]
+        [Description("http://192.168.1.49:8020")]
         ServerTest,
 
         [Description("http://loginviview.bagroup.vn")]

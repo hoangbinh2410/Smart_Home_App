@@ -20,11 +20,11 @@ namespace UNITEL_MobileGPS
         protected async override void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerUNITEL;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerUNITEL;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerTest;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerUNITEL;
             ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerUNITEL;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerUNITEL;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
