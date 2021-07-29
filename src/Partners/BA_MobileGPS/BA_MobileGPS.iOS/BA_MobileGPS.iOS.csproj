@@ -527,4 +527,10 @@
   <ItemGroup>
     <BundleResource Include="Resources\bagps_logo%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue_grey%402x.png" />
+  </ItemGroup>
 </Project>

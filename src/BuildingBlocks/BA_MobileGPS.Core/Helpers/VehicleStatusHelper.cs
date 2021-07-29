@@ -55,6 +55,16 @@ namespace BA_MobileGPS.Core
                 }
             },
             {
+                (int)VehicleStatusGroup.StopingOn,
+                new VehicleStatusViewModel
+                {
+                    ID = (int)VehicleStatusGroup.StopingOn,
+                    Name = MobileResource.Online_Label_StatusCarStopOn,
+                    Icon = "car_blue_grey.png",
+                    IsEnable = App.AppType==AppType.VMS?false:true
+                }
+            },
+            {
                 (int)VehicleStatusGroup.EngineOn,
                 new VehicleStatusViewModel
                 {

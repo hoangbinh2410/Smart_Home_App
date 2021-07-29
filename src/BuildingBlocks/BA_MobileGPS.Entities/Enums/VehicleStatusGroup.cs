@@ -40,5 +40,8 @@ namespace BA_MobileGPS.Entities
 
         [Description("Lỗi vệ tinh")]
         SatelliteError = 9,
+
+        [Description("Dừng đỗ bật máy")]
+        StopingOn = 10
     }
 }

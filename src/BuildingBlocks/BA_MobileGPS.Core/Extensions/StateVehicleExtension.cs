@@ -347,6 +347,25 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+        public static bool IsStopAndEngineOn(VehicleOnline vehicle)
+        {
+            //xe dừng đỗ là xe không mất GSM ,GPS
+            if (!IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !IsLostGSM(vehicle.VehicleTime))
+            {
+                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ
+                if (!vehicle.IsEnableAcc && IsEngineOn(vehicle.State) && IsStoping(vehicle.Velocity))
+                {
+                    return true;
+                }
+                //nếu xe có cấu hình sai acc thì dựa vào vận tốc
+                else if (vehicle.IsEnableAcc && IsStoping(vehicle.Velocity))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// trạng thái  xe di chuyển bật máy
         /// </summary>
@@ -497,6 +516,13 @@ namespace BA_MobileGPS.Core.Extensions
                             }
                             break;
 
+                        case VehicleStatusGroup.StopingOn:
+                            if (IsStopAndEngineOn(x))
+                            {
+                                result += 1;
+                            }
+                            break;
+
                         case VehicleStatusGroup.OverVelocity:
                             if (IsOverVelocity(x))
                             {
@@ -546,7 +572,6 @@ namespace BA_MobileGPS.Core.Extensions
                                 }
                             }
                             break;
-
                     }
                 });
             }
@@ -600,6 +625,13 @@ namespace BA_MobileGPS.Core.Extensions
 
                     case VehicleStatusGroup.Stoping:
                         if (IsStopAndEngineOff(x))
+                        {
+                            result.Add(x);
+                        }
+                        break;
+
+                    case VehicleStatusGroup.StopingOn:
+                        if (IsStopAndEngineOn(x))
                         {
                             result.Add(x);
                         }
@@ -724,7 +756,5 @@ namespace BA_MobileGPS.Core.Extensions
             }
             return false;
         }
-
-
     }
 }

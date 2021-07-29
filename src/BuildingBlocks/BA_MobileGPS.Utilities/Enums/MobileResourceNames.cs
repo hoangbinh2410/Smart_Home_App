@@ -320,6 +320,7 @@
         Online_Label_StatusCarStoping,
         Online_Label_StatusCarEngineOff,
         Online_Label_StatusCarEngineOn,
+        Online_Label_StatusCarStopOn,
         Online_Label_StatusCarOverVelocity,
         Online_Label_StatusCarLostGPS,
         Online_Label_StatusCarLostGSM,
