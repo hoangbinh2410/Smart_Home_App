@@ -194,10 +194,8 @@
                         </StackLayout>
                     </pancake:PancakeView>
 
-
                     <pancake:PancakeView
-                        Margin="10,5"
-                        Padding="0"
+                        Padding="10,0"
                         BackgroundColor="{DynamicResource GrayColor}"
                         CornerRadius="10"
                         IsVisible="{Binding AllListCamera, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
@@ -209,8 +207,7 @@
                                     StyleClass="GroupTitleLabel,BoldText" />
                             </StackLayout>
 
-                            <BoxView class="SlimLine" />
-                            <Grid Margin="0,10">
+                            <Grid>
                                 <CarouselView
                                     HeightRequest="125"
                                     HorizontalOptions="FillAndExpand"
@@ -224,7 +221,6 @@
                                                 <renderedViews:HorizontalListView
                                                     CollectionPadding="0"
                                                     ColumnCount="3"
-                                                    HeightRequest="150"
                                                     HorizontalOptions="FillAndExpand"
                                                     ItemHeight="110"
                                                     ItemSpacing="10"
@@ -244,8 +240,7 @@
                     </pancake:PancakeView>
 
                     <pancake:PancakeView
-                        Margin="10,5"
-                        Padding="0"
+                        Padding="10,0"
                         BackgroundColor="{DynamicResource GrayColor}"
                         CornerRadius="10"
                         IsVisible="{Binding AllListReport, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
@@ -256,9 +251,7 @@
                                     Padding="10"
                                     StyleClass="GroupTitleLabel,BoldText" />
                             </StackLayout>
-
-                            <BoxView class="SlimLine" />
-                            <Grid Margin="0,10">
+                            <Grid Margin="0,5">
                                 <CarouselView
                                     HeightRequest="125"
                                     HorizontalOptions="FillAndExpand"
@@ -272,7 +265,6 @@
                                                 <renderedViews:HorizontalListView
                                                     CollectionPadding="0"
                                                     ColumnCount="3"
-                                                    HeightRequest="150"
                                                     HorizontalOptions="FillAndExpand"
                                                     ItemHeight="110"
                                                     ItemSpacing="10"
@@ -292,8 +284,7 @@
                     </pancake:PancakeView>
 
                     <pancake:PancakeView
-                        Margin="10,5"
-                        Padding="0"
+                        Padding="10,0"
                         BackgroundColor="{DynamicResource GrayColor}"
                         CornerRadius="10"
                         IsVisible="{Binding AllListfeatures, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
@@ -304,9 +295,7 @@
                                     Padding="10"
                                     StyleClass="GroupTitleLabel,BoldText" />
                             </StackLayout>
-
-                            <BoxView class="SlimLine" />
-                            <Grid x:Name="parentFeatures" Margin="0,10">
+                            <Grid x:Name="parentFeatures">
                                 <CarouselView
                                     HeightRequest="125"
                                     HorizontalScrollBarVisibility="Never"
@@ -318,7 +307,6 @@
                                                 <renderedViews:HorizontalListView
                                                     CollectionPadding="0"
                                                     ColumnCount="3"
-                                                    HeightRequest="150"
                                                     HorizontalOptions="FillAndExpand"
                                                     ItemHeight="110"
                                                     ItemSpacing="10"
@@ -351,7 +339,7 @@
                         </StackLayout>
                     </pancake:PancakeView>
 
-                    <pancake:PancakeView Margin="15,0,15,0" CornerRadius="15,15,0,0">
+                    <pancake:PancakeView Margin="15,10,15,0" CornerRadius="15,15,0,0">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding PushWebCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
