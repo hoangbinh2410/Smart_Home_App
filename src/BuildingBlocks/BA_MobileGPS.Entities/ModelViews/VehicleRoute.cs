@@ -15,9 +15,11 @@ namespace BA_MobileGPS.Entities
         private string address;
         public string Address { get => address; set => SetProperty(ref address, value); }
 
-        private StatePoint state;
-        public StatePoint State { get => state; set => SetProperty(ref state, value); }
+        private StatePoint statetype;
+        public StatePoint StateType { get => statetype; set => SetProperty(ref statetype, value); }
 
         public int Velocity { get; set; }
+
+        public int State { get; set; }
     }
 }

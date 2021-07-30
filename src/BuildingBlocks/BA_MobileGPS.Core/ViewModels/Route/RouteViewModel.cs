@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
@@ -553,7 +554,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         Index = index,
                         Latitude = listLatLng[index].Latitude,
                         Longitude = listLatLng[index].Longitude,
-                        State = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        StateType = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        State = RouteHistory.StateGPSPoints[index],
                         Velocity = RouteHistory.VelocityPoints[index],
                         Time = startTime
                     };
@@ -595,9 +597,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private string PinLabel(VehicleRoute vehicle)
         {
             if (Device.RuntimePlatform == Device.iOS)
-                return string.Format("{0} {1}", vehicle.State.StartTime.FormatDateTimeWithSecond(), vehicle.State.Duration.SecondsToString());
+                return string.Format("{0} {1}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), vehicle.StateType.Duration.SecondsToString());
             else
-                return string.Format("{0} {1}: {2}", vehicle.State.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.State.Duration.SecondsToStringShort());
+                return string.Format("{0} {1}: {2}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.StateType.Duration.SecondsToStringShort());
         }
 
         private void DrawStopPoint(VehicleRoute vehicle)
@@ -665,9 +667,13 @@ namespace BA_MobileGPS.Core.ViewModels
             for (int i = 0; i < ListRoute.Count; i++)
             {
                 line.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                if (ListRoute[i].StateType != null && ListRoute[i].StateType.State == StateType.Stop)
                 {
                     DrawStopPoint(ListRoute[i]);
+                }
+                if (StateVehicleExtension.IsEngineOff(ListRoute[i].State))
+                {
+                    line.StrokeColor = Color.FromHex("#7B7B7B");
                 }
             }
             Polylines.Add(line);

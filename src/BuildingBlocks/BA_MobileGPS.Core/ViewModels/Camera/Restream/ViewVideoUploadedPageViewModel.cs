@@ -268,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Index = index,
                         Latitude = listLatLng[index].Latitude,
                         Longitude = listLatLng[index].Longitude,
-                        State = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        StateType = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
                         Velocity = RouteHistory.VelocityPoints[index],
                         Time = startTime
                     };
@@ -323,7 +323,7 @@ namespace BA_MobileGPS.Core.ViewModels
             for (int i = 0; i < listRoute.Count; i++)
             {
                 line.Positions.Add(new Position(listRoute[i].Latitude, listRoute[i].Longitude));
-                if (listRoute[i].State != null && listRoute[i].State.State == StateType.Stop)
+                if (listRoute[i].StateType != null && listRoute[i].StateType.State == StateType.Stop)
                 {
                     DrawStopPoint(listRoute[i]);
                 }
@@ -376,9 +376,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private string PinLabel(VehicleRoute vehicle)
         {
             if (Device.RuntimePlatform == Device.iOS)
-                return string.Format("{0} {1}", vehicle.State.StartTime.FormatDateTimeWithSecond(), vehicle.State.Duration.SecondsToString());
+                return string.Format("{0} {1}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), vehicle.StateType.Duration.SecondsToString());
             else
-                return string.Format("{0} {1}: {2}", vehicle.State.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.State.Duration.SecondsToStringShort());
+                return string.Format("{0} {1}: {2}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.StateType.Duration.SecondsToStringShort());
         }
 
         private void DrawDiretionMarker(List<VehicleRoute> listRoute)
