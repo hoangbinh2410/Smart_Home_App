@@ -662,6 +662,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 StrokeWidth = 3f,
                 ZIndex = 1
             };
+            var linegray = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#7B7B7B"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
             line.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
 
             for (int i = 0; i < ListRoute.Count; i++)
@@ -673,10 +680,21 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 if (StateVehicleExtension.IsEngineOff(ListRoute[i].State))
                 {
-                    line.StrokeColor = Color.FromHex("#7B7B7B");
+                    linegray.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                    if (i < ListRoute.Count - 2 && !StateVehicleExtension.IsEngineOff(ListRoute[i + 1].State))
+                    {
+                        linegray.Positions.Add(new Position(ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude));
+                        Polylines.Add(linegray);
+                        linegray.Positions.Clear();
+                    }
                 }
             }
             Polylines.Add(line);
+
+            if (linegray.Positions.Count > 2)
+            {
+                Polylines.Add(linegray);
+            }
         }
 
         /* Vẽ hướng cho lộ trình */
