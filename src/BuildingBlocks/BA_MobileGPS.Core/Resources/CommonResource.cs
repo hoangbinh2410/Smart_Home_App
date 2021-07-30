@@ -68,9 +68,11 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Message_NotPermission => Get(MobileResourceNames.Common_Message_NotPermission, "Chức năng chưa được cấp quyền", "Function has not been granted");
 
-        public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "Nổi bật", "HighLight");
+        public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "YÊU THÍCH", "FAVORITES");
 
-        public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "Tiện ích", "Features");
+        public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "TIỆN ÍCH", "FEATURES");
+
+        public static string Common_Label_Report => Get(MobileResourceNames.Common_Label_Report, "BÁO CÁO", "REPORT");
 
         #region title grid dùng nhiều
 

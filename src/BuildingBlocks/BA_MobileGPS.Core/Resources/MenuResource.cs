@@ -4,7 +4,7 @@ namespace BA_MobileGPS.Core.Resources
 {
     public partial class MobileResource
     {
-        public static string Menu_Label_Favorite => Get(MobileResourceNames.Menu_Label_Favorite, "THIẾT LẬP ƯA THÍCH", "Settings favorites");
+        public static string Menu_Label_SettingFavorite => Get(MobileResourceNames.Menu_Label_SettingFavorite, "Tùy chỉnh", "Settings");
 
         public static string Menu_TabItem_Home => Get(MobileResourceNames.Menu_TabItem_Home, "Trang chủ", "Home");
         public static string Menu_TabItem_Vehicle => Get(MobileResourceNames.Menu_TabItem_Vehicle, "Phương tiện", "Vehicles");

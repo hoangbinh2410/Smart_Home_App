@@ -134,7 +134,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         FK_LanguageTypeID = m1.FK_LanguageTypeID,
                         IconMobile = m1.IconMobile,
-                        GroupName = sub?.NameByCulture ?? m1.NameByCulture,
                         MenuKey = m1.MenuKey,
                         NameByCulture = m1.NameByCulture,
                         PK_MenuItemID = m1.PK_MenuItemID,
@@ -143,7 +142,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         MenuItemParentID = m1.MenuItemParentID,
                         LanguageCode = m1.LanguageCode,
                     };
-                StaticSettings.ListMenuOriginGroup = mapper.MapListProperties<HomeMenuItem>(menus.ToList());
 
                 if (!string.IsNullOrEmpty(menuFavoriteIds))
                 {
@@ -158,7 +156,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             FK_LanguageTypeID = m.FK_LanguageTypeID,
                             IconMobile = m.IconMobile,
-                            GroupName = !(fv_sub == 0) ? MobileResource.Menu_Label_Favorite : m.GroupName,
                             MenuKey = m.MenuKey,
                             NameByCulture = m.NameByCulture,
                             PK_MenuItemID = m.PK_MenuItemID,
@@ -172,13 +169,21 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 var result =
                     from m in menus
-                    orderby m.IsFavorited descending, m.SortOrder, m.GroupName descending
+                    orderby m.IsFavorited descending, m.SortOrder descending
                     select m;
+
                 var favourites = result.Where(s => s.IsFavorited).ToList();
                 GenerateFavouriteMenu(favourites);
-                var notFavorites = result.Where(s => !s.IsFavorited).ToList();
-                //notFavorites.Add(new HomeMenuItemViewModel() { MenuKey = "QCVN31SpeedReportPage", NameByCulture = "Báo cáo tốc độ của xe" });
-                GenerateListFeatures(notFavorites);
+
+                var lstFeatures = result.Where(s => !s.IsFavorited && s.MenuItemParentID == 1003).ToList();
+                AllListfeatures = GenerateListFeatures(lstFeatures).ToObservableCollection();
+
+                var lstCamera = result.Where(s => !s.IsFavorited && s.MenuItemParentID == 2022).ToList();
+                AllListCamera = GenerateListFeatures(lstCamera).ToObservableCollection();
+
+                var lstReport = result.Where(s => !s.IsFavorited && s.MenuItemParentID == 2023).ToList();
+                AllListReport = GenerateListFeatures(lstReport).ToObservableCollection();
+
                 HasFavorite = FavouriteMenuItems.Count != 0;
                 StaticSettings.ListMenu = mapper.MapListProperties<HomeMenuItem>(result.ToList());
             });
@@ -197,17 +202,23 @@ namespace BA_MobileGPS.Core.ViewModels
             FavouriteMenuItems = list.ToObservableCollection();
         }
 
-        private void GenerateListFeatures(List<HomeMenuItemViewModel> input)
+        private List<ItemSupport> GenerateListFeatures(List<HomeMenuItemViewModel> input)
         {
             var list = new List<ItemSupport>();
-            // 6 Item per indicator view in Sflistview
-            for (int i = 0; i < input.Count / 6.0; i++)
+            for (int i = 0; i < input.Count / 3.0; i++)
             {
                 var temp = new ItemSupport();
-                temp.FeaturesItem = input.Skip(i * 6).Take(6).ToList();
+                temp.FeaturesItem = input.Skip(i * 3).Take(3).ToList();
                 list.Add(temp);
             }
-            AllListfeatures = list.ToObservableCollection();
+            //// 6 Item per indicator view in Sflistview
+            //for (int i = 0; i < input.Count / 6.0; i++)
+            //{
+            //    var temp = new ItemSupport();
+            //    temp.FeaturesItem = input.Skip(i * 6).Take(6).ToList();
+            //    list.Add(temp);
+            //}
+            return list;
         }
 
         public async void OnTappedMenu(object obj)
@@ -341,6 +352,30 @@ namespace BA_MobileGPS.Core.ViewModels
             set
             {
                 SetProperty(ref listfeatures, value);
+            }
+        }
+
+        private ObservableCollection<ItemSupport> listCamera;
+
+        public ObservableCollection<ItemSupport> AllListCamera
+        {
+            get => listCamera;
+
+            set
+            {
+                SetProperty(ref listCamera, value);
+            }
+        }
+
+        private ObservableCollection<ItemSupport> listReport;
+
+        public ObservableCollection<ItemSupport> AllListReport
+        {
+            get => listReport;
+
+            set
+            {
+                SetProperty(ref listReport, value);
             }
         }
 

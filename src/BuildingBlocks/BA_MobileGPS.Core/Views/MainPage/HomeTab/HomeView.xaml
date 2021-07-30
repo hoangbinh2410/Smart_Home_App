@@ -132,7 +132,10 @@
                 </StackLayout>
             </Grid>
             <ScrollView Grid.Row="1" VerticalScrollBarVisibility="Never">
-                <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="0">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    VerticalOptions="FillAndExpand">
                     <pancake:PancakeView
                         Margin="10,5"
                         CornerRadius="10"
@@ -143,17 +146,23 @@
                         <StackLayout Spacing="0">
                             <Grid Margin="10">
                                 <Label x:Name="lblHighlight" StyleClass="GroupTitleLabel,BoldText" />
-                                <controls:IconView
-                                    Margin="0,0,10,0"
-                                    Foreground="Red"
-                                    HeightRequest="18"
-                                    HorizontalOptions="End"
-                                    Source="ic_heart.png"
-                                    WidthRequest="18">
-                                    <controls:IconView.GestureRecognizers>
+                                <StackLayout HorizontalOptions="End" Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{StaticResource PrimaryColor}"
+                                        HeightRequest="18"
+                                        Source="ic_settingfavorites.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="18" />
+                                    <Label
+                                        x:Name="lbSetting"
+                                        Text="Tuỳ chỉnh"
+                                        TextColor="{StaticResource PrimaryColor}"
+                                        VerticalOptions="Center" />
+                                    <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateToFavoriteCommand}" NumberOfTapsRequired="1" />
-                                    </controls:IconView.GestureRecognizers>
-                                </controls:IconView>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+
                             </Grid>
                             <BoxView class="SlimLine" />
                             <CarouselView
@@ -184,32 +193,30 @@
                             <IndicatorView x:Name="indicatorFavourite" Margin="0,5" />
                         </StackLayout>
                     </pancake:PancakeView>
+
+
                     <pancake:PancakeView
-                        Grid.Row="1"
                         Margin="10,5"
                         Padding="0"
                         BackgroundColor="{DynamicResource GrayColor}"
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        IsVisible="{Binding AllListCamera, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
                         <StackLayout Spacing="0">
                             <StackLayout Orientation="Horizontal">
                                 <Label
-                                    x:Name="lblFeatures"
+                                    x:Name="lblCamera"
                                     Padding="10"
                                     StyleClass="GroupTitleLabel,BoldText" />
                             </StackLayout>
 
                             <BoxView class="SlimLine" />
-                            <Grid
-                                x:Name="parentFeatures"
-                                Margin="0,10"
-                                HeightRequest="240"
-                                IsVisible="{Binding AllListfeatures, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
+                            <Grid Margin="0,10">
                                 <CarouselView
-                                    x:Name="list1"
+                                    HeightRequest="125"
                                     HorizontalOptions="FillAndExpand"
                                     HorizontalScrollBarVisibility="Never"
-                                    IndicatorView="indicatorView"
-                                    ItemsSource="{Binding AllListfeatures, Mode=OneWay}"
+                                    IndicatorView="indicatorCamera"
+                                    ItemsSource="{Binding AllListCamera, Mode=OneWay}"
                                     VerticalOptions="CenterAndExpand">
                                     <CarouselView.ItemTemplate>
                                         <DataTemplate>
@@ -231,7 +238,101 @@
                                         </DataTemplate>
                                     </CarouselView.ItemTemplate>
                                 </CarouselView>
-                                <IndicatorView x:Name="indicatorView" Margin="0,0" />
+                                <IndicatorView x:Name="indicatorCamera" Margin="0,0" />
+                            </Grid>
+                        </StackLayout>
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        Margin="10,5"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource GrayColor}"
+                        CornerRadius="10"
+                        IsVisible="{Binding AllListReport, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblReport"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+
+                            <BoxView class="SlimLine" />
+                            <Grid Margin="0,10">
+                                <CarouselView
+                                    HeightRequest="125"
+                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalScrollBarVisibility="Never"
+                                    IndicatorView="indicatorReport"
+                                    ItemsSource="{Binding AllListReport, Mode=OneWay}"
+                                    VerticalOptions="CenterAndExpand">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <renderedViews:HorizontalListView
+                                                    CollectionPadding="0"
+                                                    ColumnCount="3"
+                                                    HeightRequest="150"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    ItemHeight="110"
+                                                    ItemSpacing="10"
+                                                    ItemWidth="90"
+                                                    ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                    ListLayout="Grid"
+                                                    SnapStyle="Center"
+                                                    TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                    VerticalOptions="FillAndExpand" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                <IndicatorView x:Name="indicatorReport" Margin="0,0" />
+                            </Grid>
+                        </StackLayout>
+                    </pancake:PancakeView>
+
+                    <pancake:PancakeView
+                        Margin="10,5"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource GrayColor}"
+                        CornerRadius="10"
+                        IsVisible="{Binding AllListfeatures, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblFeatures"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+
+                            <BoxView class="SlimLine" />
+                            <Grid x:Name="parentFeatures" Margin="0,10">
+                                <CarouselView
+                                    HeightRequest="125"
+                                    HorizontalScrollBarVisibility="Never"
+                                    IndicatorView="indicatorFeatures"
+                                    ItemsSource="{Binding AllListfeatures, Mode=OneWay}">
+                                    <CarouselView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <renderedViews:HorizontalListView
+                                                    CollectionPadding="0"
+                                                    ColumnCount="3"
+                                                    HeightRequest="150"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    ItemHeight="110"
+                                                    ItemSpacing="10"
+                                                    ItemWidth="90"
+                                                    ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                    ListLayout="Grid"
+                                                    SnapStyle="Center"
+                                                    TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.TapMenuCommand}"
+                                                    VerticalOptions="FillAndExpand" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CarouselView.ItemTemplate>
+                                </CarouselView>
+                                <IndicatorView x:Name="indicatorFeatures" Margin="0,0" />
                             </Grid>
                             <StackLayout
                                 BackgroundColor="Transparent"
@@ -249,10 +350,8 @@
                             </StackLayout>
                         </StackLayout>
                     </pancake:PancakeView>
-                    <pancake:PancakeView
-                        Grid.Row="2"
-                        Margin="15,0,15,0"
-                        CornerRadius="15,15,0,0">
+
+                    <pancake:PancakeView Margin="15,0,15,0" CornerRadius="15,15,0,0">
                         <pancake:PancakeView.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding PushWebCommand}" />
                         </pancake:PancakeView.GestureRecognizers>
@@ -262,7 +361,7 @@
                             HorizontalOptions="Fill"
                             Source="{Binding UrlBackgroudBottom}" />
                     </pancake:PancakeView>
-                </Grid>
+                </StackLayout>
             </ScrollView>
         </Grid>
     </Grid>

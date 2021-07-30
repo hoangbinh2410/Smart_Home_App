@@ -18,6 +18,7 @@
         Common_Message_NotPermission,
         Common_Label_HighLight,
         Common_Label_Features,
+        Common_Label_Report,
         Common_Button_OK,
         Common_Button_Send,
         Common_Button_Save,
@@ -190,7 +191,7 @@
 
         #region Menu
         Menu_Label_Favorite,
-
+        Menu_Label_SettingFavorite,
         Menu_TabItem_Home,
         Menu_TabItem_Vehicle,
         Menu_TabItem_Monitoring,
@@ -866,7 +867,9 @@
         #endregion
 
         #region Camera
+        Camera_Label_MenuTitle,
         Camera_Label_TitlePage,
+        Camera_Label_Chanel,
         CameraImage_Label_TitlelPage,
         CameraImage_Label_TitleDetailPage,
         Common_Message_ErrorTimeFromToTimeEnd,

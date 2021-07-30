@@ -11,8 +11,6 @@ namespace BA_MobileGPS.Entities
 
         public static List<HomeMenuItem> ListMenu { get; set; } = new List<HomeMenuItem>();
 
-        public static List<HomeMenuItem> ListMenuOriginGroup { get; set; } = new List<HomeMenuItem>();
-
         public static List<VehicleOnline> ListVehilceOnline { get; set; }
 
         public static List<VehicleCamera> ListVehilceCamera { get; set; }
@@ -38,7 +36,6 @@ namespace BA_MobileGPS.Entities
             User = null;
             Token = string.Empty;
             ListMenu = new List<HomeMenuItem>();
-            ListMenuOriginGroup = new List<HomeMenuItem>();
             ListVehilceOnline = null;
             ListAlertType = null;
             ListVehilceDebtMoney = null;
