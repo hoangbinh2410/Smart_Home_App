@@ -610,7 +610,7 @@ namespace BA_MobileGPS.Core.Views
         {
             if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
             {
-                if (StaticSettings.ListVehilceOnline.Count > 1 && !MobileUserSettingHelper.UseGPSDefaut)
+                if (StaticSettings.ListVehilceOnline.Count > 1 && MobileUserSettingHelper.UseViewAllCar)
                 {
                     var listPositon = new List<Position>();
                     StaticSettings.ListVehilceOnline.ForEach(x =>
@@ -622,7 +622,7 @@ namespace BA_MobileGPS.Core.Views
                 }
                 else
                 {
-                    if (StaticSettings.ListVehilceOnline.Count == 1 && !MobileUserSettingHelper.UseGPSDefaut)
+                    if (StaticSettings.ListVehilceOnline.Count == 1 && MobileUserSettingHelper.UseViewAllCar)
                     {
                         googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(StaticSettings.ListVehilceOnline[0].Lat, StaticSettings.ListVehilceOnline[0].Lng), MobileUserSettingHelper.Mapzoom));
                     }

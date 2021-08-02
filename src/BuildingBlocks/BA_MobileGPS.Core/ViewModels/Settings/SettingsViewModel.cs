@@ -55,9 +55,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 },
                   new MobileUserSetting
                 {
-                    Name = MobileUserConfigurationNames.UseGPSDefaut.ToString(),
+                    Name = MobileUserConfigurationNames.UseViewAllCar.ToString(),
                     Display = MobileResource.Settings_Label_UseGPSDefault,
-                    Value = MobileUserSettingHelper.UseGPSDefaut.ToString()
+                    Value = MobileUserSettingHelper.UseViewAllCar.ToString()
                 }
             };
 

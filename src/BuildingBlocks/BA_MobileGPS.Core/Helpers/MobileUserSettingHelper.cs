@@ -195,6 +195,6 @@ namespace BA_MobileGPS.Core
 
         public static bool IsShowPhoneNumber => Get(MobileUserConfigurationNames.IsShowPhoneNumber, false);
 
-        public static bool UseGPSDefaut => Get(MobileUserConfigurationNames.UseGPSDefaut, false);
+        public static bool UseViewAllCar => Get(MobileUserConfigurationNames.UseViewAllCar, true);
     }
 }

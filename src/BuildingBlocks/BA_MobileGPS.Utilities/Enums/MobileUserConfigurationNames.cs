@@ -24,6 +24,6 @@
         MBMapType,
         MBMapZoom,
         IsShowPhoneNumber,
-        UseGPSDefaut
+        UseViewAllCar
     }
 }

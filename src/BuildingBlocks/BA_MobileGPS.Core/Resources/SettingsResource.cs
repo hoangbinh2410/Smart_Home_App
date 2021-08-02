@@ -27,6 +27,6 @@ namespace BA_MobileGPS.Core.Resources
         public static string Settings_Checkbox_Dark => Get(MobileResourceNames.Settings_Checkbox_Dark, "Tối", "Dark");
         public static string Settings_Checkbox_Custom => Get(MobileResourceNames.Settings_Checkbox_Custom, "Custom", "Custom");
 
-        public static string Settings_Label_UseGPSDefault => Get(MobileResourceNames.Settings_Label_UseGPSDefault, "Vị trí bản đồ mặc định", "GPS Default");
+        public static string Settings_Label_UseGPSDefault => Get(MobileResourceNames.Settings_Label_UseGPSDefault, "Xem toàn bộ xe", "View all car");
     }
 }
