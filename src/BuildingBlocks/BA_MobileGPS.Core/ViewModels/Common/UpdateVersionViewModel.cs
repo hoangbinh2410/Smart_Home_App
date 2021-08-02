@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using BA_MobileGPS.Core.Resources;
+using Prism.Navigation;
 
 using System;
 
@@ -17,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get
             {
-                return "Đã có bản cập nhật mới";
+                return MobileResource.Login_Message_UpdateVersionNew;
             }
         }
 
@@ -25,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get
             {
-                return "Cập nhật lên phiên bản mới nhất sẽ có nhiều cải tiến và nâng cấp bảo mật giúp bạn có trải nghiệm tốt hơn, an toàn và tiện dụng hơn.";
+                return MobileResource.Login_Message_UpdateVersionMessage;
             }
         }
 
@@ -33,7 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get
             {
-                return "Cập nhật";
+                return MobileResource.Common_Button_Update;
             }
         }
 

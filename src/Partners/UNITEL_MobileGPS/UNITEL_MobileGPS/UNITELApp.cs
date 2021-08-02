@@ -20,11 +20,11 @@ namespace UNITEL_MobileGPS
         protected async override void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerTest;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerUNITEL;
-            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerUNITEL;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
+            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
@@ -47,7 +47,7 @@ namespace UNITEL_MobileGPS
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
-            AppType = BA_MobileGPS.Entities.AppType.Unitel;
+            AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
             Settings.CurrentLanguage = CultureCountry.Laos;
             CurrentLanguage = CultureCountry.Laos;
             CultureHelper.SetCulture();

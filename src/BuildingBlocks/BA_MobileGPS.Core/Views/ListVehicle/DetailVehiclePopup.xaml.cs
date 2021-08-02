@@ -44,19 +44,19 @@ namespace BA_MobileGPS.Core.Views
             });
             list.Add(new MenuItem
             {
-                Title = "Video",
+                Title = MobileResource.Camera_Label_Video,
                 Icon = "ic_videolive.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
             list.Add(new MenuItem
             {
-                Title = "Hình Ảnh",
+                Title = MobileResource.Image_Lable_Image,
                 Icon = "ic_cameraonline.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
             });
             list.Add(new MenuItem
             {
-                Title = "Trích xuất video",
+                Title = MobileResource.Camera_Lable_ExportVideo,
                 Icon = "ic_videolive.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
@@ -64,7 +64,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 list.Add(new MenuItem
                 {
-                    Title = "Nhiên liệu",
+                    Title = MobileResource.DetailVehicle_Label_Fuel,
                     Icon = "ic_fuel.png",
                     IsEnable = CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline),
                 });

@@ -100,6 +100,9 @@
         Login_Message_AccountPasswordIncorrect,
         Login_Message_AccountAllowedSystem,
         Login_Message_AccountLocked,
+        Login_Message_LoginWebOnly,
+        Login_Message_UpdateVersionNew,
+        Login_Message_UpdateVersionMessage,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,
         Login_Popup_Starting_Page,
@@ -869,6 +872,7 @@
         #region Camera
         Camera_Label_MenuTitle,
         Camera_Label_TitlePage,
+        Camera_Label_Video,
         Camera_Label_Chanel,
         CameraImage_Label_TitlelPage,
         CameraImage_Label_TitleDetailPage,
@@ -910,10 +914,12 @@
         Camera_Status_WaitingUpload,
         Camera_Status_Downloading,
         Camera_Status_DownloadError,
+        Camera_Lable_ExportVideo,
         Camera_Alert_DownloadedVideo,
         #endregion
 
         #region Image
+        Image_Lable_Image,
         Image_Lable_ImageMonitoring,
         Image_Lable_Nearestvehicle,
         Image_Alert_SaveImageSuccess,

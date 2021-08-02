@@ -5,7 +5,7 @@ namespace BA_MobileGPS.Core.Resources
     public partial class MobileResource
     {
         public static string Camera_Label_TilePage => Get(MobileResourceNames.Camera_Label_TitlePage, "Camera", "Camera");
-
+        public static string Camera_Label_Video => Get(MobileResourceNames.Camera_Label_Video, "Video", "Video");
         public static string Camera_Label_MenuTitle => Get(MobileResourceNames.Camera_Label_MenuTitle, "HÌNH ẢNH - VIDEO", "IMAGE - VIDEO");
         public static string Camera_Label_Chanel => Get(MobileResourceNames.Camera_Label_Chanel, "Kênh: ", "Chanel");
         public static string Camera_TitleStatus => Get(MobileResourceNames.ReportMachine_TitleStatusMachine, "Chọn trạng thái phí", "Search Status");
@@ -57,5 +57,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Status_DownloadError => Get(MobileResourceNames.Camera_Status_DownloadError, "Có lỗi khi tải", "Download failed");
 
         public static string Camera_Alert_DownloadedVideo => Get(MobileResourceNames.Camera_Alert_DownloadedVideo, "Đã tải xong 1 video. Vui lòng xem trên tab Video đã tải", "Download completed. Please watch on Downloaded Videos tab");
+
+        public static string Camera_Lable_ExportVideo => Get(MobileResourceNames.Camera_Lable_ExportVideo, "Trích xuất video", "Export video");
     }
 }

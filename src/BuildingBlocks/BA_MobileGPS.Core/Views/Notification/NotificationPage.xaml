@@ -47,7 +47,7 @@
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
                 LineBreakMode="MiddleTruncation"
-                Text="Thông báo"
+                Text="{Binding Title}"
                 TextColor="White"
                 VerticalOptions="Center" />
             <controls:FontAwesomeIcon

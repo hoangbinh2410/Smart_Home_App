@@ -268,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Language = new LanguageRespone()
                 {
-                    CodeName = CultureCountry.English,
+                    CodeName = CultureCountry.Laos,
                     Icon = "flag_la.png",
                     Description = "ລາວ (ສ.ປ.ປ. ລາວ)",
                     PK_LanguageID = 3
@@ -363,7 +363,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                     case LoginStatus.UserLoginOnlyWeb:
 
-                                        DisplayMessage.ShowMessageInfo("Tài khoản này chỉ được phép đăng nhập trên Web");
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginWebOnly);
                                         break;
                                 }
                             }
@@ -493,7 +493,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (!versionDB.VersionName.Equals(appVersion, StringComparison.InvariantCultureIgnoreCase))
                     {
                         Settings.AppVersionDB = versionDB.VersionName;
-                        string title = "Cập nhập phiên bản mới";
+                        string title = MobileResource.Login_Message_UpdateVersionNew;
                         //string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
                         string accept = MobileResource.Common_Button_Update;
                         string later = MobileResource.Common_Button_Update_Later;

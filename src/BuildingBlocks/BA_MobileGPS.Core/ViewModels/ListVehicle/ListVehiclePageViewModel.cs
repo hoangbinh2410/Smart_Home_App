@@ -99,19 +99,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoRoutePage(currentVehicle);
                 }
-                else if (action == "Hình Ảnh")
+                else if (action == MobileResource.Image_Lable_Image)
                 {
                     GotoCameraPage(currentVehicle);
                 }
-                else if (action == "Nhiên liệu")
+                else if (action == MobileResource.DetailVehicle_Label_Fuel)
                 {
                     GotoFuelPage(currentVehicle);
                 }
-                else if (action == "Video")
+                else if (action == MobileResource.Camera_Label_Video)
                 {
                     GotoVideoPage(currentVehicle);
                 }
-                else if (action == "Trích xuất video")
+                else if (action == MobileResource.Camera_Lable_ExportVideo)
                 {
                     GotoExportVideoPage(currentVehicle);
                 }
