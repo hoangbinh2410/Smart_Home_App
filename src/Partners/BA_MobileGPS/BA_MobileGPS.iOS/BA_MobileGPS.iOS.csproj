@@ -528,9 +528,9 @@
     <BundleResource Include="Resources\bagps_logo%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\car_blue_grey.png" />
+    <BundleResource Include="Resources\car_blue_grey%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\car_blue_grey%402x.png" />
+    <BundleResource Include="Resources\car_blue_grey%403x.png" />
   </ItemGroup>
 </Project>
