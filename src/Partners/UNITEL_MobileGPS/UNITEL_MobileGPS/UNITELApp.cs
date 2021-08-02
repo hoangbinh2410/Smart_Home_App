@@ -33,15 +33,7 @@ namespace UNITEL_MobileGPS
             //       "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
             //       typeof(Analytics), typeof(Crashes));
 
-            //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
-            if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
-            {
-                _ = await NavigationService.NavigateAsync("InsertLocalDBPage");
-            }
-            else
-            {
-                _ = await NavigationService.NavigateAsync("LoginPage");
-            }
+            _ = await NavigationService.NavigateAsync("LoginPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

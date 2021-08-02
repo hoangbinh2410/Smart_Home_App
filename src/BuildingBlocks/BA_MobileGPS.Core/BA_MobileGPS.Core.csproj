@@ -14,12 +14,14 @@
 	  <None Remove="Resources\Font\fa-brands-400.ttf" />
 	  <None Remove="Resources\Font\fa-regular-400.ttf" />
 	  <None Remove="Resources\Font\fa-solid-900.ttf" />
+	  <None Remove="Resources\lo_LA.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Font\fa-brands-400.ttf" />
 	  <EmbeddedResource Include="Resources\Font\fa-regular-400.ttf" />
 	  <EmbeddedResource Include="Resources\Font\fa-solid-900.ttf" />
+	  <EmbeddedResource Include="Resources\lo_LA.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.8.0" />
