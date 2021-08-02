@@ -576,7 +576,7 @@
         PourFuelReport_Label_Detail_Address,
         PourFuelReport_Detail_Label_Liters,
 
-        PourFuelReport_Label_TileChartDetailPage,
+        PourFuelReport_Label_TitleChartDetailPage,
 
         ChartFuelReport_Y_Liters,
         ChartFuelReport_Tank,

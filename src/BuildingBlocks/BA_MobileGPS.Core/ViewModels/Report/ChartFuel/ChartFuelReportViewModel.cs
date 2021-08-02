@@ -67,7 +67,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ChartFuelReportViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = MobileResource.PourFuelReport_Label_TileChartDetailPage;
+            Title = MobileResource.PourFuelReport_Label_TitleChartDetailPage;
 
             ToDate = DateTime.Now;
 

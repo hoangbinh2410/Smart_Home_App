@@ -76,30 +76,22 @@ namespace BA_MobileGPS.Core.Resources
 
         #region báo cáo đổ hút nhiên liệu
 
-        public static string PourFuelReport_Label_TilePage => Get(MobileResourceNames.PourFuelReport_Label_TitlePage, "Báo cáo đổ hút nhiên liệu", "Pour fuel report");
-        public static string PourFuelReport_Label_TileDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TitleDetailPage, "Chi tiết đổ hút nhiên liệu", "Pour fuel report detail");
-        public static string PourFuelReport_Label_TileChartDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TileChartDetailPage, "Biểu đồ nhiên liệu", "Fuel chart");
+        public static string PourFuelReport_Label_TitlePage => Get(MobileResourceNames.PourFuelReport_Label_TitlePage, "Báo cáo đổ hút nhiên liệu", "Pour fuel report");
+        public static string PourFuelReport_Label_TitleDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TitleDetailPage, "Chi tiết đổ hút nhiên liệu", "Pour fuel report detail");
+        public static string PourFuelReport_Label_TitleChartDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TitleChartDetailPage, "Biểu đồ nhiên liệu", "Fuel chart");
         public static string PourFuelReport_Label_PlaceHolder_StatusPourFuel => Get(MobileResourceNames.PourFuelReport_Label_StatusPourFuel, "Trạng thái", "Status pour fuel");
 
         public static string PourFuelReport_Label_PlaceHolder_Liters => Get(MobileResourceNames.PourFuelReport_Label_PlaceHolder_Liters, "Số Lít >=", "Liters >=");
 
         public static string PourFuelReport_CheckBox_Number => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Number, "STT", "Serial");
 
-        public static string PourFuelReport_CheckBox_Liters => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Liters, "Số lít", "Liters");
+        public static string PourFuelReport_Label_CheckBox_Liters => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Liters, "Số lít", "Liters");
 
         public static string PourFuelReport_CheckBox_Date => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Date, "Thời gian", "Date");
 
-        public static string PourFuelReport_CheckBox_Address => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Address, "Địa chỉ", "Address");
+        public static string PourFuelReport_Label_CheckBox_Address => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Address, "Địa chỉ", "Address");
 
-        public static string PourFuelReport_CheckBox_Status => Get(MobileResourceNames.PourFuelReport_Label_Detail_Status, "Trạng thái", "Status");
-
-        public static string PourFuelReport_Detail_Liters => Get(MobileResourceNames.PourFuelReport_Label_Detail_Liters, "Số lít: ", "Liters");
-
-        public static string PourFuelReport_Detail_Date => Get(MobileResourceNames.PourFuelReport_Label_Detail_Date, "Thời gian: ", "Date");
-
-        public static string PourFuelReport_Detail__Address => Get(MobileResourceNames.PourFuelReport_Label_Detail_Address, "Địa chỉ:", "Address");
-
-        public static string PourFuelReport_Detail__Status => Get(MobileResourceNames.PourFuelReport_Label_Detail_Status, "Trạng thái:", "Status");
+        public static string PourFuelReport_Label_Detail_Status => Get(MobileResourceNames.PourFuelReport_Label_Detail_Status, "Trạng thái", "Status");
 
         public static string PourFuelReport_Detail_Label_Liters => Get(MobileResourceNames.PourFuelReport_Detail_Label_Liters, "lít", "Liter");
         public static string PourFuelReport_ComboBox_Status_Pour => Get(MobileResourceNames.PourFuelReport_ComboBox_Status_Pour, "Đổ", "Pour");
