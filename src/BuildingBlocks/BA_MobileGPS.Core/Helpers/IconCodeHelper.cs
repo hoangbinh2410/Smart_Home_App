@@ -55,6 +55,10 @@ namespace BA_MobileGPS.Core.Helpers
             {
                 return GetIconCarFromStates(carInfo.IconCode, IconColor.GREY);
             }
+            else if (StateVehicleExtension.IsStopAndEngineOn(carInfo))
+            {
+                return GetIconCarFromStates(carInfo.IconCode, IconColor.BLUEGREY);
+            }
             else
             {
                 if (StateVehicleExtension.IsMovingAndEngineON(carInfo))
