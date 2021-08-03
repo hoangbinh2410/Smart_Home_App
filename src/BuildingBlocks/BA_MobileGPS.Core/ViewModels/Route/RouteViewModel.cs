@@ -79,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
             DragCompletedCommand = new DelegateCommand(DragCompleted);
             PlayStopCommand = new DelegateCommand(PlayStop);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
+            EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
         }
 
         #endregion Contructor
@@ -156,6 +157,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(OnCompanyChanged);
             //base.OnDestroy();
             //if (ctsRouting != null)
             //    ctsRouting.Cancel();
@@ -266,6 +268,12 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region PrivateMethod
+
+        private void OnCompanyChanged(int e)
+        {
+            ClearRoute();
+            Vehicle = new Vehicle();
+        }
 
         private void TimeSelected(string args)
         {
