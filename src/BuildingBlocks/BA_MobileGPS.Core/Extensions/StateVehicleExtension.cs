@@ -333,7 +333,7 @@ namespace BA_MobileGPS.Core.Extensions
             //xe dừng đỗ là xe không mất GSM ,GPS
             if (!IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !IsLostGSM(vehicle.VehicleTime))
             {
-                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ
+                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ tắt máy
                 if (!vehicle.IsEnableAcc && IsEngineOff(vehicle.State))
                 {
                     return true;
@@ -352,13 +352,13 @@ namespace BA_MobileGPS.Core.Extensions
             //xe dừng đỗ là xe không mất GSM ,GPS
             if (!IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !IsLostGSM(vehicle.VehicleTime))
             {
-                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ
+                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là bật máy thì là dừng đỗ bật máy
                 if (!vehicle.IsEnableAcc && IsEngineOn(vehicle.State) && IsStoping(vehicle.Velocity))
                 {
                     return true;
                 }
                 //nếu xe có cấu hình sai acc thì dựa vào vận tốc
-                else if (vehicle.IsEnableAcc && IsStoping(vehicle.Velocity))
+                else if (vehicle.IsEnableAcc && IsStoping(vehicle.Velocity) && IsEngineOn(vehicle.State))
                 {
                     return true;
                 }
