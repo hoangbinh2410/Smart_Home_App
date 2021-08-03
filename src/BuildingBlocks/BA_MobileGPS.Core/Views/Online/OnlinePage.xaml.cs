@@ -66,7 +66,7 @@ namespace BA_MobileGPS.Core.Views
             googleMap.CameraIdled += GoogleMap_CameraIdled;
             //googleMap.CameraChanged += GoogleMap_CameraChanged;
             mCarActive = new VehicleOnline();
-            mCurrentVehicleList = new List<VehicleOnline>();
+            mCurrentVehicleGroup = new int[] { };
             btnDirectvehicleOnline.IsVisible = false;
             IsInitMarker = false;
             entrySearch.Placeholder = MobileResource.Online_Label_SeachVehicle2;
@@ -179,6 +179,7 @@ namespace BA_MobileGPS.Core.Views
         #endregion Lifecycle
 
         #region Property
+
         private int pageWidth = 0;
         private OnlinePageViewModel vm;
 
@@ -212,8 +213,8 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        /* Danh sách xe online */
-        private List<VehicleOnline> mCurrentVehicleList;
+        /* Danh sách nhóm đội */
+        private int[] mCurrentVehicleGroup;
 
         private bool infoStatusIsShown = false;
         private bool boxInfoIsShown = false;
@@ -409,7 +410,7 @@ namespace BA_MobileGPS.Core.Views
 
                 googleMap.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom));
             }
-
+            mCurrentVehicleGroup = vehiclegroup;
             // Chạy lại hàm tính toán trạng thái xe
             InitVehicleStatus(listResult);
         }
@@ -647,7 +648,6 @@ namespace BA_MobileGPS.Core.Views
         {
             //txtCountVehicle.Text = vehicleList.Count().ToString();
             vm.VehicleStatusSelected = VehicleStatusGroup.All;
-            mCurrentVehicleList = vehicleList;
             // Lấy trạng thái xe
             List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
             if (listStatus != null && listStatus.Count > 0)
@@ -1034,7 +1034,15 @@ namespace BA_MobileGPS.Core.Views
             {
                 Device.StartTimer(TimeSpan.FromMilliseconds(300), () =>
                 {
-                    UpdateVehicleByStatus(mCurrentVehicleList, (VehicleStatusGroup)item.ID);
+                    if (mCurrentVehicleGroup != null && mCurrentVehicleGroup.Length > 0)
+                    {
+                        var listResult = mVehicleList.FindAll(v => v.GroupIDs.Split(',').ToList().Exists(g => mCurrentVehicleGroup.Contains(Convert.ToInt32(g))));
+                        UpdateVehicleByStatus(listResult, (VehicleStatusGroup)item.ID);
+                    }
+                    else
+                    {
+                        UpdateVehicleByStatus(mVehicleList, (VehicleStatusGroup)item.ID);
+                    }
                     return false;
                 });
             }
@@ -1092,9 +1100,18 @@ namespace BA_MobileGPS.Core.Views
         {
             if (lvStatusCar.ItemsSource != null && ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).Count > 0)
             {
+                var listCar = new List<VehicleOnline>();
+                if (mCurrentVehicleGroup != null && mCurrentVehicleGroup.Length > 0)
+                {
+                    listCar = mVehicleList.FindAll(v => v.GroupIDs.Split(',').ToList().Exists(g => mCurrentVehicleGroup.Contains(Convert.ToInt32(g))));
+                }
+                else
+                {
+                    listCar = mVehicleList;
+                }
                 ((List<VehicleStatusViewModel>)(lvStatusCar.ItemsSource)).ForEach(x =>
                 {
-                    x.CountCar = StateVehicleExtension.GetCountCarByStatus(mCurrentVehicleList, (VehicleStatusGroup)x.ID);
+                    x.CountCar = StateVehicleExtension.GetCountCarByStatus(listCar, (VehicleStatusGroup)x.ID);
                 });
             }
         }
