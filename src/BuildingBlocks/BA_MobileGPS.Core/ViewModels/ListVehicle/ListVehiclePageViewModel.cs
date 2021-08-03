@@ -65,11 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters?.GetValue<Company>(ParameterKey.Company) is Company _)
-            {
-                UpdateVehicleByCompany();
-            }
-            else if (parameters?.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+            if (parameters?.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
                 VehicleGroups = vehiclegroup;
 
@@ -78,12 +74,6 @@ namespace BA_MobileGPS.Core.ViewModels
             else if (parameters.ContainsKey("FavoriteVehicle") && parameters?.GetValue<bool>("FavoriteVehicle") is bool isfavorites)
             {
                 SetFavoritesVehicle(currentVehicle, isfavorites);
-            }
-            else if (companyChanged)
-            {
-                UpdateVehicleByCompany();
-
-                companyChanged = false;
             }
             else if (parameters.ContainsKey("pagetoNavigation") && parameters?.GetValue<string>("pagetoNavigation") is string action)
             {
@@ -198,8 +188,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<VehicleOnlineViewModel> ListVehicleByStatus = new List<VehicleOnlineViewModel>();
 
-        private bool companyChanged;
-
         public int countVehicle;
         public int CountVehicle { get => countVehicle; set => SetProperty(ref countVehicle, value); }
 
@@ -233,7 +221,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OnCompanyChanged(int e)
         {
-            companyChanged = true;
+            UpdateVehicleByCompany();
         }
 
         public void UpdateVehicleByCompany()

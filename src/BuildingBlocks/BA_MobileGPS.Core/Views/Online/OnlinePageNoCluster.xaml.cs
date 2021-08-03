@@ -83,6 +83,7 @@ namespace BA_MobileGPS.Core.Views
         {
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Subscribe(this.OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
             this.eventAggregator.GetEvent<BackButtonEvent>().Subscribe(AndroidBackButton);
             googleMap.InitialCameraUpdate = CameraUpdateFactory.NewPositionZoom(new Position(MobileUserSettingHelper.LatCurrentScreenMap, MobileUserSettingHelper.LngCurrentScreenMap), MobileUserSettingHelper.Mapzoom);
         }
@@ -145,16 +146,6 @@ namespace BA_MobileGPS.Core.Views
                 {
                     displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                 }
-            }
-            else if (parameters.ContainsKey(ParameterKey.Company) && parameters.GetValue<Company>(ParameterKey.Company) is Company company)
-            {
-                vm.CarSearch = string.Empty;
-
-                HideBoxStatus();
-
-                HideBoxInfo();
-
-                UpdateVehicleByCompany(company);
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
@@ -308,6 +299,17 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
+        private void OnCompanyChanged(int e)
+        {
+            vm.CarSearch = string.Empty;
+
+            HideBoxStatus();
+
+            HideBoxInfo();
+
+            UpdateVehicleByCompany();
+        }
+
         private void UpdateSelectVehicle(VehicleOnline vehicle, bool isReloadVehicle = false)
         {
             if (vehicle != null)
@@ -335,7 +337,7 @@ namespace BA_MobileGPS.Core.Views
             }
         }
 
-        public void UpdateVehicleByCompany(Company company)
+        public void UpdateVehicleByCompany()
         {
             using (new HUDService())
             {
@@ -569,7 +571,7 @@ namespace BA_MobileGPS.Core.Views
                                 //nếu trước đó đã chọn 1 công ty nào đó rồi thì load danh sách xe của công ty đó
                                 if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                                 {
-                                    UpdateVehicleByCompany(Settings.CurrentCompany);
+                                    UpdateVehicleByCompany();
                                 }
                                 else
                                 {
@@ -1062,6 +1064,7 @@ namespace BA_MobileGPS.Core.Views
             timer.Dispose();
             this.eventAggregator.GetEvent<ReceiveSendCarEvent>().Unsubscribe(OnReceiveSendCarSignalR);
             this.eventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(OnReLoadVehicleOnlineCarSignalR);
+            this.eventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(OnCompanyChanged);
             this.eventAggregator.GetEvent<BackButtonEvent>().Unsubscribe(AndroidBackButton);
         }
 
