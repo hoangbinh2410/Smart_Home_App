@@ -21,8 +21,5 @@ namespace BA_MobileGPS.Entities
         public DateTime ToDate { get; set; }
 
         public string VehiclePlate { get; set; }
-
-        [JsonIgnore]
-        public long VehicleID { get; set; }
     }
 }

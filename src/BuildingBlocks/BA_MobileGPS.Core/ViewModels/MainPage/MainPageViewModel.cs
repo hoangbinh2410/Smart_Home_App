@@ -36,7 +36,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly INotificationService notificationService;
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
-        private readonly IAlertHubService alertHubService;
         private readonly IUserBahaviorHubService userBahaviorHubService;
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
@@ -45,6 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IUserService userService;
         private Timer timer;
         private Timer timerSyncData;
+        private Timer timerSyncUploadStatus;
         private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
@@ -56,7 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
-            IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
+            IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
             IPapersInforService papersInforService, IStreamCameraService streamCameraService, IUserService userService)
             : base(navigationService)
         {
@@ -69,7 +69,6 @@ namespace BA_MobileGPS.Core.ViewModels
             this.notificationService = notificationService;
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
-            this.alertHubService = alertHubService;
             this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
             this.streamCameraService = streamCameraService;
@@ -141,6 +140,11 @@ namespace BA_MobileGPS.Core.ViewModels
             timer.Dispose();
             timerSyncData.Stop();
             timerSyncData.Dispose();
+            if (timerSyncUploadStatus != null)
+            {
+                timerSyncUploadStatus.Stop();
+                timerSyncUploadStatus.Dispose();
+            }
             if (cts != null)
             {
                 cts.Cancel();
@@ -1066,193 +1070,105 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>Xem chi tiết ảnh</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/6/2020   created
+        /// </Modified>
+        private async void ShowMaskImage(string id)
+        {
+            await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
+                                     {
+                                    { ParameterKey.AlertMask, new Guid(id) }
+                                    }, useModalNavigation: true);
+        }
+
         private void UploadVideoRestream(bool arg)
         {
-            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
-            {
-                int errorwhile = 0;
-                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
-                 {
-                     //nếu ko còn video nào upload thì ngừng timmer
-                     if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
-                     {
-                         return false;
-                     }
-                     else
-                     {
-                         var videoUploading = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.Uploading);
-                         if (videoUploading == null)
-                         {
-                             var lstvideowating = StaticSettings.ListVideoUpload.Where(x => x.Status == VideoUploadStatus.WaitingUpload).ToList();
-                             if (lstvideowating != null && lstvideowating.Count > 0)
-                             {
-                                 var videowaiting = lstvideowating[0];
-                                 if (videowaiting != null)
-                                 {
-                                     RunOnBackground(async () =>
-                                     {
-                                         return await streamCameraService.UploadToServerStart(new UploadStartRequest()
-                                         {
-                                             Channel = videowaiting.Channel,
-                                             CustomerID = UserInfo.XNCode,
-                                             StartTime = videowaiting.StartTime,
-                                             EndTime = videowaiting.EndTime,
-                                             VehicleName = videowaiting.VehicleName,
-                                             Source = (int)CameraSourceType.App,
-                                             User = UserInfo.UserName,
-                                         });
-                                     }, (result) =>
-                                     {
-                                         if (result != null && result.StatusCode == 0 && result.Data != null && result.Data.Channel > 0)
-                                         {
-                                             errorwhile = 0;
-                                             videowaiting.Status = VideoUploadStatus.Uploading;
-                                             UploadFileStatus(videowaiting);
-                                         }
-                                         else
-                                         {
-                                             errorwhile++;
-                                             if (errorwhile == 30)
-                                             {
-                                                 videowaiting.Status = VideoUploadStatus.UploadError;
-                                             }
-                                         }
-                                     });
-                                     return true;
-                                 }
-                                 else
-                                 {
-                                     return false;
-                                 }
-                             }
-                             else
-                             {
-                                 return false;
-                             }
-                         }
-                         else
-                         {
-                             return true;
-                         }
-                     }
-                 });
-            }
+            StartTimmerUploadVideo();
         }
 
-        private void UploadFileStatus(VideoUpload video)
+        private async void CheckStatusUploadFile(object sender, ElapsedEventArgs e)
         {
-            RunOnBackground(async () =>
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
             {
-                return await CheckStatusUploadFile(video);
-            }, (isUploaded) =>
-           {
-               if (isUploaded)
-               {
-                   if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
-                   {
-                       StaticSettings.ListVideoUpload.Remove(video);
-                   }
-
-                   EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
-
-                   InsertLogVideo(video);
-
-                   Device.BeginInvokeOnMainThread(() =>
-                   {
-                       DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
-                   });
-               }
-               else
-               {
-                   if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
-                   {
-                       foreach (var item in StaticSettings.ListVideoUpload)
-                       {
-                           if (item.StartTime == video.StartTime)
-                           {
-                               item.Status = VideoUploadStatus.UploadError;
-                           }
-                       }
-                   }
-
-                   EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
-                   DisplayMessage.ShowMessageError("File không tải được lên server");
-               }
-           });
-        }
-
-        private async Task<bool> CheckStatusUploadFile(VideoUpload video)
-        {
-            var result = false;
-            try
-            {
-                cts = new System.Threading.CancellationTokenSource();
-                int indexwhile = 0;
-                while (!result && !cts.IsCancellationRequested)
+                List<UploadFiles> lstOldFileUploading = new List<UploadFiles>();
+                var listVehicle = StaticSettings.ListVehilceCamera.Select(x => x.VehiclePlate).ToList();
+                var respone = await streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
                 {
-                    indexwhile++;
-                    if (indexwhile == 15)
+                    CustomerID = UserInfo.XNCode,
+                    VehicleName = listVehicle,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                });
+                if (respone != null && respone.Count > 0)
+                {
+                    List<UploadFiles> lstVideoOld = new List<UploadFiles>();
+                    List<UploadFiles> lstVideoNew = new List<UploadFiles>();
+                    foreach (var item in respone)
                     {
-                        if (cts != null)
+                        if (item.UploadedFiles != null)
                         {
-                            cts.Cancel();
-                            cts.Dispose();
+                            var videouploading = item.UploadedFiles.Where(x => x.State == (int)VideoUploadStatus.Uploading).ToList();
+                            if (videouploading != null && videouploading.Count > 0)
+                            {
+                                lstVideoNew.AddRange(item.UploadedFiles);
+                            }
+                        }
+                    }
+                    if (lstVideoOld != null && lstVideoOld.Count > 0)
+                    {
+                        foreach (var itemnew in lstVideoNew)
+                        {
+                            foreach (var itemold in lstVideoOld)
+                            {
+                                if (itemnew.State != itemold.State
+                                    && itemnew.State != (int)VideoUploadStatus.Uploading
+                                    && itemnew.State != (int)VideoUploadStatus.WaitingUpload)
+                                {
+                                    if (itemnew.State == (int)VideoUploadStatus.Uploaded && !string.IsNullOrEmpty(itemnew.Link))
+                                    {
+                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
+
+                                        Device.BeginInvokeOnMainThread(() =>
+                                        {
+                                            DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
+                                        });
+                                    }
+                                    else if (itemnew.State == (int)VideoUploadStatus.UploadErrorCancel
+                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorDevice
+                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorTimeout)
+                                    {
+                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
+                                    }
+                                }
+                            }
                         }
                     }
                     else
                     {
-                        var respone = await streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
+                        lstVideoOld = lstVideoNew;
+                    }
+                    var stateUpload = respone.Exists(x => x.State == (int)VideoUploadStatus.WaitingUpload
+                    || x.State == (int)VideoUploadStatus.Uploading);
+                    if (!stateUpload)
+                    {
+                        //nếu ko còn phiên nào chạy thì Hủy Timmer đi
+                        if (timerSyncUploadStatus != null)
                         {
-                            CustomerID = UserInfo.XNCode,
-                            VehicleName = new List<string>() { video.VehicleName },
-                            Source = (int)CameraSourceType.App,
-                            User = UserInfo.UserName,
-                        });
-                        if (respone != null)
-                        {
-                            var data = respone.FirstOrDefault(x => x.VehicleName == video.VehicleName && x.Channel == video.Channel);
-                            if (data != null)
-                            {
-                                if (data.FinishCount + data.ErrorCount == data.TotalCount
-                                    && data.TotalCount > 0 || (data.UploadedFiles != null
-                                    && data.UploadedFiles.Contains((data.CurrentFile.ToUpper())) == true))
-                                {
-                                    result = true;
-                                    if (cts != null)
-                                    {
-                                        cts.Cancel();
-                                        cts.Dispose();
-                                    }
-                                }
-                                else
-                                {
-                                    await Task.Delay(10000, cts.Token);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (cts != null)
-                            {
-                                cts.Cancel();
-                                cts.Dispose();
-                            }
+                            timerSyncUploadStatus.Stop();
+                            timerSyncUploadStatus.Dispose();
                         }
                     }
                 }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-            return result;
         }
 
         private void InsertLogVideo(VideoUpload video)
         {
             var request = new SaveVideoByUserRequest()
             {
-                Channel = video.Channel,
+                Channel = (byte)video.Channel,
                 FK_VehicleID = video.VehicleID,
                 FK_CompanyID = CurrentComanyID,
                 StartTime = video.StartTime,
@@ -1277,17 +1193,15 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        /// <summary>Xem chi tiết ảnh</summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/6/2020   created
-        /// </Modified>
-        private async void ShowMaskImage(string id)
+        private void StartTimmerUploadVideo()
         {
-            await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
-                                     {
-                                    { ParameterKey.AlertMask, new Guid(id) }
-                                    }, useModalNavigation: true);
+            timerSyncUploadStatus = new Timer
+            {
+                Interval = 15000
+            };
+            timerSyncUploadStatus.Elapsed += CheckStatusUploadFile;
+
+            timerSyncUploadStatus.Start();
         }
 
         #endregion PrivateMethod

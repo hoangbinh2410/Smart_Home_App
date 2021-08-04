@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using Plugin.Permissions;
 using Prism.Commands;
@@ -14,8 +15,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Timers;
 using System.Windows.Input;
-using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -68,11 +69,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+            StartTimmer();
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
+            timer.Stop();
+            timer.Dispose();
             EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UploadFinishVideoEvent>().Unsubscribe(UploadFinishVideo);
         }
@@ -90,6 +94,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private System.Timers.Timer timer;
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
@@ -165,6 +171,26 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region PrivateMethod
+
+        private void StartTimmer()
+        {
+            timer = new System.Timers.Timer
+            {
+                Interval = 5000
+            };
+            timer.Elapsed += T_Elapsed;
+
+            timer.Start();
+        }
+
+        private void T_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //nếu ko còn video nào upload thì ngừng timmer
+            if (ListVideoUpload != null && ListVideoUpload.Count > 0)
+            {
+                GetListVideoUpload();
+            }
+        }
 
         /// <summary>
         /// Set dữ liệu cho picker channel
@@ -283,15 +309,48 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListVideoUpload()
+        private async void GetListVideoUpload()
         {
-            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+            List<VideoUpload> result = new List<VideoUpload>();
+            try
             {
-                ListVideoUpload = new ObservableCollection<VideoUpload>(StaticSettings.ListVideoUpload.OrderBy(x => x.Status).ThenBy(x => x.StartTime));
+                if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+                {
+                    var listVehicle = StaticSettings.ListVehilceCamera.Select(x => x.VehiclePlate).ToList();
+                    var respone = await _streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
+                    {
+                        CustomerID = UserInfo.XNCode,
+                        VehicleName = listVehicle,
+                        Source = (int)CameraSourceType.App,
+                        User = UserInfo.UserName,
+                    });
+                    if (respone != null && respone.Count > 0)
+                    {
+                        foreach (var item in respone)
+                        {
+                            if (item.UploadedFiles != null && item.UploadedFiles.Count > 0)
+                            {
+                                var list = item.UploadedFiles.Where(x => x.State != (int)VideoUploadStatus.Uploaded);
+                                foreach (var item1 in list)
+                                {
+                                    var model = new VideoUpload()
+                                    {
+                                        Channel = item.Channel,
+                                        StartTime = item1.Time,
+                                        EndTime = item.EndTime,
+                                        Status = (VideoUploadStatus)item1.State,
+                                        VehicleName = item.VehicleName
+                                    };
+                                    result.Add(model);
+                                }
+                            }
+                        }
+                        ListVideoUpload = new ObservableCollection<VideoUpload>(result.OrderBy(x => x.Status).ThenBy(x => x.StartTime));
+                    }
+                }
             }
-            else
+            catch (System.Exception)
             {
-                ListVideoUpload = new ObservableCollection<VideoUpload>();
             }
         }
 
@@ -322,19 +381,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private void UploadVideoRestream(bool obj)
         {
             GetListVideoUpload();
-            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
-            {
-                //nếu ko còn video nào upload thì ngừng timmer
-                if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    GetListVideoUpload();
-                    return true;
-                }
-            });
         }
 
         private void UploadFinishVideo(bool obj)
@@ -348,7 +394,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
@@ -378,7 +424,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PageDialog.DisplayAlertAsync("Thông báo", "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Bỏ qua");
+                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Bỏ qua");
             });
         }
 

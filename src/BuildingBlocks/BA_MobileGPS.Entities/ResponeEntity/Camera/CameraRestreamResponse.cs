@@ -112,7 +112,7 @@ namespace BA_MobileGPS.Entities
 
         public DateTime EndTime { get; set; }
 
-        public byte Channel { get; set; }
+        public int Channel { get; set; }
 
         private VideoUploadStatus status = VideoUploadStatus.Uploaded;
         public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
@@ -120,10 +120,12 @@ namespace BA_MobileGPS.Entities
 
     public enum VideoUploadStatus
     {
-        NotUpload = 0,
-        Uploaded = 1,
-        Uploading = 2,
-        WaitingUpload = 3,
-        UploadError = 4
+        WaitingUpload = 0,
+        Uploading = 1,
+        Uploaded = 2,
+        UploadErrorTimeout = 3,
+        UploadErrorCancel = 4,
+        UploadErrorDevice = 5,
+        NotUpload = 6,
     }
 }
