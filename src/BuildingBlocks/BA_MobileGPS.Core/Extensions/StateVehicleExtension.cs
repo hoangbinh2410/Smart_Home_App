@@ -464,6 +464,11 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+        public static bool IsOverVelocityRoute(int velocity)
+        {
+            return (velocity > CompanyConfigurationHelper.DefaultMaxVelocityBlue) ? true : false;
+        }
+
         /// <summary>
         /// Lọc theo trạng thái.
         /// </summary>

@@ -107,10 +107,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
-                                var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                                       string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
                                       vehicle.PrivateCode, MobileSettingHelper.HotlineGps),
-                                      "Liên hệ", "Bỏ qua");
+                                      "Liên hệ", MobileResource.Common_Message_Skip);
                                 if (action)
                                 {
                                     PhoneDialer.Open(MobileSettingHelper.HotlineGps);
@@ -140,10 +140,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
-                                var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                                       string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
                                       vehicleOnline.PrivateCode, MobileSettingHelper.HotlineGps),
-                                      "Liên hệ", "Bỏ qua");
+                                      "Liên hệ", MobileResource.Common_Message_Skip);
                                 if (action)
                                 {
                                     PhoneDialer.Open(MobileSettingHelper.HotlineGps);
@@ -475,7 +475,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetHistoryRoute()
         {
             var currentCompany = Settings.CurrentCompany;
-            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
+            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Loading...");
             RunOnBackground(async () =>
             {
                 return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
@@ -677,6 +677,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 StrokeWidth = 3f,
                 ZIndex = 1
             };
+            var linered = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#E63C2B"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
             line.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
 
             for (int i = 0; i < ListRoute.Count; i++)
@@ -696,12 +703,26 @@ namespace BA_MobileGPS.Core.ViewModels
                         linegray.Positions.Clear();
                     }
                 }
+                else if (StateVehicleExtension.IsOverVelocityRoute(ListRoute[i].Velocity))
+                {
+                    linered.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                    if (i < ListRoute.Count - 2 && !StateVehicleExtension.IsOverVelocityRoute(ListRoute[i + 1].Velocity))
+                    {
+                        linered.Positions.Add(new Position(ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude));
+                        Polylines.Add(linered);
+                        linered.Positions.Clear();
+                    }
+                }
             }
             Polylines.Add(line);
 
             if (linegray.Positions.Count > 2)
             {
                 Polylines.Add(linegray);
+            }
+            if (linered.Positions.Count > 2)
+            {
+                Polylines.Add(linered);
             }
         }
 
@@ -856,6 +877,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (CurrentRoute == null)
                         return;
+
+                    if (StateVehicleExtension.IsEngineOff(CurrentRoute.State))
+                    {
+                        item.Icon = BitmapDescriptorFactory.FromResource("car_grey.png");
+                    }
+                    else if (StateVehicleExtension.IsOverVelocityRoute(CurrentRoute.Velocity))
+                    {
+                        item.Icon = BitmapDescriptorFactory.FromResource("car_red.png");
+                    }
+                    else
+                    {
+                        item.Icon = BitmapDescriptorFactory.FromResource("car_blue.png");
+                    }
                     RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                     {
                         if (CurrentRoute == null)
