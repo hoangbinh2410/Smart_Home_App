@@ -743,7 +743,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (dateStart > dateEnd)
             {
-                DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
             else if (Vehicle == null || string.IsNullOrEmpty(Vehicle.VehiclePlate))

@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (dateStart > dateEnd)
             {
-                DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
             if (dateStart.Date != dateEnd.Date)
@@ -238,7 +238,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (Vehicle == null || Vehicle.VehicleId == 0)
             {
-                DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
+                DisplayMessage.ShowMessageInfo("Vui lòng chọn phương tiện");
                 return false;
             }
             else
@@ -394,7 +394,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Bạn có muốn tải video này về điện thoại không ?", MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
