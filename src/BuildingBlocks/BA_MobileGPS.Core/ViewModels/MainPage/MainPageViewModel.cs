@@ -1085,8 +1085,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void UploadVideoRestream(bool arg)
         {
+            CheckStatusUploadFile(null, null);
             StartTimmerUploadVideo();
         }
+
+        private List<UploadFiles> lstVideoOld = new List<UploadFiles>();
 
         private async void CheckStatusUploadFile(object sender, ElapsedEventArgs e)
         {
@@ -1103,43 +1106,41 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
                 if (respone != null && respone.Count > 0)
                 {
-                    List<UploadFiles> lstVideoOld = new List<UploadFiles>();
                     List<UploadFiles> lstVideoNew = new List<UploadFiles>();
                     foreach (var item in respone)
                     {
-                        if (item.UploadedFiles != null)
+                        if (item.UploadFiles != null)
                         {
-                            var videouploading = item.UploadedFiles.Where(x => x.State == (int)VideoUploadStatus.Uploading).ToList();
-                            if (videouploading != null && videouploading.Count > 0)
-                            {
-                                lstVideoNew.AddRange(item.UploadedFiles);
-                            }
+                            lstVideoNew.AddRange(item.UploadFiles);
                         }
                     }
                     if (lstVideoOld != null && lstVideoOld.Count > 0)
                     {
-                        foreach (var itemnew in lstVideoNew)
+                        if (lstVideoNew.Count > 0)
                         {
-                            foreach (var itemold in lstVideoOld)
+                            var listvideoUploaded = lstVideoNew.Where(x => x.State != (int)VideoUploadStatus.Uploading
+                            && x.State != (int)VideoUploadStatus.WaitingUpload).ToList();
+                            foreach (var itemnew in listvideoUploaded)
                             {
-                                if (itemnew.State != itemold.State
-                                    && itemnew.State != (int)VideoUploadStatus.Uploading
-                                    && itemnew.State != (int)VideoUploadStatus.WaitingUpload)
+                                foreach (var itemold in lstVideoOld)
                                 {
-                                    if (itemnew.State == (int)VideoUploadStatus.Uploaded && !string.IsNullOrEmpty(itemnew.Link))
+                                    if (itemnew.State != itemold.State && itemnew.Time == itemold.Time)
                                     {
-                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
-
-                                        Device.BeginInvokeOnMainThread(() =>
+                                        if (itemnew.State == (int)VideoUploadStatus.Uploaded && !string.IsNullOrEmpty(itemnew.Link))
                                         {
-                                            DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
-                                        });
-                                    }
-                                    else if (itemnew.State == (int)VideoUploadStatus.UploadErrorCancel
-                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorDevice
-                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorTimeout)
-                                    {
-                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
+                                            EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
+
+                                            Device.BeginInvokeOnMainThread(() =>
+                                            {
+                                                DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
+                                            });
+                                        }
+                                        else if (itemnew.State == (int)VideoUploadStatus.UploadErrorCancel
+                                                || itemnew.State == (int)VideoUploadStatus.UploadErrorDevice
+                                                || itemnew.State == (int)VideoUploadStatus.UploadErrorTimeout)
+                                        {
+                                            EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
+                                        }
                                     }
                                 }
                             }
@@ -1147,12 +1148,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        lstVideoOld = lstVideoNew;
+                        var videouploading = lstVideoNew.Where(x => x.State == (int)VideoUploadStatus.Uploading).ToList();
+                        if (videouploading != null && videouploading.Count > 0)
+                        {
+                            lstVideoOld.AddRange(videouploading);
+                        }
                     }
                     var stateUpload = respone.Exists(x => x.State == (int)VideoUploadStatus.WaitingUpload
                     || x.State == (int)VideoUploadStatus.Uploading);
                     if (!stateUpload)
                     {
+                        lstVideoOld = new List<UploadFiles>();
                         //nếu ko còn phiên nào chạy thì Hủy Timmer đi
                         if (timerSyncUploadStatus != null)
                         {
@@ -1195,13 +1201,16 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void StartTimmerUploadVideo()
         {
-            timerSyncUploadStatus = new Timer
+            if (timerSyncUploadStatus == null)
             {
-                Interval = 15000
-            };
-            timerSyncUploadStatus.Elapsed += CheckStatusUploadFile;
+                timerSyncUploadStatus = new Timer
+                {
+                    Interval = 3000
+                };
+                timerSyncUploadStatus.Elapsed += CheckStatusUploadFile;
 
-            timerSyncUploadStatus.Start();
+                timerSyncUploadStatus.Start();
+            }
         }
 
         #endregion PrivateMethod

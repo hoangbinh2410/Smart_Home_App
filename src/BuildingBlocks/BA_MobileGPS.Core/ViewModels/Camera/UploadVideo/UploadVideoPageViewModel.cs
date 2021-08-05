@@ -182,7 +182,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var videoupload = respone.FirstOrDefault(x => x.Channel == RequestInfo.Channel);
                     if (videoupload != null)
                     {
-                        result = videoupload.UploadedFiles;
+                        result = videoupload.UploadFiles;
                     }
                 }
             }

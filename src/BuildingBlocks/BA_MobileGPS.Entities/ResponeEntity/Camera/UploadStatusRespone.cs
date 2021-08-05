@@ -19,7 +19,7 @@ namespace BA_MobileGPS.Entities
         public int RetryCount { get; set; }
         public int State { get; set; }
         public DateTime UpdatedTime { get; set; }
-        public List<UploadFiles> UploadedFiles { get; set; }
+        public List<UploadFiles> UploadFiles { get; set; }
     }
 
     public class UploadFiles

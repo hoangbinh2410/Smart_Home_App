@@ -328,9 +328,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         foreach (var item in respone)
                         {
-                            if (item.UploadedFiles != null && item.UploadedFiles.Count > 0)
+                            if (item.UploadFiles != null && item.UploadFiles.Count > 0)
                             {
-                                var list = item.UploadedFiles.Where(x => x.State != (int)VideoUploadStatus.Uploaded);
+                                var list = item.UploadFiles.Where(x => x.State != (int)VideoUploadStatus.Uploaded);
                                 foreach (var item1 in list)
                                 {
                                     var model = new VideoUpload()
