@@ -365,7 +365,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                    ToDate = obj.VideoEndTime,
                                    Channel = obj.Channel,
                                    VehiclePlate =Vehicle.VehiclePlate
-                              } 
+                              }
                          }
                      };
 
@@ -585,7 +585,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (itemuser.User.ToUpper() != StaticSettings.User.UserName.ToUpper())
                         {
-                            lstUser.Add(itemuser);
+                            var isexist = lstUser.Exists(x => x.User == itemuser.User);
+                            if (!isexist)
+                            {
+                                lstUser.Add(itemuser);
+                            }
                         }
                     }
                 }

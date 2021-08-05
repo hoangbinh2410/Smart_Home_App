@@ -933,13 +933,13 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Gọi api stop streaming
         /// </summary>
         /// <param name="req"></param>
-        private void StopPlayback(int channel, PlaybackUserRequest user)
+        private void StopPlayback(List<PlaybackUserRequest> user)
         {
             SafeExecute(async () =>
             {
                 var start = new PlaybackStopRequest()
                 {
-                    Channel = channel,
+                    Channel = 15,
                     CustomerID = UserInfo.XNCode,
                     VehicleName = Vehicle.VehiclePlate,
                     Source = (int)CameraSourceType.App,
@@ -948,18 +948,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 var result = await _streamCameraService.StopPlayback(start);
                 if (result)
                 {
-                    if (user.User.ToUpper() != UserInfo.UserName.ToUpper())
+                    if (user != null && user.Count > 0)
                     {
-                        EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                        foreach (var item in user)
                         {
-                            UserName = user.User,
-                            Message = string.Format("Quý khách bị ngắt kết nối do BKS {0} - Kênh {1} được yêu cầu phát trực tiếp {2} ({3})", Vehicle.PrivateCode,
-                            channel,
-                            user.User,
-                            ((CameraSourceType)user.Source).ToDescription())
-                        });
+                            EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                            {
+                                UserName = item.User,
+                                Message = string.Format("Quý khách bị ngắt kết nối do BKS {0} được yêu cầu phát trực tiếp {2} ({3})", Vehicle.PrivateCode,
+                                Vehicle.PrivateCode,
+                                item.User,
+                                ((CameraSourceType)item.Source).ToDescription())
+                            });
+                        }
                     }
-
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         await PageDialog.DisplayAlertAsync("Thông báo", "Dừng xem lại thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Đồng ý");
@@ -968,42 +970,62 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void SetErrorErrorDoubleStremingCamera(Tuple<PlaybackUserRequest, int> obj)
+        private void SetErrorErrorDoubleStremingCamera(List<CameraStartRespone> lst)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            var lstUser = new List<PlaybackUserRequest>();
+            foreach (var item in lst)
             {
-                var message = string.Format("BKS {0} - Kênh {1} đang được xem lại bởi tài khoản {2} ({3}), do vậy không thể phát trực tiếp.\n" +
-                       "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng chế độ xem lại của tài khoản {4} để xem video.",
-                       Vehicle.PrivateCode,
-                       obj.Item2,
-                       obj.Item1.User,
-                       ((CameraSourceType)obj.Item1.Source).ToDescription(),
-                       obj.Item1.User);
-                var alert = DependencyService.Get<IAlert>();
-                var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
-                if (action == "Xem hình ảnh")
+                if (item.PlaybackRequests != null && item.PlaybackRequests.Count > 0)
                 {
-                    if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
+                    foreach (var itemuser in item.PlaybackRequests)
                     {
-                        var parameters = new NavigationParameters();
-                        parameters.Add(ParameterKey.Vehicle, new Vehicle()
+                        if (itemuser.User.ToUpper() != StaticSettings.User.UserName.ToUpper())
                         {
-                            VehicleId = Vehicle.VehicleId,
-                            VehiclePlate = Vehicle.VehiclePlate,
-                            PrivateCode = Vehicle.PrivateCode
-                        });
-                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                    }
-                    else
-                    {
-                        DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
+                            var isexist = lstUser.Exists(x => x.User == itemuser.User);
+                            if (!isexist)
+                            {
+                                lstUser.Add(itemuser);
+                            }
+                        }
                     }
                 }
-                else if (action == "Dừng xem lại")
+            }
+            if (lstUser.Count > 0)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    StopPlayback(obj.Item2, obj.Item1);
-                }
-            });
+                    var message = string.Format("BKS {0} đang được xem lại bởi tài khoản {1} ({2}), do vậy không thể phát trực tiếp.\n" +
+                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng chế độ xem lại của tài khoản {3} để xem video.",
+                           Vehicle.PrivateCode,
+                           lstUser[0].User,
+                           ((CameraSourceType)lstUser[0].Source).ToDescription(),
+                           lstUser[0].User);
+                    var alert = DependencyService.Get<IAlert>();
+                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng xem lại", "Để sau");
+                    if (action == "Xem hình ảnh")
+                    {
+                        if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
+                        {
+                            var parameters = new NavigationParameters();
+                            parameters.Add(ParameterKey.Vehicle, new Vehicle()
+                            {
+                                VehicleId = Vehicle.VehicleId,
+                                VehiclePlate = Vehicle.VehiclePlate,
+                                PrivateCode = Vehicle.PrivateCode
+                            });
+                            await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
+                        }
+                    }
+                    else if (action == "Dừng xem lại")
+                    {
+                        StopPlayback(lstUser);
+                    }
+                });
+            }
         }
 
         private void UserMessageCamera(string message)

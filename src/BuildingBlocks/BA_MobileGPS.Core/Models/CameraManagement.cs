@@ -309,7 +309,7 @@ namespace BA_MobileGPS.Core.Models
                         var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
                         if (user != null)
                         {
-                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(new Tuple<PlaybackUserRequest, int>(user, Channel));
+                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
                         }
                         result.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
                         SetError(result.UserMessage);
