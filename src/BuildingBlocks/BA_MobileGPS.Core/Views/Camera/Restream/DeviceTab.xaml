@@ -28,6 +28,7 @@
             <Setter Property="Duration" Value="0.8" />
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+        <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
@@ -494,7 +495,7 @@
                                                     <Label
                                                         HorizontalOptions="Start"
                                                         StyleClass="BoldText"
-                                                        Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                        Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}" />
                                                 </StackLayout>
                                                 <StackLayout
                                                     HorizontalOptions="EndAndExpand"

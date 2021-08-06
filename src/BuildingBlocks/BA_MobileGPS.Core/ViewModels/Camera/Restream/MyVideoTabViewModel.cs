@@ -233,12 +233,12 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             if (dateStart.Date != dateEnd.Date)
             {
-                DisplayMessage.ShowMessageInfo("Không tìm kiếm xuyên ngày");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
             }
             else if (Vehicle == null || Vehicle.VehicleId == 0)
             {
-                DisplayMessage.ShowMessageInfo("Vui lòng chọn phương tiện");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
                 return false;
             }
             else
@@ -394,7 +394,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Bạn có muốn tải video này về điện thoại không ?", MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_DoYouWantDowloadVideo, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
@@ -415,7 +415,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ProgressValue = value;
             if (value == 100)
             {
-                DisplayMessage.ShowMessageInfo("Video đã được tải thành công về máy của bạn");
+                DisplayMessage.ShowMessageInfo(MobileResource.Camera_Message_DowloadVideoSuccess);
                 IsDownloading = false;
             }
         }
@@ -424,7 +424,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Bỏ qua");
+                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_VideoSaveToServer, MobileResource.Common_Message_Skip);
             });
         }
 

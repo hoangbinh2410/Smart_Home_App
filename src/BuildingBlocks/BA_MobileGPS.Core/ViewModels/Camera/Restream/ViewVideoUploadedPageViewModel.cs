@@ -228,12 +228,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     catch (Exception)
                     {
-                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                        PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NoData, MobileResource.Common_Button_OK);
                     }
                 }
                 else
                 {
-                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NoData, MobileResource.Common_Button_OK);
                 }
                 Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
             });
@@ -595,7 +595,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_DoYouWantDowloadVideo, MobileResource.Common_Button_OK,MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
@@ -616,7 +616,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ProgressValue = value;
             if (value == 100)
             {
-                DisplayMessage.ShowMessageInfo("Đã tải video thành công");
+                DisplayMessage.ShowMessageInfo(MobileResource.Camera_Message_DowloadVideoSuccess);
                 IsDownloading = false;
             }
         }
@@ -627,7 +627,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_DoYouWantDowloadVideo, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);

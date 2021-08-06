@@ -242,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsError = true;
-                    ErrorMessenger = "Có lỗi khi kết nối server";
+                    ErrorMessenger = MobileResource.Camera_Status_ErrorConnect;
                 });
             }
         }
@@ -273,7 +273,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsError = true;
-                    ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
+                    ErrorMessenger = MobileResource.Camera_Message_PleaseLoadVideo;
                 });
             // hết video??/
         }
@@ -344,7 +344,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
                 }
             });
         }
@@ -374,7 +374,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
                 }
             });
         }
@@ -424,7 +424,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           Device.BeginInvokeOnMainThread(() =>
                           {
                               IsError = true;
-                              ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
+                              ErrorMessenger = MobileResource.Camera_Message_PleaseLoadVideo;
                           });
                       }
                   }, cts.Token);
@@ -599,13 +599,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     IsError = true;
-                    ErrorMessenger = "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại";
-                    var message = string.Format("BKS {0} - Kênh {1} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
-                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại",
+                    ErrorMessenger = MobileResource.Camera_Message_DeviceStreamingError;
+                    var message = string.Format(MobileResource.Camera_Message_DeviceStreamingErrorDetail,
                            Vehicle.PrivateCode, VideoSlected.Channel);
                     var alert = DependencyService.Get<IAlert>();
-                    var action = await alert.Display(MobileResource.Common_Label_Notification, message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
-                    if (action == "Xem hình ảnh")
+                    var action = await alert.Display(MobileResource.Common_Label_Notification, message, MobileResource.CameraImage_Label_TitleDetailPage, MobileResource.Camera_Message_StopStreaming, MobileResource.Common_Message_Skip);
+                    if (action == MobileResource.CameraImage_Label_TitleDetailPage)
                     {
                         if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
                         {
@@ -620,10 +619,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
                         }
                     }
-                    else if (action == "Dừng phát trực tiếp")
+                    else if (action == MobileResource.Camera_Message_StopStreaming)
                     {
                         StopStreaming(lstUser);
                     }
@@ -657,7 +656,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
                             {
                                 UserName = item.User,
-                                Message = string.Format("Quý khách bị ngắt kết nối do BKS {0} được yêu cầu phát xem lại {1} ({2})",
+                                Message = string.Format(MobileResource.Camera_Lable_CameraDisconnect,
                                 Vehicle.PrivateCode,
                                 item.User,
                                 ((CameraSourceType)item.Source).ToDescription())
@@ -667,7 +666,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, "Dừng xem trực tiếp thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Đồng ý");
+                        await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_StopStreamingOK, MobileResource.Common_Button_OK);
                     });
                 }
             });
@@ -738,7 +737,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (dateStart.Date != dateEnd.Date)
             {
-                DisplayMessage.ShowMessageInfo("Không tìm kiếm xuyên ngày");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
             }
             else if (dateStart > dateEnd)
@@ -748,7 +747,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (Vehicle == null || string.IsNullOrEmpty(Vehicle.VehiclePlate))
             {
-                DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
                 return false;
             }
             else
@@ -986,7 +985,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
+                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, message, MobileResource.Common_Button_Close);
             });
         }
 

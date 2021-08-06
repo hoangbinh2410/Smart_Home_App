@@ -97,8 +97,11 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Message_RequiredNullOrEmpty => Get(MobileResourceNames.Common_Button_Update, "Trường không được để trống", "This field is required");
 
+        public static string Common_Message_RequiredDateTimeOver => Get(MobileResourceNames.Common_Message_RequiredDateTimeOver, "Không tìm kiếm xuyên ngày", "Do not search through the day");
+
         public static string Common_Property_DangerousCharShow(string property, string chardangerous) => Get(MobileResourceNames.Common_Property_DangerousChars, string.Format("{0} không được chứa các kí tự {1}", property.Replace("(*)", "").Trim(), chardangerous), string.Format("{0} cannot contain characters {1}", property.Replace("(*)", "").Trim(), chardangerous));
 
+        public static string Common_Message_RequiredVehicle => Get(MobileResourceNames.Common_Message_RequiredVehicle, "Vui lòng chọn phương tiện", "Please choose a vehicle");
         #endregion Validate
 
         #region Report Common

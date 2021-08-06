@@ -29,8 +29,10 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Lable_ListVideo => Get(MobileResourceNames.Camera_Lable_ListVideo, "Danh sách video", "List of videos");
 
         public static string Camera_Alert_Title => Get(MobileResourceNames.Camera_Alert_Title, "Thông báo", "Notification");
+
         public static string Camera_Alert_HelpContent => Get(MobileResourceNames.Camera_Alert_HelpContent, "Các xe sử dụng gói cước không tích hợp tính năng xem video sẽ không được hiển thị trên tính năng này",
             "The vehicle service plan don't apply to watch Live video streaming");
+
         public static string Camera_Checkbox_AutoRenewal => Get(MobileResourceNames.Camera_Checkbox_AutoRenewal, "Tự gia hạn", "Auto-renewal");
         public static string Camera_Lable_Channel => Get(MobileResourceNames.Camera_Lable_Channel, "Kênh", "Channel");
         public static string Camera_Lable_AllChannel => Get(MobileResourceNames.Camera_Lable_AllChannel, "Tất cả kênh", "All Channels");
@@ -59,5 +61,39 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Alert_DownloadedVideo => Get(MobileResourceNames.Camera_Alert_DownloadedVideo, "Đã tải xong 1 video. Vui lòng xem trên tab Video đã tải", "Download completed. Please watch on Downloaded Videos tab");
 
         public static string Camera_Lable_ExportVideo => Get(MobileResourceNames.Camera_Lable_ExportVideo, "Trích xuất video", "Export video");
+        public static string Camera_Lable_CameraDisconnect => Get(MobileResourceNames.Camera_Lable_CameraDisconnect, "Quý khách bị ngắt kết nối do phương tiện {0} được yêu cầu phát xem lại {1} ({2})", "You are disconnected because vehicle {0} is asked to replay {1} ({2})");
+        public static string Camera_Message_StopStreamingOK => Get(MobileResourceNames.Camera_Message_StopStreamingOK, "Dừng xem trực tiếp thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Stop watching live successfully. Please wait a moment for the device to go live");
+
+        public static string Camera_Message_StopStreaming => Get(MobileResourceNames.Camera_Message_StopStreaming, "Dừng phát trực tiếp", "Stop streaming");
+
+        public static string Camera_Message_StopPlayback => Get(MobileResourceNames.Camera_Message_StopPlayback, "Dừng xem lại", "Stop playback");
+
+        public static string Camera_Message_DeviceStreamingError => Get(MobileResourceNames.Camera_Message_DeviceStreamingError, "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại", "The device is being streamed live, so you can't watch it again");
+
+        public static string Camera_Message_DeviceStreamingErrorDetail => Get(MobileResourceNames.Camera_Message_DeviceStreamingErrorDetail, "Phương tiện {0} - Kênh {1} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
+                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại", "Vehicle {0} - Channel {1} is being broadcast live, so you cannot watch it again.\n" +
+                            "You can switch to image viewing or stop the live stream to switch to playback mode");
+
+        public static string Camera_Message_PleaseLoadVideo => Get(MobileResourceNames.Camera_Message_PleaseLoadVideo, "Vui lòng load lại hoặc chọn xem video khác", "Please reload or choose to watch another video");
+
+        public static string Camera_Message_DowloadVideoSuccess => Get(MobileResourceNames.Camera_Message_DowloadVideoSuccess, "Video đã được tải thành công về máy của bạn", "The video has been successfully downloaded to your device");
+
+        public static string Camera_Message_VideoSaveToServer => Get(MobileResourceNames.Camera_Message_VideoSaveToServer, "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Your videos are stored on the server for up to 15 days and will be deleted when the storage days expire or the space runs out");
+
+        public static string Camera_Message_DoYouWantDowloadVideo => Get(MobileResourceNames.Camera_Message_DoYouWantDowloadVideo, "Bạn có muốn tải video này về điện thoại không ?", "Do you want to download this video to your phone?");
+
+        public static string Camera_Message_ChannelNotWorking => Get(MobileResourceNames.Camera_Message_ChannelNotWorking, "Kênh {0} không hoạt động", "Channel {0} not working");
+
+        public static string Camera_Lable_PlaybackDisconnect => Get(MobileResourceNames.Camera_Lable_PlaybackDisconnect, "Quý khách bị ngắt kết nối do phương tiện {0} được yêu cầu phát trực tiếp {2} ({3})", "You are disconnected because vehicle {0} is asked to live stream {1} ({2})");
+
+        public static string Camera_Message_StopPlaybackOK => Get(MobileResourceNames.Camera_Message_StopPlaybackOK, "Dừng xem lại thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Stop playback successfully. Please wait a moment for the device to go live");
+
+        public static string Camera_Message_DevicePlaybackErrorDetail => Get(MobileResourceNames.Camera_Message_DevicePlaybackErrorDetail, "Phương tiện {0} đang được xem lại bởi tài khoản {1} ({2}), do vậy không thể phát trực tiếp.\n" +
+                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng chế độ xem lại của tài khoản {3} để xem video.", "Vehicle {0} - Channel {1} is being broadcast live, so you cannot watch it again.\n" +
+                           "You can switch to image viewing or stop the play back to switch to live stream mode");
+
+        public static string Camera_Message_SaveImageSuccess => Get(MobileResourceNames.Camera_Message_SaveImageSuccess, "Lưu hình ảnh thành công", "Save image successfully");
+
+        public static string Camera_Message_SaveImageError => Get(MobileResourceNames.Camera_Message_SaveImageError, "Lưu hình ảnh không thành công", "Save image unsuccessfully");
     }
 }

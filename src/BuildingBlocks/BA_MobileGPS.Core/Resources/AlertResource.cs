@@ -16,7 +16,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Alert_Label_AlertType => Get(MobileResourceNames.Alert_Label_AlertType, "Loại cảnh báo", "Types of Alerts");
 
-        public static string Alert_Label_SearchVehicle => Get(MobileResourceNames.Alert_Label_SearchVehicle, "BKS", "");
+        public static string Alert_Label_SearchVehicle => Get(MobileResourceNames.Alert_Label_SearchVehicle, "Phương tiện", "Vehicle");
 
         public static string Alert_Label_AlertRead => Get(MobileResourceNames.Alert_Label_AlertRead, "Đã đọc, đóng cảnh báo", "Read and close");
 

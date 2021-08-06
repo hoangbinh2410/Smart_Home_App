@@ -317,11 +317,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         //File.Delete(FilePath);
                     }
 
-                    await PageDialog.DisplayAlertAsync("Camera", MobileResource.Image_Alert_SaveImageSuccess, "OK");
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_SaveImageSuccess, MobileResource.Common_Button_OK);
                 }
                 else
                 {
-                    await PageDialog.DisplayAlertAsync("Camera", "Lưu hình ảnh không thành công", "OK");
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_SaveImageError, MobileResource.Common_Button_OK);
                 }
             });
         }
