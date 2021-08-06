@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
@@ -36,7 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ListIssuePageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
         {
-            Title = "Danh sách yêu cầu hỗ trợ";
+            Title = MobileResource.ListIssue_Label_TilePage;
             _issueService = issueService;
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
             PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);

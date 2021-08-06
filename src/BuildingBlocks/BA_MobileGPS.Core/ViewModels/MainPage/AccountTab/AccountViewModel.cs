@@ -80,7 +80,7 @@ namespace BA_MobileGPS.Core.ViewModels
             // Phản hồi thông tin khách hàng
             list.Add(new MenuItem
             {
-                Title = "Phản hồi thông tin khách hàng",
+                Title = MobileResource.Issue_Label_TilePage,
                 Icon = "ic_customersupport.png",
                 UseModalNavigation = true,
                 Url = "NavigationPage/ListIssuePage",

@@ -1164,5 +1164,16 @@
 
 
         #endregion
+        #region Issue
+        Issue_Label_TilePage,
+        ListIssue_Label_TilePage,
+        ListIssue_Label_DueDate,
+        ListIssue_Label_NoProcess,
+        DetailIssue_Label_TilePage,
+        DetailIssue_Label_SubmitSupportRequest,
+        DetailIssue_Label_DueDate,
+        DetailIssue_Label_ContentIssue,
+        DetailIssue_Label_StepIssue
+        #endregion
     }
 }

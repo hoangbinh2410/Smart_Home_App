@@ -113,7 +113,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Button_SaveShowHideColumn => Get(MobileResourceNames.Common_Button_SaveShowHideColumn, "Lưu", "Save");
         public static string Common_Label_CompanyReport => Get(MobileResourceNames.Common_Label_CompanyReport, "Công ty", "Company");
         public static string Common_Label_PlaceHolder_CompanyReport => Get(MobileResourceNames.Common_Label_PlaceHolder_CompanyReport, "Tất cả công ty", "All Company");
-        public static string Common_Label_PlaceHolder_SearchKey => Get(MobileResourceNames.Common_Label_PlaceHolder_SearchKey, "Nhập từ tìm kiếm", "Input search");
+        public static string Common_Label_PlaceHolder_SearchKey => Get(MobileResourceNames.Common_Label_PlaceHolder_SearchKey, "Nhập nội dung tìm kiếm", "Input search");
         public static string Common_Label_PlaceHolder_FromDate => Get(MobileResourceNames.Common_Label_PlaceHolder_FromDate, "Từ ngày", "From date");
         public static string Common_Label_PlaceHolder_ToDate => Get(MobileResourceNames.Common_Label_PlaceHolder_ToDate, "Tới ngày", "To date");
 
