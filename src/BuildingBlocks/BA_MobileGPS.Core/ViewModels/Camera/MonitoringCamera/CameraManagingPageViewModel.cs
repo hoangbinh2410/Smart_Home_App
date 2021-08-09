@@ -945,7 +945,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     Source = (int)CameraSourceType.App,
                     User = UserInfo.UserName,
                 };
-                var result = await _streamCameraService.StopPlayback(start);
+                var result = await _streamCameraService.StopAllPlayback(start);
                 if (result)
                 {
                     if (user != null && user.Count > 0)

@@ -134,6 +134,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<bool> StopAllPlayback(PlaybackStopRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_PLAYBACKSTOPALL}";
+                var respone = await requestProvider.PostAsync<PlaybackStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<bool> UploadToServerStart(UploadStartRequest request)
         {
             var result = false;

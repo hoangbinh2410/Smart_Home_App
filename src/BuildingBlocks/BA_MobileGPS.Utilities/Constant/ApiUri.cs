@@ -233,6 +233,7 @@
         public const string POST_DEVICEPING = "api/v2/stream/ping";
         public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
         public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
+        public const string POST_PLAYBACKSTOPALL = "api/v2/stream/playbackstopall";
         public const string POST_UPLOADSTART = "api/v2/stream/uploadstart";
         public const string POST_UPLOADSTOP = "api/v2/stream/uploadstop";
         public const string POST_UPLOADPROGRESS = "api/v2/stream/uploadprogress";
