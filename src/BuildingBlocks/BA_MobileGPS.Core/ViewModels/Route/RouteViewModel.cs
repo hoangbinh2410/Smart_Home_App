@@ -631,7 +631,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var MarkerCar = new DoubleMarkerRoute().InitDoubleMarkerRoute(
                         ListRoute[0].Latitude, ListRoute[0].Longitude, ListRoute[1].Latitude, ListRoute[1].Longitude, Vehicle.PrivateCode);
-            MarkerCar.DrawMarker();
+            MarkerCar.DrawMarker(ListRoute[0]);
             Pins.Add(MarkerCar.Car);
             Pins.Add(MarkerCar.Plate);
         }
@@ -693,7 +693,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DrawStopPoint(ListRoute[i]);
                 }
-                if (StateVehicleExtension.IsEngineOff(ListRoute[i].State))
+                if (StateVehicleExtension.IsEngineOff(ListRoute[i].State) || ListRoute[i].StateType?.State == StateType.Stop)
                 {
                     linegray.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
                     if (i < ListRoute.Count - 2 && !StateVehicleExtension.IsEngineOff(ListRoute[i + 1].State))
@@ -878,7 +878,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (CurrentRoute == null)
                         return;
 
-                    if (StateVehicleExtension.IsEngineOff(CurrentRoute.State))
+                    if (StateVehicleExtension.IsEngineOff(CurrentRoute.State) || CurrentRoute.StateType?.State == StateType.Stop)
                     {
                         item.Icon = BitmapDescriptorFactory.FromResource("car_grey.png");
                     }

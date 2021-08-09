@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Views;
+﻿using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using Xamarin.Forms;
 
@@ -40,7 +41,7 @@ namespace BA_MobileGPS.Core
             return this;
         }
 
-        public DoubleMarkerRoute DrawMarker()
+        public DoubleMarkerRoute DrawMarker(VehicleRoute route)
         {
             Car = new Pin()
             {
@@ -52,6 +53,18 @@ namespace BA_MobileGPS.Core
                 Tag = Label + "Route",
                 Rotation = Direction
             };
+            if (StateVehicleExtension.IsEngineOff(route.State) || route.StateType?.State == StateType.Stop)
+            {
+                Car.Icon = BitmapDescriptorFactory.FromResource("car_grey.png");
+            }
+            else if (StateVehicleExtension.IsOverVelocityRoute(route.Velocity))
+            {
+                Car.Icon = BitmapDescriptorFactory.FromResource("car_red.png");
+            }
+            else
+            {
+                Car.Icon = BitmapDescriptorFactory.FromResource("car_blue.png");
+            }
             Plate = new Pin()
             {
                 Position = Position,
