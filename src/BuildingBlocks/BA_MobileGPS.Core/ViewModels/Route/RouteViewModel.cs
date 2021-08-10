@@ -565,7 +565,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         StateType = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
                         State = RouteHistory.StateGPSPoints[index],
                         Velocity = RouteHistory.VelocityPoints[index],
-                        Time = startTime
+                        Time = startTime,
+                        Km = RouteHistory.KMPoints[index]
                     };
 
                     ListRoute.Add(route);

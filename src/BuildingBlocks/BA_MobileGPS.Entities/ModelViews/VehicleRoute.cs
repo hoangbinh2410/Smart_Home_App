@@ -21,5 +21,7 @@ namespace BA_MobileGPS.Entities
         public int Velocity { get; set; }
 
         public int State { get; set; }
+
+        public float Km { get; set; }
     }
 }
