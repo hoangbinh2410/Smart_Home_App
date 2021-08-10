@@ -50,7 +50,6 @@ namespace BA_MobileGPS.Core.ViewModels
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             UploadToCloudInListTappedCommand = new DelegateCommand<RestreamVideoModel>(UploadToCloudInListTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
-            LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
@@ -753,51 +752,6 @@ namespace BA_MobileGPS.Core.ViewModels
             else
             {
                 return true;
-            }
-        }
-
-        private void LoadMoreItems(object obj)
-        {
-            var listview = obj as Syncfusion.ListView.XForms.SfListView;
-            listview.IsBusy = true;
-            try
-            {
-                pageIndex++;
-                LoadMore();
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                listview.IsBusy = false;
-                IsBusy = false;
-            }
-        }
-
-        /// <summary>
-        /// CanExcute của infinite scroll
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private bool CanLoadMoreItems(object obj)
-        {
-            if (VideoItemsSourceOrigin.Count < pageIndex * pageCount)
-                return false;
-            return true;
-        }
-
-        /// <summary>
-        /// infinite scroll
-        /// </summary>
-        private void LoadMore()
-        {
-            var source = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
-            pageIndex++;
-            foreach (var item in source)
-            {
-                VideoItemsSource.Add(item);
             }
         }
 
