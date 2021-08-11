@@ -1,5 +1,5 @@
-﻿"CFBundleDisplayName" = "UNITEL";
-"CFBundleName" = "UNITEL";
+﻿"CFBundleDisplayName" = "Utracking";
+"CFBundleName" = "Utracking";
 
 "NSLocationAlwaysUsageDescription" = "UNITEL needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
 "NSLocationWhenInUseUsageDescription" = "UNITEL needs to access your location to be able to nominate the right address, do you allow the application to use your location?";

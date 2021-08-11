@@ -24,7 +24,7 @@ namespace UNITEL_MobileGPS
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerUNITEL;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerUNITEL;
             ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerUNITEL;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerUNITEL;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerVIVIEW;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
