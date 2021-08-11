@@ -21,6 +21,8 @@ namespace BA_MobileGPS.Entities
 
         public static List<AlertTypeModel> ListAlertType { get; set; }
 
+        public static List<UploadFiles> ListUploadFiles { get; set; }
+
         public static List<Company> ListCompany { get; set; }
 
         public static DateTime TimeServer { get; set; }
@@ -40,6 +42,7 @@ namespace BA_MobileGPS.Entities
             ListVehilceCamera = null;
             ListVehilceFree = null;
             ListCompany = null;
+            ListUploadFiles = null;
             LastSyncTime = DateTime.Now;
         }
 

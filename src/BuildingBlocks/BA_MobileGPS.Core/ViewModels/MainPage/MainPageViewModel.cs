@@ -1085,11 +1085,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void UploadVideoRestream(bool arg)
         {
-            CheckStatusUploadFile(null, null);
             StartTimmerUploadVideo();
         }
-
-        private List<UploadFiles> lstVideoOld = new List<UploadFiles>();
 
         private async void CheckStatusUploadFile(object sender, ElapsedEventArgs e)
         {
@@ -1114,51 +1111,47 @@ namespace BA_MobileGPS.Core.ViewModels
                             lstVideoNew.AddRange(item.UploadFiles);
                         }
                     }
-                    if (lstVideoOld != null && lstVideoOld.Count > 0)
+                    if (StaticSettings.ListUploadFiles != null && StaticSettings.ListUploadFiles.Count > 0)
                     {
                         if (lstVideoNew.Count > 0)
                         {
                             var listvideoUploaded = lstVideoNew.Where(x => x.State != (int)VideoUploadStatus.Uploading
-                            && x.State != (int)VideoUploadStatus.WaitingUpload).ToList();
-                            foreach (var itemnew in listvideoUploaded)
+                           && x.State != (int)VideoUploadStatus.WaitingUpload).ToList();
+                            List<UploadFiles> lstuploadold = new List<UploadFiles>();
+                            lstuploadold.AddRange(StaticSettings.ListUploadFiles);
+                            foreach (var itemold in lstuploadold)
                             {
-                                foreach (var itemold in lstVideoOld)
+                                var itemnew = listvideoUploaded.FirstOrDefault(x => x.State != itemold.State && x.Time == itemold.Time);
+                                if (itemnew != null)
                                 {
-                                    if (itemnew.State != itemold.State && itemnew.Time == itemold.Time)
+                                    if (StaticSettings.ListUploadFiles != null && StaticSettings.ListUploadFiles.Count > 0)
                                     {
-                                        if (itemnew.State == (int)VideoUploadStatus.Uploaded && !string.IsNullOrEmpty(itemnew.Link))
-                                        {
-                                            EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
+                                        StaticSettings.ListUploadFiles.Remove(itemold);
+                                    }
+                                    if (itemnew.State == (int)VideoUploadStatus.Uploaded && !string.IsNullOrEmpty(itemnew.Link))
+                                    {
+                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
 
-                                            Device.BeginInvokeOnMainThread(() =>
-                                            {
-                                                DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
-                                            });
-                                        }
-                                        else if (itemnew.State == (int)VideoUploadStatus.UploadErrorCancel
-                                                || itemnew.State == (int)VideoUploadStatus.UploadErrorDevice
-                                                || itemnew.State == (int)VideoUploadStatus.UploadErrorTimeout)
+                                        Device.BeginInvokeOnMainThread(() =>
                                         {
-                                            EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
-                                        }
+                                            DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
+                                        });
+                                    }
+                                    else if (itemnew.State == (int)VideoUploadStatus.UploadErrorCancel
+                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorDevice
+                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorTimeout)
+                                    {
+                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
                                     }
                                 }
                             }
-                        }
-                    }
-                    else
-                    {
-                        var videouploading = lstVideoNew.Where(x => x.State == (int)VideoUploadStatus.Uploading).ToList();
-                        if (videouploading != null && videouploading.Count > 0)
-                        {
-                            lstVideoOld.AddRange(videouploading);
                         }
                     }
                     var stateUpload = respone.Exists(x => x.State == (int)VideoUploadStatus.WaitingUpload
                     || x.State == (int)VideoUploadStatus.Uploading);
                     if (!stateUpload)
                     {
-                        lstVideoOld = new List<UploadFiles>();
+                        StaticSettings.ListUploadFiles = new List<UploadFiles>();
                         //nếu ko còn phiên nào chạy thì Hủy Timmer đi
                         if (timerSyncUploadStatus != null)
                         {

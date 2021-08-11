@@ -131,7 +131,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (listvideo != null && listvideo.Count > 0)
                         {
-                            var model = listvideo.FirstOrDefault(x => x.Time.Equals(item.StartTime));
+                            var model = listvideo.FirstOrDefault(x => x.Time.ToString("dd/MM/yyyy hh:mm:ss") == item.StartTime.ToString("dd/MM/yyyy hh:mm:ss"));
                             if (model != null)
                             {
                                 item.Status = (VideoUploadStatus)model.State;
@@ -179,10 +179,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
                 if (respone != null && respone.Count > 0)
                 {
-                    var videoupload = respone.FirstOrDefault(x => x.Channel == RequestInfo.Channel);
+                    var videoupload = respone.Where(x => x.Channel == RequestInfo.Channel);
                     if (videoupload != null)
                     {
-                        result = videoupload.UploadFiles;
+                        foreach (var item in videoupload)
+                        {
+                            result.AddRange(item.UploadFiles);
+                        }
                     }
                 }
             }
@@ -240,6 +243,25 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await streamCameraService.UploadToServerStart(arg);
             }, (result) =>
             {
+                if (StaticSettings.ListUploadFiles != null)
+                {
+                    StaticSettings.ListUploadFiles.Add(new UploadFiles()
+                    {
+                        State = (int)VideoUploadStatus.WaitingUpload,
+                        Time = arg.StartTime
+                    });
+                }
+                else
+                {
+                    StaticSettings.ListUploadFiles = new List<UploadFiles>()
+                            {
+                                new UploadFiles()
+                                {
+                                   State=(int)VideoUploadStatus.WaitingUpload,
+                                   Time=arg.StartTime
+                                }
+                            };
+                }
             });
         }
 
@@ -252,6 +274,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.GoBackAsync(navigationPara, useModalNavigation: true, true);
             });
         }
-
     }
 }

@@ -477,7 +477,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             RunOnBackground(async () =>
             {
-                return await streamCameraService.StopPlayback(req);
+                return await streamCameraService.StopAllPlayback(req);
             }, (result) =>
             {
                 if (result)
@@ -567,6 +567,14 @@ namespace BA_MobileGPS.Core.ViewModels
                                     ErrorMessenger = result.UserMessage;
                                 });
                             }
+                        }
+                        else
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                IsError = true;
+                                ErrorMessenger = result.UserMessage;
+                            });
                         }
                     }
                 });
