@@ -69,9 +69,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
+    <CodesignKey>Apple Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>UnitelDev</CodesignProvision>
+    <CodesignProvision>UnitelTrackingDis</CodesignProvision>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
@@ -97,7 +97,7 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>UnitelTrackingDis</CodesignProvision>
-    <CodesignKey>iPhone Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
+    <CodesignKey>Apple Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
