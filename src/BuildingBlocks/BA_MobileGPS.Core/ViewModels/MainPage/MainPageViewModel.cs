@@ -1147,6 +1147,14 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
+                    else
+                    {
+                        if (timerSyncUploadStatus != null)
+                        {
+                            timerSyncUploadStatus.Stop();
+                            timerSyncUploadStatus.Dispose();
+                        }
+                    }
                     var stateUpload = respone.Exists(x => x.State == (int)VideoUploadStatus.WaitingUpload
                     || x.State == (int)VideoUploadStatus.Uploading);
                     if (!stateUpload)
@@ -1194,7 +1202,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void StartTimmerUploadVideo()
         {
-            if (timerSyncUploadStatus == null)
+            if (timerSyncUploadStatus == null || !timerSyncUploadStatus.Enabled)
             {
                 timerSyncUploadStatus = new Timer
                 {
