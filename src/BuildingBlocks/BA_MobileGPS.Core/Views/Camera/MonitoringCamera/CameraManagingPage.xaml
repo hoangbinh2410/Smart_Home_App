@@ -275,7 +275,7 @@
                                             </Frame.Triggers>
                                             <Label
                                                 FontSize="11"
-                                                Text="{Binding Data.Channel, Converter={StaticResource CameraChanelNameConverter}, Mode=TwoWay}"
+                                                Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}, Mode=TwoWay}"
                                                 TextColor="{Binding Source={x:Reference frCam}, Path=BorderColor, Mode=TwoWay}"
                                                 VerticalOptions="Center">
                                                 <Label.Triggers>
@@ -332,7 +332,7 @@
                         <Label
                             x:Name="lblCamName"
                             StyleClass="BoldText"
-                            Text="{Binding SelectedItem.Data.Channel, Converter={StaticResource CameraChanelNameConverter}}"
+                            Text="{Binding SelectedItem.Channel, Converter={StaticResource CameraChanelNameConverter}}"
                             TextColor="{DynamicResource WhiteColor}" />
                         <ff:CachedImage
                             Margin="20,0,0,0"

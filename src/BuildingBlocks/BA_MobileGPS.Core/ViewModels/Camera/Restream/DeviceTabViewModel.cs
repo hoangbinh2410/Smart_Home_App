@@ -608,7 +608,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IsError = true;
                     ErrorMessenger = MobileResource.Camera_Message_DeviceStreamingError;
                     var message = string.Format(MobileResource.Camera_Message_DeviceStreamingErrorDetail,
-                           Vehicle.PrivateCode, VideoSlected.Channel);
+                           Vehicle.PrivateCode);
                     var alert = DependencyService.Get<IAlert>();
                     var action = await alert.Display(MobileResource.Common_Label_Notification, message, MobileResource.CameraImage_Label_TitleDetailPage, MobileResource.Camera_Message_StopStreaming, MobileResource.Common_Message_Skip);
                     if (action == MobileResource.CameraImage_Label_TitleDetailPage)

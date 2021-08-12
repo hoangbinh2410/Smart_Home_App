@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly string muteIconSource = "ic_mute";
         private Timer timer;
         private int counterRequestPing = 15;
+        private bool IsShowMessageError = false;
         private string currentIMEI { get; set; }
         private const int maxTimeCameraRemain = 600; //second
         private readonly int maxLoadingTime = 60; //second
@@ -458,11 +459,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && obj is CameraManagement item)
                 {
-                    if (item.Data != null)
-                    {
-                        item.Clear();
-                        item.StartWorkUnit(Vehicle.VehiclePlate);
-                    }
+                    item.Clear();
+                    item.StartWorkUnit(Vehicle.VehiclePlate);
                 }
             }
             catch (Exception ex)
@@ -808,7 +806,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     if (cam != null && !cam.IsError && cam.IsLoaded)
                                     {
-                                        SendRequestTime(maxTimeCameraRemain, cam.Data.Channel);
+                                        SendRequestTime(maxTimeCameraRemain, cam.Channel);
                                     }
                                     if (cam.AutoRequestPing && cam.TotalTime < maxTimeCameraRemain)
                                     {
@@ -994,6 +992,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
+                    if (IsShowMessageError)
+                    {
+                        return;
+                    }
+                    IsShowMessageError = true;
                     var message = string.Format(MobileResource.Camera_Message_DevicePlaybackErrorDetail,
                            Vehicle.PrivateCode,
                            lstUser[0].User,
@@ -1023,6 +1026,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         StopPlayback(lstUser);
                     }
+                    IsShowMessageError = false;
                 });
             }
         }
