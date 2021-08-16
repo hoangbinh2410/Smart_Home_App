@@ -305,7 +305,7 @@
                                     <Label
                                         FontSize="10"
                                         HorizontalOptions="End"
-                                        Text="Kênh: "
+                                        Text="{i18n:TranslateResource Camera_Label_Chanel}"
                                         TextColor="Black"
                                         VerticalOptions="Center" />
                                     <Label

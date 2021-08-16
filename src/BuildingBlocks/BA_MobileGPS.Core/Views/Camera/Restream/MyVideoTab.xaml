@@ -376,7 +376,7 @@
                                         VerticalOptions="Center"
                                         WidthRequest="200" />
                                     <Label
-                                        Text="Không có dữ liệu video"
+                                        Text="{i18n:TranslateResource Common_Lable_NotFound}"
                                         TextColor="{DynamicResource TextPrimaryColor}"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>
@@ -486,7 +486,7 @@
                                     VerticalOptions="Center"
                                     WidthRequest="200" />
                                 <Label
-                                    Text="Không có dữ liệu video"
+                                    Text="{i18n:TranslateResource Common_Lable_NotFound}"
                                     TextColor="{DynamicResource TextPrimaryColor}"
                                     VerticalTextAlignment="Center" />
                             </StackLayout>

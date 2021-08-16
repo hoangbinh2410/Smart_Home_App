@@ -109,9 +109,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            var actioncall = await PageDialog.DisplayAlertAsync("Thông báo",
-                                string.Format("Vui lòng gọi đến số {0} để được hỗ trợ", MobileSettingHelper.HotlineGps),
-                                "Liên hệ", "Bỏ qua");
+                            var actioncall = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
+                                string.Format(MobileResource.Login_Message_PleaseCall, MobileSettingHelper.HotlineGps),
+                                MobileResource.Common_Label_Contact, MobileResource.Common_Message_Skip);
                             if (actioncall)
                             {
                                 if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
@@ -333,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                             StaticSettings.User = null;
                                             Device.BeginInvokeOnMainThread(async () =>
                                             {
-                                                await PageDialog.DisplayAlertAsync("Thông báo", MobileResource.Login_Message_AccountPasswordIncorrect, "Quên mật khẩu", "Quên tài khoản");
+                                                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Login_Message_AccountPasswordIncorrect, MobileResource.ForgotPassword_Label_TilePage , MobileResource.ForgotAccount_Label_TilePage);
                                             });
                                         }
                                         break;

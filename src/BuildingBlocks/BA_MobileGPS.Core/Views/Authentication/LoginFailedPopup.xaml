@@ -58,6 +58,7 @@
                         ColumnSpacing="10">
                         <!--  huỷ  -->
                         <Button
+                            x:Name="btnForgotPassword"
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"
                             BorderColor="{DynamicResource PrimaryColor}"
@@ -66,10 +67,10 @@
                             CornerRadius="17"
                             FontSize="Small"
                             HeightRequest="35"
-                            Text="Quên mật khẩu"
                             TextColor="{DynamicResource PrimaryColor}" />
                         <!--  gửi  -->
                         <Button
+                            x:Name="btnForgotAccount"
                             Grid.Column="1"
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"

@@ -110,7 +110,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                                       string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
                                       vehicle.PrivateCode, MobileSettingHelper.HotlineGps),
-                                      "Liên hệ", MobileResource.Common_Message_Skip);
+                                      MobileResource.Common_Label_Contact, MobileResource.Common_Message_Skip);
                                 if (action)
                                 {
                                     PhoneDialer.Open(MobileSettingHelper.HotlineGps);

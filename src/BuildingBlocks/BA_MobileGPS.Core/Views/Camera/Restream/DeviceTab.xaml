@@ -340,7 +340,7 @@
                                 </vlc:MediaPlayerElement>
 
                                 <indicator:SfBusyIndicator
-                                    Title="Video đang load trực tiếp từ thiết bị. Vui lòng chờ trong giây lát."
+                                    x:Name="sfbusy"
                                     IsBusy="{Binding BusyIndicatorActive}"
                                     TextColor="{DynamicResource WhiteColor}"
                                     TextSize="10" />

@@ -13,13 +13,17 @@
         Common_Lable_ChooseVehicleGroup,
         Common_Message_Loading,
         Common_Label_Notification,
+        Common_Message_GpsNotfound,
         Common_Message_Warning,
         Common_Message_Skip,
+        Common_Lable_TickIsRead,
+        Common_Lable_Delete,
         Common_Message_NotPermission,
         Common_Label_HighLight,
         Common_Label_Features,
         Common_Label_Report,
         Common_Button_OK,
+        Common_Label_Contact,
         Common_Button_Send,
         Common_Button_Save,
         Common_Button_View,
@@ -112,6 +116,7 @@
         Login_Popup_Guarantee,
         Login_Popup_RegisterSupport,
         Login_Popup_Network,
+        Login_Message_PleaseCall,
         Login_Popup_BAGPSExperience,
         Login_UserNameProperty_NullOrEmpty,
         Login_PasswordProperty_NullOrEmpty,
@@ -220,6 +225,7 @@
 
         // Forgot Password Page
         ForgotPassword_Label_TilePage,
+        ForgotAccount_Label_TilePage,
 
         ForgotPassword_Label_AccountName,
         ForgotPassword_Label_Phone,
@@ -934,6 +940,10 @@
         Camera_Message_DevicePlaybackErrorDetail,
         Camera_Message_SaveImageSuccess,
         Camera_Message_SaveImageError,
+        Camera_Message_CameraLoading,
+        Camera_Message_UploadGo,
+        Camera_Message_ListVideoUpload,
+        Camera_Message_UploadEnd,
         #endregion
 
         #region Image
@@ -1000,6 +1010,7 @@
         #region
         Notification_Label_TilePage,
         Notification_Label_DeleteAllNotice,
+        Notification_Label_DeleteNotice,
         Notification_Label_DeleteAllNoticeAction,
         Notification_Label_DeleteNoticeNotSuccess,
         #endregion

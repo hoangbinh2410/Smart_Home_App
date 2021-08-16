@@ -32,6 +32,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_Notification => Get(MobileResourceNames.Common_Label_Notification, "Thông báo", "Notification");
 
+        public static string Common_Message_GpsNotfound => Get(MobileResourceNames.Common_Message_GpsNotfound, "GPS chưa được bật trên thiết bị của bạn. Vui lòng kiểm tra cài đặt trên điện thoại.", "GPS is not enabled on your device. Please check the settings on your phone.");
+
         public static string Common_Message_Warning => Get(MobileResourceNames.Common_Message_Warning, "Cảnh báo", "Warning");
 
         public static string Common_Label_BAGPS => Get(MobileResourceNames.Common_Label_BAGPS, "Mobile GPS", "Mobile GPS");
@@ -66,6 +68,10 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Value_SelectReligion => Get(MobileResourceNames.Common_Value_SelectReligion, "Chọn tôn giáo", "Select Religion");
         public static string Common_Message_Skip => Get(MobileResourceNames.Common_Message_Skip, "Bỏ qua", "Skip");
 
+        public static string Common_Lable_Delete => Get(MobileResourceNames.Common_Message_Skip, "XÓA", "DELETE");
+
+        public static string Common_Lable_TickIsRead => Get(MobileResourceNames.Common_Lable_TickIsRead, "ĐÁNH DẤU ĐÃ ĐỌC", "MARK IT AS READ");
+
         public static string Common_Message_NotPermission => Get(MobileResourceNames.Common_Message_NotPermission, "Chức năng chưa được cấp quyền", "Function has not been granted");
 
         public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "YÊU THÍCH", "FAVORITES");
@@ -73,6 +79,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "TIỆN ÍCH", "FEATURES");
 
         public static string Common_Label_Report => Get(MobileResourceNames.Common_Label_Report, "BÁO CÁO", "REPORT");
+
+        public static string Common_Label_Contact => Get(MobileResourceNames.Common_Label_Contact, "Liên hệ", "Contact");
 
         #region title grid dùng nhiều
 

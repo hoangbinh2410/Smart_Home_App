@@ -7,7 +7,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Label_TilePage => Get(MobileResourceNames.Camera_Label_TitlePage, "Camera", "Camera");
         public static string Camera_Label_Video => Get(MobileResourceNames.Camera_Label_Video, "Video", "Video");
         public static string Camera_Label_MenuTitle => Get(MobileResourceNames.Camera_Label_MenuTitle, "HÌNH ẢNH - VIDEO", "IMAGE - VIDEO");
-        public static string Camera_Label_Chanel => Get(MobileResourceNames.Camera_Label_Chanel, "Kênh: ", "Chanel");
+        public static string Camera_Label_Chanel => Get(MobileResourceNames.Camera_Label_Chanel, "Kênh: ", "Chanel: ");
         public static string Camera_TitleStatus => Get(MobileResourceNames.ReportMachine_TitleStatusMachine, "Chọn trạng thái phí", "Search Status");
         public static string Camera_Label_PlaceHolder_Status => Get(MobileResourceNames.ReportMachine_TitleStatusMachine, "Trạng thái phí", "Search Status");
         public static string CameraImage_Label_TitlelPage => Get(MobileResourceNames.CameraImage_Label_TitlelPage, "Giám sát hình ảnh", "Monitoring Image");
@@ -70,6 +70,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Camera_Message_DeviceStreamingError => Get(MobileResourceNames.Camera_Message_DeviceStreamingError, "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại", "The device is being streamed live, so you can't watch it again");
 
+        public static string Camera_Message_CameraLoading => Get(MobileResourceNames.Camera_Message_CameraLoading, "Video đang load trực tiếp từ thiết bị. Vui lòng chờ trong giây lát.", "Video is loading directly from the device. Please wait a second.");
         public static string Camera_Message_DeviceStreamingErrorDetail => Get(MobileResourceNames.Camera_Message_DeviceStreamingErrorDetail, "Phương tiện {0} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
                            "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại", "Vehicle {0} is being broadcast live, so you cannot watch it again.\n" +
                             "You can switch to image viewing or stop the live stream to switch to playback mode");
@@ -95,5 +96,11 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Message_SaveImageSuccess => Get(MobileResourceNames.Camera_Message_SaveImageSuccess, "Lưu hình ảnh thành công", "Save image successfully");
 
         public static string Camera_Message_SaveImageError => Get(MobileResourceNames.Camera_Message_SaveImageError, "Lưu hình ảnh không thành công", "Save image unsuccessfully");
+
+        public static string Camera_Message_UploadGo => Get(MobileResourceNames.Camera_Message_UploadGo, "Đến ", "Arrive");
+
+        public static string Camera_Message_UploadEnd => Get(MobileResourceNames.Camera_Message_UploadEnd, "để xem và tải video về điện thoại", "to watch and download videos to your phone");
+
+        public static string Camera_Message_ListVideoUpload => Get(MobileResourceNames.Camera_Message_ListVideoUpload, "Danh sách tải về ", "Download list ");
     }
 }
