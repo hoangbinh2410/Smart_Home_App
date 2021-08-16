@@ -871,6 +871,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Camera_Message_CameraLoading",
+    "Value": "ວິດີໂອ ກຳ ລັງໂຫຼດໂດຍກົງຈາກອຸປະກອນ. ກະລຸນາລໍຖ້າຈັກ ໜ່ອຍ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Camera_Message_ChannelNotWorking",
     "Value": "ຊ່ອງ {0} ບໍ່ເຮັດວຽກ"
   },
@@ -908,6 +915,13 @@
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DoYouWantDowloadVideo",
     "Value": "ເຈົ້າຕ້ອງການດາວໂຫຼດວິດີໂອນີ້ໃສ່ໂທລະສັບຂອງເຈົ້າບໍ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_ListVideoUpload",
+    "Value": "ບັນຊີລາຍຊື່ການດາວໂຫຼດ"
   },
   {
     "PK_ResourcesID": 0,
@@ -957,6 +971,20 @@
     "CodeName": "lo-LA",
     "Name": "Camera_Message_StopStreamingOK",
     "Value": "ຢຸດການເບິ່ງການຖ່າຍທອດສົດ. ກະລຸນາລໍຖ້າຄາວ ໜຶ່ງ ເພື່ອໃຫ້ອຸປະກອນຖ່າຍທອດສົດໄດ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_UploadEnd",
+    "Value": "ເພື່ອເບິ່ງແລະດາວໂຫລດວິດີໂອໃສ່ໂທລະສັບຂອງເຈົ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_UploadGo",
+    "Value": "ມາຮອດ"
   },
   {
     "PK_ResourcesID": 0,
@@ -1445,6 +1473,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Common_Label_Contact",
+    "Value": "ຕິດຕໍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Common_Label_Craning",
     "Value": "ຍົກ"
   },
@@ -1774,6 +1809,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Common_Lable_Delete",
+    "Value": "ເພື່ອລຶບລ້າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Common_Lable_KmUnit",
     "Value": "km/h"
   },
@@ -1797,6 +1839,13 @@
     "CodeName": "lo-LA",
     "Name": "Common_Lable_NotFound",
     "Value": "ບໍ່ພົບເຫັນຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_TickIsRead",
+    "Value": "itາຍມັນເປັນອ່ານ"
   },
   {
     "PK_ResourcesID": 0,
@@ -1888,6 +1937,13 @@
     "CodeName": "lo-LA",
     "Name": "Common_Message_ErrorTryAgain",
     "Value": "ເກີດຂໍ້ຜິດພາດ, ກະລຸນາລອງໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_GpsNotfound",
+    "Value": "ບໍ່ໄດ້ເປີດ ນຳ ໃຊ້ GPS ໃນອຸປະກອນຂອງເຈົ້າ. ກະລຸນາກວດເບິ່ງການຕັ້ງຄ່າຢູ່ໃນໂທລະສັບຂອງເຈົ້າ."
   },
   {
     "PK_ResourcesID": 0,
@@ -3001,6 +3057,13 @@
     "CodeName": "lo-LA",
     "Name": "Feedback_Notice_SendSuccess",
     "Value": "ຂອບໃຈລູກຄ້າທີ່ຕິຊົມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotAccount_Label_TilePage",
+    "Value": "ລືມບັນຊີ"
   },
   {
     "PK_ResourcesID": 0,
@@ -4140,6 +4203,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Login_Message_PleaseCall",
+    "Value": "ກະລຸນາໂທຫາ {0} ເພື່ອຂໍຄວາມຊ່ວຍເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Login_Message_UpdateVersionMessage",
     "Value": "ການອັບເດດເປັນເວີຊັນລ້າສຸດລວມມີການປັບປຸງແລະປັບປຸງຄວາມປອດໄພຫຼາຍອັນທີ່ເຮັດໃຫ້ປະສົບການຂອງເຈົ້າດີຂຶ້ນ, ປອດໄພກວ່າ, ແລະສະດວກກວ່າ."
   },
@@ -4513,6 +4583,13 @@
     "CodeName": "lo-LA",
     "Name": "Notification_Label_DeleteAllNoticeAction",
     "Value": "ລຶບການແຈ້ງການທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Notification_Label_DeleteNotice",
+    "Value": "ທ່ານແນ່ໃຈບໍ່ວ່າຈະລຶບການແຈ້ງເຕືອນອອກ?"
   },
   {
     "PK_ResourcesID": 0,
