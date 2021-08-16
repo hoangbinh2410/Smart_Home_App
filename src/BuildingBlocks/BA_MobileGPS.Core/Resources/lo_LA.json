@@ -374,6 +374,34 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_AddContinue",
+    "Value": "ເຈົ້າສາມາດໃຊ້ລົດໃຫຍ່ໄດ້ບໍ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_IdentityDriver",
+    "Value": "ເລກປະ ຈຳ ຕົວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_SelectImage",
+    "Value": "ເລືອກຮູບຖ່າຍຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_Title",
+    "Value": "ລົດໃຫຍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Alert_Label_AlertDetail",
     "Value": "ເນື້ອໃນ"
   },
@@ -802,7 +830,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Lable_CameraDisconnect",
-    "Value": "ທ່ານຖືກຕັດການເຊື່ອມຕໍ່ເນື່ອງຈາກ BKS {0} ຖືກຖາມໃຫ້ຫຼິ້ນຄືນໃ1່ {1} ({2})"
+    "Value": "ລູກຄ້າຖືກຕັດການເຊື່ອມຕໍ່ເນື່ອງຈາກ Vehicle {0} ຮຽກຮ້ອງເປີດຄືນ {1} ({2})"
   },
   {
     "PK_ResourcesID": 0,
@@ -851,7 +879,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Lable_PlaybackDisconnect",
-    "Value": "ທ່ານຖືກຕັດການເຊື່ອມຕໍ່ເນື່ອງຈາກ {0} ສື່ຖືກຮ້ອງຂໍໃຫ້ຖ່າຍທອດ {2} ({3})"
+    "Value": "ລູກຄ້າຖືກຕັດການເຊື່ອມຕໍ່ເນື່ອງຈາກພາຫະນະ {0} ມີການຮ້ອງຂໍຖ່າຍທອດສົດ {2} ({3})"
   },
   {
     "PK_ResourcesID": 0,
@@ -886,28 +914,28 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DevicePlaybackErrorDetail",
-    "Value": "ບັນຊີ {0} ກຳ ລັງຖືກເບິ່ງໂດຍບັນຊີ {1} ({2}), ສະນັ້ນມັນບໍ່ສາມາດຖ່າຍທອດໄດ້.\\n ເຈົ້າສາມາດສະຫຼັບໄປຫາການເບິ່ງຮູບຫຼືຢຸດໂmodeດການຫຼິ້ນຂອງບັນຊີ {3} ຂອງເຈົ້າເພື່ອເບິ່ງວິດີໂອ."
+    "Value": "ພາຫະນະ {0} ກຳລັງຖືກເບິ່ງຄືນດ້ວຍບັນຊີຜູ້ໃຊ້ {1} ({2}), ດັ່ງນັ້ນ ບໍ່ສາມາດຖ່າຍທອດສົດໄດ້.\\n\" + \"ລູກຄ້າສາມາດປ່ຽນເປັນໂມດເບິ່ງຮູບພາບ ຫຼື ຢຸດໂມດເບິ່ງຄືນຂອງບັນຊີຜູ້ໃຊ້ {3} ເພື່ອເບິ່ງວີດີໂອ."
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DeviceStreamingError",
-    "Value": "ອຸປະກອນ ກຳ ລັງຖ່າຍທອດສົດຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງມັນໄດ້ອີກ"
+    "Value": "ອຸປະກອນກຳລັງຖ່າຍທອດສົດຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງຄືນໄດ້"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DeviceStreamingErrorDetail",
-    "Value": "ສື່ {0} - ຊ່ອງ {1} ກຳ ລັງອອກອາກາດສົດ, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງມັນໄດ້ອີກ.\\n ເຈົ້າສາມາດສະຫຼັບໄປຫາການເບິ່ງຮູບຫຼືຢຸດການຖ່າຍທອດສົດເພື່ອສະລັບໄປໃຊ້ໂmodeດການຫຼິ້ນ"
+    "Value": "ພາຫະນະ {0} - ຊ່ອງ {1} ກຳລັງຖ່າຍທອດສົດຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງຄືນໄດ້ .\\n\" + \"ລູກຄ້າສາມາດປ່ຽນໄປທີ່ໂມດເບິ່ງພາບ ຫຼື ຢຸດການຖ່າຍທອດເພື່ອປ່ຽນເປັນໂມດເບິ່ງຄືນ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DowloadVideoSuccess",
-    "Value": "ດາວໂຫລດວິດີໂອໃສ່ອຸປະກອນຂອງເຈົ້າ ສຳ ເລັດແລ້ວ"
+    "Value": "ດາວໂຫລດສຳເລັດວີດີໂອໄປທີ່ຄອມພິວເຕີຂອງທ່ານແລ້ວ"
   },
   {
     "PK_ResourcesID": 0,
@@ -928,35 +956,35 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_PleaseLoadVideo",
-    "Value": "ກະລຸນາໂຫຼດຄືນໃchoose່ຫຼືເລືອກເບິ່ງວິດີໂອອື່ນ"
+    "Value": "ກະລຸນາໂຫລດຄືນ ຫຼື ເລືອກເບິ່ງວີດີໂອອື່ນ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_SaveImageError",
-    "Value": "ບັນທຶກຮູບບໍ່ ສຳ ເລັດ"
+    "Value": "ບັນທຶກຮູບບໍ່ສຳເລັດ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_SaveImageSuccess",
-    "Value": "ບັນທຶກຮູບ ສຳ ເລັດແລ້ວ"
+    "Value": "ບັນທຶກຮູບສຳເລັດ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_StopPlayback",
-    "Value": "ຢຸດເບິ່ງ"
+    "Value": "ຢຸດເບິ່ງຄືນ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_StopPlaybackOK",
-    "Value": "ຢຸດການທົບທວນຄືນຜົນສໍາເລັດ. ກະລຸນາລໍຖ້າຄາວ ໜຶ່ງ ເພື່ອໃຫ້ອຸປະກອນຖ່າຍທອດສົດໄດ້"
+    "Value": "ສຳເລັດການຢຸດເບິ່ງຄືນ. ກະລຸນາລໍຖ້າເພື່ອໃຫ້ອຸປະກອນຖ່າຍທອດສົດໄດ້"
   },
   {
     "PK_ResourcesID": 0,
@@ -970,7 +998,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_StopStreamingOK",
-    "Value": "ຢຸດການເບິ່ງການຖ່າຍທອດສົດ. ກະລຸນາລໍຖ້າຄາວ ໜຶ່ງ ເພື່ອໃຫ້ອຸປະກອນຖ່າຍທອດສົດໄດ້"
+    "Value": "ສຳເລັດການຢຸດເບິ່ງໂດຍກົງ. ກະລຸນາລໍຖ້າເພື່ອໃຫ້ອຸປະກອນທຳງານ"
   },
   {
     "PK_ResourcesID": 0,
@@ -991,7 +1019,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_VideoSaveToServer",
-    "Value": "ວິດີໂອຂອງເຈົ້າຖືກເກັບໄວ້ໃນເຊີບເວີບໍ່ເກີນ 15 ມື້ແລະຈະຖືກລຶບອອກເມື່ອວັນທີ່ເກັບຮັກສາorົດຫຼືພື້ນທີ່ຈັດເກັບຂໍ້ມູນົດລົງ."
+    "Value": "ວີດີໂອຂອງລູກຄ້າສາມາດບັນທຶກລົງໃນເຄື່ອງແມ່ຂ່າຍໄດ້ສູງສຸດ 15 ມື້ ແລະ ຈະຖືກລົບອອກເມື່ອຄົບຈຳນວນມື້ບັນທຶກ ຫຼື ບໍ່ມີພື້ນທີ່ວ່າງ"
   },
   {
     "PK_ResourcesID": 0,
@@ -2020,7 +2048,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Common_Message_RequiredDateTimeOver",
-    "Value": "ບໍ່ຕ້ອງຄົ້ນຫາຕະຫຼອດ"
+    "Value": "ບໍ່ຕ້ອງຄົ້ນຫາຕະຫຼອດວັນ"
   },
   {
     "PK_ResourcesID": 0,
@@ -2125,35 +2153,35 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "DetailIssue_Label_ContentIssue",
-    "Value": "ເນື້ອໃນ ຄຳ ຕິຊົມ"
+    "Value": "ເນື້ອໃນຕອບກັບ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "DetailIssue_Label_DueDate",
-    "Value": "ສຳ ເລັດຕາຕະລາງນັດາຍ"
+    "Value": "ສຳເລັດຕາຕະລາງນັດໝາຍ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "DetailIssue_Label_StepIssue",
-    "Value": "ຄຳ ຕິຊົມການຕິດຕາມ"
+    "Value": "ຕິດຕາມການຕອບກັບ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "DetailIssue_Label_SubmitSupportRequest",
-    "Value": "ສົ່ງຄໍາຮ້ອງຂໍການຊ່ວຍເຫຼືອ"
+    "Value": "ສົ່ງການຮ້ອງຂໍສະໜັບສະໜູນ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "DetailIssue_Label_TilePage",
-    "Value": "ລາຍລະອຽດ ຄຳ ຕິຊົມ"
+    "Value": "ລາຍລະອຽດການຕອບ"
   },
   {
     "PK_ResourcesID": 0,
@@ -3686,7 +3714,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Issue_Label_TilePage",
-    "Value": "ຄຳ ຕິຊົມຂໍ້ມູນລູກຄ້າ"
+    "Value": "ຕອບຂໍ້ມູນລູກຄ້າ"
   },
   {
     "PK_ResourcesID": 0,
@@ -3734,6 +3762,20 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "ListDriver_Label_Search",
+    "Value": "ຊອກຫາຊື່ຂອງຄົນຂັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Label_Title",
+    "Value": "ລາຍຊື່ຄົນຂັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "ListDriver_Messenger_Delete",
     "Value": "ທ່ານແນ່ໃຈບໍ່ທີ່ຈະລຶບຄົນຂັບລົດ?"
   },
@@ -3750,6 +3792,20 @@
     "CodeName": "lo-LA",
     "Name": "ListDriver_Messenger_Gender",
     "Value": "ເພດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_LicenseDateRegister",
+    "Value": "ລົງທະບຽນວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_LicenseNumber",
+    "Value": "licenseາຍເລກໃບຂັບຂີ່"
   },
   {
     "PK_ResourcesID": 0,
@@ -3819,21 +3875,21 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "ListIssue_Label_DueDate",
-    "Value": "ຕາຕະລາງນັດາຍ"
+    "Value": "ຕາຕະລາງນັດໝາຍ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "ListIssue_Label_NoProcess",
-    "Value": "ບໍ່ມີຂະບວນການ"
+    "Value": "ຍັງບໍ່ທັນແກ້ໄຂ"
   },
   {
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "ListIssue_Label_TilePage",
-    "Value": "ບັນຊີລາຍຊື່ຂອງການຮ້ອງຂໍສະຫນັບສະຫນູນ"
+    "Value": "ລາຍຊື່ທີ່ຕ້ອງການສະໜັບສະໜູນ"
   },
   {
     "PK_ResourcesID": 0,

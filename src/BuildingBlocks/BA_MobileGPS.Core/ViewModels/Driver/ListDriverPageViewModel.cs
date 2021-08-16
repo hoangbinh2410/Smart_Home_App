@@ -231,7 +231,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SafeExecute(async () =>
                 {
-                    var action = await PageDialog.DisplayAlertAsync(MobileResource.ListDriver_Label_Delete,
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                         MobileResource.ListDriver_Messenger_Delete, MobileResource.Moto_Label_Confirm,
                         MobileResource.Common_Message_Skip);
                     if (action)
@@ -251,7 +251,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 GetAllDriverData();
                                 SearchedText = string.Empty;
-                                DisplayMessage.ShowMessageSuccess("Xóa lái xe thành công");
+                                DisplayMessage.ShowMessageSuccess(MobileResource.ListDriver_Title_DeleteSuccess);
                             }
                         });
                     }

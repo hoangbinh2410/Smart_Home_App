@@ -89,7 +89,7 @@ namespace BA_MobileGPS.Core.Resources
                     {
                         var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
 
-                        if (App.AppType == AppType.Unitel)
+                        if (App.AppType == AppType.Unitel && App.CurrentLanguage == CultureCountry.Laos)
                         {
                             _DicMobileResource = GetJsonData().ToDictionary(k => k.Name, v => v.Value);
                         }

@@ -68,7 +68,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Value_SelectReligion => Get(MobileResourceNames.Common_Value_SelectReligion, "Chọn tôn giáo", "Select Religion");
         public static string Common_Message_Skip => Get(MobileResourceNames.Common_Message_Skip, "Bỏ qua", "Skip");
 
-        public static string Common_Lable_Delete => Get(MobileResourceNames.Common_Message_Skip, "XÓA", "DELETE");
+        public static string Common_Lable_Delete => Get(MobileResourceNames.Common_Lable_Delete, "XÓA", "DELETE");
 
         public static string Common_Lable_TickIsRead => Get(MobileResourceNames.Common_Lable_TickIsRead, "ĐÁNH DẤU ĐÃ ĐỌC", "MARK IT AS READ");
 
