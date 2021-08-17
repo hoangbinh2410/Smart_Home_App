@@ -592,14 +592,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     foreach (var itemuser in item.StreamingRequests)
                     {
-                        if (itemuser.User.ToUpper() != StaticSettings.User.UserName.ToUpper())
-                        {
-                            var isexist = lstUser.Exists(x => x.User == itemuser.User);
-                            if (!isexist)
-                            {
-                                lstUser.Add(itemuser);
-                            }
-                        }
+                        lstUser.Add(itemuser);
                     }
                 }
             }
@@ -616,49 +609,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     await NavigationService.NavigateAsync("StreamUserMessagePopup", parameters);
                 });
             }
-        }
-
-        /// <summary>
-        /// Gọi api stop streaming
-        /// </summary>
-        /// <param name="req"></param>
-        private void StopStreaming(List<StreamUserRequest> user)
-        {
-            SafeExecute(async () =>
-            {
-                var start = new CameraStopRequest()
-                {
-                    Channel = 15,
-                    CustomerID = UserInfo.XNCode,
-                    VehicleName = Vehicle.VehiclePlate,
-                    Source = (int)CameraSourceType.App,
-                    User = UserInfo.UserName,
-                    SessionID = StaticSettings.SessionID
-                };
-                var result = await streamCameraService.DevicesStop(start);
-                if (result)
-                {
-                    if (user != null && user.Count > 0)
-                    {
-                        foreach (var item in user)
-                        {
-                            EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
-                            {
-                                UserName = item.User,
-                                Message = string.Format(MobileResource.Camera_Lable_CameraDisconnect,
-                                Vehicle.PrivateCode,
-                                item.User,
-                                ((CameraSourceType)item.Source).ToDescription())
-                            });
-                        }
-                    }
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_StopStreamingOK, MobileResource.Common_Button_OK);
-                    });
-                }
-            });
         }
 
         /// <summary>

@@ -934,48 +934,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gọi api stop streaming
-        /// </summary>
-        /// <param name="req"></param>
-        private void StopPlayback(List<PlaybackUserRequest> user)
-        {
-            SafeExecute(async () =>
-            {
-                var start = new PlaybackStopRequest()
-                {
-                    Channel = 15,
-                    CustomerID = UserInfo.XNCode,
-                    VehicleName = Vehicle.VehiclePlate,
-                    Source = (int)CameraSourceType.App,
-                    User = UserInfo.UserName,
-                    SessionID = StaticSettings.SessionID
-                };
-                var result = await _streamCameraService.StopAllPlayback(start);
-                if (result)
-                {
-                    if (user != null && user.Count > 0)
-                    {
-                        foreach (var item in user)
-                        {
-                            EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
-                            {
-                                UserName = item.User,
-                                Message = string.Format(MobileResource.Camera_Lable_PlaybackDisconnect, Vehicle.PrivateCode,
-                                Vehicle.PrivateCode,
-                                item.User,
-                                ((CameraSourceType)item.Source).ToDescription())
-                            });
-                        }
-                    }
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_StopPlaybackOK, MobileResource.Common_Button_OK);
-                    });
-                }
-            });
-        }
-
         private async void StopSession()
         {
             var start = new CameraStopRequest()
@@ -1002,14 +960,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     foreach (var itemuser in item.PlaybackRequests)
                     {
-                        if (itemuser.User.ToUpper() != StaticSettings.User.UserName.ToUpper())
-                        {
-                            var isexist = lstUser.Exists(x => x.User == itemuser.User);
-                            if (!isexist)
-                            {
-                                lstUser.Add(itemuser);
-                            }
-                        }
+                        lstUser.Add(itemuser);
                     }
                 }
             }

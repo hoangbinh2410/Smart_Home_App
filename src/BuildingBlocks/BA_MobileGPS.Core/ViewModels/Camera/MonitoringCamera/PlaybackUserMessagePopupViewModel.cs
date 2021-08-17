@@ -134,14 +134,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         foreach (var item in PlaybackUserRequest)
                         {
-                            EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                            if (item.User.ToUpper() != StaticSettings.User.UserName.ToUpper())
                             {
-                                UserName = item.User,
-                                Message = string.Format(MobileResource.Camera_Lable_PlaybackDisconnect, Vehicle.PrivateCode,
+                                EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                                {
+                                    UserName = item.User,
+                                    Message = string.Format(MobileResource.Camera_Lable_PlaybackDisconnect, Vehicle.PrivateCode,
                                 Vehicle.PrivateCode,
                                 item.User,
                                 ((CameraSourceType)item.Source).ToDescription())
-                            });
+                                });
+                            }
                         }
                     }
                     await NavigationService.GoBackAsync();
