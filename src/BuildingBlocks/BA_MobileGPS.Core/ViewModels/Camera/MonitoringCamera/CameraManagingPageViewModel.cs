@@ -976,24 +976,21 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void StopSession()
+        private async void StopSession()
         {
-            SafeExecute(async () =>
+            var start = new CameraStopRequest()
             {
-                var start = new CameraStopRequest()
-                {
-                    Channel = 15,
-                    CustomerID = UserInfo.XNCode,
-                    VehicleName = Vehicle.VehiclePlate,
-                    Source = (int)CameraSourceType.App,
-                    User = UserInfo.UserName,
-                    SessionID = StaticSettings.SessionID
-                };
-                var result = await _streamCameraService.DevicesStopSession(start);
-                if (result)
-                {
-                }
-            });
+                Channel = 15,
+                CustomerID = UserInfo.XNCode,
+                VehicleName = Vehicle.VehiclePlate,
+                Source = (int)CameraSourceType.App,
+                User = UserInfo.UserName,
+                SessionID = StaticSettings.SessionID
+            };
+            var result = await _streamCameraService.DevicesStopSession(start);
+            if (result)
+            {
+            }
         }
 
         private void SetErrorErrorDoubleStremingCamera(List<CameraStartRespone> lst)
