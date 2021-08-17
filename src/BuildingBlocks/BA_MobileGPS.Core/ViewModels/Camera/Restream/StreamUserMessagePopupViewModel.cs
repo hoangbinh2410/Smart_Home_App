@@ -159,18 +159,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (StreamUserRequest != null && StreamUserRequest.Count > 0)
                     {
+                        List<StreamUserRequest> lstUserSended = new List<StreamUserRequest>();
                         foreach (var item in StreamUserRequest)
                         {
                             if (item.User.ToUpper() != StaticSettings.User.UserName.ToUpper())
                             {
-                                EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                                var isexist = lstUserSended.Exists(x => x.User == item.User);
+                                if (!isexist)
                                 {
-                                    UserName = item.User,
-                                    Message = string.Format(MobileResource.Camera_Lable_CameraDisconnect,
-                                 Vehicle.PrivateCode,
-                                 item.User,
-                                 ((CameraSourceType)item.Source).ToDescription())
-                                });
+                                    lstUserSended.Add(item);
+                                    EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
+                                    {
+                                        UserName = item.User,
+                                        Message = string.Format(MobileResource.Camera_Lable_CameraDisconnect,
+                                        Vehicle.PrivateCode,
+                                        item.User,
+                                        ((CameraSourceType)item.Source).ToDescription())
+                                    });
+                                }
                             }
                         }
                     }
