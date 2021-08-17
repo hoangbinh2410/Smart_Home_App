@@ -69,16 +69,16 @@
                     <Label
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="Quý khách vui lòng thực hiện 2 tùy chọn sau:" />
+                        Text="{i18n:TranslateResource Camera_Message_SelectOption}" />
 
                     <Label
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="- Dừng chế độ xem lại để xem video." />
+                        Text="{i18n:TranslateResource Camera_Message_StopPlaybackStream}" />
                     <Label
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="- Chuyển đển trang xem ảnh trực tuyến." />
+                        Text="{i18n:TranslateResource Camera_Message_GotoImagePage}" />
                 </StackLayout>
                 <StackLayout
                     Grid.Row="2"

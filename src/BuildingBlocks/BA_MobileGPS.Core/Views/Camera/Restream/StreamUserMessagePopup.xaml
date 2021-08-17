@@ -69,16 +69,16 @@
                     <Label
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="Quý khách vui lòng thực hiện 2 tùy chọn sau:" />
+                        Text="{i18n:TranslateResource Camera_Message_SelectOption}" />
 
                     <Label
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="- Dừng phát trực tiếp để xem video." />
+                        Text="{i18n:TranslateResource Camera_Message_StopLiveStream}" />
                     <Label
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
-                        Text="- Chuyển đển trang xem ảnh trực tuyến." />
+                        Text="{i18n:TranslateResource Camera_Message_GotoImagePage}" />
 
                     <Label
                         HorizontalOptions="StartAndExpand"
@@ -90,7 +90,7 @@
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
                         IsVisible="{Binding IsShowUser, Converter={StaticResource InvertBooleanConverter}}"
-                        Text="Danh sách người dùng đang xem trực tiếp &gt;&gt;"
+                        Text="{i18n:TranslateResource Camera_Message_ListUserStream}"
                         TextColor="#00ADE5"
                         VerticalOptions="Start">
                         <Label.GestureRecognizers>
@@ -102,7 +102,7 @@
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
                         IsVisible="{Binding IsShowUser}"
-                        Text="Thu gọn danh sách &lt;&lt;"
+                        Text="{i18n:TranslateResource Camera_Message_CloseListUserStream}"
                         TextColor="#00ADE5"
                         VerticalOptions="Start">
                         <Label.GestureRecognizers>

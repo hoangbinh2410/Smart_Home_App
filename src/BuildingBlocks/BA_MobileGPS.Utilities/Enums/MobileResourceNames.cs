@@ -944,6 +944,12 @@
         Camera_Message_UploadGo,
         Camera_Message_ListVideoUpload,
         Camera_Message_UploadEnd,
+        Camera_Message_SelectOption,
+        Camera_Message_StopLiveStream,
+        Camera_Message_StopPlaybackStream,
+        Camera_Message_GotoImagePage,
+        Camera_Message_ListUserStream,
+        Camera_Message_CloseListUserStream,
         #endregion
 
         #region Image

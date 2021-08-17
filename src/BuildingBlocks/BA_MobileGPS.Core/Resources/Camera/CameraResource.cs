@@ -98,5 +98,17 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Message_UploadEnd => Get(MobileResourceNames.Camera_Message_UploadEnd, "để xem và tải video về điện thoại", "to watch and download videos to your phone");
 
         public static string Camera_Message_ListVideoUpload => Get(MobileResourceNames.Camera_Message_ListVideoUpload, "Danh sách tải về ", "Download list ");
+
+        public static string Camera_Message_SelectOption => Get(MobileResourceNames.Camera_Message_SelectOption, "Quý khách vui lòng thực hiện 2 tùy chọn sau:", "Please do the following 2 options:");
+
+        public static string Camera_Message_StopLiveStream => Get(MobileResourceNames.Camera_Message_StopLiveStream, "- Dừng phát trực tiếp để xem video.", "- Stop the live stream to watch the video.");
+
+        public static string Camera_Message_StopPlaybackStream => Get(MobileResourceNames.Camera_Message_StopPlaybackStream, "- Dừng chế độ xem lại để xem video.", "- Stop playback to watch the video.");
+
+        public static string Camera_Message_GotoImagePage => Get(MobileResourceNames.Camera_Message_GotoImagePage, "- Chuyển đển trang xem ảnh trực tuyến.", "- Go to the online photo viewing page.");
+
+        public static string Camera_Message_ListUserStream => Get(MobileResourceNames.Camera_Message_ListUserStream, "Danh sách người dùng đang xem trực tiếp &gt;&gt;", "List of currently viewing users &gt;&gt;");
+
+        public static string Camera_Message_CloseListUserStream => Get(MobileResourceNames.Camera_Message_CloseListUserStream, "Thu gọn danh sách &lt;&lt;", "Collapse the list &lt;&lt;");
     }
 }

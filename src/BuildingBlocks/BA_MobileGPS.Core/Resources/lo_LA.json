@@ -913,8 +913,15 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Camera_Message_CloseListUserStream",
+    "Value": "ຫຍໍ້ລາຍຊື່ & lt; & lt;"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Camera_Message_DevicePlaybackErrorDetail",
-    "Value": "ພາຫະນະ {0} ກຳລັງຖືກເບິ່ງຄືນດ້ວຍບັນຊີຜູ້ໃຊ້ {1} ({2}), ດັ່ງນັ້ນ ບໍ່ສາມາດຖ່າຍທອດສົດໄດ້.\\n\" + \"ລູກຄ້າສາມາດປ່ຽນເປັນໂມດເບິ່ງຮູບພາບ ຫຼື ຢຸດໂມດເບິ່ງຄືນຂອງບັນຊີຜູ້ໃຊ້ {3} ເພື່ອເບິ່ງວີດີໂອ."
+    "Value": "ສື່ {0} ກຳ ລັງຖືກຫຼິ້ນຄືນໂດຍ {1} ({2}), ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງມັນໄດ້ອີກ."
   },
   {
     "PK_ResourcesID": 0,
@@ -928,7 +935,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DeviceStreamingErrorDetail",
-    "Value": "ພາຫະນະ {0} - ຊ່ອງ {1} ກຳລັງຖ່າຍທອດສົດຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງຄືນໄດ້ .\\n\" + \"ລູກຄ້າສາມາດປ່ຽນໄປທີ່ໂມດເບິ່ງພາບ ຫຼື ຢຸດການຖ່າຍທອດເພື່ອປ່ຽນເປັນໂມດເບິ່ງຄືນ"
+    "Value": "ກຳ ລັງຖ່າຍທອດມີເດຍ {0} ຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງມັນໄດ້ອີກ."
   },
   {
     "PK_ResourcesID": 0,
@@ -943,6 +950,20 @@
     "CodeName": "lo-LA",
     "Name": "Camera_Message_DoYouWantDowloadVideo",
     "Value": "ເຈົ້າຕ້ອງການດາວໂຫຼດວິດີໂອນີ້ໃສ່ໂທລະສັບຂອງເຈົ້າບໍ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_GotoImagePage",
+    "Value": "- ໄປທີ່ ໜ້າ ເບິ່ງຮູບອອນໄລນ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_ListUserStream",
+    "Value": "ລາຍຊື່ຜູ້ຊົມໃຊ້ໃນປະຈຸບັນ & gt; & gt;"
   },
   {
     "PK_ResourcesID": 0,
@@ -976,6 +997,20 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Camera_Message_SelectOption",
+    "Value": "ກະລຸນາເຮັດ 2 ຕົວເລືອກຕໍ່ໄປນີ້:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopLiveStream",
+    "Value": "- ຢຸດການຖ່າຍທອດສົດເພື່ອເບິ່ງວິດີໂອ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Camera_Message_StopPlayback",
     "Value": "ຢຸດເບິ່ງຄືນ"
   },
@@ -985,6 +1020,13 @@
     "CodeName": "lo-LA",
     "Name": "Camera_Message_StopPlaybackOK",
     "Value": "ສຳເລັດການຢຸດເບິ່ງຄືນ. ກະລຸນາລໍຖ້າເພື່ອໃຫ້ອຸປະກອນຖ່າຍທອດສົດໄດ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopPlaybackStream",
+    "Value": "- ຢຸດການຫຼິ້ນເພື່ອເບິ່ງວິດີໂອ."
   },
   {
     "PK_ResourcesID": 0,
