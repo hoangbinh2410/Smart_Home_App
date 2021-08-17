@@ -410,14 +410,14 @@
                                 VerticalOptions="Start">
                                 <Label
                                     HorizontalOptions="Center"
-                                    Text="{Binding CurrentRoute.Time, StringFormat='{}{0:dd-MM-yyyy}'}"
+                                    Text="{Binding CurrentRoute.Time, Converter={StaticResource DateConverter}}"
                                     TextColor="Gray" />
                                 <Label
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
                                     FontSize="18"
                                     HorizontalOptions="Center"
-                                    Text="{Binding CurrentRoute.Time, StringFormat='{}{0:HH:mm:ss}'}"
+                                    Text="{Binding CurrentRoute.Time, Converter={StaticResource TimeConverter}}"
                                     TextColor="Black" />
                             </StackLayout>
                             <StackLayout
