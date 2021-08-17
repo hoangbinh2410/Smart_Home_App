@@ -93,6 +93,9 @@
 	  <Compile Update="Views\Camera\Restream\PinInfowindowTimeView.xaml.cs">
 	    <DependentUpon>PinInfowindowTimeView.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Camera\Restream\StreamUserMessagePopup.xaml.cs">
+	    <DependentUpon>StreamUserMessagePopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
 	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>
 	  </Compile>
@@ -201,6 +204,9 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\PlaybackUserMessagePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Package\PackageCameraPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -243,6 +249,9 @@
 	  <EmbeddedResource Update="Views\Camera\Restream\PinInfowindowTimeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\Restream\StreamUserMessagePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\ViewVideoUploadedPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -277,9 +286,6 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\DeviceTab.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\DownloadVideo.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">

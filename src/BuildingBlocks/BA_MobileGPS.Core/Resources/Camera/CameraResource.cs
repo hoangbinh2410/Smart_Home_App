@@ -71,10 +71,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Message_DeviceStreamingError => Get(MobileResourceNames.Camera_Message_DeviceStreamingError, "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại", "The device is being streamed live, so you can't watch it again");
 
         public static string Camera_Message_CameraLoading => Get(MobileResourceNames.Camera_Message_CameraLoading, "Video đang load trực tiếp từ thiết bị. Vui lòng chờ trong giây lát.", "Video is loading directly from the device. Please wait a second.");
-        public static string Camera_Message_DeviceStreamingErrorDetail => Get(MobileResourceNames.Camera_Message_DeviceStreamingErrorDetail, "Phương tiện {0} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
-                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại", "Vehicle {0} is being broadcast live, so you cannot watch it again.\n" +
-                            "You can switch to image viewing or stop the live stream to switch to playback mode");
 
+        public static string Camera_Message_DeviceStreamingErrorDetail => Get(MobileResourceNames.Camera_Message_DeviceStreamingErrorDetail, "Phương tiện {0} đang được phát trực tiếp, do vậy quý khách không thể xem lại.", "Vehicle {0} is being streamed, so you cannot watch it again.");
         public static string Camera_Message_PleaseLoadVideo => Get(MobileResourceNames.Camera_Message_PleaseLoadVideo, "Vui lòng load lại hoặc chọn xem video khác", "Please reload or choose to watch another video");
 
         public static string Camera_Message_DowloadVideoSuccess => Get(MobileResourceNames.Camera_Message_DowloadVideoSuccess, "Video đã được tải thành công về máy của bạn", "The video has been successfully downloaded to your device");
@@ -89,9 +87,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Camera_Message_StopPlaybackOK => Get(MobileResourceNames.Camera_Message_StopPlaybackOK, "Dừng xem lại thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Stop playback successfully. Please wait a moment for the device to go live");
 
-        public static string Camera_Message_DevicePlaybackErrorDetail => Get(MobileResourceNames.Camera_Message_DevicePlaybackErrorDetail, "Phương tiện {0} đang được xem lại bởi tài khoản {1} ({2}), do vậy không thể phát trực tiếp.\n" +
-                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng chế độ xem lại của tài khoản {3} để xem video.", "Vehicle {0} is being broadcast live, so you cannot watch it again.\n" +
-                           "You can switch to image viewing or stop the play back to switch to live stream mode");
+        public static string Camera_Message_DevicePlaybackErrorDetail => Get(MobileResourceNames.Camera_Message_DevicePlaybackErrorDetail, "Phương tiện {0} đang được xem lại bởi {1} ({2}), do vậy quý khách không thể xem lại.", "Vehicle {0} is being broadcast live, so you cannot watch it again.\n");
 
         public static string Camera_Message_SaveImageSuccess => Get(MobileResourceNames.Camera_Message_SaveImageSuccess, "Lưu hình ảnh thành công", "Save image successfully");
 

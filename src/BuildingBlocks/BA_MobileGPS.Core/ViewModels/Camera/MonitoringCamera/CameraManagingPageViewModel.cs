@@ -1022,35 +1022,13 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                     IsShowMessageError = true;
-                    var message = string.Format(MobileResource.Camera_Message_DevicePlaybackErrorDetail,
-                           Vehicle.PrivateCode,
-                           lstUser[0].User,
-                           ((CameraSourceType)lstUser[0].Source).ToDescription(),
-                           lstUser[0].User);
-                    var alert = DependencyService.Get<IAlert>();
-                    var action = await alert.Display(MobileResource.Common_Label_Notification, message, MobileResource.CameraImage_Label_TitleDetailPage, MobileResource.Camera_Message_StopPlayback, MobileResource.Common_Message_Skip);
-                    if (action == MobileResource.CameraImage_Label_TitleDetailPage)
-                    {
-                        if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
-                        {
-                            var parameters = new NavigationParameters();
-                            parameters.Add(ParameterKey.Vehicle, new Vehicle()
-                            {
-                                VehicleId = Vehicle.VehicleId,
-                                VehiclePlate = Vehicle.VehiclePlate,
-                                PrivateCode = Vehicle.PrivateCode
-                            });
-                            await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                        }
-                        else
-                        {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
-                        }
-                    }
-                    else if (action == MobileResource.Camera_Message_StopPlayback)
-                    {
-                        StopPlayback(lstUser);
-                    }
+
+                    var parameters = new NavigationParameters
+                      {
+                          { "PlaybackUser",new Tuple<Vehicle,List<PlaybackUserRequest>>(Vehicle, lstUser) }
+                     };
+                    await NavigationService.NavigateAsync("PlaybackUserMessagePopup", parameters);
+
                     IsShowMessageError = false;
                 });
             }

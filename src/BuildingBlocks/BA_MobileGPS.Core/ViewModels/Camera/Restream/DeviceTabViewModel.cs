@@ -609,32 +609,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     IsError = true;
                     ErrorMessenger = MobileResource.Camera_Message_DeviceStreamingError;
-                    var message = string.Format(MobileResource.Camera_Message_DeviceStreamingErrorDetail,
-                           Vehicle.PrivateCode);
-                    var alert = DependencyService.Get<IAlert>();
-                    var action = await alert.Display(MobileResource.Common_Label_Notification, message, MobileResource.CameraImage_Label_TitleDetailPage, MobileResource.Camera_Message_StopStreaming, MobileResource.Common_Message_Skip);
-                    if (action == MobileResource.CameraImage_Label_TitleDetailPage)
-                    {
-                        if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
-                        {
-                            var parameters = new NavigationParameters();
-                            parameters.Add(ParameterKey.Vehicle, new Vehicle()
-                            {
-                                VehicleId = Vehicle.VehicleId,
-                                VehiclePlate = Vehicle.VehiclePlate,
-                                PrivateCode = Vehicle.PrivateCode
-                            });
-                            await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                        }
-                        else
-                        {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
-                        }
-                    }
-                    else if (action == MobileResource.Camera_Message_StopStreaming)
-                    {
-                        StopStreaming(lstUser);
-                    }
+                    var parameters = new NavigationParameters
+                      {
+                          { "StreamUser",new Tuple<Vehicle,List<StreamUserRequest>>(Vehicle, lstUser) }
+                     };
+                    await NavigationService.NavigateAsync("StreamUserMessagePopup", parameters);
                 });
             }
         }

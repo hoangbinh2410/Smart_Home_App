@@ -94,7 +94,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ChangePasswordPage, ChangePasswordPageViewModel>("ChangePasswordPage");
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<UpdateVersion, UpdateVersionViewModel>("UpdateVersion");
-
             containerRegistry.RegisterForNavigation<SelectDatePicker, SelectDatePickerViewModel>("SelectDatePicker");
             containerRegistry.RegisterForNavigation<SelectTimePicker, SelectTimePickerViewModel>("SelectTimePicker");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendar, SelectDateTimeCalendarViewModel>("SelectDateTimeCalendar");
@@ -102,13 +101,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
             containerRegistry.RegisterForNavigation<SelectRangeDateTime, SelectRangeDateTimeViewModel>("SelectRangeDateTime");
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
-
             containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>("LanguagePage");
             containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>("ChangeLanguage");
             containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>("InsertLocalDBPage");
             containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
             containerRegistry.RegisterForNavigation<FavoritesConfigurationsPage, FavoritesConfigurationsPageViewModel>("FavoritesConfigurationsPage");
-
             containerRegistry.RegisterForNavigation<ActivityDetailsDetailReportPage, ActivityDetailsDetailViewModel>("ActivityDetailsDetailReportPage");
             containerRegistry.RegisterForNavigation<ActivityDetailsReportPage, ActivityDetailsViewModel>("ActivityDetailsReportPage");
             containerRegistry.RegisterForNavigation<ActivitySummariesDetailReportPage, ActivitySummariesDetailViewModel>("ActivitySummariesDetailReportPage");
@@ -130,7 +127,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<StopParkingVehicleReportPage, StopParkingVehicleViewModel>("StopParkingVehicleReportPage");
             containerRegistry.RegisterForNavigation<ReportDetailTemperaturePage, ReportDetailTemperaturePageViewModel>("ReportDetailTemperaturePage");
             containerRegistry.RegisterForNavigation<ReportTableTemperature, ReportTableTemperatureViewModel>("ReportTableTemperature");
-
             containerRegistry.RegisterForNavigation<CompanyLookUp, CompanyLookUpViewModel>("CompanyLookUp");
             containerRegistry.RegisterForNavigation<VehicleGroupLookUp, VehicleGroupLookUpViewModel>("VehicleGroupLookUp");
             containerRegistry.RegisterForNavigation<VehicleLookUp, VehicleLookUpViewModel>("VehicleLookUp");
@@ -144,59 +140,43 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<TutorialPage, TutorialPageViewModel>("TutorialPage");
             containerRegistry.RegisterForNavigation<AlertOnlinePage, AlertOnlinePageViewModel>("AlertOnlinePage");
             containerRegistry.RegisterForNavigation<AlertHandlingPage, AlertHandlingPageViewModel>("AlertHandlingPage");
-
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
             containerRegistry.RegisterForNavigation<ImageEditorPage, ImageEditorViewModel>("ImageEditorPage");
-
             containerRegistry.RegisterForNavigation<NotificationPage, NotificationPageViewModel>("NotificationPage");
             containerRegistry.RegisterForNavigation<NotificationPopup, NotificationPopupViewModel>("NotificationPopup");
             containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
             containerRegistry.RegisterForNavigation<NotificationPopupAfterLogin, NotificationPopupAfterLoginViewModel>("NotificationPopupAfterLogin");
             containerRegistry.RegisterForNavigation<NotificationDetailPage, NotificationDetailPageViewModel>("NotificationDetailPage");
-
             containerRegistry.RegisterForNavigation<VehicleDebtMoneyPage, VehicleDebtMoneyPageViewModel>("VehicleDebtMoneyPage");
             containerRegistry.RegisterForNavigation<VehicleDetailPage, VehicleDetailViewModel>("VehicleDetailPage");
             containerRegistry.RegisterForNavigation<LoginPreviewFeaturesPage, LoginPreviewFeaturesPageViewModel>();
-
             containerRegistry.RegisterForNavigation<RouteListPage, RouteListViewModel>("RouteListPage");
-
             containerRegistry.RegisterForNavigation<ListCameraVehicle, ListCameraVehicleViewModel>("ListCameraVehicle");
             containerRegistry.RegisterForNavigation<CameraDetail, CameraDetailViewModel>("CameraDetail");
-
             containerRegistry.RegisterForNavigation<SendEngineControlPage, SendEngineControlViewModel>("SendEngineControlPage");
-
             containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
-
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
-
             containerRegistry.RegisterForNavigation<Home, HomeViewModel>("Home");
             containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
             containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
             containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
             containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
             containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
-
             containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
             containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
             containerRegistry.Register<ContentPage, OnlinePageNoCluster>("OnlinePageNoCluster");
             containerRegistry.Register<ContentPage, RoutePage>("RoutePage");
-
             containerRegistry.Register<ResourceDictionary, Dark>(Theme.Dark.ToString());
             containerRegistry.Register<ResourceDictionary, Light>(Theme.Light.ToString());
             containerRegistry.Register<ResourceDictionary, Custom>(Theme.Custom.ToString());
             containerRegistry.RegisterForNavigation<SettingThemePage, SettingThemePageViewModel>("SettingThemePage");
-
             containerRegistry.RegisterForNavigation<RegisterConsultPage, RegisterConsultPageViewModel>("RegisterConsultPage");
-
             containerRegistry.RegisterForNavigation<CameraManagingPage, CameraManagingPageViewModel>("CameraManagingPage");
-
             containerRegistry.RegisterForNavigation<ImageManagingPage, ImageManagingPageViewModel>("ImageManagingPage");
             containerRegistry.RegisterForNavigation<ImageDetailPage, ImageDetailViewModel>("ImageDetailPage");
-
             containerRegistry.RegisterForNavigation<ReLoginPage, ReLoginPageViewModel>();
             containerRegistry.RegisterForNavigation<RequestMoreTimePopup, RequestMoreTimePopupViewModel>();
-
             containerRegistry.RegisterForNavigation<CameraRestreamOverview, CameraRestreamOverviewViewModel>("CameraRestreamOverview");
             containerRegistry.RegisterForNavigation<CameraRestream, CameraRestreamViewModel>("CameraRestream");
             containerRegistry.RegisterForNavigation<DeviceTab, DeviceTabViewModel>();
@@ -205,16 +185,12 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<VehicleCameraLookup, VehicleCameraLookupViewModel>("VehicleCameraLookup");
             containerRegistry.RegisterForNavigation<CameraTimeChart, CameraTimeChartViewModel>("CameraTimeChart");
             containerRegistry.RegisterForNavigation<VehicleCameraMultiSelect, VehicleCameraMultiSelectViewModel>("VehicleCameraMultiSelect");
-
             containerRegistry.RegisterForNavigation<ListDriverPage, ListDriverPageViewModel>("ListDriverPage");
             containerRegistry.RegisterForNavigation<AddDriverInforPage, InsertOrUpdateDriverPageViewModel>("AddDriverInfoPage");
             containerRegistry.RegisterForNavigation<DetailAndEditDriverPage, InsertOrUpdateDriverPageViewModel>("DetailAndEditDriverPage");
-            containerRegistry.RegisterForNavigation<DownloadVideo, DownloadVideoViewModel>("DownloadVideo");
-
             containerRegistry.RegisterForNavigation<InvalidPapersPage, InvalidPapersPageViewModel>("InvalidPapersPage");
             containerRegistry.RegisterForNavigation<SelectPaperTypePage, SelectPaperTypePageViewModel>("SelectPaperTypePage");
             containerRegistry.RegisterForNavigation<ListPapersPage, ListPapersPageViewModel>("ListPapersPage");
-
             containerRegistry.RegisterForNavigation<SelectAlertTypePage, SelectAlertTypePageViewModel>("SelectAlertTypePage");
             containerRegistry.RegisterForNavigation<PaperHistoriesPage, PaperHistoriesPageViewModel>("PaperHistoriesPage");
             containerRegistry.RegisterForNavigation<PopupHtmlPage, PopupHtmlPageViewModel>("PopupHtmlPage");
@@ -232,6 +208,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<PackageCameraPage, PackageCameraPageViewModel>("PackageCameraPage");
             containerRegistry.RegisterForNavigation<ViewVideoUploadedPage, ViewVideoUploadedPageViewModel>("ViewVideoUploadedPage");
             containerRegistry.RegisterForNavigation<QCVN31SpeedReportPage, QCVN31SpeedReportViewModel>("QCVN31SpeedReportPage");
+            containerRegistry.RegisterForNavigation<PlaybackUserMessagePopup, PlaybackUserMessagePopupViewModel>("PlaybackUserMessagePopup");
+            containerRegistry.RegisterForNavigation<StreamUserMessagePopup, StreamUserMessagePopupViewModel>("StreamUserMessagePopup");
         }
     }
 }
