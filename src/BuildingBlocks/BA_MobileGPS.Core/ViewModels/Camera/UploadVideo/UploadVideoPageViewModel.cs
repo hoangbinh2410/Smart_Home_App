@@ -176,6 +176,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleName = new List<string>() { video.VehicleName },
                     Source = (int)CameraSourceType.App,
                     User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 });
                 if (respone != null && respone.Count > 0)
                 {
@@ -220,6 +221,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             CustomerID = UserInfo.XNCode,
                             Source = (int)CameraSourceType.App,
                             User = UserInfo.UserName,
+                            SessionID = StaticSettings.SessionID
                         };
                         UploadVideoRestream(video);
                     }

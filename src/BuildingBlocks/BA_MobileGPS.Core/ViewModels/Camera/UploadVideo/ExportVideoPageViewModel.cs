@@ -98,7 +98,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             Enable = true,
                             Source = (int)CameraSourceType.App,
                             User = UserInfo.UserName,
-                            VehicleName = Vehicle.VehiclePlate
+                            VehicleName = Vehicle.VehiclePlate,
+                            SessionID = StaticSettings.SessionID
                         });
                     },
                    (result) =>

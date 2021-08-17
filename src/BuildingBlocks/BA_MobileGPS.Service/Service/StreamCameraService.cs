@@ -77,6 +77,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<bool> DevicesStopSession(CameraStopRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_DEVICESTOPSESSION}";
+                var respone = await requestProvider.PostAsync<CameraStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<bool> DevicesPing(CameraStartRequest request)
         {
             var result = false;

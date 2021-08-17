@@ -84,6 +84,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GetVehicleCamera(vehicle);
                 ReLoadAllCamera();
+                StopSession();
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
@@ -141,6 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Unsubscribe(SetErrorErrorDoubleStremingCamera);
             EventAggregator.GetEvent<UserMessageCameraEvent>().Unsubscribe(UserMessageCamera);
             ClearAllMediaPlayer();
+            StopSession();
             DependencyService.Get<IScreenOrientServices>().ForcePortrait();
             LibVLC?.Dispose();
             LibVLC = null;
@@ -560,7 +562,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         ConditionType = (int)ConditionType.BKS,
                         ConditionValues = new List<string>() { bks },
                         Source = (int)CameraSourceType.App,
-                        User = UserInfo.UserName
+                        User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
                     });
                     if (deviceResponse != null)
                     {
@@ -580,7 +583,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                     VehicleName = Vehicle.VehiclePlate,
                                     CustomerID = UserInfo.XNCode,
                                     Source = (int)CameraSourceType.App,
-                                    User = UserInfo.UserName
+                                    User = UserInfo.UserName,
+                                    SessionID = StaticSettings.SessionID
                                 };
                                 // var res = await RequestStartCam(item.Channel);
                                 var cam = new CameraManagement(maxLoadingTime,
@@ -754,7 +758,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleName = Vehicle.VehiclePlate,
                     CustomerID = UserInfo.XNCode,
                     Source = (int)CameraSourceType.App,
-                    User = UserInfo.UserName
+                    User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 };
                 RunOnBackground(async () =>
                 {
@@ -836,7 +841,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             ConditionType = (int)ConditionType.BKS,
                             ConditionValues = new List<string>() { Vehicle.VehiclePlate },
                             Source = (int)CameraSourceType.App,
-                            User = UserInfo.UserName
+                            User = UserInfo.UserName,
+                            SessionID = StaticSettings.SessionID
                         });
                         if (deviceResponse != null)
                         {
@@ -885,7 +891,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                             VehicleName = Vehicle.VehiclePlate,
                                             CustomerID = UserInfo.XNCode,
                                             Source = (int)CameraSourceType.App,
-                                            User = UserInfo.UserName
+                                            User = UserInfo.UserName,
+                                            SessionID = StaticSettings.SessionID
                                         };
                                         var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
                                         listCam.Add(cam);
@@ -942,6 +949,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleName = Vehicle.VehiclePlate,
                     Source = (int)CameraSourceType.App,
                     User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 };
                 var result = await _streamCameraService.StopAllPlayback(start);
                 if (result)
@@ -964,6 +972,26 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_StopPlaybackOK, MobileResource.Common_Button_OK);
                     });
+                }
+            });
+        }
+
+        private void StopSession()
+        {
+            SafeExecute(async () =>
+            {
+                var start = new CameraStopRequest()
+                {
+                    Channel = 15,
+                    CustomerID = UserInfo.XNCode,
+                    VehicleName = Vehicle.VehiclePlate,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
+                };
+                var result = await _streamCameraService.DevicesStopSession(start);
+                if (result)
+                {
                 }
             });
         }

@@ -598,7 +598,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     ConditionType = (int)ConditionType.BKS,
                     ConditionValues = new List<string>() { VehiclePlateCamera },
                     Source = (int)CameraSourceType.App,
-                    User = UserInfo.UserName
+                    User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 });
             }, (result) =>
             {

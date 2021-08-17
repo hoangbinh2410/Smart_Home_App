@@ -344,7 +344,8 @@ namespace BA_MobileGPS.Core.Models
                             ConditionType = (int)ConditionType.BKS,
                             ConditionValues = new List<string>() { vehicle },
                             Source = (int)CameraSourceType.App,
-                            User = StaticSettings.User.UserName
+                            User = StaticSettings.User.UserName,
+                            SessionID = StaticSettings.SessionID
                         });
                         if (device != null && device.Channels != null)
                         {

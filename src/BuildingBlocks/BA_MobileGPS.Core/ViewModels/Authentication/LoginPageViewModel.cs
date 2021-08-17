@@ -333,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                             StaticSettings.User = null;
                                             Device.BeginInvokeOnMainThread(async () =>
                                             {
-                                                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Login_Message_AccountPasswordIncorrect, MobileResource.ForgotPassword_Label_TilePage , MobileResource.ForgotAccount_Label_TilePage);
+                                                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Login_Message_AccountPasswordIncorrect, MobileResource.ForgotPassword_Label_TilePage, MobileResource.ForgotAccount_Label_TilePage);
                                             });
                                         }
                                         break;
@@ -577,6 +577,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
+                StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
                 OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);

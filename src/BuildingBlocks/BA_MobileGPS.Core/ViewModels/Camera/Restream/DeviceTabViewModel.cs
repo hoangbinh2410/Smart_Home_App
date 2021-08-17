@@ -474,6 +474,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehicleName = Vehicle.VehiclePlate,
                 Source = (int)CameraSourceType.App,
                 User = UserInfo.UserName,
+                SessionID = StaticSettings.SessionID
             };
             RunOnBackground(async () =>
             {
@@ -509,6 +510,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleName = Vehicle.VehiclePlate,
                     Source = (int)CameraSourceType.App,
                     User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 };
                 RunOnBackground(async () =>
                 {
@@ -652,6 +654,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleName = Vehicle.VehiclePlate,
                     Source = (int)CameraSourceType.App,
                     User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 };
                 var result = await streamCameraService.DevicesStop(start);
                 if (result)
@@ -710,7 +713,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         ConditionType = (int)ConditionType.BKS,
                         ConditionValues = new List<string>() { Vehicle.VehiclePlate },
                         Source = (int)CameraSourceType.App,
-                        User = UserInfo.UserName
+                        User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
                     });
                     if (deviceStatus != null && deviceStatus.Channels != null)
                     {

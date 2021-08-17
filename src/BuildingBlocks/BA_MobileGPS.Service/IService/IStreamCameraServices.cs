@@ -15,6 +15,8 @@ namespace BA_MobileGPS.Service
 
         Task<bool> DevicesStop(CameraStopRequest request);
 
+        Task<bool> DevicesStopSession(CameraStopRequest request);
+
         Task<bool> DevicesPing(CameraStartRequest request);
 
         Task<ResponseStreamBase<List<PlaybackStartRespone>>> StartPlayback(PlaybackStartRequest request);

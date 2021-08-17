@@ -323,6 +323,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehicleName = listVehicle,
                         Source = (int)CameraSourceType.App,
                         User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
                     });
                     if (respone != null && respone.Count > 0)
                     {
