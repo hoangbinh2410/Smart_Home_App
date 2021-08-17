@@ -84,7 +84,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
     <CodesignProvision>UnitelTrackingDis</CodesignProvision>
-    <CodesignKey>iPhone Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
+    <CodesignKey>Apple Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
