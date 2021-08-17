@@ -84,7 +84,7 @@ namespace BA_MobileGPS.Core
                 dt = dateTimeOffset.DateTime;
             }
 
-            result = (string)parameter == "ToLocal" ? dt.ToLocalTime().ToString("dd/MM/yyyy") : dt.ToString("dd/MM/yyyy");
+            result = (string)parameter == "ToLocal" ? dt.ToLocalTime().ToString("dd/MM/yyyy") : dt.FormatDate();
 
             return result;
         }
