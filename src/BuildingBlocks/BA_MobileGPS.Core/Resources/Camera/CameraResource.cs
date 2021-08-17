@@ -107,8 +107,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Camera_Message_GotoImagePage => Get(MobileResourceNames.Camera_Message_GotoImagePage, "- Chuyển đển trang xem ảnh trực tuyến.", "- Go to the online photo viewing page.");
 
-        public static string Camera_Message_ListUserStream => Get(MobileResourceNames.Camera_Message_ListUserStream, "Danh sách người dùng đang xem trực tiếp &gt;&gt;", "List of currently viewing users &gt;&gt;");
+        public static string Camera_Message_ListUserStream => Get(MobileResourceNames.Camera_Message_ListUserStream, "Danh sách người dùng đang xem trực tiếp >>", "List of currently viewing users >>");
 
-        public static string Camera_Message_CloseListUserStream => Get(MobileResourceNames.Camera_Message_CloseListUserStream, "Thu gọn danh sách &lt;&lt;", "Collapse the list &lt;&lt;");
+        public static string Camera_Message_CloseListUserStream => Get(MobileResourceNames.Camera_Message_CloseListUserStream, "Thu gọn danh sách <<", "Collapse the list <<");
     }
 }

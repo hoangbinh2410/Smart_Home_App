@@ -914,7 +914,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_CloseListUserStream",
-    "Value": "ຫຍໍ້ລາຍຊື່ & lt; & lt;"
+    "Value": "ຫຍໍ້ລາຍຊື່ <<;"
   },
   {
     "PK_ResourcesID": 0,
@@ -963,7 +963,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_ListUserStream",
-    "Value": "ລາຍຊື່ຜູ້ຊົມໃຊ້ໃນປະຈຸບັນ & gt; & gt;"
+    "Value": "ລາຍຊື່ຜູ້ຊົມໃຊ້ໃນປະຈຸບັນ >>"
   },
   {
     "PK_ResourcesID": 0,
