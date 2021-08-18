@@ -1235,5 +1235,14 @@
         Boundary_Label_AllPoint,
         Boundary_Label_Boundary,
         Boundary_Label_PointName,
+
+        ListPaper_Label_TilePage,
+        ListPaper_Label_OptionPaper,
+        ListPaper_Label_OptionVehicle,
+        ListPaper_Label_SelectPaperType,
+        CabSignInfor_Label_SignNumber,
+        CabSignInfor_Label_RegisterDate,
+        CabSignInfor_Label_DaysNumberForAlertAppear,
+        CabSignInfor_Label_Insert,
     }
 }
