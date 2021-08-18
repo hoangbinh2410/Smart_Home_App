@@ -178,6 +178,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_Detail",
+    "Value": "ລາຍລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "ActivitySummariesReport_Label_EndTime",
     "Value": "ເວລາທີ່ມາເຖິງ"
   },
@@ -719,6 +726,34 @@
     "CodeName": "lo-LA",
     "Name": "Boundary_Label_Title",
     "Value": "ລາຍຊື່ຈຸດເຂດແດນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_DaysNumberForAlertAppear",
+    "Value": "ຈຳ ນວນຂອງມື້ເຕືອນລ່ວງ ໜ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_Insert",
+    "Value": "ສ້າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_RegisterDate",
+    "Value": "ວັນລົງທະບຽນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_SignNumber",
+    "Value": "ເລກSignາຍ"
   },
   {
     "PK_ResourcesID": 0,
@@ -1412,6 +1447,41 @@
     "CodeName": "lo-LA",
     "Name": "ChangePassword_Validate_OldPasswordInvalid",
     "Value": "ລະຫັດຜ່ານເກົ່າບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_LastLits",
+    "Value": "ລາຍຊື່ສຸດທ້າຍ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_PourTotal",
+    "Value": "ເທທັງົດ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_Start",
+    "Value": "ເວລາເລີ່ມຕົ້ນ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_SuckTotal",
+    "Value": "ດູດທັງົດ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_UseFuel",
+    "Value": "ບໍລິໂພກ: "
   },
   {
     "PK_ResourcesID": 0,
@@ -3671,6 +3741,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_Summary",
+    "Value": "ທັງົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "FuelsSummariesReport_Label_TilePage",
     "Value": "ລາຍງານການບໍລິໂພກເຊື້ອໄຟ"
   },
@@ -3687,6 +3764,13 @@
     "CodeName": "lo-LA",
     "Name": "FuelsSummariesReport_Label_TotalKmGps",
     "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_ViewChart",
+    "Value": "ເບິ່ງແຜນວາດ"
   },
   {
     "PK_ResourcesID": 0,
@@ -4093,6 +4177,27 @@
     "CodeName": "lo-LA",
     "Name": "ListIssue_Label_TilePage",
     "Value": "ລາຍຊື່ທີ່ຕ້ອງການສະໜັບສະໜູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_OptionPaper",
+    "Value": "ຕາມປະເພດຂອງເອກະສານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_OptionVehicle",
+    "Value": "ຕິດຕາມລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_TilePage",
+    "Value": "ລາຍການເອກະສານ"
   },
   {
     "PK_ResourcesID": 0,
@@ -5605,6 +5710,27 @@
     "CodeName": "lo-LA",
     "Name": "ReportMachine_TitleStatusMachine",
     "Value": "ເລືອກສະຖານະເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportQCVN31Speed_Label_OptionView",
+    "Value": "ຕົວເລືອກການສະແດງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportQCVN31Speed_Label_TitlePage",
+    "Value": "ຄວາມໄວຍານພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportQCVN31Speed_Label_Velocity",
+    "Value": "ຄວາມໄວ (ກມ/ຊມ)"
   },
   {
     "PK_ResourcesID": 0,
