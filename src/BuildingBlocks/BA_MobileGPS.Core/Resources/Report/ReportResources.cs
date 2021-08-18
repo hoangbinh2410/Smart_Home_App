@@ -141,6 +141,9 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string FuelsSummariesReport_Label_TilePage => Get(MobileResourceNames.FuelsSummariesReport_Label_TilePage, "Báo cáo tiêu hao nhiên liệu", "Fuels Summaries Report");
 
+        public static string FuelsSummariesReport_Label_Summary => Get(MobileResourceNames.FuelsSummariesReport_Label_Summary, "Tổng", "Summary");
+
+        public static string FuelsSummariesReport_Label_ViewChart => Get(MobileResourceNames.FuelsSummariesReport_Label_ViewChart, "Xem biểu đồ", "View chart");
         public static string FuelsSummariesReportTotal_Label_TilePage => Get(MobileResourceNames.FuelsSummariesReportTotal_Label_TilePage, "Báo cáo tổng hợp tiêu hao nhiên liệu", "Fuels Summaries Report");
 
         public static string FuelsSummariesReport_Label_TitlePageDetail => Get(MobileResourceNames.FuelsSummariesReport_Label_TitlePageDetail, "Thông tin chi tiết", "Detail");
@@ -344,6 +347,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner => Get(MobileResourceNames.ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner, "Bật điều hoà", "Minutes Turn On Air Conditioner");
 
         public static string ActivitySummariesReport_CheckBox_Vmedium => Get(MobileResourceNames.ActivitySummariesReport_CheckBox_Vmedium, "Vận tốc trung bình", "Vmedium");
+
+        public static string ActivitySummariesReport_Label_Detail => Get(MobileResourceNames.ActivitySummariesReport_Label_Detail, "Chi tiết", "Detail");
 
         #endregion Báo cáo tổng hợp
 
@@ -591,5 +596,19 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportSignalLoss_Message_ValidateError_MinTimeLosing2 => Get(MobileResourceNames.ReportSignalLoss_Message_ValidateError_MinTimeLosing2, "Số phút mất tín hiệu nằm trong khoảng từ 5 đến 1000000000", "The number of minutes of signal loss ranges from 5 to 10 billion");
 
         #endregion Báo cáo mất tín hiệu
+
+
+        public static string ReportQCVN31Speed_Label_TitlePage => Get(MobileResourceNames.ReportQCVN31Speed_Label_TitlePage, "Tốc độ của xe", "Vehicle speed");
+        public static string ReportQCVN31Speed_Label_OptionView => Get(MobileResourceNames.ReportQCVN31Speed_Label_OptionView, "Tùy chọn hiển thị", "Display options");
+
+        public static string ReportQCVN31Speed_Label_Velocity => Get(MobileResourceNames.ReportQCVN31Speed_Label_TitlePage, "Các tốc độ (km/h)", "Speeds (km/h)");
+
+        public static string ChartFuel_Label_Start => Get(MobileResourceNames.ChartFuel_Label_Start, "Bắt đầu: ", "Start: ");
+
+        public static string ChartFuel_Label_UseFuel => Get(MobileResourceNames.ChartFuel_Label_UseFuel, "Tiêu thụ: ", "Consume: ");
+
+        public static string ChartFuel_Label_PourTotal => Get(MobileResourceNames.ChartFuel_Label_PourTotal, "Nap: ", "Pour Total: ");
+        public static string ChartFuel_Label_SuckTotal => Get(MobileResourceNames.ChartFuel_Label_SuckTotal, "Hút: ", "Suck Total: ");
+        public static string ChartFuel_Label_LastLits => Get(MobileResourceNames.ChartFuel_Label_LastLits, "Còn lại: ", "Last Lits: ");
     }
 }

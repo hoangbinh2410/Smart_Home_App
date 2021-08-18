@@ -922,7 +922,7 @@
                                             <Label
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
-                                                Text="Chi tiết"
+                                                Text="{i18n:TranslateResource ActivitySummariesReport_Label_Detail}"
                                                 TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"

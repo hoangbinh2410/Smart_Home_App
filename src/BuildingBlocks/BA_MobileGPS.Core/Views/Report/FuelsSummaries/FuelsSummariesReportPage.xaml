@@ -958,7 +958,7 @@
                                             <Label
                                                 FontAttributes="Bold"
                                                 HorizontalOptions="FillAndExpand"
-                                                Text="Xem biểu đồ"
+                                                Text="{i18n:TranslateResource FuelsSummariesReport_Label_ViewChart}"
                                                 TextColor="{DynamicResource WhiteColor}"
                                                 VerticalOptions="FillAndExpand"
                                                 XAlign="Center"
@@ -996,7 +996,7 @@
                                     <syncDataGrid:GridTableSummaryRow.SummaryColumns>
                                         <syncDataGrid:GridSummaryColumn
                                             Name="CountOrderNumber"
-                                            Format="Tổng"
+                                            Format="{i18n:TranslateResource FuelsSummariesReport_Label_Summary}"
                                             MappingName="OrderNumber"
                                             SummaryType="CountAggregate">
                                             <syncDataGrid:GridSummaryColumn.Template>
@@ -1007,7 +1007,7 @@
                                                             HorizontalOptions="FillAndExpand"
                                                             HorizontalTextAlignment="Center"
                                                             LineBreakMode="NoWrap"
-                                                            Text="Tổng"
+                                                            Text="{i18n:TranslateResource FuelsSummariesReport_Label_Summary}"
                                                             VerticalOptions="FillAndExpand"
                                                             VerticalTextAlignment="Center" />
                                                     </StackLayout>

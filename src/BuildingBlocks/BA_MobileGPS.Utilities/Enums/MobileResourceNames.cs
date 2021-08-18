@@ -597,6 +597,8 @@
         Helper_Label_PourFuel,
 
         FuelsSummariesReport_Label_TilePage,
+        FuelsSummariesReport_Label_Summary,
+        FuelsSummariesReport_Label_ViewChart,
         FuelsSummariesReportTotal_Label_TilePage,
         FuelsSummariesReport_Label_TitlePageDetail,
         FuelsSummariesReport_Label_DetailVehiclePlate,
@@ -702,6 +704,7 @@
         ActivitySummariesReport_CheckBox_NumberOfStopParking,
         ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner,
         ActivitySummariesReport_CheckBox_Vmedium,
+        ActivitySummariesReport_Label_Detail,
 
         DetailsReport_Label_TilePage,
         DetailsReport_Label_TitlePageDetail,
@@ -832,6 +835,14 @@
         ReportSignalLoss_TitleStatus_GMS,
         ReportSignalLoss_Message_ValidateError_MinTimeLosing,
         ReportSignalLoss_Message_ValidateError_MinTimeLosing2,
+        ReportQCVN31Speed_Label_TitlePage,
+        ReportQCVN31Speed_Label_OptionView,
+        ReportQCVN31Speed_Label_Velocity,
+        ChartFuel_Label_Start,
+        ChartFuel_Label_UseFuel,
+        ChartFuel_Label_PourTotal,
+        ChartFuel_Label_SuckTotal,
+        ChartFuel_Label_LastLits,
         #endregion report
 
         #region

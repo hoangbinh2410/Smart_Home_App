@@ -151,11 +151,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 if (FromDate > ToDate)
                 {
-                    DisplayMessage.ShowMessageInfo("Thời gian bắt đầu không được lớn hơn thời gian kết thúc");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 }
                 else if (ToDate.Subtract(FromDate).TotalDays > 60)
                 {
-                    DisplayMessage.ShowMessageInfo("Hệ thống chỉ hỗ trợ tìm kiếm trong khoảng 60 ngày");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_TotalTimeLimit(60));
                 }
                 FilterIssue();
             }

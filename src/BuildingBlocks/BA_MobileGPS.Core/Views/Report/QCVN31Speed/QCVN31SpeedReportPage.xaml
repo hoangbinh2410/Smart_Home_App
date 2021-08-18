@@ -16,7 +16,7 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
     x:Name="this"
-    Title="Tốc độ của xe"
+    Title="{i18n:TranslateResource ReportQCVN31Speed_Label_TitlePage}"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
@@ -261,7 +261,7 @@
                             CornerRadius="5"
                             FontSize="13"
                             IsChecked="{Binding IsOptionData}"
-                            Text="Tùy chọn hiển thị" />
+                            Text="{i18n:TranslateResource ReportQCVN31Speed_Label_OptionView}" />
                     </Grid>
                     <StackLayout
                         Grid.Row="1"
@@ -351,7 +351,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Thời điểm"
+                                        Text="{i18n:TranslateResource Distance_Label_Time}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -385,7 +385,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Các tốc độ (km/h)"
+                                        Text="{i18n:TranslateResource ReportQCVN31Speed_Label_Velocity}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
