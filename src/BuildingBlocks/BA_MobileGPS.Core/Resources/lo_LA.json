@@ -668,6 +668,34 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Boundary_Label_AllPoint",
+    "Value": "ທຸກຈຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_Boundary",
+    "Value": "ເຂດແດນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_PointName",
+    "Value": "ຊື່ຈຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_SelectPointCompany",
+    "Value": "ເລືອກກຸ່ມຄະແນນຂອງບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Boundary_Label_Showarea",
     "Value": "ສະແດງພື້ນທີ່"
   },
@@ -677,6 +705,13 @@
     "CodeName": "lo-LA",
     "Name": "Boundary_Label_Showname",
     "Value": "ສະແດງຊື່ຈຸດສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_TilePage",
+    "Value": "ການຕັ້ງຄ່າການສະແດງຄະແນນ"
   },
   {
     "PK_ResourcesID": 0,
@@ -914,7 +949,21 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_CloseListUserStream",
-    "Value": "ຫຍໍ້ລາຍຊື່ <<;"
+    "Value": "ຫຍໍ້ລາຍຊື່ <<"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DeviceIsPlayback",
+    "Value": "ອຸປະກອນຢູ່ໃນໂmodeດການຫຼິ້ນ, ກະລຸນາປິດການຫຼິ້ນເພື່ອເບິ່ງການຖ່າຍທອດສົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DeviceNotOnline",
+    "Value": "ອຸປະກອນບໍ່ອອນລາຍຫຼືບໍ່ມີຢູ່"
   },
   {
     "PK_ResourcesID": 0,
@@ -2110,6 +2159,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Common_Message_SaveError",
+    "Value": "ບັນທຶກບໍ່ ສຳ ເລັດ, ກະລຸນາກວດເບິ່ງອີກຄັ້ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Common_Message_SearchText",
     "Value": "ຄົ້ນຫາ"
   },
@@ -2133,6 +2189,13 @@
     "CodeName": "lo-LA",
     "Name": "Common_Message_Skip",
     "Value": "ຍົກເລີກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_Success",
+    "Value": "ບັນທຶກ ສຳ ເລັດແລ້ວ"
   },
   {
     "PK_ResourcesID": 0,
@@ -2994,6 +3057,104 @@
     "CodeName": "lo-LA",
     "Name": "Distance_Message_NoData",
     "Value": "ບໍ່ມີຂໍ້ມູນການຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_EnableWifi",
+    "Value": "ເປີດ Wifi"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_HelperDetail",
+    "Value": "ສຳ ລັບລາຍລະອຽດ, ກະລຸນາເບິ່ງວິດີໂອການສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_HelperDetail2",
+    "Value": "ທີ່ນີ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_HelpExport",
+    "Value": "ຄຳ ແນະ ນຳ ສຳ ລັບວິດີໂອເສີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_OpenWeb",
+    "Value": "ເປີດ browser (Chrome, FireFox, Safari, ... ) ຢູ່ໃນໂທລະສັບຂອງເຈົ້າແລະໃສ່ທີ່ຢູ່:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_OpenWeb2",
+    "Value": "ເພື່ອປະຕິບັດການສະກັດເອົາຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_Password",
+    "Value": "ລະຫັດຜ່ານ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_SelectVehicle",
+    "Value": "ກະລຸນາເລືອກພາຫະນະເພື່ອສະກັດເອົາຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_Step1",
+    "Value": "ກົດປຸ່ມເປີດໃຊ້ງານ wifi ເພື່ອປະຕິບັດ wifi ຂອງອຸປະກອນຢູ່ໃນສື່ທີ່ເລືອກ. \""
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_Step2",
+    "Value": "ເປີດການຕັ້ງຄ່າ wifi ຢູ່ໃນໂທລະສັບຂອງເຈົ້າແລະເຊື່ອມຕໍ່ກັບ wifi ຂອງອຸປະກອນຂອງເຈົ້າ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_TitlePage",
+    "Value": "ສະກັດວິດີໂອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_TurnOnWifiSuccess",
+    "Value": "ເປີດອຸປະກອນ wifi ສຳ ເລັດແລ້ວ! ຊອກຫາແລະເຊື່ອມຕໍ່ກັບ wifi ຂອງອຸປະກອນຂອງເຈົ້າຢູ່ໃນການຕັ້ງຄ່າ wifi"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_TurnOnWifiUnSuccess",
+    "Value": "ເປີດ wifi ອຸປະກອນບໍ່ສໍາເລັດ! ກະລຸນາລອງໃor່ຫຼືໂທຫາ {0} ເພື່ອຂໍຄວາມຊ່ວຍເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_WifiName",
+    "Value": "ຊື່ Wi-Fi: "
   },
   {
     "PK_ResourcesID": 0,
@@ -5822,6 +5983,13 @@
     "CodeName": "lo-LA",
     "Name": "Route_Label_Title",
     "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_TotalTimeLimit",
+    "Value": "ເຈົ້າບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເບິ່ງເກີນ {0} ມື້"
   },
   {
     "PK_ResourcesID": 0,
