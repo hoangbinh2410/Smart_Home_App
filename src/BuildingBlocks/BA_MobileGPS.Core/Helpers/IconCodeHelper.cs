@@ -9,22 +9,30 @@ namespace BA_MobileGPS.Core.Helpers
         public static string GetIconCarFromStates(IconCode iconCode, IconColor iconColor)
         {
             // Nếu không có iconCode thì lấy ic_car_traking làm mặc định
-            string icon = "ball_blue.png";
-            if (string.IsNullOrEmpty(iconCode.ToDescription()) || string.IsNullOrEmpty(iconCode.ToDescription()))
+            string icon = "car_blue.png";
+            try
             {
-                return icon;
-            }
-            else
-            {
-                if (IconCode.Other.ToDescription().Equals(iconCode.ToDescription()))
+                if (string.IsNullOrEmpty(iconCode.ToDescription()) || string.IsNullOrEmpty(iconCode.ToDescription()))
                 {
-                    icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    return icon;
                 }
                 else
                 {
-                    icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    if (IconCode.Other.ToDescription().Equals(iconCode.ToDescription()))
+                    {
+                        icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    }
+                    else
+                    {
+                        icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                LoggerHelper.WriteLog("GetIconCarFromStates", ex.Message);
+            }
+
             return icon;
         }
 
