@@ -20,6 +20,7 @@
         <ResourceDictionary>
             <converter:FavoritesColorConverter x:Key="FavoritesColorConverter" />
             <converter:HasPermisstionCameraConverter x:Key="HasPermisstionCameraConverter" />
+            <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
         </ResourceDictionary>
     </ContentView.Resources>
     <Grid VerticalOptions="StartAndExpand">
@@ -167,7 +168,7 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="{Binding Channel, StringFormat='{}CH: {0}'}"
+                                        Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}"
                                         VerticalOptions="Center" />
                                     <icons:IconView
                                         Grid.Row="2"

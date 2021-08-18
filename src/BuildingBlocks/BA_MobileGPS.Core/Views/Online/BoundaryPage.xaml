@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="{Binding Title}"
     mc:Ignorable="d">
@@ -33,7 +34,7 @@
                     FontSize="14"
                     HorizontalOptions="FillAndExpand"
                     HorizontalTextAlignment="Start"
-                    Text="Lựa chọn nhóm điểm công ty"
+                    Text="{i18n:TranslateResource Boundary_Label_SelectPointCompany}"
                     TextColor="{DynamicResource TextPrimaryColor}" />
                 <Grid
                     Grid.Row="1"
@@ -49,7 +50,7 @@
                         CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
-                        Text="Tất cả các điểm" />
+                        Text="{i18n:TranslateResource Boundary_Label_AllPoint}" />
                     <checkbox:SfCheckBox
                         x:Name="ckbAllBoudaryCompany"
                         Grid.Column="1"
@@ -57,7 +58,7 @@
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
-                        Text="Vùng bao" />
+                        Text="{i18n:TranslateResource Boundary_Label_Boundary}" />
                     <checkbox:SfCheckBox
                         x:Name="ckbAllNameCompany"
                         Grid.Column="2"
@@ -65,7 +66,7 @@
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
-                        Text="Tên điểm" />
+                        Text="{i18n:TranslateResource Boundary_Label_PointName}" />
                 </Grid>
                 <ScrollView
                     Grid.Row="2"
@@ -146,7 +147,7 @@
                         CheckedColor="{DynamicResource PrimaryColor}"
                         CornerRadius="5"
                         FontSize="13"
-                        Text="Tất cả" />
+                        Text="{i18n:TranslateResource Boundary_Label_AllPoint}" />
                     <checkbox:SfCheckBox
                         x:Name="ckbAllBoudary"
                         Grid.Column="1"
@@ -154,7 +155,7 @@
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
-                        Text="Vùng bao" />
+                        Text="{i18n:TranslateResource Boundary_Label_Boundary}" />
                     <checkbox:SfCheckBox
                         x:Name="ckbAllName"
                         Grid.Column="2"
@@ -162,7 +163,7 @@
                         CornerRadius="5"
                         FontSize="13"
                         IsEnabled="False"
-                        Text="Tên điểm" />
+                        Text="{i18n:TranslateResource Boundary_Label_PointName}" />
                 </Grid>
                 <ScrollView
                     Grid.Row="2"

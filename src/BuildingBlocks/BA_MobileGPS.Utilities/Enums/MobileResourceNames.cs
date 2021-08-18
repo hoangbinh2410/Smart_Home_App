@@ -549,6 +549,8 @@
         Common_Message_ErrorOverDateSearch,
         Common_Label_TitleShowHideColumn,
         Common_Label_All,
+        Common_Message_Success,
+        Common_Message_SaveError,
 
         PourFuelReport_Label_TitlePage,
         PourFuelReport_Label_TitleDetailPage,
@@ -950,6 +952,22 @@
         Camera_Message_GotoImagePage,
         Camera_Message_ListUserStream,
         Camera_Message_CloseListUserStream,
+        Camera_Message_DeviceIsPlayback,
+        Camera_Message_DeviceNotOnline,
+        ExportVideo_Lable_TitlePage,
+        ExportVideo_Lable_SelectVehicle,
+        ExportVideo_Lable_HelpExport,
+        ExportVideo_Lable_Step1,
+        ExportVideo_Lable_Step2,
+        ExportVideo_Lable_WifiName,
+        ExportVideo_Lable_Password,
+        ExportVideo_Lable_OpenWeb,
+        ExportVideo_Lable_OpenWeb2,
+        ExportVideo_Lable_HelperDetail,
+        ExportVideo_Lable_HelperDetail2,
+        ExportVideo_Lable_EnableWifi,
+        ExportVideo_Lable_TurnOnWifiSuccess,
+        ExportVideo_Lable_TurnOnWifiUnSuccess,
         #endregion
 
         #region Image
@@ -1198,7 +1216,13 @@
         DetailIssue_Label_SubmitSupportRequest,
         DetailIssue_Label_DueDate,
         DetailIssue_Label_ContentIssue,
-        DetailIssue_Label_StepIssue
+        DetailIssue_Label_StepIssue,
         #endregion
+
+        Boundary_Label_TilePage,
+        Boundary_Label_SelectPointCompany,
+        Boundary_Label_AllPoint,
+        Boundary_Label_Boundary,
+        Boundary_Label_PointName,
     }
 }

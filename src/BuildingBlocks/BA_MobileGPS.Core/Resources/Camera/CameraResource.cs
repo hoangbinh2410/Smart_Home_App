@@ -110,5 +110,35 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Message_ListUserStream => Get(MobileResourceNames.Camera_Message_ListUserStream, "Danh sách người dùng đang xem trực tiếp >>", "List of currently viewing users >>");
 
         public static string Camera_Message_CloseListUserStream => Get(MobileResourceNames.Camera_Message_CloseListUserStream, "Thu gọn danh sách <<", "Collapse the list <<");
+
+        public static string Camera_Message_DeviceIsPlayback => Get(MobileResourceNames.Camera_Message_DeviceIsPlayback, "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp", "The device is in playback mode, please turn off playback to watch live");
+
+        public static string Camera_Message_DeviceNotOnline => Get(MobileResourceNames.Camera_Message_DeviceNotOnline, "Thiết bị chưa online hoặc không tồn tại", "Device is not online or does not exist");
+
+
+        public static string ExportVideo_Lable_TitlePage => Get(MobileResourceNames.ExportVideo_Lable_TitlePage, "Trích xuất dữ liệu", "Extract video");
+
+        public static string ExportVideo_Lable_SelectVehicle => Get(MobileResourceNames.ExportVideo_Lable_SelectVehicle, "Vui lòng chọn phương tiện để trích xuất dữ liệu", "Please select vehicle to extract data");
+
+        public static string ExportVideo_Lable_HelpExport => Get(MobileResourceNames.ExportVideo_Lable_HelpExport, "HƯỚNG DẪN TRÍCH XUẤT DỮ LIỆU", "INSTRUCTIONS FOR EXTRACTING VIDEOS");
+        public static string ExportVideo_Lable_Step1 => Get(MobileResourceNames.ExportVideo_Lable_Step1, "Bấm nút Bật wifi để thực hiện bật wifi của thiết bị trên phương tiện đã chọn.", "Press the Enable wifi button to perform the device's wifi on on the selected media.");
+        public static string ExportVideo_Lable_Step2 => Get(MobileResourceNames.ExportVideo_Lable_Step2, "Mở cài đặt wifi trên điện thoại và thực hiện kết nối với wifi của thiết bị.", "Open wifi settings on your phone and make a connection to your device's wifi.");
+
+        public static string ExportVideo_Lable_WifiName => Get(MobileResourceNames.ExportVideo_Lable_WifiName, "Tên wifi: ", "Wi-Fi Name: ");
+
+        public static string ExportVideo_Lable_Password => Get(MobileResourceNames.ExportVideo_Lable_Password, "Mật khẩu : ", "Password : ");
+
+        public static string ExportVideo_Lable_OpenWeb => Get(MobileResourceNames.ExportVideo_Lable_OpenWeb, "Mở trình duyệt (Chrome, FireFox, Safari,…) trên điện thoại và nhập địa chỉ:", "Open a browser (Chrome, FireFox, Safari, ...) on your phone and enter the address:");
+
+        public static string ExportVideo_Lable_OpenWeb2 => Get(MobileResourceNames.ExportVideo_Lable_OpenWeb2, " để thực hiện trích xuất dữ liệu", "to perform data extraction");
+
+        public static string ExportVideo_Lable_HelperDetail => Get(MobileResourceNames.ExportVideo_Lable_HelperDetail, "Chi tiết vui lòng xem video hướng dẫn", "For details, please watch the video tutorial");
+
+        public static string ExportVideo_Lable_HelperDetail2 => Get(MobileResourceNames.ExportVideo_Lable_HelperDetail2, " tại đây.", " here.");
+
+        public static string ExportVideo_Lable_EnableWifi => Get(MobileResourceNames.ExportVideo_Lable_EnableWifi, "Bật Wifi", "Turn on Wifi");
+
+        public static string ExportVideo_Lable_TurnOnWifiSuccess => Get(MobileResourceNames.ExportVideo_Lable_TurnOnWifiSuccess, "Bật wifi thiết bị thành công! Tìm và kết nối với wifi của thiết bị trong cài đặt wifi", "Turn on wifi device successfully! Find and connect to your device's wifi in wifi settings");
+        public static string ExportVideo_Lable_TurnOnWifiUnSuccess => Get(MobileResourceNames.ExportVideo_Lable_TurnOnWifiUnSuccess, "Bật wifi thiết bị không thành công! Vui lòng thử lại hoặc gọi số tổng đài {0} để được hỗ trợ ", "Turn on wifi device failed! Please try again or call {0} for assistance");
     }
 }

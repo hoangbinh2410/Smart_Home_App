@@ -160,6 +160,10 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_All => Get(MobileResourceNames.Common_Label_All, "Tất cả", "All");
 
+        public static string Common_Message_Success => Get(MobileResourceNames.Common_Message_Success, "Lưu thành công", "Save success");
+
+        public static string Common_Message_SaveError => Get(MobileResourceNames.Common_Message_SaveError, "Lưu không thành công bạn vui lòng kiểm tra lại", "Save failed, please check again");
+
         #endregion Report Common
 
         #region datetime picker

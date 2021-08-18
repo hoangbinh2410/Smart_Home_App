@@ -305,7 +305,7 @@ namespace BA_MobileGPS.Core.Models
                         {
                             _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
                         }
-                        result.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
+                        result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
                         SetError(result.UserMessage);
                     }
                     else
@@ -324,7 +324,7 @@ namespace BA_MobileGPS.Core.Models
                 {
                     Link = string.Empty;
                     _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(result.UserMessage);
+                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
                 }
             });
         }
