@@ -2657,5 +2657,59 @@
   <ItemGroup>
     <BundleResource Include="Resources\truck_blue_grey%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_red%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_red%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_warn%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_warn%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_orange%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_orange%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
