@@ -417,7 +417,7 @@
                                     FontFamily="{StaticResource myFontLatoBold}"
                                     FontSize="18"
                                     HorizontalOptions="Center"
-                                    Text="{Binding CurrentRoute.Time, Converter={StaticResource TimeConverter}}"
+                                    Text="{Binding CurrentRoute.Time, StringFormat='{}{0:HH:mm:ss}'}"
                                     TextColor="Black" />
                             </StackLayout>
                             <StackLayout
