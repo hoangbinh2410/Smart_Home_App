@@ -52,7 +52,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Tốc độ của xe"
+                Text="{i18n:TranslateResource ReportQCVN31Speed_Label_TitlePage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout

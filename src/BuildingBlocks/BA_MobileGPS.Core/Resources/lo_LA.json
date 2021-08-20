@@ -689,6 +689,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Boundary_Label_PointAplication",
+    "Value": "ກຸ່ມຈຸດລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Boundary_Label_PointName",
     "Value": "ຊື່ຈຸດ"
   },
@@ -984,7 +991,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Camera_Message_CloseListUserStream",
-    "Value": "ຫຍໍ້ລາຍຊື່ <<"
+    "Value": "ຫຍໍ້ລາຍຊື່ <<;"
   },
   {
     "PK_ResourcesID": 0,
@@ -2287,6 +2294,34 @@
     "CodeName": "lo-LA",
     "Name": "Common_Message_Warning",
     "Value": "ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_DangerousChars",
+    "Value": "{0} ບໍ່ສາມາດມີຕົວອັກສອນ \", \\ \", <,>,/, &\""
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_Invalid",
+    "Value": "{0} ບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_MinLength",
+    "Value": "{0} ຕ້ອງມີຕົວອັກສອນຢ່າງ ໜ້ອຍ 3 ຕົວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_NullOrEmpty",
+    "Value": "{0} ບໍ່ສາມາດເວັ້ນຫວ່າງໄດ້"
   },
   {
     "PK_ResourcesID": 0,

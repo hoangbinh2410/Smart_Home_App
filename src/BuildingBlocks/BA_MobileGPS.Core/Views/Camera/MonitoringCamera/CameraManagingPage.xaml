@@ -494,6 +494,7 @@
                             x:Name="autorenewal"
                             CornerRadius="0"
                             IsChecked="{Binding AutoAddTime}"
+                            LineBreakMode="TailTruncation"
                             TextColor="White"
                             UncheckedColor="{DynamicResource GrayColor}" />
                         <Grid

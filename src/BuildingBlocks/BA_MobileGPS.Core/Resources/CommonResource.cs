@@ -103,7 +103,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Property_NotContainChars(string property, string chars) => Get(MobileResourceNames.Common_Property_NotContainChars, string.Format("{0} không được chứa các kí tự {1}", property, chars), string.Format("{0} cannot contain characters {1}", property, chars));
 
-        public static string Common_Message_RequiredNullOrEmpty => Get(MobileResourceNames.Common_Button_Update, "Trường không được để trống", "This field is required");
+        public static string Common_Message_RequiredNullOrEmpty => Get(MobileResourceNames.Common_Message_RequiredNullOrEmpty, "Trường không được để trống", "This field is required");
 
         public static string Common_Message_RequiredDateTimeOver => Get(MobileResourceNames.Common_Message_RequiredDateTimeOver, "Không tìm kiếm xuyên ngày", "Do not search through the day");
 

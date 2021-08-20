@@ -155,7 +155,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else if (ToDate.Subtract(FromDate).TotalDays > 60)
                 {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_TotalTimeLimit(60));
+                    DisplayMessage.ShowMessageInfo(string.Format(MobileResource.Route_Label_TotalTimeLimit, 60));
                 }
                 FilterIssue();
             }

@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string ReportTemperature_Label_DetailFromDate => Get(MobileResourceNames.ReportTemperature_Label_DetailFromDate, "Từ: ", "From: ");
         public static string ReportTemperature_Label_DetailKM => Get(MobileResourceNames.ReportTemperature_Label_DetailKM, "KM: ", "Kilomet: ");
-        public static string ReportTemperature_Label_DetailTemperature => Get(MobileResourceNames.ReportTemperature_Label_DetailTemperature, "Nhiệt độ: ", "Temperature: ");
+        public static string ReportTemperature_Label_DetailTemperature => Get(MobileResourceNames.ReportTemperature_Label_DetailTemperature, "Nhiệt độ ", "Temperature ");
         public static string ReportTemperature_Label_DetailStartAddress => Get(MobileResourceNames.ReportTemperature_Label_DetailStartAddress, "Địa chỉ đi: ", "StartAddress: ");
         public static string ReportTemperature_Label_DetailEndAddress => Get(MobileResourceNames.ReportTemperature_Label_DetailEndAddress, "Địa chỉ đến: ", "EndAddress: ");
         public static string ReportTemperature_Label_DetailDescription => Get(MobileResourceNames.ReportTemperature_Label_DetailDescription, "Ghi chú: ", "Description: ");

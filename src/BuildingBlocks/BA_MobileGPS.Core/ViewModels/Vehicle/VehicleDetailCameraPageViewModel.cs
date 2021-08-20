@@ -323,28 +323,28 @@ namespace BA_MobileGPS.Core.ViewModels
             var list = new List<MenuItem>();
             list.Add(new MenuItem
             {
-                Title = "Video",
+                Title = MobileResource.Camera_Label_Video,
                 Icon = "ic_videolive.png",
                 Url = "NavigationPage/CameraManagingPage",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
             list.Add(new MenuItem
             {
-                Title = "Hình Ảnh",
+                Title = MobileResource.Image_Lable_Image,
                 Icon = "ic_cameraonline.png",
                 Url = "NavigationPage/ImageManagingPage",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
             });
             list.Add(new MenuItem
             {
-                Title = "Nhiên liệu",
+                Title = MobileResource.DetailVehicle_Label_Fuel,
                 Icon = "ic_fuel.png",
                 Url = "NavigationPage/ChartFuelReportPage",
                 IsEnable = IsFuelVisible == true && CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline) ? true : false,
             });
             list.Add(new MenuItem
             {
-                Title = "Nhiệt độ",
+                Title = MobileResource.ReportTemperature_Label_DetailTemperature,
                 Icon = "ic_temperature.png",
                 Url = "NavigationPage/ReportTableTemperature",
                 IsEnable = !string.IsNullOrEmpty(Temperature) && CheckPermision((int)PermissionKeyNames.ReportTemperatureView) ? true : false,

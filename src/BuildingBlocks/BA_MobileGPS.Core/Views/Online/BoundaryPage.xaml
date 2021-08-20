@@ -131,7 +131,7 @@
                     FontSize="14"
                     HorizontalOptions="FillAndExpand"
                     HorizontalTextAlignment="Start"
-                    Text="Nhóm điểm hệ thống"
+                    Text="{i18n:TranslateResource Boundary_Label_PointAplication}"
                     TextColor="{DynamicResource TextPrimaryColor}" />
                 <Grid
                     Grid.Row="1"

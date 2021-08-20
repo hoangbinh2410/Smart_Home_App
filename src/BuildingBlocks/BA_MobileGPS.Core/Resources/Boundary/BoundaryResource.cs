@@ -13,5 +13,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Boundary_Label_Boundary => Get(MobileResourceNames.Boundary_Label_Boundary, "Vùng bao", "Boundary");
 
         public static string Boundary_Label_PointName => Get(MobileResourceNames.Boundary_Label_PointName, "Tên điểm", "Point name");
+
+        public static string Boundary_Label_PointAplication => Get(MobileResourceNames.Boundary_Label_PointAplication, "Nhóm điểm hệ thống", "System point group");
     }
 }

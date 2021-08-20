@@ -434,38 +434,38 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (result.State)
                     {
                         case ValidatedHistoryRouteState.OverTotalDateMobile:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_TotalTimeLimit(result.TotalDayConfig), MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_TotalTimeLimit, result.TotalDayConfig), MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.Expired:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.OverDateConfig:
                             if (result.MinDate != null && result.MaxDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MinDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateLimit(result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_FromDateLimit(result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MaxDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateLimit(result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_ToDateLimit(result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
                             }
                             break;
 
                         case ValidatedHistoryRouteState.DateFuture:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.FromDateOverToDate:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
                             break;
                     }
                 });

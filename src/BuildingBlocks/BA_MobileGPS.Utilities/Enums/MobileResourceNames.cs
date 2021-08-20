@@ -1235,6 +1235,7 @@
         Boundary_Label_AllPoint,
         Boundary_Label_Boundary,
         Boundary_Label_PointName,
+        Boundary_Label_PointAplication,
 
         ListPaper_Label_TilePage,
         ListPaper_Label_OptionPaper,

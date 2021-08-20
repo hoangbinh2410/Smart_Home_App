@@ -30,8 +30,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string Route_Label_LostSignal => Get(MobileResourceNames.Route_Label_LostSignal, "Mất tín hiệu", "Lost Signal");
         public static string Route_Label_StartDateMustSmallerThanEndDate => Get(MobileResourceNames.Route_Label_StartDateMustSmallerThanEndDate, "Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc", "Start time must be smaller than end time");
 
-        public static string Route_Label_TotalTimeLimit(int limit) => Get(MobileResourceNames.Route_Label_TotalTimeLimit,
-            string.Format("Bạn không được phép xem quá {0} ngày", limit), string.Format("You don't have permission to view more than {0} days", limit));
+        public static string Route_Label_TotalTimeLimit => Get(MobileResourceNames.Route_Label_TotalTimeLimit,
+            string.Format("Bạn không được phép xem quá {0} ngày"), string.Format("You don't have permission to view more than {0} days"));
 
         public static string Route_Label_EndDateLimit => Get(MobileResourceNames.Route_Label_EndDateLimit, "Bạn không được phép xem quá ngày hiện tại", "End date is greater than now");
 

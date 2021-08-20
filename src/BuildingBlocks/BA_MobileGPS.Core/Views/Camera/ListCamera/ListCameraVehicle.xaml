@@ -143,6 +143,7 @@
                     <DatePicker
                         Date="{Binding DayBefore}"
                         FontSize="{StaticResource FontSize12}"
+                        Format="MM/dd/yyyy"
                         HorizontalOptions="FillAndExpand"
                         TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">

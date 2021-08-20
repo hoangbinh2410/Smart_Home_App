@@ -938,7 +938,7 @@
                                                 <Label
                                                     FontSize="{StaticResource FontSize12}"
                                                     HorizontalOptions="CenterAndExpand"
-                                                    Text="Chi tiết"
+                                                    Text="{i18n:TranslateResource ActivitySummariesReport_Label_Detail}"
                                                     TextColor="{DynamicResource PrimaryColor}"
                                                     VerticalOptions="CenterAndExpand" />
                                             </StackLayout>
