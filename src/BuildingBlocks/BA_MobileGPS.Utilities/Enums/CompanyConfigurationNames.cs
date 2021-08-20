@@ -29,6 +29,7 @@
         IsShowTemperatureOnline,
         IsShowDateOfRegistration,
         ShowKmInMonth,
-        DayAllowRegister
+        DayAllowRegister,
+        UseNewSummaryIconOnline
     }
 }

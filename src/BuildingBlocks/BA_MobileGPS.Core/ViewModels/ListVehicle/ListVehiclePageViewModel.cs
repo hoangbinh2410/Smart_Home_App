@@ -305,9 +305,17 @@ namespace BA_MobileGPS.Core.ViewModels
             var vehicleList = _mapper.MapListProperties<VehicleOnline>(ListVehicle.ToList());
             VehicleStatusSelected = VehicleStatusGroup.All;
             CountVehicle = vehicleList.Count();
-
+            List<VehicleStatusViewModel> listStatus = new List<VehicleStatusViewModel>();
             // Lấy trạng thái xe
-            List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            if (CompanyConfigurationHelper.UseNewSummaryIconOnline)
+            {
+                listStatus = (new VehicleStatusHelper()).DictVehicleStatusNew.Values.Where(x => x.IsEnable).ToList();
+            }
+            else
+            {
+                listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            }
+
             if (listStatus != null && listStatus.Count > 0)
             {
                 listStatus.ForEach(x =>

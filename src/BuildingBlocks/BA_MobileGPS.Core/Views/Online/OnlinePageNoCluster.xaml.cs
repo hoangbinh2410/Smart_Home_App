@@ -631,7 +631,15 @@ namespace BA_MobileGPS.Core.Views
             //txtCountVehicle.Text = vehicleList.Count().ToString();
             vm.VehicleStatusSelected = VehicleStatusGroup.All;
             // Lấy trạng thái xe
-            List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            List<VehicleStatusViewModel> listStatus = new List<VehicleStatusViewModel>();
+            if (CompanyConfigurationHelper.UseNewSummaryIconOnline)
+            {
+                listStatus = (new VehicleStatusHelper()).DictVehicleStatusNew.Values.Where(x => x.IsEnable).ToList();
+            }
+            else
+            {
+                listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            }
             if (listStatus != null && listStatus.Count > 0)
             {
                 listStatus.ForEach(x =>

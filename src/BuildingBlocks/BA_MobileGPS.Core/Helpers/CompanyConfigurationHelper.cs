@@ -108,5 +108,7 @@ namespace BA_MobileGPS.Core
         /// form giấy tờ, mặc định là 30
         /// </summary>
         public static int DayAllowRegister => Get(CompanyConfigurationNames.DayAllowRegister, 30);
+
+        public static bool UseNewSummaryIconOnline => Get(CompanyConfigurationNames.UseNewSummaryIconOnline, false);
     }
 }
