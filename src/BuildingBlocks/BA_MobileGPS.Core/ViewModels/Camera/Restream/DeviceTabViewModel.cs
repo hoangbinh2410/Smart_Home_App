@@ -8,7 +8,6 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
@@ -557,7 +556,18 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (result != null && result.StatusCode == 107)
                         {
-                            if (result.Data != null && result.Data.Count > 0)
+                            var lstUser = new List<StreamUserRequest>();
+                            foreach (var item in result.Data)
+                            {
+                                if (item.StreamingRequests != null && item.StreamingRequests.Count > 0)
+                                {
+                                    foreach (var itemuser in item.StreamingRequests)
+                                    {
+                                        lstUser.Add(itemuser);
+                                    }
+                                }
+                            }
+                            if (result.Data != null && lstUser.Count > 0)
                             {
                                 SetErrorErrorDoubleStreamingCamera(result.Data);
                             }
@@ -592,7 +602,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     foreach (var itemuser in item.StreamingRequests)
                     {
-                        lstUser.Add(itemuser);
+                        var isexist = lstUser.Exists(x => x.User == itemuser.User && x.Session == itemuser.Session);
+                        if (!isexist)
+                        {
+                            lstUser.Add(itemuser);
+                        }
                     }
                 }
             }

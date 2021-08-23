@@ -960,7 +960,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     foreach (var itemuser in item.PlaybackRequests)
                     {
-                        lstUser.Add(itemuser);
+                        var isexist = lstUser.Exists(x => x.User == itemuser.User && x.Session == itemuser.Session);
+                        if (!isexist)
+                        {
+                            lstUser.Add(itemuser);
+                        }
                     }
                 }
             }

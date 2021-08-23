@@ -81,12 +81,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Message = string.Format(MobileResource.Camera_Message_DeviceStreamingErrorDetail,
                    obj.Item1.PrivateCode);
-            var listUser = new List<string>();
+            string listUser = string.Empty;
             foreach (var item in obj.Item2)
             {
-                listUser.Add(item.User);
+                listUser = listUser + item.User + "(" + ((CameraSourceType)obj.Item2[0].Source).ToDescription() + ")" + ",";
             }
-            LstUser = string.Join(",", listUser);
+            LstUser = listUser;
         }
 
         public ICommand PushToListCameraPageCommand
@@ -173,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                         UserName = item.User,
                                         Message = string.Format(MobileResource.Camera_Lable_CameraDisconnect,
                                         Vehicle.PrivateCode,
-                                        item.User,
+                                        UserInfo.UserName,
                                         ((CameraSourceType)item.Source).ToDescription())
                                     });
                                 }

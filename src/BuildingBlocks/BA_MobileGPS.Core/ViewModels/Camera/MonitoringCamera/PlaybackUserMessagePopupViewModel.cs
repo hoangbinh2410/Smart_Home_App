@@ -146,11 +146,11 @@ namespace BA_MobileGPS.Core.ViewModels
                                         UserName = item.User,
                                         Message = string.Format(MobileResource.Camera_Lable_PlaybackDisconnect, Vehicle.PrivateCode,
                                         Vehicle.PrivateCode,
-                                        item.User,
+                                        UserInfo.UserName,
                                         ((CameraSourceType)item.Source).ToDescription())
                                     });
                                 }
-                               
+
                             }
                         }
                     }
