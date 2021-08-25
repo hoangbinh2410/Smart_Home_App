@@ -7,6 +7,7 @@ using BA_MobileGPS.Utilities.Extensions;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -154,9 +155,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     User = UserInfo.UserName,
                     SessionID = StaticSettings.SessionID
                 };
+                DependencyService.Get<IHUDProvider>().DisplayProgress("");
+                await Task.Delay(TimeSpan.FromSeconds(5));
                 var result = await _streamCameraService.DevicesStop(start);
                 if (result)
                 {
+                    DependencyService.Get<IHUDProvider>().Dismiss();
                     if (StreamUserRequest != null && StreamUserRequest.Count > 0)
                     {
                         List<StreamUserRequest> lstUserSended = new List<StreamUserRequest>();
@@ -185,6 +189,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_StopStreamingOK, MobileResource.Common_Button_OK);
                     });
+                }
+                else
+                {
+                    DependencyService.Get<IHUDProvider>().Dismiss();
                 }
             });
         }

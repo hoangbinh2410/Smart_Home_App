@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Camera_Lable_ExportVideo => Get(MobileResourceNames.Camera_Lable_ExportVideo, "Trích xuất video", "Export video");
         public static string Camera_Lable_CameraDisconnect => Get(MobileResourceNames.Camera_Lable_CameraDisconnect, "Quý khách bị ngắt kết nối do phương tiện {0} được yêu cầu phát xem lại {1} ({2})", "You are disconnected because vehicle {0} is asked to replay {1} ({2})");
-        public static string Camera_Message_StopStreamingOK => Get(MobileResourceNames.Camera_Message_StopStreamingOK, "Dừng xem trực tiếp thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Stop watching live successfully. Please wait a moment for the device to go live");
+        public static string Camera_Message_StopStreamingOK => Get(MobileResourceNames.Camera_Message_StopStreamingOK, "Hệ thống đang chờ phát video phương tiện này. Quý khách vui lòng đợi trong giây lát!", "Stop watching live successfully. Please wait a moment for the device to go live");
 
         public static string Camera_Message_StopStreaming => Get(MobileResourceNames.Camera_Message_StopStreaming, "Dừng phát trực tiếp", "Stop streaming");
 
@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Camera_Lable_PlaybackDisconnect => Get(MobileResourceNames.Camera_Lable_PlaybackDisconnect, "Quý khách bị ngắt kết nối do phương tiện {0} được yêu cầu phát trực tiếp {2} ({3})", "You are disconnected because vehicle {0} is asked to live stream {1} ({2})");
 
-        public static string Camera_Message_StopPlaybackOK => Get(MobileResourceNames.Camera_Message_StopPlaybackOK, "Dừng xem lại thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Stop playback successfully. Please wait a moment for the device to go live");
+        public static string Camera_Message_StopPlaybackOK => Get(MobileResourceNames.Camera_Message_StopPlaybackOK, "Hệ thống đang chờ phát video phương tiện này. Quý khách vui lòng đợi trong giây lát!", "Stop playback successfully. Please wait a moment for the device to go live");
 
         public static string Camera_Message_DevicePlaybackErrorDetail => Get(MobileResourceNames.Camera_Message_DevicePlaybackErrorDetail, "Phương tiện {0} đang được xem lại bởi {1} ({2}), do vậy quý khách không thể xem lại.", "Vehicle {0} is being broadcast live, so you cannot watch it again.\n");
 
