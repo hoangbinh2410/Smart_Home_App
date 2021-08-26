@@ -343,8 +343,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             //Hub logout
             await identityHubService.Connect();
+            identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
+            identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser -= onReceiveMessageToUser;
             identityHubService.onReceivePushMessageToUser += onReceiveMessageToUser;
             if (MobileSettingHelper.UseUserBehavior)
             {

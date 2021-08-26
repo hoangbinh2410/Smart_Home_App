@@ -72,6 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
             HelpVideoCommand = new DelegateCommand(HelpVideo);
             EventAggregator.GetEvent<SendErrorCameraEvent>().Subscribe(SetErrorChannelCamera);
             EventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Subscribe(SetErrorErrorDoubleStremingCamera);
+            EventAggregator.GetEvent<UserMessageCameraEvent>().Unsubscribe(UserMessageCamera);
             EventAggregator.GetEvent<UserMessageCameraEvent>().Subscribe(UserMessageCamera);
         }
 
