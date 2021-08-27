@@ -17,6 +17,8 @@ using System.Reflection;
 using System.Threading;
 using System.Timers;
 using System.Windows.Input;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -239,6 +241,21 @@ namespace BA_MobileGPS.Core.ViewModels
             else if (Vehicle == null || Vehicle.VehicleId == 0)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
+                return false;
+            }
+            else if (Vehicle != null && SelectedChannel.Value > Vehicle.Channel)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                          string.Format("Kênh này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video cho kênh này. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                          Vehicle.PrivateCode, MobileSettingHelper.HotlineGps),
+                          "Liên hệ", "Bỏ qua");
+                    if (action)
+                    {
+                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                    }
+                });
                 return false;
             }
             else

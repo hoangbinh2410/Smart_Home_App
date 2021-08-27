@@ -8,7 +8,6 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
@@ -21,7 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Timers;
 using System.Windows.Input;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -577,22 +576,25 @@ namespace BA_MobileGPS.Core.ViewModels
                             var listCam = new List<CameraManagement>();
                             foreach (var item in deviceResponse.Channels)
                             {
-                                var request = new CameraStartRequest()
+                                if (item.Channel <= Vehicle.Channel)
                                 {
-                                    Channel = item.Channel,
-                                    Duration = maxTimeCameraRemain,
-                                    VehicleName = Vehicle.VehiclePlate,
-                                    CustomerID = UserInfo.XNCode,
-                                    Source = (int)CameraSourceType.App,
-                                    User = UserInfo.UserName,
-                                    SessionID = StaticSettings.SessionID
-                                };
-                                // var res = await RequestStartCam(item.Channel);
-                                var cam = new CameraManagement(maxLoadingTime,
-                                    libVLC,
-                                    _streamCameraService,
-                                    request, EventAggregator);
-                                listCam.Add(cam);
+                                    var request = new CameraStartRequest()
+                                    {
+                                        Channel = item.Channel,
+                                        Duration = maxTimeCameraRemain,
+                                        VehicleName = Vehicle.VehiclePlate,
+                                        CustomerID = UserInfo.XNCode,
+                                        Source = (int)CameraSourceType.App,
+                                        User = UserInfo.UserName,
+                                        SessionID = StaticSettings.SessionID
+                                    };
+                                    // var res = await RequestStartCam(item.Channel);
+                                    var cam = new CameraManagement(maxLoadingTime,
+                                        libVLC,
+                                        _streamCameraService,
+                                        request, EventAggregator);
+                                    listCam.Add(cam);
+                                }
                             }
                             mCameraVehicle = deviceResponse.Channels;
                             var query = (from p in ChannelCamera
@@ -642,7 +644,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehiclePlate = model.VehiclePlate,
                         Imei = model.Imei,
-                        PrivateCode = model.VehiclePlate
+                        PrivateCode = model.VehiclePlate,
+                        Channel = model.Channel
                     };
                 }
                 else
@@ -865,58 +868,75 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && obj is ChannelCamera item)
                 {
-                    //	Kênh không active  không thay đổi
-                    if (item.Status == ChannelCameraStatus.Error)
+                    if (item.Channel <= Vehicle.Channel)
                     {
-                        DisplayMessage.ShowMessageInfo(string.Format(MobileResource.Camera_Message_ChannelNotWorking, item.Channel));
-                        return;
-                    }
-                    if (mCameraVehicle != null && mCameraVehicle.Count > 0)
-                    {
-                        var channel = ChannelCamera.FirstOrDefault(x => x.Channel == item.Channel);
-                        if (channel != null)
+                        //	Kênh không active  không thay đổi
+                        if (item.Status == ChannelCameraStatus.Error)
                         {
+                            DisplayMessage.ShowMessageInfo(string.Format(MobileResource.Camera_Message_ChannelNotWorking, item.Channel));
+                            return;
+                        }
+                        if (mCameraVehicle != null && mCameraVehicle.Count > 0)
+                        {
+                            var channel = ChannelCamera.FirstOrDefault(x => x.Channel == item.Channel);
                             if (channel != null)
                             {
-                                channel.IsShow = !item.IsShow;
-                                var listCam = new List<CameraManagement>();
-                                foreach (var itemcam in ChannelCamera.Where(x => x.Status != ChannelCameraStatus.Error).ToList())
+                                if (channel != null)
                                 {
-                                    if (itemcam.IsShow)
+                                    channel.IsShow = !item.IsShow;
+                                    var listCam = new List<CameraManagement>();
+                                    foreach (var itemcam in ChannelCamera.Where(x => x.Status != ChannelCameraStatus.Error).ToList())
                                     {
-                                        itemcam.Status = ChannelCameraStatus.Selected;
-                                        var request = new CameraStartRequest()
+                                        if (itemcam.IsShow)
                                         {
-                                            Channel = itemcam.Channel,
-                                            Duration = 180,
-                                            VehicleName = Vehicle.VehiclePlate,
-                                            CustomerID = UserInfo.XNCode,
-                                            Source = (int)CameraSourceType.App,
-                                            User = UserInfo.UserName,
-                                            SessionID = StaticSettings.SessionID
-                                        };
-                                        var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
-                                        listCam.Add(cam);
+                                            itemcam.Status = ChannelCameraStatus.Selected;
+                                            var request = new CameraStartRequest()
+                                            {
+                                                Channel = itemcam.Channel,
+                                                Duration = 180,
+                                                VehicleName = Vehicle.VehiclePlate,
+                                                CustomerID = UserInfo.XNCode,
+                                                Source = (int)CameraSourceType.App,
+                                                User = UserInfo.UserName,
+                                                SessionID = StaticSettings.SessionID
+                                            };
+                                            var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
+                                            listCam.Add(cam);
+                                        }
+                                        else
+                                        {
+                                            itemcam.Status = ChannelCameraStatus.UnSelected;
+                                        }
+                                    }
+                                    if (listCam.Count > 0)
+                                    {
+                                        SetItemsSource(listCam);
                                     }
                                     else
                                     {
-                                        itemcam.Status = ChannelCameraStatus.UnSelected;
+                                        ClearAllMediaPlayer(false);
                                     }
                                 }
-                                if (listCam.Count > 0)
-                                {
-                                    SetItemsSource(listCam);
-                                }
-                                else
-                                {
-                                    ClearAllMediaPlayer(false);
-                                }
+                            }
+                            else
+                            {
+                                DisplayMessage.ShowMessageWarning(string.Format(MobileResource.Camera_Message_ChannelNotWorking, item.Channel));
                             }
                         }
-                        else
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            DisplayMessage.ShowMessageWarning(string.Format(MobileResource.Camera_Message_ChannelNotWorking, item.Channel));
-                        }
+                            var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                  string.Format("Kênh này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video cho kênh này. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                  Vehicle.PrivateCode, MobileSettingHelper.HotlineGps),
+                                  "Liên hệ", "Bỏ qua");
+                            if (action)
+                            {
+                                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                            }
+                        });
                     }
                 }
             }

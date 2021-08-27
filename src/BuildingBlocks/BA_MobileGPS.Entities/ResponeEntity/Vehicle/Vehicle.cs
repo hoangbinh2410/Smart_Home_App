@@ -36,13 +36,14 @@ namespace BA_MobileGPS.Entities
         public int SortOrder { set; get; }
     }
 
-    public class CameraLookUpVehicleModel : Vehicle,INotifyPropertyChanged
+    public class CameraLookUpVehicleModel : Vehicle, INotifyPropertyChanged
     {
         private bool isSelected;
         public bool IsSelected
         {
             get { return isSelected; }
-            set {
+            set
+            {
                 this.isSelected = value;
                 if (PropertyChanged != null)
                 {
@@ -50,7 +51,8 @@ namespace BA_MobileGPS.Entities
                 }
             }
         }
+        public int Channel { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-     
+
     }
 }
