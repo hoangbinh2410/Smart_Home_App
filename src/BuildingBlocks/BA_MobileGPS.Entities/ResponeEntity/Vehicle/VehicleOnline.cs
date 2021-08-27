@@ -113,6 +113,9 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("33")]
         public bool IsVideoCam { set; get; }
 
+        [JsonProperty("34")]
+        public bool IsPowerOff { set; get; }
+
         [JsonIgnore]
         public int STT { set; get; }
 

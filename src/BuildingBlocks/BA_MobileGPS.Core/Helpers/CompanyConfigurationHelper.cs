@@ -53,6 +53,8 @@ namespace BA_MobileGPS.Core
 
         public static int DefaultTimeLossConnect => Get(CompanyConfigurationNames.DefaultTimeLossConnect, App.AppType == AppType.VMS ? MobileSettingHelper.DefaultTimeLossConnect : 150);
 
+        public static int DefaultTimeLossConnectOffPower => Get(CompanyConfigurationNames.DefaultTimeLossConnectOffPower, 5);
+
         public static int Vmin => Get(CompanyConfigurationNames.Vmin, 3);
 
         public static bool VehicleOnlineAddressEnabled => Get(CompanyConfigurationNames.VehicleOnlineAddressEnabled, MobileSettingHelper.VehicleOnlineAddressEnabled);

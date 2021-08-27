@@ -44,13 +44,17 @@ namespace BA_MobileGPS.Core.Helpers
             {
                 return "ic_errorgps.png";
             }
-
             /* Vehicle time mất > 150 phút -> mất GSM */
-            if (StateVehicleExtension.IsLostGSM(carInfo.VehicleTime) || StaticSettings.TimeServer.Subtract(carInfo.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+            if ((StateVehicleExtension.IsLostGSM(carInfo.VehicleTime)
+                || StaticSettings.TimeServer.Subtract(carInfo.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+                && !carInfo.IsPowerOff)
             {
                 return GetIconCarFromStates(carInfo.IconCode, IconColor.WARNING);
             }
-
+            if (StateVehicleExtension.IsLostGSMPowerOff(carInfo.VehicleTime, carInfo.IsPowerOff))
+            {
+                return "car_warnturnoff.png";
+            }
             /* Vehicle time mất > 5 phút < 150 phút -> mất GPS */
             if (StateVehicleExtension.IsLostGPSIcon(carInfo.GPSTime, carInfo.VehicleTime))
             {

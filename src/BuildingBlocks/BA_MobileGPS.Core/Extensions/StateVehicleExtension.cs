@@ -267,6 +267,16 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+        public static bool IsLostGSMPowerOff(DateTime vehicleTime, bool isPowerOff)
+        {
+            if (StaticSettings.TimeServer.Subtract(vehicleTime).TotalMinutes >= CompanyConfigurationHelper.DefaultTimeLossConnectOffPower
+                && isPowerOff)//Nếu xe mất GPS
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static bool IsVehicleUpdate(DateTime gpstime, DateTime vehicleTime)
         {
             //nếu thời gian hiện tại - thời gian của xe mà lớn hơn 2 thì update xe đó

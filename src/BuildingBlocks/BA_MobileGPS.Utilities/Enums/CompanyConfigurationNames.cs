@@ -15,6 +15,7 @@
         DefaultMaxVelocityOrange,
         EnableShowCluster,
         DefaultTimeLossConnect,
+        DefaultTimeLossConnectOffPower,
         Vmin,
         VehicleOnlineAddressEnabled,
         AlertMinBlockSMS,

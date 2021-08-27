@@ -2711,5 +2711,14 @@
   <ItemGroup>
     <BundleResource Include="Resources\car2_orange%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warnturnoff%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warnturnoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warnturnoff%402x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -28,5 +28,8 @@ namespace BA_MobileGPS.Entities
         [Description("blue_grey")]
         BLUEGREY = 8,
 
+        [Description("warnturnoff")]
+        WARNINGTURNOFF = 9,
+
     }
 }
