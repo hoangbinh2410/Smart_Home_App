@@ -113,14 +113,14 @@ namespace BA_MobileGPS.Core.Views
 
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
-                if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
+                var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
+                if (vehicleselect != null)
                 {
-                    var vehicleselect = mVehicleList.FirstOrDefault(x => x.VehicleId == vehiclePlate.VehicleId);
-                    if (vehicleselect != null)
+                    if (CheckVehcleHasIsQcvn31(vehicleselect.VehiclePlate))
                     {
-                        if (vehicleselect.IsQcvn31)
+                        if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
                         {
-                            var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                            var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                             if (clusterpin != null)
                             {
                                 vm.CarSearch = vehicleselect.PrivateCode;
@@ -135,27 +135,27 @@ namespace BA_MobileGPS.Core.Views
                         }
                         else
                         {
-                            Device.BeginInvokeOnMainThread(async () =>
-                            {
-                                var action = await DisplayAlert("Thông báo",
-                                      string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
-                                      vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
-                                      "Liên hệ", "Bỏ qua");
-                                if (action)
-                                {
-                                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
-                                }
-                            });
+                            displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
                         }
                     }
                     else
                     {
-                        pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            var action = await DisplayAlert("Thông báo",
+                                  string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                  vehiclePlate.PrivateCode, MobileSettingHelper.HotlineGps),
+                                  "Liên hệ", "Bỏ qua");
+                            if (action)
+                            {
+                                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                            }
+                        });
                     }
                 }
                 else
                 {
-                    displayMessage.ShowMessageInfo(MobileResource.Common_Message_NotFindYourCar);
+                    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
                 }
             }
             else if (parameters.ContainsKey(ParameterKey.VehicleGroups) && parameters.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
@@ -236,6 +236,25 @@ namespace BA_MobileGPS.Core.Views
         #endregion Property
 
         #region Private Method
+
+        public bool CheckVehcleHasIsQcvn31(string vehicleplate)
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                var plate = vehicleplate.Contains("_C") ? vehicleplate : vehicleplate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    return model.IsQcvn31;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return true;
+        }
 
         private void OnReLoadVehicleOnlineCarSignalR(bool arg)
         {
@@ -450,7 +469,7 @@ namespace BA_MobileGPS.Core.Views
             vm.ListVehicleStatus = lisVehicle;
             lisVehicle.ForEach(x =>
             {
-                if (x.IsQcvn31)
+                if (CheckVehcleHasIsQcvn31(x.VehiclePlate))
                 {
                     listmarker.Add(new VehicleOnlineMarker()
                     {

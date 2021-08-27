@@ -106,10 +106,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         await ConnectSignalR();
                         PushPageFileBase();
                         InsertOrUpdateAppDevice();
-                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
-                        {
-                            GetVehicleIsCamera();
-                        }
                     });
 
                     return false;
@@ -179,7 +175,14 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                GetListVehicleOnline();
+                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                {
+                    GetVehicleIsCamera();
+                }
+                else
+                {
+                    GetListVehicleOnline();
+                }
             }
         }
 
@@ -676,6 +679,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         StaticSettings.ListVehilceCamera = lst;
                     }
+                    GetListVehicleOnline();
                 });
             }
         }

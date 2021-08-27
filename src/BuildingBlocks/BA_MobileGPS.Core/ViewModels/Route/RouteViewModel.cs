@@ -97,7 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);
-                        if (model != null && model.IsQcvn31)
+                        if (model != null && CheckVehcleHasIsQcvn31(model.VehiclePlate))
                         {
                             Vehicle = vehicle;
 
@@ -124,7 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicleOnline.VehiclePlate);
-                        if (model != null && model.IsQcvn31)
+                        if (model != null && CheckVehcleHasIsQcvn31(model.VehiclePlate))
                         {
                             Vehicle = new Vehicle()
                             {

@@ -652,7 +652,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CarActive.HasImage)
+                if (CheckVehcleHasImage(CarActive.VehiclePlate))
                 {
                     var param = new Vehicle()
                     {
@@ -689,7 +689,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CarActive.HasVideo)
+                if (CheckVehcleHasVideo(CarActive.VehiclePlate))
                 {
                     var photoPermission = await PermissionHelper.CheckPhotoPermissions();
                     var storagePermission = await PermissionHelper.CheckStoragePermissions();

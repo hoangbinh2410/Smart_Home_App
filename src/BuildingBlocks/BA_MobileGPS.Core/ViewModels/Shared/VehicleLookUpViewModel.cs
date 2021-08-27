@@ -128,7 +128,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                      && x.MessageId != 254
                                      && x.MessageId != 128
                                      && x.MessageId != 3
-                                     && x.MessageId != 2 && (x.HasImage == true || x.IsQcvn31 == true)).ToList();
+                                     && x.MessageId != 2 && (CheckVehcleHasImage(x.VehiclePlate) || CheckVehcleHasIsQcvn31(x.VehiclePlate))).ToList();
                         }
                         else if (LookUpType == VehicleLookUpType.VehicleReport)
                         {
@@ -136,7 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                       && x.MessageId != 254
                                       && x.MessageId != 128
                                       && x.MessageId != 3
-                                      && x.MessageId != 2 && x.IsQcvn31 == true).ToList();
+                                      && x.MessageId != 2 && CheckVehcleHasIsQcvn31(x.VehiclePlate)).ToList();
                         }
                         else
                         {
