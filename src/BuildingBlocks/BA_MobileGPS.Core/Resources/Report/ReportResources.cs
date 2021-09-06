@@ -601,7 +601,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportQCVN31Speed_Label_TitlePage => Get(MobileResourceNames.ReportQCVN31Speed_Label_TitlePage, "Tốc độ của xe", "Vehicle speed");
         public static string ReportQCVN31Speed_Label_OptionView => Get(MobileResourceNames.ReportQCVN31Speed_Label_OptionView, "Tùy chọn hiển thị", "Display options");
 
-        public static string ReportQCVN31Speed_Label_Velocity => Get(MobileResourceNames.ReportQCVN31Speed_Label_TitlePage, "Các tốc độ (km/h)", "Speeds (km/h)");
+        public static string ReportQCVN31Speed_Label_Velocity => Get(MobileResourceNames.ReportQCVN31Speed_Label_Velocity, "Các tốc độ (km/h)", "Speeds (km/h)");
 
         public static string ChartFuel_Label_Start => Get(MobileResourceNames.ChartFuel_Label_Start, "Bắt đầu: ", "Start: ");
 

@@ -107,7 +107,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         Description = "ລາວ (ສ.ປ.ປ. ລາວ)",
                         PK_LanguageID = 3
                     });
-                    lst = lst.Where(x => x.PK_LanguageID == 2 || x.PK_LanguageID == 3).ToList();
                 }
                 if (lst != null && lst.Count > 0)
                 {
