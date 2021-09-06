@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.ViewModels;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using System;
 using Xamarin.Forms;
@@ -14,7 +15,7 @@ namespace BA_MobileGPS.Core.Views
 
         private async void Delete_Tapped(object sender, EventArgs e)
         {
-            if (await DisplayAlert("Tin nhắn", "Bạn có chắc muốn xoá tin nhắn này hay không?", "Có", "Không"))
+            if (await DisplayAlert(MobileResource.Notification_Label_TilePage, MobileResource.Notification_Label_DeleteNotice, MobileResource.Notification_Label_DeleteAllNoticeAction, MobileResource.Common_Message_Skip))
             {
                 if (((VisualElement)sender).BindingContext is NotificationRespone item && BindingContext is NotificationPageViewModel viewModel)
                 {

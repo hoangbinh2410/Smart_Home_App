@@ -1,6 +1,6 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.ViewModels.Base;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Windows.Input;

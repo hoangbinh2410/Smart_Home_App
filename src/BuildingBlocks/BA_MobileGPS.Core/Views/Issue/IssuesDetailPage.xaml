@@ -85,10 +85,10 @@
                 <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
 
                     <Label
+                        x:Name="lbContentIssue"
                         Grid.Column="0"
                         FontSize="15"
                         HorizontalOptions="Start"
-                        Text="NỘI DUNG PHẢN HỒI"
                         TextColor="{StaticResource WhiteColor}"
                         VerticalOptions="Center" />
 
@@ -120,10 +120,10 @@
                         VerticalOptions="Center"
                         WidthRequest="20" />
                     <Label
+                        x:Name="lbfolowwissue"
                         Grid.Column="1"
                         FontFamily="{StaticResource myFontLatoBold}"
                         HorizontalOptions="Start"
-                        Text="THEO DÕI PHẢN HỒI"
                         TextColor="{StaticResource PrimaryColor}"
                         VerticalOptions="Center" />
                 </StackLayout>

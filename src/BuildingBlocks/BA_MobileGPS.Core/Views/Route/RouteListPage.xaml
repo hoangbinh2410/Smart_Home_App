@@ -104,11 +104,11 @@
                                 <Label
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Center"
-                                    Text="{Binding State.StateText, Mode=OneWay}" />
+                                    Text="{Binding StateType.StateText, Mode=OneWay}" />
                                 <Label
                                     FontSize="{StaticResource MyFontSizeSmall}"
                                     HorizontalOptions="Center"
-                                    Text="{Binding State.Duration, Mode=OneWay, Converter={StaticResource SecondsToStringConverter}}" />
+                                    Text="{Binding StateType.Duration, Mode=OneWay, Converter={StaticResource SecondsToStringConverter}}" />
                             </StackLayout>
                             <Label
                                 Grid.Row="1"

@@ -5,6 +5,8 @@
         public static string Vietnamese = "vi-vn";
 
         public static string English = "en";
+
+        public static string Laos = "lo-LA";
     }
 
     public static class CountryCodeConstant

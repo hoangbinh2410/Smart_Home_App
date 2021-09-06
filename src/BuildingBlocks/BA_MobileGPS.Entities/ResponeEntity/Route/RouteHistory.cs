@@ -20,12 +20,18 @@ namespace BA_MobileGPS.Entities
 
         public TimePoint TimePoints { set; get; }
 
+        public List<byte> StateGPSPoints { set; get; }
+
+        public List<float> KMPoints { set; get; }
+
         public RouteHistoryResponse()
         {
             StatePoints = new List<StatePoint>();
             GSMPoints = new List<GSMPoint>();
             VelocityPoints = new List<byte>();
+            StateGPSPoints = new List<byte>();
             TimePoints = new TimePoint();
+            KMPoints = new List<float>();
         }
 
         /// <summary>
@@ -53,6 +59,10 @@ namespace BA_MobileGPS.Entities
 
                 Result.AddRange(SerializeLibrary.ConvertListByteToArray(VelocityPoints.Count, VelocityPoints));
                 Result.AddRange(TimePoints.ConvertToByteArray());
+
+                Result.AddRange(SerializeLibrary.ConvertListByteToArray32(StateGPSPoints.Count, StateGPSPoints));
+
+                //Result.AddRange(SerializeLibrary.ConvertListDoubleToArray(KMPoints));
 
                 return Result;
             }
@@ -122,6 +132,13 @@ namespace BA_MobileGPS.Entities
                     Index += 4;
                 }
 
+                short lengthStateGPSPoints = SerializeLibrary.GetInt16FromArray(data, Index); Index += 2;
+                StateGPSPoints = new List<byte>();
+                for (int i = 0; i < lengthStateGPSPoints; i++)
+                {
+                    byte velocity = (byte)SerializeLibrary.GetByteFromArray(data, Index); Index += 1;
+                    StateGPSPoints.Add(velocity);
+                }
                 return true;
             }
             catch (Exception ex)
@@ -191,7 +208,20 @@ namespace BA_MobileGPS.Entities
                     TimePoints.AddedTimes.Add(SerializeLibrary.GetInt32FromArray(data, Index));
                     Index += 4;
                 }
-
+                int lengthStateGPSPoints = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                StateGPSPoints = new List<byte>();
+                for (int i = 0; i < lengthStateGPSPoints; i++)
+                {
+                    byte velocity = (byte)SerializeLibrary.GetByteFromArray(data, Index); Index += 1;
+                    StateGPSPoints.Add(velocity);
+                }
+                int lengthKMPoints = SerializeLibrary.GetInt32FromArray(data, Index); Index += 4;
+                KMPoints = new List<float>();
+                for (int i = 0; i < lengthKMPoints; i++)
+                {
+                    float km = SerializeLibrary.GetFloatFromArray(data, Index); Index += 4;
+                    KMPoints.Add(km);
+                }
                 return true;
             }
             catch (Exception ex)

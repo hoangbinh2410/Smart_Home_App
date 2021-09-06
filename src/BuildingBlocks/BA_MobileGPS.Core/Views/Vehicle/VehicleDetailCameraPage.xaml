@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views">
     <NavigationPage.TitleView>
@@ -65,7 +66,7 @@
             </tabView:SfTabView.SelectionIndicatorSettings>
 
             <tabView:SfTabItem
-                Title="Hiện trạng"
+                Title="{i18n:TranslateResource DetailVehicle_Label_Status}"
                 SelectionColor="{DynamicResource WhiteColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"

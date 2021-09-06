@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -88,11 +89,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (result)
                     {
                         Settings.MapType = (int)MapType;
-                        DisplayMessage.ShowMessageInfo("Đã lưu thành công");
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Success);
                     }
                     else
                     {
-                        DisplayMessage.ShowMessageInfo("Lưu không thành công bạn vui lòng kiểm tra lại");
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_SaveError);
                     }
                     MobileUserSettingHelper.Set(MobileUserConfigurationNames.MBMapType, maptype);
                     MobileUserSettingHelper.Set(MobileUserConfigurationNames.MBLatitude, Math.Round(Latitude, 2));

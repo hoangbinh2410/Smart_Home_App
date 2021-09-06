@@ -7,7 +7,6 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
@@ -229,12 +228,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     catch (Exception)
                     {
-                        PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                        PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NoData, MobileResource.Common_Button_OK);
                     }
                 }
                 else
                 {
-                    PageDialog.DisplayAlertAsync("", "Không tải được dữ liệu", MobileResource.Common_Button_OK);
+                    PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Common_Message_NoData, MobileResource.Common_Button_OK);
                 }
                 Xamarin.Forms.DependencyService.Get<IHUDProvider>().Dismiss();
             });
@@ -269,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Index = index,
                         Latitude = listLatLng[index].Latitude,
                         Longitude = listLatLng[index].Longitude,
-                        State = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        StateType = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
                         Velocity = RouteHistory.VelocityPoints[index],
                         Time = startTime
                     };
@@ -324,7 +323,7 @@ namespace BA_MobileGPS.Core.ViewModels
             for (int i = 0; i < listRoute.Count; i++)
             {
                 line.Positions.Add(new Position(listRoute[i].Latitude, listRoute[i].Longitude));
-                if (listRoute[i].State != null && listRoute[i].State.State == StateType.Stop)
+                if (listRoute[i].StateType != null && listRoute[i].StateType.State == StateType.Stop)
                 {
                     DrawStopPoint(listRoute[i]);
                 }
@@ -377,9 +376,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private string PinLabel(VehicleRoute vehicle)
         {
             if (Device.RuntimePlatform == Device.iOS)
-                return string.Format("{0} {1}", vehicle.State.StartTime.FormatDateTimeWithSecond(), vehicle.State.Duration.SecondsToString());
+                return string.Format("{0} {1}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), vehicle.StateType.Duration.SecondsToString());
             else
-                return string.Format("{0} {1}: {2}", vehicle.State.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.State.Duration.SecondsToStringShort());
+                return string.Format("{0} {1}: {2}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.StateType.Duration.SecondsToStringShort());
         }
 
         private void DrawDiretionMarker(List<VehicleRoute> listRoute)
@@ -596,7 +595,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (VideoSlected != null && !string.IsNullOrEmpty(VideoSlected.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_DoYouWantDowloadVideo, MobileResource.Common_Button_OK,MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
@@ -617,7 +616,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ProgressValue = value;
             if (value == 100)
             {
-                DisplayMessage.ShowMessageInfo("Đã tải video thành công");
+                DisplayMessage.ShowMessageInfo(MobileResource.Camera_Message_DowloadVideoSuccess);
                 IsDownloading = false;
             }
         }
@@ -628,7 +627,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_DoYouWantDowloadVideo, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);

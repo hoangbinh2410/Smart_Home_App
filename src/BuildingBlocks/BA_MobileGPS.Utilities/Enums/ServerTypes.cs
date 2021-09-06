@@ -60,7 +60,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("10.1.11.131")]
         ServerNamth,
 
-        [Description("http://125.212.226.154:6656")]
+        [Description("http://192.168.1.49:8020")]
         ServerTest,
 
         [Description("http://loginviview.bagroup.vn")]
@@ -68,6 +68,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://loginviview.bagroup.vn")]
         ServerGISVIET,
+
+        [Description("http://loginviview.bagroup.vn")]
+        ServerUNITEL,
 
         [Description("http://loginbagps.bagroup.vn")]
         ServerVMS,
@@ -103,6 +106,9 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://vehicleonlineviview.bagroup.vn")]
         ServerGISVIET,
 
+        [Description("http://vehicleonlineviview.bagroup.vn")]
+        ServerUNITEL,
+
         [Description("http://vehicleonlinegps.bagroup.vn")]
         ServerVMS,
 
@@ -136,6 +142,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://alertviview.bagroup.vn")]
         ServerGISVIET,
+
+        [Description("http://alertviview.bagroup.vn")]
+        ServerUNITEL,
 
         [Description("http://alertvms.bagroup.vn")]
         ServerVMS,
@@ -171,6 +180,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://125.212.192.175:8095")]
         ServerGISVIET,
+
+        [Description("http://125.212.192.175:8095")]
+        ServerUNITEL,
 
         [Description("http://125.212.192.175:8095")]
         ServerVMS,

@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.CabSignInfor"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -25,7 +26,7 @@
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Số phù hiệu" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text="{i18n:TranslateResource CabSignInfor_Label_SignNumber}" TextColor="{DynamicResource TextPrimaryColor}" />
                         <Span Text=" (*)" TextColor="OrangeRed" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -37,14 +38,14 @@
                 VerticalOptions="Start">
                 <Entry
                     MaxLength="100"
-                    Placeholder="Nhập số phù hiệu"
+                    Placeholder="{i18n:TranslateResource CabSignInfor_Label_SignNumber}"
                     Text="{Binding SignNumber.Value}" />
             </input:SfTextInputLayout>
             <!--  Ngày đăng kí  -->
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Ngày đăng kí" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text="{i18n:TranslateResource CabSignInfor_Label_RegisterDate}" TextColor="{DynamicResource TextPrimaryColor}" />
                         <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -68,7 +69,7 @@
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Ngày hết hạn" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text="{i18n:TranslateResource ListVehicle_Label_Vehicle_Expiration_Date}" TextColor="{DynamicResource TextPrimaryColor}" />
                         <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -92,7 +93,7 @@
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Số ngày cảnh báo trước" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text="{i18n:TranslateResource CabSignInfor_Label_DaysNumberForAlertAppear}" TextColor="{DynamicResource TextPrimaryColor}" />
                         <Span Text=" (*)" TextColor="OrangeRed" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -105,14 +106,14 @@
                 <Entry
                     Keyboard="Numeric"
                     MaxLength="3"
-                    Placeholder="Nhập số ngày cảnh báo trước"
+                    Placeholder="{i18n:TranslateResource CabSignInfor_Label_DaysNumberForAlertAppear}"
                     Text="{Binding DaysNumberForAlertAppear.Value}" />
             </input:SfTextInputLayout>
             <!--  Ghi chú  -->
             <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Ghi chú" TextColor="{DynamicResource TextPrimaryColor}" />
+                        <Span Text="{i18n:TranslateResource ReportTemperature_Label_Grid_Description}" TextColor="{DynamicResource TextPrimaryColor}" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -123,7 +124,7 @@
                 <Editor
                     HeightRequest="100"
                     MaxLength="1000"
-                    Placeholder="Nhập ghi chú"
+                    Placeholder="{i18n:TranslateResource ReportTemperature_Label_Grid_Description}"
                     Text="{Binding Notes.Value}" />
             </input:SfTextInputLayout>
             <Grid Margin="0,10,0,0">
@@ -137,7 +138,7 @@
                         HeightRequest="40"
                         HorizontalOptions="Center"
                         IsVisible="{Binding SaveButtonVisible}"
-                        Text="Lưu"
+                        Text="{i18n:TranslateResource Common_Button_Save}"
                         WidthRequest="150">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -162,7 +163,7 @@
                         HeightRequest="40"
                         HorizontalOptions="Center"
                         IsVisible="{Binding CreateButtonVisible}"
-                        Text="Tạo mới"
+                        Text="{i18n:TranslateResource CabSignInfor_Label_Insert}"
                         WidthRequest="150" />
                 </StackLayout>
             </Grid>

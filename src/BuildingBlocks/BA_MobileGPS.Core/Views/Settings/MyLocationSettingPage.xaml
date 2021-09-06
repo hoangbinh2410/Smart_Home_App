@@ -93,7 +93,7 @@
                 HeightRequest="30"
                 HorizontalOptions="Center"
                 LoadingPlaceholder="avatar.png"
-                Source="ic_my_marker.png"
+                Source="ic_redlocation.png"
                 VerticalOptions="Center"
                 WidthRequest="30" />
         </Grid>

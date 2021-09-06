@@ -15,6 +15,7 @@
         DefaultMaxVelocityOrange,
         EnableShowCluster,
         DefaultTimeLossConnect,
+        DefaultTimeLossConnectOffPower,
         Vmin,
         VehicleOnlineAddressEnabled,
         AlertMinBlockSMS,
@@ -29,6 +30,7 @@
         IsShowTemperatureOnline,
         IsShowDateOfRegistration,
         ShowKmInMonth,
-        DayAllowRegister
+        DayAllowRegister,
+        UseNewSummaryIconOnline
     }
 }

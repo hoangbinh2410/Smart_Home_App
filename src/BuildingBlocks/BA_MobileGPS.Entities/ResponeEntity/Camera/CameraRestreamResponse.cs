@@ -4,18 +4,6 @@ using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
-    public class CameraRestreamInfo
-    {
-        [JsonProperty("v")]
-        public string VehicleName { get; set; }
-
-        [JsonProperty("c")]
-        public byte Channel { get; set; }
-
-        [JsonProperty("t")]
-        public List<AppVideoTimeInfor> Data { get; set; }
-    }
-
     public class VideoRestreamInfo
     {
         [JsonProperty("v")]
@@ -124,35 +112,20 @@ namespace BA_MobileGPS.Entities
 
         public DateTime EndTime { get; set; }
 
-        public byte Channel { get; set; }
+        public int Channel { get; set; }
 
         private VideoUploadStatus status = VideoUploadStatus.Uploaded;
         public VideoUploadStatus Status { get => status; set => SetProperty(ref status, value); }
     }
 
-    public class VideoUploadedInfo
-    {
-        public long VehicleID { get; set; }
-
-        public string VehicleName { get; set; }
-
-        public DateTime StartTime { get; set; }
-
-        public DateTime EndTime { get; set; }
-
-        public string Link { get; set; }
-
-        public string FileName { get; set; }
-
-        public byte Channel { get; set; }
-    }
-
     public enum VideoUploadStatus
     {
-        NotUpload = 0,
-        Uploaded = 1,
-        Uploading = 2,
-        WaitingUpload = 3,
-        UploadError = 4
+        WaitingUpload = 0,
+        Uploading = 1,
+        Uploaded = 2,
+        UploadErrorTimeout = 3,
+        UploadErrorCancel = 4,
+        UploadErrorDevice = 5,
+        NotUpload = 6,
     }
 }

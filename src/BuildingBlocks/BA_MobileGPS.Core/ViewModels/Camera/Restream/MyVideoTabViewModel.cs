@@ -4,7 +4,8 @@ using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Service;
 using Plugin.Permissions;
 using Prism.Commands;
 using Prism.Navigation;
@@ -14,7 +15,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Timers;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 
@@ -26,7 +29,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SelectVehicleCameraCommand { get; }
         public ICommand DowloadVideoInListTappedCommand { get; }
         public ICommand HelpUploadCommand { get; }
-
 
         public ICommand SearchCommand { get; }
         private readonly IStreamCameraService _streamCameraService;
@@ -69,11 +71,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
+            StartTimmer();
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
+            timer.Stop();
+            timer.Dispose();
             EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UploadFinishVideoEvent>().Unsubscribe(UploadFinishVideo);
         }
@@ -91,6 +96,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private System.Timers.Timer timer;
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
@@ -167,6 +174,26 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
+        private void StartTimmer()
+        {
+            timer = new System.Timers.Timer
+            {
+                Interval = 5000
+            };
+            timer.Elapsed += T_Elapsed;
+
+            timer.Start();
+        }
+
+        private void T_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //nếu ko còn video nào upload thì ngừng timmer
+            if (ListVideoUpload != null && ListVideoUpload.Count > 0)
+            {
+                GetListVideoUpload();
+            }
+        }
+
         /// <summary>
         /// Set dữ liệu cho picker channel
         /// Hard 4 kênh (Đã confirm)
@@ -203,17 +230,32 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (dateStart > dateEnd)
             {
-                DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
             if (dateStart.Date != dateEnd.Date)
             {
-                DisplayMessage.ShowMessageInfo("Không tìm kiếm xuyên ngày");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
             }
             else if (Vehicle == null || Vehicle.VehicleId == 0)
             {
-                DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
+                return false;
+            }
+            else if (Vehicle != null && SelectedChannel.Value > Vehicle.Channel)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                          string.Format("Gói cước bạn đang sử dụng chỉ xem được {0} kênh. \nVui lòng liên hệ tới hotline {1} để được hỗ trợ",
+                          Vehicle.Channel, MobileSettingHelper.HotlineGps),
+                          "Liên hệ", "Bỏ qua");
+                    if (action)
+                    {
+                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                    }
+                });
                 return false;
             }
             else
@@ -284,15 +326,49 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void GetListVideoUpload()
+        private async void GetListVideoUpload()
         {
-            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+            List<VideoUpload> result = new List<VideoUpload>();
+            try
             {
-                ListVideoUpload = new ObservableCollection<VideoUpload>(StaticSettings.ListVideoUpload.OrderBy(x => x.Status).ThenBy(x => x.StartTime));
+                if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+                {
+                    var listVehicle = StaticSettings.ListVehilceCamera.Select(x => x.VehiclePlate).ToList();
+                    var respone = await _streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
+                    {
+                        CustomerID = UserInfo.XNCode,
+                        VehicleName = listVehicle,
+                        Source = (int)CameraSourceType.App,
+                        User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
+                    });
+                    if (respone != null && respone.Count > 0)
+                    {
+                        foreach (var item in respone)
+                        {
+                            if (item.UploadFiles != null && item.UploadFiles.Count > 0)
+                            {
+                                var list = item.UploadFiles.Where(x => x.State != (int)VideoUploadStatus.Uploaded);
+                                foreach (var item1 in list)
+                                {
+                                    var model = new VideoUpload()
+                                    {
+                                        Channel = item.Channel,
+                                        StartTime = item1.Time,
+                                        EndTime = item.EndTime,
+                                        Status = (VideoUploadStatus)item1.State,
+                                        VehicleName = item.VehicleName
+                                    };
+                                    result.Add(model);
+                                }
+                            }
+                        }
+                        ListVideoUpload = new ObservableCollection<VideoUpload>(result.OrderBy(x => x.Status).ThenBy(x => x.StartTime));
+                    }
+                }
             }
-            else
+            catch (System.Exception)
             {
-                ListVideoUpload = new ObservableCollection<VideoUpload>();
             }
         }
 
@@ -323,19 +399,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private void UploadVideoRestream(bool obj)
         {
             GetListVideoUpload();
-            Device.StartTimer(TimeSpan.FromSeconds(5), () =>
-            {
-                //nếu ko còn video nào upload thì ngừng timmer
-                if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    GetListVideoUpload();
-                    return true;
-                }
-            });
         }
 
         private void UploadFinishVideo(bool obj)
@@ -349,7 +412,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (obj != null && !string.IsNullOrEmpty(obj.Link))
                 {
-                    var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bạn có muốn tải video này về điện thoại không ?", "Đồng ý", "Bỏ qua");
+                    var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_DoYouWantDowloadVideo, MobileResource.Common_Button_OK, MobileResource.Common_Message_Skip);
                     if (action)
                     {
                         var progressIndicator = new Progress<double>(ReportProgress);
@@ -370,7 +433,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ProgressValue = value;
             if (value == 100)
             {
-                DisplayMessage.ShowMessageInfo("Video đã được tải thành công về máy của bạn");
+                DisplayMessage.ShowMessageInfo(MobileResource.Camera_Message_DowloadVideoSuccess);
                 IsDownloading = false;
             }
         }
@@ -379,11 +442,9 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-
-                await PageDialog.DisplayAlertAsync("Thông báo", "Video của quý khách được lưu trữ trên server tối đa 15 ngày và sẽ bị xóa khi hết số ngày lưu trữ hoặc hết dung lượng", "Bỏ qua");
+                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_VideoSaveToServer, MobileResource.Common_Message_Skip);
             });
         }
-
 
         #endregion PrivateMethod
     }

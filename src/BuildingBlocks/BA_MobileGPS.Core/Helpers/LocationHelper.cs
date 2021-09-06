@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BA_MobileGPS.Core.Resources;
+using System;
 using System.Threading.Tasks;
 
 using Xamarin.Essentials;
@@ -42,20 +43,20 @@ namespace BA_MobileGPS.Core
                 }
                 catch (FeatureNotSupportedException)
                 {
-                    await Application.Current?.MainPage?.DisplayAlert("Thông báo", "GPS chưa được bật trên thiết bị của bạn. Vui lòng kiểm tra cài đặt trên điện thoại.", "Đồng ý");
+                    await Application.Current?.MainPage?.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Common_Message_GpsNotfound, MobileResource.Common_Button_OK);
                     // Handle not supported on device exception
                 }
                 catch (FeatureNotEnabledException)
                 {
-                    await Application.Current?.MainPage?.DisplayAlert("Thông báo", "GPS chưa được bật trên thiết bị của bạn. Vui lòng kiểm tra cài đặt trên điện thoại.", "Đồng ý");
+                    await Application.Current?.MainPage?.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Common_Message_GpsNotfound, MobileResource.Common_Button_OK);
                 }
                 catch (PermissionException)
                 {
-                    await Application.Current?.MainPage?.DisplayAlert("Thông báo", "GPS chưa được bật trên thiết bị của bạn. Vui lòng kiểm tra cài đặt trên điện thoại.", "Đồng ý");
+                    await Application.Current?.MainPage?.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Common_Message_GpsNotfound, MobileResource.Common_Button_OK);
                 }
                 catch (Exception)
                 {
-                    await Application.Current?.MainPage?.DisplayAlert("Thông báo", "GPS chưa được bật trên thiết bị của bạn. Vui lòng kiểm tra cài đặt trên điện thoại.", "Đồng ý");
+                    await Application.Current?.MainPage?.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Common_Message_GpsNotfound, MobileResource.Common_Button_OK);
                 }
             }
 

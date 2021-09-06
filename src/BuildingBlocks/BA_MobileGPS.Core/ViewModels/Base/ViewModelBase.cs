@@ -438,6 +438,63 @@ namespace BA_MobileGPS.Core.ViewModels
             return rerult;
         }
 
+        public bool CheckVehcleHasVideo(string vehicleplate)
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                var plate = vehicleplate.Contains("_C") ? vehicleplate : vehicleplate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    return model.HasVideo;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return true;
+        }
+
+        public bool CheckVehcleHasImage(string vehicleplate)
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                var plate = vehicleplate.Contains("_C") ? vehicleplate : vehicleplate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    return model.HasImage;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return true;
+        }
+
+        public bool CheckVehcleHasIsQcvn31(string vehicleplate)
+        {
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
+            {
+                var plate = vehicleplate.Contains("_C") ? vehicleplate : vehicleplate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    return model.IsQcvn31;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return true;
+        }
+
         protected TControl GetControl<TControl>(string control)
         {
             return PageUtilities.GetCurrentPage(Application.Current.MainPage).FindByName<TControl>(control);

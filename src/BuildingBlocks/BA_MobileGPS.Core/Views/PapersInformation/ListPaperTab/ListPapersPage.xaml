@@ -3,7 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.ListPapersPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="http://prismlibrary.com"
     xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
@@ -36,7 +36,7 @@
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
                 LineBreakMode="MiddleTruncation"
-                Text="Danh sách giấy tờ"
+                Text="{i18n:TranslateResource ListPaper_Label_TilePage}"
                 TextColor="White"
                 VerticalOptions="Center" />
             <image:CachedImage
@@ -66,7 +66,7 @@
                 Color="#00ADE5" />
         </tabView:SfTabView.SelectionIndicatorSettings>
         <tabView:SfTabItem
-            Title="Theo loại giấy tờ"
+            Title="{i18n:TranslateResource ListPaper_Label_OptionPaper}"
             SelectionColor="{DynamicResource WhiteColor}"
             TitleFontAttributes="Bold"
             TitleFontColor="#00ADE5"
@@ -76,7 +76,7 @@
             </tabView:SfTabItem.Content>
         </tabView:SfTabItem>
         <tabView:SfTabItem
-            Title="Theo phương tiện"
+            Title="{i18n:TranslateResource ListPaper_Label_OptionVehicle}"
             SelectionColor="{DynamicResource WhiteColor}"
             TitleFontAttributes="Bold"
             TitleFontColor="#00ADE5"

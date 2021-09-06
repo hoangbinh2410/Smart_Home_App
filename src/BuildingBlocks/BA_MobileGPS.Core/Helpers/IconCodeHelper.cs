@@ -9,22 +9,30 @@ namespace BA_MobileGPS.Core.Helpers
         public static string GetIconCarFromStates(IconCode iconCode, IconColor iconColor)
         {
             // Nếu không có iconCode thì lấy ic_car_traking làm mặc định
-            string icon = "ball_blue.png";
-            if (string.IsNullOrEmpty(iconCode.ToDescription()) || string.IsNullOrEmpty(iconCode.ToDescription()))
+            string icon = "car_blue.png";
+            try
             {
-                return icon;
-            }
-            else
-            {
-                if (IconCode.Other.ToDescription().Equals(iconCode.ToDescription()))
+                if (string.IsNullOrEmpty(iconCode.ToDescription()) || string.IsNullOrEmpty(iconCode.ToDescription()))
                 {
-                    icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    return icon;
                 }
                 else
                 {
-                    icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    if (IconCode.Other.ToDescription().Equals(iconCode.ToDescription()))
+                    {
+                        icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    }
+                    else
+                    {
+                        icon = iconCode.ToDescription() + "_" + iconColor.ToDescription();
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                LoggerHelper.WriteLog("GetIconCarFromStates", ex.Message);
+            }
+
             return icon;
         }
 
@@ -36,13 +44,17 @@ namespace BA_MobileGPS.Core.Helpers
             {
                 return "ic_errorgps.png";
             }
-
             /* Vehicle time mất > 150 phút -> mất GSM */
-            if (StateVehicleExtension.IsLostGSM(carInfo.VehicleTime) || StaticSettings.TimeServer.Subtract(carInfo.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+            if ((StateVehicleExtension.IsLostGSM(carInfo.VehicleTime)
+                || StaticSettings.TimeServer.Subtract(carInfo.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+                && !carInfo.IsPowerOff)
             {
                 return GetIconCarFromStates(carInfo.IconCode, IconColor.WARNING);
             }
-
+            if (StateVehicleExtension.IsLostGSMPowerOff(carInfo.VehicleTime, carInfo.IsPowerOff))
+            {
+                return "car_warnturnoff.png";
+            }
             /* Vehicle time mất > 5 phút < 150 phút -> mất GPS */
             if (StateVehicleExtension.IsLostGPSIcon(carInfo.GPSTime, carInfo.VehicleTime))
             {
@@ -54,6 +66,10 @@ namespace BA_MobileGPS.Core.Helpers
             if (StateVehicleExtension.IsStopAndEngineOff(carInfo))
             {
                 return GetIconCarFromStates(carInfo.IconCode, IconColor.GREY);
+            }
+            else if (StateVehicleExtension.IsStopAndEngineOn(carInfo))
+            {
+                return GetIconCarFromStates(carInfo.IconCode, IconColor.BLUEGREY);
             }
             else
             {

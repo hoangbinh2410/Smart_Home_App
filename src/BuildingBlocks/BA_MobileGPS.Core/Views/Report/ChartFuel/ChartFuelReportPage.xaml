@@ -266,7 +266,7 @@
                                 <Span
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    Text="Bắt đầu: " />
+                                    Text="{i18n:TranslateResource ChartFuel_Label_Start}" />
                                 <Span Text="{Binding FuelsSummariesItem.FirstLits, StringFormat='{0:0.##} L'}" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -283,7 +283,7 @@
                                 <Span
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    Text="Tiêu thụ: " />
+                                    Text="{i18n:TranslateResource ChartFuel_Label_UseFuel}" />
                                 <Span Text="{Binding FuelsSummariesItem.LiterConsumable, StringFormat='{0:0.##} L'}" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -300,7 +300,7 @@
                                 <Span
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    Text="Nạp: " />
+                                    Text="{i18n:TranslateResource ChartFuel_Label_PourTotal}" />
                                 <Span Text="{Binding FuelsSummariesItem.PourTotal, StringFormat='{0:0.##} L'}" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -317,7 +317,7 @@
                                 <Span
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    Text="Hút: " />
+                                    Text="{i18n:TranslateResource ChartFuel_Label_SuckTotal}" />
                                 <Span Text="{Binding FuelsSummariesItem.SuckTotal, StringFormat='{0:0.##} L'}" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -334,7 +334,7 @@
                                 <Span
                                     FontAttributes="Bold"
                                     FontFamily="{StaticResource myFontLatoBold}"
-                                    Text="Còn lại: " />
+                                    Text="{i18n:TranslateResource ChartFuel_Label_LastLits}" />
                                 <Span Text="{Binding FuelsSummariesItem.LastLits, StringFormat='{0:0.##} L'}" />
                             </FormattedString>
                         </Label.FormattedText>

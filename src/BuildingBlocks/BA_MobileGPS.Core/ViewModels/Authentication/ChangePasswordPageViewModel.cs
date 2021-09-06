@@ -108,7 +108,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
 
-            if (NewPassword.Value.Contains(" "))
+            if (string.IsNullOrWhiteSpace(NewPassword.Value))
             {
                 if (!await PageDialog.DisplayAlertAsync("", MobileResource.ChangePassword_Message_NewPasswordHasSpace, MobileResource.Common_Button_Yes, MobileResource.Common_Button_No))
                 {

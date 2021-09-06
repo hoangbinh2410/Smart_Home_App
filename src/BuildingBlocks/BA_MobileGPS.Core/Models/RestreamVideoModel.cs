@@ -1,7 +1,4 @@
-﻿using BA_MobileGPS.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace BA_MobileGPS.Core.Models
 {
@@ -9,9 +6,10 @@ namespace BA_MobileGPS.Core.Models
     {
         public string VideoName { get; set; }
         public DateTime VideoStartTime { get; set; }
-        public string VideoImageSource { get; set; }
+        public string ImageUrl { get; set; }
         public TimeSpan VideoTime { get; set; }
-        public StreamStart Data { get; set; }
         public DateTime VideoEndTime { get; set; }
+        public int Channel { get; set; }
+        public string Link { get; set; }
     }
 }

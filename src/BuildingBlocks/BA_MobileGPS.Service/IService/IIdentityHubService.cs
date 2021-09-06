@@ -15,9 +15,13 @@ namespace BA_MobileGPS.Service
 
         void PushLogoutToUser(string who, string message);
 
+        void PushMessageToUser(string who, string message);
+
         event EventHandler<string> onReceivePushLogoutToAllUserInCompany;
 
         event EventHandler<string> onReceivePushLogoutToUser;
+
+        event EventHandler<string> onReceivePushMessageToUser;
 
         event Action ConnectionReconnecting;
 

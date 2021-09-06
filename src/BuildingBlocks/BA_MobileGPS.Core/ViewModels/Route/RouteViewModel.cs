@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Models;
@@ -78,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
             DragCompletedCommand = new DelegateCommand(DragCompleted);
             PlayStopCommand = new DelegateCommand(PlayStop);
             ChangeSpeedCommand = new DelegateCommand(ChangeSpeed);
+            EventAggregator.GetEvent<SelectedCompanyEvent>().Subscribe(OnCompanyChanged);
         }
 
         #endregion Contructor
@@ -95,7 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);
-                        if (model != null && model.IsQcvn31)
+                        if (model != null && CheckVehcleHasIsQcvn31(model.VehiclePlate))
                         {
                             Vehicle = vehicle;
 
@@ -105,10 +107,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
-                                var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                                       string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
                                       vehicle.PrivateCode, MobileSettingHelper.HotlineGps),
-                                      "Liên hệ", "Bỏ qua");
+                                      MobileResource.Common_Label_Contact, MobileResource.Common_Message_Skip);
                                 if (action)
                                 {
                                     PhoneDialer.Open(MobileSettingHelper.HotlineGps);
@@ -122,7 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicleOnline.VehiclePlate);
-                        if (model != null && model.IsQcvn31)
+                        if (model != null && CheckVehcleHasIsQcvn31(model.VehiclePlate))
                         {
                             Vehicle = new Vehicle()
                             {
@@ -138,10 +140,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
-                                var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                                       string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng định vị \n Quý khách vui liên hệ tới số {1} để được hỗ trợ",
                                       vehicleOnline.PrivateCode, MobileSettingHelper.HotlineGps),
-                                      "Liên hệ", "Bỏ qua");
+                                      "Liên hệ", MobileResource.Common_Message_Skip);
                                 if (action)
                                 {
                                     PhoneDialer.Open(MobileSettingHelper.HotlineGps);
@@ -155,6 +157,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SelectedCompanyEvent>().Unsubscribe(OnCompanyChanged);
             //base.OnDestroy();
             //if (ctsRouting != null)
             //    ctsRouting.Cancel();
@@ -265,6 +268,12 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region PrivateMethod
+
+        private void OnCompanyChanged(int e)
+        {
+            ClearRoute();
+            Vehicle = new Vehicle();
+        }
 
         private void TimeSelected(string args)
         {
@@ -425,38 +434,38 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (result.State)
                     {
                         case ValidatedHistoryRouteState.OverTotalDateMobile:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_TotalTimeLimit(result.TotalDayConfig), MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_TotalTimeLimit, result.TotalDayConfig), MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.Expired:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.OverDateConfig:
                             if (result.MinDate != null && result.MaxDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_FromDateToDateLimit, result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MinDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateLimit(result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_FromDateLimit, result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MaxDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateLimit(result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_ToDateLimit, result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
                             }
                             break;
 
                         case ValidatedHistoryRouteState.DateFuture:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.FromDateOverToDate:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
                             break;
                     }
                 });
@@ -466,7 +475,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetHistoryRoute()
         {
             var currentCompany = Settings.CurrentCompany;
-            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Đang tải dữ liệu...");
+            Xamarin.Forms.DependencyService.Get<IHUDProvider>().DisplayProgress("Loading...");
             RunOnBackground(async () =>
             {
                 return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
@@ -553,9 +562,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         Index = index,
                         Latitude = listLatLng[index].Latitude,
                         Longitude = listLatLng[index].Longitude,
-                        State = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        StateType = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        State = RouteHistory.StateGPSPoints[index],
                         Velocity = RouteHistory.VelocityPoints[index],
-                        Time = startTime
+                        Time = startTime,
+                        Km = RouteHistory.KMPoints[index]
                     };
 
                     ListRoute.Add(route);
@@ -595,9 +606,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private string PinLabel(VehicleRoute vehicle)
         {
             if (Device.RuntimePlatform == Device.iOS)
-                return string.Format("{0} {1}", vehicle.State.StartTime.FormatDateTimeWithSecond(), vehicle.State.Duration.SecondsToString());
+                return string.Format("{0} {1}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), vehicle.StateType.Duration.SecondsToString());
             else
-                return string.Format("{0} {1}: {2}", vehicle.State.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.State.Duration.SecondsToStringShort());
+                return string.Format("{0} {1}: {2}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.StateType.Duration.SecondsToStringShort());
         }
 
         private void DrawStopPoint(VehicleRoute vehicle)
@@ -621,7 +632,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var MarkerCar = new DoubleMarkerRoute().InitDoubleMarkerRoute(
                         ListRoute[0].Latitude, ListRoute[0].Longitude, ListRoute[1].Latitude, ListRoute[1].Longitude, Vehicle.PrivateCode);
-            MarkerCar.DrawMarker();
+            MarkerCar.DrawMarker(ListRoute[0]);
             Pins.Add(MarkerCar.Car);
             Pins.Add(MarkerCar.Plate);
         }
@@ -660,17 +671,60 @@ namespace BA_MobileGPS.Core.ViewModels
                 StrokeWidth = 3f,
                 ZIndex = 1
             };
+            var linegray = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#7B7B7B"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
+            var linered = new Polyline
+            {
+                IsClickable = false,
+                StrokeColor = Color.FromHex("#E63C2B"),
+                StrokeWidth = 3f,
+                ZIndex = 1
+            };
             line.Positions.Add(new Position(ListRoute[0].Latitude, ListRoute[0].Longitude));
 
             for (int i = 0; i < ListRoute.Count; i++)
             {
                 line.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                if (ListRoute[i].StateType != null && ListRoute[i].StateType.State == StateType.Stop)
                 {
                     DrawStopPoint(ListRoute[i]);
                 }
+                if (StateVehicleExtension.IsEngineOff(ListRoute[i].State) || ListRoute[i].StateType?.State == StateType.Stop)
+                {
+                    linegray.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                    if (i < ListRoute.Count - 2 && !StateVehicleExtension.IsEngineOff(ListRoute[i + 1].State))
+                    {
+                        linegray.Positions.Add(new Position(ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude));
+                        Polylines.Add(linegray);
+                        linegray.Positions.Clear();
+                    }
+                }
+                else if (StateVehicleExtension.IsOverVelocityRoute(ListRoute[i].Velocity))
+                {
+                    linered.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
+                    if (i < ListRoute.Count - 2 && !StateVehicleExtension.IsOverVelocityRoute(ListRoute[i + 1].Velocity))
+                    {
+                        linered.Positions.Add(new Position(ListRoute[i + 1].Latitude, ListRoute[i + 1].Longitude));
+                        Polylines.Add(linered);
+                        linered.Positions.Clear();
+                    }
+                }
             }
             Polylines.Add(line);
+
+            if (linegray.Positions.Count > 2)
+            {
+                Polylines.Add(linegray);
+            }
+            if (linered.Positions.Count > 2)
+            {
+                Polylines.Add(linered);
+            }
         }
 
         /* Vẽ hướng cho lộ trình */
@@ -824,6 +878,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (CurrentRoute == null)
                         return;
+
+                    if (StateVehicleExtension.IsEngineOff(CurrentRoute.State) || CurrentRoute.StateType?.State == StateType.Stop)
+                    {
+                        item.Icon = BitmapDescriptorFactory.FromResource("car_grey.png");
+                    }
+                    else if (StateVehicleExtension.IsOverVelocityRoute(CurrentRoute.Velocity))
+                    {
+                        item.Icon = BitmapDescriptorFactory.FromResource("car_red.png");
+                    }
+                    else
+                    {
+                        item.Icon = BitmapDescriptorFactory.FromResource("car_blue.png");
+                    }
                     RotateMarker(item, CurrentRoute.Latitude, CurrentRoute.Longitude, () =>
                     {
                         if (CurrentRoute == null)

@@ -359,7 +359,7 @@
                 IsClippedToBounds="True"
                 Opacity="1"
                 VerticalOptions="Start"
-                WidthRequest="210">
+                WidthRequest="220">
                 <Grid>
                     <ContentView BackgroundColor="{DynamicResource WhiteColor}" Opacity=".9" />
                     <StackLayout
@@ -382,14 +382,14 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontFamily="{StaticResource myFontLatoBold}"
-                                FontSize="18"
+                                FontSize="17"
                                 HorizontalOptions="EndAndExpand"
                                 TextColor="Black"
                                 VerticalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <!--<Span Text="{Binding RunKm, StringFormat='{}{0:###,###,##0.##}'}" />
-                                        <Span Text="/" />-->
+                                        <Span Text="{Binding CurrentRoute.Km, StringFormat='{}{0:###,###,##0.##}'}" />
+                                        <Span Text="/" />
                                         <Span Text="{Binding DateKm, StringFormat='{}{0:###,###,##0.##} km'}" />
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -410,7 +410,7 @@
                                 VerticalOptions="Start">
                                 <Label
                                     HorizontalOptions="Center"
-                                    Text="{Binding CurrentRoute.Time, StringFormat='{}{0:dd-MM-yyyy}'}"
+                                    Text="{Binding CurrentRoute.Time, Converter={StaticResource DateConverter}}"
                                     TextColor="Gray" />
                                 <Label
                                     FontAttributes="Bold"

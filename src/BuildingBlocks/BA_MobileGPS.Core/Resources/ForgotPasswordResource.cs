@@ -7,6 +7,8 @@ namespace BA_MobileGPS.Core.Resources
         #region Forgot Password
 
         public static string ForgotPassword_Label_TilePage => Get(MobileResourceNames.ForgotPassword_Label_TilePage, "Quên mật khẩu", "Forgot password");
+
+        public static string ForgotAccount_Label_TilePage => Get(MobileResourceNames.ForgotAccount_Label_TilePage, "Quên tài khoản", "Forgot account");
         public static string ForgotPassword_Label_AccountName => Get(MobileResourceNames.ForgotPassword_Label_AccountName, "Nhập tài khoản", "Account");
         public static string ForgotPassword_Label_Phone => Get(MobileResourceNames.ForgotPassword_Label_Phone, "Số điện thoại", "Phone number");
         public static string ForgotPassword_Label_Notes => Get(MobileResourceNames.ForgotPassword_Label_Notes, "Vui lòng nhập số điện thoại trùng với số điện thoại đăng ký tài khoản", "Phone number is the same as the phone number registered for the account");

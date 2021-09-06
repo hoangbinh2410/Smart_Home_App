@@ -13,7 +13,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="this"
-    Title="Danh sách lái xe"
+    Title="{i18n:TranslateResource ListDriver_Label_Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <Style TargetType="busyIndicator:SfBusyIndicator">
@@ -101,7 +101,7 @@
                 <Entry
                     x:Name="entrySearchVehicle"
                     HorizontalOptions="FillAndExpand"
-                    Placeholder="Tìm tên lái xe"
+                    Placeholder="{i18n:TranslateResource ListDriver_Label_Search}"
                     Text="{Binding SearchedText}">
                     <Entry.Behaviors>
                         <prism:EventToCommandBehavior
@@ -153,7 +153,7 @@
                                         NumberOfTapsRequired="1" />
                                 </pancake:PancakeView.GestureRecognizers>
                                 <Label
-                                    Text="Xóa"
+                                    Text="{i18n:TranslateResource Common_Lable_Delete}"
                                     TextColor="{DynamicResource WhiteColor}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>

@@ -141,36 +141,5 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return result;
         }
-
-        private async Task<bool> GetLanguageType()
-        {
-            var result = false;
-            try
-            {
-                var lstlanguage = await languageTypeService.GetAllLanguageType();
-                if (lstlanguage != null && lstlanguage.Count > 0)
-                {
-                    foreach (var item in lstlanguage)
-                    {
-                        var model = languageTypeService.Get(r => r.PK_LanguageID == item.PK_LanguageID);
-                        if (model != null && !string.IsNullOrEmpty(model.CodeName))
-                        {
-                            languageTypeService.Update(item);
-                        }
-                        else
-                        {
-                            // Thêm resouce vào realm db
-                            languageTypeService.Add(item);
-                        }
-                    }
-                }
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
     }
 }

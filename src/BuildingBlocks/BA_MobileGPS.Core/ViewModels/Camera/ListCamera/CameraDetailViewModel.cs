@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.GoogleMap.Behaviors;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
@@ -79,7 +80,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         IsDraggable = false,
                         Tag = "CAMERA" + VehiclePlate
                     });
-                    _  = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
                     SelectedPin = Pins[0];
                     return false;
                 });
@@ -202,11 +203,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (e.FileSaved)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Camera", "Lưu hình ảnh thành công", "OK");
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_SaveImageSuccess, MobileResource.Common_Button_OK);
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Camera", "Lưu hình ảnh không thành công", "OK");
+                    await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Label_Notification, MobileResource.Camera_Message_SaveImageError, MobileResource.Common_Button_OK);
                 }
             });
         }
