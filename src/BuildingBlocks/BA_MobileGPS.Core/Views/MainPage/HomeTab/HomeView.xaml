@@ -64,7 +64,7 @@
             RowDefinitions="80,Auto">
             <Grid Padding="15,0">
                 <ff:CachedImage
-                    HeightRequest="25"
+                    HeightRequest="40"
                     HorizontalOptions="Start"
                     Source="ic_logo.png"
                     VerticalOptions="EndAndExpand" />

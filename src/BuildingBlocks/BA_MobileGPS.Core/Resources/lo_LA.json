@@ -4,7 +4,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "AccountTab_Label_BAGPS_Introduce",
-    "Value": "ແນະນຳກ່ຽວກັບບໍລິສັດ Unitel"
+    "Value": "ແນະນຳກ່ຽວກັບບໍລິສັດ U-Tracking"
   },
   {
     "PK_ResourcesID": 0,
@@ -4708,7 +4708,7 @@
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
     "Name": "Menu_Label_SettingFavorite",
-    "Value": "ສ້າງ"
+    "Value": "ຕົວເລືອກ"
   },
   {
     "PK_ResourcesID": 0,
@@ -5372,15 +5372,8 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
-    "Name": "PourFuelReport_Label_TileChartDetailPage",
-    "Value": "ເສັ້ນສະແດງນ້ຳມັນເຊື້ອໄຟ"
-  },
-  {
-    "PK_ResourcesID": 0,
-    "FK_LanguageID": 3,
-    "CodeName": "lo-LA",
     "Name": "PourFuelReport_Label_TitleChartDetailPage",
-    "Value": "ຕາຕະລາງນໍ້າມັນເຊື້ອໄຟ"
+    "Value": "ແຜນວາດເຊື້ອໄຟ"
   },
   {
     "PK_ResourcesID": 0,
@@ -5388,13 +5381,6 @@
     "CodeName": "lo-LA",
     "Name": "PourFuelReport_Label_TitleDetailPage",
     "Value": "ລາຍລະອຽດການໄດ້ຮັບນໍ້າມັນ"
-  },
-  {
-    "PK_ResourcesID": 0,
-    "FK_LanguageID": 3,
-    "CodeName": "lo-LA",
-    "Name": "PourFuelReport_Label_TileChartDetailPage",
-    "Value": "ແຜນວາດເຊື້ອໄຟ"
   },
   {
     "PK_ResourcesID": 0,
