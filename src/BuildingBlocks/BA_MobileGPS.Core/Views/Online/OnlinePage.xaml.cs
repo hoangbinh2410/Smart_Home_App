@@ -120,7 +120,7 @@ namespace BA_MobileGPS.Core.Views
                     {
                         if (googleMap.ClusteredPins != null && googleMap.ClusteredPins.Count > 0)
                         {
-                            var clusterpin = googleMap.Pins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
+                            var clusterpin = googleMap.ClusteredPins.FirstOrDefault(x => x.Label == vehiclePlate.VehiclePlate);
                             if (clusterpin != null)
                             {
                                 vm.CarSearch = vehicleselect.PrivateCode;
