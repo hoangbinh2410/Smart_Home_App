@@ -101,17 +101,8 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("29")]
         public DateTime? DateOfRegistration { set; get; }
 
-        [JsonProperty("30")]
-        public bool IsQcvn31 { set; get; }
-
-        [JsonProperty("31")]
-        public bool HasImage { set; get; }
-
-        [JsonProperty("32")]
-        public bool HasVideo { set; get; }
-
-        [JsonProperty("33")]
-        public bool IsVideoCam { set; get; }
+        [JsonProperty("34")]
+        public bool IsPowerOff { set; get; }
 
         [JsonIgnore]
         public int STT { set; get; }

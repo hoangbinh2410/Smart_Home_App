@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities.ResponeEntity.Issues;
 using BA_MobileGPS.Service;
 using Prism.Commands;
@@ -19,7 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public IssuesDetailPageViewModel(INavigationService navigationService, IIssueService issueService) : base(navigationService)
         {
-            Title = "Chi tiết phản hồi";
+            Title = MobileResource.DetailIssue_Label_TilePage;
             ReloadCommand = new DelegateCommand(Reload);
             _issueService = issueService;
         }
@@ -91,7 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         DateChangeStatus = Issue.DateRequest,
                         IsShowLine = true,
                         LineColor = Color.FromHex("#A2E8FF"),
-                        Status = "Gửi yêu cầu hỗ trợ"
+                        Status = MobileResource.DetailIssue_Label_SubmitSupportRequest
                     };
                     if (lst != null && lst.Count > 0)
                     {
@@ -128,7 +129,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             DateChangeStatus = Issue.DueDate,
                             IsShowLine = false,
                             IsDueDate = true,
-                            Status = "Lịch hẹn hoàn thành"
+                            Status = MobileResource.DetailIssue_Label_DueDate
                         });
                     }
                     lstStatus.Add(modelRequest);

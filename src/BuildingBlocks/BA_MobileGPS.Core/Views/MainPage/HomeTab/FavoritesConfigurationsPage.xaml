@@ -117,51 +117,38 @@
             HasShadow="False"
             IsClippedToBounds="True">
             <controls1:MaterialFrame.Content>
-                <sfList:SfListView
-                    x:Name="listView"
-                    Margin="0"
-                    AllowKeyboardNavigation="True"
-                    AutoFitMode="Height"
-                    BackgroundColor="#ffffff"
-                    IsScrollBarVisible="False"
-                    ItemSize="120"
-                    ItemSpacing="0"
-                    ItemTapped="ListView_ItemTapped"
-                    ItemTemplate="{StaticResource itemTemplate}"
-                    ItemsSource="{Binding MenuItems}"
-                    SelectionBackgroundColor="Transparent"
-                    SelectionGesture="Tap"
-                    SelectionMode="Multiple">
-                    <sfList:SfListView.DataSource>
-                        <data:DataSource>
-                            <data:DataSource.GroupDescriptors>
-                                <data:GroupDescriptor PropertyName="GroupName" />
-                            </data:DataSource.GroupDescriptors>
-                        </data:DataSource>
-                    </sfList:SfListView.DataSource>
-                    <sfList:SfListView.GroupHeaderTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Grid Padding="0,7" BackgroundColor="#f6f8f7">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width=".8*" />
-                                            <ColumnDefinition Width=".2*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label
-                                            Grid.Column="0"
-                                            Margin="10,0,0,0"
-                                            FontSize="15"
-                                            HorizontalTextAlignment="Start"
-                                            Text="{Binding Key}"
-                                            TextColor="#2f3f59"
-                                            VerticalTextAlignment="Center" />
-                                    </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </sfList:SfListView.GroupHeaderTemplate>
-                </sfList:SfListView>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout
+                        Padding="0,7"
+                        BackgroundColor="#f6f8f7"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            x:Name="lbFavories"
+                            Margin="10,0,0,0"
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            HorizontalTextAlignment="Start"
+                            Text="{Binding Key}"
+                            TextColor="#2f3f59"
+                            VerticalTextAlignment="Center" />
+                    </StackLayout>
+                    <sfList:SfListView
+                        x:Name="listView"
+                        Margin="0"
+                        AllowKeyboardNavigation="True"
+                        AutoFitMode="Height"
+                        BackgroundColor="#ffffff"
+                        IsScrollBarVisible="False"
+                        ItemSize="120"
+                        ItemSpacing="0"
+                        ItemTapped="ListView_ItemTapped"
+                        ItemTemplate="{StaticResource itemTemplate}"
+                        ItemsSource="{Binding MenuItems}"
+                        SelectionBackgroundColor="Transparent"
+                        SelectionGesture="Tap"
+                        SelectionMode="Multiple" />
+                </StackLayout>
+
             </controls1:MaterialFrame.Content>
         </controls1:MaterialFrame>
     </StackLayout>

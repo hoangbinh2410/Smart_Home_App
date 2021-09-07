@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
@@ -98,7 +99,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             Enable = true,
                             Source = (int)CameraSourceType.App,
                             User = UserInfo.UserName,
-                            VehicleName = Vehicle.VehiclePlate
+                            VehicleName = Vehicle.VehiclePlate,
+                            SessionID = StaticSettings.SessionID
                         });
                     },
                    (result) =>
@@ -107,7 +109,7 @@ namespace BA_MobileGPS.Core.ViewModels
                        {
                            Device.BeginInvokeOnMainThread(async () =>
                            {
-                               var action = await PageDialog.DisplayAlertAsync("Thông báo", "Bật wifi thiết bị thành công! Tìm và kết nối với wifi của thiết bị trong cài đặt wifi", "Cài đặt Wifi", "Đóng");
+                               var action = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.ExportVideo_Lable_TurnOnWifiSuccess, MobileResource.ExportVideo_Lable_EnableWifi, MobileResource.Common_Label_Close);
                                if (action)
                                {
                                    DependencyService.Get<ISettingsService>().OpenWifiSettings();
@@ -118,16 +120,16 @@ namespace BA_MobileGPS.Core.ViewModels
                        {
                            Device.BeginInvokeOnMainThread(async () =>
                            {
-                               var messgae = string.Format("Bật wifi thiết bị không thành công! Vui lòng thử lại hoặc gọi số tổng đài {0} để được hỗ trợ ",
+                               var messgae = string.Format(MobileResource.ExportVideo_Lable_TurnOnWifiUnSuccess,
                                    MobileSettingHelper.HotlineGps);
-                               await PageDialog.DisplayAlertAsync("Thông báo", messgae, "Đóng");
+                               await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, messgae, MobileResource.Common_Label_Close);
                            });
                        }
                    }, showLoading: true);
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Vui lòng chọn phương tiện của bạn");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_PleaseSelectVehicle);
                 }
             });
         }

@@ -230,9 +230,11 @@
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";
         public const string POST_DEVICESTOP = "api/v2/stream/stop";
+        public const string POST_DEVICESTOPSESSION = "api/v2/stream/stopsession";
         public const string POST_DEVICEPING = "api/v2/stream/ping";
         public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
         public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
+        public const string POST_PLAYBACKSTOPALL = "api/v2/stream/playbackstopall";
         public const string POST_UPLOADSTART = "api/v2/stream/uploadstart";
         public const string POST_UPLOADSTOP = "api/v2/stream/uploadstop";
         public const string POST_UPLOADPROGRESS = "api/v2/stream/uploadprogress";

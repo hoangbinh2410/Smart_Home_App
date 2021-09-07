@@ -216,33 +216,6 @@ namespace BA_MobileGPS.Core.ViewModels
             IsBusy = false;
         }
 
-        /// <summary>
-        /// Lấy menu với nhóm ban đầu
-        /// phục vụ cho việc bỏ check ưa thích.
-        /// </summary>
-        /// <returns></returns>
-        /// Name     Date         Comments
-        /// TruongPV  3/14/2019   created
-        /// </Modified>
-        public List<HomeMenuItemViewModel> GetOriginMenu()
-        {
-            return _mapper.MapListProperties<HomeMenuItemViewModel>(StaticSettings.ListMenuOriginGroup);
-        }
-
-        /// <summary>
-        /// Lấy nhóm ban đầu khi chưa vào ưa thích
-        /// </summary>
-        /// <param name="menuID">The menu identifier.</param>
-        /// <returns></returns>
-        /// Name     Date         Comments
-        /// TruongPV  3/14/2019   created
-        /// </Modified>
-        public string GetOriginGroupName(int menuID)
-        {
-            var tmpMenu = GetOriginMenu().FirstOrDefault(m => m.PK_MenuItemID == menuID);
-            return tmpMenu.GroupName;
-        }
-
         public void ReSort()
         {
             var memus = (from m in MenuItems.ToList()

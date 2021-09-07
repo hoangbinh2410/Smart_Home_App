@@ -131,6 +131,7 @@
         LinkZalo,
         LinkTiktok,
         LinkExportVideoCamera,
-        LinkHelpExportVideoCamera
+        LinkHelpExportVideoCamera,
+        UrlBackgroudBottomHomePage
     }
 }

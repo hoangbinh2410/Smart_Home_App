@@ -30,7 +30,7 @@
                             <Span Text="{i18n:TranslateResource Camera_Title_NoteDowLoadFile}" />
                             <Span Text="{Binding VideoRestreamInfo.VehicleName}" />
                             <Span Text=" - " />
-                            <Span Text="Kênh " />
+                            <Span Text="{i18n:TranslateResource Camera_Label_Chanel}" />
                             <Span Text="{Binding VideoRestreamInfo.Channel}" />
                         </FormattedString>
                     </Label.FormattedText>
@@ -161,13 +161,13 @@
                     VerticalTextAlignment="End">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="Đến " />
-                            <Span Text="Danh sách tải về" TextColor="#00ADE5">
+                            <Span Text="{i18n:TranslateResource Camera_Message_UploadGo}" />
+                            <Span Text="{i18n:TranslateResource Camera_Message_ListVideoUpload}" TextColor="#00ADE5">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding GotoMyVideoPageCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
-                            <Span Text=" để xem và tải video về điện thoại" />
+                            <Span Text="{i18n:TranslateResource Camera_Message_UploadEnd}" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>

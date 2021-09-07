@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core
 
         public static bool UseHelper => Get(MobileConfigurationNames.UseHelper, true);
 
-        public static bool UseUserBehavior => Get(MobileConfigurationNames.UseUserBehavior, true);
+        public static bool UseUserBehavior => Get(MobileConfigurationNames.UseUserBehavior, false);
 
         public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 5);
 
@@ -243,6 +243,9 @@ namespace BA_MobileGPS.Core
         public static string LinkExportVideoCamera => Get(MobileConfigurationNames.LinkExportVideoCamera, "http://192.168.43.1:8080");
 
         public static string LinkHelpExportVideoCamera => Get(MobileConfigurationNames.LinkHelpExportVideoCamera, "https://www.youtube.com/watch?v=3KHS015dexo");
+
+        public static string UrlBackgroudBottomHomePage => Get(MobileConfigurationNames.UrlBackgroudBottomHomePage, "bg_HomeBot");
+
 
     }
 }

@@ -4,13 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Name="this"
-    Title="Chọn loại giấy tờ"
+    Title="{i18n:TranslateResource ListPaper_Label_SelectPaperType}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
         <Grid
@@ -76,7 +77,7 @@
                 <Entry
                     x:Name="entrySearchVehicle"
                     HorizontalOptions="FillAndExpand"
-                    Placeholder="Tìm kiếm loại giấy tờ"
+                    Placeholder="{i18n:TranslateResource Common_Message_SearchText}"
                     Text="{Binding SearchedText}">
                     <Entry.Behaviors>
                         <prism:EventToCommandBehavior

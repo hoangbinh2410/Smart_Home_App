@@ -89,21 +89,6 @@ namespace BA_MobileGPS.Core.Models
             }
         }
 
-        private CameraStartRespone data;
-
-        /// <summary>
-        /// Save current data
-        /// </summary>
-        public CameraStartRespone Data
-        {
-            get { return data; }
-            set
-            {
-                SetProperty(ref data, value);
-                RaisePropertyChanged();
-            }
-        }
-
         private bool isSelected;
 
         public bool IsSelected
@@ -184,7 +169,17 @@ namespace BA_MobileGPS.Core.Models
 
         public bool AutoRequestPing { get; set; }
 
-        public int Channel { get; set; }
+        public int channel;
+        public int Channel
+        {
+            get { return channel; }
+            set
+            {
+                SetProperty(ref channel, value);
+                RaisePropertyChanged();
+            }
+        }
+        public string Link { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -305,18 +300,17 @@ namespace BA_MobileGPS.Core.Models
                     && data.PlaybackRequests.Count > 0
                     && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
                     {
-                        Data = data;
                         var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
                         if (user != null)
                         {
-                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(new Tuple<PlaybackUserRequest, int>(user, Channel));
+                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
                         }
-                        result.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
+                        result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
                         SetError(result.UserMessage);
                     }
                     else
                     {
-                        Data = data;
+                        Link = data.Link;
                         if (!countLoadingTimer.Enabled && counter == maxLoadingTime)
                         {
                             countLoadingTimer.Start();
@@ -328,13 +322,9 @@ namespace BA_MobileGPS.Core.Models
                 }
                 else
                 {
-                    Data = new CameraStartRespone()
-                    {
-                        Channel = Channel,
-                        Link = string.Empty
-                    };
+                    Link = string.Empty;
                     _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(result.UserMessage);
+                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
                 }
             });
         }
@@ -354,11 +344,12 @@ namespace BA_MobileGPS.Core.Models
                             ConditionType = (int)ConditionType.BKS,
                             ConditionValues = new List<string>() { vehicle },
                             Source = (int)CameraSourceType.App,
-                            User = StaticSettings.User.UserName
+                            User = StaticSettings.User.UserName,
+                            SessionID = StaticSettings.SessionID
                         });
                         if (device != null && device.Channels != null)
                         {
-                            var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Data.Channel);
+                            var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Channel);
 
                             if (streamDevice != null && streamDevice.Stream)
                             {
@@ -388,7 +379,7 @@ namespace BA_MobileGPS.Core.Models
         {
             try
             {
-                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null) && !string.IsNullOrEmpty(Data.Link))
+                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null) && !string.IsNullOrEmpty(Link))
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -396,11 +387,11 @@ namespace BA_MobileGPS.Core.Models
                         var url = string.Empty;
                         if (MobileSettingHelper.UseCameraRTMP)
                         {
-                            url = Data.Link.Replace("rtsp", "rtmp");
+                            url = Link.Replace("rtsp", "rtmp");
                         }
                         else
                         {
-                            url = Data.Link;
+                            url = Link;
                         }
                         MediaPlayer.Media = new Media(libVLC, new Uri(url));
                         MediaPlayer.Play();

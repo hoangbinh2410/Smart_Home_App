@@ -1,12 +1,12 @@
-﻿"CFBundleDisplayName" = "BA GPS";
-"CFBundleName" = "BA GPS";
+﻿"CFBundleDisplayName" = "Utracking";
+"CFBundleName" = "Utracking";
 
-"NSLocationAlwaysUsageDescription" = "BA GPS needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationWhenInUseUsageDescription" = "BA GPS needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationUsageDescription" = "BA GPS needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSLocationAlwaysAndWhenInUseUsageDescription"="BA GPS needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
-"NSCalendarsUsageDescription"="BA GPS needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
-"NSCameraUsageDescription"="BA GPS requires access to your camera to let you add pictures to post to your social media channels";
-"NSPhotoLibraryUsageDescription"="BA GPS needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
-"NSMicrophoneUsageDescription"="BA GPS needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
-"NSPhotoLibraryAddUsageDescription"="BA GPS needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
+"NSLocationAlwaysUsageDescription" = "UNITEL needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationWhenInUseUsageDescription" = "UNITEL needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationUsageDescription" = "UNITEL needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="UNITEL needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSCalendarsUsageDescription"="UNITEL needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
+"NSCameraUsageDescription"="UNITEL requires access to your camera to let you add pictures to post to your social media channels";
+"NSPhotoLibraryUsageDescription"="UNITEL needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
+"NSMicrophoneUsageDescription"="UNITEL needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
+"NSPhotoLibraryAddUsageDescription"="UNITEL needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";

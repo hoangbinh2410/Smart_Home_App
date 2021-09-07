@@ -15,5 +15,7 @@ namespace BA_MobileGPS.Entities
     {
         public int Source { get; set; }
         public string User { get; set; }
+
+        public string Session { get; set; }
     }
 }

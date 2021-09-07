@@ -107,7 +107,7 @@
                         <Entry
                             x:Name="entrySearchVehicle"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Tìm kiếm phương tiện"
+                            Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}"
                             Text="{Binding SearchedText}">
                             <Entry.Behaviors>
                                 <prism:EventToCommandBehavior

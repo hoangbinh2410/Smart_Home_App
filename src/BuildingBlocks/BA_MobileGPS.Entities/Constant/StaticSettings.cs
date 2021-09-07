@@ -9,9 +9,9 @@ namespace BA_MobileGPS.Entities
 
         public static string Token { get; set; }
 
-        public static List<HomeMenuItem> ListMenu { get; set; } = new List<HomeMenuItem>();
+        public static string SessionID { get; set; }
 
-        public static List<HomeMenuItem> ListMenuOriginGroup { get; set; } = new List<HomeMenuItem>();
+        public static List<HomeMenuItem> ListMenu { get; set; } = new List<HomeMenuItem>();
 
         public static List<VehicleOnline> ListVehilceOnline { get; set; }
 
@@ -23,9 +23,9 @@ namespace BA_MobileGPS.Entities
 
         public static List<AlertTypeModel> ListAlertType { get; set; }
 
-        public static List<Company> ListCompany { get; set; }
+        public static List<UploadFiles> ListUploadFiles { get; set; }
 
-        public static List<VideoUpload> ListVideoUpload { get; set; }
+        public static List<Company> ListCompany { get; set; }
 
         public static DateTime TimeServer { get; set; }
 
@@ -37,15 +37,15 @@ namespace BA_MobileGPS.Entities
         {
             User = null;
             Token = string.Empty;
+            SessionID = string.Empty;
             ListMenu = new List<HomeMenuItem>();
-            ListMenuOriginGroup = new List<HomeMenuItem>();
             ListVehilceOnline = null;
             ListAlertType = null;
             ListVehilceDebtMoney = null;
             ListVehilceCamera = null;
             ListVehilceFree = null;
             ListCompany = null;
-            ListVideoUpload = null;
+            ListUploadFiles = null;
             LastSyncTime = DateTime.Now;
         }
 

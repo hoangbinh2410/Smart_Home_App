@@ -1,0 +1,7443 @@
+﻿[
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_BAGPS_Introduce",
+    "Value": "ແນະນຳກ່ຽວກັບບໍລິສັດ U-Tracking"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_ChangePassword",
+    "Value": "ປ່ຽນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_CustomerSupport",
+    "Value": "ຊັບພອດລູກຄ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_DeviceManual",
+    "Value": "ແນະນຳວິທີການນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_Logout",
+    "Value": "ອອກຈາກລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_MessageWarningLogout",
+    "Value": "ທ່ານແນ່ໃຈບໍ່ທີ່ຈະອອກຈາກລະບົບ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_MyInformation",
+    "Value": "ຂໍ້ມູນຂອງຂ້ອຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_Notification",
+    "Value": "ແຈ້ງການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_Rating",
+    "Value": "ການຕີລາຄາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_Setting",
+    "Value": "ການຕັ້ງຄ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_Share",
+    "Value": "ແບ່ງປັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AccountTab_Label_Upgrade",
+    "Value": "ອັບເກດເວີຊັນ {0}"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_ActiveTime",
+    "Value": "ໄລຍະເວລາທີ່ອອກລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_CurrentTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_KmCO",
+    "Value": "Km ກົງເຕີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_KmGPS",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner",
+    "Value": "ເປີດເເອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_NumberOfStopParking",
+    "Value": "ຈຳນວນຄັ້ງທີ່ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_StopParkingTime",
+    "Value": "ໄລຍະເວລາທີ່ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_VehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_VehicleType",
+    "Value": "ປະເພດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_Vmax",
+    "Value": "ຄວາມໄວສູງສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_CheckBox_Vmedium",
+    "Value": "ຄວາມໄວສະເລ່ຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_ActiveTime",
+    "Value": "ໄລຍະເວລາທີ່ອອກລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_CurrentTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_Detail",
+    "Value": "ລາຍລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_EndTime",
+    "Value": "ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_JoinDay",
+    "Value": "ລວມວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_KmCO",
+    "Value": "Km ກົງເຕີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_KmGPS",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_MinutesTurnOnAirConditioner",
+    "Value": "ເປີດແອ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_NumberOfStopParking",
+    "Value": "ຈຳນວນຄັ້ງທີ່ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_StartTime",
+    "Value": "ເວລາເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_StopParkingTime",
+    "Value": "ໄລຍະເວລາທີ່ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_TilePage",
+    "Value": "ລາຍງານສັງລວມການເຄື່ອນໄຫວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_TitleJoinNameDate",
+    "Value": "ວັນທີເຄື່ອນໄຫວຕົວຈິງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_TitlePageDetail",
+    "Value": "ລາຍລະອຽດຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_VehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_VehicleType",
+    "Value": "ປະເພດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_Vmax",
+    "Value": "ຄວາມໄວສູງສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Label_Vmedium",
+    "Value": "ຄວາມໄວສະເລ່ຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_ActiveTime",
+    "Value": "ໄລຍະເວລາທີ່ອອກລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_CurrentTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_KmCO",
+    "Value": "Km ກົງເຕີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_KmGPS",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_MinutesTurnOnAirConditioner",
+    "Value": "ເປີດແອ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_NumberOfStopParking",
+    "Value": "ຈຳນວນຄັ້ງທີ່ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_Serial",
+    "Value": "ລຳດັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_StartEndTime",
+    "Value": "ເວລາເລີ່ມຕົ້ນ - ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_StopParkingTime",
+    "Value": "ໄລຍະເວລາທີ່ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_VehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_VehicleType",
+    "Value": "ປະເພດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_Vmax",
+    "Value": "ຄວາມໄວສູງສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ActivitySummariesReport_Table_Vmedium",
+    "Value": "ຄວາມໄວສະເລ່ຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_AddContinue",
+    "Value": "ສືບຕໍ່ເພີ່ມຄົນຂັບໃໝ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_IdentityDriver",
+    "Value": "ເລກທີບັດປະຈຳຕົວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AddDriver_Lable_SelectImage",
+    "Value": "ເລືອກຮູບຄົນຂັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_AlertDetail",
+    "Value": "ເນື້ອໃນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_AlertHandling",
+    "Value": "ດຳເນີນການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_AlertProcessed",
+    "Value": "ດຳເນີນການເເລ້ວ, ປິດການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_AlertRead",
+    "Value": "ອ່ານແລ້ວ, ປິດການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_AlertType",
+    "Value": "ປະເພດການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_Handler",
+    "Value": "ຜູ້ດຳເນີນການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_NotFound",
+    "Value": "ບໍ່ມີການແຈ້ງເຕືອນໃດໆ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_SearchVehicle",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_TileHandlePage",
+    "Value": "ແກ້ໄຂການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_TilePage",
+    "Value": "ລາຍຊື່ການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Label_Time",
+    "Value": "ໄລຍະເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_Alert_Fail",
+    "Value": "ແກ້ໄຂການແຈ້ງເຕືອນບໍ່ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_Alert_Success",
+    "Value": "ແກ້ໄຂການແຈ້ງເຕືອນສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_AlertLongStop",
+    "Value": "ພາຫະນະ {0} ໄດ້ລະເມີດການຢຸດຈອດດົນເກີນໄປ, ຂອບເຂດການແຈ້ງເຕືອນ 90 ນາທີ ສິ້ນສຸດທີ່ສະຖານທີ່ {1} ໄດ້ {2} ນາທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_AlertLostGPS",
+    "Value": "ພາຫະນະ - {0} ຂາດສັນຍານ GSM ເມື່ອ {1}"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_AlertLostGSM",
+    "Value": "ພາຫະນະ - {0} ຂາດສັນຍານ GSM ເມື່ອ {1}"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_RequiredContent",
+    "Value": "ເນື້ອໃນການດຳເນີນການບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Alert_Message_RequireHandleMinLenght",
+    "Value": "ເນື້ອໃນການດຳເນີນການບໍ່ໃຫ້ຕຳ່ກວ່າ {0} ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_About_Time",
+    "Value": "ໃນຊ້ວງເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_All_Vehicle",
+    "Value": "ລາຍຊື່ພາຫະນະທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_All_Vehicle_Description",
+    "Value": "ທ່ານເລືອກພາຫະນະທັງໝົດທີ່ມີການແຈ້ງດຕືອນໃນເວລາດຽວກັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_All_Vehicle_Not_Configured",
+    "Value": "ຍັງບໍ່ໄດ້ຕັ້ງຄ່າພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_All_Warnings",
+    "Value": "ການແຈ້ງເຕືອນທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_All_Warnings_Description",
+    "Value": "ທ່ານເລືອກການແຈ້ງເຕືອນທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Alter",
+    "Value": "ແຈ້ງການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Choose_All_Time_Zone",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Choose_Time",
+    "Value": "ເລືອກເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Choose_Time_Zone",
+    "Value": "ເລືອກເຂດເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_End_Time",
+    "Value": "ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_NextStep",
+    "Value": "ສືບຕໍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Save_Configuration",
+    "Value": "ບັນທຶກການຕັ້ງຄ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_SendFail",
+    "Value": "ບັນທຶກການຕັ້ງຄ່າບໍ່ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_SendSuccess",
+    "Value": "ບັນທຶກການຕັ້ງຄ່າສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Start_Time",
+    "Value": "ຈາກເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Warning_Alert",
+    "Value": "ທ່ານຕ້ອງເລືອກຢ່າງຕຳ່ 1 ການແຈ້ງເຕືອນເພື່ອຕັ້ງຄ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Warning_Time",
+    "Value": "ຈາກເວລາ ບໍ່ໃຫ້ນ້ອຍກວ່າ ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "AlertConfig_Label_Warning_Vehicle",
+    "Value": "ທ່ານຕ້ອງເລືອກຢ່າງຕຳ່ 1 ພາຫະນະເພື່ອຕັ້ງຄ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_All",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_AllPoint",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_Boundary",
+    "Value": "ກວມລວມພື້ນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_PointAplication",
+    "Value": "ກຸ່ມຈຸດຂອງລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_PointName",
+    "Value": "ຊື່ຈຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_SelectPointCompany",
+    "Value": "ເລືອກກຸ່ມບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_Showarea",
+    "Value": "ສະແດງຂອບເຂດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_Showname",
+    "Value": "ສະແດງຊື່ຈຸດສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_TilePage",
+    "Value": "ຕັ້ງຄ່າສະແດງຈຸດສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Boundary_Label_Title",
+    "Value": "ສະແດງລາຍຊື່ເຂດຊາຍແດນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_DaysNumberForAlertAppear",
+    "Value": "ຈຳນວນວັນທີແຈ້ງກ່ອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_Insert",
+    "Value": "ສ້າງໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_RegisterDate",
+    "Value": "ວັນທີລົງທະບຽນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CabSignInfor_Label_SignNumber",
+    "Value": "ຈຳນວນປ້າຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Alert_DownloadedVideo",
+    "Value": "ສຳເລັດການໂຫຼດ Video. ກະລຸນາເບິ່ງໃນ tab Video ທີ່ດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Alert_HelpContent",
+    "Value": "ບັນດາພາຫະນະນຳໃຊ້ແພັກເກດບໍ່ເຊື່ອມຕໍ່ກັບຟັງຊັ້ນເບິ່ງ video ແມ່ນຈະບໍ່ສາມາດສະແດງໃນຟັງຊັນນີ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Alert_Title",
+    "Value": "ແຈ້ງການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Checkbox_AutoRenewal",
+    "Value": "ຕໍ່ກຳນົດເອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_ChildTab_BACloud",
+    "Value": "ດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_ChildTab_Device",
+    "Value": "ອຸປະກອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Chanel",
+    "Value": "ຊ່ອງ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Connection_Error",
+    "Value": "ຂໍ້ຜິດພາດດ້ານການເຊື່ອມຕໍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_MenuTitle",
+    "Value": "ຮູບພາບ - ວີດີໂອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Start_Watch",
+    "Value": "ເບິ່ງ video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Time_Has_Video",
+    "Value": "ໄລຍະເວລາທີ່ມີ video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Time_Has_VideoSaved",
+    "Value": "ໄລຍະເວລາທີ່ບັນທຶກ video "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Timeout_Error",
+    "Value": "ໝົດເວລາແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Undefined",
+    "Value": "ບໍ່ໄດ້ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Vehicle_Have_Video_Numbers",
+    "Value": "ຈຳນວນລົດທີ່ມີ Video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Vehicle_Numbers",
+    "Value": "ຈຳນວນລົດທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Video",
+    "Value": "ວິດີໂອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Video_Event_Numbers",
+    "Value": "ຈຳນວນ Video ທີ່ຄາດການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Label_Video_Numbers",
+    "Value": "ຈຳນວນ Video ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_AllChannel",
+    "Value": "ຊ້ອງທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_CameraDisconnect",
+    "Value": "ລູກຄ້າຖືກຕັດການເຊື່ອມຕໍ່ເນື່ອງຈາກ BKS {0} ຮຽກຮ້ອງເປີດຄືນ {1} ({2})"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_Channel",
+    "Value": "ຊ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_Chart",
+    "Value": "ເບິ່ງ video - ພາບລວມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_ExportVideo",
+    "Value": "ສະກັດວິດີໂອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_ListVideo",
+    "Value": "ລາຍຊື່ video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_NoteChart",
+    "Value": "ອຸປະກອນຈະບໍ່ບັນທຶກ video ເມື່ອພາຫະນະດັບຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_NoteUploadVideoToServer",
+    "Value": "Video ດາວໂຫຼດໂດຍກົງຈາກອຸປະກອນແລະໄດ້ແບ່ງອອກເປັນສ່ວນເພື່ອຄຸນນະພາບໃນການຖ່າຍໂອນຂໍ້ມູນ ແລະ ພື້ນທີ່ໃນການບັນທຶກ. ທ່ານສາມາດເລືອກສ່ວນຂອງ video ທີ່ຕ້ອງການດາວໂຫຼດ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_PlaybackDisconnect",
+    "Value": "ລູກຄ້າຖືກຕັດການເຊື່ອມຕໍ່ເນື່ອງຈາກພາຫະນະ {0} ມີການຮ້ອງຂໍຖ່າຍທອດສົດ {2} ({3})"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_TimeHasVideo",
+    "Value": "ໄລຍະເວລາທີ່ມີ video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Lable_TimeSaveVideo",
+    "Value": "ໄລຍະເວລາທີ່ບັນທຶກ video "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_CameraLoading",
+    "Value": "Video ກຳລົງ load ໂດຍກົງຈາກອຸປະກອນ. ກະລຸນາລໍຖ້າ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_ChannelNotWorking",
+    "Value": "ຊ່ອງ {0} ບໍ່ເຮັດວຽກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_CloseListUserStream",
+    "Value": "ຫຍໍ້ລາຍຊື່ລົງ <<"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DeviceIsPlayback",
+    "Value": "ອຸປະກອນກຳລັງຢູ່ໃນໂໝດເບິ່ງຄືນ, ທ່ານກະລຸນາປິດໂໝດນີ້ເພື່ອເບິ່ງໂດຍກົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DeviceNotOnline",
+    "Value": "ອຸປະກອນບໍ່ອອນໄລຣ໌ ຫຼື ບໍ່ມີຢູ່ໃນລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DevicePlaybackErrorDetail",
+    "Value": "ພາຫະນະ {0} ກຳລັງຖືກເບິ່ງຄືນດ້ວຍບັນຊີຜູ້ໃຊ້ {1} ({2}), ດັ່ງນັ້ນ ບໍ່ສາມາດຖ່າຍທອດສົດໄດ້.\\n\" +\n                           \"ລູກຄ້າສາມາດປ່ຽນເປັນໂມດເບິ່ງຮູບພາບ ຫຼື ຢຸດໂມດເບິ່ງຄືນຂອງບັນຊີຜູ້ໃຊ້ {3} ເພື່ອເບິ່ງວີດີໂອ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DeviceStreamingError",
+    "Value": "ອຸປະກອນກຳລັງຖ່າຍທອດສົດຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງຄືນໄດ້ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DeviceStreamingErrorDetail",
+    "Value": "ພາຫະນະ {0} - ຊ່ອງ {1} ກຳລັງຖ່າຍທອດສົດຢູ່, ສະນັ້ນເຈົ້າບໍ່ສາມາດເບິ່ງຄືນໄດ້ .\\n\" + \"ລູກຄ້າສາມາດປ່ຽນໄປທີ່ໂມດເບິ່ງພາບ ຫຼື ຢຸດການຖ່າຍທອດເພື່ອປ່ຽນເປັນໂມດເບິ່ງຄືນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DowloadVideoSuccess",
+    "Value": "ດາວໂຫລດສຳເລັດວີດີໂອໄປທີ່ຄອມພິວເຕີຂອງທ່ານແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_DoYouWantDowloadVideo",
+    "Value": "Bạn có muốn tải video này về điện thoại không ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_GotoImagePage",
+    "Value": "ຢ້າຍມາໜ້າຕ່າງເພື່ອເບິ່ງໂດຍກົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_ListUserStream",
+    "Value": "ລາຍຊື່ຜູ້ໃຊ້ທີ່ກຳລັງເບິ່ງໂດຍກົງ >>"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_ListVideoUpload",
+    "Value": "ລາຍຊືການດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_PleaseLoadVideo",
+    "Value": "ກະລຸນາໂຫລດຄືນ ຫຼື ເລືອກເບິ່ງວີດີໂອອື່ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_SaveImageError",
+    "Value": "ບັນທຶກຮູບບໍ່ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_SaveImageSuccess",
+    "Value": "ບັນທຶກຮູບສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_SelectOption",
+    "Value": "ກະລຸນາປະຕິບັດ 2 ຕົວເລືອກດັ່ງນີ້:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopLiveStream",
+    "Value": "ຢູດການສະຕີມເພື່ອເບິ່ງ Video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopPlayback",
+    "Value": "ຢຸດເບິ່ງຄືນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopPlaybackOK",
+    "Value": "ສຳເລັດການຢຸດເບິ່ງຄືນ. ກະລຸນາລໍຖ້າເພື່ອໃຫ້ອຸປະກອນຖ່າຍທອດສົດໄດ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopPlaybackStream",
+    "Value": "ຢຸດເພື່ອເບິ່ງ Video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopStreaming",
+    "Value": "ຢຸດການຖ່າຍທອດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_StopStreamingOK",
+    "Value": "ສຳເລັດການຢຸດເບິ່ງໂດຍກົງ. ກະລຸນາລໍຖ້າເພື່ອໃຫ້ອຸປະກອນທຳງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_UploadEnd",
+    "Value": "ເພື່ອເບິ່ງ ແລະ  video"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_UploadGo",
+    "Value": "ເຖິງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Message_VideoSaveToServer",
+    "Value": "ວີດີໂອຂອງລູກຄ້າສາມາດບັນທຶກລົງໃນເຄື່ອງແມ່ຂ່າຍໄດ້ສູງສຸດ 15 ມື້ ແລະ ຈະຖືກລົບອອກເມື່ອຄົບຈຳນວນມື້ບັນທຶກ ຫຼື ບໍ່ມີພື້ນທີ່ວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Status_Downloaded",
+    "Value": "ດາວໂຫຼດແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Status_DownloadError",
+    "Value": "ຂໍ້ຜິດພາດໃນການດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Status_Downloading",
+    "Value": "ກຳລັງໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Status_ErrorConnect",
+    "Value": "ຂໍ້ຜິດພາດໃນການເຊື່ອມຕໍ່. ກະລຸນາລອງໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Status_WaitingUpload",
+    "Value": "ລໍຖ້າດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_Camera_Streaming",
+    "Value": "Camera ຕິດຕາມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_Downloadedvideo",
+    "Value": "Video ທີ່ໄດ້ດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_Downloadingvideo",
+    "Value": "Video ກຳລັງດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_ListDownloadingvideo",
+    "Value": "ລາຍຊື່ video ທີ່ກຳລັງດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_NoteDowLoadFile",
+    "Value": "ທ່ານກຳລັງດາວໂຫຼດ video ຂອງລົດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_Retreaming",
+    "Value": "ເບິ່ງ video ຍ້ອນຫຼັງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Camera_Title_UploadVideoToServer",
+    "Value": "ດາວໂຫຼດມາ server"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CameraImage_Label_TitleDetailPage",
+    "Value": "ເບິ່ງຮູບພາບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CameraImage_Label_TitlelPage",
+    "Value": "ຕິດຕາມຮູບພາບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Button_ChangePass",
+    "Value": "ປ່ຽນລະຫັດຜ່າານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Button_ClosePopup",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Label_NewPassword",
+    "Value": "ປ້ອນລະຫັດຜ່ານໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Label_ReplyPassword",
+    "Value": "ປ້ອນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Label_TilePage",
+    "Value": "ປ່ຽນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Label_TitlePopupSuccessChangePassword",
+    "Value": "U-Tracking"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_ErrorChangePassword",
+    "Value": "ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_SuccessChangePassword",
+    "Value": "ທ່ານໄດ້ປ່ຽນລະຫັດຜ່ານສຳເລັດ.ກະລຸນາເຂົ້າສູ່ລະບົບ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_Validate_Equal_ReplyPassword",
+    "Value": "ຢືນຢັນລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_Validate_IsNull_NewPassword",
+    "Value": "ລະຫັດຜ່ານໃໝ່ບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_Validate_IsNull_ReplyPassword",
+    "Value": "ຊ່ອງນີ້ບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_Validate_MaxLength_NewPassword",
+    "Value": "ລະຫັດຜ່ານບໍ່ໃຫ້ເກີນ {0} ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassForgot_Message_Validate_MinLength_NewPassword",
+    "Value": "ລະຫັດຜ່ານບໍ່ໃຫ້ນ້ອຍກວ່າ {0} ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Button_ChangePassword",
+    "Value": "ປ່ຽນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_NewPassword",
+    "Value": "ປ້ອນລະຫັດຜ່ານໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_NewPassword1",
+    "Value": "ປ້ອນລະຫັດຜ່ານໃໝ່ (*)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_NewPasswordConfirm",
+    "Value": "ປ້ອນຄືນລະຫັດຜ່ານໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_NewPasswordConfirm1",
+    "Value": "ປ້ອນຄືນລະຫັດຜ່ານໃໝ່ (*)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_OldPassword",
+    "Value": "ປ້ອນຄືນລະຫັດຜ່ານເກົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_OldPassword1",
+    "Value": "ປ້ອນລະຫັດຜ່ານເກົ່າ (*)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Label_Title",
+    "Value": "ປ່ຽນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Message_UpdateSuccess",
+    "Value": "ທ່ານໄດ້ປ່ຽນລະຫັດຜ່ານສຳເລັດ, ລະບົບຈະອອກຈາກບັນຊີທີ່ໄດ້ລ໋ອກອິນໃນແຕ່ລະອຸປະກອນ. ກະລຸນາເຂົ້າສູ່ລະບົບຄືນໃໝ່."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_NewPasswordConfirmInvalid",
+    "Value": "ຢືນຢັນລະຫັດຜ່ານໃໝ່ບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_NewPasswordEmpty",
+    "Value": "ກະລຸນາປ້ອນລະຫັດຜ່ານໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_NewPasswordIsSameOldPassword",
+    "Value": "ລະຫັດຜ່ານໃໝ່ຊຳ້ກັບລະຫັດຜ່ານເກົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_NewPasswordIsSameUserName",
+    "Value": "ລະຫັດຜ່ານໃໝ່ຊຳ້ກັບຊື່ຜູ້ໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_NewPasswordMinLenght",
+    "Value": "ລະຫັດຜ່ານໃໝ່ຕ້ອງມີຢ່າງຕຳ່ {0} ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_OldPasswordEmpty",
+    "Value": "ກະລຸນາປ້ອນລະຫັດຜ່ານເກົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChangePassword_Validate_OldPasswordInvalid",
+    "Value": "ລະຫັດຜ່ານເກົ່າບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_LastLits",
+    "Value": "ຍັງເຫຼືອ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_PourTotal",
+    "Value": "ຕື່ມ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_Start",
+    "Value": "ເລີ່ມຕົ້ນ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_SuckTotal",
+    "Value": "ດູດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuel_Label_UseFuel",
+    "Value": "ບໍລິໂພກ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuelReport_ShowByTime",
+    "Value": "ຕາມເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuelReport_Tank",
+    "Value": "ຖັງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuelReport_Total",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuelReport_X_Date",
+    "Value": "ໄລຍະເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ChartFuelReport_Y_Liters",
+    "Value": "ຈຳນວນລິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Cancel",
+    "Value": "ຍົກເລີກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Close",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_ExportExcell",
+    "Value": "ສົ່ງອອກ Excell"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Loadmore",
+    "Value": "ສືບຕໍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_No",
+    "Value": "ບໍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_OK",
+    "Value": "ຕົກລົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Save",
+    "Value": "ບັນທຶກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_SaveShowHideColumn",
+    "Value": "ບັນທຶກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Search",
+    "Value": "ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Send",
+    "Value": "ສົ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Update",
+    "Value": "ອັບເດດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Update_Later",
+    "Value": "ອັບເດດພາຍຫຼັງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_View",
+    "Value": "ເບິ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Button_Yes",
+    "Value": "ຕົກລົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Combobox_TitleCompany",
+    "Value": "ເລືອກບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_All",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_BAGPS",
+    "Value": "Mobile GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_CameraTitle",
+    "Value": "Camera"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Close",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_CompanyReport",
+    "Value": "ບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Contact",
+    "Value": "ຕິດຕໍ່:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Craning",
+    "Value": "ຍົກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_DatePicker",
+    "Value": "ເລືອກວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Day",
+    "Value": "ວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Day2",
+    "Value": "ວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Days",
+    "Value": "ວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_DayUpper",
+    "Value": "ວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_DoorClose",
+    "Value": "ປິດປະຕູ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_DoorOpen",
+    "Value": "ເປີດປະຕູ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Duration",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Duration2",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Features",
+    "Value": "ເຄື່ອງມື"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Grid_FromDate",
+    "Value": "ຈາກເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Grid_STT",
+    "Value": "ລຳດັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Grid_ToDate",
+    "Value": "ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Grid_VehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_HighLight",
+    "Value": "ພິເສດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Hour",
+    "Value": "ຊົ່ວໂມງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Hour2",
+    "Value": "ຊົ່ວໂມງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Hours",
+    "Value": "ຊົ່ວໂມງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Lowerben",
+    "Value": "ເອົາດ້າມລົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_LoweredBen",
+    "Value": "ເອົາລົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Minute",
+    "Value": "ນາທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Minute2",
+    "Value": "ນາທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Minutes",
+    "Value": "ນາທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Month",
+    "Value": "ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Normal",
+    "Value": "ທົ່ວໄປ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Notification",
+    "Value": "ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Open",
+    "Value": "ເປີດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_PlaceHolder_CompanyReport",
+    "Value": "ທັງໝົດບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_PlaceHolder_FromDate",
+    "Value": "ແຕ່ວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_PlaceHolder_SearchKey",
+    "Value": "ປ້ອນຄຳສັບຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_PlaceHolder_ToDate",
+    "Value": "ຮອດວັນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Report",
+    "Value": "ລາຍງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Second",
+    "Value": "ວິນາທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Time",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_TimePicker",
+    "Value": "ເລືອກເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_TitleGrid_OrderNumber",
+    "Value": "ລຳດັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_TitleGrid_VehiclePlate",
+    "Value": "ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_TitleShowHideColumn",
+    "Value": "ເຊື່ອງສະແດງຖັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_TurnOff",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_TurnOn",
+    "Value": "ເປີດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Vehicle",
+    "Value": "ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Label_Year",
+    "Value": "ປີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_All",
+    "Value": "ສະຖານະຄ່າທຳນຽມທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_Car",
+    "Value": "ລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_ChooseCompany",
+    "Value": "ເລືອກທັງໝົດບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_ChooseVehicleGroup",
+    "Value": "ເລືອກກຸ່ມລົດທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_Delete",
+    "Value": "ລຶບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_KmUnit",
+    "Value": "km/h"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_More",
+    "Value": "ເບີ່ງເພີ່ມເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_NMUnit",
+    "Value": "ໄມລ໌/h"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_NotFound",
+    "Value": "ຄົ້ນຫາຂໍ້ມູນບໍ່ພົບ.."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Lable_TickIsRead",
+    "Value": "ເຮັດເຄື່ອງໝາບວ່າອ່ານແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_CameraUnavailable",
+    "Value": "Camera ບໍ່ພ້ອມໃຊ້ງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_CameraUnsupported",
+    "Value": "Camera ບໍ່ຮອງຮັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ChooseAvailablePhotos",
+    "Value": "ເລືອກຮູບພາບທີ່ມີຢູ່ແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorExportExcell",
+    "Value": "ສົ່ງອອກ excell ຜິດພາດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorFromDateBiggerToDate",
+    "Value": "ວັນທີເລີ່ມຕົ້ນໃຫຍ່ກ່ວາວັນທີສີ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorIsNotRuleFromDate",
+    "Value": "ວັນທີເລີ່ມຕົ້ນບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorIsNotRuleToDate",
+    "Value": "ວັນທີສີ້ນສຸດບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorIsNullFromDate",
+    "Value": "ວັນທີເລີ່ມຕົ້ນບໍ່ຄວນຫວ່າງເປົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorIsNullToDate",
+    "Value": "ວັນທີສີ້ນສຸດບໍ່ຄວນຫວ່າງເປົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorOverDateSearch",
+    "Value": "ລະບົບພຽງແຕ່ຮອງຮັບການຄົ້ນຫາໃນລະຫວ່າງ {0} ມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorSearch",
+    "Value": "ຄົ້ນຫາຂໍ້ມູນຜິດພາດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorTimeFromToTimeEnd",
+    "Value": "ເວລາເລີ່ມຕົ້ນໃຫຍ່ກວ່າເວລາສີ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_ErrorTryAgain",
+    "Value": "ມີຂໍ້ຜິດພາດເກີດຂື້ນ, ກະລຸນາລອງໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_GpsNotfound",
+    "Value": "GPS ຍັງບໍ່ທັນໄດ້ເປີດໃນອຸປະກອນຂອງທ່ານ. ກະລຸນາກວດສອບການຕັ້ງຄ່າໃນໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_Loading",
+    "Value": "ກຳລັງດາວໂຫຼດຂໍ້ມູນ..."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_LoadMore",
+    "Value": "ເບີ່ງເພີ່ມເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_NoData",
+    "Value": "ບໍ່ມີຂໍ້ມູນສຳລັບຊ່ວງເວລາທີ່ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_NoDataJoinDay",
+    "Value": "ຍັງບໍ່ມີຂໍ້ມູນຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_NoSelectVehiclePlate",
+    "Value": "ທ່ານຕ້ອງເລືອກທະບຽນລົດຢ່າງໜ້ອຍ 1 ທະບຽນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_NotFindYourCar",
+    "Value": "ຄົ້ນຫາລົດຂອງທ່ານບໍ່ພົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_NotPermission",
+    "Value": "ຟັງຊັ່ນຍັງບໍ່ໄດ້ໃຫ້ສິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_PickPhotoPermissionNotGranted",
+    "Value": "ສິດການເຂົ້າເຖີງຮູບພາບຍັງບໍ່ໄດ້ຮັບການຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_PickPhotoUnsupported",
+    "Value": "ເລືອກຮູບພາບທີ່ບໍ່ຮອງຮັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_PleaseSelectVehicle",
+    "Value": "ທ່ານຍັງບໍ່ເລືອກລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_RequiredDateTimeOver",
+    "Value": "ບໍ່ຕ້ອງຄົ້ນຫາຕະຫຼອດວັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_RequiredNullOrEmpty",
+    "Value": "ປ່ອງບໍ່ຄວນຫວ່າງເປົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_RequiredVehicle",
+    "Value": "ກະລຸນາເລືອກພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_SaveError",
+    "Value": "ບັນທຶກບໍ່ສຳເລັດກະລຸນາກວດສອບຄືນໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_SearchText",
+    "Value": "ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_SearchTextValid",
+    "Value": "ປ່ອງຄົ້ນຫາບໍ່ຄວນປ້ອນຕົວອັກສອນພິເສດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_SelectCompany",
+    "Value": "ກະລຸນາເລືອກບໍລິສັດທີ່ທ່ານຕ້ອງການເຮັດວຽກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_Skip",
+    "Value": "ຂ້າມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_Success",
+    "Value": "ບັນທຶກສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_SuccessExportExcell",
+    "Value": "ສົ່ງອອກ excell ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_TakeNewPhoto",
+    "Value": "ຖ່າຍຮູບໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Message_Warning",
+    "Value": "ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_DangerousChars",
+    "Value": "{0} ບໍ່ໃຫ້ໃສ່ບັນດາຕົວອັກສອນ ',\\\",<,>,/,&"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_Invalid",
+    "Value": "{0} ບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_MinLength",
+    "Value": "{0} ຕ້ອງມີຢ່າງຕຳ່ 3 ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Property_NullOrEmpty",
+    "Value": "{0} ບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Value_SelectGender",
+    "Value": "ເລືອກເພດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Common_Value_SelectReligion",
+    "Value": "ເລືອກສາສະໜາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CompanyLookUp_Label_NotFound",
+    "Value": "ບໍ່ມີບໍລິສັດໃດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CompanyLookUp_Label_Search",
+    "Value": "ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "CompanyLookUp_Label_Title",
+    "Value": "ເລືອກບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailIssue_Label_ContentIssue",
+    "Value": "ເນື້ອໃນຕອບກັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailIssue_Label_DueDate",
+    "Value": "ສຳເລັດຕາຕະລາງນັດໝາຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailIssue_Label_StepIssue",
+    "Value": "ຕິດຕາມການຕອບກັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailIssue_Label_SubmitSupportRequest",
+    "Value": "ສົ່ງການຮ້ອງຂໍສະໜັບສະໜູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailIssue_Label_TilePage",
+    "Value": "ລາຍລະອຽດການຕອບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_CurrentTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_EndAddress",
+    "Value": "ຈຸດປາຍທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_KmCO",
+    "Value": "Km ເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_KmGPS",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_QuotaFuel",
+    "Value": "ປະລິມານເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_QuotaFuelConsume",
+    "Value": "ການບໍລິໂພກນຳ້ມັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_StartAddress",
+    "Value": "ຈຸດຕົ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_TimeActive",
+    "Value": "ເວລາເຄື່ອນໄຫວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_TripCompensatory",
+    "Value": "ຖ້ຽວຊົດເຊີຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_VehiclePlate",
+    "Value": "ທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_CheckBox_VehicleType",
+    "Value": "ປະເພດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_CurrentTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_EndAddress",
+    "Value": "ຈຸດປາຍທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_EndTime",
+    "Value": "ເວລາໄປຮອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_KmCO",
+    "Value": "Km ເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_KmGPS",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_QuotaFuel",
+    "Value": "ປະລິມານນໍ້າມັນ / km"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_QuotaFuelConsume",
+    "Value": "ປະລິມານການນຳໃຊ້ນໍ້າມັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_StartAddress",
+    "Value": "ຈຸດຕົ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_StartTime",
+    "Value": "ເວລາອອກໄປ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_TilePage",
+    "Value": "ລາຍງານລາຍລະອຽດການເຄື່ອນໄຫວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_TimeActive",
+    "Value": "ເວລາເຄື່ອນໄຫວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_TitlePageDetail",
+    "Value": "ຂໍ້ມູນລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_TripCompensatory",
+    "Value": "ຖ້ຽວຊົດເຊີຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_VehiclePlate",
+    "Value": "ທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Label_VehicleType",
+    "Value": "ປະເພດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_CurrentTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_EndAddress",
+    "Value": "ຈຸດປາຍທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_KmCO",
+    "Value": "Km ເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_KmGPS",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_QuotaFuel",
+    "Value": "ປະລິມານເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_QuotaFuelConsume",
+    "Value": "ການບໍລິໂພກນຳ້ມັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_Serial",
+    "Value": "ລຳດັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_StartAddress",
+    "Value": "ຈຸດຕົ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_StartEndTime",
+    "Value": "ເວລາອອກໄປ,​ ເວລາໄປຮອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_TimeActive",
+    "Value": "ເວລາເຄື່ອນໄຫວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_TripCompensatory",
+    "Value": "ຖ້ຽວຊົດເຊີຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_VehiclePlate",
+    "Value": "ທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailsReport_Table_VehicleType",
+    "Value": "ປະເພດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ActiveChannel",
+    "Value": "ຊ່ອງເຄື່ອນໄຫວ :"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Address",
+    "Value": "ສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_AirCondition",
+    "Value": "ແອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Ben",
+    "Value": "ດ້າມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Ben_Crane",
+    "Value": "ດ້າມ/ເຄນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ChannelHasCamera",
+    "Value": "ຊ່ອງຕິດຕັ້ງ camera :"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ChannelOfStorage",
+    "Value": "ຈຳນວນຊ່ອງບັນທຶກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Concrete",
+    "Value": "ເບຕົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Coordinates",
+    "Value": "ພິກັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_CountOpenDoor",
+    "Value": "ຈຳນວນຄັ້ງເປີດປະຕູ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_CountStopVehicle",
+    "Value": "ຢຸດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Crane",
+    "Value": "ເຄນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DaysOfStorage",
+    "Value": "ຈຳນວນມື້ບັນທຶກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DepartmentOfManagement",
+    "Value": "ພະແນກບໍລິຫານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DeviceInformation",
+    "Value": "ຂໍ້ມູນອຸປະກອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Door",
+    "Value": "ປະຕູ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DriveCapacity",
+    "Value": "ຂະໜາດຄວາມຈຳ: "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DriverLicense",
+    "Value": "ໃບຂັບຂີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DriverName",
+    "Value": "ຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_DriverPhone",
+    "Value": "ໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Engineer",
+    "Value": "ເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ExpirationDate",
+    "Value": "ວັນໝົດອາຍຸຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Fuel",
+    "Value": "ເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_InforBGT",
+    "Value": "ຂໍ້ມູນກະຊວງໂຍທາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_InforFee",
+    "Value": "ຂໍ້ມູນຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_InforSIM",
+    "Value": "ຂໍ້ມູນ SIM"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_JoinSystemDate",
+    "Value": "ວັນທີລົງທະບຽນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_KilometAccumulated",
+    "Value": "KM ສະສົມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_KilometInMonth",
+    "Value": "KM ໃນເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_KilometInToDay",
+    "Value": "KM ໃນມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_MemoryStick",
+    "Value": "Memory"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_MinutesOfDrivingTimeContinuous",
+    "Value": "ເວລາຂັບລົດຕໍ່ເນື່ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_MinutesOfDrivingTimeInDay",
+    "Value": "ເວລາຂັບລົດໃນມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Network",
+    "Value": "ອີນເຕີເນັດເຊື່ອມຕໍ່:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Packagecapacity",
+    "Value": "ຂະໜາດແພັກເກັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Packageinformation",
+    "Value": "ຂໍ້ມູນແພັກເກັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_PackageName",
+    "Value": "ຊື່ແພັກເກັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ParkingTurnOnVehecle",
+    "Value": "ຢຸດລົດ ແຕ່ບໍ່ປິດເຄື່ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ParkingVehicleNow",
+    "Value": "ກຳລັງຢຸດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Photo",
+    "Value": "ຟັງຊັ່ນຮູບພາບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Positioning",
+    "Value": "ຟັງຊັ່ນຕຳແໜ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Provider",
+    "Value": "ເຄືອຂ່າຍອີນເຕີເນັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_SimPhoneNumber",
+    "Value": "ເລກ SIM"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Speed",
+    "Value": "ຄວາມໄວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_SpeedOverCount",
+    "Value": "ເກີນຄວາມໄວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Status",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Temperature",
+    "Value": "ອຸ່ນຫະພຸມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_TileInforVehicle",
+    "Value": "ຂໍ້ມູນທົ່ວໄປ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_TilePage",
+    "Value": "ລາຍລະອຽດລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Time",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ValueConcrete_Concreting",
+    "Value": "ເທເບຕົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ValueConcrete_Mixer",
+    "Value": "ເຄື່ອງປະສົມຊີມັງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ValueConcrete_Normal",
+    "Value": "ຢຸດເທເບຕົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ValueMemoryStick_Lost",
+    "Value": "ເສຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ValueMemoryStick_Normal",
+    "Value": "ທົ່ວໄປ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_ValueMemoryStick_NotInit",
+    "Value": "ບໍ່ໄດ້ສ້າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Vehicle_Expiration_Date",
+    "Value": "ວັນທີໝົດກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Vehicle_Sim_Surplus",
+    "Value": "ສ່ວນເກີນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Vehicle_Status_Current",
+    "Value": "ສະຖານະລົດປະຈຸບັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_VehiclePlate",
+    "Value": "ໃບຄວບຄຸມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Video",
+    "Value": "ຟັງຊັ່ນວີດີໂອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicle_MessageFee",
+    "Value": "ພາຫະນະໃກ້ຮອດກຳນົດເກັບຄ່າທຳນຽມວັນທີ {0}"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "DetailVehicleVMS_Label_TilePage",
+    "Value": "ຂໍ້ມູນເຮືອປະມົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_Distance",
+    "Value": "ໄມລ໌"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_LostGPS",
+    "Value": "ຂາດ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_Speed",
+    "Value": "ຄວາມໄວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_TilePage",
+    "Value": "ໄລຍະຫ່າງເຖີງບັນດາເຮືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_Time",
+    "Value": "ຊ່ວງເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_TitleDistance",
+    "Value": "ໄລຍະຫ່າງລະຫວ່າງພາຫະນະ  {0} ເຖີງບັນດາພາຫະນະອື່ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Label_Vehicle",
+    "Value": "ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Distance_Message_NoData",
+    "Value": "ບໍ່ມີຂໍ້ມູນຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_EnableWifi",
+    "Value": "ເປີດ wifi"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_HelperDetail",
+    "Value": "ລາຍລະອຽດກະລຸນາເບິ່ງ video ແນະນຳ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_HelperDetail2",
+    "Value": "ທີ່ນີ້."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_HelpExport",
+    "Value": "ແນະນຳວິທີການດຶງຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_OpenWeb",
+    "Value": "ເປີດເວັບບຼາວເຊີ (Chrome, FireFox, Safari,…) ໃນໂທລະສັບ ແລະ ປ້ອນທີ່ຢູ່ IP: 192.168.43.1:8080 ເພື່ອດຳເນີນການດຶງຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_OpenWeb2",
+    "Value": "ເພື່ອປະຕິບັດການສະກັດເອົາຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_Password",
+    "Value": "ລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_SelectVehicle",
+    "Value": "ກະລຸນາເລືອກພາຫະນະເພື່ອດຶງຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_Step1",
+    "Value": "ກົດປຸ່ມເປີດ wifi ເພື່ອດຳເນີນການເປີດ wifi ຂອງອຸປະກອນໃນພາຫະນະທີ່ເລືອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_Step2",
+    "Value": "ເປີດການຕັ້ງຄ່າ wifi ໃນໂທລະສັບ ແລະ ດຳເນີນການເຊື່ອມຕໍ່ wifi ຂອງອຸປະກອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_TitlePage",
+    "Value": "ດຶງຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_TurnOnWifiSuccess",
+    "Value": "ເປີດ wifi ອຸປະກອນສຳເລັດ. ຄົ້ນຫາ ແລະ ເຊື່ອມຕໍ່ກັບ wifi ຂອງອຸປະກອນ wifi"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_TurnOnWifiUnSuccess",
+    "Value": "ເປີດ wifi ອຸປະກອນບໍ່ສຳເລັດ. ກະລຸນາລອງໃໝ່ ຫຼື ໂທຫາຄໍເຊັນເຕີ 0123456 ເພື່ີອຮັບການຊ່ວຍເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ExportVideo_Lable_WifiName",
+    "Value": "ຊື່ wifi"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Favorites_Label_TilePage",
+    "Value": "ສ້າງລາຍການທີ່ມັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Favorites_Message_RequiredOne",
+    "Value": "ທ່ານຕ້ອງເລືອກຢ່າງໜ້ອຍ 1 ຟັງຊັ່ນທີ່ມັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Favorites_Message_SaveFail",
+    "Value": "ບັນທຶກເມນູທີ່ມັກລົ້ມເຫຼວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Favorites_Message_SaveSuccess",
+    "Value": "ບັນທຶກເມນູທີ່ມັກສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Button_Send",
+    "Value": "ສົ່ງຄຳເຫັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Label_Content",
+    "Value": "ຄຳເຫັນລູກຄ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Label_SubTilePage",
+    "Value": "ຮັບຟັງເພື່ອພັດທະນາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Label_Thanks",
+    "Value": "ຂໍຂອບໃຈ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Label_TilePage",
+    "Value": "ຄຳເຫັນລູກຄ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_FilterWord",
+    "Value": "ເນື້ອໃນຕ້ອງບໍ່ມີຄຳສັບທີ່ລະອຽດອ່ອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_Guider1",
+    "Value": "ເລືອກຈຳນວນດາວໃຫ້ກັບແຕ່ລະປະເພດຂອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_Guider2",
+    "Value": "APP GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_MarkRequired",
+    "Value": "ທ່ານຕ້ອງຕີລາຄາມາດຖານທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_OverMax",
+    "Value": "ທ່ານໄດ້ຕີລາຄາເກີນ {0} ຄັ້ງໃນມື້ນີ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_SendFail",
+    "Value": "ສົ່ງຕີລາຄາບໍ່ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Message_SendSuccess",
+    "Value": "ຂໍຂອບໃຈທ່ານທີ່ຕີລາຄາເພື່ອໃຫ້ພວກເຮົາບໍລິການທ່ານໃຫ້ດີຂື້ນກ່ວາເກົ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Notice_NoEntry",
+    "Value": "ທ່ານຍັງບໍ່ປ້ອນເນື້ອໃນຄຳຄິດເຫັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Notice_SendFail",
+    "Value": "ສົ່ງຄຳຄິດເຫັນບໍ່ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Feedback_Notice_SendSuccess",
+    "Value": "ຂໍຂອບໃຈທ່ານທີ່ໃຫ້ຄຳຄິດເຫັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotAccount_Label_TilePage",
+    "Value": "ລືມບັນຊີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Button_SendInfor",
+    "Value": "ສົ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Label_AccountName",
+    "Value": "ປ້ອນ Username"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Label_Notes",
+    "Value": "ກະລຸນາປ້ອນເບີໂທລະສັບໃຫ້ຕົງກັບເບີໂທລະສັບທີ່ລົງທະບຽນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Label_Phone",
+    "Value": "ເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Label_TilePage",
+    "Value": "ລືມລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_ErrorCheckInforUser",
+    "Value": "ບັນຊີ ຫຼື່ ເບີໂທລະສັບບໍ່ມີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_ErrorErrorLogSMS",
+    "Value": "ຜິດພາດເວລາບັນທຶກຂໍ້ມູນຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_ErrorErrorSendSMS",
+    "Value": "ຜິດພາດເວລາສົ່ງຂໍ້ມູນ SMS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_ErrorOverCountOneDay",
+    "Value": "ເກີດກຳນົດຈຳນວນທີ່ອະນຸຍາດໃຫ້ສົ່ງໃນມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_ErrorSendSMS",
+    "Value": "ຜິດພາດສົ່ງ SMS ຢືນຢັນ. ກະລຸນາລອງໃໝ່ອີກຄັ້ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_ErrorWasRegisterSuccess",
+    "Value": "ໄດ້ເປີດນຳໃຊ້ສຳເລັດກ່ອນໜ້ານີ້ແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_SuccessSendSMS",
+    "Value": "ສົ່ງລະຫັດຢືນຢັນສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_Validate_ConstantHTML_AccountName",
+    "Value": "ຂໍ້ມູນບໍ່ໃຫ້ມີສັນຍະລັກພິເສດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_Validate_IsNull_AccountName",
+    "Value": "ກະລຸນາປ້ອນບັນຊີ!"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_Validate_IsNull_Phone",
+    "Value": "ກະລຸນາປ້ອນເບີໂທລະສັບ!"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_Validate_MaxLength_AccountName",
+    "Value": "ບັນຊີບໍ່ໃຫ້ເກີນ {0} ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ForgotPassword_Message_Validate_Rule_Phone",
+    "Value": "ເບີໂທລະສັບບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_Date",
+    "Value": "ວັນທີ່, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_FirtLits",
+    "Value": "ຈຳນວນລິດເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_LastLits",
+    "Value": "ຈຳນວນລິດທີ່ຍັງເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_LitersOfPour",
+    "Value": "ຈຳນວນລິດທີ່ເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_LitersOfSuction",
+    "Value": "ຈຳນວນລິດທີ່ດູດອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_LitsConsumable",
+    "Value": "ຈຳນວນລິດທີ່ນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_MinuteOfMachineOnStop",
+    "Value": "ຈອດເປີດເຄື່ອງ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_MinutesOfManchineOn",
+    "Value": "ເວລາເປີດເຄື່ອງ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_NumberOfPour",
+    "Value": "ຈຳນວນຄັ້ງເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_NumberOfSuction",
+    "Value": "ຈຳນວນຄັ້ງດູດອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_QuotaReality",
+    "Value": "ຈຳນວນຕົວຈິງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_QuotaRegulations",
+    "Value": "ຈຳນວນທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_Serial",
+    "Value": "ລດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_StartEndTime",
+    "Value": "ເລີ່ມຕົ້ນ/ສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_CheckBox_TotalKmGps",
+    "Value": "Km Gps"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_Date",
+    "Value": "ວັນທີ່, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_DetailVehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_EndTime",
+    "Value": "ເວລາສິ້ນສຸດການເຄື່ອນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_EndTime2",
+    "Value": "ເຖິງວັນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_FirtLits",
+    "Value": "ຈຳນວນລິດເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_LastLits",
+    "Value": "ຈຳນວນລິດທີ່ຍັງເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_LitersOfPour",
+    "Value": "ຈຳນວນລິດທີ່ເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_LitersOfSuction",
+    "Value": "ຈຳນວນລິດທີ່ດູດອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_LitsConsumable",
+    "Value": "ຈຳນວນລິດທີ່ນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_MinuteOfMachineOnStop",
+    "Value": "ເວລາຈອດເປີດເຄື່ອງ (ນາທີ):"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_MinutesOfManchineOn",
+    "Value": "ເວລາເປີດເຄື່ອງ (ນາທີ):"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_NumberOfPour",
+    "Value": "ຈຳນວນຄັ້ງເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_NumberOfSuction",
+    "Value": "ຈຳນວນຄັ້ງດູດອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_PopupEnd",
+    "Value": "ສິ້ນສຸດ: ເວລາລົດເຄື່ອນທີ່ຄັ້ງລ່າສຸດໃນມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_PopupLastLits",
+    "Value": "ຈຳນວນລິດທີ່ຍັງເຫຼືອ: ຈຳນວນລິດໃນຖັງໃນເວລາສຸດທ້າຍຂອງມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_PopupLitsConsumable",
+    "Value": "ຈຳນວນລິດທີ່ນຳໃຊ້ = ຈຳນວນລິດເລີ່ມຕົ້ນ + ຈຳນວນລິດທີ່ເຕີມ - ຈຳນວນລິດທີ່ດູດອອກ - ຈຳນວນລິດທີ່ຍັງເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_PopupStart",
+    "Value": "ເລີ່ມຕົ້ນ: ເລລາລົດເລີ່ມເຄື່ອນທີ່ໃນມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_QuotaReality",
+    "Value": "ຈຳນວນຕົວຈິງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_QuotaRegulations",
+    "Value": "ຈຳນວນທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_StartTime",
+    "Value": "ເວລາເລີ່ມເຄື່ອນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_StartTime2",
+    "Value": "ແຕ່ວັນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_Summary",
+    "Value": "ລວມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_TilePage",
+    "Value": "ລາຍງານການນຳໃຊ້ນ້ຳມັນເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_TitlePageDetail",
+    "Value": "ຂໍ້ມູນລາຍລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_TotalKmGps",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Label_ViewChart",
+    "Value": "ເບິ່ງແຜນທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_Date",
+    "Value": "ວັນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_FirtLits",
+    "Value": "ຈຳນວນລິດເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_LastLits",
+    "Value": "ຈຳນວນລິດທີ່ຍັງເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_LitersOfPour",
+    "Value": "ຈຳນວນລິດທີ່ເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_LitersOfSuction",
+    "Value": "ຈຳນວນລິດທີ່ດູດອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_LitsConsumable",
+    "Value": "ຈຳນວນລິດທີ່ນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_MinuteOfMachineOnStop",
+    "Value": "ເວລາຈອດເປີດເຄື່ອງ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_MinutesOfManchineOn",
+    "Value": "ເວລາເປີດເຄື່ອງ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_NumberOfPour",
+    "Value": "ຈຳນວນຄັ້ງເຕີມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_NumberOfSuction",
+    "Value": "ຈຳນວນຄັ້ງດູດອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_QuotaReality",
+    "Value": "ຈຳນວນຕົວຈິງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_QuotaRegulations",
+    "Value": "ຈຳນວນທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_Serial",
+    "Value": "ລດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_StartEndTime",
+    "Value": "ເລີ່ມຕົ້ນ/ສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_StartEndTime2",
+    "Value": "ແຕ່ວັນທີ່ ເຖິງວັນທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReport_Table_TotalKmGps",
+    "Value": "Km (GPS)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReportTotal_Label_PopupEnd",
+    "Value": "ສິ້ນສຸດ: ເວລາລົດເຄື່ອນທີ່ຄັ້ງລ່າສຸດ 'ເຖິງວັນທີ່'"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReportTotal_Label_PopupLastLits",
+    "Value": "ຈຳນວນລິດທີ່ຍັງເຫຼືອ: ຈຳນວນລິດໃນຖັງໃນເວລາສຸດທ້າຍຂອງມື້ 'ເຖິງວັນທີ່'"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReportTotal_Label_PopupLitsConsumable",
+    "Value": "ຈຳນວນລິດທີ່ນຳໃຊ້: ຈຳນວນລິດທີ່ນຳໃຊ້ໃນໄລຍະເວລາທີ່ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReportTotal_Label_PopupStart",
+    "Value": "ເລີ່ມຕົ້ນ: ເລລາລົດເລີ່ມເຄື່ອນທີ່ 'ແຕ່ວັນທີ່'"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "FuelsSummariesReportTotal_Label_TilePage",
+    "Value": "ລາຍງານສັງລວມການນຳໃຊ້ນ້ຳມັນເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Helper_Label_HeplperOnline",
+    "Value": "ຄູ່ມືແນະນຳການຕິດຕາມພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Helper_Label_PourFuel",
+    "Value": "ຄູ່ມືແນະນຳການເອົາລາຍງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Helper_Label_Using",
+    "Value": "ຄູ່ມືການນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Helper_Label_Using2",
+    "Value": "ຄູ່ມືແນະນຳການນຳໃຊ້ບັນດາຟັງຊັນຕ່າງໆ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Home_Label_Features",
+    "Value": "ເຄື່ອງມື"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Home_Label_Highlight",
+    "Value": "ໂດດເດັ່ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Image_Alert_SaveImageSuccess",
+    "Value": "ບັນທຶກຮູບພາບສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Image_Lable_Image",
+    "Value": "ຮູບພາບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Image_Lable_ImageMonitoring",
+    "Value": "ຕິດຕາມຮູບພາບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Image_Lable_Nearestvehicle",
+    "Value": "ພາຫະນະເບິ່ງລ່າສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Image_Lable_Totalnumberimages",
+    "Value": "ຈຳນວນຮູບພາບທັງໝົດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Issue_Label_TilePage",
+    "Value": "ຕອບຂໍ້ມູນລູກຄ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Item_Female",
+    "Value": "ຍິງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Item_Male",
+    "Value": "ຊາຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Item_Other",
+    "Value": "ອື່ນໆ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Item_SelectGender",
+    "Value": "ເລື່ອກເພດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Item_SelectLicenseType",
+    "Value": "ເລື່ອກປະເພດໃບຂັບຂີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Label_Delete",
+    "Value": "ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Label_Search",
+    "Value": "ຊອກຊື່ຄົນຂັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Label_Title",
+    "Value": "ລາຍຊື່ຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_Delete",
+    "Value": "ທ່ານຕ້ອງການລົບຄົນຂັບລົດອອກບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_DuplicateData",
+    "Value": "ລົ້ມເຫຼວ, ເລກບັດປະຈຳຕົວ ຫຼື່ ລະຫັດໃບຂັບຂີ່ຊ້ຳກັນກັບຄົນອື່ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_Gender",
+    "Value": "ເພດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_LicenseDateRegister",
+    "Value": "ວັນທີຕື່ມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_LicenseNumber",
+    "Value": "ເລກທີໃບຂັບຂີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_LicenseRank",
+    "Value": "ຂັ້ນໃບຂັບຂີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_LicenseType",
+    "Value": "ປະເພດໃບຂັບຂີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_NotNull",
+    "Value": "ກະລຸນາປ້ອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_NotSelect",
+    "Value": "ກະລຸນາເລືອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Messenger_UpdateSuccess",
+    "Value": "ອັບເດດສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Notify_DateGreater",
+    "Value": "ວັນທີ່ໝົດອາຍຸການນຳໃຊ້ຕ້ອງໃຫຍ່ກວ່າວັນທີ່ອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Title_DeleteSuccess",
+    "Value": "ລຶບຄົນຂັບສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Title_Insert",
+    "Value": "ປ້ອນຂໍ້ມູນຄົນຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Title_Success",
+    "Value": "ເພີ່ມຄົນຂັບລົດສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListDriver_Title_Update",
+    "Value": "ເບິ່ງຂໍ້ມູນຄົນຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListIssue_Label_DueDate",
+    "Value": "ຕາຕະລາງນັດໝາຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListIssue_Label_NoProcess",
+    "Value": "ຍັງບໍ່ທັນແກ້ໄຂ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListIssue_Label_TilePage",
+    "Value": "ລາຍຊື່ທີ່ຕ້ອງການສະໜັບສະໜູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_OptionPaper",
+    "Value": "ຕາມປະເພດເອກະສານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_OptionVehicle",
+    "Value": "ຕາມຍານພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_SelectPaperType",
+    "Value": "ເລືອກປະເພດເອກະສານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListPaper_Label_TilePage",
+    "Value": "ລາຍຊື່ເອກະສານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_ByState",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_ByTime",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_ByVehicle",
+    "Value": "ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_ByVehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_ChooseCompany",
+    "Value": "ເລື່ອກບໍລິສັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_ChooseVehicleGroup",
+    "Value": "ເລື່ອກກຸ່ມພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Default",
+    "Value": "ຄ່າເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_FilterData",
+    "Value": "ຄັດຈ້ອນຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Note",
+    "Value": "ໝາຍເຫດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_NotFound",
+    "Value": "ບໍ່ມີພາຫະນະໃດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_NotFoundVehicleGroup",
+    "Value": "ບໍ່ມີກຸ່ມພາຫະນະໃດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Search",
+    "Value": "ຄົ້ນຫາພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_SelectCommand",
+    "Value": "ເລືອກຟັງຊັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_SortBy",
+    "Value": "ຈັດລຽງຕາມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Title",
+    "Value": "ລາຍຊື່ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Title2",
+    "Value": "ລາຍຊື່ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Expiration_Date",
+    "Value": "ວັນທີ່ໝົດອາຍຸການນຳໃຊ້:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Expired",
+    "Value": "ພາຫະນະໝົດອາຍຸການນຳໃຊ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Expired_Date",
+    "Value": "ກຳນົດເກັບຄ່າທຳນຽມ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Own_Fee",
+    "Value": "ພາຫະນະກຳລັງຕິດໜີ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Stop_Date",
+    "Value": "ວັນທີ່ຢຸດໃຊ້ບໍລິການ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Stop_Service",
+    "Value": "ພາຫະນະຢຸດໃຊ້ບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_Vehicle_Unpaid",
+    "Value": "ພາຫະນະຖືກລັອກຍ້ອນບໍ່ຊຳລະຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleLostGPS",
+    "Value": "ພາຫະນະບໍ່ມີສັນຍານ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleLostGPS2",
+    "Value": "ພາຫະນະບໍ່ມີສັນຍານ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleLostGPS2VMS",
+    "Value": "ພາຫະນະບໍ່ມີສັນຍານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleLostGSM",
+    "Value": "ພາຫະນະບໍ່ມີສັນຍານການຕິດຕໍ່, ຍັງບໍ່ໄດ້ຊຳລະຄ່າບໍລິການ ຫຼື່ ບໍ່ມີສັນຍານ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleLostGSM2",
+    "Value": "ພາຫະນະບໍ່ມີສັນຍານການຕິດຕໍ່, ຍັງບໍ່ໄດ້ຊຳລະຄ່າບໍລິການ ຫຼື່ ບໍ່ມີສັນຍານ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleLostGSM2VMS",
+    "Value": "ພາຫະນະບໍ່ມີສັນຍານການຕິດຕໍ່, ຍັງບໍ່ໄດ້ຊຳລະຄ່າບໍລິການ ຫຼື່ ບໍ່ມີສັນຍານ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleNormal",
+    "Value": "ພາຫະນະຈອດ, ເປີດເຄື່ອງ ຫຼື່ ພະຫະນະແລ່ນດ້ວຍຄວາມໄວປົກກະຕິ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleNormal2",
+    "Value": "ພາຫະນະຈອດ, ເປີດເຄື່ອງ ຫຼື່ ແລ່ນດ້ວຍຄວາມໄວປົກກະຕິ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleNormal2VMS",
+    "Value": "ພາຫະນະຈອດ, ເປີດເຄື່ອງ ຫຼື່ ແລ່ນດ້ວຍຄວາມໄວປົກກະຕິ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleSpeeding",
+    "Value": "ພາຫະນະແລ່ນເກີນຄວາມໄວທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleSpeeding2",
+    "Value": "ພາຫະນະແລ່ນເກີນຄວາມໄວທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleSpeeding2VMS",
+    "Value": "ພາຫະນະແລ່ນເກີນຄວາມໄວທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleStop",
+    "Value": "ພາຫະນະຈອດ, ປິດເຄື່ອງ ຫຼື່ ພາຫະນະຕິດໜີ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleStop2",
+    "Value": "ພາຫະນະຈອດ, ປິດເຄື່ອງ ຫຼື່ ຕິດໜີ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ListVehicle_Label_VehicleStop2VMS",
+    "Value": "ພາຫະນະຈອດ, ປິດເຄື່ອງ ຫຼື່ ຕິດໜີ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Button_Login",
+    "Value": "ເຂົ້າລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Checkbox_Autologin",
+    "Value": "ບັນທຶກການເຂົ້າລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Checkbox_Rememberme",
+    "Value": "ບັນທຶກລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_ForgotPassword_PopupContent",
+    "Value": "ເພື່ອຮັບປະກັນຄວາມປອດໄພຂອງຂໍ່ມູນ, ທ່ານກະລຸນາຕິດຕໍ່ <strong> <font color='{0}'> {1} </font> </strong> ເພື່ອຮັບການສະໜອງລະຫັດຜ່ານຄືນໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_ForgotPassword_PopupTitle",
+    "Value": "ລືມລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Lable_ExperienceBA",
+    "Value": "ສຳພັດ BA GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Lable_Forgotpassword",
+    "Value": "ລືມລະຫັດຜ່ານ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Lable_Hotline",
+    "Value": "ດູແລລູກຄ້າ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Lable_RegisterSales",
+    "Value": "ລົງທະບຽນຂໍຄຳປຶກສາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Lable_SelectLanguage",
+    "Value": "ເລືອກພາສາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_AccountAllowedSystem",
+    "Value": "ບັນຊີຂອງທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_AccountLocked",
+    "Value": "ບັນຊີຂອງທ່ານກຳລັງຖືກລັອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_AccountPasswordIncorrect",
+    "Value": "ບັນຊີ ຫຼື່ ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ. ກະລຸນາກວດຄືນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_LoginWebOnly",
+    "Value": "ບັນຊີນີ້ໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າສູ່ລະບົບໃນເວັບເທົ່ານັ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_PleaseCall",
+    "Value": "ກະລຸນາຖທຫາໝາຍເລກ {0} ເພື່ອຮັບການຊ່ວຍເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_UpdateVersionMessage",
+    "Value": "ການອັບເດດເປັນເວີຊັນລ້າສຸດລວມມີການປັບປຸງແລະປັບປຸງຄວາມປອດໄພຫຼາຍອັນທີ່ເຮັດໃຫ້ປະສົບການຂອງເຈົ້າດີຂຶ້ນ, ປອດໄພກວ່າ, ແລະສະດວກກວ່າ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Message_UpdateVersionNew",
+    "Value": "ອັບເດດເວີຊັນໃ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_PasswordProperty_NullOrEmpty",
+    "Value": "ລະຫັດຜ່ານບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Popup_BAGPSExperience",
+    "Value": "ສຳພັດ U-Tracking"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Popup_Guarantee",
+    "Value": "ຂໍ້ມູນການຮັບປະກັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Popup_Manual",
+    "Value": "ຊ່ວຍເຫຼືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Popup_Network",
+    "Value": "ເຄືອຂ່າຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Popup_RegisterSupport",
+    "Value": "ລົງທະບຽນຂໍຄຳປຶກສາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Popup_Starting_Page",
+    "Value": "ອອກທະເລ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Textbox_Password",
+    "Value": "ລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_Textbox_UserName",
+    "Value": "ຊື່ເຂົ້າໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Login_UserNameProperty_NullOrEmpty",
+    "Value": "ຊື່ເຂົ້າໃຊ້ບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_Label_Favorite",
+    "Value": "ຕັ້ງຄ່າສິ່ງທີ່ມັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_Label_SettingFavorite",
+    "Value": "ຕົວເລືອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_TabItem_Account",
+    "Value": "ບັນຊີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_TabItem_Home",
+    "Value": "ໜ້າຫຼັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_TabItem_Monitoring",
+    "Value": "ຕິດຕາມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_TabItem_Route",
+    "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_TabItem_Vehicle",
+    "Value": "ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Menu_TabItem_Voyage",
+    "Value": "ເສັ້ນທາງທະເລ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Allows_Phone_Calls",
+    "Value": "ອະນຸຍາດໃຫ້ໂທລະສັບແຈ້ງເຕືອນພາຫະນະເຄື່ອນທີ່ບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Allows_Remote_Engine",
+    "Value": "ອະນຸຍາດໃຫ້ເປີດ, ປິດເຄື່ອງແບບທາງໄກຜ່ານ SMS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Alter",
+    "Value": "ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Battery_Voltage",
+    "Value": "ລະດັບໄຟໃນໝໍ້ໄຟພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Call_Operator",
+    "Value": "ໂທຫາສູນບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Configure_SMS_Alerts",
+    "Value": "ຕັ້ງຄ່າ SMS ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Confirm",
+    "Value": "ຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Disconnection_Time",
+    "Value": "ເວລາຕັດການເຊື່ອມຕໍ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Infomation",
+    "Value": "ຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Low_Voltage_Warning",
+    "Value": "ລະດັບແຈ້ງເຕືອນໄຟຕຳ່ (mV)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Machine_Status",
+    "Value": "ສະຖານະເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Power_Mode_Used",
+    "Value": "ໂມດນຳໃຊ້ໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Set_Phone_Number",
+    "Value": "ເບີໂທຮັບການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Set_The_Phone",
+    "Value": "ຕັ້ງຄ່າເບີໂທຮັບການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Setting",
+    "Value": "ຕັ້ງຄ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Speed",
+    "Value": "ຄວາມໄວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Status",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Status_Device",
+    "Value": "ສະຖານະຂອງອຸປະກອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Time_Connected_To_The_System",
+    "Value": "ເວລາເຊື່ອມຕໍ່ເຂົ້າລະບົບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Time_To_Update_Location",
+    "Value": "ເວລາອັບເດດທີ່ຕັ້ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Turn_Off_Alarm",
+    "Value": "ປິດການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Turn_Off_Alarm_Note",
+    "Value": "(ສົ່ງ SMS ປິດການແຈ້ງເຕືອນເວລາພາຫະນະເຄື່ອນທີ່ບໍ່ຖືກຕ້ອງ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Turn_On_Alarm",
+    "Value": "ເປີດການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Label_Turn_On_Alarm_Note",
+    "Value": "(ສົ່ງ SMS ເປີດການແຈ້ງເຕືອນເວລາພາຫະນະເຄື່ອນທີ່ບໍ່ຖືກຕ້ອງ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_AllowTurnOnOffEngineViaSMS",
+    "Value": "ທ່ານກະລຸນາອະນຸຍາດໃຫ້ເປີດ, ປິດເຄື່ອງແບບທາງໄກຜ່ານ SMS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_Alter",
+    "Value": "ກະລຸນາຕິດຕໍ່ສູນບໍລິການລູກຄ້າເພື່ອອັບເດດເບີໂທໃຫ້ກັບອຸປະກອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_Alter_WarningNumber",
+    "Value": "ທ່ານຕ້ອງການອັບເດດລະດັບການແຈ້ງເຕືອນ SMS ບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_Call_Operator",
+    "Value": "ທ່ານຕ້ອງການໂທຫາອຸປະກອນເພື່ອສົ່ງສຽງບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_Config_PhoneNumber",
+    "Value": "ທ່ານຍັງບໍ່ໄດ້ຕັ້ງຄ່າເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_Send_Location",
+    "Value": "ທ່ານຕ້ອງການສົ່ງທີ່ຕັ້ງຂອງພາຫະນະບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_TurnOff_Engine",
+    "Value": "ທ່ານຕ້ອງການປິດເຄື່ອງບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Moto_Message_TurnOn_Engine",
+    "Value": "ທ່ານຕ້ອງການເປີດເຄື່ອງບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Notification_Label_DeleteAllNotice",
+    "Value": "ທ່ານຕ້ອງການລົບການແຈ້ງເຕືອນທັງໝົດບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Notification_Label_DeleteAllNoticeAction",
+    "Value": "ລົບການແຈ້ງເຕືອນທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Notification_Label_DeleteNotice",
+    "Value": "ທ່ານແນ່ໃຈບໍ່ທີ່ຈະລຶບແຈ້ງການ?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Notification_Label_DeleteNoticeNotSuccess",
+    "Value": "ລົບການແຈ້ງເຕືອນບໍ່ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Notification_Label_TilePage",
+    "Value": "ແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Action_UpdateAdminUserSetting",
+    "Value": "ຕັ້ງຄ່າແໜ່ງເລີ່ມຕົ້ນຈະຊ່ວຍໃຫ້ທ່ານສາມາດບັນທຶກຕຳແໜ່ງຂອງທ່ານເມື່ອເຂົ້າໃນໜ້າຕິດຕາມຍານພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Button_Detail",
+    "Value": "ລາຍລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Button_HideBorder",
+    "Value": "ປິດເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Button_Option",
+    "Value": "ການຕິດຕັ້ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Button_Router",
+    "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Button_ShowBorder",
+    "Value": "ສະແດງເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Button_ShowHideBorder",
+    "Value": "ເຊື່ອງ/ສະແດງເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_CheckBox_Distance",
+    "Value": "ໄລຍະຫ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_AirConditioning",
+    "Value": "ແອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_AtTime",
+    "Value": "ທີ່ຈຸດສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_Cardoor",
+    "Value": "ປະຕູລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_Determining",
+    "Value": "ກຳລັງຢືນຢັນທີ່ຢູ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_Engine",
+    "Value": "ກົງເຕີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_Last",
+    "Value": "ສຸດທ້າຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_Location",
+    "Value": "ຕຳແໜ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_SeachVehicle",
+    "Value": "ຄົ້ນຫາປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_SeachVehicle2",
+    "Value": "ຄົ້ນຫາພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_SeachVehicle3",
+    "Value": "ຄົ້ນຫາລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarAll",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarDebtMoney",
+    "Value": "ຕິດໜີ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarEngineOff",
+    "Value": "ດັບຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarEngineOn",
+    "Value": "ຕິດຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarLostGPS",
+    "Value": "ບໍ່ມີສັຍານ GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarLostGSM",
+    "Value": "ບໍ່ມີສັນຍານ GSM"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarMoving",
+    "Value": "ເຄື່ອນຍ້າຍ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarOverVelocity",
+    "Value": "ຄວາມໄວເກີນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarSatelliteError",
+    "Value": "ຂໍ້ຜິດພາດດາວທຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarStoping",
+    "Value": "ຢຸດ - ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarStopOn",
+    "Value": "ຢຸດ - ເປີດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_TitlePage",
+    "Value": "ຕິດຕາມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_TotalCar",
+    "Value": "ພາຫະນະທັງໝົດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_TotalKm",
+    "Value": "ໄມທະເລ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_TotalVehicle",
+    "Value": "ພາຫະນະທັງໝົດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_VehicleInfo",
+    "Value": "ຂໍ້ມູນພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Label_Velocity",
+    "Value": "ຄວາມໄວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Lable_SetupBoundary",
+    "Value": "ຕັ້ງຄ່າເຂດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Lable_UpdateAdminUserSetting",
+    "Value": "ຕັ້ງຄ່າທີ່ຕັ້ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Message_CarDebtMoney",
+    "Value": "ພາຫະນະຕິດໜີ້ຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Message_CarStopService",
+    "Value": "ພາຫະນະຢຸດໃຊ້ບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PaperInfor_Msg_Expired",
+    "Value": "ເອກະສານໝົດກຳນົດ, ກະລຸນາສ້າງ ແລະ ລົງທະບຽນໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PaperInfor_Msg_NearExpire",
+    "Value": "ເອກະສານໃຫ້ຮອດມື້ໝົດກຳນົດ, ກະລຸນາສ້າງ ແລະ ລົງທະບຽນໃໝ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PaperInfor_Page_Title",
+    "Value": "ປ້ອນຂໍ້ມູນເອກະສານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_ComboBox_Status_Absorb",
+    "Value": "ດູດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_ComboBox_Status_Pour",
+    "Value": "ຖອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_ComboBox_Status_SuspiciousAbsorb",
+    "Value": "ຄາດວ່າຈະດູດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_ComboBox_Status_SuspiciousPour",
+    "Value": "ຄາດວ່າຈະຖອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Detail_Label_Liters",
+    "Value": "ລິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Label_CheckBox_Address",
+    "Value": "ທີ່ຢູ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Label_CheckBox_Liters",
+    "Value": "ລິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Label_Detail_Status",
+    "Value": "ສະຖານະພາບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Label_PlaceHolder_Liters",
+    "Value": "ຈຳນວນລິດ >="
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Label_TitleChartDetailPage",
+    "Value": "ແຜນວາດເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Label_TitleDetailPage",
+    "Value": "ລາຍລະອຽດການໄດ້ຮັບນໍ້າມັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Message_ValidateError_Liters",
+    "Value": "ຈຳນວນລິດບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Status_ValidateError_Absorb",
+    "Value": "ດູດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Status_ValidateError_Pour",
+    "Value": "ຖອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Status_ValidateError_SuspiciousAbsorb",
+    "Value": "ຄາດວ່າຈະດູດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Status_ValidateError_SuspiciousPour",
+    "Value": "ຄາດວ່າຈະຖອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Table_Address",
+    "Value": "ທີ່ຢູ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Table_Date",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Table_Liters",
+    "Value": "ຈຳນວນລິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Table_Serial",
+    "Value": "ລຳດັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "PourFuelReport_Table_Status",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConfig_Label_PhoneNumber1",
+    "Value": "ເບີໂທລະສັບ 1"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConfig_Label_PhoneNumber2",
+    "Value": "ເບີໂທລະສັບ 2"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConfig_Label_PhoneNumber3",
+    "Value": "ເບີໂທລະສັບ 3"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Button_ClosePopup",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Button_Register",
+    "Value": "ລົງທະບຽນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_Content",
+    "Value": "ປ້ອນເນື້ອໃນທີ່ຕ້ອງການປຶກສາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_DescriptionFirstPage",
+    "Value": "ຖ້າທ່ານແມ່ນບໍລິສັດຂົນສົ່ງທີ່ຍັງບໍໄດ້ນຳໃຊ້ອຸປະກອນຕິດຕາມລົດ. ກະລຸນາໃສ່ຂໍ້ມູນໃຫ້ພວກເຮົາເພື່ອຮັບການປຶກສາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_Phone",
+    "Value": "ເບີໂທລະສັບ (*)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_Provinces",
+    "Value": "ເລືອກເຂວງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_TilePage",
+    "Value": "ລົງທະບຽນຮັບຄຳປຶກສາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_TitlePopup",
+    "Value": "BA GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_TransportType",
+    "Value": "ເລືອກປະເພດການຂົນສົ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Label_UserName",
+    "Value": "ຊື່ ແລະ ນາມສະກຸນ (*)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_ErrorExistsPhone",
+    "Value": "ເບີໂທລະສັບມີຢູ່ແລ້ວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_ErrorRegister",
+    "Value": "ການດຳເນີການລົ້ມເຫຼວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_SuccessRegister",
+    "Value": "✔  ການລົງທະບຽນຂອງລູກຄ້າໄດ້ສົ່ງເຖິງພວກເຮົາແລ້ວ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_Validate_IsNull_CountryCode",
+    "Value": "ລະຫັດປະເທດບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_Validate_IsNull_Phone",
+    "Value": "ເບີໂທລະສັບບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_Validate_IsNull_UserName",
+    "Value": "ຊື່ ແລະ ນາມສະກຸນບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_Validate_MaxLength_UserName",
+    "Value": "ຊື່ ແລະ ນາມສະກຸນບໍ່ໃຫ້ເກີນ {0} ຕົວອັກສອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_Validate_Rule_Double_Phone",
+    "Value": "ເບີໂທລະສັບບໍ່ໃຫ້ຊຳ້ກັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "RegisterConsult_Message_Validate_Rule_Phone",
+    "Value": "ເບີໂທລະສັບບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_DetailEndAddress",
+    "Value": "ທີ່ຢູ່ສິ້ນສຸດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_DetailFromDate",
+    "Value": "ຈາກ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_DetailFuel",
+    "Value": "ເຊື້ອໄຟ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_DetailMinutes",
+    "Value": "ນາທີ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_DetailStartAddress",
+    "Value": "ທີ່ຢູ່ເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_DetailVehiclePlate",
+    "Value": "ທີ່ຢູ່ສິ້ນສຸດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_EngineTurnOff",
+    "Value": "ດັບຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_EngineTurnOn",
+    "Value": "ຕິດຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_Grid_DateTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_Grid_DateTimeEnd",
+    "Value": "ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_Grid_EndAddress",
+    "Value": "ທີ່ຢູ່ສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_Grid_Fuel",
+    "Value": "ເຊື້ອໄຟ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_Grid_Minutes",
+    "Value": "ນາທີ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_Grid_StartAddress",
+    "Value": "ທີ່ຢູ່ເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_PlaceHolder_CountMinutes",
+    "Value": "ຈຳນວນນາທີ >="
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_PlaceHolder_StatusMachine",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_TitlePage",
+    "Value": "ລາຍງານເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Label_TitlePageDetail",
+    "Value": "ລາຍລະອຽດຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_Message_ValidateError_Minutes",
+    "Value": "ຈຳນວນນາທີບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportMachine_TitleStatusMachine",
+    "Value": "ເລືອກສະຖານະເຄື່ອງຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportQCVN31Speed_Label_OptionView",
+    "Value": "ຕົວເລືອກການສະແດງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportQCVN31Speed_Label_TitlePage",
+    "Value": "ຄວາມໄວຂອງລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportQCVN31Speed_Label_Velocity",
+    "Value": "ບັນດາຄວາມໄວ (km/h)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Label_TitlePage",
+    "Value": "ລາຍງານການຂາດສັນຍານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Label_TitlePageDetail",
+    "Value": "ລາຍລະອຽດຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Message_ValidateError_MinTimeLosing",
+    "Value": "ຈຳນວນນາທີທີ່ຂາດສັນຍານບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Message_ValidateError_MinTimeLosing2",
+    "Value": "ຈຳນວນນາທີທີ່ຂາດສັນຍານແມ່ນນອນໃນຊ້ວງ 5 ເຖິງ 1000000000"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Title_EndAddress",
+    "Value": "ທີ່ຢູ່ສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Title_EndTime",
+    "Value": "ເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Title_MinTimeLosing",
+    "Value": "ຈຳນວນນາທີທີ່ຂາດສັນຍານ >="
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Title_StartAddress",
+    "Value": "ທີ່ຢູ່ເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Title_StartTime",
+    "Value": "ເວລາເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_Title_TimeLosing",
+    "Value": "ເວລາຂາດສັນຍານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_TitleStatus",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_TitleStatus_All",
+    "Value": "ທັງໝົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_TitleStatus_GMS",
+    "Value": "GSM"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportSignalLoss_TitleStatus_GPS",
+    "Value": "GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailDescription",
+    "Value": "ໝາຍເຫດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailEndAddress",
+    "Value": "ທີ່ຢູ່ສິ້ນສຸດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailFromDate",
+    "Value": "ຈາກ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailKM",
+    "Value": "KM:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailStartAddress",
+    "Value": "ທີ່ຢູ່ເລີ່ມຕົ້ນ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailTemperature",
+    "Value": "ອຸນຫະພູມ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_DetailVehiclePlate",
+    "Value": "ປ້າຍທະບຽນລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_DateTime",
+    "Value": "ວັນທີ, ເດືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_Description",
+    "Value": "ໝາຍເຫດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_EndAddress",
+    "Value": "ທີ່ຢູ່ສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_Kilomet",
+    "Value": "KM"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_NumberOfSensors",
+    "Value": "ເຊັນເຊີອຸນຫະພູມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_Router",
+    "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_StartAddress",
+    "Value": "ທີ່ຢູ່ເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_Grid_Temperature",
+    "Value": "ອຸນຫະພູມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_TitlePage",
+    "Value": "ລາຍງານອຸນຫະພູມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Label_TitlePageDetail",
+    "Value": "ລາຍລະອຽດຂໍ້ມູນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ReportTemperature_Message_ValidateError_Temperation",
+    "Value": "ອຸນຫະພູມບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_AccountIsExpired",
+    "Value": "ທ່ານໄດ້ໝົດກຳນົດການນຳໃຊ້ແລ້ວຍ້ອນຍັງບໍ່ທັນຊຳລະຄ່າທຳນຽມ. ກະລຸນາຊຳລະຄ່າທຳນຽມເພື່ອສືບຕໍ່ການນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Circle",
+    "Value": "ວົງມົນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Coordinates",
+    "Value": "ຈຸດພິກັດ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_DistanceTitle",
+    "Value": "ວັດແທກໄລຍະຫ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_EndDateLimit",
+    "Value": "ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດເບິ່ງເກີນວັນທີປະຈຸບັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_FeeVMS",
+    "Value": "ຄ່າທຳນຽມພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_ListTitle",
+    "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_LostSignal",
+    "Value": "ບໍ່ມີສັນຍານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_More",
+    "Value": "ອື່ນໆ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Move",
+    "Value": "ເຄື່ອນໄຫວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_OverDateLimit",
+    "Value": "ທ່ານກຳລັງເບິ່ງເກີນວັນທີ່ກຳນົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_RouteNotExist",
+    "Value": "ຍັງບໍ່ມີເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_RouteNotExistVMS",
+    "Value": "ຍັງບໍ່ມີເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_RouteNotFound",
+    "Value": "ບໍ່ພົບເຫັນເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_RouteNotFoundVMS",
+    "Value": "ບໍ່ພົບເຫັນເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_SearchFishing",
+    "Value": "ຄົ້ນຫາພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_SearchVehicle",
+    "Value": "ຄົ້ນຫາລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_StartDateMustSmallerThanEndDate",
+    "Value": "ເວລາເລີ່ມຕົ້ນຕ້ອງນ້ອຍກວ່າເວລາສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Status",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_StopParking",
+    "Value": "ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Time",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Title",
+    "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_TotalTimeLimit",
+    "Value": "ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເບິ່ງເກີນ {0} ວັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_VehicleEmpty",
+    "Value": "ທ່ານຍັງບໍ່ໄດ້ເລືອກລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Route_Label_Vgps",
+    "Value": "Vgps"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendConfig_Label_TurnOnOff_Fail",
+    "Value": "ລົ້ມເຫຼວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendConfig_Label_TurnOnOff_NotOnline",
+    "Value": "ອຸປະກອນບໍ່ອອນໄລຣ໌"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendConfig_Label_TurnOnOff_NotSupport",
+    "Value": "ບໍ່ຊັບພອດຄຳສັ່ງນີ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendConfig_Label_TurnOnOff_Running",
+    "Value": "ກຳລັງດຳເນີນການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendConfig_Label_TurnOnOff_Success",
+    "Value": "ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Button_Close",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Button_Password",
+    "Value": "ປະຕິບັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Button_Warning",
+    "Value": "ຕົກລົງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_Confirm",
+    "Value": "ຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_Off",
+    "Value": "ດັບຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_Off_Success",
+    "Value": "ສຳເລັດການດັບຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_On",
+    "Value": "ຕິດຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_On_Success",
+    "Value": "ສຳເລັດການຕິດຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_Search",
+    "Value": "ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_State_0",
+    "Value": "ສຳເລັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_State_1",
+    "Value": "ຜິດ key"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_State_100",
+    "Value": "ຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_State_2",
+    "Value": "ອຸປະກອນບໍ່ອອນໄລຣ໌"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_State_3",
+    "Value": "ແຫຼ່ງທີ່ມາຂອງຂໍ້ມູນບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_TilePage",
+    "Value": "ປິດ ເປີດ ຈັກທາງໄກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Label_Warning",
+    "Value": "ລົດກຳລັງເຄື່ອນໄຫວບໍ່ສາມາດດັບຈັກໄດ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Message_TurnOff_Engine",
+    "Value": "ທ່ານຕ້ອງການດັບຈັກທາງໄກບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Message_TurnOn_Engine",
+    "Value": "ທ່ານຕ້ອງການຕິດຈັກທາງໄກບໍ່?"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Popup_HeaderTitle",
+    "Value": "U-Tracking ແຈ້ງການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Popup_Label_Password",
+    "Value": "ຟັງຊັ້ນນີ້ອາດກໍ່ໃຫ້ເກີດອັນຕະລາຍເຖິງຜູ້ຂັບລົດ. ກະລຸນາປ້ອນລະຫັດຜ່ານເຂົ້າສູ່ລະບົບເພື່ອນຳໃຊ້ຟັງຊັ້ນນີ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Popup_Placeholder_Password",
+    "Value": "ປ້ອນລະຫັດຜ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Table_Action",
+    "Value": "ດຳເນີນການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Table_CurrentTime",
+    "Value": "ໄລຍະເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Table_Serial",
+    "Value": "ລຳດັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Table_Status",
+    "Value": "ສະຖານະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Table_VehiclePlate",
+    "Value": "ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Validate_PasswordInvalid",
+    "Value": "ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Warning_Label",
+    "Value": "ແຈ້ງການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Warning_Off",
+    "Value": "ທ່ານຕ້ອງເລືອກພາຫະນະເພື່ອດຳເນີນການດັບຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Warning_On",
+    "Value": "ທ່ານຕ້ອງເລືອກພາຫະນະເພື່ອດຳເນີນການຕິດຈັກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SendEngineControl_Warning_VehilceNotOnline",
+    "Value": "ລົດບໍ່ອອນໄລຣ໌"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Checkbox_Custom",
+    "Value": "Custom"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Checkbox_Dark",
+    "Value": "ຕອນຄຳ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_CheckBox_Light",
+    "Value": "ຕອນເຊົ້າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_ChangeTheme",
+    "Value": "ປ່ຽນຮູບແບບການສະແດງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_Enable_Cluster",
+    "Value": "ລວມພາຫະນະໃນໜ້າຕ່າງການຕິດຕາມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_ListAlert",
+    "Value": "ລາຍຊື່ການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_ListVehicleAlert",
+    "Value": "ລາຍຊື່ລົດທີ່ຮັບການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_SettingAdvanced",
+    "Value": "ການຕັ້ງຄ່າຂັ້ນສູງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_SettingGenaral",
+    "Value": "ການຕັ້ງຄ່າທົວໄປ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_SettingMylocationMap",
+    "Value": "ການຕັ້ງຄ່າຕຳແໜ່ງພື້ນຖານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_SettingMylocationMap2",
+    "Value": "ສ້າງຕຳແໜ່ງເລີ່ມຕົ້ນ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_SettingReceiveAlert",
+    "Value": "ຕັ້ງຄ່າຮັບການແຈ້ງເຕືອນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_SettingThelocation",
+    "Value": "ສ້າງຕຳແໜ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_Show_Notification",
+    "Value": "ຮັບລາຍງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_Title",
+    "Value": "ຕັ້ງຄ່າ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Settings_Label_UseGPSDefault",
+    "Value": "ຕຳແໜ່ງແຜນທີ່ເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_AtTime",
+    "Value": "ໄລຍະກ່ອນໜ້ານີ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_BoatMember",
+    "Value": "ພະນັກງານເຮືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_Captain",
+    "Value": "ກັບຕັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_CaptainPhoneNumber",
+    "Value": "ເບີໂທລະສັບຂອງກັບຕັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_DriverName",
+    "Value": "ເຈົ້າຂອງເຮືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_HaiLy",
+    "Value": "ໄມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_InfoBoat",
+    "Value": "ຂໍ້ມູນໃນເຮືອ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_Location",
+    "Value": "ພິກັດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_PhoneNumber",
+    "Value": "ເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_PortStart",
+    "Value": "ທ່າເຮືອຂາອອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_TileInforShipOnline",
+    "Value": "ຂໍ້ມູນປັບປຸງອອນໄລ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "ShipOnlineDetail_Label_VehiclePlate",
+    "Value": "ເຮືອຫາປາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_CheckBox_EndAddress",
+    "Value": "ຈຸດສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_CheckBox_StartAddress",
+    "Value": "ຈຸດເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_CheckBox_TotalDistance",
+    "Value": "ໄລຍະທາງ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_CheckBox_TotalTime",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_CheckBox_Vmax",
+    "Value": "ຄວາມ​ໄວ​ສູງ​ສຸດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_Date",
+    "Value": "ໄລຍະເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_DetailVehiclePlate",
+    "Value": "ປ້າຍລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_Distance",
+    "Value": "ໄລຍະທາງ (m)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_EndAddress",
+    "Value": "ຈຸດສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_Group",
+    "Value": "ກຸ່ມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_PlaceHolder_Speed",
+    "Value": "ຄວາມໄວ >="
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_StartAddress",
+    "Value": "ຈຸດເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_TilePage",
+    "Value": "ລາຍງານແລ່ນເກີນຄວາມໄວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_Time",
+    "Value": "ເວລາ (s)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_TitlePageDetail",
+    "Value": "ຂໍ້ມູນລາຍລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Label_Vmax",
+    "Value": "ຄວາມ​ໄວ​ສູງ​ສຸດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Message_ValidateError_Speed",
+    "Value": "ຄວາມໄວບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_Date",
+    "Value": "ໄລຍະເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_DetailVehiclePlate",
+    "Value": "ປ້າຍລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_Distance",
+    "Value": "ໄລຍະທາງ (m)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_EndAddress",
+    "Value": "ຈຸດສິ້ນສຸດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_Serial",
+    "Value": "ລ/ດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_StartAddress",
+    "Value": "ຈຸດເລີ່ມຕົ້ນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_Time",
+    "Value": "ໄລຍະເວລາ (s)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "SpeedOversReport_Table_Vmax",
+    "Value": "ຄວາມ​ໄວ​ສູງ​ສຸດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_CodeName",
+    "Value": "ລະຫັດພະນັກງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_DriverName",
+    "Value": "ຊື່ຜູ້ຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_MinutesStopRunEngine",
+    "Value": "ເປີດເຄື່ອງເວລາຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_MinutesTurnOnAirConditioner",
+    "Value": "ເປີດແອເວລາຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_Phone",
+    "Value": "ເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_StopLocation",
+    "Value": "ສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_StopParkingTime",
+    "Value": "ເວລາຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_Time",
+    "Value": "ເວລາ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_CheckBox_VehiclePlate",
+    "Value": "ປ້າຍລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_CodeName",
+    "Value": "ລະຫັດພະນັກງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_Date",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_DriverName",
+    "Value": "ຊື່ຜູ້ຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_MinutesStopRunEngine",
+    "Value": "ເປີດເຄື່ອງເວລາຈອດ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_MinutesTurnOnAirConditioner",
+    "Value": "ເປີດແອເວລາຈອດ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_Phone",
+    "Value": "ເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_PlaceHolder_NumberOfStopParking",
+    "Value": "ຈອດ (ນາທີ) >="
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_PlaceHolder_NumberOfStopRunEngine",
+    "Value": "ປິດເຄື່ອງ (ນາທີ) >="
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_StopLocation",
+    "Value": "ສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_StopParkingTime",
+    "Value": "ເວລາຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_TilePage",
+    "Value": "ລາຍງານຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_Time",
+    "Value": "ເວລາ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_TitlePageDetail",
+    "Value": "ຂໍ້ມູນລາຍລະອຽດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Label_VehiclePlate",
+    "Value": "ປ້າຍລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Message_ValidateError_MinutesStopRunEngine",
+    "Value": "ເວລາເປີດເຄື່ອງຈັກເມື່ອຈອດບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Message_ValidateError_StopParkingTime",
+    "Value": "ເວລາຈອດບໍ່ຖືກຮູບແບບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_CodeName",
+    "Value": "ລະຫັດພະນັກງານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_Date",
+    "Value": "ເວລາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_DriverName",
+    "Value": "ຊື່ຜູ້ຂັບລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_MinutesStopRunEngine",
+    "Value": "ເປີດເຄື່ອງຈັກເວລາຈອດ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_MinutesTurnOnAirConditioner",
+    "Value": "ເປີດແອເວລາຈອດ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_Phone",
+    "Value": "ເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_Serial",
+    "Value": "ລ/ດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_StopLocation",
+    "Value": "ສະຖານທີ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_StopParkingTime",
+    "Value": "ເວລາຈອດ (hh:mm:ss)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_Temperature",
+    "Value": "ອຸນຫະພູມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_Time",
+    "Value": "ເວລາ (ນາທີ)"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "StopParkingReport_Table_VehiclePlate",
+    "Value": "ປ້າຍລົດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UploadVideoTo_Alert_NoteUploaded",
+    "Value": "ວີດີໂອກຳລັງໂຫຼດໄປທີ່ເຄື່ອງແມ່ຂ່າຍ. ກາລຸນາເບິ່ງວີດີໂອທີ່ດາວໂຫຼດໃນແຖບດາວໂຫຼດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Address",
+    "Value": "ທີ່ຢູ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Career",
+    "Value": "ອາຊີບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Choose_Birthday",
+    "Value": "ເລືອກວັນເດືອນປີເກີດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_DayOfBirth",
+    "Value": "ວັນເດືອນປີເກີດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Email",
+    "Value": "ອີເມວ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Facebook",
+    "Value": "Facebook"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_FullName",
+    "Value": "ຊື່ ແລະ ນາມສະກຸນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Gender",
+    "Value": "ເພດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Intro",
+    "Value": "ໃຫ້ພວກເຮົາໄດ້ດູແລທ່ານ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_LoyaltyCustomer",
+    "Value": "ລູກຄ້າປະຈຳ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_PhoneNumber",
+    "Value": "ເບີໂທລະສັບ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Religion",
+    "Value": "ສາສະໜາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Role",
+    "Value": "ຕຳແໜ່ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "UserInfo_Label_Title",
+    "Value": "ຂໍ້ມູນຜູ້ໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Button_ClosePopup",
+    "Value": "ປິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Contact",
+    "Value": "{}ຕິດຕໍ່: {Key} - {ItemsCount} ພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_ContactFee",
+    "Value": "ຕິດຕໍ່:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_Error_SearchCommand",
+    "Value": "ມີຂໍ້ຜິດພາດເກີດຂື້ນ. ກາລຸນາເຂົ້າພາຍຫຼັງ."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_Header1",
+    "Value": "ກາລຸນາຊຳລະຄ່າບໍລິການເພື່ອໃຫ້ສາມາດຕິດຕາມພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_Header2",
+    "Value": "ຫຼັງຈາກວັນທີຕໍ່ອາຍຸ, ຖ້າຍັງບໍ່ຈ່າຍຄ່າບໍລິການ ຄຸນສົມບັດບາງຢ່າງໃນລະບົບຈະຖືກຢຸດໄວ້ຊົ່ວຄາວ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_NoValue_SearchCommand",
+    "Value": "ບໍ່ມີບັນທຶກທີ່ກົງກັນ. "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_PlaceholderSearchKey",
+    "Value": "ໃສ່ປ້າຍທະບຽນລົດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_SearchFee",
+    "Value": "ຄົ້ນຫາຄ່າ ທຳ ນຽມ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TilePage",
+    "Value": "ຄົ້ນຫາຂໍ້ມູນຄ່າທຳນຽມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TitleGrid_CountExpireDate",
+    "Value": "ຈຳນວນມື້ທີ່ກາຍກຳນົດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TitleGrid_Descriptions",
+    "Value": "ໝາຍເຫດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TitleGrid_ExpireDate",
+    "Value": "ວັນທີ່ຄົບກຳ ນົດ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TitleGrid_RenewedDate",
+    "Value": "ຕໍ່ອາຍຸເຖິງວັນທີ "
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TitlePopup",
+    "Value": "BA GPS"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_TotalVehicle",
+    "Value": "ລວມຈຳນວນຍານພະຫະນະ:"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Label_VehicleDebt",
+    "Value": "ພາຫະນະທີ່ຍັງບໍ່ຊຳລະຄ່າບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Message_ID0",
+    "Value": "ພາຫະນະກຳລັງໃຊ້ງານຢູ່"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Message_ID1",
+    "Value": "ພາຫະນະໃກ້ຈະຮອດກຳນົດຊຳລະຄ່າບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Message_ID128",
+    "Value": "ພາຫະນະຢຸດໃຊ້ບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Message_ID2",
+    "Value": "ພາຫະນະກາຍກຳນົດນຳໃຊ້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_Message_ID3",
+    "Value": "ພາຫະນະຖືກລັອກທີ່ບໍ່ໄດ້ຈ່າຍຄ່າບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoney_TitleStatus",
+    "Value": "ເລືອກສະຖານະການຊຳລະຄ່າບໍລິການ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleDebtMoneyMessage_SuccessRegister",
+    "Value": "<span style=\"color:#0984e3\"> ✔  ຍານພາຫະນະກາຍກຳນົດນຳໃຊ້: ສາມາດເບິ່ໄດ້ແຕ່ການຕິດຕາມພາຫະນະເທົ່ານັ້ນ.</span>  <br> <span style=\"color:#ff7675\"> ✔  ພາຫະນະຖືກລັອກທີ່ບໍ່ໄດ້ຈ່າຍຄ່າບໍລິການ: ບໍ່ສາມາດເບິ່ງບັນດາຟັງຊັນໃນລະບົບໄດ້.</span>. <br> <span style=\"color:#6c5ce7\">✔ ພາຫະນະຢຸດໃຊ້ບໍລິການ: ພາຫະນະບໍ່ສາມາດເບິ່ງຄຸນສົມບັດໃນລະບົບ ແລະ ສົ່ງຂໍ້ມູນໃນ TCĐB </span>."
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleGroupLookUp_Label_Confirm",
+    "Value": "ເລືອກ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleGroupLookUp_Label_NotFound",
+    "Value": "ບໍ່ມີກຸ່ມໃດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleGroupLookUp_Label_Search",
+    "Value": "ຄົ້ນຫາ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleGroupLookUp_Label_Title",
+    "Value": "ເລືອກກຸ່ມ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VehicleLookUp_Label_Title",
+    "Value": "ເລືອກພາຫະນະ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Button_CheckVerify",
+    "Value": "ປ້ອນລະຫັດຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Button_ResendCode",
+    "Value": "ສົ່ງຄືນລະຫັດຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Label_Code",
+    "Value": "ປ້ອນລະຫັດຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Label_TilePage",
+    "Value": "ປ້ອນລະຫັດຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Label_TimeCountDown",
+    "Value": "ລະຫັດຢືນຢັນສາມາດນຳໃຊ້ໄດ້ພາຍໃນ: {0}s"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_ErrorOverWrongPerCode",
+    "Value": "ປ້ອນຜິດກາຍຈຳນວນຄັ້ງທີ່ອານຸຍາດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_ErrorOverWrongPerDay",
+    "Value": "ປ້ອນຜິດກາຍຈຳນວນຄັ້ງທີ່ອານຸຍາດຕໍ່ມື້"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_ErrorTimeOut",
+    "Value": "ໝົດເວລາການປ້ອນລະຫັດຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_ErrorVerifyCode",
+    "Value": "ເກີດຂໍ້ຜິດພາດການຢືນຢັນ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_ErrorWrongVerifyCode",
+    "Value": "ປ້ອນລະຫັດຢືນຢັນຜິດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_Validate_IsNull_Code",
+    "Value": "ລະຫັດຢືນຢັນບໍ່ໃຫ້ປະຫວ່າງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "VerifyCodeMS_Message_Validate_MaxLength_Code",
+    "Value": "ລະຫັດຢືນຢັນບໍ່ໃຫ້ກາຍ {0} ຕົວອັກສອນ"
+  }
+]

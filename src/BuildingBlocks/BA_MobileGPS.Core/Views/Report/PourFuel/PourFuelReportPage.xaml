@@ -50,7 +50,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="{i18n:TranslateResource PourFuelReport_Label_TilePage}"
+                Text="{i18n:TranslateResource PourFuelReport_Label_TitlePage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
@@ -453,7 +453,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="{i18n:TranslateResource PourFuelReport_CheckBox_Liters}"
+                                        Text="{i18n:TranslateResource PourFuelReport_Label_CheckBox_Liters}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -635,7 +635,7 @@
                             CornerRadius="5"
                             FontSize="13"
                             IsChecked="{Binding ShowAddress}"
-                            Text="{i18n:TranslateResource PourFuelReport_CheckBox_Address}" />
+                            Text="{i18n:TranslateResource PourFuelReport_Label_CheckBox_Address}" />
 
                         <!--  Trạng thái  -->
                         <checkbox:SfCheckBox
@@ -645,7 +645,7 @@
                             CornerRadius="5.0"
                             FontSize="13"
                             IsChecked="{Binding ShowStatus}"
-                            Text="{i18n:TranslateResource PourFuelReport_CheckBox_Status}" />
+                            Text="{i18n:TranslateResource PourFuelReport_Label_Detail_Status}" />
 
                         <!--  button save  -->
 

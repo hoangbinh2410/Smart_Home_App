@@ -1,12 +1,13 @@
-﻿using BA_MobileGPS.Service;
+﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-
+using Newtonsoft.Json;
 using Prism.Ioc;
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -23,11 +24,7 @@ namespace BA_MobileGPS.Core.Resources
                 // Lazy load => design Pattern
                 if (instance == null)
                 {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
                     instance = new MobileResource();
-                    sw.Stop();
-                    Debug.WriteLine(string.Format("InstanceMobileResource: {0}", sw.ElapsedMilliseconds));
                 }
                 return instance;
             }
@@ -37,11 +34,7 @@ namespace BA_MobileGPS.Core.Resources
         {
             try
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
                 string value = Instance.GetType().GetProperty(key).GetValue(Instance)?.ToString() ?? key;
-                sw.Stop();
-                Debug.WriteLine(string.Format("MobileResourceGetProperty {0} : {1}", key.ToString(), sw.ElapsedMilliseconds));
                 return value;
             }
             catch
@@ -50,7 +43,8 @@ namespace BA_MobileGPS.Core.Resources
             }
         }
 
-        public static string Get(MobileResourceNames key, string defaultValue, string defaultValueEng)
+        public static string Get(MobileResourceNames key, string defaultValue,
+            string defaultValueEng)
         {
             var val = App.CurrentLanguage == CultureCountry.Vietnamese ? defaultValue : defaultValueEng;
             try
@@ -95,7 +89,14 @@ namespace BA_MobileGPS.Core.Resources
                     {
                         var service = Prism.PrismApplicationBase.Current.Container.Resolve<IResourceService>();
 
-                        _DicMobileResource = service.Find(x => x.CodeName == App.CurrentLanguage).ToDictionary(k => k.Name, v => v.Value);
+                        if (App.AppType == AppType.Unitel && App.CurrentLanguage == CultureCountry.Laos)
+                        {
+                            _DicMobileResource = GetJsonData().ToDictionary(k => k.Name, v => v.Value);
+                        }
+                        else
+                        {
+                            _DicMobileResource = service.Find(x => x.CodeName == App.CurrentLanguage).ToDictionary(k => k.Name, v => v.Value);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -104,6 +105,30 @@ namespace BA_MobileGPS.Core.Resources
                 }
                 return _DicMobileResource;
             }
+        }
+
+        private static List<MobileResourceRespone> GetJsonData()
+        {
+            string jsonFileName = "lo_LA.json";
+            List<MobileResourceRespone> ObjContactList = new List<MobileResourceRespone>();
+
+            var assembly = typeof(MobileResource).GetTypeInfo().Assembly;
+            foreach (var res in assembly.GetManifestResourceNames())
+            {
+                if (res.Contains(jsonFileName))
+                {
+                    Stream stream = assembly.GetManifestResourceStream(res);
+
+                    using (var reader = new StreamReader(stream))
+                    {
+                        var jsonString = reader.ReadToEnd();
+
+                        //Converting JSON Array Objects into generic list
+                        ObjContactList = JsonConvert.DeserializeObject<List<MobileResourceRespone>>(jsonString);
+                    }
+                }
+            }
+            return ObjContactList;
         }
     }
 }

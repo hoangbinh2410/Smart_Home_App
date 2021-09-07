@@ -81,7 +81,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return false;
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return true;
 
                     default:
@@ -121,7 +123,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return true;
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return true;
 
                     default:
@@ -161,7 +165,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return "ic_time_black";
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return "ic_info_outline_white.png";
 
                     default:
@@ -201,7 +207,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return "ic_time_black";
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return "ic_info_outline_white.png";
 
                     default:
@@ -238,7 +246,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return (Color)Application.Current.Resources["TextSecondaryColor"];
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return (Color)Application.Current.Resources["DangerousColor"];
 
                     default:
@@ -275,7 +285,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return (Color)Application.Current.Resources["TextSecondaryColor"];
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return (Color)Application.Current.Resources["DangerousColor"];
 
                     default:
@@ -312,7 +324,9 @@ namespace BA_MobileGPS.Core
                     case VideoUploadStatus.WaitingUpload:
                         return MobileResource.Camera_Status_WaitingUpload;
 
-                    case VideoUploadStatus.UploadError:
+                    case VideoUploadStatus.UploadErrorTimeout:
+                    case VideoUploadStatus.UploadErrorDevice:
+                    case VideoUploadStatus.UploadErrorCancel:
                         return MobileResource.Camera_Status_DownloadError;
 
                     default:

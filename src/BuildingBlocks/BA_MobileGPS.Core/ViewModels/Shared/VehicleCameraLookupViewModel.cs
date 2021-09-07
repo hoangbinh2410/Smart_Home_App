@@ -101,7 +101,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             PrivateCode = item.VehiclePlate,
                             SortOrder = model.SortOrder,
                             VehicleTime = model.VehicleTime,
-                            Velocity = model.Velocity
+                            Velocity = model.Velocity,
+                            Channel = item.Channel
                         });
                     }
                     else
@@ -119,7 +120,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 PrivateCode = item.VehiclePlate,
                                 SortOrder = model_c.SortOrder,
                                 VehicleTime = model_c.VehicleTime,
-                                Velocity = model_c.Velocity
+                                Velocity = model_c.Velocity,
+                                Channel = item.Channel
                             });
                         }
                     }
@@ -134,7 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 HasVehicle = ListVehicle.Count > 0;
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 return;
             }

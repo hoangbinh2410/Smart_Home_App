@@ -267,6 +267,16 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+        public static bool IsLostGSMPowerOff(DateTime vehicleTime, bool isPowerOff)
+        {
+            if (StaticSettings.TimeServer.Subtract(vehicleTime).TotalMinutes >= CompanyConfigurationHelper.DefaultTimeLossConnectOffPower
+                && isPowerOff)//Nếu xe mất GPS
+            {
+                return true;
+            }
+            return false;
+        }
+
         public static bool IsVehicleUpdate(DateTime gpstime, DateTime vehicleTime)
         {
             //nếu thời gian hiện tại - thời gian của xe mà lớn hơn 2 thì update xe đó
@@ -333,13 +343,32 @@ namespace BA_MobileGPS.Core.Extensions
             //xe dừng đỗ là xe không mất GSM ,GPS
             if (!IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !IsLostGSM(vehicle.VehicleTime))
             {
-                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ
+                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là tắt máy thì là dừng đỗ tắt máy
                 if (!vehicle.IsEnableAcc && IsEngineOff(vehicle.State))
                 {
                     return true;
                 }
                 //nếu xe có cấu hình sai acc thì dựa vào vận tốc
                 else if (vehicle.IsEnableAcc && IsStoping(vehicle.Velocity))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool IsStopAndEngineOn(VehicleOnline vehicle)
+        {
+            //xe dừng đỗ là xe không mất GSM ,GPS
+            if (!IsLostGPS(vehicle.GPSTime, vehicle.VehicleTime) && !IsLostGSM(vehicle.VehicleTime))
+            {
+                //Nếu xe không cấu hình acc thì dựa vào trạng thái máy là bật máy thì là dừng đỗ bật máy
+                if (!vehicle.IsEnableAcc && IsEngineOn(vehicle.State) && IsStoping(vehicle.Velocity))
+                {
+                    return true;
+                }
+                //nếu xe có cấu hình sai acc thì dựa vào vận tốc
+                else if (vehicle.IsEnableAcc && IsStoping(vehicle.Velocity) && IsEngineOn(vehicle.State))
                 {
                     return true;
                 }
@@ -445,6 +474,11 @@ namespace BA_MobileGPS.Core.Extensions
             return false;
         }
 
+        public static bool IsOverVelocityRoute(int velocity)
+        {
+            return (velocity > CompanyConfigurationHelper.DefaultMaxVelocityBlue) ? true : false;
+        }
+
         /// <summary>
         /// Lọc theo trạng thái.
         /// </summary>
@@ -492,6 +526,13 @@ namespace BA_MobileGPS.Core.Extensions
 
                         case VehicleStatusGroup.Stoping:
                             if (IsStopAndEngineOff(x))
+                            {
+                                result += 1;
+                            }
+                            break;
+
+                        case VehicleStatusGroup.StopingOn:
+                            if (IsStopAndEngineOn(x))
                             {
                                 result += 1;
                             }
@@ -546,7 +587,6 @@ namespace BA_MobileGPS.Core.Extensions
                                 }
                             }
                             break;
-
                     }
                 });
             }
@@ -600,6 +640,13 @@ namespace BA_MobileGPS.Core.Extensions
 
                     case VehicleStatusGroup.Stoping:
                         if (IsStopAndEngineOff(x))
+                        {
+                            result.Add(x);
+                        }
+                        break;
+
+                    case VehicleStatusGroup.StopingOn:
+                        if (IsStopAndEngineOn(x))
                         {
                             result.Add(x);
                         }
@@ -724,7 +771,5 @@ namespace BA_MobileGPS.Core.Extensions
             }
             return false;
         }
-
-
     }
 }

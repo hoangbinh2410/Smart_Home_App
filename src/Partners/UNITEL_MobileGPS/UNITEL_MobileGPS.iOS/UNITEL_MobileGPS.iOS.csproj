@@ -54,11 +54,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer: QUANG TRUNG ĐÀO (Q4QWFP766P)</CodesignKey>
+    <CodesignKey>iPhone Developer: Tran Quang Trung (9VX33WTXK7)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchInterpreter>-all</MtouchInterpreter>
-    <CodesignProvision>VIVIEWDEV</CodesignProvision>
+    <CodesignProvision>UnitelDev</CodesignProvision>
     <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -69,9 +69,10 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: QUANG TRUNG ĐÀO (Q4QWFP766P)</CodesignKey>
+    <CodesignKey>Apple Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-    <CodesignProvision>VIVIEWDEV</CodesignProvision>
+    <CodesignProvision>UnitelTrackingDis</CodesignProvision>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -82,9 +83,10 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
-    <CodesignProvision>VIVIEWDIS</CodesignProvision>
-    <CodesignKey>iPhone Distribution: QUANG TRUNG ĐÀO (9ATCPNC2KV)</CodesignKey>
+    <CodesignProvision>UnitelTrackingDis</CodesignProvision>
+    <CodesignKey>Apple Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -94,9 +96,10 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignProvision>VIVIEWDIS</CodesignProvision>
-    <CodesignKey>iPhone Distribution: QUANG TRUNG ĐÀO (9ATCPNC2KV)</CodesignKey>
+    <CodesignProvision>UnitelTrackingDis</CodesignProvision>
+    <CodesignKey>Apple Distribution: STAR TELECOM Co/ LTD (9A6NXUG9ER)</CodesignKey>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -114,7 +117,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="vi.lproj\InfoPlist.strings" />
+    <BundleResource Include="lo.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\internetconnection.json" />
     <BundleResource Include="Resources\Roboto-Bold.ttf" />
     <BundleResource Include="Resources\Roboto-Italic.ttf" />
@@ -158,7 +161,7 @@
       <Name>BA_MobileGPS.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\UNITEL_MobileGPS\UNITEL_MobileGPS.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{096A4B9D-B072-4F98-91FA-FBF63A71ABA4}</Project>
       <Name>UNITEL_MobileGPS</Name>
     </ProjectReference>
   </ItemGroup>
@@ -546,6 +549,15 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-88.png">
       <Visible>false</Visible>
     </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\flag_la.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue_grey%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

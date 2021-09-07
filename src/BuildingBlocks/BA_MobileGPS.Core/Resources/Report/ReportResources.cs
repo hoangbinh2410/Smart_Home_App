@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string ReportTemperature_Label_DetailFromDate => Get(MobileResourceNames.ReportTemperature_Label_DetailFromDate, "Từ: ", "From: ");
         public static string ReportTemperature_Label_DetailKM => Get(MobileResourceNames.ReportTemperature_Label_DetailKM, "KM: ", "Kilomet: ");
-        public static string ReportTemperature_Label_DetailTemperature => Get(MobileResourceNames.ReportTemperature_Label_DetailTemperature, "Nhiệt độ: ", "Temperature: ");
+        public static string ReportTemperature_Label_DetailTemperature => Get(MobileResourceNames.ReportTemperature_Label_DetailTemperature, "Nhiệt độ ", "Temperature ");
         public static string ReportTemperature_Label_DetailStartAddress => Get(MobileResourceNames.ReportTemperature_Label_DetailStartAddress, "Địa chỉ đi: ", "StartAddress: ");
         public static string ReportTemperature_Label_DetailEndAddress => Get(MobileResourceNames.ReportTemperature_Label_DetailEndAddress, "Địa chỉ đến: ", "EndAddress: ");
         public static string ReportTemperature_Label_DetailDescription => Get(MobileResourceNames.ReportTemperature_Label_DetailDescription, "Ghi chú: ", "Description: ");
@@ -76,30 +76,22 @@ namespace BA_MobileGPS.Core.Resources
 
         #region báo cáo đổ hút nhiên liệu
 
-        public static string PourFuelReport_Label_TilePage => Get(MobileResourceNames.PourFuelReport_Label_TitlePage, "Báo cáo đổ hút nhiên liệu", "Pour fuel report");
-        public static string PourFuelReport_Label_TileDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TitleDetailPage, "Chi tiết đổ hút nhiên liệu", "Pour fuel report detail");
-        public static string PourFuelReport_Label_TileChartDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TileChartDetailPage, "Biểu đồ nhiên liệu", "Fuel chart");
+        public static string PourFuelReport_Label_TitlePage => Get(MobileResourceNames.PourFuelReport_Label_TitlePage, "Báo cáo đổ hút nhiên liệu", "Pour fuel report");
+        public static string PourFuelReport_Label_TitleDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TitleDetailPage, "Chi tiết đổ hút nhiên liệu", "Pour fuel report detail");
+        public static string PourFuelReport_Label_TitleChartDetailPage => Get(MobileResourceNames.PourFuelReport_Label_TitleChartDetailPage, "Biểu đồ nhiên liệu", "Fuel chart");
         public static string PourFuelReport_Label_PlaceHolder_StatusPourFuel => Get(MobileResourceNames.PourFuelReport_Label_StatusPourFuel, "Trạng thái", "Status pour fuel");
 
         public static string PourFuelReport_Label_PlaceHolder_Liters => Get(MobileResourceNames.PourFuelReport_Label_PlaceHolder_Liters, "Số Lít >=", "Liters >=");
 
         public static string PourFuelReport_CheckBox_Number => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Number, "STT", "Serial");
 
-        public static string PourFuelReport_CheckBox_Liters => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Liters, "Số lít", "Liters");
+        public static string PourFuelReport_Label_CheckBox_Liters => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Liters, "Số lít", "Liters");
 
         public static string PourFuelReport_CheckBox_Date => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Date, "Thời gian", "Date");
 
-        public static string PourFuelReport_CheckBox_Address => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Address, "Địa chỉ", "Address");
+        public static string PourFuelReport_Label_CheckBox_Address => Get(MobileResourceNames.PourFuelReport_Label_CheckBox_Address, "Địa chỉ", "Address");
 
-        public static string PourFuelReport_CheckBox_Status => Get(MobileResourceNames.PourFuelReport_Label_Detail_Status, "Trạng thái", "Status");
-
-        public static string PourFuelReport_Detail_Liters => Get(MobileResourceNames.PourFuelReport_Label_Detail_Liters, "Số lít: ", "Liters");
-
-        public static string PourFuelReport_Detail_Date => Get(MobileResourceNames.PourFuelReport_Label_Detail_Date, "Thời gian: ", "Date");
-
-        public static string PourFuelReport_Detail__Address => Get(MobileResourceNames.PourFuelReport_Label_Detail_Address, "Địa chỉ:", "Address");
-
-        public static string PourFuelReport_Detail__Status => Get(MobileResourceNames.PourFuelReport_Label_Detail_Status, "Trạng thái:", "Status");
+        public static string PourFuelReport_Label_Detail_Status => Get(MobileResourceNames.PourFuelReport_Label_Detail_Status, "Trạng thái", "Status");
 
         public static string PourFuelReport_Detail_Label_Liters => Get(MobileResourceNames.PourFuelReport_Detail_Label_Liters, "lít", "Liter");
         public static string PourFuelReport_ComboBox_Status_Pour => Get(MobileResourceNames.PourFuelReport_ComboBox_Status_Pour, "Đổ", "Pour");
@@ -149,6 +141,9 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string FuelsSummariesReport_Label_TilePage => Get(MobileResourceNames.FuelsSummariesReport_Label_TilePage, "Báo cáo tiêu hao nhiên liệu", "Fuels Summaries Report");
 
+        public static string FuelsSummariesReport_Label_Summary => Get(MobileResourceNames.FuelsSummariesReport_Label_Summary, "Tổng", "Summary");
+
+        public static string FuelsSummariesReport_Label_ViewChart => Get(MobileResourceNames.FuelsSummariesReport_Label_ViewChart, "Xem biểu đồ", "View chart");
         public static string FuelsSummariesReportTotal_Label_TilePage => Get(MobileResourceNames.FuelsSummariesReportTotal_Label_TilePage, "Báo cáo tổng hợp tiêu hao nhiên liệu", "Fuels Summaries Report");
 
         public static string FuelsSummariesReport_Label_TitlePageDetail => Get(MobileResourceNames.FuelsSummariesReport_Label_TitlePageDetail, "Thông tin chi tiết", "Detail");
@@ -352,6 +347,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner => Get(MobileResourceNames.ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner, "Bật điều hoà", "Minutes Turn On Air Conditioner");
 
         public static string ActivitySummariesReport_CheckBox_Vmedium => Get(MobileResourceNames.ActivitySummariesReport_CheckBox_Vmedium, "Vận tốc trung bình", "Vmedium");
+
+        public static string ActivitySummariesReport_Label_Detail => Get(MobileResourceNames.ActivitySummariesReport_Label_Detail, "Chi tiết", "Detail");
 
         #endregion Báo cáo tổng hợp
 
@@ -599,5 +596,19 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportSignalLoss_Message_ValidateError_MinTimeLosing2 => Get(MobileResourceNames.ReportSignalLoss_Message_ValidateError_MinTimeLosing2, "Số phút mất tín hiệu nằm trong khoảng từ 5 đến 1000000000", "The number of minutes of signal loss ranges from 5 to 10 billion");
 
         #endregion Báo cáo mất tín hiệu
+
+
+        public static string ReportQCVN31Speed_Label_TitlePage => Get(MobileResourceNames.ReportQCVN31Speed_Label_TitlePage, "Tốc độ của xe", "Vehicle speed");
+        public static string ReportQCVN31Speed_Label_OptionView => Get(MobileResourceNames.ReportQCVN31Speed_Label_OptionView, "Tùy chọn hiển thị", "Display options");
+
+        public static string ReportQCVN31Speed_Label_Velocity => Get(MobileResourceNames.ReportQCVN31Speed_Label_Velocity, "Các tốc độ (km/h)", "Speeds (km/h)");
+
+        public static string ChartFuel_Label_Start => Get(MobileResourceNames.ChartFuel_Label_Start, "Bắt đầu: ", "Start: ");
+
+        public static string ChartFuel_Label_UseFuel => Get(MobileResourceNames.ChartFuel_Label_UseFuel, "Tiêu thụ: ", "Consume: ");
+
+        public static string ChartFuel_Label_PourTotal => Get(MobileResourceNames.ChartFuel_Label_PourTotal, "Nap: ", "Pour Total: ");
+        public static string ChartFuel_Label_SuckTotal => Get(MobileResourceNames.ChartFuel_Label_SuckTotal, "Hút: ", "Suck Total: ");
+        public static string ChartFuel_Label_LastLits => Get(MobileResourceNames.ChartFuel_Label_LastLits, "Còn lại: ", "Last Lits: ");
     }
 }

@@ -21,11 +21,11 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Unitel</string>
+	<string>Utracking</string>
 	<key>CFBundleIdentifier</key>
-	<string>vn.unitel.gpsmobile</string>
+	<string>utracking.unitel.com.la</string>
 	<key>CFBundleName</key>
-	<string>VIVIEW GPS</string>
+	<string>Utracking</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
@@ -74,9 +74,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>

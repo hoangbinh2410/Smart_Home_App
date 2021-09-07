@@ -1,12 +1,14 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -108,47 +110,91 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Data != null && result.Data.Count > 0)
                 {
-                    VideoRestreamInfo = result;
-                    foreach (var item in result.Data)
+                    ConvertVideo(result);
+                }
+            }, showLoading: true);
+        }
+
+        private void ConvertVideo(VideoRestreamInfo video)
+        {
+            TryExecute(async () =>
+            {
+                VideoRestreamInfo = video;
+                var listvideo = await ListStatusVideo(video);
+                foreach (var item in video.Data)
+                {
+                    if (item.IsUploaded)
                     {
-                        if (item.IsUploaded)
+                        item.Status = VideoUploadStatus.Uploaded;
+                    }
+                    else
+                    {
+                        if (listvideo != null && listvideo.Count > 0)
                         {
-                            item.Status = VideoUploadStatus.Uploaded;
-                        }
-                        else
-                        {
-                            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
+                            var model = listvideo.FirstOrDefault(x => x.Time.ToString("dd/MM/yyyy hh:mm:ss") == item.StartTime.ToString("dd/MM/yyyy hh:mm:ss"));
+                            if (model != null)
                             {
-                                var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.StartTime.Equals(item.StartTime));
-                                if (model != null)
-                                {
-                                    item.Status = model.Status;
-                                }
-                                else
-                                {
-                                    item.Status = VideoUploadStatus.NotUpload;
-                                }
+                                item.Status = (VideoUploadStatus)model.State;
                             }
                             else
                             {
                                 item.Status = VideoUploadStatus.NotUpload;
                             }
                         }
+                        else
+                        {
+                            item.Status = VideoUploadStatus.NotUpload;
+                        }
                     }
-                    var ischeckall = result.Data.FirstOrDefault(x => x.IsSelected == true
-                    && x.IsUploaded == false
-                    && (x.Status == VideoUploadStatus.NotUpload || x.Status == VideoUploadStatus.UploadError));
-                    if (ischeckall != null)
-                    {
-                        IsShowBtnUpload = true;
-                    }
-                    else
-                    {
-                        IsShowBtnUpload = false;
-                    }
-                    ListVideo = result.Data.OrderBy(x => x.StartTime).ToObservableCollection();
                 }
-            }, showLoading: true);
+                var ischeckall = video.Data.FirstOrDefault(x => x.IsSelected == true
+                && x.IsUploaded == false
+                && (x.Status == VideoUploadStatus.NotUpload
+                || x.Status == VideoUploadStatus.UploadErrorCancel)
+                || x.Status == VideoUploadStatus.UploadErrorDevice
+                || x.Status == VideoUploadStatus.UploadErrorTimeout);
+                if (ischeckall != null)
+                {
+                    IsShowBtnUpload = true;
+                }
+                else
+                {
+                    IsShowBtnUpload = false;
+                }
+                ListVideo = video.Data.OrderBy(x => x.StartTime).ToObservableCollection();
+            });
+        }
+
+        private async Task<List<UploadFiles>> ListStatusVideo(VideoRestreamInfo video)
+        {
+            List<UploadFiles> result = new List<UploadFiles>();
+            try
+            {
+                var respone = await streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
+                {
+                    CustomerID = UserInfo.XNCode,
+                    VehicleName = new List<string>() { video.VehicleName },
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
+                });
+                if (respone != null && respone.Count > 0)
+                {
+                    var videoupload = respone.Where(x => x.Channel == RequestInfo.Channel);
+                    if (videoupload != null)
+                    {
+                        foreach (var item in videoupload)
+                        {
+                            result.AddRange(item.UploadFiles);
+                        }
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                return result;
+            }
+            return result;
         }
 
         private void UploadVideo(object obj)
@@ -166,42 +212,18 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             item.EndTime = item.EndTime.AddSeconds(60 - totals + 1);
                         }
-                        if (StaticSettings.ListVideoUpload != null)
+                        var video = new UploadStartRequest()
                         {
-                            var model = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.StartTime == item.StartTime);
-                            if (model != null)
-                            {
-                                model.Status = VideoUploadStatus.WaitingUpload;
-                            }
-                            else
-                            {
-                                var video = new VideoUpload()
-                                {
-                                    Channel = VideoRestreamInfo.Channel,
-                                    StartTime = item.StartTime,
-                                    EndTime = item.EndTime,
-                                    Status = VideoUploadStatus.WaitingUpload,
-                                    VehicleName = VideoRestreamInfo.VehicleName,
-                                    VehicleID = RequestInfo.VehicleID
-                                };
-                                StaticSettings.ListVideoUpload.Add(video);
-                            }
-                        }
-                        else
-                        {
-                            StaticSettings.ListVideoUpload = new List<VideoUpload>()
-                            {
-                                new VideoUpload()
-                                {
-                                    Channel=VideoRestreamInfo.Channel,
-                                    StartTime=item.StartTime,
-                                    EndTime=item.EndTime,
-                                    Status=VideoUploadStatus.WaitingUpload,
-                                    VehicleName=VideoRestreamInfo.VehicleName,
-                                    VehicleID = RequestInfo.VehicleID
-                                }
-                            };
-                        }
+                            Channel = VideoRestreamInfo.Channel,
+                            StartTime = item.StartTime,
+                            EndTime = item.EndTime,
+                            VehicleName = VideoRestreamInfo.VehicleName,
+                            CustomerID = UserInfo.XNCode,
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName,
+                            SessionID = StaticSettings.SessionID
+                        };
+                        UploadVideoRestream(video);
                     }
                     await PageDialog.DisplayAlertAsync(MobileResource.Camera_Alert_Title, string.Format("{0} {1}", lstvideoSelected.Count, MobileResource.UploadVideoTo_Alert_NoteUploaded), MobileResource.Common_Label_Close);
 
@@ -212,6 +234,35 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     DisplayMessage.ShowMessageInfo("Chọn 1 video để tải về server");
+                }
+            });
+        }
+
+        private void UploadVideoRestream(UploadStartRequest arg)
+        {
+            RunOnBackground(async () =>
+            {
+                return await streamCameraService.UploadToServerStart(arg);
+            }, (result) =>
+            {
+                if (StaticSettings.ListUploadFiles != null)
+                {
+                    StaticSettings.ListUploadFiles.Add(new UploadFiles()
+                    {
+                        State = (int)VideoUploadStatus.WaitingUpload,
+                        Time = arg.StartTime
+                    });
+                }
+                else
+                {
+                    StaticSettings.ListUploadFiles = new List<UploadFiles>()
+                            {
+                                new UploadFiles()
+                                {
+                                   State=(int)VideoUploadStatus.WaitingUpload,
+                                   Time=arg.StartTime
+                                }
+                            };
                 }
             });
         }

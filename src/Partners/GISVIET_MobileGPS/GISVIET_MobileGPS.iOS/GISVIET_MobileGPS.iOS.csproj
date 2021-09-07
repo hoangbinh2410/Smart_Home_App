@@ -547,5 +547,11 @@
     <None Include="Info.plist" />
     <BundleResource Include="Resources\Roboto-Italic.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_blue_grey%403x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

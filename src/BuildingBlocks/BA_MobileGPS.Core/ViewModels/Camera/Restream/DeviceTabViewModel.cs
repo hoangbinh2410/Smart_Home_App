@@ -8,7 +8,6 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Utilities.Extensions;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
@@ -23,6 +22,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
@@ -50,11 +50,11 @@ namespace BA_MobileGPS.Core.ViewModels
             UploadToCloudTappedCommand = new DelegateCommand(UploadToCloudTapped);
             UploadToCloudInListTappedCommand = new DelegateCommand<RestreamVideoModel>(UploadToCloudInListTapped);
             ReLoadCommand = new DelegateCommand(ReloadVideo);
-            LoadMoreItemsCommand = new DelegateCommand<object>(LoadMoreItems, CanLoadMoreItems);
             SearchCommand = new DelegateCommand(SearchData);
             VideoItemTapCommand = new DelegateCommand<ItemTappedEventArgs>(VideoSelectedChange);
             SelectVehicleCameraCommand = new DelegateCommand(SelectVehicleCamera);
             ScreenShotTappedCommand = new DelegateCommand(TakeSnapShot);
+            EventAggregator.GetEvent<UserMessageCameraEvent>().Unsubscribe(UserMessageCamera);
             EventAggregator.GetEvent<UserMessageCameraEvent>().Subscribe(UserMessageCamera);
             mediaPlayerVisible = false;
             videoItemsSource = new ObservableCollection<RestreamVideoModel>();
@@ -77,7 +77,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
+            if (parameters.ContainsKey(ParameterKey.SelectDate)
+                  && (parameters.ContainsKey(ParameterKey.VehiclePlate)))
+            {
+                var selectDate = parameters.GetValue<DateTime>(ParameterKey.SelectDate);
+                var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
+                Vehicle = vehicleDetail;
+                DateStart = selectDate.Date;
+                DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);
+                SearchData();
+            }
+            else if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.Vehicle) is CameraLookUpVehicleModel vehicle)
             {
                 Vehicle = vehicle;
             }
@@ -232,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsError = true;
-                    ErrorMessenger = "Có lỗi khi kết nối server";
+                    ErrorMessenger = MobileResource.Camera_Status_ErrorConnect;
                 });
             }
         }
@@ -263,7 +273,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     IsError = true;
-                    ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
+                    ErrorMessenger = MobileResource.Camera_Message_PleaseLoadVideo;
                 });
             // hết video??/
         }
@@ -326,7 +336,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                ToDate = VideoSlected.VideoEndTime,
                                Channel = VideoSlected.Channel,
                                VehiclePlate =Vehicle.VehiclePlate,
-                               VehicleID=Vehicle.VehicleId
                           } }
                      };
 
@@ -335,7 +344,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
                 }
             });
         }
@@ -349,15 +358,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (obj != null)
                     {
                         var parameters = new NavigationParameters
-                      {
-                          { "UploadVideo", new CameraUploadRequest(){
-                               CustomerId =  UserInfo.XNCode,
-                               FromDate = obj.VideoStartTime,
-                               ToDate = obj.VideoEndTime,
-                               Channel = obj.Channel,
-                               VehiclePlate =Vehicle.VehiclePlate,
-                               VehicleID=Vehicle.VehicleId
-                          } }
+                         {
+                              { "UploadVideo", new CameraUploadRequest(){
+                                   CustomerId =  UserInfo.XNCode,
+                                   FromDate = obj.VideoStartTime,
+                                   ToDate = obj.VideoEndTime,
+                                   Channel = obj.Channel,
+                                   VehiclePlate =Vehicle.VehiclePlate
+                              }
+                         }
                      };
 
                         var a = await NavigationService.NavigateAsync("BaseNavigationPage/UploadVideoPage", parameters, true, true);
@@ -365,7 +374,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Tài khoản không được phân quyền thực hiện tính năng này!");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NotPermission);
                 }
             });
         }
@@ -415,7 +424,7 @@ namespace BA_MobileGPS.Core.ViewModels
                           Device.BeginInvokeOnMainThread(() =>
                           {
                               IsError = true;
-                              ErrorMessenger = "Vui lòng load lại hoặc chọn xem video khác";
+                              ErrorMessenger = MobileResource.Camera_Message_PleaseLoadVideo;
                           });
                       }
                   }, cts.Token);
@@ -466,17 +475,17 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehicleName = Vehicle.VehiclePlate,
                 Source = (int)CameraSourceType.App,
                 User = UserInfo.UserName,
+                SessionID = StaticSettings.SessionID
             };
             RunOnBackground(async () =>
             {
-                return await streamCameraService.StopPlayback(req);
+                return await streamCameraService.StopAllPlayback(req);
             }, (result) =>
             {
                 if (result)
                 {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-
                         await Task.Delay(7000);
 
                         StartRestream();
@@ -502,6 +511,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VehicleName = Vehicle.VehiclePlate,
                     Source = (int)CameraSourceType.App,
                     User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
                 };
                 RunOnBackground(async () =>
                 {
@@ -510,43 +520,58 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (result != null && result.StatusCode == 0)
                     {
-                        if (!string.IsNullOrEmpty(result.Data.Link))
+                        var model = result.Data.FirstOrDefault();
+                        if (model != null)
                         {
-                            var isSteaming = await CheckDeviceStatus();
-                            if (isSteaming)
+                            if (!string.IsNullOrEmpty(model.Link))
                             {
-                                // init ở đây :
-                                InitVLC();
-                                MediaPlayer.Media = new Media(libVLC, new Uri(result.Data.Link));
-                                MediaPlayer.Play();
-                                VideoSlected.Channel = result.Data.Channel;
-                                VideoSlected.Link = result.Data.Link;
+                                var isSteaming = await CheckDeviceStatus();
+                                if (isSteaming)
+                                {
+                                    // init ở đây :
+                                    InitVLC();
+                                    MediaPlayer.Media = new Media(libVLC, new Uri(model.Link));
+                                    MediaPlayer.Play();
+                                    VideoSlected.Channel = model.Channel;
+                                    VideoSlected.Link = model.Link;
+                                }
+                                else
+                                {
+                                    Device.BeginInvokeOnMainThread(() =>
+                                    {
+                                        IsError = true;
+                                        ErrorMessenger = MobileResource.Camera_Status_ErrorConnect;
+                                    });
+                                }
                             }
                             else
                             {
                                 Device.BeginInvokeOnMainThread(() =>
                                 {
                                     IsError = true;
-                                    ErrorMessenger = "Có lỗi khi kết nối server";
+                                    ErrorMessenger = MobileResource.Camera_Status_ErrorConnect;
                                 });
                             }
-                        }
-                        else
-                        {
-                            Device.BeginInvokeOnMainThread(() =>
-                            {
-                                IsError = true;
-                                ErrorMessenger = "Có lỗi khi kết nối server";
-                            });
                         }
                     }
                     else
                     {
-                        if (result != null)
+                        if (result != null && result.StatusCode == 107)
                         {
-                            if (result.Data != null && result.Data.StreamingRequests != null && result.Data.StreamingRequests.Count > 0)
+                            var lstUser = new List<StreamUserRequest>();
+                            foreach (var item in result.Data)
                             {
-                                SetErrorErrorDoubleStremingCamera(result.Data.StreamingRequests);
+                                if (item.StreamingRequests != null && item.StreamingRequests.Count > 0)
+                                {
+                                    foreach (var itemuser in item.StreamingRequests)
+                                    {
+                                        lstUser.Add(itemuser);
+                                    }
+                                }
+                            }
+                            if (result.Data != null && lstUser.Count > 0)
+                            {
+                                SetErrorErrorDoubleStreamingCamera(result.Data);
                             }
                             else
                             {
@@ -557,88 +582,49 @@ namespace BA_MobileGPS.Core.ViewModels
                                 });
                             }
                         }
+                        else
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                IsError = true;
+                                ErrorMessenger = result.UserMessage;
+                            });
+                        }
                     }
                 });
             });
         }
 
-        private void SetErrorErrorDoubleStremingCamera(List<StreamUserRequest> lst)
+        private void SetErrorErrorDoubleStreamingCamera(List<PlaybackStartRespone> lst)
         {
-            var user = lst.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
-            if (user != null)
+            var lstUser = new List<StreamUserRequest>();
+            foreach (var item in lst)
+            {
+                if (item.StreamingRequests != null && item.StreamingRequests.Count > 0)
+                {
+                    foreach (var itemuser in item.StreamingRequests)
+                    {
+                        var isexist = lstUser.Exists(x => x.User == itemuser.User && x.Session == itemuser.Session);
+                        if (!isexist)
+                        {
+                            lstUser.Add(itemuser);
+                        }
+                    }
+                }
+            }
+            if (lstUser.Count > 0)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     IsError = true;
-                    ErrorMessenger = "Thiết bị đang được phát trực tiếp, do vậy quý khách không thể xem lại";
-                    var message = string.Format("BKS {0} - Kênh {1} đang được phát trực tiếp, do vậy quý khách không thể xem lại.\n" +
-                           "Quý khách có thể chuyển sang xem hình ảnh hoặc dừng phát trực tiếp để chuyển sang chế độ xem lại",
-                           Vehicle.PrivateCode, VideoSlected.Channel);
-                    var alert = DependencyService.Get<IAlert>();
-                    var action = await alert.Display("Thông báo", message, "Xem hình ảnh", "Dừng phát trực tiếp", "Để sau");
-                    if (action == "Xem hình ảnh")
-                    {
-                        if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
-                        {
-                            var parameters = new NavigationParameters();
-                            parameters.Add(ParameterKey.Vehicle, new Vehicle()
-                            {
-                                VehicleId = Vehicle.VehicleId,
-                                VehiclePlate = Vehicle.VehiclePlate,
-                                PrivateCode = Vehicle.PrivateCode
-                            });
-                            await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
-                        }
-                        else
-                        {
-                            DisplayMessage.ShowMessageInfo("Bạn không được phép truy cập tính năng này");
-                        }
-                    }
-                    else if (action == "Dừng phát trực tiếp")
-                    {
-                        StopStreaming(VideoSlected.Channel, user);
-                    }
+                    ErrorMessenger = MobileResource.Camera_Message_DeviceStreamingError;
+                    var parameters = new NavigationParameters
+                      {
+                          { "StreamUser",new Tuple<Vehicle,List<StreamUserRequest>>(Vehicle, lstUser) }
+                     };
+                    await NavigationService.NavigateAsync("StreamUserMessagePopup", parameters);
                 });
             }
-        }
-
-        /// <summary>
-        /// Gọi api stop streaming
-        /// </summary>
-        /// <param name="req"></param>
-        private void StopStreaming(int channel, StreamUserRequest user)
-        {
-            SafeExecute(async () =>
-            {
-                var start = new CameraStopRequest()
-                {
-                    Channel = VideoSlected.Channel,
-                    CustomerID = UserInfo.XNCode,
-                    VehicleName = Vehicle.VehiclePlate,
-                    Source = (int)CameraSourceType.App,
-                    User = UserInfo.UserName,
-                };
-                var result = await streamCameraService.DevicesStop(start);
-                if (result)
-                {
-                    if (user.User.ToUpper() != UserInfo.UserName.ToUpper())
-                    {
-                        EventAggregator.GetEvent<UserMessageEvent>().Publish(new UserMessageEventModel()
-                        {
-                            UserName = user.User,
-                            Message = string.Format("Quý khách bị ngắt kết nối do BKS {0} - Kênh {1} được yêu cầu phát xem lại {2} ({3})", Vehicle.PrivateCode,
-                            channel,
-                            user.User,
-                            ((CameraSourceType)user.Source).ToDescription())
-                        });
-                    }
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await PageDialog.DisplayAlertAsync("Thông báo", "Dừng xem trực tiếp thành công. Bạn xin chờ giây lát để thiết bị có thể phát trực tiếp", "Đồng ý");
-                    });
-                }
-            });
         }
 
         /// <summary>
@@ -672,7 +658,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         ConditionType = (int)ConditionType.BKS,
                         ConditionValues = new List<string>() { Vehicle.VehiclePlate },
                         Source = (int)CameraSourceType.App,
-                        User = UserInfo.UserName
+                        User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
                     });
                     if (deviceStatus != null && deviceStatus.Channels != null)
                     {
@@ -706,67 +693,37 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (dateStart.Date != dateEnd.Date)
             {
-                DisplayMessage.ShowMessageInfo("Không tìm kiếm xuyên ngày");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
             }
             else if (dateStart > dateEnd)
             {
-                DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
             else if (Vehicle == null || string.IsNullOrEmpty(Vehicle.VehiclePlate))
             {
-                DisplayMessage.ShowMessageInfo(" Vui lòng chọn phương tiện");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
+                return false;
+            }
+            else if (Vehicle != null && SelectedChannel.Value > Vehicle.Channel)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                          string.Format("Gói cước bạn đang sử dụng chỉ xem được {0} kênh. \nVui lòng liên hệ tới hotline {1} để được hỗ trợ",
+                          Vehicle.Channel, MobileSettingHelper.HotlineGps),
+                          "Liên hệ", "Bỏ qua");
+                    if (action)
+                    {
+                        PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                    }
+                });
                 return false;
             }
             else
             {
                 return true;
-            }
-        }
-
-        private void LoadMoreItems(object obj)
-        {
-            var listview = obj as Syncfusion.ListView.XForms.SfListView;
-            listview.IsBusy = true;
-            try
-            {
-                //pageIndex++;
-                LoadMore();
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            finally
-            {
-                listview.IsBusy = false;
-                IsBusy = false;
-            }
-        }
-
-        /// <summary>
-        /// CanExcute của infinite scroll
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        private bool CanLoadMoreItems(object obj)
-        {
-            if (VideoItemsSourceOrigin.Count < pageIndex * pageCount)
-                return false;
-            return true;
-        }
-
-        /// <summary>
-        /// infinite scroll
-        /// </summary>
-        private void LoadMore()
-        {
-            var source = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount);
-            pageIndex++;
-            foreach (var item in source)
-            {
-                VideoItemsSource.Add(item);
             }
         }
 
@@ -817,9 +774,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             //Sort lại theo kênh và thời gian ASC
                             VideoItemsSourceOrigin.Sort((x, y) => DateTime.Compare(x.VideoStartTime, y.VideoStartTime));
-
-                            VideoItemsSource = VideoItemsSourceOrigin.Skip(pageIndex * pageCount).Take(pageCount).ToObservableCollection();
-                            pageIndex++;
+                            VideoItemsSource = VideoItemsSourceOrigin.ToObservableCollection();
                         }
                     }, showLoading: true);
                 }
@@ -956,7 +911,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                await PageDialog.DisplayAlertAsync("Thông báo", message, "Đóng");
+                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, message, MobileResource.Common_Button_Close);
             });
         }
 

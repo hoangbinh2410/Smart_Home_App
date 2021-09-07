@@ -15,6 +15,13 @@ namespace BA_MobileGPS.Core
                 CultureInfo.CurrentCulture = new CultureInfo("en-US");
                 CultureInfo.CurrentUICulture = new CultureInfo("en-US");
             }
+            else if (Settings.CurrentLanguage == CultureCountry.Laos)
+            {
+                CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("lo-LA");
+                CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("lo-LA");
+                CultureInfo.CurrentCulture = new CultureInfo("lo-LA");
+                CultureInfo.CurrentUICulture = new CultureInfo("lo-LA");
+            }
             else
             {
                 CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("vi-VN");

@@ -77,6 +77,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<bool> DevicesStopSession(CameraStopRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_DEVICESTOPSESSION}";
+                var respone = await requestProvider.PostAsync<CameraStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<bool> DevicesPing(CameraStartRequest request)
         {
             var result = false;
@@ -96,13 +115,13 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<ResponseStreamBase<PlaybackStartRespone>> StartPlayback(PlaybackStartRequest request)
+        public async Task<ResponseStreamBase<List<PlaybackStartRespone>>> StartPlayback(PlaybackStartRequest request)
         {
-            var result = new ResponseStreamBase<PlaybackStartRespone>();
+            var result = new ResponseStreamBase<List<PlaybackStartRespone>>();
             try
             {
                 string url = $"{ApiUri.POST_PLAYBACKSTART}";
-                var respone = await requestProvider.PostAsync<PlaybackStartRequest, ResponseStreamBase<PlaybackStartRespone>>(url, request);
+                var respone = await requestProvider.PostAsync<PlaybackStartRequest, ResponseStreamBase<List<PlaybackStartRespone>>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone;
@@ -134,16 +153,35 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<ResponseStreamBase<UploadStartRespone>> UploadToServerStart(UploadStartRequest request)
+        public async Task<bool> StopAllPlayback(PlaybackStopRequest request)
         {
-            var result = new ResponseStreamBase<UploadStartRespone>();
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_PLAYBACKSTOPALL}";
+                var respone = await requestProvider.PostAsync<PlaybackStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> UploadToServerStart(UploadStartRequest request)
+        {
+            var result = false;
             try
             {
                 string url = $"{ApiUri.POST_UPLOADSTART}";
-                var respone = await requestProvider.PostAsync<UploadStartRequest, ResponseStreamBase<UploadStartRespone>>(url, request);
-                if (respone != null && respone.Data != null)
+                var respone = await requestProvider.PostAsync<UploadStartRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
                 {
-                    result = respone;
+                    result = respone.Data;
                 }
             }
             catch (Exception ex)

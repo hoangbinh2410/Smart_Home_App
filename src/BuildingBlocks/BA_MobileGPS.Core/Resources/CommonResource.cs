@@ -32,6 +32,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_Notification => Get(MobileResourceNames.Common_Label_Notification, "Thông báo", "Notification");
 
+        public static string Common_Message_GpsNotfound => Get(MobileResourceNames.Common_Message_GpsNotfound, "GPS chưa được bật trên thiết bị của bạn. Vui lòng kiểm tra cài đặt trên điện thoại.", "GPS is not enabled on your device. Please check the settings on your phone.");
+
         public static string Common_Message_Warning => Get(MobileResourceNames.Common_Message_Warning, "Cảnh báo", "Warning");
 
         public static string Common_Label_BAGPS => Get(MobileResourceNames.Common_Label_BAGPS, "Mobile GPS", "Mobile GPS");
@@ -66,11 +68,19 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Value_SelectReligion => Get(MobileResourceNames.Common_Value_SelectReligion, "Chọn tôn giáo", "Select Religion");
         public static string Common_Message_Skip => Get(MobileResourceNames.Common_Message_Skip, "Bỏ qua", "Skip");
 
+        public static string Common_Lable_Delete => Get(MobileResourceNames.Common_Lable_Delete, "XÓA", "DELETE");
+
+        public static string Common_Lable_TickIsRead => Get(MobileResourceNames.Common_Lable_TickIsRead, "ĐÁNH DẤU ĐÃ ĐỌC", "MARK IT AS READ");
+
         public static string Common_Message_NotPermission => Get(MobileResourceNames.Common_Message_NotPermission, "Chức năng chưa được cấp quyền", "Function has not been granted");
 
-        public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "Nổi bật", "HighLight");
+        public static string Common_Label_HighLight => Get(MobileResourceNames.Common_Label_HighLight, "YÊU THÍCH", "FAVORITES");
 
-        public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "Tiện ích", "Features");
+        public static string Common_Label_Features => Get(MobileResourceNames.Common_Label_Features, "TIỆN ÍCH", "FEATURES");
+
+        public static string Common_Label_Report => Get(MobileResourceNames.Common_Label_Report, "BÁO CÁO", "REPORT");
+
+        public static string Common_Label_Contact => Get(MobileResourceNames.Common_Label_Contact, "Liên hệ", "Contact");
 
         #region title grid dùng nhiều
 
@@ -93,10 +103,13 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Property_NotContainChars(string property, string chars) => Get(MobileResourceNames.Common_Property_NotContainChars, string.Format("{0} không được chứa các kí tự {1}", property, chars), string.Format("{0} cannot contain characters {1}", property, chars));
 
-        public static string Common_Message_RequiredNullOrEmpty => Get(MobileResourceNames.Common_Button_Update, "Trường không được để trống", "This field is required");
+        public static string Common_Message_RequiredNullOrEmpty => Get(MobileResourceNames.Common_Message_RequiredNullOrEmpty, "Trường không được để trống", "This field is required");
+
+        public static string Common_Message_RequiredDateTimeOver => Get(MobileResourceNames.Common_Message_RequiredDateTimeOver, "Không tìm kiếm xuyên ngày", "Do not search through the day");
 
         public static string Common_Property_DangerousCharShow(string property, string chardangerous) => Get(MobileResourceNames.Common_Property_DangerousChars, string.Format("{0} không được chứa các kí tự {1}", property.Replace("(*)", "").Trim(), chardangerous), string.Format("{0} cannot contain characters {1}", property.Replace("(*)", "").Trim(), chardangerous));
 
+        public static string Common_Message_RequiredVehicle => Get(MobileResourceNames.Common_Message_RequiredVehicle, "Vui lòng chọn phương tiện", "Please choose a vehicle");
         #endregion Validate
 
         #region Report Common
@@ -108,7 +121,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Button_SaveShowHideColumn => Get(MobileResourceNames.Common_Button_SaveShowHideColumn, "Lưu", "Save");
         public static string Common_Label_CompanyReport => Get(MobileResourceNames.Common_Label_CompanyReport, "Công ty", "Company");
         public static string Common_Label_PlaceHolder_CompanyReport => Get(MobileResourceNames.Common_Label_PlaceHolder_CompanyReport, "Tất cả công ty", "All Company");
-        public static string Common_Label_PlaceHolder_SearchKey => Get(MobileResourceNames.Common_Label_PlaceHolder_SearchKey, "Nhập từ tìm kiếm", "Input search");
+        public static string Common_Label_PlaceHolder_SearchKey => Get(MobileResourceNames.Common_Label_PlaceHolder_SearchKey, "Nhập nội dung tìm kiếm", "Input search");
         public static string Common_Label_PlaceHolder_FromDate => Get(MobileResourceNames.Common_Label_PlaceHolder_FromDate, "Từ ngày", "From date");
         public static string Common_Label_PlaceHolder_ToDate => Get(MobileResourceNames.Common_Label_PlaceHolder_ToDate, "Tới ngày", "To date");
 
@@ -146,6 +159,10 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Label_TitleShowHideColumn => Get(MobileResourceNames.Common_Label_TitleShowHideColumn, "Ẩn hiện cột", "Show Hide Column");
 
         public static string Common_Label_All => Get(MobileResourceNames.Common_Label_All, "Tất cả", "All");
+
+        public static string Common_Message_Success => Get(MobileResourceNames.Common_Message_Success, "Lưu thành công", "Save success");
+
+        public static string Common_Message_SaveError => Get(MobileResourceNames.Common_Message_SaveError, "Lưu không thành công bạn vui lòng kiểm tra lại", "Save failed, please check again");
 
         #endregion Report Common
 

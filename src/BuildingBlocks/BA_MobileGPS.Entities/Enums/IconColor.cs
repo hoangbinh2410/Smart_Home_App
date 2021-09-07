@@ -23,6 +23,13 @@ namespace BA_MobileGPS.Entities
         LOST_GPS = 6,
 
         [Description("warn")]
-        WARNING = 7
+        WARNING = 7,
+
+        [Description("blue_grey")]
+        BLUEGREY = 8,
+
+        [Description("warnturnoff")]
+        WARNINGTURNOFF = 9,
+
     }
 }

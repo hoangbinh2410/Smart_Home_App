@@ -109,9 +109,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            var actioncall = await PageDialog.DisplayAlertAsync("Thông báo",
-                                string.Format("Vui lòng gọi đến số {0} để được hỗ trợ", MobileSettingHelper.HotlineGps),
-                                "Liên hệ", "Bỏ qua");
+                            var actioncall = await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
+                                string.Format(MobileResource.Login_Message_PleaseCall, MobileSettingHelper.HotlineGps),
+                                MobileResource.Common_Label_Contact, MobileResource.Common_Message_Skip);
                             if (actioncall)
                             {
                                 if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
@@ -264,6 +264,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     PK_LanguageID = 2
                 };
             }
+            else if (App.CurrentLanguage == CultureCountry.Laos)
+            {
+                Language = new LanguageRespone()
+                {
+                    CodeName = CultureCountry.Laos,
+                    Icon = "flag_la.png",
+                    Description = "ລາວ (ສ.ປ.ປ. ລາວ)",
+                    PK_LanguageID = 3
+                };
+            }
             else
             {
                 Language = new LanguageRespone()
@@ -323,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                             StaticSettings.User = null;
                                             Device.BeginInvokeOnMainThread(async () =>
                                             {
-                                                await PageDialog.DisplayAlertAsync("Thông báo", MobileResource.Login_Message_AccountPasswordIncorrect, "Quên mật khẩu", "Quên tài khoản");
+                                                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Login_Message_AccountPasswordIncorrect, MobileResource.ForgotPassword_Label_TilePage, MobileResource.ForgotAccount_Label_TilePage);
                                             });
                                         }
                                         break;
@@ -353,7 +363,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                                     case LoginStatus.UserLoginOnlyWeb:
 
-                                        DisplayMessage.ShowMessageInfo("Tài khoản này chỉ được phép đăng nhập trên Web");
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginWebOnly);
                                         break;
                                 }
                             }
@@ -403,6 +413,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     case LoginPopupItemType.Tiktok:
                         await Launcher.OpenAsync(new Uri(item.Url));
                         break;
+
                     default:
                         _ = await NavigationService.NavigateAsync(item.Url, null, useModalNavigation: true, true);
                         break;
@@ -482,7 +493,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (!versionDB.VersionName.Equals(appVersion, StringComparison.InvariantCultureIgnoreCase))
                     {
                         Settings.AppVersionDB = versionDB.VersionName;
-                        string title = "Cập nhập phiên bản mới";
+                        string title = MobileResource.Login_Message_UpdateVersionNew;
                         //string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
                         string accept = MobileResource.Common_Button_Update;
                         string later = MobileResource.Common_Button_Update_Later;
@@ -566,6 +577,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 StaticSettings.Token = user.AccessToken;
                 StaticSettings.User = user;
+                StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
                 OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
                 OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);

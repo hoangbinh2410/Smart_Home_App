@@ -13,12 +13,17 @@
         Common_Lable_ChooseVehicleGroup,
         Common_Message_Loading,
         Common_Label_Notification,
+        Common_Message_GpsNotfound,
         Common_Message_Warning,
         Common_Message_Skip,
+        Common_Lable_TickIsRead,
+        Common_Lable_Delete,
         Common_Message_NotPermission,
         Common_Label_HighLight,
         Common_Label_Features,
+        Common_Label_Report,
         Common_Button_OK,
+        Common_Label_Contact,
         Common_Button_Send,
         Common_Button_Save,
         Common_Button_View,
@@ -53,6 +58,8 @@
         Common_Message_TakeNewPhoto,
         Common_Message_ChooseAvailablePhotos,
         Common_Button_Update,
+        Common_Message_RequiredDateTimeOver,
+        Common_Message_RequiredVehicle,
         Common_Button_Update_Later,
         Common_Value_SelectGender,
         Common_Value_SelectReligion,
@@ -99,6 +106,9 @@
         Login_Message_AccountPasswordIncorrect,
         Login_Message_AccountAllowedSystem,
         Login_Message_AccountLocked,
+        Login_Message_LoginWebOnly,
+        Login_Message_UpdateVersionNew,
+        Login_Message_UpdateVersionMessage,
         Login_ForgotPassword_PopupTitle,
         Login_ForgotPassword_PopupContent,
         Login_Popup_Starting_Page,
@@ -106,6 +116,7 @@
         Login_Popup_Guarantee,
         Login_Popup_RegisterSupport,
         Login_Popup_Network,
+        Login_Message_PleaseCall,
         Login_Popup_BAGPSExperience,
         Login_UserNameProperty_NullOrEmpty,
         Login_PasswordProperty_NullOrEmpty,
@@ -190,11 +201,12 @@
 
         #region Menu
         Menu_Label_Favorite,
-
+        Menu_Label_SettingFavorite,
         Menu_TabItem_Home,
         Menu_TabItem_Vehicle,
         Menu_TabItem_Monitoring,
         Menu_TabItem_Voyage,
+        Menu_TabItem_Route,
         Menu_TabItem_Account,
         Home_Label_Highlight,
         Home_Label_Features,
@@ -213,6 +225,7 @@
 
         // Forgot Password Page
         ForgotPassword_Label_TilePage,
+        ForgotAccount_Label_TilePage,
 
         ForgotPassword_Label_AccountName,
         ForgotPassword_Label_Phone,
@@ -320,6 +333,7 @@
         Online_Label_StatusCarStoping,
         Online_Label_StatusCarEngineOff,
         Online_Label_StatusCarEngineOn,
+        Online_Label_StatusCarStopOn,
         Online_Label_StatusCarOverVelocity,
         Online_Label_StatusCarLostGPS,
         Online_Label_StatusCarLostGSM,
@@ -535,6 +549,8 @@
         Common_Message_ErrorOverDateSearch,
         Common_Label_TitleShowHideColumn,
         Common_Label_All,
+        Common_Message_Success,
+        Common_Message_SaveError,
 
         PourFuelReport_Label_TitlePage,
         PourFuelReport_Label_TitleDetailPage,
@@ -570,7 +586,7 @@
         PourFuelReport_Label_Detail_Address,
         PourFuelReport_Detail_Label_Liters,
 
-        PourFuelReport_Label_TileChartDetailPage,
+        PourFuelReport_Label_TitleChartDetailPage,
 
         ChartFuelReport_Y_Liters,
         ChartFuelReport_Tank,
@@ -581,6 +597,8 @@
         Helper_Label_PourFuel,
 
         FuelsSummariesReport_Label_TilePage,
+        FuelsSummariesReport_Label_Summary,
+        FuelsSummariesReport_Label_ViewChart,
         FuelsSummariesReportTotal_Label_TilePage,
         FuelsSummariesReport_Label_TitlePageDetail,
         FuelsSummariesReport_Label_DetailVehiclePlate,
@@ -686,6 +704,7 @@
         ActivitySummariesReport_CheckBox_NumberOfStopParking,
         ActivitySummariesReport_CheckBox_MinutesTurnOnAirConditioner,
         ActivitySummariesReport_CheckBox_Vmedium,
+        ActivitySummariesReport_Label_Detail,
 
         DetailsReport_Label_TilePage,
         DetailsReport_Label_TitlePageDetail,
@@ -816,6 +835,14 @@
         ReportSignalLoss_TitleStatus_GMS,
         ReportSignalLoss_Message_ValidateError_MinTimeLosing,
         ReportSignalLoss_Message_ValidateError_MinTimeLosing2,
+        ReportQCVN31Speed_Label_TitlePage,
+        ReportQCVN31Speed_Label_OptionView,
+        ReportQCVN31Speed_Label_Velocity,
+        ChartFuel_Label_Start,
+        ChartFuel_Label_UseFuel,
+        ChartFuel_Label_PourTotal,
+        ChartFuel_Label_SuckTotal,
+        ChartFuel_Label_LastLits,
         #endregion report
 
         #region
@@ -864,7 +891,10 @@
         #endregion
 
         #region Camera
+        Camera_Label_MenuTitle,
         Camera_Label_TitlePage,
+        Camera_Label_Video,
+        Camera_Label_Chanel,
         CameraImage_Label_TitlelPage,
         CameraImage_Label_TitleDetailPage,
         Common_Message_ErrorTimeFromToTimeEnd,
@@ -905,10 +935,54 @@
         Camera_Status_WaitingUpload,
         Camera_Status_Downloading,
         Camera_Status_DownloadError,
+        Camera_Lable_ExportVideo,
         Camera_Alert_DownloadedVideo,
+        Camera_Lable_CameraDisconnect,
+        Camera_Message_StopStreamingOK,
+        Camera_Message_StopStreaming,
+        Camera_Message_StopPlayback,
+        Camera_Message_DeviceStreamingError,
+        Camera_Message_DeviceStreamingErrorDetail,
+        Camera_Message_PleaseLoadVideo,
+        Camera_Message_DowloadVideoSuccess,
+        Camera_Message_VideoSaveToServer,
+        Camera_Message_DoYouWantDowloadVideo,
+        Camera_Message_ChannelNotWorking,
+        Camera_Lable_PlaybackDisconnect,
+        Camera_Message_StopPlaybackOK,
+        Camera_Message_DevicePlaybackErrorDetail,
+        Camera_Message_SaveImageSuccess,
+        Camera_Message_SaveImageError,
+        Camera_Message_CameraLoading,
+        Camera_Message_UploadGo,
+        Camera_Message_ListVideoUpload,
+        Camera_Message_UploadEnd,
+        Camera_Message_SelectOption,
+        Camera_Message_StopLiveStream,
+        Camera_Message_StopPlaybackStream,
+        Camera_Message_GotoImagePage,
+        Camera_Message_ListUserStream,
+        Camera_Message_CloseListUserStream,
+        Camera_Message_DeviceIsPlayback,
+        Camera_Message_DeviceNotOnline,
+        ExportVideo_Lable_TitlePage,
+        ExportVideo_Lable_SelectVehicle,
+        ExportVideo_Lable_HelpExport,
+        ExportVideo_Lable_Step1,
+        ExportVideo_Lable_Step2,
+        ExportVideo_Lable_WifiName,
+        ExportVideo_Lable_Password,
+        ExportVideo_Lable_OpenWeb,
+        ExportVideo_Lable_OpenWeb2,
+        ExportVideo_Lable_HelperDetail,
+        ExportVideo_Lable_HelperDetail2,
+        ExportVideo_Lable_EnableWifi,
+        ExportVideo_Lable_TurnOnWifiSuccess,
+        ExportVideo_Lable_TurnOnWifiUnSuccess,
         #endregion
 
         #region Image
+        Image_Lable_Image,
         Image_Lable_ImageMonitoring,
         Image_Lable_Nearestvehicle,
         Image_Alert_SaveImageSuccess,
@@ -931,6 +1005,7 @@
         Settings_Label_Title,
         Settings_Label_Enable_Cluster,
         Settings_Label_Show_Notification,
+        Settings_Label_UseGPSDefault,
         Settings_Label_SettingGenaral,
         Settings_Label_SettingAdvanced,
         Settings_Label_SettingMylocationMap,
@@ -970,6 +1045,7 @@
         #region
         Notification_Label_TilePage,
         Notification_Label_DeleteAllNotice,
+        Notification_Label_DeleteNotice,
         Notification_Label_DeleteAllNoticeAction,
         Notification_Label_DeleteNoticeNotSuccess,
         #endregion
@@ -1107,6 +1183,8 @@
         Boundary_Label_Showname,
 
         #region Danh sách lái xe
+        ListDriver_Label_Title,
+        ListDriver_Label_Search,
         ListDriver_Label_Delete,
         ListDriver_Messenger_Delete,
         ListDriver_Messenger_NotNull,
@@ -1114,9 +1192,12 @@
         ListDriver_Title_Update,
         ListDriver_Title_Insert,
         ListDriver_Title_Success,
+        ListDriver_Title_DeleteSuccess,
         ListDriver_Messenger_LicenseRank,
         ListDriver_Messenger_DuplicateData,
         ListDriver_Messenger_LicenseType,
+        ListDriver_Messenger_LicenseNumber,
+        ListDriver_Messenger_LicenseDateRegister,
         ListDriver_Item_SelectLicenseType,
         ListDriver_Messenger_Gender,
         ListDriver_Notify_DateGreater,
@@ -1124,7 +1205,10 @@
         ListDriver_Item_Male,
         ListDriver_Item_Female,
         ListDriver_Item_Other,
+        AddDriver_Lable_IdentityDriver,
         ListDriver_Messenger_UpdateSuccess,
+        AddDriver_Lable_SelectImage,
+        AddDriver_Lable_AddContinue,
         #endregion
 
         #region PaperInfor
@@ -1134,5 +1218,32 @@
 
 
         #endregion
+        #region Issue
+        Issue_Label_TilePage,
+        ListIssue_Label_TilePage,
+        ListIssue_Label_DueDate,
+        ListIssue_Label_NoProcess,
+        DetailIssue_Label_TilePage,
+        DetailIssue_Label_SubmitSupportRequest,
+        DetailIssue_Label_DueDate,
+        DetailIssue_Label_ContentIssue,
+        DetailIssue_Label_StepIssue,
+        #endregion
+
+        Boundary_Label_TilePage,
+        Boundary_Label_SelectPointCompany,
+        Boundary_Label_AllPoint,
+        Boundary_Label_Boundary,
+        Boundary_Label_PointName,
+        Boundary_Label_PointAplication,
+
+        ListPaper_Label_TilePage,
+        ListPaper_Label_OptionPaper,
+        ListPaper_Label_OptionVehicle,
+        ListPaper_Label_SelectPaperType,
+        CabSignInfor_Label_SignNumber,
+        CabSignInfor_Label_RegisterDate,
+        CabSignInfor_Label_DaysNumberForAlertAppear,
+        CabSignInfor_Label_Insert,
     }
 }

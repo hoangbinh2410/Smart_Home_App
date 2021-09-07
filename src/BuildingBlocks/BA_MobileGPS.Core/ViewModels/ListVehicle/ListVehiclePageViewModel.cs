@@ -65,11 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnNavigatedTo(parameters);
 
-            if (parameters?.GetValue<Company>(ParameterKey.Company) is Company _)
-            {
-                UpdateVehicleByCompany();
-            }
-            else if (parameters?.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
+            if (parameters?.GetValue<int[]>(ParameterKey.VehicleGroups) is int[] vehiclegroup)
             {
                 VehicleGroups = vehiclegroup;
 
@@ -78,12 +74,6 @@ namespace BA_MobileGPS.Core.ViewModels
             else if (parameters.ContainsKey("FavoriteVehicle") && parameters?.GetValue<bool>("FavoriteVehicle") is bool isfavorites)
             {
                 SetFavoritesVehicle(currentVehicle, isfavorites);
-            }
-            else if (companyChanged)
-            {
-                UpdateVehicleByCompany();
-
-                companyChanged = false;
             }
             else if (parameters.ContainsKey("pagetoNavigation") && parameters?.GetValue<string>("pagetoNavigation") is string action)
             {
@@ -99,19 +89,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GoRoutePage(currentVehicle);
                 }
-                else if (action == "Hình Ảnh")
+                else if (action == MobileResource.Image_Lable_Image)
                 {
                     GotoCameraPage(currentVehicle);
                 }
-                else if (action == "Nhiên liệu")
+                else if (action == MobileResource.DetailVehicle_Label_Fuel)
                 {
                     GotoFuelPage(currentVehicle);
                 }
-                else if (action == "Video")
+                else if (action == MobileResource.Camera_Label_Video)
                 {
                     GotoVideoPage(currentVehicle);
                 }
-                else if (action == "Trích xuất video")
+                else if (action == MobileResource.Camera_Lable_ExportVideo)
                 {
                     GotoExportVideoPage(currentVehicle);
                 }
@@ -198,8 +188,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<VehicleOnlineViewModel> ListVehicleByStatus = new List<VehicleOnlineViewModel>();
 
-        private bool companyChanged;
-
         public int countVehicle;
         public int CountVehicle { get => countVehicle; set => SetProperty(ref countVehicle, value); }
 
@@ -233,7 +221,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OnCompanyChanged(int e)
         {
-            companyChanged = true;
+            UpdateVehicleByCompany();
         }
 
         public void UpdateVehicleByCompany()
@@ -317,9 +305,17 @@ namespace BA_MobileGPS.Core.ViewModels
             var vehicleList = _mapper.MapListProperties<VehicleOnline>(ListVehicle.ToList());
             VehicleStatusSelected = VehicleStatusGroup.All;
             CountVehicle = vehicleList.Count();
-
+            List<VehicleStatusViewModel> listStatus = new List<VehicleStatusViewModel>();
             // Lấy trạng thái xe
-            List<VehicleStatusViewModel> listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            if (CompanyConfigurationHelper.UseNewSummaryIconOnline)
+            {
+                listStatus = (new VehicleStatusHelper()).DictVehicleStatusNew.Values.Where(x => x.IsEnable).ToList();
+            }
+            else
+            {
+                listStatus = (new VehicleStatusHelper()).DictVehicleStatus.Values.Where(x => x.IsEnable).ToList();
+            }
+
             if (listStatus != null && listStatus.Count > 0)
             {
                 listStatus.ForEach(x =>
