@@ -275,5 +275,26 @@ namespace BA_MobileGPS.Entities
         {
             return BitConverter.ToDouble(inputData, index);
         }
+
+        public static byte[] ConvertListDoubleToArray(List<double> value)
+        {
+            //Mảng 4 byte
+            var bytes = value.Count;
+
+            var length = (short)bytes;
+            if (length == 0) return new byte[] { 0, 0 };
+            else
+            {
+                var lengthBytes = ConvertDoubleToArray(length);
+
+                var Result = new List<byte>();
+                Result.AddRange(lengthBytes);
+
+                foreach (var item in value)
+                    Result.AddRange(ConvertDoubleToArray(item));
+
+                return Result.ToArray();
+            }
+        }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="DependencyServices\AppleHUDService.cs" />
     <Compile Include="DependencyServices\DownloadVideoService.cs" />
     <Compile Include="DependencyServices\IconSwitchService.cs" />
+    <Compile Include="DependencyServices\IosAlert.cs" />
     <Compile Include="DependencyServices\IosDownloader.cs" />
     <Compile Include="DependencyServices\iOSTooltipService.cs" />
     <Compile Include="DependencyServices\IsNetworkAvailableImplement.cs" />
@@ -113,7 +114,7 @@
       <Version>4.0.10</Version>
     </PackageReference>
     <PackageReference Include="LibVLCSharp.Forms">
-      <Version>3.5.1</Version>
+      <Version>3.6.0</Version>
     </PackageReference>
     <PackageReference Include="PhotoBrowser.Forms">
       <Version>0.1.4</Version>
@@ -128,10 +129,10 @@
       <Version>1.0.1</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>19.2.0.47</Version>
+      <Version>19.2.0.57</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>19.2.0.47</Version>
+      <Version>19.2.0.57</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.iOS">
       <Version>3.3.10</Version>
@@ -172,20 +173,20 @@
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.2.0.47" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.47" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.2.0.57" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.57" />
     <PackageReference Include="Toast.iOS">
       <Version>1.2.0</Version>
     </PackageReference>
@@ -2556,6 +2557,168 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_chart%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_settingfavorites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_settingfavorites%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_settingfavorites%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\arrowcars_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\arrowcars_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ball_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ball_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\boat_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\boat_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bus_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\bus_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\electric_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\electric_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\excavator_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\excavator_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\motorbike_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\motorbike_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\motorcycles_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\motorcycles_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rescue_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\rescue_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tank_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tank_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\taxi_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\taxi_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tipper_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tipper_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\trash_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\trash_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\trashtwo_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\trashtwo_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\truck_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\truck_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_blue_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_grey%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_grey%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_red%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_red%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_warn%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_warn%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_orange%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car2_orange%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warnturnoff%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warnturnoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\car_warnturnoff%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

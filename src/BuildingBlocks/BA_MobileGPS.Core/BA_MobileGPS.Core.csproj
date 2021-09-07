@@ -14,34 +14,36 @@
 	  <None Remove="Resources\Font\fa-brands-400.ttf" />
 	  <None Remove="Resources\Font\fa-regular-400.ttf" />
 	  <None Remove="Resources\Font\fa-solid-900.ttf" />
+	  <None Remove="Resources\lo_LA.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Resources\Font\fa-brands-400.ttf" />
 	  <EmbeddedResource Include="Resources\Font\fa-regular-400.ttf" />
 	  <EmbeddedResource Include="Resources\Font\fa-solid-900.ttf" />
+	  <EmbeddedResource Include="Resources\lo_LA.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CardsView" Version="2.8.0" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
 		<PackageReference Include="Prism.Plugin.Popups" Version="8.0.76" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
-		<PackageReference Include="LibVLCSharp.Forms" Version="3.5.1" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.2.0.47" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.47" />
+		<PackageReference Include="LibVLCSharp.Forms" Version="3.6.0" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.2.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.57" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
@@ -90,6 +92,9 @@
 	  </Compile>
 	  <Compile Update="Views\Camera\Restream\PinInfowindowTimeView.xaml.cs">
 	    <DependentUpon>PinInfowindowTimeView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Camera\Restream\StreamUserMessagePopup.xaml.cs">
+	    <DependentUpon>StreamUserMessagePopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
 	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>
@@ -199,6 +204,9 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\PlaybackUserMessagePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Package\PackageCameraPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -241,6 +249,9 @@
 	  <EmbeddedResource Update="Views\Camera\Restream\PinInfowindowTimeView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Camera\Restream\StreamUserMessagePopup.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\ViewVideoUploadedPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -275,9 +286,6 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\DeviceTab.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\DownloadVideo.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">

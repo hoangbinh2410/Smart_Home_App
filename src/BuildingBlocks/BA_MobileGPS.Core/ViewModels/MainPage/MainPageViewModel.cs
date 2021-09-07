@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -35,14 +36,15 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly INotificationService notificationService;
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
-        private readonly IAlertHubService alertHubService;
         private readonly IUserBahaviorHubService userBahaviorHubService;
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
         private readonly IPapersInforService papersInforService;
         private readonly IStreamCameraService streamCameraService;
+        private readonly IUserService userService;
         private Timer timer;
         private Timer timerSyncData;
+        private Timer timerSyncUploadStatus;
         private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
@@ -54,8 +56,8 @@ namespace BA_MobileGPS.Core.ViewModels
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
-            IAlertHubService alertHubService, IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
-            IPapersInforService papersInforService, IStreamCameraService streamCameraService)
+            IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
+            IPapersInforService papersInforService, IStreamCameraService streamCameraService, IUserService userService)
             : base(navigationService)
         {
             this.papersInforService = papersInforService;
@@ -67,10 +69,10 @@ namespace BA_MobileGPS.Core.ViewModels
             this.notificationService = notificationService;
             this.identityHubService = identityHubService;
             this.vehicleOnlineHubService = vehicleOnlineHubService;
-            this.alertHubService = alertHubService;
             this.userBahaviorHubService = userBahaviorHubService;
             this.pingServerService = pingServerService;
             this.streamCameraService = streamCameraService;
+            this.userService = userService;
             this._mapper = mapper;
 
             StaticSettings.TimeServer = UserInfo.TimeServer.AddSeconds(1);
@@ -82,6 +84,8 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OneSignalOpendEvent>().Subscribe(OneSignalOpend);
             EventAggregator.GetEvent<UploadVideoEvent>().Subscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Subscribe(OnUserBehavior);
+            EventAggregator.GetEvent<UserMessageEvent>().Subscribe(PushMessageToUser);
+
             InitSystemType();
         }
 
@@ -102,10 +106,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         await ConnectSignalR();
                         PushPageFileBase();
                         InsertOrUpdateAppDevice();
-                        if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
-                        {
-                            GetVehicleIsCamera();
-                        }
                     });
 
                     return false;
@@ -136,6 +136,11 @@ namespace BA_MobileGPS.Core.ViewModels
             timer.Dispose();
             timerSyncData.Stop();
             timerSyncData.Dispose();
+            if (timerSyncUploadStatus != null)
+            {
+                timerSyncUploadStatus.Stop();
+                timerSyncUploadStatus.Dispose();
+            }
             if (cts != null)
             {
                 cts.Cancel();
@@ -153,6 +158,7 @@ namespace BA_MobileGPS.Core.ViewModels
             EventAggregator.GetEvent<OneSignalOpendEvent>().Unsubscribe(OneSignalOpend);
             EventAggregator.GetEvent<UploadVideoEvent>().Unsubscribe(UploadVideoRestream);
             EventAggregator.GetEvent<UserBehaviorEvent>().Unsubscribe(OnUserBehavior);
+            EventAggregator.GetEvent<UserMessageEvent>().Unsubscribe(PushMessageToUser);
         }
 
         private void InitVehilceOnline()
@@ -169,7 +175,14 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                GetListVehicleOnline();
+                if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
+                {
+                    GetVehicleIsCamera();
+                }
+                else
+                {
+                    GetListVehicleOnline();
+                }
             }
         }
 
@@ -333,8 +346,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             //Hub logout
             await identityHubService.Connect();
+            identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToAllUserInCompany += onReceivePushLogoutToAllUserInCompany;
+            identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
             identityHubService.onReceivePushLogoutToUser += onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser -= onReceiveMessageToUser;
+            identityHubService.onReceivePushMessageToUser += onReceiveMessageToUser;
             if (MobileSettingHelper.UseUserBehavior)
             {
                 await userBahaviorHubService.Connect();
@@ -365,6 +382,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             identityHubService.onReceivePushLogoutToAllUserInCompany -= onReceivePushLogoutToAllUserInCompany;
             identityHubService.onReceivePushLogoutToUser -= onReceivePushLogoutToUser;
+            identityHubService.onReceivePushMessageToUser -= onReceiveMessageToUser;
             await identityHubService.Disconnect();
 
             //thoát khỏi nhóm nhận xe
@@ -415,6 +433,18 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private void PushMessageToUser(UserMessageEventModel model)
+        {
+            try
+            {
+                GetUserInfoByUserName(model);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
         private void onReceivePushLogoutToUser(object sender, string message)
         {
             TryExecute(() =>
@@ -427,6 +457,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         Logout();
                         DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
                     });
+                }
+            });
+        }
+
+        private void onReceiveMessageToUser(object sender, string message)
+        {
+            TryExecute(() =>
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    EventAggregator.GetEvent<UserMessageCameraEvent>().Publish(message);
                 }
             });
         }
@@ -638,6 +679,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         StaticSettings.ListVehilceCamera = lst;
                     }
+                    GetListVehicleOnline();
                 });
             }
         }
@@ -788,6 +830,21 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         StaticSettings.TimeServer = DateTime.Now;
                     }
+                }
+            });
+        }
+
+        private void GetUserInfoByUserName(UserMessageEventModel model)
+        {
+            RunOnBackground(async () =>
+            {
+                return await userService.GetUserInfomation(model.UserName);
+            }, (result) =>
+            {
+                if (result != null && result.PK_UserID != Guid.Empty)
+                {
+                    //Thoát khỏi nhóm nhận thông tin xe
+                    identityHubService.PushMessageToUser(result.PK_UserID.ToString().ToUpper(), model.Message);
                 }
             });
         }
@@ -1020,180 +1077,113 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        /// <summary>Xem chi tiết ảnh</summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// linhlv  2/6/2020   created
+        /// </Modified>
+        private async void ShowMaskImage(string id)
+        {
+            await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
+                                     {
+                                    { ParameterKey.AlertMask, new Guid(id) }
+                                    }, useModalNavigation: true);
+        }
+
         private void UploadVideoRestream(bool arg)
         {
-            if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count >= 0)
-            {
-                int errorwhile = 0;
-                Device.StartTimer(TimeSpan.FromSeconds(5), () =>
-                 {
-                     //nếu ko còn video nào upload thì ngừng timmer
-                     if (StaticSettings.ListVideoUpload == null || StaticSettings.ListVideoUpload.Count == 0)
-                     {
-                         return false;
-                     }
-                     else
-                     {
-                         var videoUploading = StaticSettings.ListVideoUpload.FirstOrDefault(x => x.Status == VideoUploadStatus.Uploading);
-                         if (videoUploading == null)
-                         {
-                             var lstvideowating = StaticSettings.ListVideoUpload.Where(x => x.Status == VideoUploadStatus.WaitingUpload).ToList();
-                             if (lstvideowating != null && lstvideowating.Count > 0)
-                             {
-                                 var videowaiting = lstvideowating[0];
-                                 if (videowaiting != null)
-                                 {
-                                     RunOnBackground(async () =>
-                                     {
-                                         return await streamCameraService.UploadToCloud(new StartRestreamRequest()
-                                         {
-                                             Channel = videowaiting.Channel,
-                                             CustomerID = UserInfo.XNCode,
-                                             StartTime = videowaiting.StartTime,
-                                             EndTime = videowaiting.EndTime,
-                                             VehicleName = videowaiting.VehicleName
-                                         });
-                                     }, (result) =>
-                                     {
-                                         if (result != null && result.Data)
-                                         {
-                                             errorwhile = 0;
-                                             videowaiting.Status = VideoUploadStatus.Uploading;
-                                             UploadFileStatus(videowaiting);
-                                         }
-                                         else
-                                         {
-                                             errorwhile++;
-                                             if (errorwhile == 30)
-                                             {
-                                                 videowaiting.Status = VideoUploadStatus.UploadError;
-                                             }
-                                         }
-                                     });
-                                     return true;
-                                 }
-                                 else
-                                 {
-                                     return false;
-                                 }
-                             }
-                             else
-                             {
-                                 return false;
-                             }
-                         }
-                         else
-                         {
-                             return true;
-                         }
-                     }
-                 });
-            }
+            StartTimmerUploadVideo();
         }
 
-        private void UploadFileStatus(VideoUpload video)
+        private async void CheckStatusUploadFile(object sender, ElapsedEventArgs e)
         {
-            RunOnBackground(async () =>
+            if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
             {
-                return await CheckStatusUploadFile(video);
-            }, (isUploaded) =>
-           {
-               if (isUploaded)
-               {
-                   if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
-                   {
-                       StaticSettings.ListVideoUpload.Remove(video);
-                   }
-
-                   EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
-
-                   InsertLogVideo(video);
-
-                   Device.BeginInvokeOnMainThread(() =>
-                   {
-                       DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
-                   });
-               }
-               else
-               {
-                   if (StaticSettings.ListVideoUpload != null && StaticSettings.ListVideoUpload.Count > 0)
-                   {
-                       foreach (var item in StaticSettings.ListVideoUpload)
-                       {
-                           if (item.StartTime == video.StartTime)
-                           {
-                               item.Status = VideoUploadStatus.UploadError;
-                           }
-                       }
-                   }
-
-                   EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
-                   DisplayMessage.ShowMessageError("File không tải được lên server");
-               }
-           });
-        }
-
-        private async Task<bool> CheckStatusUploadFile(VideoUpload video)
-        {
-            var result = false;
-            try
-            {
-                cts = new System.Threading.CancellationTokenSource();
-                int indexwhile = 0;
-                while (!result && !cts.IsCancellationRequested)
+                List<UploadFiles> lstOldFileUploading = new List<UploadFiles>();
+                var listVehicle = StaticSettings.ListVehilceCamera.Select(x => x.VehiclePlate).ToList();
+                var respone = await streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
                 {
-                    indexwhile++;
-                    if (indexwhile == 15)
+                    CustomerID = UserInfo.XNCode,
+                    VehicleName = listVehicle,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
+                });
+                if (respone != null && respone.Count > 0)
+                {
+                    List<UploadFiles> lstVideoNew = new List<UploadFiles>();
+                    foreach (var item in respone)
                     {
-                        if (cts != null)
+                        if (item.UploadFiles != null)
                         {
-                            cts.Cancel();
-                            cts.Dispose();
+                            lstVideoNew.AddRange(item.UploadFiles);
+                        }
+                    }
+                    if (StaticSettings.ListUploadFiles != null && StaticSettings.ListUploadFiles.Count > 0)
+                    {
+                        if (lstVideoNew.Count > 0)
+                        {
+                            var listvideoUploaded = lstVideoNew.Where(x => x.State != (int)VideoUploadStatus.Uploading
+                           && x.State != (int)VideoUploadStatus.WaitingUpload).ToList();
+                            List<UploadFiles> lstuploadold = new List<UploadFiles>();
+                            lstuploadold.AddRange(StaticSettings.ListUploadFiles);
+                            foreach (var itemold in lstuploadold)
+                            {
+                                var itemnew = listvideoUploaded.FirstOrDefault(x => x.State != itemold.State && x.Time == itemold.Time);
+                                if (itemnew != null)
+                                {
+                                    if (StaticSettings.ListUploadFiles != null && StaticSettings.ListUploadFiles.Count > 0)
+                                    {
+                                        StaticSettings.ListUploadFiles.Remove(itemold);
+                                    }
+                                    if (itemnew.State == (int)VideoUploadStatus.Uploaded && !string.IsNullOrEmpty(itemnew.Link))
+                                    {
+                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(true);
+
+                                        Device.BeginInvokeOnMainThread(() =>
+                                        {
+                                            DisplayMessage.ShowMessageInfo(MobileResource.Camera_Alert_DownloadedVideo);
+                                        });
+                                    }
+                                    else if (itemnew.State == (int)VideoUploadStatus.UploadErrorCancel
+                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorDevice
+                                            || itemnew.State == (int)VideoUploadStatus.UploadErrorTimeout)
+                                    {
+                                        EventAggregator.GetEvent<UploadFinishVideoEvent>().Publish(false);
+                                    }
+                                }
+                            }
                         }
                     }
                     else
                     {
-                        var respone = await streamCameraService.GetUploadProgress(UserInfo.XNCode, video.VehicleName, video.Channel);
-                        if (respone != null)
+                        if (timerSyncUploadStatus != null)
                         {
-                            if (respone.FinishCount + respone.ErrorCount == respone.TotalCount
-                                && respone.TotalCount > 0 || (respone.UploadedFiles != null && respone.UploadedFiles.Contains((respone.CurrentFile.ToUpper())) == true))
-                            {
-                                result = true;
-                                if (cts != null)
-                                {
-                                    cts.Cancel();
-                                    cts.Dispose();
-                                }
-                            }
-                            else
-                            {
-                                await Task.Delay(10000, cts.Token);
-                            }
+                            timerSyncUploadStatus.Stop();
+                            timerSyncUploadStatus.Dispose();
                         }
-                        else
+                    }
+                    var stateUpload = respone.Exists(x => x.State == (int)VideoUploadStatus.WaitingUpload
+                    || x.State == (int)VideoUploadStatus.Uploading);
+                    if (!stateUpload)
+                    {
+                        StaticSettings.ListUploadFiles = new List<UploadFiles>();
+                        //nếu ko còn phiên nào chạy thì Hủy Timmer đi
+                        if (timerSyncUploadStatus != null)
                         {
-                            if (cts != null)
-                            {
-                                cts.Cancel();
-                                cts.Dispose();
-                            }
+                            timerSyncUploadStatus.Stop();
+                            timerSyncUploadStatus.Dispose();
                         }
                     }
                 }
             }
-            catch (Exception)
-            {
-                return false;
-            }
-            return result;
         }
 
         private void InsertLogVideo(VideoUpload video)
         {
             var request = new SaveVideoByUserRequest()
             {
-                Channel = video.Channel,
+                Channel = (byte)video.Channel,
                 FK_VehicleID = video.VehicleID,
                 FK_CompanyID = CurrentComanyID,
                 StartTime = video.StartTime,
@@ -1218,17 +1208,18 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        /// <summary>Xem chi tiết ảnh</summary>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/6/2020   created
-        /// </Modified>
-        private async void ShowMaskImage(string id)
+        private void StartTimmerUploadVideo()
         {
-            await NavigationService.NavigateAsync("NavigationPage/AlertMaskDetailPage", parameters: new NavigationParameters
-                                     {
-                                    { ParameterKey.AlertMask, new Guid(id) }
-                                    }, useModalNavigation: true);
+            if (timerSyncUploadStatus == null || !timerSyncUploadStatus.Enabled)
+            {
+                timerSyncUploadStatus = new Timer
+                {
+                    Interval = 3000
+                };
+                timerSyncUploadStatus.Elapsed += CheckStatusUploadFile;
+
+                timerSyncUploadStatus.Start();
+            }
         }
 
         #endregion PrivateMethod

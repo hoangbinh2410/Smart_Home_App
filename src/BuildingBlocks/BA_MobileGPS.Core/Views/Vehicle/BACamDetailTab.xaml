@@ -611,7 +611,7 @@
                                         CornerRadius="15"
                                         HeightRequest="10"
                                         HorizontalOptions="FillAndExpand"
-                                        IsVisible="{Binding StorageDevices.TotalSize, Converter={StaticResource ZeroBooleanConverter}}"
+                                        IsVisible="{Binding StorageDevices.Total, Converter={StaticResource ZeroBooleanConverter}}"
                                         Progress="{Binding StorageProgress}"
                                         ProgressColor="#0959A0"
                                         TrackColor="#E9E8E8"
@@ -717,7 +717,7 @@
                                         Grid.Row="0"
                                         Grid.Column="1"
                                         HorizontalOptions="EndAndExpand"
-                                        Text="{Binding StreamDevices.NetType, Converter={StaticResource NetworkTypeConverter}}"
+                                        Text="{Binding StreamDevices.Net, Converter={StaticResource NetworkTypeConverter}}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
 
@@ -726,7 +726,7 @@
                                         Grid.Column="2"
                                         HeightRequest="20"
                                         HorizontalOptions="End"
-                                        IsVisible="{Binding StreamDevices.NetType, Converter={StaticResource ZeroBooleanConverter}}"
+                                        IsVisible="{Binding StreamDevices.Net, Converter={StaticResource ZeroBooleanConverter}}"
                                         Source="{Binding StreamDevices.CSQ, Converter={StaticResource CSQIconConverter}}"
                                         VerticalOptions="Center"
                                         WidthRequest="20" />

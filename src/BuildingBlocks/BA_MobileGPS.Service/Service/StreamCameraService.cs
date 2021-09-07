@@ -1,10 +1,9 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.ResponeEntity.Camera;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -19,13 +18,19 @@ namespace BA_MobileGPS.Service.Service
             this.requestProvider = requestProvider;
         }
 
-        public async Task<StreamDevicesResponse> GetDevicesStatus(ConditionType type, string value)
+        #region Device
+
+        public async Task<StreamDevice> GetDevicesInfo(StreamDeviceRequest request)
         {
-            var result = new StreamDevicesResponse();
+            var result = new StreamDevice();
             try
             {
-                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", (int)type, value);
-                result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
+                string url = $"{ApiUri.GET_DEVICESINFO}";
+                var respone = await requestProvider.PostAsync<StreamDeviceRequest, ResponseStreamBase<List<StreamDevice>>>(url, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone.Data.First();
+                }
             }
             catch (Exception ex)
             {
@@ -34,13 +39,17 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<StreamDevicesResponse> GetListVehicleCamera(int xncode)
+        public async Task<ResponseStreamBase<List<CameraStartRespone>>> DevicesStart(CameraStartRequest request)
         {
-            var result = new StreamDevicesResponse();
+            var result = new ResponseStreamBase<List<CameraStartRespone>>();
             try
             {
-                string url = string.Format(ApiUri.GET_DEVICESTREAMINFOR + "?type={0}&value={1}", (int)ConditionType.MXN, xncode);
-                result = await requestProvider.GetAsync<StreamDevicesResponse>(url);
+                string url = $"{ApiUri.POST_DEVICESTART}";
+                var respone = await requestProvider.PostAsync<CameraStartRequest, ResponseStreamBase<List<CameraStartRespone>>>(url, request);
+                if (respone != null)
+                {
+                    result = respone;
+                }
             }
             catch (Exception ex)
             {
@@ -49,13 +58,17 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<StreamPingResponse> RequestMoreStreamTime(StreamPingRequest request)
+        public async Task<bool> DevicesStop(CameraStopRequest request)
         {
-            var result = new StreamPingResponse();
+            var result = false;
             try
             {
-                string url = $"{ApiUri.POST_GETMORETIMESTREAM}";
-                result = await requestProvider.PostAsync<StreamPingRequest, StreamPingResponse>(url, request);
+                string url = $"{ApiUri.POST_DEVICESTOP}";
+                var respone = await requestProvider.PostAsync<CameraStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
             }
             catch (Exception ex)
             {
@@ -64,13 +77,17 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<StreamStartResponse> StartStream(StreamStartRequest request)
+        public async Task<bool> DevicesStopSession(CameraStopRequest request)
         {
-            var result = new StreamStartResponse();
+            var result = false;
             try
             {
-                string url = $"{ApiUri.POST_READYFORSTREAM}";
-                result = await requestProvider.PostAsync<StreamStartRequest, StreamStartResponse>(url, request);
+                string url = $"{ApiUri.POST_DEVICESTOPSESSION}";
+                var respone = await requestProvider.PostAsync<CameraStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
             }
             catch (Exception ex)
             {
@@ -79,13 +96,17 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<StreamStopResponse> StopStream(StreamStopRequest request)
+        public async Task<bool> DevicesPing(CameraStartRequest request)
         {
-            var result = new StreamStopResponse();
+            var result = false;
             try
             {
-                string url = $"{ApiUri.POST_ENDSTREAM}";
-                result = await requestProvider.PostAsync<StreamStopRequest, StreamStopResponse>(url, request);
+                string url = $"{ApiUri.POST_DEVICEPING}";
+                var respone = await requestProvider.PostAsync<CameraStartRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
             }
             catch (Exception ex)
             {
@@ -93,6 +114,141 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
+
+        public async Task<ResponseStreamBase<List<PlaybackStartRespone>>> StartPlayback(PlaybackStartRequest request)
+        {
+            var result = new ResponseStreamBase<List<PlaybackStartRespone>>();
+            try
+            {
+                string url = $"{ApiUri.POST_PLAYBACKSTART}";
+                var respone = await requestProvider.PostAsync<PlaybackStartRequest, ResponseStreamBase<List<PlaybackStartRespone>>>(url, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> StopPlayback(PlaybackStopRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_PLAYBACKSTOP}";
+                var respone = await requestProvider.PostAsync<PlaybackStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> StopAllPlayback(PlaybackStopRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_PLAYBACKSTOPALL}";
+                var respone = await requestProvider.PostAsync<PlaybackStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> UploadToServerStart(UploadStartRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_UPLOADSTART}";
+                var respone = await requestProvider.PostAsync<UploadStartRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> UploadToServerStop(UploadStopRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_UPLOADSTOP}";
+                var respone = await requestProvider.PostAsync<UploadStopRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<List<UploadStatusRespone>> GetUploadingProgressInfor(UploadStatusRequest request)
+        {
+            var result = new List<UploadStatusRespone>();
+            try
+            {
+                string url = $"{ApiUri.POST_UPLOADPROGRESS}";
+                var respone = await requestProvider.PostAsync<UploadStatusRequest, ResponseStreamBase<List<UploadStatusRespone>>>(url, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> SetHotspot(SetHotspotRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_HOSTSPOT}";
+                var respone = await requestProvider.PostAsync<SetHotspotRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        #endregion Device
 
         public async Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit)
         {
@@ -113,25 +269,6 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime)
-        {
-            var result = new List<CaptureImageData>();
-            try
-            {
-                string url = string.Format(ApiUri.GET_IMAGESTIME + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}", xncode, vehiclePlate, fromTime, toTime);
-                var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
-                if (response != null && response.Data.Count > 0)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
         public async Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request)
         {
             var result = new List<CaptureImageData>();
@@ -139,25 +276,6 @@ namespace BA_MobileGPS.Service.Service
             {
                 string url = $"{ApiUri.GET_IMAGES}";
                 var response = await requestProvider.PostAsync<StreamImageRequest, CaptureImageResponse>(url, request);
-                if (response != null && response.Data.Count > 0)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<List<CameraRestreamInfo>> GetListVideoOnDevice(CameraRestreamRequest request)
-        {
-            var result = new List<CameraRestreamInfo>();
-            try
-            {
-                string url = $"{ApiUri.POST_RESTREAM_INFOR}";
-                var response = await requestProvider.PostAsync<CameraRestreamRequest, BaseResponse<List<CameraRestreamInfo>>>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
@@ -208,106 +326,6 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<RestreamStartResponese> StartRestream(StartRestreamRequest request)
-        {
-            var result = new RestreamStartResponese();
-            try
-            {
-                string url = $"{ApiUri.POST_RESTREAM_START}";
-                result = await requestProvider.PostAsync<StartRestreamRequest, RestreamStartResponese>(url, request);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<StreamStopResponse> StopRestream(StopRestreamRequest request)
-        {
-            var result = new StreamStopResponse();
-            try
-            {
-                string url = $"{ApiUri.POST_RESTREAM_STOP}";
-                result = await requestProvider.PostAsync<StopRestreamRequest, StreamStopResponse>(url, request);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<List<CaptureImageData>> RestreamCaptureImageInfo(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null, int? limit = null)
-        {
-            var result = new List<CaptureImageData>();
-            try
-            {
-                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                string url = string.Format(ApiUri.GET_RESTREAM_IMAGES + "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&limit={4}&channel={5}", xncode, vehiclePlate, from, to, limit, channel);
-                var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
-                if (response != null && response.Data.Count > 0)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<RestreamUploadResponse> UploadToCloud(StartRestreamRequest request)
-        {
-            var result = new RestreamUploadResponse();
-            try
-            {
-                string url = $"{ApiUri.POST_RESTREAM_UPLOAD}";
-                result = await requestProvider.PostAsync<StartRestreamRequest, RestreamUploadResponse>(url, request);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request)
-        {
-            var result = new RestreamUploadResponse();
-            try
-            {
-                string url = $"{ApiUri.POST_RESTREAM_CANCELUPLOAD}";
-                result = await requestProvider.PostAsync<StopRestreamRequest, RestreamUploadResponse>(url, request);
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<UploadProgressResponse> GetUploadProgress(int xncode, string vehiclePlate, int channel)
-        {
-            var result = new UploadProgressResponse();
-            try
-            {
-                string url = string.Format(ApiUri.POST_RESTREAM_UPLOADPROGRESS + "?xncode={0}&vehiclePlate={1}&channel={2}", xncode, vehiclePlate, channel);
-                var response = await requestProvider.GetAsync<ResponseBaseV2<UploadProgressResponse>>(url);
-                if (response != null && response.Data != null)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
         public async Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request)
         {
             var result = new List<RestreamChartData>();
@@ -327,24 +345,20 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime,
-            DateTime toTime, int? channel = null)
+        public async Task<List<RestreamVideoTimeInfo>> GetListVideoPlayback(CameraPlaybackInfoRequest request)
         {
             var result = new List<RestreamVideoTimeInfo>();
             try
             {
-                if (channel == 0)
+                if (request.Channel == 0)
                 {
-                    channel = null;
+                    request.Channel = null;
                 }
-                var from = fromTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                var to = toTime.ToString("yyyy/MM/dd HH:mm:ss").Replace(" ", "T");
-                string url = string.Format(ApiUri.GET_RESTREAM_DEVICETAB_VIDEO_INFOR +
-                    "?xncode={0}&vehiclePlate={1}&fromTime={2}&toTime={3}&channel={4}", xncode, vehiclePlate, from, to, channel);
-                var response = await requestProvider.GetAsync<BaseResponse<List<RestreamVideoTimeInfo>>>(url);
-                if (response != null && response.Data.Count > 0)
+                string url = $"{ApiUri.POST_LISTPLAYBACKINFO}";
+                var respone = await requestProvider.PostAsync<CameraPlaybackInfoRequest, ResponseStreamBase<List<RestreamVideoTimeInfo>>>(url, request);
+                if (respone != null && respone.Data != null)
                 {
-                    result = response.Data;
+                    result = respone.Data;
                 }
             }
             catch (Exception ex)
@@ -383,25 +397,6 @@ namespace BA_MobileGPS.Service.Service
                 if (respone != null && respone.Data)
                 {
                     result = respone.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<bool> SetHotspot(int xncode, string vehiclePlate, int state)
-        {
-            var result = false;
-            try
-            {
-                string url = string.Format(ApiUri.SET_HOSTSPOT + "?xncode={0}&vehiclePlate={1}&state={2}", xncode, vehiclePlate, state);
-                var response = await requestProvider.GetAsync<ResponseBaseV2<bool>>(url);
-                if (response != null && response.Data)
-                {
-                    result = response.Data;
                 }
             }
             catch (Exception ex)

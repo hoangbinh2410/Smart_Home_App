@@ -8,6 +8,7 @@
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:vm="clr-namespace:BA_MobileGPS.Core.ViewModels">
@@ -82,8 +83,14 @@
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
                         LineBreakMode="WordWrap"
-                        Text="{Binding ImageCamera.Channel, StringFormat='{}Kênh: {0}'}"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{i18n:TranslateResource Camera_Label_Chanel}" />
+                                <Span Text="{Binding ImageCamera.Channel}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                     <controls:IconView
                         Grid.Row="2"
                         Grid.Column="0"

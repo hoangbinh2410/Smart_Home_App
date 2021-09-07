@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -155,7 +156,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (StartDate >= EndDate)
                 {
-                    DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                    DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 }
                 else
                 {

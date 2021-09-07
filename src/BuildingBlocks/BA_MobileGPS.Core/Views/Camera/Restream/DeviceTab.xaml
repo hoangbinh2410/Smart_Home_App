@@ -28,6 +28,7 @@
             <Setter Property="Duration" Value="0.8" />
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+        <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
@@ -339,7 +340,7 @@
                                 </vlc:MediaPlayerElement>
 
                                 <indicator:SfBusyIndicator
-                                    Title="Video đang load trực tiếp từ thiết bị. Vui lòng chờ trong giây lát."
+                                    x:Name="sfbusy"
                                     IsBusy="{Binding BusyIndicatorActive}"
                                     TextColor="{DynamicResource WhiteColor}"
                                     TextSize="10" />
@@ -443,9 +444,6 @@
                         IsScrollBarVisible="True"
                         ItemSpacing="5"
                         ItemsSource="{Binding VideoItemsSource, Mode=OneWay}"
-                        LoadMoreCommand="{Binding LoadMoreItemsCommand}"
-                        LoadMoreCommandParameter="{Binding Source={x:Reference listview}}"
-                        LoadMoreOption="Auto"
                         SelectedItem="{Binding VideoSlected}"
                         SelectionBackgroundColor="{DynamicResource BlueColor}"
                         SelectionGesture="Tap"
@@ -467,7 +465,7 @@
                                                 Padding="2"
                                                 BackgroundColor="Black"
                                                 VerticalOptions="FillAndExpand">
-                                                <ff:CachedImage Aspect="Fill" Source="{Binding VideoImageSource, Mode=OneWay}" />
+                                                <ff:CachedImage Aspect="Fill" Source="{Binding ImageUrl, Mode=OneWay}" />
                                                 <icons:IconView
                                                     Foreground="{DynamicResource WhiteColor}"
                                                     HeightRequest="30"
@@ -494,7 +492,7 @@
                                                     <Label
                                                         HorizontalOptions="Start"
                                                         StyleClass="BoldText"
-                                                        Text="{Binding Data.Channel, StringFormat='Kênh {0}'}" />
+                                                        Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}" />
                                                 </StackLayout>
                                                 <StackLayout
                                                     HorizontalOptions="EndAndExpand"

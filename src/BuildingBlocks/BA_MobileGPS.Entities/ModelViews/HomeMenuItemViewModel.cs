@@ -31,11 +31,6 @@
 
         public bool IsFavorited
         { get => isFavorited; set => SetProperty(ref isFavorited, value, nameof(IsFavorited)); }
-
-        public string GroupName
-        { get => groupName; set => SetProperty(ref groupName, value, nameof(GroupName)); }
-
-        private string groupName;
     }
 
     public class HomeMenuItem

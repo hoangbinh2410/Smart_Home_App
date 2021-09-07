@@ -1,12 +1,14 @@
 ﻿using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -25,12 +27,12 @@ namespace BA_MobileGPS.Core.Models
         private bool internalError { get; set; }
         private bool loadingErr { get; set; }
         private readonly IStreamCameraService streamCameraService;
-        private StreamStartRequest startRequest { get; set; }
+        private CameraStartRequest startRequest { get; set; }
         private CancellationTokenSource cts = new CancellationTokenSource();
         private readonly IEventAggregator _eventAggregator;
 
         public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, StreamStartRequest startRequest, IEventAggregator eventAggregator)
+            IStreamCameraService streamCameraService, CameraStartRequest startRequest, IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
@@ -45,7 +47,7 @@ namespace BA_MobileGPS.Core.Models
             this.startRequest = startRequest;
             Channel = startRequest.Channel;
             _eventAggregator = eventAggregator;
-            StartWorkUnit(startRequest.VehiclePlate);
+            StartWorkUnit(startRequest.VehicleName);
         }
 
         private LibVLC libVLC;
@@ -83,21 +85,6 @@ namespace BA_MobileGPS.Core.Models
             set
             {
                 SetProperty(ref isError, value);
-                RaisePropertyChanged();
-            }
-        }
-
-        private StreamStart data;
-
-        /// <summary>
-        /// Save current data
-        /// </summary>
-        public StreamStart Data
-        {
-            get { return data; }
-            set
-            {
-                SetProperty(ref data, value);
                 RaisePropertyChanged();
             }
         }
@@ -182,7 +169,17 @@ namespace BA_MobileGPS.Core.Models
 
         public bool AutoRequestPing { get; set; }
 
-        public int Channel { get; set; }
+        public int channel;
+        public int Channel
+        {
+            get { return channel; }
+            set
+            {
+                SetProperty(ref channel, value);
+                RaisePropertyChanged();
+            }
+        }
+        public string Link { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -202,7 +199,7 @@ namespace BA_MobileGPS.Core.Models
                         {
                             Task.Run(async () =>
                             {
-                                var requestStartResponse = await streamCameraService.StartStream(startRequest);
+                                var requestStartResponse = await streamCameraService.DevicesStart(startRequest);
                             });
                         }
                     }
@@ -295,14 +292,25 @@ namespace BA_MobileGPS.Core.Models
             Task.Run(async () =>
             {
                 //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
-                var requestStartResponse = await streamCameraService.StartStream(startRequest);
-                // case trả về mã lỗi # 0 => báo lỗi
-                if (requestStartResponse.StatusCode == 0)
+                var result = await streamCameraService.DevicesStart(startRequest);
+                if (result != null && result.Data != null)
                 {
-                    var startData = requestStartResponse?.Data?.FirstOrDefault();
-                    if (startData != null)
+                    var data = result.Data.FirstOrDefault();
+                    if (data.PlaybackRequests != null
+                    && data.PlaybackRequests.Count > 0
+                    && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
                     {
-                        Data = startData;
+                        var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
+                        if (user != null)
+                        {
+                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                        }
+                        result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
+                        SetError(result.UserMessage);
+                    }
+                    else
+                    {
+                        Link = data.Link;
                         if (!countLoadingTimer.Enabled && counter == maxLoadingTime)
                         {
                             countLoadingTimer.Start();
@@ -314,20 +322,9 @@ namespace BA_MobileGPS.Core.Models
                 }
                 else
                 {
-                    Data = new StreamStart()
-                    {
-                        Channel = Channel,
-                        Link = string.Empty
-                    };
-                    if (requestStartResponse.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
-                    {
-                        requestStartResponse.UserMessage = "Thiết bị đang ở chế độ xem lại, quý khách vui lòng tắt xem lại để xem trực tiếp";
-                    }
-                    else
-                    {
-                        _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    }
-                    SetError(requestStartResponse.UserMessage);
+                    Link = string.Empty;
+                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
                 }
             });
         }
@@ -342,26 +339,32 @@ namespace BA_MobileGPS.Core.Models
                 {
                     while (!IsLoaded && MediaPlayer != null)
                     {
-                        var deviceStatus = await streamCameraService.GetDevicesStatus(ConditionType.BKS, vehicle);
-                        var device = deviceStatus?.Data?.FirstOrDefault();
-                        if (device != null && device.CameraChannels != null)
+                        var device = await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                         {
-                            var streamDevice = device.CameraChannels.FirstOrDefault(x => x.Channel == Data.Channel);
+                            ConditionType = (int)ConditionType.BKS,
+                            ConditionValues = new List<string>() { vehicle },
+                            Source = (int)CameraSourceType.App,
+                            User = StaticSettings.User.UserName,
+                            SessionID = StaticSettings.SessionID
+                        });
+                        if (device != null && device.Channels != null)
+                        {
+                            var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Channel);
 
-                            if (streamDevice != null && streamDevice.IsStreaming)
+                            if (streamDevice != null && streamDevice.Stream)
                             {
-                                if (streamDevice.StreamingTotal != oldTotalPackage
-                                    && streamDevice.StreamingTimeout != oldTimeout)
+                                if (streamDevice.STotal != oldTotalPackage
+                                    && streamDevice.STimeout != oldTimeout)
                                 {
                                     //Set url nếu internal Err đã raise hoặc lần đầu khởi tạo.
                                     SetUrlMedia();
-                                    oldTimeout = streamDevice.StreamingTimeout;
-                                    oldTotalPackage = streamDevice.StreamingTotal;
+                                    oldTimeout = streamDevice.STimeout;
+                                    oldTotalPackage = streamDevice.STotal;
                                 }
                                 else loadingErr = true;
                             }
                             else loadingErr = true;
-                            await Task.Delay(2000);
+                            await Task.Delay(3000);
                         }
                     }
                 });
@@ -376,7 +379,7 @@ namespace BA_MobileGPS.Core.Models
         {
             try
             {
-                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null))
+                if (MediaPlayer != null && (internalError || MediaPlayer.Media == null) && !string.IsNullOrEmpty(Link))
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -384,11 +387,11 @@ namespace BA_MobileGPS.Core.Models
                         var url = string.Empty;
                         if (MobileSettingHelper.UseCameraRTMP)
                         {
-                            url = Data.Link.Replace("rtsp", "rtmp");
+                            url = Link.Replace("rtsp", "rtmp");
                         }
                         else
                         {
-                            url = Data.Link;
+                            url = Link;
                         }
                         MediaPlayer.Media = new Media(libVLC, new Uri(url));
                         MediaPlayer.Play();

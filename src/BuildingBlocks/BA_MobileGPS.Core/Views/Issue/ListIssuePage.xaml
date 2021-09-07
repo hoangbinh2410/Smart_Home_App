@@ -103,7 +103,7 @@
                                     Foreground="{DynamicResource WhiteColor}"
                                     Source="ic_search.png" />
                             </pancake:PancakeView>
-                            <Entry Placeholder="Nhập nội dung tìm kiếm" Text="{Binding SearchedText}">
+                            <Entry Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_SearchKey}" Text="{Binding SearchedText}">
                                 <Entry.Behaviors>
                                     <prismbehaviors:EventToCommandBehavior
                                         Command="{Binding SearchIssueCommand}"
@@ -349,7 +349,7 @@
 
                                             <Label
                                                 FontFamily="{StaticResource myFontLatoBold}"
-                                                Text="Lịch hẹn"
+                                                Text="{i18n:TranslateResource ListIssue_Label_DueDate}"
                                                 TextColor="{StaticResource PrimaryColor}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
@@ -387,7 +387,7 @@
 
                                             <Label
                                                 FontFamily="{StaticResource myFontLatoBold}"
-                                                Text="Trạng thái"
+                                                Text="{i18n:TranslateResource ListVehicle_Label_ByState}"
                                                 TextColor="{StaticResource PrimaryColor}"
                                                 VerticalOptions="Center"
                                                 VerticalTextAlignment="Center" />
@@ -412,7 +412,7 @@
                                             HorizontalOptions="EndAndExpand"
                                             IsVisible="{Binding Status, Converter={StaticResource IsEmptyDataConverter}}"
                                             LineBreakMode="WordWrap"
-                                            Text="Chưa xử lý"
+                                            Text="{i18n:TranslateResource ListIssue_Label_NoProcess}"
                                             TextColor="{StaticResource PrimaryColor}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />

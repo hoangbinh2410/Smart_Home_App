@@ -340,7 +340,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Gán lại tên file
-                ReportTitle = ReportHelper.GetFileName(MobileResource.PourFuelReport_Label_TilePage);
+                ReportTitle = ReportHelper.GetFileName(MobileResource.PourFuelReport_Label_TitlePage);
 
                 int numberrow = 4;
                 int numbercolum = 1;
@@ -355,7 +355,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowLiters)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.PourFuelReport_CheckBox_Liters;
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.PourFuelReport_Label_CheckBox_Liters;
                 }
                 // Trạng thái
                 if (ShowStatus)
@@ -373,7 +373,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
                 //head
-                worksheet.Range[1, 1].Text = MobileResource.PourFuelReport_Label_TilePage;
+                worksheet.Range[1, 1].Text = MobileResource.PourFuelReport_Label_TitlePage;
                 worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
                 worksheet.Range[1, 1].CellStyle.Font.Bold = true;
                 worksheet.Range[1, 1].CellStyle.Font.Size = 16;

@@ -16,5 +16,7 @@ namespace BA_MobileGPS.Service
         Task<bool> SetUserSettings(UserSettingsRequest request);
 
         Task<bool> SetAdminUserSettings(AdminUserConfiguration request);
+
+        Task<UserViewModel> GetUserInfomation(string username);
     }
 }

@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BA_MobileGPS.Utilities.Enums
+﻿namespace BA_MobileGPS.Utilities.Enums
 {
     /// <summary>
-    /// Dựa trên bit trả về, bit số : 
-    ///  0 : Livestream 
-    ///  1 : Playback
-    ///  2 : Upload video
-    ///  3 : Chưa có dữ liệu từ PNC
+    /// Dựa trên bit trả về, bit số :
+    ///  0: Hoạt động bình thường
+    ///  1: Camera ởtrạng thái sleep, sẽwake-up khi ACC ON
+    ///  2: Đang thực hiện playback
+    ///  4: Đang thực hiện upload video
     /// </summary>
     public enum VideoStatusEnum
     {
-        LiveStreaming = 1,
-        Restreaming = 2,
-        LiveStreamAndRestream = 3,
+        Ok = 0,
+        Sleep = 1,
+        Playback = 2,
         Uploading = 4,
-        LiveStreamAndUpload = 5,
-        RestreamAndUpload = 6,
-        LiveStreamAndRestreamAndUpload = 7
-
     }
 }

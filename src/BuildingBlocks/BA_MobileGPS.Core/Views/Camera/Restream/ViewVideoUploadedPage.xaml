@@ -27,6 +27,7 @@
         </Style>
         <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
         <converter:ValueProgressBarConverter x:Key="ValueProgressBarConverter" />
+        <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
@@ -54,7 +55,7 @@
                             MediaPlayer="{Binding MediaPlayer}"
                             VerticalOptions="Fill">
                             <vlc:MediaPlayerElement.PlaybackControls>
-                                <vlc:PlaybackControls IsAudioTracksSelectionButtonVisible="True" IsSeekBarVisible="True">
+                                <vlc:PlaybackControls IsSeekBarVisible="True">
                                     <vlc:PlaybackControls.ControlTemplate>
                                         <ControlTemplate>
                                             <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
@@ -184,7 +185,7 @@
                                     <FormattedString>
                                         <Span Text="{Binding VideoSlected.VehicleName}" />
                                         <Span Text=" · " />
-                                        <Span Text="{Binding VideoSlected.Channel, StringFormat='Kênh {0}'}" />
+                                        <Span Text="{Binding VideoSlected.Channel, Converter={StaticResource CameraChanelNameConverter}}" />
                                         <Span Text=" · " />
                                         <Span Text="{Binding VideoSlected.StartTime, Converter={StaticResource TimeConverter}}" />
                                         <Span Text=" - " />

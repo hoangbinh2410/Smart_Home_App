@@ -72,7 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Gán lại tên file
-                ReportTitle = ReportHelper.GetFileName("Tốc độ của xe");
+                ReportTitle = ReportHelper.GetFileName(MobileResource.ReportQCVN31Speed_Label_TitlePage);
 
                 int numberrow = 4;
                 int numbercolum = 1;
@@ -81,11 +81,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 // Thời điểm
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Thời điểm";
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.Distance_Label_Time;
                 // các tốc độ
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Các tốc độ (km/h)";
-              
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportQCVN31Speed_Label_Velocity;
 
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
@@ -144,7 +143,7 @@ namespace BA_MobileGPS.Core.ViewModels
             // check thời gian có vượt quá khoảng cho phép hay không
             if ((ToDate - FromDate).TotalDays > 2)
             {
-                message = "Hệ thống hỗ trợ lấy dữ liệu trong khoảng 2 ngày liên tiếp";
+                message = string.Format(MobileResource.Route_Label_TotalTimeLimit, 2);
                 return false;
             }
             return true;

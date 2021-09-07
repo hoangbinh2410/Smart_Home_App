@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
@@ -83,7 +84,7 @@
                         <Label
                             Margin="0,0,10,0"
                             HorizontalOptions="Center"
-                            Text="Chọn ảnh lái xe" />
+                            Text="{i18n:TranslateResource AddDriver_Lable_SelectImage}" />
                         <AbsoluteLayout
                             Grid.Row="1"
                             HeightRequest="144"
@@ -123,7 +124,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Họ tên" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource UserInfo_Label_FullName}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -135,14 +136,14 @@
 
                             <Entry
                                 MaxLength="100"
-                                Placeholder="Nhập họ tên"
+                                Placeholder="{i18n:TranslateResource UserInfo_Label_FullName}"
                                 Text="{Binding DisplayName.Value}" />
                         </input:SfTextInputLayout>
                         <!--  Ngày sinh  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Ngày sinh" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource UserInfo_Label_DayOfBirth}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -166,7 +167,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Giới tính" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource UserInfo_Label_Gender}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="{DynamicResource DangerousColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -198,7 +199,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Số CMND" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource AddDriver_Lable_IdentityDriver}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -211,14 +212,14 @@
                             <Entry
                                 Keyboard="Numeric"
                                 MaxLength="15"
-                                Placeholder="Nhập số CMND"
+                                Placeholder="{i18n:TranslateResource AddDriver_Lable_IdentityDriver}"
                                 Text="{Binding IdentityNumber.Value}" />
                         </input:SfTextInputLayout>
                         <!--  SDT  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Số điện thoại" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource UserInfo_Label_PhoneNumber}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -230,14 +231,14 @@
                             <Entry
                                 Keyboard="Telephone"
                                 MaxLength="12"
-                                Placeholder="Nhập số điện thoại"
+                                Placeholder="{i18n:TranslateResource UserInfo_Label_PhoneNumber}"
                                 Text="{Binding Mobile.Value}" />
                         </input:SfTextInputLayout>
                         <!--  Địa chỉ  -->
                         <Label HorizontalOptions="Start" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Địa chỉ" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource UserInfo_Label_Address}" TextColor="{DynamicResource TextPrimaryColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -254,7 +255,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Phương tiện" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource Common_Label_Vehicle}" TextColor="{DynamicResource TextPrimaryColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -277,7 +278,7 @@
                                 x:Name="entrySearch"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="Chọn biển số phương tiện"
+                                Placeholder="{i18n:TranslateResource Common_Label_Vehicle}"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                 Text="{Binding SelectedVehiclePlates}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
@@ -291,7 +292,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Loại bằng lái" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource ListDriver_Messenger_LicenseType}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -326,7 +327,7 @@
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Số bằng lái xe" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource ListDriver_Messenger_LicenseNumber}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -334,14 +335,14 @@
                         <input:SfTextInputLayout ErrorText="{Binding DriverLicense.ErrorFirst}" HasError="{Binding DriverLicense.IsNotValid}">
                             <Entry
                                 MaxLength="12"
-                                Placeholder="Nhập số bằng lái xe"
+                                Placeholder="{i18n:TranslateResource ListDriver_Messenger_LicenseNumber}"
                                 Text="{Binding DriverLicense.Value}" />
                         </input:SfTextInputLayout>
                         <!--  Ngày cấp bằng  -->
                         <Label HorizontalOptions="StartAndExpand" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Ngày cấp" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource ListDriver_Messenger_LicenseDateRegister}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -365,7 +366,7 @@
                         <Label HorizontalOptions="Start" VerticalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Ngày hết hạn" TextColor="{DynamicResource TextPrimaryColor}" />
+                                    <Span Text="{i18n:TranslateResource DetailVehicle_Label_Vehicle_Expiration_Date}" TextColor="{DynamicResource TextPrimaryColor}" />
                                     <Span Text=" (*)" TextColor="OrangeRed" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -404,15 +405,15 @@
                     WidthRequest="120" />
                 <Label
                     FontSize="{DynamicResource MyFontSizeLarge}"
-                    Text="Bạn đã thêm lái xe thành công"
+                    Text="{i18n:TranslateResource ListDriver_Title_Success}"
                     TextColor="#8BC34A" />
-                <Label Text="Tiếp tục thêm lái xe mới?" />
+                <Label Text="{i18n:TranslateResource AddDriver_Lable_AddContinue}" />
                 <Button
                     Command="{Binding ContinueInsertCommand}"
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
-                    Text="Tiếp tục thêm"
+                    Text="{i18n:TranslateResource AddDriver_Lable_Title}"
                     TextTransform="None"
                     WidthRequest="160" />
                 <Button
@@ -421,7 +422,7 @@
                     CornerRadius="20"
                     HeightRequest="40"
                     HorizontalOptions="Center"
-                    Text="Đóng"
+                    Text="{i18n:TranslateResource Common_Button_Close}"
                     TextTransform="None"
                     WidthRequest="160" />
             </StackLayout>

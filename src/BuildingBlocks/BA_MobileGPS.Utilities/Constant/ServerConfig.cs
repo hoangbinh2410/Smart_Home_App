@@ -117,6 +117,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ApiEndpointTypes.ServerMoto:
                         return ApiEndpointTypes.ServerMoto.ToDescription();
 
+                    case ApiEndpointTypes.ServerUNITEL:
+                        return ApiEndpointTypes.ServerUNITEL.ToDescription();
+
                     default:
                         return ApiEndpointTypes.ServerTest.ToDescription();
                 }
@@ -150,6 +153,9 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     case ServerIdentityHubTypes.ServerGISVIET:
                         return ServerIdentityHubTypes.ServerGISVIET.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerUNITEL:
+                        return ServerIdentityHubTypes.ServerUNITEL.ToDescription();
 
                     case ServerIdentityHubTypes.ServerVMS:
                         return ServerIdentityHubTypes.ServerVMS.ToDescription();
@@ -191,6 +197,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ServerVehicleOnlineHubTypes.ServerGISVIET:
                         return ServerVehicleOnlineHubTypes.ServerGISVIET.ToDescription();
 
+                    case ServerVehicleOnlineHubTypes.ServerUNITEL:
+                        return ServerVehicleOnlineHubTypes.ServerUNITEL.ToDescription();
+
                     case ServerVehicleOnlineHubTypes.ServerVMS:
                         return ServerVehicleOnlineHubTypes.ServerVMS.ToDescription();
 
@@ -231,6 +240,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ServerAlertHubTypes.ServerGISVIET:
                         return ServerAlertHubTypes.ServerGISVIET.ToDescription();
 
+                    case ServerAlertHubTypes.ServerUNITEL:
+                        return ServerAlertHubTypes.ServerUNITEL.ToDescription();
+
                     case ServerAlertHubTypes.ServerVMS:
                         return ServerAlertHubTypes.ServerVMS.ToDescription();
 
@@ -263,6 +275,9 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     case ServerUserBehaviorHubTypes.ServerGISVIET:
                         return ServerUserBehaviorHubTypes.ServerGISVIET.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerUNITEL:
+                        return ServerUserBehaviorHubTypes.ServerUNITEL.ToDescription();
 
                     case ServerUserBehaviorHubTypes.ServerVMS:
                         return ServerUserBehaviorHubTypes.ServerVMS.ToDescription();

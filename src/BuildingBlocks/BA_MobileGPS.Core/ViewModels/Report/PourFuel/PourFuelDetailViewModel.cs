@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public PourFuelDetailViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            Title = MobileResource.PourFuelReport_Label_TileDetailPage;
+            Title = MobileResource.PourFuelReport_Label_TitleDetailPage;
 
             try
             {

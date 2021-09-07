@@ -23,6 +23,7 @@
         <converter:UploadStatusIconConverter x:Key="UploadStatusIconConverter" />
         <converter:UploadStatusColorConverter x:Key="UploadStatusColorConverter" />
         <converter:UploadTextStatusConverter x:Key="UploadTextStatusConverter" />
+        <converter:CameraChanelNameConverter x:Key="CameraChanelNameConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*" RowSpacing="0">
@@ -333,7 +334,7 @@
                                                                             <Span Text=" - " />
                                                                             <Span Text="{Binding EndTime, Converter={StaticResource TimeConverter}}" />
                                                                             <Span Text=" · " />
-                                                                            <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                                            <Span Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}" />
                                                                         </FormattedString>
                                                                     </Label.FormattedText>
                                                                 </Label>
@@ -375,7 +376,7 @@
                                         VerticalOptions="Center"
                                         WidthRequest="200" />
                                     <Label
-                                        Text="Không có dữ liệu video"
+                                        Text="{i18n:TranslateResource Common_Lable_NotFound}"
                                         TextColor="{DynamicResource TextPrimaryColor}"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>
@@ -445,7 +446,7 @@
                                                                         <Span Text=" - " />
                                                                         <Span Text="{Binding EndTime, Converter={StaticResource TimeConverter}}" />
                                                                         <Span Text=" · " />
-                                                                        <Span Text="{Binding Channel, StringFormat='Kênh {0}'}" />
+                                                                        <Span Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}" />
                                                                         <Span Text=" · " TextColor="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}" />
                                                                         <Span Text="{Binding Status, Converter={StaticResource UploadTextStatusConverter}}" TextColor="{Binding Status, Converter={StaticResource UploadStatusColorConverter}}" />
                                                                     </FormattedString>
@@ -485,7 +486,7 @@
                                     VerticalOptions="Center"
                                     WidthRequest="200" />
                                 <Label
-                                    Text="Không có dữ liệu video"
+                                    Text="{i18n:TranslateResource Common_Lable_NotFound}"
                                     TextColor="{DynamicResource TextPrimaryColor}"
                                     VerticalTextAlignment="Center" />
                             </StackLayout>

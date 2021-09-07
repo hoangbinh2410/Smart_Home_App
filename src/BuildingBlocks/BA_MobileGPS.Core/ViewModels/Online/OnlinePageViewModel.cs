@@ -97,7 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else if (parameters?.GetValue<string>("pagetoNavigation") is string action)
             {
-                if (action == "Video")
+                if (action == MobileResource.Camera_Label_Video)
                 {
                     GotoVideoPage();
                 }
@@ -283,14 +283,14 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             list.Add(new MenuItem
             {
-                Title = "Video",
+                Title = MobileResource.Camera_Label_Video,
                 Icon = "ic_videolive.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
                 MenuType = MenuType.Video
             });
             list.Add(new MenuItem
             {
-                Title = "Hình Ảnh",
+                Title = MobileResource.Image_Lable_Image,
                 Icon = "ic_cameraonline.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
                 MenuType = MenuType.Images
@@ -652,7 +652,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CarActive.HasImage)
+                if (CheckVehcleHasImage(CarActive.VehiclePlate))
                 {
                     var param = new Vehicle()
                     {
@@ -689,7 +689,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CarActive.HasVideo)
+                if (CheckVehcleHasVideo(CarActive.VehiclePlate))
                 {
                     var photoPermission = await PermissionHelper.CheckPhotoPermissions();
                     var storagePermission = await PermissionHelper.CheckStoragePermissions();

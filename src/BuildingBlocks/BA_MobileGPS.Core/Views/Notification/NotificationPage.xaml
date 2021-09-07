@@ -47,7 +47,7 @@
                 FontSize="20"
                 HorizontalOptions="CenterAndExpand"
                 LineBreakMode="MiddleTruncation"
-                Text="Thông báo"
+                Text="{Binding Title}"
                 TextColor="White"
                 VerticalOptions="Center" />
             <controls:FontAwesomeIcon
@@ -110,7 +110,7 @@
                                         HorizontalTextAlignment="Center"
                                         LineBreakMode="WordWrap"
                                         MaxLines="2"
-                                        Text="ĐÁNH DẤU ĐÃ ĐỌC"
+                                        Text="{i18n:TranslateResource Common_Lable_TickIsRead}"
                                         TextColor="White"
                                         VerticalOptions="Center" />
                                 </StackLayout>
@@ -136,7 +136,7 @@
                                         FontSize="{StaticResource FontSize12}"
                                         HorizontalOptions="CenterAndExpand"
                                         MaxLines="2"
-                                        Text="XÓA"
+                                        Text="{i18n:TranslateResource Common_Lable_Delete}"
                                         TextColor="White"
                                         VerticalOptions="Center" />
                                 </StackLayout>

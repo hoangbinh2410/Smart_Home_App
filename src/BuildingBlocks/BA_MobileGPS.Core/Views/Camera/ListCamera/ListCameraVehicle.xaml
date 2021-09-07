@@ -143,6 +143,7 @@
                     <DatePicker
                         Date="{Binding DayBefore}"
                         FontSize="{StaticResource FontSize12}"
+                        Format="MM/dd/yyyy"
                         HorizontalOptions="FillAndExpand"
                         TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">
@@ -305,7 +306,7 @@
                                     <Label
                                         FontSize="10"
                                         HorizontalOptions="End"
-                                        Text="Kênh: "
+                                        Text="{i18n:TranslateResource Camera_Label_Chanel}"
                                         TextColor="Black"
                                         VerticalOptions="Center" />
                                     <Label

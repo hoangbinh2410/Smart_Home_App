@@ -437,7 +437,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (BirthDay.Value.Date >= DateTime.Now.Date)
             {
                 BirthDay.IsNotValid = true;
-                BirthDay.ErrorFirst = "Vui lòng nhập ngày sinh bé hơn ngày hiện tại";
+                BirthDay.ErrorFirst = MobileResource.Common_Property_Invalid(MobileResource.UserInfo_Label_DayOfBirth);
                 birthDay = false;
             }
 
@@ -467,44 +467,44 @@ namespace BA_MobileGPS.Core.ViewModels
             ExpiredDate = new ValidatableObject<DateTime>();
             ExpiredDate.OnChanged += ExpiredDate_OnChanged;
 
-            DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "họ tên" });
+            DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + MobileResource.UserInfo_Label_FullName });
             DisplayName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập họ tên hợp lệ"
+                ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_FullName)
             });
 
             Address.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập đia chỉ hợp lệ"
+                ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.DetailVehicle_Label_Address)
             });
 
-            Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "số điện thoại" });
+            Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + MobileResource.UserInfo_Label_PhoneNumber });
             Mobile.Validations.Add(new PhoneNumberRule<string>
             {
-                ValidationMessage = "Số điện thoại không hợp lệ",
+                ValidationMessage = MobileResource.Common_Property_Invalid(MobileResource.UserInfo_Label_PhoneNumber),
                 CountryCode = CountryCodeConstant.VietNam
             });
 
-            IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "CMND" });
+            IdentityNumber.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + MobileResource.AddDriver_Lable_IdentityDriver });
             IdentityNumber.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập CMND hợp lệ"
+                ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.AddDriver_Lable_IdentityDriver)
             });
 
-            DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + "bằng lái" });
-            DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = "Vui lòng nhập số bằng lái xe hợp lệ", MinLenght = 12 });
+            DriverLicense.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + MobileResource.ListDriver_Messenger_LicenseNumber });
+            DriverLicense.Validations.Add(new MinLenghtRule<string> { ValidationMessage = MobileResource.Common_Property_Invalid(MobileResource.ListDriver_Messenger_LicenseNumber), MinLenght = 12 });
             DriverLicense.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
-                ValidationMessage = "Vui lòng nhập bằng lái hợp lệ"
+                ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.ListDriver_Messenger_LicenseNumber)
             });
 
-            BirthDay.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày sinh" });
-            IssueDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày cấp bằng" });
-            ExpiredDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + "ngày hết hạn bằng" });
+            BirthDay.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + MobileResource.UserInfo_Label_DayOfBirth });
+            IssueDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + MobileResource.ListDriver_Messenger_LicenseDateRegister });
+            ExpiredDate.Validations.Add(new EmptyDateTimeRule<DateTime> { ValidationMessage = NotEmptyMessenge + MobileResource.DetailVehicle_Label_Vehicle_Expiration_Date });
         }
 
         /// <summary>

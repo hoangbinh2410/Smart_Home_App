@@ -4,66 +4,51 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BA_MobileGPS.Service.IService
+namespace BA_MobileGPS.Service
 {
     public interface IStreamCameraService
     {
-        Task<StreamStartResponse> StartStream(StreamStartRequest request);
+        #region Device
+        Task<StreamDevice> GetDevicesInfo(StreamDeviceRequest request);
 
-        Task<StreamStopResponse> StopStream(StreamStopRequest request);
+        Task<ResponseStreamBase<List<CameraStartRespone>>> DevicesStart(CameraStartRequest request);
 
-        Task<StreamPingResponse> RequestMoreStreamTime(StreamPingRequest request);
+        Task<bool> DevicesStop(CameraStopRequest request);
 
-        /// <summary>
-        /// </summary>
-        /// <param name="conditionType">Kiểu tìm kiếm
-        /// 1: Tìm theo MXN
-        /// 2: Tìm theo BKS
-        /// 3: Tìm theo IMEI</param>
-        /// <param name="conditionValue">Thông tin tìm kiếm</param>
-        /// <returns></returns>
-        Task<StreamDevicesResponse> GetDevicesStatus(ConditionType type, string value);
+        Task<bool> DevicesStopSession(CameraStopRequest request);
 
-        Task<StreamDevicesResponse> GetListVehicleCamera(int xncode);
+        Task<bool> DevicesPing(CameraStartRequest request);
+
+        Task<ResponseStreamBase<List<PlaybackStartRespone>>> StartPlayback(PlaybackStartRequest request);
+
+        Task<bool> StopPlayback(PlaybackStopRequest request);
+
+        Task<bool> StopAllPlayback(PlaybackStopRequest request);
+
+        Task<bool> UploadToServerStart(UploadStartRequest request);
+
+        Task<bool> UploadToServerStop(UploadStopRequest request);
+
+        Task<List<UploadStatusRespone>> GetUploadingProgressInfor(UploadStatusRequest request);
+
+        Task<bool> SetHotspot(SetHotspotRequest request);
+        #endregion
 
         Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 
-        Task<List<CaptureImageData>> GetCaptureImageTime(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime);
-
-        /// <summary>
-        /// tra ve 4 anh gan nhat
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
-
-        Task<List<CameraRestreamInfo>> GetListVideoOnDevice(CameraRestreamRequest request);
 
         Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request);
 
         Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request);
 
-        Task<RestreamStartResponese> StartRestream(StartRestreamRequest request);
-
-        Task<StreamStopResponse> StopRestream(StopRestreamRequest request);
-
-        Task<List<CaptureImageData>> RestreamCaptureImageInfo(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null, int? limit = null);
-
-        Task<RestreamUploadResponse> UploadToCloud(StartRestreamRequest request);
-
-        Task<RestreamUploadResponse> CancelUploadToCloud(StopRestreamRequest request);
-
-        Task<UploadProgressResponse> GetUploadProgress(int xncode, string vehiclePlate, int channel);
-
         Task<List<RestreamChartData>> GetVehiclesChartDataByDate(CameraRestreamRequest request);
 
-        Task<List<RestreamVideoTimeInfo>> DeviceTabGetVideoInfor(int xncode, string vehiclePlate, DateTime fromTime, DateTime toTime, int? channel = null);
+        Task<List<RestreamVideoTimeInfo>> GetListVideoPlayback(CameraPlaybackInfoRequest request);
 
         Task<PackageBACameraRespone> GetPackageByXnPlate(PackageBACameraRequest request);
 
         Task<bool> InsertLogVideo(SaveVideoByUserRequest request);
-
-        Task<bool> SetHotspot(int xncode, string vehiclePlate, int state);
 
         Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode);
     }

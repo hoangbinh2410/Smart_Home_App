@@ -30,28 +30,28 @@ namespace BA_MobileGPS.Core.Resources
         public static string Route_Label_LostSignal => Get(MobileResourceNames.Route_Label_LostSignal, "Mất tín hiệu", "Lost Signal");
         public static string Route_Label_StartDateMustSmallerThanEndDate => Get(MobileResourceNames.Route_Label_StartDateMustSmallerThanEndDate, "Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc", "Start time must be smaller than end time");
 
-        public static string Route_Label_TotalTimeLimit(int limit) => Get(MobileResourceNames.Route_Label_TotalTimeLimit,
-            string.Format("Bạn không được phép xem quá {0} ngày", limit), string.Format("You don't have permission to view more than {0} days", limit));
+        public static string Route_Label_TotalTimeLimit => Get(MobileResourceNames.Route_Label_TotalTimeLimit,
+            "Bạn không được phép xem quá {0} ngày", "You don't have permission to view more than {0} days");
 
         public static string Route_Label_EndDateLimit => Get(MobileResourceNames.Route_Label_EndDateLimit, "Bạn không được phép xem quá ngày hiện tại", "End date is greater than now");
 
         public static string Route_Label_AccountIsExpired => Get(MobileResourceNames.Route_Label_AccountIsExpired,
             "Quí khách đã hết hạn sử dụng do chưa đóng phí. Vui lòng đóng phí để có thể tiếp tục theo dõi", "Your account is expired. Please deposit money into account to continue");
 
-        public static string Route_Label_FromDateToDateLimit(string fromDate, string toDate) => Get(MobileResourceNames.Route_Label_FromDateToDateLimit,
-            string.Format("Bạn chỉ được phép xem từ ngày {0} đến ngày {1}", fromDate, toDate), string.Format("You are only allowed to view from {0} to {1}", fromDate, toDate));
+        public static string Route_Label_FromDateToDateLimit => Get(MobileResourceNames.Route_Label_FromDateToDateLimit,
+            "Bạn chỉ được phép xem từ ngày {0} đến ngày {1}", "You are only allowed to view from {0}to {1}");
 
-        public static string Route_Label_ToDateFromDateLimit(string fromDate, string toDate) => Get(MobileResourceNames.Route_Label_ToDateFromDateLimit,
-            string.Format("Bạn chỉ được phép xem từ ngày {0} và trước ngày {1}", fromDate, toDate), string.Format("You are only allowed to view from {0} and before {1}", fromDate, toDate));
+        public static string Route_Label_ToDateFromDateLimit => Get(MobileResourceNames.Route_Label_ToDateFromDateLimit,
+            "Bạn chỉ được phép xem từ ngày {0} và trước ngày {1}", "You are only allowed to view from {0} and before {1}");
 
-        public static string Route_Label_FromDateLimit(string fromDate) => Get(MobileResourceNames.Route_Label_FromDateLimit,
-            string.Format("Bạn chỉ được phép xem từ ngày {0}", fromDate), string.Format("You are only allowed to view from {0}", fromDate));
+        public static string Route_Label_FromDateLimit => Get(MobileResourceNames.Route_Label_FromDateLimit,
+            "Bạn chỉ được phép xem từ ngày {0}", "You are only allowed to view from {0}");
 
-        public static string Route_Label_ToDateLimit(string toDate) => Get(MobileResourceNames.Route_Label_ToDateLimit,
-            string.Format("Bạn không được phép xem quá ngày {0}", toDate), string.Format("You are not allowed to view after {0}", toDate));
+        public static string Route_Label_ToDateLimit=> Get(MobileResourceNames.Route_Label_ToDateLimit,
+            "Bạn không được phép xem quá ngày {0}", "You are not allowed to view after {0}");
 
         public static string Route_Label_OverDateLimit => Get(MobileResourceNames.Route_Label_OverDateLimit,
-            string.Format("Bạn đang xem quá ngày giới hạn"), string.Format("You are viewing past the limit date"));
+            "Bạn đang xem quá ngày giới hạn", "You are viewing past the limit date");
 
         public static string Route_Label_DistanceTitle => Get(MobileResourceNames.Route_Label_DistanceTitle, "Đo khoảng cách", "Measure the distance");
 

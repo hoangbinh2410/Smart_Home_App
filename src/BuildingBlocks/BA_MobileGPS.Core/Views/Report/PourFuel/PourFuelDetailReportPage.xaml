@@ -130,7 +130,7 @@
                                         VerticalOptions="Center"
                                         WidthRequest="20" />
                                     <Label
-                                        Text="{i18n:TranslateResource PourFuelReport_Detail_Date}"
+                                        Text="{i18n:TranslateResource PourFuelReport_CheckBox_Date}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>
@@ -174,7 +174,7 @@
                                         VerticalOptions="Center"
                                         WidthRequest="20" />
                                     <Label
-                                        Text="{i18n:TranslateResource PourFuelReport_Detail_Liters}"
+                                        Text="{i18n:TranslateResource PourFuelReport_Label_CheckBox_Liters}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>
@@ -223,7 +223,7 @@
                                         VerticalOptions="Center"
                                         WidthRequest="20" />
                                     <Label
-                                        Text="{i18n:TranslateResource PourFuelReport_Detail__Status}"
+                                        Text="{i18n:TranslateResource PourFuelReport_Label_Detail_Status}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>
@@ -266,7 +266,7 @@
                                         VerticalOptions="Center"
                                         WidthRequest="20" />
                                     <Label
-                                        Text="{i18n:TranslateResource PourFuelReport_Detail__Address}"
+                                        Text="{i18n:TranslateResource PourFuelReport_Label_CheckBox_Address}"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center" />
                                 </StackLayout>

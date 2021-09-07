@@ -63,7 +63,7 @@
                         VerticalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Kênh: " />
+                                <Span Text="{i18n:TranslateResource Camera_Label_Chanel}" />
                                 <Span Text="{Binding ImageCamera.Channel}" />
                             </FormattedString>
                         </Label.FormattedText>

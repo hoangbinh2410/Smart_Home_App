@@ -23,6 +23,7 @@
         MBLongitude,
         MBMapType,
         MBMapZoom,
-        IsShowPhoneNumber
+        IsShowPhoneNumber,
+        UseViewAllCar
     }
 }

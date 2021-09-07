@@ -59,6 +59,9 @@ namespace BA_MobileGPS.Entities
         Excavator = 17,
 
         [Description("electric")]
-        Electric = 18
+        Electric = 18,
+
+        [Description("car2")]
+        Cars2 = 19
     }
 }

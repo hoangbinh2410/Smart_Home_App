@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using Prism.Navigation;
@@ -34,7 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.userLandmarkGroupService = userLandmarkGroupService;
 
-            Title = "Cấu hình hiển thị điểm";
+            Title = MobileResource.Boundary_Label_TilePage;
 
             UpdateCommand = new Command(Update);
         }
