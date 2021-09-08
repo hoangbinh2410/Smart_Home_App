@@ -82,7 +82,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var selectDate = parameters.GetValue<DateTime>(ParameterKey.SelectDate);
                 var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
-                Vehicle = vehicleDetail;
+                ValidateVehicleCamera(vehicleDetail);
                 DateStart = selectDate.Date;
                 DateEnd = selectDate.Date.AddDays(1).AddMinutes(-1);
                 SearchData();
@@ -215,6 +215,31 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region PrivateMethod
+
+        private void ValidateVehicleCamera(CameraLookUpVehicleModel vehicle)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var plate = vehicle.VehiclePlate.Contains("_C") ? vehicle.VehiclePlate : vehicle.VehiclePlate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    Vehicle = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = model.VehiclePlate,
+                        Imei = model.Imei,
+                        PrivateCode = model.VehiclePlate,
+                        Channel = model.Channel
+                    };
+                }
+                else
+                {
+                    vehicle.Channel = 4;
+                    Vehicle = vehicle;
+                }
+            }
+        }
 
         /// <summary>
         /// Err : Fail connect server
