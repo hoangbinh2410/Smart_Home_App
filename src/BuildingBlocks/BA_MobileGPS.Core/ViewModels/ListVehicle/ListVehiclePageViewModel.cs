@@ -683,7 +683,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (selected.HasImage || selected.IsQcvn31)
+                if (CheckVehcleHasImage(selected.VehiclePlate) || CheckVehcleHasIsQcvn31(selected.VehiclePlate))
                 {
                     var param = _mapper.MapProperties<Vehicle>(selected);
                     var parameters = new NavigationParameters
@@ -728,7 +728,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (selected.HasVideo)
+                if (CheckVehcleHasVideo(selected.VehiclePlate))
                 {
                     var photoPermission = await PermissionHelper.CheckPhotoPermissions();
                     var storagePermission = await PermissionHelper.CheckStoragePermissions();
@@ -764,7 +764,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (selected.HasVideo)
+                if (CheckVehcleHasVideo(selected.VehiclePlate))
                 {
                     var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
                     var parameters = new NavigationParameters
