@@ -182,7 +182,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var lstCamera = new List<string>();
             var lstvehicle = StaticSettings.ListVehilceOnline;
-            foreach (var item in lstcamera)
+            foreach (var item in lstcamera.Where(x => x.HasVideo).ToList())
             {
                 var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
                 var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
