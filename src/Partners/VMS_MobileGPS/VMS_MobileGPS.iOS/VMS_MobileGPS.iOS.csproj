@@ -169,7 +169,7 @@
     <PackageReference Include="Prism.DryIoc.Extensions">
       <Version>8.0.48</Version>
     </PackageReference>
-    <PackageReference Include="Realm" Version="10.3.0" />
+    <PackageReference Include="Realm" Version="10.4.1" />
     <PackageReference Include="Shiny.Locations">
       <Version>1.2.0.1755</Version>
     </PackageReference>
