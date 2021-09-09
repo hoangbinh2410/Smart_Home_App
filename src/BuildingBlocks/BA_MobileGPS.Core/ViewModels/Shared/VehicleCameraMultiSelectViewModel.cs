@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -92,7 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var lstCamera = new List<CameraLookUpVehicleModel>();
             var lstvehicle = StaticSettings.ListVehilceOnline;
-            foreach (var item in lstcamera)
+            foreach (var item in lstcamera.Where(x => x.HasVideo).ToList())
             {
                 var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
                 var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
