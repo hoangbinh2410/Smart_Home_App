@@ -637,7 +637,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var listVehicleCamera = StaticSettings.ListVehilceCamera;
             if (listVehicleCamera != null)
             {
-                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate + "_C");
+                var plate = vehicle.VehiclePlate.Contains("_C") ? vehicle.VehiclePlate : vehicle.VehiclePlate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
                 if (model != null)
                 {
                     Vehicle = new CameraLookUpVehicleModel()
@@ -650,6 +651,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
+                    vehicle.Channel = 4;
                     Vehicle = vehicle;
                 }
             }

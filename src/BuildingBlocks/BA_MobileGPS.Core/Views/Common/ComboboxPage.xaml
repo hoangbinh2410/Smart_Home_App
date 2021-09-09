@@ -5,41 +5,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:behaviors="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <Grid  RowSpacing="0">
+        <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="1" Orientation="Vertical">
-                <ListView
+                <controls:HorizontalList
                     x:Name="listview"
-                    behaviors:ItemTappedCommandListView.ItemTappedCommand="{Binding SelectedValueCommand}"
                     BackgroundColor="Transparent"
-                    HasUnevenRows="False"
                     HorizontalOptions="FillAndExpand"
                     ItemsSource="{Binding DataSearch}"
-                    SeparatorVisibility="Default"
+                    SelectedCommand="{Binding SelectedValueCommand}"
+                    Spacing="15"
                     VerticalOptions="FillAndExpand">
-                    <ListView.ItemTemplate>
+                    <controls:HorizontalList.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <StackLayout
-                                    Padding="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal"
-                                    Spacing="10">
-                                    <Label Text="{Binding Value}" VerticalOptions="CenterAndExpand" />
-                                </StackLayout>
-                            </ViewCell>
+                            <StackLayout
+                                Padding="10"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="10">
+                                <Label Text="{Binding Value}" VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </controls:HorizontalList.ItemTemplate>
+                </controls:HorizontalList>
             </StackLayout>
         </Grid>
     </ContentPage.Content>
