@@ -12,6 +12,9 @@ namespace BA_MobileGPS.Core.Views
         public DetailVehiclePopup()
         {
             InitializeComponent();
+            lblFeatures.Text = MobileResource.Common_Label_Features;
+            lblReport.Text = MobileResource.Common_Label_Report;
+            lblCamera.Text = MobileResource.Camera_Label_MenuTitle;
         }
 
         protected override void OnAppearing()
@@ -56,19 +59,10 @@ namespace BA_MobileGPS.Core.Views
             });
             list.Add(new MenuItem
             {
-                Title = MobileResource.Camera_Lable_ExportVideo,
+                Title = MobileResource.Camera_Title_Retreaming,
                 Icon = "ic_videolive.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
-            if (!CheckPermision((int)PermissionKeyNames.TrackingVideosView))
-            {
-                list.Add(new MenuItem
-                {
-                    Title = MobileResource.DetailVehicle_Label_Fuel,
-                    Icon = "ic_fuel.png",
-                    IsEnable = CheckPermision((int)PermissionKeyNames.ShowFuelChartOnline),
-                });
-            }
 
             var lstresource = list.Where(x => x.IsEnable == true).ToList();
             if (lstresource.Count <= 3)

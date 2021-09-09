@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand GoDistancePageCommand { get; private set; }
         public DelegateCommand CloseCarInfoViewCommand { get; private set; }
         public ICommand SelectedMenuCommand { get; }
+        public ICommand MoreMenuCommand { get; }
         public bool IsCheckShowLandmark { get; set; } = false;
 
         public OnlinePageViewModel(INavigationService navigationService,
@@ -77,7 +78,10 @@ namespace BA_MobileGPS.Core.ViewModels
             PushDirectvehicleOnlineCommand = new DelegateCommand(PushDirectvehicleOnline);
             CloseCarInfoViewCommand = new DelegateCommand(CloseCarInfoView);
             SelectedMenuCommand = new Command<MenuItem>(SelectedMenu);
+            MoreMenuCommand = new DelegateCommand(Moremenu);
         }
+
+
 
         public override void OnPageAppearingFirstTime()
         {
@@ -765,6 +769,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
             else RegistrationDate = null;
+        }
+
+
+        private void Moremenu()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ListMenuPopupPage", parameters: new NavigationParameters
+                        {
+                            { "vehicleItem",  CarActive}
+                        }, true, true);
+            });
         }
 
         #endregion Private Method
