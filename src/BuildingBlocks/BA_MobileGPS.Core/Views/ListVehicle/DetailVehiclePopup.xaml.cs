@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Entities;
 using Rg.Plugins.Popup.Pages;
@@ -20,47 +21,53 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            InitMenuItems();
+            InitMenuPageItems();
         }
 
-        private void InitMenuItems()
+        private void InitMenuPageItems()
         {
-            var list = new List<MenuItem>();
+            var list = new List<MenuPageItem>();
 
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Online_Label_TitlePage,
                 Icon = "ic_mornitoring.png",
+                MenuType = MenuKeyType.Online,
                 IsEnable = true,
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Route_Label_Title,
                 Icon = "ic_route.png",
+                MenuType = MenuKeyType.Route,
                 IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute)
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.DetailVehicle_Label_TilePage,
                 Icon = "ic_guarantee.png",
+                MenuType = MenuKeyType.VehicleDetail,
                 IsEnable = true,
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Camera_Label_Video,
                 Icon = "ic_videolive.png",
+                MenuType = MenuKeyType.Video,
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Image_Lable_Image,
                 Icon = "ic_cameraonline.png",
+                MenuType = MenuKeyType.Images,
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Camera_Title_Retreaming,
                 Icon = "ic_videolive.png",
+                MenuType = MenuKeyType.VideoPlayback,
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
             });
 

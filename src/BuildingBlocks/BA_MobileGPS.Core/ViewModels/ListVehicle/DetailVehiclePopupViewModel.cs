@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -17,10 +18,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand CloseCommand { get; }
         public ICommand MoreMenuCommand { get; }
 
+        public ICommand SelectMenuCommand { get; }
+
         public DetailVehiclePopupViewModel(INavigationService navigationService) : base(navigationService)
         {
             CloseCommand = new DelegateCommand(Close);
             NavigativeCommand = new DelegateCommand<object>(Navigative);
+            SelectMenuCommand = new DelegateCommand<object>(SelectMenu);
             FavoritesCommand = new DelegateCommand(FavoritesVehcile);
             MoreMenuCommand = new DelegateCommand(MoreMenu);
         }
@@ -43,9 +47,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+        private ObservableCollection<MenuPageItem> menuItems = new ObservableCollection<MenuPageItem>();
 
-        public ObservableCollection<MenuItem> MenuItems
+        public ObservableCollection<MenuPageItem> MenuItems
         {
             get
             {
@@ -117,7 +121,9 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return isShowMoreMenu; }
             set { SetProperty(ref isShowMoreMenu, value); }
         }
+
         private bool isFistLoad = false;
+
         public void Close()
         {
             NavigationService.GoBackAsync();
@@ -139,27 +145,27 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitMenuMore()
         {
-            var list = new List<MenuItem>();
-            list.Add(new MenuItem
+            var list = new List<MenuPageItem>();
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Online_Label_TitlePage,
                 Icon = "ic_mornitoring.png",
                 IsEnable = true,
-                MenuType = MenuType.Online
+                MenuType = MenuKeyType.Online
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Route_Label_Title,
                 Icon = "ic_route.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
-                MenuType = MenuType.Route
+                MenuType = MenuKeyType.Route
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.DetailVehicle_Label_TilePage,
                 Icon = "ic_guarantee.png",
                 IsEnable = true,
-                MenuType = MenuType.VehicleDetail
+                MenuType = MenuKeyType.VehicleDetail
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -197,16 +203,35 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void Navigative(object obj)
         {
-            if (!(obj is MenuItem seletedMenu))
+            if (!(obj is HomeMenuItem seletedMenu) || seletedMenu.MenuKey == null)
             {
                 return;
             }
             SafeExecute(async () =>
             {
-                var param = seletedMenu.Title.ToString();
+                var param = seletedMenu.MenuKey.ToString();
                 await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
+                        });
+            });
+        }
+
+        private void SelectMenu(object obj)
+        {
+            if (obj == null)
+                return;
+
+            if (!(obj is MenuPageItem seletedMenu))
+            {
+                return;
+            }
+            SafeExecute(async () =>
+            {
+                var param = seletedMenu.MenuType;
+                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
+                        {
+                            { "MenuPageItem",  param}
                         });
             });
         }

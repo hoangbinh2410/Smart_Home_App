@@ -80,7 +80,7 @@
                 ItemWidth="90"
                 ListLayout="Grid"
                 SnapStyle="Center"
-                TapCommand="{Binding NavigativeCommand}"
+                TapCommand="{Binding SelectMenuCommand}"
                 VerticalOptions="FillAndExpand">
                 <renderedViews:HorizontalListView.ItemTemplate>
                     <DataTemplate>
@@ -127,7 +127,7 @@
                             HorizontalOptions="CenterAndExpand"
                             ItemsSource="{Binding MenuItems}"
                             ListOrientation="Horizontal"
-                            SelectedCommand="{Binding TapMenuCommand}"
+                            SelectedCommand="{Binding SelectMenuCommand}"
                             VerticalOptions="CenterAndExpand">
                             <controls:HorizontalList.ItemTemplate>
                                 <DataTemplate>

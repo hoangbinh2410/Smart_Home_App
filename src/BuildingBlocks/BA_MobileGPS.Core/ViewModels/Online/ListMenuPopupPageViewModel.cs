@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Models;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Utilities;
@@ -106,9 +107,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+        private ObservableCollection<MenuPageItem> menuItems = new ObservableCollection<MenuPageItem>();
 
-        public ObservableCollection<MenuItem> MenuItems
+        public ObservableCollection<MenuPageItem> MenuItems
         {
             get
             {
@@ -127,28 +128,28 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitMenuItems()
         {
-            var list = new List<MenuItem>();
+            var list = new List<MenuPageItem>();
 
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Route_Label_Title,
                 Icon = "ic_route.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
-                MenuType = MenuType.Route
+                MenuType = MenuKeyType.Route
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.DetailVehicle_Label_TilePage,
                 Icon = "ic_guarantee.png",
                 IsEnable = true,
-                MenuType = MenuType.VehicleDetail
+                MenuType = MenuKeyType.VehicleDetail
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = "Hỗ trợ khách hàng",
                 Icon = "ic_youtube.png",
                 IsEnable = true,
-                MenuType = MenuType.VehicleDetail
+                MenuType = MenuKeyType.HelpCustomer
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -188,29 +189,29 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (obj == null)
                 return;
+            if (!(obj is MenuPageItem seletedMenu))
+            {
+                return;
+            }
             SafeExecute(async () =>
             {
-                if (!(obj is MenuItem seletedMenu))
-                {
-                    return;
-                }
-                var param = seletedMenu.Title.ToString();
+                var param = seletedMenu.MenuType;
                 await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
                         {
-                            { "pagetoNavigation",  param}
+                            { "MenuPageItem",  param}
                         });
             });
         }
 
         private void Navigative(object obj)
         {
-            if (!(obj is HomeMenuItemViewModel seletedMenu) || seletedMenu.MenuKey == null)
+            if (!(obj is HomeMenuItem seletedMenu) || seletedMenu.MenuKey == null)
             {
                 return;
             }
             SafeExecute(async () =>
             {
-                var param = seletedMenu.NameByCulture.ToString();
+                var param = seletedMenu.MenuKey.ToString();
                 await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
                         {
                             { "pagetoNavigation",  param}
