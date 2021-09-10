@@ -29,5 +29,6 @@ namespace BA_MobileGPS.Core.Models
         Online,
         HelpCustomer,
         ExportVideo,
+        SOS,
     }
 }

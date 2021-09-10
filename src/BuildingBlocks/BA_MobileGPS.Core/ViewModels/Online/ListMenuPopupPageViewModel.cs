@@ -172,6 +172,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = true,
                 MenuType = MenuKeyType.HelpCustomer
             });
+
+            list.Add(new MenuPageItem
+            {
+                Title = "SOS",
+                Icon = "ic_mail.png",
+                IsEnable = true,
+                MenuType = MenuKeyType.SOS
+            });
             AllListfeatures = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
