@@ -268,7 +268,8 @@ namespace BA_MobileGPS.Core.ViewModels
         Route,
         VehicleDetail,
         Images,
-        Video
+        Video,
+        Online
     }
 
     public class MenuItem

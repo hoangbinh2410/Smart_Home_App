@@ -68,18 +68,18 @@
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
             </Grid>
-            <StackLayout
+            <!--<StackLayout
                 Padding="10,0"
                 IsVisible="{Binding CarActive.IsPowerOff}"
                 Orientation="Horizontal">
-                <Label
+               <Label
                     FontSize="13"
                     HorizontalOptions="StartAndExpand"
                     HorizontalTextAlignment="Start"
                     LineBreakMode="WordWrap"
                     Text="Xe tự động ngắt nguồn để bảo vệ acquy. Nổ máy và di chuyển xe cho đến khi có tín hiệu trở lại"
                     TextColor="{StaticResource DangerousColor}" />
-            </StackLayout>
+            </StackLayout>-->
             <StackLayout Padding="10,0" Orientation="Horizontal">
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
@@ -254,8 +254,6 @@
                 </Grid>
                 <BoxView HeightRequest="1" Color="{DynamicResource GrayColor}" />
             </StackLayout>
-
-
         </StackLayout>
 
         <StackLayout
@@ -381,6 +379,30 @@
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>
             </Grid>
+        </StackLayout>
+
+        <StackLayout
+            Padding="10,0,10,10"
+            HorizontalOptions="Center"
+            Orientation="Horizontal"
+            VerticalOptions="End">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding MoreMenuCommand}" />
+            </StackLayout.GestureRecognizers>
+            <Label
+                Grid.Column="1"
+                FontSize="13"
+                HorizontalOptions="End"
+                Text="Xem thêm"
+                TextColor="{DynamicResource PrimaryColor}" />
+            <controls:IconView
+                Foreground="{DynamicResource PrimaryColor}"
+                HeightRequest="20"
+                HorizontalOptions="Center"
+                Rotation="180"
+                Source="ic_sortdown.png"
+                VerticalOptions="Center"
+                WidthRequest="20" />
         </StackLayout>
     </StackLayout>
 </pancake:PancakeView>

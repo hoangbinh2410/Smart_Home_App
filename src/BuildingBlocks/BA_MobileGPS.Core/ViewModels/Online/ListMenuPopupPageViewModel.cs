@@ -1,6 +1,8 @@
 ﻿using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -11,27 +13,36 @@ using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class DetailVehiclePopupViewModel : ViewModelBase
+    public class ListMenuPopupPageViewModel : ViewModelBase
     {
-        public ICommand FavoritesCommand { get; }
-        public ICommand NavigativeCommand { get; }
+        private readonly IHomeService homeService;
+        private readonly IMapper mapper;
+        public ICommand TapMenuCommand { get; set; }
+        public ICommand NavigativeCommand { get; set; }
+
         public ICommand CloseCommand { get; }
-        public ICommand MoreMenuCommand { get; }
 
-        public ICommand SelectMenuCommand { get; }
-
-        public DetailVehiclePopupViewModel(INavigationService navigationService) : base(navigationService)
+        public ListMenuPopupPageViewModel(INavigationService navigationService,
+            IHomeService homeService, IMapper mapper) : base(navigationService)
         {
-            CloseCommand = new DelegateCommand(Close);
+            this.homeService = homeService;
+            this.mapper = mapper;
+            TapMenuCommand = new DelegateCommand<object>(OnTappedMenu);
             NavigativeCommand = new DelegateCommand<object>(Navigative);
-            SelectMenuCommand = new DelegateCommand<object>(SelectMenu);
-            FavoritesCommand = new DelegateCommand(FavoritesVehcile);
-            MoreMenuCommand = new DelegateCommand(MoreMenu);
+            CloseCommand = new DelegateCommand(Close);
         }
 
         public override void Initialize(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
+            // Lấy danh sách menu
+            GetListMenu();
+            InitMenuItems();
+            InitMenuFeatures();
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -39,25 +50,23 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
-                if (parameters.TryGetValue("vehicleItem", out VehicleOnlineViewModel obj))
+                if (parameters.TryGetValue("vehicleItem", out VehicleOnline obj))
                 {
-                    VehicleName = obj.PrivateCode;
-                    IsFavorites = obj.IsFavorite;
+                    CarActive = obj;
                 }
             }
         }
 
-        private ObservableCollection<MenuPageItem> menuItems = new ObservableCollection<MenuPageItem>();
+        #region Property
 
-        public ObservableCollection<MenuPageItem> MenuItems
+        private VehicleOnline carActive;
+
+        public VehicleOnline CarActive
         {
-            get
-            {
-                return menuItems;
-            }
+            get { return carActive; }
             set
             {
-                SetProperty(ref menuItems, value);
+                carActive = value;
                 RaisePropertyChanged();
             }
         }
@@ -98,62 +107,29 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private string vehicleName;
+        private ObservableCollection<MenuPageItem> menuItems = new ObservableCollection<MenuPageItem>();
 
-        public string VehicleName
+        public ObservableCollection<MenuPageItem> MenuItems
         {
-            get { return vehicleName; }
-            set { SetProperty(ref vehicleName, value); }
-        }
-
-        private bool isFavorites;
-
-        public bool IsFavorites
-        {
-            get { return isFavorites; }
-            set { SetProperty(ref isFavorites, value); }
-        }
-
-        private bool isShowMoreMenu = false;
-
-        public bool IsShowMoreMenu
-        {
-            get { return isShowMoreMenu; }
-            set { SetProperty(ref isShowMoreMenu, value); }
-        }
-
-        private bool isFistLoad = false;
-
-        public void Close()
-        {
-            NavigationService.GoBackAsync();
-        }
-
-        private void MoreMenu()
-        {
-            SafeExecute(() =>
+            get
             {
-                IsShowMoreMenu = !IsShowMoreMenu;
-                if (IsShowMoreMenu && !isFistLoad)
-                {
-                    isFistLoad = true;
-                    GetListMenu();
-                    InitMenuMore();
-                    InitMenuFeatures();
-                }
-            });
+                return menuItems;
+            }
+            set
+            {
+                SetProperty(ref menuItems, value);
+                RaisePropertyChanged();
+            }
         }
 
-        private void InitMenuMore()
+        #endregion Property
+
+        #region Private method
+
+        private void InitMenuItems()
         {
             var list = new List<MenuPageItem>();
-            list.Add(new MenuPageItem
-            {
-                Title = MobileResource.Online_Label_TitlePage,
-                Icon = "ic_mornitoring.png",
-                IsEnable = true,
-                MenuType = MenuKeyType.Online
-            });
+
             list.Add(new MenuPageItem
             {
                 Title = MobileResource.Route_Label_Title,
@@ -167,6 +143,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 Icon = "ic_guarantee.png",
                 IsEnable = true,
                 MenuType = MenuKeyType.VehicleDetail
+            });
+            list.Add(new MenuPageItem
+            {
+                Title = "Hỗ trợ khách hàng",
+                Icon = "ic_helpcustomer.png",
+                IsEnable = true,
+                MenuType = MenuKeyType.HelpCustomer
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
@@ -189,6 +172,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = true,
                 MenuType = MenuKeyType.HelpCustomer
             });
+
             list.Add(new MenuPageItem
             {
                 Title = "SOS",
@@ -227,6 +211,24 @@ namespace BA_MobileGPS.Core.ViewModels
             return list;
         }
 
+        public void OnTappedMenu(object obj)
+        {
+            if (obj == null)
+                return;
+            if (!(obj is MenuPageItem seletedMenu))
+            {
+                return;
+            }
+            SafeExecute(async () =>
+            {
+                var param = seletedMenu.MenuType;
+                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
+                        {
+                            { "MenuPageItem",  param}
+                        });
+            });
+        }
+
         private void Navigative(object obj)
         {
             if (!(obj is HomeMenuItem seletedMenu) || seletedMenu.MenuKey == null)
@@ -243,35 +245,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void SelectMenu(object obj)
+        public void Close()
         {
-            if (obj == null)
-                return;
-
-            if (!(obj is MenuPageItem seletedMenu))
-            {
-                return;
-            }
-            SafeExecute(async () =>
-            {
-                var param = seletedMenu.MenuType;
-                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
-                        {
-                            { "MenuPageItem",  param}
-                        });
-            });
+            NavigationService.GoBackAsync();
         }
 
-        private void FavoritesVehcile()
-        {
-            SafeExecute(async () =>
-            {
-                IsFavorites = !IsFavorites;
-                await NavigationService.GoBackAsync(useModalNavigation: true, animated: true, parameters: new NavigationParameters
-                        {
-                            { "FavoriteVehicle",  IsFavorites}
-                        });
-            });
-        }
+        #endregion Private method
+    }
+
+    public class ItemMenu
+    {
+        public List<HomeMenuItem> FeaturesItem { get; set; }
     }
 }
