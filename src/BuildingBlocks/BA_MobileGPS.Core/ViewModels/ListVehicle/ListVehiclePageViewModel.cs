@@ -862,13 +862,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SafeExecute(async () =>
-                        {//await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
+                        {
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 var param = _mapper.MapProperties<Vehicle>(currentVehicle);
                                 var parameters = new NavigationParameters
                                   {
-                                      { ParameterKey.Vehicle, param }
+                                      { ParameterKey.VehicleRoute, param }
                                  };
                                 var a = await NavigationService.NavigateAsync("NavigationPage/" + menuKey, parameters, useModalNavigation: true, true);
                             }

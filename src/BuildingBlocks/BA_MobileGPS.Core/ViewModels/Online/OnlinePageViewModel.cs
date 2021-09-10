@@ -868,7 +868,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 var param = _mapper.MapProperties<Vehicle>(CarActive);
                                 var parameters = new NavigationParameters
                                   {
-                                      { ParameterKey.Vehicle, param }
+                                      { ParameterKey.VehicleRoute, param }
                                  };
                                 var a = await NavigationService.NavigateAsync("NavigationPage/" + menuKey, parameters, useModalNavigation: true, true);
                             }
