@@ -28,5 +28,6 @@ namespace BA_MobileGPS.Core.Models
         VideoPlayback,
         Online,
         HelpCustomer,
+        ExportVideo,
     }
 }

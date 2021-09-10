@@ -62,9 +62,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private ObservableCollection<ItemMenu> listfeatures;
+        private ObservableCollection<MenuPageItem> listfeatures;
 
-        public ObservableCollection<ItemMenu> AllListfeatures
+        public ObservableCollection<MenuPageItem> AllListfeatures
         {
             get => listfeatures;
 
@@ -139,6 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     isFistLoad = true;
                     GetListMenu();
                     InitMenuMore();
+                    InitMenuFeatures();
                 }
             });
         }
@@ -170,6 +171,27 @@ namespace BA_MobileGPS.Core.ViewModels
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
+        private void InitMenuFeatures()
+        {
+            var list = new List<MenuPageItem>();
+
+            list.Add(new MenuPageItem
+            {
+                Title = MobileResource.Camera_Lable_ExportVideo,
+                Icon = "ic_exportvideo.png",
+                IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
+                MenuType = MenuKeyType.ExportVideo
+            });
+            list.Add(new MenuPageItem
+            {
+                Title = "Hỗ trợ khách hàng",
+                Icon = "ic_helpcustomer.png",
+                IsEnable = true,
+                MenuType = MenuKeyType.HelpCustomer
+            });
+            AllListfeatures = list.Where(x => x.IsEnable == true).ToObservableCollection();
+        }
+
         private void GetListMenu()
         {
             TryExecute(() =>
@@ -182,9 +204,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     var lstReport = result.Where(s => s.MenuItemParentID == 2023).ToList();
                     AllListReport = GenerateListFeatures(lstReport).ToObservableCollection();
-
-                    var lstFeatures = result.Where(s => s.MenuItemParentID == 1003).ToList();
-                    AllListfeatures = GenerateListFeatures(lstFeatures).ToObservableCollection();
                 }
             });
         }

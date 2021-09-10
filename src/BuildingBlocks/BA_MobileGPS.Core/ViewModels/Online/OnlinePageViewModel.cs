@@ -776,6 +776,37 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        public void GotoExportVideoPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasVideo(CarActive.VehiclePlate))
+                {
+                    var param = _mapper.MapProperties<CameraLookUpVehicleModel>(CarActive);
+                    var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/ExportVideoPage", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
         private void SelectedMenu(MenuPageItem obj)
         {
             if (obj == null) return;
@@ -832,6 +863,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 case MenuKeyType.HelpCustomer:
                     break;
+
+                case MenuKeyType.ExportVideo:
+                    GotoExportVideoPage();
+                    break;
+
 
                 default:
                     break;

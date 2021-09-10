@@ -812,7 +812,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case MenuKeyType.VideoPlayback:
-                    GotoExportVideoPage(currentVehicle);
+                    GotoVideoPlaybackPage(currentVehicle);
                     break;
 
                 case MenuKeyType.Online:
@@ -820,6 +820,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case MenuKeyType.HelpCustomer:
+                    break;
+
+                case MenuKeyType.ExportVideo:
+                    GotoExportVideoPage(currentVehicle);
                     break;
 
                 default:
