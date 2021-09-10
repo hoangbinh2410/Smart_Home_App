@@ -255,6 +255,12 @@
 
             <pancakeview:PancakeView CornerRadius="10">
                 <StackLayout Spacing="0">
+                    <StackLayout Orientation="Horizontal">
+                        <Label
+                            x:Name="lblFeatures"
+                            Padding="10"
+                            StyleClass="GroupTitleLabel,BoldText" />
+                    </StackLayout>
                     <controls:HorizontalList
                         Margin="0,10,0,0"
                         HorizontalOptions="CenterAndExpand"
