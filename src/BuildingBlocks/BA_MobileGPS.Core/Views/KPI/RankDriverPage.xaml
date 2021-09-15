@@ -107,12 +107,6 @@
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="2"
-                                            Offset="0,0"
-                                            Color="{DynamicResource BlackColor}" />
-                                    </pancake:PancakeView.Shadow>
                                     <StackLayout
                                         Padding="5,0,5,0"
                                         HorizontalOptions="FillAndExpand"
@@ -450,12 +444,6 @@
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="2"
-                                            Offset="0,0"
-                                            Color="{DynamicResource BlackColor}" />
-                                    </pancake:PancakeView.Shadow>
                                     <StackLayout
                                         Padding="10,0,5,0"
                                         HorizontalOptions="FillAndExpand"
@@ -847,16 +835,12 @@
                                 Padding="0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
                                 CornerRadius="20"
-                                HeightRequest="40">
+                                HeightRequest="45">
                                 <pancake:PancakeView.Border>
                                     <pancake:Border Thickness="1" Color="#CED6E0" />
                                 </pancake:PancakeView.Border>
-                                <pancake:PancakeView.Shadow>
-                                    <pancake:DropShadow
-                                        BlurRadius="3"
-                                        Offset="0,0"
-                                        Color="Black" />
-                                </pancake:PancakeView.Shadow>
+
+
                                 <StackLayout
                                     Padding="0"
                                     HorizontalOptions="FillAndExpand"
@@ -864,7 +848,7 @@
                                     <pancake:PancakeView
                                         BackgroundColor="{DynamicResource PrimaryColor}"
                                         CornerRadius="20"
-                                        WidthRequest="40">
+                                        WidthRequest="45">
                                         <controls:IconView
                                             Margin="13"
                                             Foreground="{DynamicResource WhiteColor}"
@@ -872,7 +856,8 @@
                                     </pancake:PancakeView>
                                     <Entry
                                         x:Name="entrySearchVehicle"
-                                        HeightRequest="35"
+                                        HeightRequest="40"
+                                        HorizontalOptions="FillAndExpand"
                                         Placeholder="Tìm kiếm lái xe"
                                         Text="{Binding SearchedText}">
                                         <Entry.Behaviors>
