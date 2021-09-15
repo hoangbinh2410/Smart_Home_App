@@ -6,11 +6,13 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sfavatar="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
-    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
-    xmlns:views="clr-namespace:BA_MobileGPS.Core.Views">
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms">
     <NavigationPage.TitleView>
         <Grid
             ColumnSpacing="10"
@@ -49,6 +51,7 @@
             x:Name="tabview"
             BackgroundColor="{DynamicResource PrimaryColor}"
             DisplayMode="Text"
+            SelectedIndex="{Binding SelectedTabIndex}"
             VisibleHeaderCount="2">
 
             <tabView:SfTabView.SelectionIndicatorSettings>
@@ -79,6 +82,9 @@
                                     HeightRequest="30"
                                     VerticalOptions="Center"
                                     WidthRequest="30">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PreviosTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
@@ -120,7 +126,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="02/04/2021"
+                                            Text="{Binding FromDate, Converter={StaticResource DateConverter}}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />
@@ -134,7 +140,6 @@
                                             VerticalOptions="Center"
                                             WidthRequest="20" />
                                     </StackLayout>
-
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
                                     Grid.Column="2"
@@ -144,15 +149,12 @@
                                     HeightRequest="30"
                                     VerticalOptions="Center"
                                     WidthRequest="30">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NextTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="2"
-                                            Offset="0,0"
-                                            Color="{DynamicResource BlackColor}" />
-                                    </pancake:PancakeView.Shadow>
                                     <controls:IconView
                                         Foreground="{StaticResource PrimaryColor}"
                                         HeightRequest="15"
@@ -166,10 +168,10 @@
                             <Label
                                 Grid.Column="1"
                                 FontAttributes="Bold"
-                                FontSize="20"
+                                FontSize="18"
                                 HorizontalOptions="CenterAndExpand"
                                 LineBreakMode="TailTruncation"
-                                Text="20/08/2021"
+                                Text="{Binding ToDate, Converter={StaticResource DateConverter}}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </Grid>
@@ -233,9 +235,9 @@
                             </pancake:PancakeView>
                         </Grid>
 
-                        <StackLayout Grid.Row="2">
+                        <Grid Grid.Row="2" RowDefinitions="Auto,Auto,*,Auto">
                             <pancake:PancakeView
-                                Grid.Column="0"
+                                Grid.Row="0"
                                 Padding="10"
                                 BackgroundColor="#D6F3FF"
                                 CornerRadius="5"
@@ -250,7 +252,7 @@
                             </pancake:PancakeView>
 
                             <pancake:PancakeView
-                                Grid.Column="0"
+                                Grid.Row="1"
                                 Padding="10"
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
@@ -283,191 +285,91 @@
                                 </Grid>
                             </pancake:PancakeView>
 
-                            <StackLayout>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#6FDCFF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".5*,.2*,.3*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="20/08/2021"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="90"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".5*,.2*,.3*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="20/08/2021"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="90"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".5*,.2*,.3*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="20/08/2021"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="90"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".5*,.2*,.3*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="20/08/2021"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="90"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".5*,.2*,.3*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="20/08/2021"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="90"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".5*,.2*,.3*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Start"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="20/08/2021"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="1"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="90"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                            </StackLayout>
+                            <Grid
+                                Grid.Row="2"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <syncfusionList:SfListView
+                                    x:Name="listView"
+                                    Padding="0"
+                                    AutoFitMode="DynamicHeight"
+                                    ItemSpacing="5"
+                                    ItemsSource="{Binding RankPointSource, Mode=TwoWay}"
+                                    LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                                    LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
+                                    LoadMoreOption="AutoOnScroll"
+                                    SelectionBackgroundColor="Transparent"
+                                    TapCommand="{Binding NavigateCommand}">
+                                    <syncfusionList:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <pancake:PancakeView
+                                                Grid.Column="0"
+                                                Padding="10"
+                                                BackgroundColor="#D6F3FF"
+                                                CornerRadius="5"
+                                                HorizontalOptions="FillAndExpand">
+                                                <Grid ColumnDefinitions=".5*,.2*,.3*">
+                                                    <Label
+                                                        Grid.Column="0"
+                                                        HorizontalOptions="Start"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="{Binding Time, Converter={StaticResource DateConverter}}"
+                                                        VerticalOptions="Center" />
+                                                    <Label
+                                                        Grid.Column="1"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="{Binding Point}"
+                                                        VerticalOptions="Center" />
+                                                    <Label
+                                                        Grid.Column="2"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="{Binding Rank}"
+                                                        VerticalOptions="Center" />
+                                                </Grid>
+                                            </pancake:PancakeView>
+                                        </DataTemplate>
+                                    </syncfusionList:SfListView.ItemTemplate>
+                                    <syncfusionList:SfListView.LoadMoreTemplate>
+                                        <DataTemplate>
+                                            <Grid
+                                                Padding="3"
+                                                HeightRequest="30"
+                                                WidthRequest="30">
+                                                <syncfusionList:LoadMoreIndicator
+                                                    HeightRequest="30"
+                                                    IsRunning="{Binding IsBusy, Source={x:Reference Name=listView}}"
+                                                    IsVisible="{Binding IsBusy, Source={x:Reference Name=listView}}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30"
+                                                    Color="{DynamicResource PrimaryColor}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </syncfusionList:SfListView.LoadMoreTemplate>
+                                </syncfusionList:SfListView>
+                                <StackLayout
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding RankPointSource, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                                    Spacing="10"
+                                    VerticalOptions="Center">
+                                    <!--  Image for display svg image  -->
+                                    <ffsvg:SvgCachedImage
+                                        HeightRequest="200"
+                                        Source="NoItem.svg"
+                                        VerticalOptions="Center"
+                                        WidthRequest="200" />
+                                    <!--  Label to display content  -->
+                                    <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
+                                </StackLayout>
+                            </Grid>
 
                             <pancake:PancakeView
-                                Grid.Column="0"
+                                Grid.Row="3"
                                 Padding="10,15"
                                 BackgroundColor="#A1C4FD"
                                 CornerRadius="5"
@@ -486,18 +388,18 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="86"
+                                        Text="{Binding AverageRankPoint.Point}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Grid.Column="2"
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="B"
+                                        Text="{Binding AverageRankPoint.Rank}"
                                         VerticalOptions="Center" />
                                 </Grid>
                             </pancake:PancakeView>
-                        </StackLayout>
+                        </Grid>
                     </Grid>
                 </tabView:SfTabItem.Content>
             </tabView:SfTabItem>
@@ -513,7 +415,6 @@
                         Padding="10"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         RowDefinitions="Auto,Auto,*">
-
                         <Grid Grid.Row="0" ColumnDefinitions=".6*,.4*">
                             <Grid Grid.Column="0" ColumnDefinitions="Auto,*,Auto">
                                 <pancake:PancakeView
@@ -524,6 +425,9 @@
                                     HeightRequest="30"
                                     VerticalOptions="Center"
                                     WidthRequest="30">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PreviosTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
@@ -541,6 +445,7 @@
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
                                     CornerRadius="18"
+                                    HeightRequest="35"
                                     VerticalOptions="Center">
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
@@ -552,7 +457,7 @@
                                             Color="{DynamicResource BlackColor}" />
                                     </pancake:PancakeView.Shadow>
                                     <StackLayout
-                                        Padding="5,0,5,0"
+                                        Padding="10,0,5,0"
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal"
                                         VerticalOptions="Center">
@@ -560,11 +465,24 @@
                                             <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
                                         </StackLayout.GestureRecognizers>
                                         <Entry
-                                            FontSize="{StaticResource FontSize12}"
+                                            FontSize="14"
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
+                                            IsVisible="{Binding IsShowMonth, Converter={StaticResource InvertBooleanConverter}}"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="02/04/2021"
+                                            Text="{Binding DateRank, Converter={StaticResource DateConverter}}"
+                                            VerticalOptions="Center">
+                                            <Entry.Effects>
+                                                <effects:BorderlessEffect />
+                                            </Entry.Effects>
+                                        </Entry>
+                                        <Entry
+                                            FontSize="14"
+                                            HorizontalOptions="FillAndExpand"
+                                            InputTransparent="True"
+                                            IsVisible="{Binding IsShowMonth}"
+                                            Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
+                                            Text="{Binding DateRank, StringFormat='{}{0:MM/yyyy}'}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />
@@ -578,7 +496,6 @@
                                             VerticalOptions="Center"
                                             WidthRequest="20" />
                                     </StackLayout>
-
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
                                     Grid.Column="2"
@@ -588,15 +505,12 @@
                                     HeightRequest="30"
                                     VerticalOptions="Center"
                                     WidthRequest="30">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NextTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="2"
-                                            Offset="0,0"
-                                            Color="{DynamicResource BlackColor}" />
-                                    </pancake:PancakeView.Shadow>
                                     <controls:IconView
                                         Foreground="{StaticResource PrimaryColor}"
                                         HeightRequest="15"
@@ -618,45 +532,81 @@
                                 <pancake:PancakeView.Border>
                                     <pancake:Border Thickness="1" Color="#CED6E0" />
                                 </pancake:PancakeView.Border>
-                                <pancake:PancakeView.Shadow>
-                                    <pancake:DropShadow
-                                        BlurRadius="2"
-                                        Offset="0,0"
-                                        Color="{DynamicResource BlackColor}" />
-                                </pancake:PancakeView.Shadow>
-
-                                <StackLayout Orientation="Horizontal" Spacing="0">
-                                    <pancake:PancakeView
-                                        Padding="5"
-                                        BackgroundColor="White"
-                                        CornerRadius="5"
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="FillAndExpand"
-                                        WidthRequest="50">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            LineBreakMode="WordWrap"
-                                            Text="Ngày"
-                                            VerticalOptions="Center" />
-                                    </pancake:PancakeView>
-                                    <pancake:PancakeView
-                                        Padding="5"
-                                        BackgroundColor="#CED6E0"
-                                        CornerRadius="5"
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="FillAndExpand"
-                                        WidthRequest="50">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            LineBreakMode="WordWrap"
-                                            Text="Tháng"
-                                            VerticalOptions="Center" />
-                                    </pancake:PancakeView>
-                                </StackLayout>
+                                <pancake:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SwichDateTypeCommand}" />
+                                </pancake:PancakeView.GestureRecognizers>
+                                <Grid>
+                                    <StackLayout
+                                        IsVisible="{Binding IsShowMonth, Converter={StaticResource InvertBooleanConverter}}"
+                                        Orientation="Horizontal"
+                                        Spacing="0">
+                                        <pancake:PancakeView
+                                            Padding="5"
+                                            BackgroundColor="White"
+                                            CornerRadius="5"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="50">
+                                            <Label
+                                                Grid.Column="0"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="WordWrap"
+                                                Text="Ngày"
+                                                VerticalOptions="Center" />
+                                        </pancake:PancakeView>
+                                        <pancake:PancakeView
+                                            Padding="5"
+                                            BackgroundColor="#CED6E0"
+                                            CornerRadius="5"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="50">
+                                            <Label
+                                                Grid.Column="0"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="WordWrap"
+                                                Text="Tháng"
+                                                VerticalOptions="Center" />
+                                        </pancake:PancakeView>
+                                    </StackLayout>
+                                    <StackLayout
+                                        IsVisible="{Binding IsShowMonth}"
+                                        Orientation="Horizontal"
+                                        Spacing="0">
+                                        <pancake:PancakeView
+                                            Padding="5"
+                                            BackgroundColor="#CED6E0"
+                                            CornerRadius="5"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="50">
+                                            <Label
+                                                Grid.Column="0"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="WordWrap"
+                                                Text="Ngày"
+                                                VerticalOptions="Center" />
+                                        </pancake:PancakeView>
+                                        <pancake:PancakeView
+                                            Padding="5"
+                                            BackgroundColor="White"
+                                            CornerRadius="5"
+                                            HorizontalOptions="CenterAndExpand"
+                                            VerticalOptions="FillAndExpand"
+                                            WidthRequest="50">
+                                            <Label
+                                                Grid.Column="0"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="WordWrap"
+                                                Text="Tháng"
+                                                VerticalOptions="Center" />
+                                        </pancake:PancakeView>
+                                    </StackLayout>
+                                </Grid>
                             </pancake:PancakeView>
                         </Grid>
 
@@ -687,7 +637,7 @@
                                             CornerRadius="30"
                                             HeightRequest="60"
                                             HorizontalOptions="Center"
-                                            ImageSource="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                                            ImageSource="{Binding UserRank2.DriverAvatar}"
                                             VerticalOptions="Center"
                                             WidthRequest="60" />
                                         <Label
@@ -695,7 +645,7 @@
                                             HorizontalOptions="CenterAndExpand"
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="WordWrap"
-                                            Text="Trần Hoàng Nam"
+                                            Text="{Binding UserRank2.DriverName}"
                                             TextColor="{DynamicResource PrimaryColor}"
                                             VerticalOptions="Center" />
                                     </StackLayout>
@@ -717,7 +667,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="89"
+                                                Text="{Binding UserRank2.Point}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -731,7 +681,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="B"
+                                                Text="{Binding UserRank2.Rank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -761,7 +711,7 @@
                                             CornerRadius="30"
                                             HeightRequest="60"
                                             HorizontalOptions="Center"
-                                            ImageSource="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                                            ImageSource="{Binding UserRank1.DriverAvatar}"
                                             VerticalOptions="Center"
                                             WidthRequest="60" />
                                         <Label
@@ -769,7 +719,7 @@
                                             HorizontalOptions="CenterAndExpand"
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="WordWrap"
-                                            Text="Trần Hoàng Nam"
+                                            Text="{Binding UserRank1.DriverName}"
                                             TextColor="{DynamicResource PrimaryColor}"
                                             VerticalOptions="Center" />
                                     </StackLayout>
@@ -791,7 +741,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="89"
+                                                Text="{Binding UserRank1.Point}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -805,7 +755,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="B"
+                                                Text="{Binding UserRank1.Rank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -835,7 +785,7 @@
                                             CornerRadius="30"
                                             HeightRequest="60"
                                             HorizontalOptions="Center"
-                                            ImageSource="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                                            ImageSource="{Binding UserRank3.DriverAvatar}"
                                             VerticalOptions="Center"
                                             WidthRequest="60" />
                                         <Label
@@ -843,7 +793,7 @@
                                             HorizontalOptions="CenterAndExpand"
                                             HorizontalTextAlignment="Center"
                                             LineBreakMode="WordWrap"
-                                            Text="Trần Hoàng Nam"
+                                            Text="{Binding UserRank3.DriverName}"
                                             TextColor="{DynamicResource PrimaryColor}"
                                             VerticalOptions="Center" />
                                     </StackLayout>
@@ -865,7 +815,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="89"
+                                                Text="{Binding UserRank3.Point}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -879,7 +829,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="B"
+                                                Text="{Binding UserRank3.Rank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -888,50 +838,49 @@
                             </pancake:PancakeView>
                         </Grid>
 
-                        <StackLayout Grid.Row="2">
+                        <Grid
+                            Grid.Row="2"
+                            Margin="0,10,0,0"
+                            RowDefinitions="Auto,Auto,*">
                             <pancake:PancakeView
+                                Grid.Row="0"
                                 Padding="0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
-                                CornerRadius="22"
-                                HeightRequest="45">
+                                CornerRadius="20"
+                                HeightRequest="40">
                                 <pancake:PancakeView.Border>
                                     <pancake:Border Thickness="1" Color="#CED6E0" />
                                 </pancake:PancakeView.Border>
                                 <pancake:PancakeView.Shadow>
                                     <pancake:DropShadow
-                                        BlurRadius="2"
+                                        BlurRadius="3"
                                         Offset="0,0"
-                                        Color="{DynamicResource BlackColor}" />
+                                        Color="Black" />
                                 </pancake:PancakeView.Shadow>
-                                <pancake:PancakeView.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
-                                </pancake:PancakeView.GestureRecognizers>
                                 <StackLayout
                                     Padding="0"
                                     HorizontalOptions="FillAndExpand"
                                     Orientation="Horizontal">
                                     <pancake:PancakeView
                                         BackgroundColor="{DynamicResource PrimaryColor}"
-                                        CornerRadius="22"
-                                        HeightRequest="45"
-                                        WidthRequest="45">
+                                        CornerRadius="20"
+                                        WidthRequest="40">
                                         <controls:IconView
                                             Margin="13"
                                             Foreground="{DynamicResource WhiteColor}"
-                                            HeightRequest="20"
-                                            Source="ic_search.png"
-                                            WidthRequest="20" />
+                                            Source="ic_search.png" />
                                     </pancake:PancakeView>
                                     <Entry
-                                        FontSize="14"
-                                        HeightRequest="40"
-                                        HorizontalOptions="FillAndExpand"
-                                        InputTransparent="True"
+                                        x:Name="entrySearchVehicle"
+                                        HeightRequest="35"
                                         Placeholder="Tìm kiếm lái xe"
-                                        PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                        Text="{Binding CarSearch}"
-                                        TextColor="{DynamicResource TextPrimaryColor}"
-                                        VerticalOptions="Center">
+                                        Text="{Binding SearchedText}">
+                                        <Entry.Behaviors>
+                                            <prismbehaviors:EventToCommandBehavior
+                                                Command="{Binding SearchDriverCommand}"
+                                                EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                                EventName="TextChanged" />
+                                        </Entry.Behaviors>
                                         <Entry.Effects>
                                             <effects:BorderlessEffect />
                                         </Entry.Effects>
@@ -940,7 +889,7 @@
                             </pancake:PancakeView>
 
                             <pancake:PancakeView
-                                Grid.Column="0"
+                                Grid.Row="1"
                                 Padding="10"
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
@@ -980,298 +929,107 @@
                                         VerticalOptions="Center" />
                                 </Grid>
                             </pancake:PancakeView>
+                            <Grid
+                                Grid.Row="2"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <syncfusionList:SfListView
+                                    x:Name="listViewUser"
+                                    Padding="0"
+                                    AutoFitMode="DynamicHeight"
+                                    ItemSpacing="5"
+                                    ItemsSource="{Binding RankUserSource, Mode=TwoWay}"
+                                    LoadMoreCommand="{Binding LoadMoreItemsCommand}"
+                                    LoadMoreCommandParameter="{Binding Source={x:Reference listViewUser}}"
+                                    LoadMoreOption="AutoOnScroll"
+                                    SelectionBackgroundColor="Transparent"
+                                    TapCommand="{Binding NavigateCommand}">
+                                    <syncfusionList:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <pancake:PancakeView
+                                                Grid.Column="0"
+                                                Padding="10"
+                                                BackgroundColor="#D6F3FF"
+                                                CornerRadius="5"
+                                                HorizontalOptions="FillAndExpand">
+                                                <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
+                                                    <Label
+                                                        Grid.Column="0"
+                                                        HorizontalOptions="Center"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="{Binding STT}"
+                                                        VerticalOptions="Center" />
+                                                    <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                                        <ffImage:CachedImage
+                                                            HeightRequest="25"
+                                                            HorizontalOptions="Start"
+                                                            Source="ic_photo_circle.png"
+                                                            VerticalOptions="Center">
+                                                            <ffImage:CachedImage.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                                                            </ffImage:CachedImage.GestureRecognizers>
+                                                        </ffImage:CachedImage>
+                                                        <Label
+                                                            HorizontalOptions="Start"
+                                                            HorizontalTextAlignment="Start"
+                                                            LineBreakMode="WordWrap"
+                                                            Text="{Binding DriverName}"
+                                                            VerticalOptions="Center" />
+                                                    </StackLayout>
 
-                            <StackLayout>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#6FDCFF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="1"
-                                            VerticalOptions="Center" />
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Source="ic_photo_circle.png"
-                                                VerticalOptions="Center">
-                                                <ffImage:CachedImage.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                                                </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                Text="Lê Thanh Bình"
-                                                VerticalOptions="Center" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="94"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="3"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="1"
-                                            VerticalOptions="Center" />
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Source="ic_photo_circle.png"
-                                                VerticalOptions="Center">
-                                                <ffImage:CachedImage.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                                                </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                Text="Lê Thanh Bình"
-                                                VerticalOptions="Center" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="94"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="3"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="1"
-                                            VerticalOptions="Center" />
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Source="ic_photo_circle.png"
-                                                VerticalOptions="Center">
-                                                <ffImage:CachedImage.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                                                </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                Text="Lê Thanh Bình"
-                                                VerticalOptions="Center" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="94"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="3"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="1"
-                                            VerticalOptions="Center" />
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Source="ic_photo_circle.png"
-                                                VerticalOptions="Center">
-                                                <ffImage:CachedImage.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                                                </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                Text="Lê Thanh Bình"
-                                                VerticalOptions="Center" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="94"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="3"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="1"
-                                            VerticalOptions="Center" />
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Source="ic_photo_circle.png"
-                                                VerticalOptions="Center">
-                                                <ffImage:CachedImage.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                                                </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                Text="Lê Thanh Bình"
-                                                VerticalOptions="Center" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="94"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="3"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                                <pancake:PancakeView
-                                    Grid.Column="0"
-                                    Padding="10"
-                                    BackgroundColor="#D6F3FF"
-                                    CornerRadius="5"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
-                                        <Label
-                                            Grid.Column="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="1"
-                                            VerticalOptions="Center" />
-                                        <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
-                                                HeightRequest="25"
-                                                HorizontalOptions="Start"
-                                                Source="ic_photo_circle.png"
-                                                VerticalOptions="Center">
-                                                <ffImage:CachedImage.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                                                </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
-                                            <Label
-                                                HorizontalOptions="Start"
-                                                HorizontalTextAlignment="Start"
-                                                LineBreakMode="WordWrap"
-                                                Text="Lê Thanh Bình"
-                                                VerticalOptions="Center" />
-                                        </StackLayout>
-
-                                        <Label
-                                            Grid.Column="2"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="94"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Column="3"
-                                            HorizontalOptions="CenterAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            LineBreakMode="WordWrap"
-                                            Text="A"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                            </StackLayout>
-                        </StackLayout>
+                                                    <Label
+                                                        Grid.Column="2"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="{Binding Point}"
+                                                        VerticalOptions="Center" />
+                                                    <Label
+                                                        Grid.Column="3"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="{Binding Rank}"
+                                                        VerticalOptions="Center" />
+                                                </Grid>
+                                            </pancake:PancakeView>
+                                        </DataTemplate>
+                                    </syncfusionList:SfListView.ItemTemplate>
+                                    <syncfusionList:SfListView.LoadMoreTemplate>
+                                        <DataTemplate>
+                                            <Grid
+                                                Padding="3"
+                                                HeightRequest="30"
+                                                WidthRequest="30">
+                                                <syncfusionList:LoadMoreIndicator
+                                                    HeightRequest="30"
+                                                    IsRunning="{Binding IsBusy, Source={x:Reference Name=listViewUser}}"
+                                                    IsVisible="{Binding IsBusy, Source={x:Reference Name=listViewUser}}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30"
+                                                    Color="{DynamicResource PrimaryColor}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </syncfusionList:SfListView.LoadMoreTemplate>
+                                </syncfusionList:SfListView>
+                                <StackLayout
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="Center"
+                                    IsVisible="{Binding RankUserSource, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                                    Spacing="10"
+                                    VerticalOptions="Center">
+                                    <!--  Image for display svg image  -->
+                                    <ffsvg:SvgCachedImage
+                                        HeightRequest="200"
+                                        Source="NoItem.svg"
+                                        VerticalOptions="Center"
+                                        WidthRequest="200" />
+                                    <!--  Label to display content  -->
+                                    <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
+                                </StackLayout>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </tabView:SfTabItem.Content>
             </tabView:SfTabItem>
