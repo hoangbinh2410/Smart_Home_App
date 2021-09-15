@@ -4,9 +4,14 @@ using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -15,6 +20,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushToFromDatePageCommand { get; private set; }
         public ICommand NextTimeCommand { get; private set; }
         public ICommand PreviosTimeCommand { get; private set; }
+        public ICommand SwichDateTypeCommand { get; private set; }
+        public ICommand SearchDriverCommand { get; private set; }
 
         public RankDriverPageViewModel(INavigationService navigationService) : base(navigationService)
         {
@@ -22,6 +29,8 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             NextTimeCommand = new DelegateCommand(NextTime);
             PreviosTimeCommand = new DelegateCommand(PreviosTime);
+            SwichDateTypeCommand = new DelegateCommand(SwichDateType);
+            SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriverwithText);
         }
 
         #region Property RankPoint
@@ -44,6 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public RankPoint AverageRankPoint { get => averageRankPoint; set => SetProperty(ref averageRankPoint, value); }
 
         #endregion Property RankPoint
+        private CancellationTokenSource cts;
 
         #region Property RankPoint
 
@@ -53,8 +63,22 @@ namespace BA_MobileGPS.Core.ViewModels
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
 
-        private ObservableCollection<RankPoint> rankUserSource = new ObservableCollection<RankPoint>();
-        public ObservableCollection<RankPoint> RankUserSource { get => rankPointSource; set => SetProperty(ref rankPointSource, value); }
+        public bool isShowMonth;
+        public bool IsShowMonth { get => isShowMonth; set => SetProperty(ref isShowMonth, value); }
+
+        private List<UserRank> ListRankUserOrigin = new List<UserRank>();
+
+        private ObservableCollection<UserRank> rankUserSource = new ObservableCollection<UserRank>();
+        public ObservableCollection<UserRank> RankUserSource { get => rankUserSource; set => SetProperty(ref rankUserSource, value); }
+
+        private UserRank userRank1 = new UserRank();
+        public UserRank UserRank1 { get => userRank1; set => SetProperty(ref userRank1, value); }
+
+        private UserRank userRank2 = new UserRank();
+        public UserRank UserRank2 { get => userRank2; set => SetProperty(ref userRank2, value); }
+
+        private UserRank userRank3 = new UserRank();
+        public UserRank UserRank3 { get => userRank3; set => SetProperty(ref userRank3, value); }
 
         #endregion Property RankPoint
 
@@ -65,6 +89,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             GetListRankPoint();
+            GetListUserRank();
         }
 
         public override void OnDestroy()
@@ -96,7 +121,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DateRank = DateRank.AddDays(-1);
+                    if (IsShowMonth)
+                    {
+                        DateRank = DateRank.AddMonths(-1);
+                    }
+                    else
+                    {
+                        DateRank = DateRank.AddDays(-1);
+                    }
                 }
             });
         }
@@ -114,11 +146,67 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    if (ToDate.Subtract(DateRank).TotalDays >= 1)
+                    if (IsShowMonth)
                     {
-                        DateRank = DateRank.AddDays(1);
+                        if (ToDate.Month > DateRank.Month)
+                        {
+                            DateRank = DateRank.AddMonths(1);
+                        }
+                    }
+                    else
+                    {
+                        if (ToDate.Subtract(DateRank).TotalDays >= 1)
+                        {
+                            DateRank = DateRank.AddDays(1);
+                        }
                     }
                 }
+            });
+        }
+
+        private void SwichDateType()
+        {
+            SafeExecute(() =>
+            {
+                IsShowMonth = !IsShowMonth;
+            });
+        }
+
+        private void SearchDriverwithText(TextChangedEventArgs args)
+        {
+            SafeExecute(() =>
+            {
+                var keySearch = string.Empty;
+                if (args != null)
+                {
+                    keySearch = args.NewTextValue.ToUpper().Trim();
+                }
+                if (cts != null)
+                    cts.Cancel(true);
+
+                cts = new CancellationTokenSource();
+
+                Task.Run(async () =>
+                {
+                    await Task.Delay(500, cts.Token);
+                    if (cts.IsCancellationRequested)
+                        return null;
+                    return ListRankUserOrigin.Where(x => x.DriverName.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch)).OrderByDescending(x => x.Point);
+                }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (task.Status == TaskStatus.RanToCompletion && !cts.IsCancellationRequested)
+                    {
+                        RankUserSource = new ObservableCollection<UserRank>();
+
+                        if (task.Result != null && task.Result.Count() > 0)
+                        {
+                            RankUserSource = task.Result.ToObservableCollection();
+                        }
+                    }
+                    else if (task.IsFaulted)
+                    {
+                    }
+                }));
             });
         }
 
@@ -196,6 +284,63 @@ namespace BA_MobileGPS.Core.ViewModels
             AverageRankPoint = average;
         }
 
+        private void GetListUserRank()
+        {
+            RankUserSource = new ObservableCollection<UserRank>()
+            {
+                new UserRank()
+                {
+                    Point=90,
+                    Rank="A",
+                    DriverName="Trần Hoàng Nam",
+                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                },
+                new UserRank()
+                {
+                    Point=80,
+                    Rank="B",
+                    DriverName="Hoàng Thanh Bình",
+                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                },
+                new UserRank()
+                {
+                    Point=70,
+                    Rank="C",
+                    DriverName="Trần Quang Trung",
+                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                },
+                new UserRank()
+                {
+                    Point=60,
+                    Rank="D",
+                    DriverName="Nguyễn Thị Huyền Trang",
+                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                },
+                 new UserRank()
+                {
+                    Point=60,
+                    Rank="D",
+                    DriverName="Nguyễn Thị Huyền Trang",
+                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                },
+                  new UserRank()
+                {
+                    Point=60,
+                    Rank="D",
+                    DriverName="Nguyễn Thị Huyền Trang",
+                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
+                },
+            };
+            ListRankUserOrigin = RankUserSource.ToList();
+            var lstUserShowRank = RankUserSource.OrderByDescending(x => x.Point).Take(3).ToList();
+            if (lstUserShowRank != null && lstUserShowRank.Count == 3)
+            {
+                UserRank1 = lstUserShowRank[0];
+                UserRank2 = lstUserShowRank[1];
+                UserRank3 = lstUserShowRank[2];
+            }
+        }
+
         public void UpdateDateTime(PickerDateTimeResponse param)
         {
             if (param != null)
@@ -219,9 +364,18 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
+                DateTime date = FromDate;
+                if (SelectedTabIndex == 0)
+                {
+                    date = FromDate;
+                }
+                else
+                {
+                    date = DateRank;
+                }
                 var parameters = new NavigationParameters
                 {
-                    { "DataPicker", FromDate },
+                    { "DataPicker", date },
                     { "PickerType", ComboboxType.First }
                 };
                 await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
@@ -234,6 +388,15 @@ namespace BA_MobileGPS.Core.ViewModels
     public class RankPoint
     {
         public DateTime Time { get; set; }
+        public int Point { get; set; }
+        public string Rank { get; set; }
+    }
+
+    public class UserRank
+    {
+        public int STT { get; set; }
+        public string DriverName { get; set; }
+        public string DriverAvatar { get; set; }
         public int Point { get; set; }
         public string Rank { get; set; }
     }
