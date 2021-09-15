@@ -2727,6 +2727,15 @@
     <Content Include="Resources\ic_helpcustomer%402x.png" />
     <Content Include="Resources\ic_helpcustomer%403x.png" />
     <Content Include="Resources\ic_helpcustomer.png" />
+    <Content Include="Resources\ic_rank1%402x.png" />
+    <Content Include="Resources\ic_rank1%403x.png" />
+    <Content Include="Resources\ic_rank1.png" />
+    <Content Include="Resources\ic_rank2%402x.png" />
+    <Content Include="Resources\ic_rank2%403x.png" />
+    <Content Include="Resources\ic_rank2.png" />
+    <Content Include="Resources\ic_rank3%402x.png" />
+    <Content Include="Resources\ic_rank3%403x.png" />
+    <Content Include="Resources\ic_rank3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
