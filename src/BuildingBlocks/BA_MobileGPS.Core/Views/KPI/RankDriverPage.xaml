@@ -678,8 +678,8 @@
                                     </StackLayout>
                                     <ffImage:CachedImage
                                         Grid.Row="0"
-                                        Margin="5"
-                                        HeightRequest="30"
+                                        Margin="0,5"
+                                        HeightRequest="25"
                                         HorizontalOptions="End"
                                         Source="ic_rank2.png"
                                         VerticalOptions="Start" />
@@ -752,7 +752,7 @@
                                     </StackLayout>
                                     <ffImage:CachedImage
                                         Grid.Row="0"
-                                        Margin="5"
+                                        Margin="0,5"
                                         HeightRequest="30"
                                         HorizontalOptions="End"
                                         Source="ic_rank1.png"
@@ -826,8 +826,8 @@
                                     </StackLayout>
                                     <ffImage:CachedImage
                                         Grid.Row="0"
-                                        Margin="5"
-                                        HeightRequest="30"
+                                        Margin="0,5"
+                                        HeightRequest="25"
                                         HorizontalOptions="End"
                                         Source="ic_rank3.png"
                                         VerticalOptions="Start" />
