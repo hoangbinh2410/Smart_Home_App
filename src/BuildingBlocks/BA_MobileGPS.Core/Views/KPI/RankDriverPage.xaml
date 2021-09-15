@@ -69,36 +69,30 @@
                         Padding="10"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         RowDefinitions="Auto,Auto,*">
-                        <StackLayout Grid.Row="0" Orientation="Horizontal">
-                            <StackLayout Orientation="Horizontal">
+                        <Grid Grid.Row="0" ColumnDefinitions=".6*,.4*">
+                            <Grid Grid.Column="0" ColumnDefinitions="Auto,*,Auto">
                                 <pancake:PancakeView
+                                    Grid.Column="0"
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
-                                    CornerRadius="20"
-                                    HeightRequest="40"
-                                    WidthRequest="40">
+                                    CornerRadius="15"
+                                    HeightRequest="30"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30">
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="2"
-                                            Offset="0,0"
-                                            Color="{DynamicResource BlackColor}" />
-                                    </pancake:PancakeView.Shadow>
-                                    <pancake:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                                    </pancake:PancakeView.GestureRecognizers>
                                     <controls:IconView
                                         Foreground="{StaticResource PrimaryColor}"
-                                        HeightRequest="20"
+                                        HeightRequest="15"
                                         HorizontalOptions="Center"
                                         Rotation="90"
                                         Source="ic_sortdown.png"
                                         VerticalOptions="Center"
-                                        WidthRequest="20" />
+                                        WidthRequest="15" />
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
+                                    Grid.Column="1"
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
                                     CornerRadius="18"
@@ -113,23 +107,43 @@
                                             Offset="0,0"
                                             Color="{DynamicResource BlackColor}" />
                                     </pancake:PancakeView.Shadow>
-                                    <views:DateTimePickerView
-                                        x:Name="dtEnd"
-                                        BorderColor="Transparent"
-                                        DateSelectedCommand="{Binding DateSelectedCommand}"
-                                        DateTime="{Binding DateEnd}"
-                                        FontSize="13"
+                                    <StackLayout
+                                        Padding="5,0,5,0"
                                         HorizontalOptions="FillAndExpand"
-                                        IconColor="{DynamicResource PrimaryColor}"
-                                        PickerMode="Popup"
-                                        VerticalOptions="FillAndExpand" />
+                                        Orientation="Horizontal"
+                                        VerticalOptions="Center">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Entry
+                                            FontSize="{StaticResource FontSize12}"
+                                            HorizontalOptions="FillAndExpand"
+                                            InputTransparent="True"
+                                            Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
+                                            Text="02/04/2021"
+                                            VerticalOptions="Center">
+                                            <Entry.Effects>
+                                                <effects:BorderlessEffect />
+                                            </Entry.Effects>
+                                        </Entry>
+                                        <controls:IconView
+                                            Foreground="{DynamicResource BlackColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            Source="ic_date_range_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                    </StackLayout>
+
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
+                                    Grid.Column="2"
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
-                                    CornerRadius="20"
-                                    HeightRequest="40"
-                                    WidthRequest="40">
+                                    CornerRadius="15"
+                                    HeightRequest="30"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30">
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
@@ -139,19 +153,16 @@
                                             Offset="0,0"
                                             Color="{DynamicResource BlackColor}" />
                                     </pancake:PancakeView.Shadow>
-                                    <pancake:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                                    </pancake:PancakeView.GestureRecognizers>
                                     <controls:IconView
                                         Foreground="{StaticResource PrimaryColor}"
-                                        HeightRequest="20"
+                                        HeightRequest="15"
                                         HorizontalOptions="Center"
                                         Rotation="270"
                                         Source="ic_sortdown.png"
                                         VerticalOptions="Center"
-                                        WidthRequest="20" />
+                                        WidthRequest="15" />
                                 </pancake:PancakeView>
-                            </StackLayout>
+                            </Grid>
                             <Label
                                 Grid.Column="1"
                                 FontAttributes="Bold"
@@ -161,7 +172,7 @@
                                 Text="20/08/2021"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
-                        </StackLayout>
+                        </Grid>
 
                         <Grid Grid.Row="1" ColumnDefinitions=".5*,.5*">
                             <pancake:PancakeView
@@ -502,40 +513,34 @@
                         Padding="10"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         RowDefinitions="Auto,Auto,*">
-                        <StackLayout Grid.Row="0" Orientation="Horizontal">
-                            <StackLayout Orientation="Horizontal">
+
+                        <Grid Grid.Row="0" ColumnDefinitions=".6*,.4*">
+                            <Grid Grid.Column="0" ColumnDefinitions="Auto,*,Auto">
                                 <pancake:PancakeView
+                                    Grid.Column="0"
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
-                                    CornerRadius="20"
-                                    HeightRequest="40"
-                                    WidthRequest="40">
+                                    CornerRadius="15"
+                                    HeightRequest="30"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30">
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
-                                    <pancake:PancakeView.Shadow>
-                                        <pancake:DropShadow
-                                            BlurRadius="2"
-                                            Offset="0,0"
-                                            Color="{DynamicResource BlackColor}" />
-                                    </pancake:PancakeView.Shadow>
-                                    <pancake:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                                    </pancake:PancakeView.GestureRecognizers>
                                     <controls:IconView
                                         Foreground="{StaticResource PrimaryColor}"
-                                        HeightRequest="20"
+                                        HeightRequest="15"
                                         HorizontalOptions="Center"
                                         Rotation="90"
                                         Source="ic_sortdown.png"
                                         VerticalOptions="Center"
-                                        WidthRequest="20" />
+                                        WidthRequest="15" />
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
+                                    Grid.Column="1"
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
                                     CornerRadius="18"
-                                    HeightRequest="35"
                                     VerticalOptions="Center">
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
@@ -546,22 +551,43 @@
                                             Offset="0,0"
                                             Color="{DynamicResource BlackColor}" />
                                     </pancake:PancakeView.Shadow>
-                                    <views:DateTimePickerView
-                                        BorderColor="Transparent"
-                                        DateSelectedCommand="{Binding DateSelectedCommand}"
-                                        DateTime="{Binding DateEnd}"
-                                        FontSize="13"
+                                    <StackLayout
+                                        Padding="5,0,5,0"
                                         HorizontalOptions="FillAndExpand"
-                                        IconColor="{DynamicResource PrimaryColor}"
-                                        PickerMode="Popup"
-                                        VerticalOptions="FillAndExpand" />
+                                        Orientation="Horizontal"
+                                        VerticalOptions="Center">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Entry
+                                            FontSize="{StaticResource FontSize12}"
+                                            HorizontalOptions="FillAndExpand"
+                                            InputTransparent="True"
+                                            Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
+                                            Text="02/04/2021"
+                                            VerticalOptions="Center">
+                                            <Entry.Effects>
+                                                <effects:BorderlessEffect />
+                                            </Entry.Effects>
+                                        </Entry>
+                                        <controls:IconView
+                                            Foreground="{DynamicResource BlackColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            Source="ic_date_range_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                    </StackLayout>
+
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
+                                    Grid.Column="2"
                                     Padding="0"
                                     BackgroundColor="{DynamicResource WhiteColor}"
-                                    CornerRadius="20"
-                                    HeightRequest="40"
-                                    WidthRequest="40">
+                                    CornerRadius="15"
+                                    HeightRequest="30"
+                                    VerticalOptions="Center"
+                                    WidthRequest="30">
                                     <pancake:PancakeView.Border>
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
@@ -571,19 +597,16 @@
                                             Offset="0,0"
                                             Color="{DynamicResource BlackColor}" />
                                     </pancake:PancakeView.Shadow>
-                                    <pancake:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
-                                    </pancake:PancakeView.GestureRecognizers>
                                     <controls:IconView
                                         Foreground="{StaticResource PrimaryColor}"
-                                        HeightRequest="20"
+                                        HeightRequest="15"
                                         HorizontalOptions="Center"
                                         Rotation="270"
                                         Source="ic_sortdown.png"
                                         VerticalOptions="Center"
-                                        WidthRequest="20" />
+                                        WidthRequest="15" />
                                 </pancake:PancakeView>
-                            </StackLayout>
+                            </Grid>
                             <pancake:PancakeView
                                 Grid.Column="1"
                                 Padding="2"
@@ -635,7 +658,7 @@
                                     </pancake:PancakeView>
                                 </StackLayout>
                             </pancake:PancakeView>
-                        </StackLayout>
+                        </Grid>
 
                         <Grid
                             Grid.Row="1"
