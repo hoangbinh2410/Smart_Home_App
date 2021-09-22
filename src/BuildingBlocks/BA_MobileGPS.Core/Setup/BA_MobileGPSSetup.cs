@@ -83,6 +83,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
             containerRegistry.RegisterSingleton<IIssueService, IssueService>();
             containerRegistry.RegisterSingleton<IReportQCVN31SpeedService, ReportQCVN31SpeedService>();
+            containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)

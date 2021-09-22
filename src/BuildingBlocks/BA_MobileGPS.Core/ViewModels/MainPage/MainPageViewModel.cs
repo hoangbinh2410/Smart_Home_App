@@ -595,70 +595,80 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListVehicleOnline()
         {
-            var userID = UserInfo.UserId;
-            var companyID = UserInfo.CompanyId;
-            var xnCode = UserInfo.XNCode;
-            var userType = UserInfo.UserType;
-            var companyType = UserInfo.CompanyType;
+            try
+            {
+                var userID = UserInfo.UserId;
+                var companyID = UserInfo.CompanyId;
+                var xnCode = UserInfo.XNCode;
+                var userType = UserInfo.UserType;
+                var companyType = UserInfo.CompanyType;
 
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-            {
-                userID = Settings.CurrentCompany.UserId;
-                companyID = Settings.CurrentCompany.FK_CompanyID;
-                xnCode = Settings.CurrentCompany.XNCode;
-                userType = Settings.CurrentCompany.UserType;
-                companyType = Settings.CurrentCompany.CompanyType;
-            }
-            int vehicleGroup = 0;
-
-            RunOnBackground(async () =>
-            {
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
-            }, (result) =>
-            {
-                if (result != null && result.Count > 0)
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                 {
-                    result.ForEach(x =>
-                    {
-                        x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                        x.StatusEngineer = StateVehicleExtension.EngineState(x);
+                    userID = Settings.CurrentCompany.UserId;
+                    companyID = Settings.CurrentCompany.FK_CompanyID;
+                    xnCode = Settings.CurrentCompany.XNCode;
+                    userType = Settings.CurrentCompany.UserType;
+                    companyType = Settings.CurrentCompany.CompanyType;
+                }
+                int vehicleGroup = 0;
+                LoggerHelper.WriteLog("GetListVehicleOnline", "Start Call API");
 
-                        if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                RunOnBackground(async () =>
+                {
+                    return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                }, (result) =>
+                {
+                    LoggerHelper.WriteLog("GetListVehicleOnline", $"End Call API+{result.Count}");
+                    if (result != null && result.Count > 0)
+                    {
+                        result.ForEach(x =>
                         {
-                            x.SortOrder = 1;
-                        }
-                        else
+                            x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                            x.StatusEngineer = StateVehicleExtension.EngineState(x);
+
+                            if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                            {
+                                x.SortOrder = 1;
+                            }
+                            else
+                            {
+                                x.SortOrder = 0;
+                            }
+                        });
+
+                        StaticSettings.ListVehilceOnline = result;
+
+                        StartTimmerSynData();
+
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            x.SortOrder = 0;
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+
+                            await ConnectSignalROnline();
+                            //Join vào nhóm signalR để nhận dữ liệu online
+                            JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                        });
+
+                        // Lấy danh sách cảnh báo
+                        GetCountAlert();
+
+                        if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                        {
+                            GetPaperAlert();
                         }
-                    });
-
-                    StaticSettings.ListVehilceOnline = result;
-
-                    StartTimmerSynData();
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
-
-                        await ConnectSignalROnline();
-                        //Join vào nhóm signalR để nhận dữ liệu online
-                        JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
-                    });
-
-                    // Lấy danh sách cảnh báo
-                    GetCountAlert();
-
-                    if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        GetPaperAlert();
                     }
-                }
-                else
-                {
-                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-                }
-            });
+                    else
+                    {
+                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteLog("GetListVehicleOnline", $"Start Error API :{ex.Message}");
+            }
+           
         }
 
         private void GetVehicleIsCamera()
