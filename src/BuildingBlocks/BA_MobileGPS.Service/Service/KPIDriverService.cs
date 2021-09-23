@@ -55,5 +55,25 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
+
+        public async Task<DriverKpiChartRespone> GetDriverKpiChart(DriverKpiChartRequest request)
+        {
+            var result = new DriverKpiChartRespone();
+            try
+            {
+                string url = $"{ApiUri.GET_DRIVERKPI_CHART}";
+
+                var respone = await requestProvider.PostAsync<DriverKpiChartRequest, ResponseBaseV2<DriverKpiChartRespone>>(url, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
     }
 }

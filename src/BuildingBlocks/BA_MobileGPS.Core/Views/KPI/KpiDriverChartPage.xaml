@@ -11,9 +11,6 @@
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
-    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -113,7 +110,6 @@
                                             Text="Ngày trước"
                                             VerticalOptions="Center" />
                                     </StackLayout>
-
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
                                     Grid.Column="1"
@@ -180,30 +176,31 @@
                                             VerticalOptions="Center"
                                             WidthRequest="15" />
                                     </StackLayout>
-
                                 </pancake:PancakeView>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <chart:SfChart
                                     x:Name="Chart"
                                     HorizontalOptions="FillAndExpand"
+                                    Series="{Binding ChartSeries}"
                                     VerticalOptions="FillAndExpand">
 
                                     <chart:SfChart.PrimaryAxis>
-                                        <chart:CategoryAxis
-                                            AxisLineOffset="10"
-                                            PlotOffset="10"
-                                            ShowMajorGridLines="false">
-                                            <chart:CategoryAxis.MajorTickStyle>
-                                                <chart:ChartAxisTickStyle TickSize="10" />
-                                            </chart:CategoryAxis.MajorTickStyle>
+                                        <chart:CategoryAxis x:Name="primary">
+                                            <chart:CategoryAxis.LabelStyle>
+                                                <chart:ChartAxisLabelStyle
+                                                    MaxWidth="80"
+                                                    LabelAlignment="Center"
+                                                    WrappedLabelAlignment="Center" />
+                                            </chart:CategoryAxis.LabelStyle>
                                         </chart:CategoryAxis>
                                     </chart:SfChart.PrimaryAxis>
                                     <chart:SfChart.SecondaryAxis>
                                         <chart:NumericalAxis
-                                            Interval="20"
-                                            Maximum="100"
-                                            Minimum="0">
+                                            Interval="1"
+                                            LabelCreated="NumericalAxis_LabelCreated"
+                                            Maximum="5"
+                                            Minimum="1">
                                             <chart:NumericalAxis.LabelStyle>
                                                 <chart:ChartAxisLabelStyle x:Name="secondaryAxisLabelStyle" />
                                             </chart:NumericalAxis.LabelStyle>
@@ -225,31 +222,7 @@
                                     <chart:SfChart.ColorModel>
                                         <chart:ChartColorModel CustomBrushes="{StaticResource Colors}" Palette="Custom" />
                                     </chart:SfChart.ColorModel>
-                                    <chart:SfChart.Series>
-                                        <chart:RadarSeries
-                                            x:Name="series1"
-                                            DrawType="Line"
-                                            EnableAnimation="True"
-                                            EnableTooltip="True"
-                                            ItemsSource="{Binding PolarData2}"
-                                            Label="Điểm tiêu chuẩn"
-                                            LegendIcon="Rectangle"
-                                            StrokeWidth="2"
-                                            XBindingPath="Name"
-                                            YBindingPath="Value" />
-                                        <chart:RadarSeries
-                                            x:Name="series2"
-                                            DrawType="Line"
-                                            EnableAnimation="True"
-                                            EnableTooltip="True"
-                                            ItemsSource="{Binding PolarData1}"
-                                            Label="Điểm thực tế"
-                                            LegendIcon="Rectangle"
-                                            StrokeWidth="2"
-                                            XBindingPath="Name"
-                                            YBindingPath="Value" />
 
-                                    </chart:SfChart.Series>
                                 </chart:SfChart>
                             </Grid>
                             <Grid Grid.Row="2" RowDefinitions="Auto,*">
@@ -324,7 +297,7 @@
                                             <controls:HorizontalList
                                                 Grid.Row="1"
                                                 Padding="0"
-                                                ItemsSource="{Binding PolarData1, Mode=TwoWay}"
+                                                ItemsSource="{Binding EvaluationType1.Evaluations, Mode=TwoWay}"
                                                 Spacing="1">
 
                                                 <controls:HorizontalList.ItemTemplate>
@@ -344,7 +317,7 @@
                                                                     HorizontalOptions="CenterAndExpand"
                                                                     HorizontalTextAlignment="Start"
                                                                     LineBreakMode="WordWrap"
-                                                                    Text="{Binding Value}"
+                                                                    Text="{Binding Unit}"
                                                                     VerticalOptions="Center" />
                                                                 <Label
                                                                     Grid.Column="2"
@@ -359,25 +332,25 @@
                                                                     HorizontalOptions="CenterAndExpand"
                                                                     HorizontalTextAlignment="Start"
                                                                     LineBreakMode="WordWrap"
-                                                                    Text="{Binding Value}"
+                                                                    Text="{Binding Score}"
                                                                     VerticalOptions="Center" />
                                                                 <Label
                                                                     Grid.Column="4"
                                                                     HorizontalOptions="CenterAndExpand"
                                                                     HorizontalTextAlignment="Start"
                                                                     LineBreakMode="WordWrap"
-                                                                    Text="{Binding Value}"
+                                                                    Text="{Binding NameRank}"
                                                                     VerticalOptions="Center" />
                                                             </Grid>
                                                             <Label
                                                                 FontSize="12"
                                                                 HorizontalOptions="Start"
                                                                 HorizontalTextAlignment="Start"
+                                                                IsVisible="{Binding Comment, Converter={StaticResource NullOrEmptyToBoolConverter}}"
                                                                 LineBreakMode="WordWrap"
-                                                                Text="Nhận xét: Bạn đã điều khiển xe rất tốt. Bạn hãy tiếp tục phát huy"
+                                                                Text="{Binding Comment}"
                                                                 VerticalOptions="Center" />
                                                         </StackLayout>
-
                                                     </DataTemplate>
                                                 </controls:HorizontalList.ItemTemplate>
                                             </controls:HorizontalList>
@@ -400,24 +373,23 @@
                                                     HorizontalOptions="CenterAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     LineBreakMode="WordWrap"
-                                                    Text="50"
+                                                    Text="{Binding EvaluationType1.TotalScore}"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     Grid.Column="4"
                                                     HorizontalOptions="CenterAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     LineBreakMode="WordWrap"
-                                                    Text="C"
+                                                    Text="{Binding EvaluationType1.TotalRank}"
                                                     VerticalOptions="Center" />
                                             </Grid>
                                         </Grid>
-
                                     </pancake:PancakeView>
 
                                     <StackLayout
                                         BackgroundColor="Transparent"
                                         HorizontalOptions="Center"
-                                        IsVisible="{Binding PolarData1, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                                        IsVisible="{Binding EvaluationType1.Evaluations, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
                                         Spacing="10"
                                         VerticalOptions="Center">
                                         <!--  Image for display svg image  -->
@@ -430,12 +402,9 @@
                                         <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
                                     </StackLayout>
                                 </Grid>
-
-
                             </Grid>
                         </Grid>
                     </ScrollView>
-
                 </tabView:SfTabItem.Content>
             </tabView:SfTabItem>
 
@@ -445,7 +414,8 @@
                 TitleFontColor="White"
                 TitleFontSize="14">
                 <tabView:SfTabItem.Content>
-                    <ScrollView>
+                    <Grid />
+                    <!--<ScrollView>
                         <Grid
                             Padding="10"
                             BackgroundColor="{DynamicResource WhiteColor}"
@@ -479,7 +449,6 @@
                                             Text="Ngày trước"
                                             VerticalOptions="Center" />
                                     </StackLayout>
-
                                 </pancake:PancakeView>
                                 <pancake:PancakeView
                                     Grid.Column="1"
@@ -546,7 +515,6 @@
                                             VerticalOptions="Center"
                                             WidthRequest="15" />
                                     </StackLayout>
-
                                 </pancake:PancakeView>
                             </Grid>
                             <Grid Grid.Row="1">
@@ -608,7 +576,6 @@
                                             StrokeWidth="2"
                                             XBindingPath="Name"
                                             YBindingPath="Value" />
-
                                     </chart:SfChart.Series>
                                 </chart:SfChart>
                             </Grid>
@@ -736,7 +703,6 @@
                                                                 Text="Nhận xét: Bạn đã điều khiển xe rất tốt. Bạn hãy tiếp tục phát huy"
                                                                 VerticalOptions="Center" />
                                                         </StackLayout>
-
                                                     </DataTemplate>
                                                 </controls:HorizontalList.ItemTemplate>
                                             </controls:HorizontalList>
@@ -799,7 +765,6 @@
                                                     VerticalOptions="Center" />
                                             </Grid>
                                         </Grid>
-
                                     </pancake:PancakeView>
 
                                     <StackLayout
@@ -808,20 +773,23 @@
                                         IsVisible="{Binding PolarData1, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
                                         Spacing="10"
                                         VerticalOptions="Center">
-                                        <!--  Image for display svg image  -->
+                    -->
+                    <!--  Image for display svg image  -->
+                    <!--
                                         <ffsvg:SvgCachedImage
                                             HeightRequest="200"
                                             Source="NoItem.svg"
                                             VerticalOptions="Center"
                                             WidthRequest="200" />
-                                        <!--  Label to display content  -->
+                    -->
+                    <!--  Label to display content  -->
+                    <!--
                                         <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
                                     </StackLayout>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </ScrollView>
-
+                    </ScrollView>-->
                 </tabView:SfTabItem.Content>
             </tabView:SfTabItem>
         </tabView:SfTabView>

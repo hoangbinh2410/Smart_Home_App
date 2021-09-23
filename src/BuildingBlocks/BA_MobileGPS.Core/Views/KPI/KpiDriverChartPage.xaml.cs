@@ -8,5 +8,30 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
         }
+
+        private void NumericalAxis_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)
+        {
+            int data = int.Parse(e.LabelContent);
+            if (data == 5)
+            {
+                e.LabelContent = "A";
+            }
+            if (data == 4)
+            {
+                e.LabelContent = "B";
+            }
+            if (data == 3)
+            {
+                e.LabelContent = "C";
+            }
+            if (data == 2)
+            {
+                e.LabelContent = "D";
+            }
+            if (data == 1)
+            {
+                e.LabelContent = "E";
+            }
+        }
     }
 }

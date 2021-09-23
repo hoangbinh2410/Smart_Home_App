@@ -9,5 +9,7 @@ namespace BA_MobileGPS.Service
         Task<List<DriverRankingRespone>> GetDriverRankingByDay(DriverRankingRequest request);
 
         Task<List<DriverRankingRespone>> GetDriverRankingByMonth(DriverRankingRequest request);
+
+        Task<DriverKpiChartRespone> GetDriverKpiChart(DriverKpiChartRequest request);
     }
 }

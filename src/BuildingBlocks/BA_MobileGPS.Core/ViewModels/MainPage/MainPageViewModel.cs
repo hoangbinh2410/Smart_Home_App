@@ -612,14 +612,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     companyType = Settings.CurrentCompany.CompanyType;
                 }
                 int vehicleGroup = 0;
-                LoggerHelper.WriteLog("GetListVehicleOnline", "Start Call API");
-
                 RunOnBackground(async () =>
                 {
                     return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
                 }, (result) =>
                 {
-                    LoggerHelper.WriteLog("GetListVehicleOnline", $"End Call API+{result.Count}");
                     if (result != null && result.Count > 0)
                     {
                         result.ForEach(x =>
