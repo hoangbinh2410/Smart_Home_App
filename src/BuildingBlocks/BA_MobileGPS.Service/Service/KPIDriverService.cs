@@ -42,6 +42,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_DEVICESINFO}";
+
                 var respone = await requestProvider.PostAsync<DriverRankingRequest, ResponseBaseV2<List<DriverRankingRespone>>>(url, request);
                 if (respone != null && respone.Data != null)
                 {

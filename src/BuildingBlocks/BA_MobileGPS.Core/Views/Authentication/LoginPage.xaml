@@ -116,6 +116,7 @@
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
+                        x:Name="textPass"
                         Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
                         FocusedColor="Transparent"
