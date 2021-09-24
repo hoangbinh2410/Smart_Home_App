@@ -34,7 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
-            GetDriverKpiChart();
         }
 
         public override void OnDestroy()
@@ -45,6 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            GetDriverKpiChart();
         }
 
         public override void OnPageAppearingFirstTime()
@@ -55,6 +55,9 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private bool isLoading = true;
+        public bool IsLoading { get => isLoading; set => SetProperty(ref isLoading, value); }
 
         private int selectedTabIndex = 0;
         public int SelectedTabIndex { get => selectedTabIndex; set => SetProperty(ref selectedTabIndex, value); }
@@ -89,6 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetDriverKpiChart()
         {
+            IsLoading = true;
             RunOnBackground(async () =>
             {
                 return await _KPIDriverService.GetDriverKpiChart(new Entities.DriverKpiChartRequest()
@@ -104,7 +108,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     GenChartEvaluationType1(result.EvaluationsByType);
                     GenChartEvaluationType2(result.EvaluationsByType);
                 }
-            }, showLoading: true);
+                IsLoading = false;
+            });
         }
 
         private void GenChartEvaluationType1(List<EvaluationsByType> list)
