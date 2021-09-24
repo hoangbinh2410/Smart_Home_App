@@ -141,7 +141,7 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 InputTransparent="True"
                                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                                Text="{Binding DateTab1, Converter={StaticResource DateConverter}}"
+                                                Text="{Binding DateSearch, Converter={StaticResource DateConverter}}"
                                                 VerticalOptions="Center">
                                                 <Entry.Effects>
                                                     <effects:BorderlessEffect />
@@ -508,7 +508,7 @@
                                                 HorizontalOptions="FillAndExpand"
                                                 InputTransparent="True"
                                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                                Text="{Binding DateTab2, Converter={StaticResource DateConverter}}"
+                                                Text="{Binding DateSearch, Converter={StaticResource DateConverter}}"
                                                 VerticalOptions="Center">
                                                 <Entry.Effects>
                                                     <effects:BorderlessEffect />

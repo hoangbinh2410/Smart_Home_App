@@ -34,6 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            GetDriverKpiChart();
         }
 
         public override void OnDestroy()
@@ -44,7 +45,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            GetDriverKpiChart();
         }
 
         public override void OnPageAppearingFirstTime()
@@ -62,11 +62,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private int selectedTabIndex = 0;
         public int SelectedTabIndex { get => selectedTabIndex; set => SetProperty(ref selectedTabIndex, value); }
 
-        private DateTime dateTab1 = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
-        public virtual DateTime DateTab1 { get => dateTab1; set => SetProperty(ref dateTab1, value); }
-
-        private DateTime dateTab2 = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
-        public virtual DateTime DateTab2 { get => dateTab2; set => SetProperty(ref dateTab2, value); }
+        private DateTime dateSearch = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+        public virtual DateTime DateSearch { get => dateSearch; set => SetProperty(ref dateSearch, value); }
 
         private ChartSeriesCollection chartSeries = new ChartSeriesCollection();
         public ChartSeriesCollection ChartSeries { get => chartSeries; set => SetProperty(ref chartSeries, value); }
@@ -98,8 +95,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await _KPIDriverService.GetDriverKpiChart(new Entities.DriverKpiChartRequest()
                 {
                     DriverID = 270487,
-                    FromDate = "06/08/2020",
-                    ToDate = "06/08/2020"
+                    FromDate = DateSearch.ToString("dd/MM/yyyy"),
+                    ToDate = DateSearch.ToString("dd/MM/yyyy")
                 });
             }, (result) =>
             {
@@ -110,6 +107,26 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 IsLoading = false;
             });
+        }
+
+        private void GetDriverKpiChartSearch()
+        {
+            RunOnBackground(async () =>
+            {
+                return await _KPIDriverService.GetDriverKpiChart(new Entities.DriverKpiChartRequest()
+                {
+                    DriverID = 270487,
+                    FromDate = DateSearch.ToString("dd/MM/yyyy"),
+                    ToDate = DateSearch.ToString("dd/MM/yyyy")
+                });
+            }, (result) =>
+            {
+                if (result != null && result.EvaluationsByType != null && result.EvaluationsByType.Count > 0)
+                {
+                    GenChartEvaluationType1(result.EvaluationsByType);
+                    GenChartEvaluationType2(result.EvaluationsByType);
+                }
+            }, showLoading: true);
         }
 
         private void GenChartEvaluationType1(List<EvaluationsByType> list)
@@ -271,14 +288,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (param.PickerType == (short)ComboboxType.First)
                 {
-                    if (SelectedTabIndex == 0)
-                    {
-                        DateTab1 = param.Value;
-                    }
-                    else
-                    {
-                        DateTab2 = param.Value;
-                    }
+                    DateSearch = param.Value;
+                    GetDriverKpiChartSearch();
                 }
             }
         }
@@ -287,15 +298,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                DateTime date = DateTab1;
-                if (SelectedTabIndex == 0)
-                {
-                    date = DateTab1;
-                }
-                else
-                {
-                    date = DateTab2;
-                }
+                DateTime date = DateSearch;
                 var parameters = new NavigationParameters
                 {
                     { "DataPicker", date },
@@ -309,14 +312,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
-                if (SelectedTabIndex == 0)
-                {
-                    DateTab1 = DateTab1.AddDays(-1);
-                }
-                else
-                {
-                    DateTab2 = DateTab2.AddDays(-1);
-                }
+                DateSearch = DateSearch.AddDays(-1);
+                GetDriverKpiChartSearch();
             });
         }
 
@@ -324,13 +321,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(() =>
             {
-                if (SelectedTabIndex == 0)
+                if (DateSearch.Date <= DateTime.Today)
                 {
-                    DateTab1 = DateTab1.AddDays(1);
-                }
-                else
-                {
-                    DateTab2 = DateTab2.AddDays(1);
+                    DateSearch = DateSearch.AddDays(1);
+                    GetDriverKpiChartSearch();
                 }
             });
         }
