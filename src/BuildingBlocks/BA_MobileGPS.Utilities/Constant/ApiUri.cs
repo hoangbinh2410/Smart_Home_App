@@ -330,5 +330,9 @@
 
         public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
         #endregion
+
+        #region KPI
+        public const string GET_DRIVERKPI_CHART = "api/kpidriver/getdriverkpichart";
+        #endregion
     }
 }

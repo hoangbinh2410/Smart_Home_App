@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.KpiDriverChartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
+            <chart:ChartColorCollection x:Key="Colors">
+                <Color>#E63C2B</Color>
+                <Color>#3B54A1</Color>
+            </chart:ChartColorCollection>
+            <chart:ChartColorCollection x:Key="Colors2">
+                <Color>#E63C2B</Color>
+                <Color>#31CB73</Color>
+            </chart:ChartColorCollection>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Đánh giá tiêu chí lái xe"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <tabView:SfTabView
+            x:Name="tabview"
+            BackgroundColor="{DynamicResource PrimaryColor}"
+            DisplayMode="Text"
+            SelectedIndex="{Binding SelectedTabIndex}"
+            VisibleHeaderCount="2">
+
+            <tabView:SfTabView.SelectionIndicatorSettings>
+                <tabView:SelectionIndicatorSettings
+                    Position="Fill"
+                    StrokeThickness="10"
+                    Color="{DynamicResource WhiteColor}" />
+            </tabView:SfTabView.SelectionIndicatorSettings>
+
+            <tabView:SfTabItem
+                Title="AN TOÀN"
+                SelectionColor="{DynamicResource PrimaryColor}"
+                TitleFontColor="White"
+                TitleFontSize="14">
+                <tabView:SfTabItem.Content>
+                    <ScrollView>
+                        <Grid
+                            Padding="10"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            RowDefinitions="Auto,Auto,300,*">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                                <pancake:PancakeView
+                                    Grid.Column="0"
+                                    Padding="10,0"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="18"
+                                    HeightRequest="35"
+                                    VerticalOptions="Center">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PreviosTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="#CED6E0" />
+                                    </pancake:PancakeView.Border>
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Center"
+                                            Rotation="90"
+                                            Source="ic_sortdown.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="15" />
+                                        <Label
+                                            LineBreakMode="TailTruncation"
+                                            Text="Ngày trước"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="18"
+                                    HeightRequest="35"
+                                    VerticalOptions="Center">
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="#CED6E0" />
+                                    </pancake:PancakeView.Border>
+                                    <StackLayout
+                                        Padding="5,0,5,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        VerticalOptions="Center">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Entry
+                                            FontSize="{StaticResource FontSize12}"
+                                            HorizontalOptions="FillAndExpand"
+                                            InputTransparent="True"
+                                            Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
+                                            Text="{Binding DateTab1, Converter={StaticResource DateConverter}}"
+                                            VerticalOptions="Center">
+                                            <Entry.Effects>
+                                                <effects:BorderlessEffect />
+                                            </Entry.Effects>
+                                        </Entry>
+                                        <controls:IconView
+                                            Foreground="{DynamicResource BlackColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            Source="ic_date_range_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="2"
+                                    Padding="10,0"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="18"
+                                    HeightRequest="35"
+                                    VerticalOptions="Center">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NextTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="#CED6E0" />
+                                    </pancake:PancakeView.Border>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            LineBreakMode="TailTruncation"
+                                            Text="Ngày sau"
+                                            VerticalOptions="Center" />
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Center"
+                                            Rotation="270"
+                                            Source="ic_sortdown.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="15" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnDefinitions=".5*,.5*">
+                                <pancake:PancakeView
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType1.TotalScore}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Tổng điểm"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType1.TotalRank}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Xếp hạng"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <chart:SfChart
+                                    x:Name="Chart"
+                                    HorizontalOptions="FillAndExpand"
+                                    Series="{Binding ChartSeries}"
+                                    VerticalOptions="FillAndExpand">
+
+                                    <chart:SfChart.PrimaryAxis>
+                                        <chart:CategoryAxis x:Name="primary">
+                                            <chart:CategoryAxis.LabelStyle>
+                                                <chart:ChartAxisLabelStyle
+                                                    MaxWidth="80"
+                                                    LabelAlignment="Center"
+                                                    WrappedLabelAlignment="Center" />
+                                            </chart:CategoryAxis.LabelStyle>
+                                        </chart:CategoryAxis>
+                                    </chart:SfChart.PrimaryAxis>
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis
+                                            Interval="1"
+                                            LabelCreated="NumericalAxis_LabelCreated"
+                                            Maximum="5"
+                                            Minimum="1">
+                                            <chart:NumericalAxis.LabelStyle>
+                                                <chart:ChartAxisLabelStyle x:Name="secondaryAxisLabelStyle" />
+                                            </chart:NumericalAxis.LabelStyle>
+                                        </chart:NumericalAxis>
+                                    </chart:SfChart.SecondaryAxis>
+                                    <chart:SfChart.Legend>
+                                        <chart:ChartLegend
+                                            x:Name="chartLegend"
+                                            DockPosition="Bottom"
+                                            IconHeight="14"
+                                            IconWidth="14"
+                                            ToggleSeriesVisibility="True">
+                                            <chart:ChartLegend.LabelStyle>
+
+                                                <chart:ChartLegendLabelStyle Margin="5" />
+                                            </chart:ChartLegend.LabelStyle>
+                                        </chart:ChartLegend>
+                                    </chart:SfChart.Legend>
+                                    <chart:SfChart.ColorModel>
+                                        <chart:ChartColorModel CustomBrushes="{StaticResource Colors}" Palette="Custom" />
+                                    </chart:SfChart.ColorModel>
+                                </chart:SfChart>
+                            </Grid>
+                            <Grid Grid.Row="3" RowDefinitions="Auto,*">
+                                <Label
+                                    Grid.Row="0"
+                                    FontSize="20"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="WordWrap"
+                                    Text="Bảng tiêu chí an toàn"
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    VerticalOptions="Center" />
+
+                                <Grid
+                                    Grid.Row="1"
+                                    BackgroundColor="#F7F7FA"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <pancake:PancakeView
+                                        Grid.Row="0"
+                                        Padding="0"
+                                        BackgroundColor="#F7F7FA"
+                                        CornerRadius="5"
+                                        HorizontalOptions="FillAndExpand">
+                                        <pancake:PancakeView.Border>
+                                            <pancake:Border Thickness="1" Color="#CED6E0" />
+                                        </pancake:PancakeView.Border>
+                                        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="0">
+                                            <Grid
+                                                Grid.Row="0"
+                                                Padding="10"
+                                                BackgroundColor="#F7F7FA"
+                                                ColumnDefinitions="*,70,70"
+                                                ColumnSpacing="1">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Tiêu chí"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Điểm"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="2"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="XH"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                            <Grid
+                                                Grid.Row="1"
+                                                Padding="10"
+                                                BackgroundColor="#CED6E0"
+                                                ColumnDefinitions="*,70,70"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    StyleClass="BoldText"
+                                                    Text="Tiêu chí an toàn"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding EvaluationType1.TotalScore}"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="2"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding EvaluationType1.TotalRank}"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                            <controls:HorizontalList
+                                                Grid.Row="2"
+                                                Padding="0"
+                                                ItemsSource="{Binding EvaluationType1.Evaluations, Mode=TwoWay}"
+                                                Spacing="1">
+
+                                                <controls:HorizontalList.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackLayout Padding="10" BackgroundColor="White">
+                                                            <Grid ColumnDefinitions="*,70,70">
+                                                                <Label
+                                                                    Grid.Column="0"
+                                                                    HorizontalOptions="Start"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding Name}"
+                                                                    TextColor="{StaticResource PrimaryColor}"
+                                                                    VerticalOptions="Center" />
+
+                                                                <Label
+                                                                    Grid.Column="1"
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding Score}"
+                                                                    VerticalOptions="Center" />
+                                                                <Label
+                                                                    Grid.Column="2"
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding NameRank}"
+                                                                    VerticalOptions="Center" />
+                                                            </Grid>
+                                                            <Label
+                                                                FontSize="12"
+                                                                HorizontalOptions="Start"
+                                                                HorizontalTextAlignment="Start"
+                                                                IsVisible="{Binding Comment, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                                                                LineBreakMode="WordWrap"
+                                                                Text="{Binding Comment}"
+                                                                VerticalOptions="Center" />
+                                                        </StackLayout>
+                                                    </DataTemplate>
+                                                </controls:HorizontalList.ItemTemplate>
+                                            </controls:HorizontalList>
+                                        </Grid>
+                                    </pancake:PancakeView>
+
+                                    <StackLayout
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="Center"
+                                        IsVisible="{Binding EvaluationType1.Evaluations, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                                        Spacing="10"
+                                        VerticalOptions="Center">
+                                        <!--  Image for display svg image  -->
+                                        <ffsvg:SvgCachedImage
+                                            HeightRequest="200"
+                                            Source="NoItem.svg"
+                                            VerticalOptions="Center"
+                                            WidthRequest="200" />
+                                        <!--  Label to display content  -->
+                                        <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ScrollView>
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+
+            <tabView:SfTabItem
+                Title="TIẾT KIỆM"
+                SelectionColor="{DynamicResource PrimaryColor}"
+                TitleFontColor="White"
+                TitleFontSize="14">
+                <tabView:SfTabItem.Content>
+                    <ScrollView>
+                        <Grid
+                            Padding="10"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            RowDefinitions="Auto,Auto,300,*">
+                            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                                <pancake:PancakeView
+                                    Grid.Column="0"
+                                    Padding="10,0"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="18"
+                                    HeightRequest="35"
+                                    VerticalOptions="Center">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PreviosTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="#CED6E0" />
+                                    </pancake:PancakeView.Border>
+                                    <StackLayout Orientation="Horizontal">
+
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Center"
+                                            Rotation="90"
+                                            Source="ic_sortdown.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="15" />
+                                        <Label
+                                            LineBreakMode="TailTruncation"
+                                            Text="Ngày trước"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="18"
+                                    HeightRequest="35"
+                                    VerticalOptions="Center">
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="#CED6E0" />
+                                    </pancake:PancakeView.Border>
+                                    <StackLayout
+                                        Padding="5,0,5,0"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        VerticalOptions="Center">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PushToFromDatePageCommand}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Entry
+                                            FontSize="{StaticResource FontSize12}"
+                                            HorizontalOptions="FillAndExpand"
+                                            InputTransparent="True"
+                                            Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
+                                            Text="{Binding DateTab2, Converter={StaticResource DateConverter}}"
+                                            VerticalOptions="Center">
+                                            <Entry.Effects>
+                                                <effects:BorderlessEffect />
+                                            </Entry.Effects>
+                                        </Entry>
+                                        <controls:IconView
+                                            Foreground="{DynamicResource BlackColor}"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            Source="ic_date_range_black.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="20" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="2"
+                                    Padding="10,0"
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    CornerRadius="18"
+                                    HeightRequest="35"
+                                    VerticalOptions="Center">
+                                    <pancake:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NextTimeCommand}" />
+                                    </pancake:PancakeView.GestureRecognizers>
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="1" Color="#CED6E0" />
+                                    </pancake:PancakeView.Border>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            LineBreakMode="TailTruncation"
+                                            Text="Ngày sau"
+                                            VerticalOptions="Center" />
+                                        <controls:IconView
+                                            Foreground="{StaticResource PrimaryColor}"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Center"
+                                            Rotation="270"
+                                            Source="ic_sortdown.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="15" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
+                            <Grid Grid.Row="1" ColumnDefinitions=".5*,.5*">
+                                <pancake:PancakeView
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType2.TotalScore}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Tổng điểm"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType2.TotalRank}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Xếp hạng"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <chart:SfChart
+                                    HorizontalOptions="FillAndExpand"
+                                    Series="{Binding ChartSeries2}"
+                                    VerticalOptions="FillAndExpand">
+
+                                    <chart:SfChart.PrimaryAxis>
+                                        <chart:CategoryAxis>
+                                            <chart:CategoryAxis.LabelStyle>
+                                                <chart:ChartAxisLabelStyle
+                                                    MaxWidth="80"
+                                                    LabelAlignment="Center"
+                                                    WrappedLabelAlignment="Center" />
+                                            </chart:CategoryAxis.LabelStyle>
+                                        </chart:CategoryAxis>
+                                    </chart:SfChart.PrimaryAxis>
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis
+                                            Interval="1"
+                                            LabelCreated="NumericalAxis_LabelCreated"
+                                            Maximum="5"
+                                            Minimum="1">
+                                            <chart:NumericalAxis.LabelStyle>
+                                                <chart:ChartAxisLabelStyle />
+                                            </chart:NumericalAxis.LabelStyle>
+                                        </chart:NumericalAxis>
+                                    </chart:SfChart.SecondaryAxis>
+                                    <chart:SfChart.Legend>
+                                        <chart:ChartLegend
+                                            DockPosition="Bottom"
+                                            IconHeight="14"
+                                            IconWidth="14"
+                                            ToggleSeriesVisibility="True">
+                                            <chart:ChartLegend.LabelStyle>
+
+                                                <chart:ChartLegendLabelStyle Margin="5" />
+                                            </chart:ChartLegend.LabelStyle>
+                                        </chart:ChartLegend>
+                                    </chart:SfChart.Legend>
+                                    <chart:SfChart.ColorModel>
+                                        <chart:ChartColorModel CustomBrushes="{StaticResource Colors2}" Palette="Custom" />
+                                    </chart:SfChart.ColorModel>
+                                </chart:SfChart>
+                            </Grid>
+                            <Grid Grid.Row="3" RowDefinitions="Auto,*">
+                                <Label
+                                    Grid.Row="0"
+                                    FontSize="20"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    LineBreakMode="WordWrap"
+                                    Text="Bảng tiêu chí tiết kiệm"
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    VerticalOptions="Center" />
+
+                                <Grid
+                                    Grid.Row="1"
+                                    BackgroundColor="#F7F7FA"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <pancake:PancakeView
+                                        Grid.Row="0"
+                                        Padding="0"
+                                        BackgroundColor="#F7F7FA"
+                                        CornerRadius="5"
+                                        HorizontalOptions="FillAndExpand">
+                                        <pancake:PancakeView.Border>
+                                            <pancake:Border Thickness="1" Color="#CED6E0" />
+                                        </pancake:PancakeView.Border>
+                                        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="0">
+                                            <Grid
+                                                Grid.Row="0"
+                                                Padding="10"
+                                                BackgroundColor="#F7F7FA"
+                                                ColumnDefinitions="*,70,70"
+                                                ColumnSpacing="1">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Tiêu chí"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="Điểm"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="2"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="XH"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                            <Grid
+                                                Grid.Row="1"
+                                                Padding="10"
+                                                BackgroundColor="#CED6E0"
+                                                ColumnDefinitions="*,70,70"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Label
+                                                    Grid.ColumnSpan="3"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    StyleClass="BoldText"
+                                                    Text="Tiêu chí tiết kiệm"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="3"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding EvaluationType2.TotalScore}"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="4"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding EvaluationType2.TotalRank}"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                            <controls:HorizontalList
+                                                Grid.Row="2"
+                                                Padding="0"
+                                                ItemsSource="{Binding EvaluationType2.Evaluations, Mode=TwoWay}"
+                                                Spacing="1">
+
+                                                <controls:HorizontalList.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackLayout Padding="10" BackgroundColor="White">
+                                                            <Grid ColumnDefinitions="*,70,70">
+                                                                <Label
+                                                                    Grid.Column="0"
+                                                                    HorizontalOptions="Start"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding Name}"
+                                                                    TextColor="{StaticResource PrimaryColor}"
+                                                                    VerticalOptions="Center" />
+
+                                                                <Label
+                                                                    Grid.Column="1"
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding Score}"
+                                                                    VerticalOptions="Center" />
+                                                                <Label
+                                                                    Grid.Column="2"
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding NameRank}"
+                                                                    VerticalOptions="Center" />
+                                                            </Grid>
+                                                            <Label
+                                                                FontSize="12"
+                                                                HorizontalOptions="Start"
+                                                                HorizontalTextAlignment="Start"
+                                                                IsVisible="{Binding Comment, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                                                                LineBreakMode="WordWrap"
+                                                                Text="{Binding Comment}"
+                                                                VerticalOptions="Center" />
+                                                        </StackLayout>
+                                                    </DataTemplate>
+                                                </controls:HorizontalList.ItemTemplate>
+                                            </controls:HorizontalList>
+                                        </Grid>
+                                    </pancake:PancakeView>
+
+                                    <StackLayout
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="Center"
+                                        IsVisible="{Binding EvaluationType1.Evaluations, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
+                                        Spacing="10"
+                                        VerticalOptions="Center">
+                                        <!--  Image for display svg image  -->
+                                        <ffsvg:SvgCachedImage
+                                            HeightRequest="200"
+                                            Source="NoItem.svg"
+                                            VerticalOptions="Center"
+                                            WidthRequest="200" />
+                                        <!--  Label to display content  -->
+                                        <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
+                                    </StackLayout>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ScrollView>
+                </tabView:SfTabItem.Content>
+            </tabView:SfTabItem>
+        </tabView:SfTabView>
+    </ContentPage.Content>
+</ContentPage>
