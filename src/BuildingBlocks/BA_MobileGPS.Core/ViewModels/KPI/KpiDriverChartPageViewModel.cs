@@ -1,21 +1,31 @@
 ﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Utilities;
+using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.SfChart.XForms;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class KpiDriverChartPageViewModel : ViewModelBase
     {
         private readonly IKPIDriverService _KPIDriverService;
+        public ICommand PushToFromDatePageCommand { get; private set; }
+        public ICommand NextTimeCommand { get; private set; }
+        public ICommand PreviosTimeCommand { get; private set; }
 
         public KpiDriverChartPageViewModel(INavigationService navigationService, IKPIDriverService KPIDriverService) : base(navigationService)
         {
             Title = "Điểm xếp hạng lái xe";
             _KPIDriverService = KPIDriverService;
+            PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
+            NextTimeCommand = new DelegateCommand(NextTime);
+            PreviosTimeCommand = new DelegateCommand(PreviosTime);
         }
 
         #region Lifecycle
@@ -23,11 +33,13 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             GetDriverKpiChart();
         }
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -43,6 +55,15 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
+        private int selectedTabIndex = 0;
+        public int SelectedTabIndex { get => selectedTabIndex; set => SetProperty(ref selectedTabIndex, value); }
+
+        private DateTime dateTab1 = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+        public virtual DateTime DateTab1 { get => dateTab1; set => SetProperty(ref dateTab1, value); }
+
+        private DateTime dateTab2 = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+        public virtual DateTime DateTab2 { get => dateTab2; set => SetProperty(ref dateTab2, value); }
 
         private ChartSeriesCollection chartSeries = new ChartSeriesCollection();
         public ChartSeriesCollection ChartSeries { get => chartSeries; set => SetProperty(ref chartSeries, value); }
@@ -237,6 +258,76 @@ namespace BA_MobileGPS.Core.ViewModels
             };
 
             return list.FirstOrDefault(x => x.OrderDisPlay == orderDisPlay);
+        }
+
+        public void UpdateDateTime(PickerDateTimeResponse param)
+        {
+            if (param != null)
+            {
+                if (param.PickerType == (short)ComboboxType.First)
+                {
+                    if (SelectedTabIndex == 0)
+                    {
+                        DateTab1 = param.Value;
+                    }
+                    else
+                    {
+                        DateTab2 = param.Value;
+                    }
+                }
+            }
+        }
+
+        public void ExecuteToFromDate()
+        {
+            SafeExecute(async () =>
+            {
+                DateTime date = DateTab1;
+                if (SelectedTabIndex == 0)
+                {
+                    date = DateTab1;
+                }
+                else
+                {
+                    date = DateTab2;
+                }
+                var parameters = new NavigationParameters
+                {
+                    { "DataPicker", date },
+                    { "PickerType", ComboboxType.First }
+                };
+                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+            });
+        }
+
+        private void PreviosTime()
+        {
+            SafeExecute(() =>
+            {
+                if (SelectedTabIndex == 0)
+                {
+                    DateTab1 = DateTab1.AddDays(-1);
+                }
+                else
+                {
+                    DateTab2 = DateTab2.AddDays(-1);
+                }
+            });
+        }
+
+        private void NextTime()
+        {
+            SafeExecute(() =>
+            {
+                if (SelectedTabIndex == 0)
+                {
+                    DateTab1 = DateTab1.AddDays(1);
+                }
+                else
+                {
+                    DateTab2 = DateTab2.AddDays(1);
+                }
+            });
         }
     }
 

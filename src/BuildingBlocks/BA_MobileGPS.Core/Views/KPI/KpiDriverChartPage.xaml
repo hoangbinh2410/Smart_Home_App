@@ -138,7 +138,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="{Binding FromDate, Converter={StaticResource DateConverter}}"
+                                            Text="{Binding DateTab1, Converter={StaticResource DateConverter}}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />
@@ -284,7 +284,6 @@
                                     <chart:SfChart.ColorModel>
                                         <chart:ChartColorModel CustomBrushes="{StaticResource Colors}" Palette="Custom" />
                                     </chart:SfChart.ColorModel>
-
                                 </chart:SfChart>
                             </Grid>
                             <Grid Grid.Row="3" RowDefinitions="Auto,*">
@@ -416,7 +415,6 @@
                                                     </DataTemplate>
                                                 </controls:HorizontalList.ItemTemplate>
                                             </controls:HorizontalList>
-
                                         </Grid>
                                     </pancake:PancakeView>
 
@@ -506,7 +504,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="{Binding FromDate, Converter={StaticResource DateConverter}}"
+                                            Text="{Binding DateTab2, Converter={StaticResource DateConverter}}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />
@@ -650,7 +648,6 @@
                                     <chart:SfChart.ColorModel>
                                         <chart:ChartColorModel CustomBrushes="{StaticResource Colors2}" Palette="Custom" />
                                     </chart:SfChart.ColorModel>
-
                                 </chart:SfChart>
                             </Grid>
                             <Grid Grid.Row="3" RowDefinitions="Auto,*">
@@ -711,7 +708,7 @@
                                                 Grid.Row="1"
                                                 Padding="10"
                                                 BackgroundColor="#CED6E0"
-                                                ColumnDefinitions="*,50,50,50,50"
+                                                ColumnDefinitions="*,70,70"
                                                 VerticalOptions="CenterAndExpand">
                                                 <Label
                                                     Grid.ColumnSpan="3"
@@ -782,7 +779,6 @@
                                                     </DataTemplate>
                                                 </controls:HorizontalList.ItemTemplate>
                                             </controls:HorizontalList>
-
                                         </Grid>
                                     </pancake:PancakeView>
 
