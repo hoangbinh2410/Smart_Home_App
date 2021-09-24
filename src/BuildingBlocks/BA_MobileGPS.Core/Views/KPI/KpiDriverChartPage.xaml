@@ -84,7 +84,7 @@
                         <Grid
                             Padding="10"
                             BackgroundColor="{DynamicResource WhiteColor}"
-                            RowDefinitions="Auto,250,*">
+                            RowDefinitions="Auto,Auto,300,*">
                             <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
                                 <pancake:PancakeView
                                     Grid.Column="0"
@@ -182,7 +182,65 @@
                                     </StackLayout>
                                 </pancake:PancakeView>
                             </Grid>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="1" ColumnDefinitions=".5*,.5*">
+                                <pancake:PancakeView
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType1.TotalScore}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Tổng điểm"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType1.TotalRank}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Xếp hạng"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
+                            <Grid Grid.Row="2">
                                 <chart:SfChart
                                     x:Name="Chart"
                                     HorizontalOptions="FillAndExpand"
@@ -229,7 +287,7 @@
 
                                 </chart:SfChart>
                             </Grid>
-                            <Grid Grid.Row="2" RowDefinitions="Auto,*">
+                            <Grid Grid.Row="3" RowDefinitions="Auto,*">
                                 <Label
                                     Grid.Row="0"
                                     FontSize="20"
@@ -254,12 +312,12 @@
                                         <pancake:PancakeView.Border>
                                             <pancake:Border Thickness="1" Color="#CED6E0" />
                                         </pancake:PancakeView.Border>
-                                        <Grid RowDefinitions="Auto,*,Auto">
+                                        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="0">
                                             <Grid
                                                 Grid.Row="0"
                                                 Padding="10"
                                                 BackgroundColor="#F7F7FA"
-                                                ColumnDefinitions="*,50,50,50,50"
+                                                ColumnDefinitions="*,70,70"
                                                 ColumnSpacing="1">
                                                 <Label
                                                     Grid.Column="0"
@@ -273,33 +331,47 @@
                                                     HorizontalOptions="CenterAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     LineBreakMode="WordWrap"
-                                                    Text="Đơn vị"
+                                                    Text="Điểm"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     Grid.Column="2"
                                                     HorizontalOptions="CenterAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     LineBreakMode="WordWrap"
-                                                    Text="Kết quả"
-                                                    VerticalOptions="Center" />
-
-                                                <Label
-                                                    Grid.Column="3"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    Text="Điểm"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    Grid.Column="4"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
                                                     Text="XH"
                                                     VerticalOptions="Center" />
                                             </Grid>
-                                            <controls:HorizontalList
+                                            <Grid
                                                 Grid.Row="1"
+                                                Padding="10"
+                                                BackgroundColor="#CED6E0"
+                                                ColumnDefinitions="*,70,70"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Label
+                                                    Grid.Column="0"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    StyleClass="BoldText"
+                                                    Text="Tiêu chí an toàn"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding EvaluationType1.TotalScore}"
+                                                    VerticalOptions="Center" />
+                                                <Label
+                                                    Grid.Column="2"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineBreakMode="WordWrap"
+                                                    Text="{Binding EvaluationType1.TotalRank}"
+                                                    VerticalOptions="Center" />
+                                            </Grid>
+                                            <controls:HorizontalList
+                                                Grid.Row="2"
                                                 Padding="0"
                                                 ItemsSource="{Binding EvaluationType1.Evaluations, Mode=TwoWay}"
                                                 Spacing="1">
@@ -307,7 +379,7 @@
                                                 <controls:HorizontalList.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackLayout Padding="10" BackgroundColor="White">
-                                                            <Grid ColumnDefinitions="*,50,50,50,50">
+                                                            <Grid ColumnDefinitions="*,70,70">
                                                                 <Label
                                                                     Grid.Column="0"
                                                                     HorizontalOptions="Start"
@@ -316,30 +388,16 @@
                                                                     Text="{Binding Name}"
                                                                     TextColor="{StaticResource PrimaryColor}"
                                                                     VerticalOptions="Center" />
-                                                                <Label
-                                                                    Grid.Column="1"
-                                                                    HorizontalOptions="CenterAndExpand"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding Unit}"
-                                                                    VerticalOptions="Center" />
-                                                                <Label
-                                                                    Grid.Column="2"
-                                                                    HorizontalOptions="CenterAndExpand"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding Value}"
-                                                                    VerticalOptions="Center" />
 
                                                                 <Label
-                                                                    Grid.Column="3"
+                                                                    Grid.Column="1"
                                                                     HorizontalOptions="CenterAndExpand"
                                                                     HorizontalTextAlignment="Start"
                                                                     LineBreakMode="WordWrap"
                                                                     Text="{Binding Score}"
                                                                     VerticalOptions="Center" />
                                                                 <Label
-                                                                    Grid.Column="4"
+                                                                    Grid.Column="2"
                                                                     HorizontalOptions="CenterAndExpand"
                                                                     HorizontalTextAlignment="Start"
                                                                     LineBreakMode="WordWrap"
@@ -358,35 +416,7 @@
                                                     </DataTemplate>
                                                 </controls:HorizontalList.ItemTemplate>
                                             </controls:HorizontalList>
-                                            <Grid
-                                                Grid.Row="2"
-                                                Padding="10"
-                                                BackgroundColor="#F7F7FA"
-                                                ColumnDefinitions="*,50,50,50,50"
-                                                VerticalOptions="CenterAndExpand">
-                                                <Label
-                                                    Grid.ColumnSpan="3"
-                                                    HorizontalOptions="Start"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    StyleClass="BoldText"
-                                                    Text="Tiêu chí an toàn"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    Grid.Column="3"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    Text="{Binding EvaluationType1.TotalScore}"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    Grid.Column="4"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    Text="{Binding EvaluationType1.TotalRank}"
-                                                    VerticalOptions="Center" />
-                                            </Grid>
+
                                         </Grid>
                                     </pancake:PancakeView>
 
@@ -422,7 +452,7 @@
                         <Grid
                             Padding="10"
                             BackgroundColor="{DynamicResource WhiteColor}"
-                            RowDefinitions="Auto,250,*">
+                            RowDefinitions="Auto,Auto,300,*">
                             <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
                                 <pancake:PancakeView
                                     Grid.Column="0"
@@ -520,7 +550,65 @@
                                     </StackLayout>
                                 </pancake:PancakeView>
                             </Grid>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="1" ColumnDefinitions=".5*,.5*">
+                                <pancake:PancakeView
+                                    Grid.Column="0"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType2.TotalScore}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Tổng điểm"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Padding="10"
+                                    BackgroundColor="#FFD8D8"
+                                    CornerRadius="5"
+                                    HorizontalOptions="FillAndExpand">
+                                    <StackLayout Spacing="0">
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="40"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            StyleClass="BoldText"
+                                            Text="{Binding EvaluationType2.TotalRank}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Text="Xếp hạng"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </pancake:PancakeView>
+                            </Grid>
+                            <Grid Grid.Row="2">
                                 <chart:SfChart
                                     HorizontalOptions="FillAndExpand"
                                     Series="{Binding ChartSeries2}"
@@ -565,7 +653,7 @@
 
                                 </chart:SfChart>
                             </Grid>
-                            <Grid Grid.Row="2" RowDefinitions="Auto,*">
+                            <Grid Grid.Row="3" RowDefinitions="Auto,*">
                                 <Label
                                     Grid.Row="0"
                                     FontSize="20"
@@ -590,12 +678,12 @@
                                         <pancake:PancakeView.Border>
                                             <pancake:Border Thickness="1" Color="#CED6E0" />
                                         </pancake:PancakeView.Border>
-                                        <Grid RowDefinitions="Auto,*,Auto">
+                                        <Grid RowDefinitions="Auto,*,Auto" RowSpacing="0">
                                             <Grid
                                                 Grid.Row="0"
                                                 Padding="10"
                                                 BackgroundColor="#F7F7FA"
-                                                ColumnDefinitions="*,50,50,50,50"
+                                                ColumnDefinitions="*,70,70"
                                                 ColumnSpacing="1">
                                                 <Label
                                                     Grid.Column="0"
@@ -609,95 +697,20 @@
                                                     HorizontalOptions="CenterAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     LineBreakMode="WordWrap"
-                                                    Text="Đơn vị"
+                                                    Text="Điểm"
                                                     VerticalOptions="Center" />
                                                 <Label
                                                     Grid.Column="2"
                                                     HorizontalOptions="CenterAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     LineBreakMode="WordWrap"
-                                                    Text="Kết quả"
-                                                    VerticalOptions="Center" />
-
-                                                <Label
-                                                    Grid.Column="3"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    Text="Điểm"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    Grid.Column="4"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
                                                     Text="XH"
                                                     VerticalOptions="Center" />
                                             </Grid>
-                                            <controls:HorizontalList
-                                                Grid.Row="1"
-                                                Padding="0"
-                                                ItemsSource="{Binding EvaluationType2.Evaluations, Mode=TwoWay}"
-                                                Spacing="1">
-
-                                                <controls:HorizontalList.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <StackLayout Padding="10" BackgroundColor="White">
-                                                            <Grid ColumnDefinitions="*,50,50,50,50">
-                                                                <Label
-                                                                    Grid.Column="0"
-                                                                    HorizontalOptions="Start"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding Name}"
-                                                                    TextColor="{StaticResource PrimaryColor}"
-                                                                    VerticalOptions="Center" />
-                                                                <Label
-                                                                    Grid.Column="1"
-                                                                    HorizontalOptions="CenterAndExpand"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding Unit}"
-                                                                    VerticalOptions="Center" />
-                                                                <Label
-                                                                    Grid.Column="2"
-                                                                    HorizontalOptions="CenterAndExpand"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding Value}"
-                                                                    VerticalOptions="Center" />
-
-                                                                <Label
-                                                                    Grid.Column="3"
-                                                                    HorizontalOptions="CenterAndExpand"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding Score}"
-                                                                    VerticalOptions="Center" />
-                                                                <Label
-                                                                    Grid.Column="4"
-                                                                    HorizontalOptions="CenterAndExpand"
-                                                                    HorizontalTextAlignment="Start"
-                                                                    LineBreakMode="WordWrap"
-                                                                    Text="{Binding NameRank}"
-                                                                    VerticalOptions="Center" />
-                                                            </Grid>
-                                                            <Label
-                                                                FontSize="12"
-                                                                HorizontalOptions="Start"
-                                                                HorizontalTextAlignment="Start"
-                                                                IsVisible="{Binding Comment, Converter={StaticResource NullOrEmptyToBoolConverter}}"
-                                                                LineBreakMode="WordWrap"
-                                                                Text="{Binding Comment}"
-                                                                VerticalOptions="Center" />
-                                                        </StackLayout>
-                                                    </DataTemplate>
-                                                </controls:HorizontalList.ItemTemplate>
-                                            </controls:HorizontalList>
                                             <Grid
-                                                Grid.Row="2"
+                                                Grid.Row="1"
                                                 Padding="10"
-                                                BackgroundColor="#F7F7FA"
+                                                BackgroundColor="#CED6E0"
                                                 ColumnDefinitions="*,50,50,50,50"
                                                 VerticalOptions="CenterAndExpand">
                                                 <Label
@@ -723,35 +736,53 @@
                                                     Text="{Binding EvaluationType2.TotalRank}"
                                                     VerticalOptions="Center" />
                                             </Grid>
-                                            <!--<Grid
-                                                Grid.Row="3"
-                                                Padding="10"
-                                                BackgroundColor="#CED6E0"
-                                                ColumnDefinitions="*,50,50,50,50"
-                                                VerticalOptions="CenterAndExpand">
-                                                <Label
-                                                    Grid.ColumnSpan="3"
-                                                    HorizontalOptions="Start"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    StyleClass="BoldText"
-                                                    Text="Đánh giá tổng hợp"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    Grid.Column="3"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    Text="{Binding EvaluationType1.TotalScore}"
-                                                    VerticalOptions="Center" />
-                                                <Label
-                                                    Grid.Column="4"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineBreakMode="WordWrap"
-                                                    Text="{Binding EvaluationType1.TotalRank}"
-                                                    VerticalOptions="Center" />
-                                            </Grid>-->
+                                            <controls:HorizontalList
+                                                Grid.Row="2"
+                                                Padding="0"
+                                                ItemsSource="{Binding EvaluationType2.Evaluations, Mode=TwoWay}"
+                                                Spacing="1">
+
+                                                <controls:HorizontalList.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackLayout Padding="10" BackgroundColor="White">
+                                                            <Grid ColumnDefinitions="*,70,70">
+                                                                <Label
+                                                                    Grid.Column="0"
+                                                                    HorizontalOptions="Start"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding Name}"
+                                                                    TextColor="{StaticResource PrimaryColor}"
+                                                                    VerticalOptions="Center" />
+
+                                                                <Label
+                                                                    Grid.Column="1"
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding Score}"
+                                                                    VerticalOptions="Center" />
+                                                                <Label
+                                                                    Grid.Column="2"
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    HorizontalTextAlignment="Start"
+                                                                    LineBreakMode="WordWrap"
+                                                                    Text="{Binding NameRank}"
+                                                                    VerticalOptions="Center" />
+                                                            </Grid>
+                                                            <Label
+                                                                FontSize="12"
+                                                                HorizontalOptions="Start"
+                                                                HorizontalTextAlignment="Start"
+                                                                IsVisible="{Binding Comment, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                                                                LineBreakMode="WordWrap"
+                                                                Text="{Binding Comment}"
+                                                                VerticalOptions="Center" />
+                                                        </StackLayout>
+                                                    </DataTemplate>
+                                                </controls:HorizontalList.ItemTemplate>
+                                            </controls:HorizontalList>
+
                                         </Grid>
                                     </pancake:PancakeView>
 
