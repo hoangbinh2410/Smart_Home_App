@@ -21,7 +21,7 @@
     </pages:PopupPage.Animation>
     <ContentPage.Content>
         <Frame
-            Margin="30,0,30,0"
+            Margin="40,0,40,0"
             Padding="0"
             BackgroundColor="{DynamicResource WhiteColor}"
             CornerRadius="5"

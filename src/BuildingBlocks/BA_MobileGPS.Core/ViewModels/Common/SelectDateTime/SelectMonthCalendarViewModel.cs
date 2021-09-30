@@ -104,12 +104,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (SelectedTime != null)
                         {
-                            var input = new PickerDateTimeResponse()
+                            var input = new PickerDateResponse()
                             {
-                                Time = SelectedTime[0].ToString() + ":" + SelectedTime[1].ToString(),
+                                Value = new DateTime(int.Parse(SelectedTime[1].ToString()), int.Parse(SelectedTime[0].ToString()), 1, 0, 0, 0),
                                 PickerType = PickerType
                             };
-                            _eventAggregator.GetEvent<SelectTimeEvent>().Publish(input);
+                            _eventAggregator.GetEvent<SelectMonthEvent>().Publish(input);
                             await _navigationService.GoBackAsync();
                         }
                     }

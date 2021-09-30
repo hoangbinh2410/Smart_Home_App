@@ -108,7 +108,7 @@
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
                                     <StackLayout
-                                        Padding="5,0,5,0"
+                                        Padding="10,0,5,0"
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal"
                                         VerticalOptions="Center">
@@ -120,7 +120,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="{Binding FromDate, Converter={StaticResource DateConverter}}"
+                                            Text="{Binding FromDate, StringFormat='{}{0:MM/yyyy}'}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />

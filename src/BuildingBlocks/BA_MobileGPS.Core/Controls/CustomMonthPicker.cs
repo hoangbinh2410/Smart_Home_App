@@ -53,7 +53,7 @@ namespace BA_MobileGPS.Controls
             for (int i = 1; i <= 12; i++)
             {
                 if (i < 10)
-                    Month.Add(i);
+                    Month.Add(i.ToString());
                 else
                     Month.Add(i.ToString());
             }

@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property RankUserPoint
 
-        private DateTime dateRank = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
+        private DateTime dateRank = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         public virtual DateTime DateRank { get => dateRank; set => SetProperty(ref dateRank, value); }
 
         public string searchedText;
@@ -92,14 +92,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            EventAggregator.GetEvent<SelectTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectMonthEvent>().Subscribe(UpdateDateTime);
             GetListRankPoint();
             GetListUserRank();
         }
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectMonthEvent>().Unsubscribe(UpdateDateTime);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -122,7 +122,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (SelectedTabIndex == 0)
                 {
-                    FromDate = FromDate.AddDays(-1);
+                    FromDate = FromDate.AddMonths(-1);
+                    GetListRankPoint();
                 }
                 else
                 {
@@ -134,6 +135,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         DateRank = DateRank.AddDays(-1);
                     }
+                    GetListUserRank();
                 }
             });
         }
@@ -144,7 +146,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (SelectedTabIndex == 0)
                 {
-                    FromDate = FromDate.AddDays(1);
+                    FromDate = FromDate.AddMonths(1);
+                    GetListRankPoint();
                 }
                 else
                 {
@@ -156,6 +159,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         DateRank = DateRank.AddDays(1);
                     }
+                    GetListUserRank();
                 }
             });
         }
@@ -216,7 +220,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CompanyID = CurrentComanyID,
                 FromDate = FromDate,
-                ToDate = FromDate,
+                ToDate = FromDate.AddMonths(1).AddDays(-1),
                 UserIDs = new string[] { UserInfo.UserId.ToString() }
             };
             RunOnBackground(async () =>
@@ -234,7 +238,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         AverageRankPoint = info;
                     }
                 }
-            });
+            }, showLoading: true);
         }
 
         private void GetListUserRank()
@@ -267,10 +271,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         UserRank3 = lstUserShowRank[2];
                     }
                 }
-            });
+            }, showLoading: true);
         }
 
-        public void UpdateDateTime(PickerDateTimeResponse param)
+        public void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
             {
