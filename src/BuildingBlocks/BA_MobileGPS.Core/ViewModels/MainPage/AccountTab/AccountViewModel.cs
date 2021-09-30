@@ -94,7 +94,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Title = MobileResource.AccountTab_Label_DeviceManual,
                 Icon = "ic_devicemanual.png",
                 UseModalNavigation = true,
-                Url = "NavigationPage/KpiDriverChartPage",
+                Url = "NavigationPage/RankDriverPage",
                 MenuType = MenuType.DeviceManual,
                 IsEnable = MobileSettingHelper.UseHelper,
                 IconColor = Color.FromHex("#FF9900")

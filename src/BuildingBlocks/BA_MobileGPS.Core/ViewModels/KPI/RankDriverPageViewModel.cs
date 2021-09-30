@@ -247,7 +247,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CompanyID = CurrentComanyID,
                 FromDate = DateRank,
-                ToDate = toDate
+                ToDate = toDate,
+                UserIDs = new string[] { }
             };
             RunOnBackground(async () =>
             {
@@ -277,10 +278,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (SelectedTabIndex == 0)
                     {
                         FromDate = param.Value;
+                        GetListRankPoint();
                     }
                     else
                     {
                         DateRank = param.Value;
+                        GetListUserRank();
                     }
                 }
                 ValidateDateTime();

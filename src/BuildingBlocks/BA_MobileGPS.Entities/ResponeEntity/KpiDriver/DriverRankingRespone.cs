@@ -5,11 +5,11 @@ namespace BA_MobileGPS.Entities
 {
     public class DriverRankingRespone
     {
-        public int DriverId { get; set; }
+        public int? DriverId { get; set; }
         public string DriverName { get; set; }
         public string DriverAvatar { get; set; }
         public string AverageRank { get; set; }
-        public int AverageScore { get; set; }
+        public float AverageScore { get; set; }
 
         public List<DriverRankByDay> DriverRankByDay { get; set; }
     }
@@ -18,6 +18,6 @@ namespace BA_MobileGPS.Entities
     {
         public DateTime Date { get; set; }
         public string Rank { get; set; }
-        public int Score { get; set; }
+        public float Score { get; set; }
     }
 }

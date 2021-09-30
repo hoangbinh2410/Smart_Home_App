@@ -309,7 +309,7 @@
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
-                                                        Text="{Binding Time, Converter={StaticResource DateConverter}}"
+                                                        Text="{Binding Date, Converter={StaticResource DateConverter}}"
                                                         VerticalOptions="Center" />
                                                     <Label
                                                         Grid.Column="1"
