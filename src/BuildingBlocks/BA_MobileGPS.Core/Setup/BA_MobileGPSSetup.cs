@@ -99,6 +99,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectTimePicker, SelectTimePickerViewModel>("SelectTimePicker");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendar, SelectDateTimeCalendarViewModel>("SelectDateTimeCalendar");
             containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
+            containerRegistry.RegisterForNavigation<SelectMonthCalendar, SelectMonthCalendarViewModel>("SelectMonthCalendar");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
             containerRegistry.RegisterForNavigation<SelectRangeDateTime, SelectRangeDateTimeViewModel>("SelectRangeDateTime");
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");

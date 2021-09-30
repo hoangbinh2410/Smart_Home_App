@@ -96,6 +96,9 @@
 	  <Compile Update="Views\Camera\Restream\StreamUserMessagePopup.xaml.cs">
 	    <DependentUpon>StreamUserMessagePopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Common\SelectDateTime\SelectMonthCalendar.xaml.cs">
+	    <DependentUpon>SelectMonthCalendar.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
 	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>
 	  </Compile>

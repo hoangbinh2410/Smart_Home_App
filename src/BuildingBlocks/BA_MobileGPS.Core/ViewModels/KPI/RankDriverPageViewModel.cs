@@ -24,7 +24,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SwichDateTypeCommand { get; private set; }
         public ICommand SearchDriverCommand { get; private set; }
 
-        public RankDriverPageViewModel(INavigationService navigationService, IKPIDriverService kPIDriverService) : base(navigationService)
+        public RankDriverPageViewModel(INavigationService navigationService,
+            IKPIDriverService kPIDriverService) : base(navigationService)
         {
             _kPIDriverService = kPIDriverService;
             Title = "Điểm xếp hạng lái xe";
@@ -91,14 +92,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectTimeEvent>().Subscribe(UpdateDateTime);
             GetListRankPoint();
             GetListUserRank();
         }
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectTimeEvent>().Unsubscribe(UpdateDateTime);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -308,7 +309,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "DataPicker", date },
                     { "PickerType", ComboboxType.First }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                if (SelectedTabIndex == 1 && !IsShowMonth)
+                {
+                    await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("SelectMonthCalendar", parameters);
+                }
             });
         }
 

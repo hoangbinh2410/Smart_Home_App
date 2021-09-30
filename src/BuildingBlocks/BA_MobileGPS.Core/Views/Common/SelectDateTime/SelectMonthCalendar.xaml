@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="BA_MobileGPS.Core.Views.SelectMonthCalendar"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="http://rotorgames.com"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="300"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom" />
+    </pages:PopupPage.Animation>
+    <ContentPage.Content>
+        <Frame
+            Margin="30,0,30,0"
+            Padding="0"
+            BackgroundColor="{DynamicResource WhiteColor}"
+            CornerRadius="5"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+            <StackLayout
+                Padding="0"
+                IsClippedToBounds="True"
+                Spacing="3">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout
+                        Grid.Row="0"
+                        Padding="10"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Chọn tháng"
+                            TextColor="White"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="1">
+                        <controls:CustomMonthPicker
+                            x:Name="date"
+                            BorderColor="Transparent"
+                            ColumnHeaderFontSize="13"
+                            ColumnHeaderTextColor="{DynamicResource PrimaryColor}"
+                            HorizontalOptions="CenterAndExpand"
+                            PickerMode="Default"
+                            SelectedItem="{Binding SelectedTime}"
+                            SelectedItemTextColor="{DynamicResource PrimaryColor}"
+                            ShowColumnHeader="True"
+                            ShowFooter="False"
+                            ShowHeader="False"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="300" />
+                    </StackLayout>
+                    <Grid
+                        Grid.Row="2"
+                        Padding="5"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="End">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource PrimaryColor}"
+                            BorderRadius="0"
+                            BorderWidth="1"
+                            Command="{Binding CloseTimePagePopupCommand}"
+                            FontAttributes="Bold"
+                            FontSize="12"
+                            Text="{i18n:TranslateResource Common_Button_Close}"
+                            TextColor="{DynamicResource PrimaryColor}" />
+                        <Button
+                            x:Name="btnIgree"
+                            Grid.Column="1"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            BorderRadius="0"
+                            Command="{Binding IgreeSelectedTimeCommand}"
+                            FontAttributes="Bold"
+                            FontSize="12"
+                            Text="{i18n:TranslateResource Common_Button_OK}"
+                            TextColor="White" />
+                    </Grid>
+                </Grid>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</pages:PopupPage>
