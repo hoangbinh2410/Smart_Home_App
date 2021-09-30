@@ -1,13 +1,16 @@
-﻿using System;
+﻿using BA_MobileGPS.Utilities.Constant;
+using System;
 using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
-    public class DriverRankingRespone
+    public class DriverRankingRespone : BaseModel
     {
         public int? DriverId { get; set; }
         public string DriverName { get; set; }
-        public string DriverAvatar { get; set; }
+        private string driverAvatar;
+        public string DriverAvatar { get => driverAvatar; set => SetProperty(ref driverAvatar, value, nameof(AvatarDisplay)); }
+        public string AvatarDisplay => string.IsNullOrEmpty(DriverAvatar) ? "ic_driveravatar.png" : $"{ServerConfig.ApiEndpoint}{DriverAvatar}";
         public string AverageRank { get; set; }
         public float AverageScore { get; set; }
 

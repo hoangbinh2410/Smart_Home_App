@@ -2721,6 +2721,7 @@
     <BundleResource Include="Resources\car_warnturnoff%402x.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\ic_driveravatar.png" />
     <Content Include="Resources\ic_exportvideo%402x.png" />
     <Content Include="Resources\ic_exportvideo%403x.png" />
     <Content Include="Resources\ic_exportvideo.png" />
