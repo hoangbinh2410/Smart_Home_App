@@ -311,13 +311,4 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion PrivateMethod
     }
-
-    public class UserRank
-    {
-        public int STT { get; set; }
-        public string DriverName { get; set; }
-        public string DriverAvatar { get; set; }
-        public int Point { get; set; }
-        public string Rank { get; set; }
-    }
 }
