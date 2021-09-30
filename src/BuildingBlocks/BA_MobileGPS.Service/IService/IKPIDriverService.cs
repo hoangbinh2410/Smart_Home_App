@@ -6,9 +6,7 @@ namespace BA_MobileGPS.Service
 {
     public interface IKPIDriverService
     {
-        Task<List<DriverRankingRespone>> GetDriverRankingByDay(DriverRankingRequest request);
-
-        Task<List<DriverRankingRespone>> GetDriverRankingByMonth(DriverRankingRequest request);
+        Task<List<DriverRankingRespone>> GetDriverRanking(DriverRankingRequest request);
 
         Task<DriverKpiChartRespone> GetDriverKpiChart(DriverKpiChartRequest request);
     }
