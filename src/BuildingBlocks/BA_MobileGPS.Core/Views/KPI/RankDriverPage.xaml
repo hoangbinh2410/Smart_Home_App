@@ -251,7 +251,7 @@
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand">
-                                <Grid ColumnDefinitions=".5*,.2*,.3*">
+                                <Grid ColumnDefinitions=".4*,.2*,.2*,.2*">
                                     <Label
                                         Grid.Column="0"
                                         HorizontalOptions="Start"
@@ -273,7 +273,16 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="Xếp hạng"
+                                        Text="XH"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Grid.Column="3"
+                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="WordWrap"
+                                        Text="Chi tiết"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="Center" />
                                 </Grid>
@@ -293,17 +302,17 @@
                                     LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
                                     LoadMoreOption="AutoOnScroll"
                                     SelectedItem="{Binding SelectedRankPoint}"
-                                    SelectionBackgroundColor="#6FDCFF"
-                                    TapCommand="{Binding NavigateCommand}">
+                                    SelectionBackgroundColor="Transparent"
+                                    TapCommand="{Binding TapRankByDayCommand}">
                                     <syncfusionList:SfListView.ItemTemplate>
                                         <DataTemplate>
                                             <pancake:PancakeView
                                                 Grid.Column="0"
                                                 Padding="10"
-                                                BackgroundColor="#E4E4E4"
+                                                BackgroundColor="{Binding BacgroundColor}"
                                                 CornerRadius="5"
                                                 HorizontalOptions="FillAndExpand">
-                                                <Grid ColumnDefinitions=".5*,.2*,.3*">
+                                                <Grid ColumnDefinitions=".4*,.2*,.2*,.2*">
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Start"
@@ -325,6 +334,19 @@
                                                         LineBreakMode="WordWrap"
                                                         Text="{Binding Rank}"
                                                         VerticalOptions="Center" />
+
+                                                    <Label
+                                                        Grid.Column="3"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="Xem"
+                                                        TextDecorations="Underline"
+                                                        VerticalOptions="Center">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference listView}, Path=BindingContext.NavigateCommand}" CommandParameter="{Binding .}" />
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
                                                 </Grid>
                                             </pancake:PancakeView>
                                         </DataTemplate>

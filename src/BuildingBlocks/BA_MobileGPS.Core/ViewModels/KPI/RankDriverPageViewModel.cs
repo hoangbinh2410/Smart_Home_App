@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -7,11 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -23,6 +26,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PreviosTimeCommand { get; private set; }
         public ICommand SwichDateTypeCommand { get; private set; }
         public ICommand SearchDriverCommand { get; private set; }
+        public ICommand TapRankByDayCommand { get; private set; }
+        public ICommand NavigateCommand { get; private set; }
 
         public RankDriverPageViewModel(INavigationService navigationService,
             IKPIDriverService kPIDriverService) : base(navigationService)
@@ -34,6 +39,8 @@ namespace BA_MobileGPS.Core.ViewModels
             PreviosTimeCommand = new DelegateCommand(PreviosTime);
             SwichDateTypeCommand = new DelegateCommand(SwichDateType);
             SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriverwithText);
+            NavigateCommand = new DelegateCommand<DriverRankByDay>(Navigate);
+            TapRankByDayCommand = new DelegateCommand<ItemTappedEventArgs>(TapRankByDay);
         }
 
         #region Property RankPoint
@@ -233,7 +240,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     var info = result.First();
                     if (info != null)
                     {
-                        RankPointSource = info.DriverRankByDay.ToObservableCollection();
+                        RankPointSource = info.DriverRankByDay.OrderByDescending(x => x.Date).ToObservableCollection();
+                        RankPointSource[0].BacgroundColor = Color.FromHex("#6FDCFF");
                         SelectedRankPoint = info.DriverRankByDay[0];
                         AverageRankPoint = info;
                     }
@@ -295,13 +303,17 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 UserRank1 = lstUserShowRank[0];
                             }
-                            else if (i == 1)
+                            if (i == 1)
                             {
                                 UserRank2 = lstUserShowRank[1];
                             }
-                            else if (i == 2)
+                            if (i == 2)
                             {
                                 UserRank3 = lstUserShowRank[2];
+                            }
+                            else
+                            {
+                                UserRank3 = new DriverRankingRespone();
                             }
                         }
                     }
@@ -364,6 +376,43 @@ namespace BA_MobileGPS.Core.ViewModels
                     await NavigationService.NavigateAsync("SelectMonthCalendar", parameters);
                 }
             });
+        }
+
+        public void Navigate(DriverRankByDay args)
+        {
+            try
+            {
+                SafeExecute(async () =>
+                {
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
+                         { ParameterKey.KPIRankPage,args },
+                    };
+                    await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void TapRankByDay(ItemTappedEventArgs obj)
+        {
+            if (!(obj.ItemData is DriverRankByDay item))
+                return;
+            foreach (var itemdata in RankPointSource)
+            {
+                if (itemdata.Date == item.Date)
+                {
+                    itemdata.BacgroundColor = Color.FromHex("#6FDCFF");
+                }
+                else
+                {
+                    itemdata.BacgroundColor = Color.FromHex("#E4E4E4");
+                }
+            }
         }
 
         #endregion PrivateMethod
