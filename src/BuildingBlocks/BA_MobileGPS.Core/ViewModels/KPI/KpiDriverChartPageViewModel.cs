@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -34,7 +35,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
-            GetDriverKpiChart();
+            if (parameters != null)
+            {
+                if (parameters.GetValue<int>(ParameterKey.KPIRankDriverID) is int driverID
+                    && parameters.TryGetValue(ParameterKey.KPIRankPage, out DriverRankByDay rankByDay))
+                {
+                    DriverID = driverID;
+                    DateSearch = rankByDay.Date;
+                    GetDriverKpiChart(driverID);
+                }
+            }
+
         }
 
         public override void OnDestroy()
@@ -62,6 +73,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private int selectedTabIndex = 0;
         public int SelectedTabIndex { get => selectedTabIndex; set => SetProperty(ref selectedTabIndex, value); }
 
+        private int driverID = 0;
+        public int DriverID { get => driverID; set => SetProperty(ref driverID, value); }
+
         private DateTime dateSearch = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
         public virtual DateTime DateSearch { get => dateSearch; set => SetProperty(ref dateSearch, value); }
 
@@ -87,14 +101,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Property
 
-        private void GetDriverKpiChart()
+        private void GetDriverKpiChart(int driverID)
         {
             IsLoading = true;
             RunOnBackground(async () =>
             {
                 return await _KPIDriverService.GetDriverKpiChart(new Entities.DriverKpiChartRequest()
                 {
-                    DriverID = 270487,
+                    DriverID = driverID,
                     FromDate = DateSearch.ToString("dd/MM/yyyy"),
                     ToDate = DateSearch.ToString("dd/MM/yyyy")
                 });
@@ -115,7 +129,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await _KPIDriverService.GetDriverKpiChart(new Entities.DriverKpiChartRequest()
                 {
-                    DriverID = 270487,
+                    DriverID = DriverID,
                     FromDate = DateSearch.ToString("dd/MM/yyyy"),
                     ToDate = DateSearch.ToString("dd/MM/yyyy")
                 });

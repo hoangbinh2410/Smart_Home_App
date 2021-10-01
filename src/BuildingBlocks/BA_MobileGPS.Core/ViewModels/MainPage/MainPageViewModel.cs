@@ -1186,35 +1186,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void InsertLogVideo(VideoUpload video)
-        {
-            var request = new SaveVideoByUserRequest()
-            {
-                Channel = (byte)video.Channel,
-                FK_VehicleID = video.VehicleID,
-                FK_CompanyID = CurrentComanyID,
-                StartTime = video.StartTime,
-                EndTime = video.EndTime,
-                Description = "",
-                IsFavorite = false,
-                IsSave = true,
-                Thumbnail = "",
-                VideoName = "",
-                CreatedUser = UserInfo.UserId,
-            };
-
-            RunOnBackground(async () =>
-            {
-                return await streamCameraService.InsertLogVideo(request);
-            },
-            (result) =>
-            {
-                if (result)
-                {
-                }
-            });
-        }
-
         private void StartTimmerUploadVideo()
         {
             if (timerSyncUploadStatus == null || !timerSyncUploadStatus.Enabled)

@@ -46,12 +46,12 @@
 		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.62" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
 		<PackageReference Include="Com.OneSignal" Version="3.10.6" />
-		<PackageReference Include="Microsoft.AppCenter" Version="4.3.0" />
-		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.3.0" />
-		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.3.0" />
+		<PackageReference Include="Microsoft.AppCenter" Version="4.4.0" />
+		<PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
 		<PackageReference Include="Plugin.Permissions" Version="6.0.1" />
 		<PackageReference Include="Sharpnado.Presentation.Forms" Version="1.7.1" />		
 		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
@@ -95,6 +95,9 @@
 	  </Compile>
 	  <Compile Update="Views\Camera\Restream\StreamUserMessagePopup.xaml.cs">
 	    <DependentUpon>StreamUserMessagePopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Common\SelectDateTime\SelectMonthCalendar.xaml.cs">
+	    <DependentUpon>SelectMonthCalendar.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
 	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>

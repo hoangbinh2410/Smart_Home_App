@@ -1,5 +1,6 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -7,33 +8,45 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class RankDriverPageViewModel : ViewModelBase
     {
+        private readonly IKPIDriverService _kPIDriverService;
         public ICommand PushToFromDatePageCommand { get; private set; }
         public ICommand NextTimeCommand { get; private set; }
         public ICommand PreviosTimeCommand { get; private set; }
         public ICommand SwichDateTypeCommand { get; private set; }
         public ICommand SearchDriverCommand { get; private set; }
+        public ICommand TapRankByDayCommand { get; private set; }
+        public ICommand NavigateCommand { get; private set; }
 
-        public RankDriverPageViewModel(INavigationService navigationService) : base(navigationService)
+        public RankDriverPageViewModel(INavigationService navigationService,
+            IKPIDriverService kPIDriverService) : base(navigationService)
         {
+            _kPIDriverService = kPIDriverService;
             Title = "Điểm xếp hạng lái xe";
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             NextTimeCommand = new DelegateCommand(NextTime);
             PreviosTimeCommand = new DelegateCommand(PreviosTime);
             SwichDateTypeCommand = new DelegateCommand(SwichDateType);
             SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriverwithText);
+            NavigateCommand = new DelegateCommand<DriverRankByDay>(Navigate);
+            TapRankByDayCommand = new DelegateCommand<ItemTappedEventArgs>(TapRankByDay);
         }
 
         #region Property RankPoint
+
+        private bool isLoading = true;
+        public bool IsLoading { get => isLoading; set => SetProperty(ref isLoading, value); }
 
         private int selectedTabIndex = 0;
         public int SelectedTabIndex { get => selectedTabIndex; set => SetProperty(ref selectedTabIndex, value); }
@@ -41,23 +54,22 @@ namespace BA_MobileGPS.Core.ViewModels
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
         public virtual DateTime FromDate { get => fromDate; set => SetProperty(ref fromDate, value); }
 
-        private DateTime toDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
-        public virtual DateTime ToDate { get => toDate; set => SetProperty(ref toDate, value); }
+        private ObservableCollection<DriverRankByDay> rankPointSource = new ObservableCollection<DriverRankByDay>();
+        public ObservableCollection<DriverRankByDay> RankPointSource { get => rankPointSource; set => SetProperty(ref rankPointSource, value); }
 
-        private ObservableCollection<RankPoint> rankPointSource = new ObservableCollection<RankPoint>();
-        public ObservableCollection<RankPoint> RankPointSource { get => rankPointSource; set => SetProperty(ref rankPointSource, value); }
+        private DriverRankByDay selectedRankPoint = new DriverRankByDay();
+        public DriverRankByDay SelectedRankPoint { get => selectedRankPoint; set => SetProperty(ref selectedRankPoint, value); }
 
-        private RankPoint myRankPoint = new RankPoint();
-        public RankPoint MyRankPoint { get => myRankPoint; set => SetProperty(ref myRankPoint, value); }
-        private RankPoint averageRankPoint = new RankPoint();
-        public RankPoint AverageRankPoint { get => averageRankPoint; set => SetProperty(ref averageRankPoint, value); }
+        private DriverRankingRespone averageRankPoint = new DriverRankingRespone();
+        public DriverRankingRespone AverageRankPoint { get => averageRankPoint; set => SetProperty(ref averageRankPoint, value); }
 
         #endregion Property RankPoint
+
         private CancellationTokenSource cts;
 
-        #region Property RankPoint
+        #region Property RankUserPoint
 
-        private DateTime dateRank = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
+        private DateTime dateRank = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         public virtual DateTime DateRank { get => dateRank; set => SetProperty(ref dateRank, value); }
 
         public string searchedText;
@@ -66,35 +78,36 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool isShowMonth;
         public bool IsShowMonth { get => isShowMonth; set => SetProperty(ref isShowMonth, value); }
 
-        private List<UserRank> ListRankUserOrigin = new List<UserRank>();
+        private List<DriverRankingRespone> ListRankUserOrigin = new List<DriverRankingRespone>();
 
-        private ObservableCollection<UserRank> rankUserSource = new ObservableCollection<UserRank>();
-        public ObservableCollection<UserRank> RankUserSource { get => rankUserSource; set => SetProperty(ref rankUserSource, value); }
+        private ObservableCollection<DriverRankingRespone> rankUserSource = new ObservableCollection<DriverRankingRespone>();
+        public ObservableCollection<DriverRankingRespone> RankUserSource { get => rankUserSource; set => SetProperty(ref rankUserSource, value); }
 
-        private UserRank userRank1 = new UserRank();
-        public UserRank UserRank1 { get => userRank1; set => SetProperty(ref userRank1, value); }
+        private DriverRankingRespone userRank1 = new DriverRankingRespone();
+        public DriverRankingRespone UserRank1 { get => userRank1; set => SetProperty(ref userRank1, value); }
 
-        private UserRank userRank2 = new UserRank();
-        public UserRank UserRank2 { get => userRank2; set => SetProperty(ref userRank2, value); }
+        private DriverRankingRespone userRank2 = new DriverRankingRespone();
+        public DriverRankingRespone UserRank2 { get => userRank2; set => SetProperty(ref userRank2, value); }
 
-        private UserRank userRank3 = new UserRank();
-        public UserRank UserRank3 { get => userRank3; set => SetProperty(ref userRank3, value); }
+        private DriverRankingRespone userRank3 = new DriverRankingRespone();
+        public DriverRankingRespone UserRank3 { get => userRank3; set => SetProperty(ref userRank3, value); }
 
-        #endregion Property RankPoint
+        #endregion Property RankUserPoint
 
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
-            GetListRankPoint();
-            GetListUserRank();
+            EventAggregator.GetEvent<SelectMonthEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
+            GetListRankPoint(true);
         }
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectMonthEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -117,7 +130,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (SelectedTabIndex == 0)
                 {
-                    FromDate = FromDate.AddDays(-1);
+                    FromDate = FromDate.AddMonths(-1);
+                    GetListRankPoint();
                 }
                 else
                 {
@@ -129,6 +143,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         DateRank = DateRank.AddDays(-1);
                     }
+                    GetListUserRank();
                 }
             });
         }
@@ -139,27 +154,41 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (SelectedTabIndex == 0)
                 {
-                    if (ToDate.Subtract(FromDate).TotalDays >= 1)
+                    if (FromDate.Month == DateTime.Now.Month && FromDate.Year == DateTime.Now.Year)
                     {
-                        FromDate = FromDate.AddDays(1);
+                        return;
+                    }
+                    else
+                    {
+                        FromDate = FromDate.AddMonths(1);
+                        GetListRankPoint();
                     }
                 }
                 else
                 {
                     if (IsShowMonth)
                     {
-                        if (ToDate.Month > DateRank.Month)
+                        if (DateRank.Month == DateTime.Now.Month && DateRank.Year == DateTime.Now.Year)
+                        {
+                            return;
+                        }
+                        else
                         {
                             DateRank = DateRank.AddMonths(1);
                         }
                     }
                     else
                     {
-                        if (ToDate.Subtract(DateRank).TotalDays >= 1)
+                        if (DateRank.Date < DateTime.Now.Date)
                         {
                             DateRank = DateRank.AddDays(1);
                         }
+                        else
+                        {
+                            return;
+                        }
                     }
+                    GetListUserRank();
                 }
             });
         }
@@ -169,6 +198,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(() =>
             {
                 IsShowMonth = !IsShowMonth;
+                GetListUserRank();
             });
         }
 
@@ -191,12 +221,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     await Task.Delay(500, cts.Token);
                     if (cts.IsCancellationRequested)
                         return null;
-                    return ListRankUserOrigin.Where(x => x.DriverName.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch)).OrderByDescending(x => x.Point);
+                    return ListRankUserOrigin.Where(x => x.DriverName.ToUpper().Contains(keySearch) || string.IsNullOrEmpty(keySearch)).OrderByDescending(x => x.AverageScore);
                 }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion && !cts.IsCancellationRequested)
                     {
-                        RankUserSource = new ObservableCollection<UserRank>();
+                        RankUserSource = new ObservableCollection<DriverRankingRespone>();
 
                         if (task.Result != null && task.Result.Count() > 0)
                         {
@@ -212,136 +242,116 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidateDateTime()
         {
-            if (SelectedTabIndex == 0)
-            {
-                if (FromDate > ToDate)
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
-                }
-                else if (ToDate.Subtract(FromDate).TotalDays > 60)
-                {
-                    DisplayMessage.ShowMessageInfo(string.Format(MobileResource.Route_Label_TotalTimeLimit, 60));
-                }
-            }
-            else
-            {
-                if (DateRank > ToDate)
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
-                }
-                else if (ToDate.Subtract(DateRank).TotalDays > 60)
-                {
-                    DisplayMessage.ShowMessageInfo(string.Format(MobileResource.Route_Label_TotalTimeLimit, 60));
-                }
-            }
         }
 
-        private void GetListRankPoint()
+        private void GetListRankPoint(bool isFistLoad = false)
         {
-            RankPointSource = new ObservableCollection<RankPoint>()
+            var request = new Entities.DriverRankingRequest()
             {
-                new RankPoint()
+                CompanyID = CurrentComanyID,
+                FromDate = FromDate,
+                ToDate = FromDate.AddMonths(1).AddDays(-1),
+                UserIDs = new string[] { UserInfo.UserId.ToString() }
+            };
+            RunOnBackground(async () =>
+            {
+                return await _kPIDriverService.GetDriverRanking(request);
+            }, (result) =>
+            {
+                if (result != null && result.Count > 0)
                 {
-                    Point=90,
-                    Rank="A",
-                    Time=DateTime.Now
-                },
-                 new RankPoint()
-                {
-                    Point=80,
-                    Rank="B",
-                    Time=DateTime.Now
-                },
-                  new RankPoint()
-                {
-                    Point=70,
-                    Rank="A",
-                    Time=DateTime.Now
-                },
-                   new RankPoint()
-                {
-                    Point=60,
-                    Rank="C",
-                    Time=DateTime.Now
-                },
-                    new RankPoint()
-                {
-                    Point=50,
-                    Rank="D",
-                    Time=DateTime.Now
-                },
-                     new RankPoint()
-                {
-                    Point=40,
-                    Rank="E",
-                    Time=DateTime.Now
+                    var info = result.First();
+                    if (info != null)
+                    {
+                        RankPointSource = info.DriverRankByDay.OrderByDescending(x => x.Date).ToObservableCollection();
+                        RankPointSource[0].BacgroundColor = Color.FromHex("#6FDCFF");
+                        SelectedRankPoint = RankPointSource[0];
+                        AverageRankPoint = info;
+                    }
                 }
-            };
-            MyRankPoint = RankPointSource[0];
-            var average = new RankPoint();
-            average.Point = (int)RankPointSource.Average(x => x.Point);
-            average.Rank = "A";
-            AverageRankPoint = average;
+                else
+                {
+                    RankPointSource = new ObservableCollection<DriverRankByDay>();
+                    SelectedRankPoint = new DriverRankByDay();
+                    AverageRankPoint = new DriverRankingRespone();
+                }
+                if (isFistLoad)
+                {
+                    GetListUserRank(false);
+                }
+            }, showLoading: true);
         }
 
-        private void GetListUserRank()
+        private void GetListUserRank(bool isloading = true)
         {
-            RankUserSource = new ObservableCollection<UserRank>()
+            var toDate = DateRank;
+            if (IsShowMonth)
             {
-                new UserRank()
-                {
-                    Point=90,
-                    Rank="A",
-                    DriverName="Trần Hoàng Nam",
-                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
-                },
-                new UserRank()
-                {
-                    Point=80,
-                    Rank="B",
-                    DriverName="Hoàng Thanh Bình",
-                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
-                },
-                new UserRank()
-                {
-                    Point=70,
-                    Rank="C",
-                    DriverName="Trần Quang Trung",
-                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
-                },
-                new UserRank()
-                {
-                    Point=60,
-                    Rank="D",
-                    DriverName="Nguyễn Thị Huyền Trang",
-                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
-                },
-                 new UserRank()
-                {
-                    Point=60,
-                    Rank="D",
-                    DriverName="Nguyễn Thị Huyền Trang",
-                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
-                },
-                  new UserRank()
-                {
-                    Point=60,
-                    Rank="D",
-                    DriverName="Nguyễn Thị Huyền Trang",
-                    DriverAvatar="https://photo-cms-nghenhinvietnam.zadn.vn/w700/Uploaded/2021/unvjapu/2019_03_28/quang-hai/7_thgo.jpg"
-                },
-            };
-            ListRankUserOrigin = RankUserSource.ToList();
-            var lstUserShowRank = RankUserSource.OrderByDescending(x => x.Point).Take(3).ToList();
-            if (lstUserShowRank != null && lstUserShowRank.Count == 3)
-            {
-                UserRank1 = lstUserShowRank[0];
-                UserRank2 = lstUserShowRank[1];
-                UserRank3 = lstUserShowRank[2];
+                toDate = DateRank.AddMonths(1).AddDays(-1);
             }
+            var request = new Entities.DriverRankingRequest()
+            {
+                CompanyID = CurrentComanyID,
+                FromDate = DateRank,
+                ToDate = toDate,
+                UserIDs = new string[] { }
+            };
+            RunOnBackground(async () =>
+            {
+                return await _kPIDriverService.GetDriverRanking(request);
+            }, (result) =>
+            {
+                if (result != null && result.Count > 0)
+                {
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        result[i].STT = i + 1;
+                        if (result[i].DriverId == AverageRankPoint.DriverId)
+                        {
+                            result[i].BacgroundYourDriver = Color.FromHex("#6FDCFF");
+                        }
+                        else
+                        {
+                            result[i].BacgroundYourDriver = Color.FromHex("#D6F3FF");
+                        }
+                    }
+                    ListRankUserOrigin = result;
+                    RankUserSource = result.ToObservableCollection();
+                    var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
+                    if (lstUserShowRank != null && lstUserShowRank.Count <= 3)
+                    {
+                        for (int i = 0; i < lstUserShowRank.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                UserRank1 = lstUserShowRank[0];
+                            }
+                            if (i == 1)
+                            {
+                                UserRank2 = lstUserShowRank[1];
+                            }
+                            if (i == 2)
+                            {
+                                UserRank3 = lstUserShowRank[2];
+                            }
+                            else
+                            {
+                                UserRank3 = new DriverRankingRespone();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    RankUserSource = new ObservableCollection<DriverRankingRespone>();
+                    UserRank1 = new DriverRankingRespone();
+                    UserRank2 = new DriverRankingRespone();
+                    UserRank3 = new DriverRankingRespone();
+                }
+            }, showLoading: isloading);
         }
 
-        public void UpdateDateTime(PickerDateTimeResponse param)
+        public void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
             {
@@ -349,14 +359,46 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (SelectedTabIndex == 0)
                     {
-                        FromDate = param.Value;
+                        if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
+                        {
+                            DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                            return;
+                        }
+                        else
+                        {
+                            FromDate = param.Value;
+                            GetListRankPoint();
+                        }
                     }
                     else
                     {
-                        DateRank = param.Value;
+                        if (IsShowMonth)
+                        {
+                            if (DateRank.Month >= DateTime.Now.Month && DateRank.Year >= DateTime.Now.Year)
+                            {
+                                DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                                return;
+                            }
+                            else
+                            {
+                                DateRank = param.Value;
+                            }
+                        }
+                        else
+                        {
+                            if (DateRank.Date < DateTime.Now.Date)
+                            {
+                                DateRank = param.Value;
+                            }
+                            else
+                            {
+                                DisplayMessage.ShowMessageInfo("Ngày tìm kiếm không được lớn hơn ngày hiện tại");
+                                return;
+                            }
+                        }
+                        GetListUserRank();
                     }
                 }
-                ValidateDateTime();
             }
         }
 
@@ -378,26 +420,54 @@ namespace BA_MobileGPS.Core.ViewModels
                     { "DataPicker", date },
                     { "PickerType", ComboboxType.First }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                if (SelectedTabIndex == 1 && !IsShowMonth)
+                {
+                    await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
+                }
+                else
+                {
+                    await NavigationService.NavigateAsync("SelectMonthCalendar", parameters);
+                }
             });
         }
 
+        public void Navigate(DriverRankByDay args)
+        {
+            try
+            {
+                SafeExecute(async () =>
+                {
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
+                         { ParameterKey.KPIRankPage,args },
+                    };
+                    await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);
+                });
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
+        private void TapRankByDay(ItemTappedEventArgs obj)
+        {
+            if (!(obj.ItemData is DriverRankByDay item))
+                return;
+            foreach (var itemdata in RankPointSource)
+            {
+                if (itemdata.Date == item.Date)
+                {
+                    itemdata.BacgroundColor = Color.FromHex("#6FDCFF");
+                }
+                else
+                {
+                    itemdata.BacgroundColor = Color.FromHex("#E4E4E4");
+                }
+            }
+        }
+
         #endregion PrivateMethod
-    }
-
-    public class RankPoint
-    {
-        public DateTime Time { get; set; }
-        public int Point { get; set; }
-        public string Rank { get; set; }
-    }
-
-    public class UserRank
-    {
-        public int STT { get; set; }
-        public string DriverName { get; set; }
-        public string DriverAvatar { get; set; }
-        public int Point { get; set; }
-        public string Rank { get; set; }
     }
 }

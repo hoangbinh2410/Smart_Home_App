@@ -91,7 +91,7 @@
 		<PackageReference Include="Xamarin.AndroidX.Core">
 			<Version>1.6.0.1</Version>
 		</PackageReference>
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
 		<PackageReference Include="Realm" Version="10.5.0" />
 		<PackageReference Include="Xamarin.Build.Download">
 			<Version>0.10.0</Version>

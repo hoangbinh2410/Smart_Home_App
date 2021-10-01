@@ -108,7 +108,7 @@
                                         <pancake:Border Thickness="1" Color="#CED6E0" />
                                     </pancake:PancakeView.Border>
                                     <StackLayout
-                                        Padding="5,0,5,0"
+                                        Padding="10,0,5,0"
                                         HorizontalOptions="FillAndExpand"
                                         Orientation="Horizontal"
                                         VerticalOptions="Center">
@@ -120,7 +120,7 @@
                                             HorizontalOptions="FillAndExpand"
                                             InputTransparent="True"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="{Binding FromDate, Converter={StaticResource DateConverter}}"
+                                            Text="{Binding FromDate, StringFormat='{}{0:MM/yyyy}'}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />
@@ -165,7 +165,7 @@
                                 FontSize="18"
                                 HorizontalOptions="CenterAndExpand"
                                 LineBreakMode="TailTruncation"
-                                Text="{Binding ToDate, Converter={StaticResource DateConverter}}"
+                                Text="{Binding SelectedRankPoint.Date, Converter={StaticResource DateConverter}}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </Grid>
@@ -185,7 +185,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         LineBreakMode="TailTruncation"
                                         StyleClass="BoldText"
-                                        Text="90"
+                                        Text="{Binding SelectedRankPoint.Rank}"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -213,7 +213,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         LineBreakMode="TailTruncation"
                                         StyleClass="BoldText"
-                                        Text="A"
+                                        Text="{Binding SelectedRankPoint.Score}"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -251,7 +251,7 @@
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand">
-                                <Grid ColumnDefinitions=".5*,.2*,.3*">
+                                <Grid ColumnDefinitions=".4*,.2*,.2*,.2*">
                                     <Label
                                         Grid.Column="0"
                                         HorizontalOptions="Start"
@@ -273,7 +273,16 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="Xếp hạng"
+                                        Text="XH"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Grid.Column="3"
+                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="WordWrap"
+                                        Text="Chi tiết"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="Center" />
                                 </Grid>
@@ -292,30 +301,31 @@
                                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                                     LoadMoreCommandParameter="{Binding Source={x:Reference listView}}"
                                     LoadMoreOption="AutoOnScroll"
+                                    SelectedItem="{Binding SelectedRankPoint}"
                                     SelectionBackgroundColor="Transparent"
-                                    TapCommand="{Binding NavigateCommand}">
+                                    TapCommand="{Binding TapRankByDayCommand}">
                                     <syncfusionList:SfListView.ItemTemplate>
                                         <DataTemplate>
                                             <pancake:PancakeView
                                                 Grid.Column="0"
                                                 Padding="10"
-                                                BackgroundColor="#D6F3FF"
+                                                BackgroundColor="{Binding BacgroundColor}"
                                                 CornerRadius="5"
                                                 HorizontalOptions="FillAndExpand">
-                                                <Grid ColumnDefinitions=".5*,.2*,.3*">
+                                                <Grid ColumnDefinitions=".4*,.2*,.2*,.2*">
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
-                                                        Text="{Binding Time, Converter={StaticResource DateConverter}}"
+                                                        Text="{Binding Date, Converter={StaticResource DateConverter}}"
                                                         VerticalOptions="Center" />
                                                     <Label
                                                         Grid.Column="1"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
-                                                        Text="{Binding Point}"
+                                                        Text="{Binding Score}"
                                                         VerticalOptions="Center" />
                                                     <Label
                                                         Grid.Column="2"
@@ -324,6 +334,19 @@
                                                         LineBreakMode="WordWrap"
                                                         Text="{Binding Rank}"
                                                         VerticalOptions="Center" />
+
+                                                    <Label
+                                                        Grid.Column="3"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="Xem"
+                                                        TextDecorations="Underline"
+                                                        VerticalOptions="Center">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference listView}, Path=BindingContext.NavigateCommand}" CommandParameter="{Binding .}" />
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
                                                 </Grid>
                                             </pancake:PancakeView>
                                         </DataTemplate>
@@ -382,14 +405,14 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="{Binding AverageRankPoint.Point}"
+                                        Text="{Binding AverageRankPoint.AverageScore}"
                                         VerticalOptions="Center" />
                                     <Label
                                         Grid.Column="2"
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="{Binding AverageRankPoint.Rank}"
+                                        Text="{Binding AverageRankPoint.AverageRank}"
                                         VerticalOptions="Center" />
                                 </Grid>
                             </pancake:PancakeView>
@@ -625,7 +648,7 @@
                                             CornerRadius="30"
                                             HeightRequest="60"
                                             HorizontalOptions="Center"
-                                            ImageSource="{Binding UserRank2.DriverAvatar}"
+                                            ImageSource="{Binding UserRank2.AvatarDisplay}"
                                             VerticalOptions="Center"
                                             WidthRequest="60" />
                                         <Label
@@ -655,7 +678,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="{Binding UserRank2.Point}"
+                                                Text="{Binding UserRank2.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -669,7 +692,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="{Binding UserRank2.Rank}"
+                                                Text="{Binding UserRank2.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -699,7 +722,7 @@
                                             CornerRadius="30"
                                             HeightRequest="60"
                                             HorizontalOptions="Center"
-                                            ImageSource="{Binding UserRank1.DriverAvatar}"
+                                            ImageSource="{Binding UserRank1.AvatarDisplay}"
                                             VerticalOptions="Center"
                                             WidthRequest="60" />
                                         <Label
@@ -729,7 +752,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="{Binding UserRank1.Point}"
+                                                Text="{Binding UserRank1.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -743,7 +766,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="{Binding UserRank1.Rank}"
+                                                Text="{Binding UserRank1.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -773,7 +796,7 @@
                                             CornerRadius="30"
                                             HeightRequest="60"
                                             HorizontalOptions="Center"
-                                            ImageSource="{Binding UserRank3.DriverAvatar}"
+                                            ImageSource="{Binding UserRank3.AvatarDisplay}"
                                             VerticalOptions="Center"
                                             WidthRequest="60" />
                                         <Label
@@ -803,7 +826,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="{Binding UserRank3.Point}"
+                                                Text="{Binding UserRank3.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -817,7 +840,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
-                                                Text="{Binding UserRank3.Rank}"
+                                                Text="{Binding UserRank3.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </pancake:PancakeView>
@@ -839,7 +862,6 @@
                                 <pancake:PancakeView.Border>
                                     <pancake:Border Thickness="1" Color="#CED6E0" />
                                 </pancake:PancakeView.Border>
-
 
                                 <StackLayout
                                     Padding="0"
@@ -927,14 +949,13 @@
                                     LoadMoreCommand="{Binding LoadMoreItemsCommand}"
                                     LoadMoreCommandParameter="{Binding Source={x:Reference listViewUser}}"
                                     LoadMoreOption="AutoOnScroll"
-                                    SelectionBackgroundColor="Transparent"
-                                    TapCommand="{Binding NavigateCommand}">
+                                    SelectionBackgroundColor="Transparent">
                                     <syncfusionList:SfListView.ItemTemplate>
                                         <DataTemplate>
                                             <pancake:PancakeView
                                                 Grid.Column="0"
                                                 Padding="10"
-                                                BackgroundColor="#D6F3FF"
+                                                BackgroundColor="{Binding BacgroundYourDriver}"
                                                 CornerRadius="5"
                                                 HorizontalOptions="FillAndExpand">
                                                 <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
@@ -947,10 +968,11 @@
                                                         VerticalOptions="Center" />
                                                     <StackLayout Grid.Column="1" Orientation="Horizontal">
                                                         <ffImage:CachedImage
-                                                            HeightRequest="25"
+                                                            HeightRequest="20"
                                                             HorizontalOptions="Start"
-                                                            Source="ic_photo_circle.png"
-                                                            VerticalOptions="Center">
+                                                            Source="ic_accountsolid.png"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="20">
                                                             <ffImage:CachedImage.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                                                             </ffImage:CachedImage.GestureRecognizers>
@@ -968,14 +990,14 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
-                                                        Text="{Binding Point}"
+                                                        Text="{Binding AverageScore}"
                                                         VerticalOptions="Center" />
                                                     <Label
                                                         Grid.Column="3"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
-                                                        Text="{Binding Rank}"
+                                                        Text="{Binding AverageRank}"
                                                         VerticalOptions="Center" />
                                                 </Grid>
                                             </pancake:PancakeView>

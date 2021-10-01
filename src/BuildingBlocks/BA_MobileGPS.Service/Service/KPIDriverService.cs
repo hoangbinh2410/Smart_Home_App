@@ -17,12 +17,12 @@ namespace BA_MobileGPS.Service
             this.requestProvider = requestProvider;
         }
 
-        public async Task<List<DriverRankingRespone>> GetDriverRankingByDay(DriverRankingRequest request)
+        public async Task<List<DriverRankingRespone>> GetDriverRanking(DriverRankingRequest request)
         {
             var result = new List<DriverRankingRespone>();
             try
             {
-                string url = $"{ApiUri.GET_DEVICESINFO}";
+                string url = $"{ApiUri.GET_DRIVERKPI_RANKING}";
                 var respone = await requestProvider.PostAsync<DriverRankingRequest, ResponseBaseV2<List<DriverRankingRespone>>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
@@ -36,25 +36,6 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<List<DriverRankingRespone>> GetDriverRankingByMonth(DriverRankingRequest request)
-        {
-            var result = new List<DriverRankingRespone>();
-            try
-            {
-                string url = $"{ApiUri.GET_DEVICESINFO}";
-
-                var respone = await requestProvider.PostAsync<DriverRankingRequest, ResponseBaseV2<List<DriverRankingRespone>>>(url, request);
-                if (respone != null && respone.Data != null)
-                {
-                    result = respone.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
 
         public async Task<DriverKpiChartRespone> GetDriverKpiChart(DriverKpiChartRequest request)
         {
