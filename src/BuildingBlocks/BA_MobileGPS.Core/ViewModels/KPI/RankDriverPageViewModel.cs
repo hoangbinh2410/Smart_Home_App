@@ -168,6 +168,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(() =>
             {
                 IsShowMonth = !IsShowMonth;
+                GetListUserRank();
             });
         }
 
@@ -247,7 +248,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     GetListUserRank(false);
                 }
-
             }, showLoading: true);
         }
 
@@ -284,13 +284,26 @@ namespace BA_MobileGPS.Core.ViewModels
                             result[i].BacgroundYourDriver = Color.FromHex("#D6F3FF");
                         }
                     }
+                    ListRankUserOrigin = result;
                     RankUserSource = result.ToObservableCollection();
                     var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
-                    if (lstUserShowRank != null && lstUserShowRank.Count == 3)
+                    if (lstUserShowRank != null && lstUserShowRank.Count <= 3)
                     {
-                        UserRank1 = lstUserShowRank[0];
-                        UserRank2 = lstUserShowRank[1];
-                        UserRank3 = lstUserShowRank[2];
+                        for (int i = 0; i < lstUserShowRank.Count; i++)
+                        {
+                            if (i == 0)
+                            {
+                                UserRank1 = lstUserShowRank[0];
+                            }
+                            else if (i == 1)
+                            {
+                                UserRank2 = lstUserShowRank[1];
+                            }
+                            else if (i == 2)
+                            {
+                                UserRank3 = lstUserShowRank[2];
+                            }
+                        }
                     }
                 }
                 else

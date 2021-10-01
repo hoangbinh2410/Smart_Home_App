@@ -300,7 +300,7 @@
                                             <pancake:PancakeView
                                                 Grid.Column="0"
                                                 Padding="10"
-                                                BackgroundColor="#D6F3FF"
+                                                BackgroundColor="#E4E4E4"
                                                 CornerRadius="5"
                                                 HorizontalOptions="FillAndExpand">
                                                 <Grid ColumnDefinitions=".5*,.2*,.3*">
@@ -947,10 +947,11 @@
                                                         VerticalOptions="Center" />
                                                     <StackLayout Grid.Column="1" Orientation="Horizontal">
                                                         <ffImage:CachedImage
-                                                            HeightRequest="25"
+                                                            HeightRequest="20"
                                                             HorizontalOptions="Start"
-                                                            Source="ic_photo_circle.png"
-                                                            VerticalOptions="Center">
+                                                            Source="ic_accountsolid.png"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="20">
                                                             <ffImage:CachedImage.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                                                             </ffImage:CachedImage.GestureRecognizers>
