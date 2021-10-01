@@ -93,8 +93,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectMonthEvent>().Subscribe(UpdateDateTime);
-            GetListRankPoint();
-            GetListUserRank();
+            GetListRankPoint(true);
         }
 
         public override void OnDestroy()
@@ -214,7 +213,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
         }
 
-        private void GetListRankPoint()
+        private void GetListRankPoint(bool isFistLoad = false)
         {
             var request = new Entities.DriverRankingRequest()
             {
@@ -238,10 +237,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         AverageRankPoint = info;
                     }
                 }
+                else
+                {
+                    RankPointSource = new ObservableCollection<DriverRankByDay>();
+                    SelectedRankPoint = new DriverRankByDay();
+                    AverageRankPoint = new DriverRankingRespone();
+                }
+                if (isFistLoad)
+                {
+                    GetListUserRank(false);
+                }
+
             }, showLoading: true);
         }
 
-        private void GetListUserRank()
+        private void GetListUserRank(bool isloading = true)
         {
             var toDate = DateRank;
             if (IsShowMonth)
@@ -262,6 +272,18 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        result[i].STT = i + 1;
+                        if (result[i].DriverId == AverageRankPoint.DriverId)
+                        {
+                            result[i].BacgroundYourDriver = Color.FromHex("#6FDCFF");
+                        }
+                        else
+                        {
+                            result[i].BacgroundYourDriver = Color.FromHex("#D6F3FF");
+                        }
+                    }
                     RankUserSource = result.ToObservableCollection();
                     var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
                     if (lstUserShowRank != null && lstUserShowRank.Count == 3)
@@ -271,7 +293,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         UserRank3 = lstUserShowRank[2];
                     }
                 }
-            }, showLoading: true);
+                else
+                {
+                    RankUserSource = new ObservableCollection<DriverRankingRespone>();
+                    UserRank1 = new DriverRankingRespone();
+                    UserRank2 = new DriverRankingRespone();
+                    UserRank3 = new DriverRankingRespone();
+                }
+            }, showLoading: isloading);
         }
 
         public void UpdateDateTime(PickerDateResponse param)

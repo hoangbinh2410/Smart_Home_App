@@ -165,7 +165,7 @@
                                 FontSize="18"
                                 HorizontalOptions="CenterAndExpand"
                                 LineBreakMode="TailTruncation"
-                                Text="{Binding ToDate, Converter={StaticResource DateConverter}}"
+                                Text="{Binding SelectedRankPoint.Date, Converter={StaticResource DateConverter}}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
                         </Grid>
@@ -934,7 +934,7 @@
                                             <pancake:PancakeView
                                                 Grid.Column="0"
                                                 Padding="10"
-                                                BackgroundColor="#D6F3FF"
+                                                BackgroundColor="{Binding BacgroundYourDriver}"
                                                 CornerRadius="5"
                                                 HorizontalOptions="FillAndExpand">
                                                 <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
