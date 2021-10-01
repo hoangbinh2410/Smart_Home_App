@@ -100,12 +100,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectMonthEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             GetListRankPoint(true);
         }
 
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SelectMonthEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -152,18 +154,39 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (SelectedTabIndex == 0)
                 {
-                    FromDate = FromDate.AddMonths(1);
-                    GetListRankPoint();
+                    if (FromDate.Month == DateTime.Now.Month && FromDate.Year == DateTime.Now.Year)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        FromDate = FromDate.AddMonths(1);
+                        GetListRankPoint();
+                    }
                 }
                 else
                 {
                     if (IsShowMonth)
                     {
-                        DateRank = DateRank.AddMonths(1);
+                        if (DateRank.Month == DateTime.Now.Month && DateRank.Year == DateTime.Now.Year)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            DateRank = DateRank.AddMonths(1);
+                        }
                     }
                     else
                     {
-                        DateRank = DateRank.AddDays(1);
+                        if (DateRank.Date < DateTime.Now.Date)
+                        {
+                            DateRank = DateRank.AddDays(1);
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                     GetListUserRank();
                 }
@@ -242,7 +265,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         RankPointSource = info.DriverRankByDay.OrderByDescending(x => x.Date).ToObservableCollection();
                         RankPointSource[0].BacgroundColor = Color.FromHex("#6FDCFF");
-                        SelectedRankPoint = info.DriverRankByDay[0];
+                        SelectedRankPoint = RankPointSource[0];
                         AverageRankPoint = info;
                     }
                 }
@@ -336,16 +359,46 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (SelectedTabIndex == 0)
                     {
-                        FromDate = param.Value;
-                        GetListRankPoint();
+                        if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
+                        {
+                            DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                            return;
+                        }
+                        else
+                        {
+                            FromDate = param.Value;
+                            GetListRankPoint();
+                        }
                     }
                     else
                     {
-                        DateRank = param.Value;
+                        if (IsShowMonth)
+                        {
+                            if (DateRank.Month >= DateTime.Now.Month && DateRank.Year >= DateTime.Now.Year)
+                            {
+                                DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                                return;
+                            }
+                            else
+                            {
+                                DateRank = param.Value;
+                            }
+                        }
+                        else
+                        {
+                            if (DateRank.Date < DateTime.Now.Date)
+                            {
+                                DateRank = param.Value;
+                            }
+                            else
+                            {
+                                DisplayMessage.ShowMessageInfo("Ngày tìm kiếm không được lớn hơn ngày hiện tại");
+                                return;
+                            }
+                        }
                         GetListUserRank();
                     }
                 }
-                ValidateDateTime();
             }
         }
 
