@@ -493,7 +493,7 @@
                                             InputTransparent="True"
                                             IsVisible="{Binding IsShowMonth}"
                                             Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                            Text="{Binding DateRank, StringFormat='{}{0:MM/yyyy}'}"
+                                            Text="{Binding DateRank, Converter={StaticResource MonthConverter}}"
                                             VerticalOptions="Center">
                                             <Entry.Effects>
                                                 <effects:BorderlessEffect />
