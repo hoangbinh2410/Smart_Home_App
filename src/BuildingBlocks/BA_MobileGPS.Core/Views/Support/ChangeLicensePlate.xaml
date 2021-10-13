@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ChangeLicensePlate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+            <Grid Grid.Row="0" StyleClass="TitleBarGrid">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="30">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackPageCommand}" />
+                    </Frame.GestureRecognizers>
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="30"
+                        HorizontalOptions="Start"
+                        Source="ic_close.png"
+                        VerticalOptions="EndAndExpand"
+                        WidthRequest="30" />
+                </Frame>
+                <Label
+                    x:Name="title"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    StyleClass="BoldText"
+                    Text="Hỗ trợ khách hàng"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="EndAndExpand" />
+            </Grid>
+            <StackLayout Grid.Row="1">
+                <Button BackgroundColor="Red" Text="Xe đang mất tín hiệu" />
+                <Button BackgroundColor="Blue" Text="Xe đang hết phí" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
