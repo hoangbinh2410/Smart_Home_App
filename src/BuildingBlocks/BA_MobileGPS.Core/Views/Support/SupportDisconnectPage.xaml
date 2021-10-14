@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
-              xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
-             x:Class="BA_MobileGPS.Core.Views.SupportDisconnectPage">
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SupportDisconnectPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*" RowSpacing="0">
-            <Grid Grid.Row="0" StyleClass="TitleBarGrid">
+        <Grid
+            RowDefinitions="Auto,*"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <Grid
+                Grid.Row="0"
+                Padding="10,10,0,20"
+                StyleClass="TitleBarGrid">
                 <Frame
                     Padding="0"
                     BackgroundColor="{DynamicResource PrimaryColor}"
@@ -27,19 +35,125 @@
                         VerticalOptions="EndAndExpand"
                         WidthRequest="30" />
                 </Frame>
+
                 <Label
                     x:Name="title"
-                    FontSize="18"
+                    FontSize="22"
                     HorizontalOptions="Center"
                     StyleClass="BoldText"
                     Text="Hỗ trợ khách hàng"
                     TextColor="{DynamicResource WhiteColor}"
                     VerticalOptions="EndAndExpand" />
             </Grid>
-            <StackLayout Grid.Row="1">
-                <Button BackgroundColor="Red" Text="Xe đang mất tín hiệu" />
-                <Button BackgroundColor="Blue" Text="Xe đang hết phí" />
-            </StackLayout>
+            <Grid
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                RowDefinitions="Auto,*,Auto"
+                VerticalOptions="FillAndExpand">
+
+                <StackLayout
+                    Grid.Row="0"
+                    BackgroundColor="#0474D8"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        Margin="0,20,0,20"
+                        FontAttributes="Bold"
+                        FontFamily="myFontFamilyBold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="Đổi biển"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <StackLayout
+                    Grid.Row="1"
+                    Padding="20,0,20,0"
+                    Spacing="30">
+                    <StackLayout Spacing="20">
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="myFontFamilyBold"
+                            FontSize="22"
+                            HorizontalTextAlignment="Start"
+                            Text="Quý khách vui lòng kiểm tra xe có xảy ra tình huống sau không và làm theo hướng dẫn"
+                            TextColor="{DynamicResource PrimaryColor}"
+                            VerticalTextAlignment="Center" />
+                        <BoxView StyleClass="SlimLine" VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <controls:IconView
+                            Foreground="#E63C2B"
+                            HeightRequest="40"
+                            HorizontalOptions="Start"
+                            Source="ic_info_outline_white.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="myFontFamilyBold"
+                            FontSize="22"
+                            Text="Xe đang mất tín hiệu" />
+                    </StackLayout>
+                    <pancake:PancakeView BackgroundColor="#00AFE6" CornerRadius="10,10,10,10">
+                        <Grid
+                            Padding="20,30,20,30"
+                            RowDefinitions="Auto,Auto"
+                            RowSpacing="20">
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="0"
+                                Orientation="Horizontal">
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Start"
+                                    Source="ic_settings.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontFamily="myFontFamilyBold"
+                                    FontSize="22"
+                                    Text="Hướng dẫn sử lý"
+                                    TextColor="{DynamicResource PrimaryColor}" />
+                            </StackLayout>
+                            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                                <BoxView
+                                    Margin="10,0,5,20"
+                                    BackgroundColor="Black"
+                                    CornerRadius="2.5"
+                                    HeightRequest="5"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    WidthRequest="5" />
+                                <Label
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text="Quý khách vui lòng kiểm tra tín hiệu xe theo hướng dẫn ở mục Mất tín hiệu"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+                        </Grid>
+                    </pancake:PancakeView>
+                </StackLayout>
+                <StackLayout
+                    Grid.Row="2"
+                    Padding="0,0,0,10"
+                    HorizontalOptions="FillAndExpand">
+                    <BoxView
+                        Grid.Column="1"
+                        HeightRequest="1"
+                        StyleClass="SlimLine" />
+                    <Grid Padding="0,20,0,20" VerticalOptions="FillAndExpand">
+                        <Button
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            Command="{Binding BackPageCommand}"
+                            HorizontalOptions="Center"
+                            Text="Đóng"
+                            VerticalOptions="FillAndExpand"
+                            WidthRequest="250" />
+                    </Grid>
+                </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

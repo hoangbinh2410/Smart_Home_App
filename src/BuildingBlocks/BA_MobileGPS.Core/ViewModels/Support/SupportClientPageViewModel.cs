@@ -23,14 +23,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportFeePage");
+                await NavigationService.NavigateAsync("SupportFeePage",null,true,false);
             });
         }
         public void PushSupportDisconnectPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportDisconnectPage");
+                await NavigationService.NavigateAsync("SupportDisconnectPage", null, true, false);
             });
         }
     }
