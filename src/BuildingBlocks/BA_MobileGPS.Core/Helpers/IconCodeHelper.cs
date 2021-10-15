@@ -69,7 +69,14 @@ namespace BA_MobileGPS.Core.Helpers
             }
             else if (StateVehicleExtension.IsStopAndEngineOn(carInfo))
             {
-                return GetIconCarFromStates(carInfo.IconCode, IconColor.BLUEGREY);
+                if (CompanyConfigurationHelper.ChangeColorIconStopParking)
+                {
+                    return GetIconCarFromStates(carInfo.IconCode, IconColor.BLUEGREY);
+                }
+                else
+                {
+                    return GetIconCarFromStates(carInfo.IconCode, IconColor.GREY);
+                }
             }
             else
             {
