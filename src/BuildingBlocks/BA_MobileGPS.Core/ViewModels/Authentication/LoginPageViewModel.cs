@@ -195,7 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (MobileSettingHelper.IsUseForgotpassword)
                 {
-                    await NavigationService.NavigateAsync("NavigationPage/KpiDriverChartPage", null, useModalNavigation: true, true);
+                    await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
                 }
                 else
                 {
