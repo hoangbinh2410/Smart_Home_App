@@ -11,6 +11,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportClientPageViewModel : ViewModelBase
     {
+        #region Contructor
         public ICommand PushSupportFeePageCommand { get; private set; }
         public ICommand PushSupportDisconnectPageCommand { get; private set; }
         public SupportClientPageViewModel(INavigationService navigationService) : base(navigationService)
@@ -19,6 +20,40 @@ namespace BA_MobileGPS.Core.ViewModels
 
             PushSupportDisconnectPageCommand = new DelegateCommand(PushSupportDisconnectPage);
         }
+        #endregion Contructor
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
+        }
+
+        #endregion Lifecycle
+        //312312312312312
+        #region Property
+
+        #endregion Property
+        #region  PrivateMethod
+
         public void PushSupportFeePage()
         {
             SafeExecute(async () =>
@@ -33,5 +68,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SupportDisconnectPage", null, true, false);
             });
         }
+        #endregion PrivateMethod
     }
 }

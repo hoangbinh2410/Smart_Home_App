@@ -7,6 +7,27 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
             RowDefinitions="Auto,*"
@@ -48,7 +69,7 @@
             <Grid
                 Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
-                RowDefinitions="Auto,Auto,*"
+                RowDefinitions="Auto,*,*"
                 VerticalOptions="FillAndExpand">
 
                 <StackLayout

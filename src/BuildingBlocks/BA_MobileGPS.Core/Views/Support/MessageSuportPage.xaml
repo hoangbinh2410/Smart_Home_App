@@ -7,48 +7,68 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView>
+        <Grid
+            RowDefinitions="Auto,*"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
             <Grid
-                RowDefinitions="Auto,*"
-                RowSpacing="0"
-                VerticalOptions="FillAndExpand">
-                <Grid
-                    Grid.Row="0"
-                    Padding="10,10,0,20"
-                    StyleClass="TitleBarGrid">
-                    <Frame
-                        Padding="0"
-                        BackgroundColor="{DynamicResource PrimaryColor}"
-                        HasShadow="False"
-                        HeightRequest="40"
+                Grid.Row="0"
+                Padding="10,10,0,20"
+                StyleClass="TitleBarGrid">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="30">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackPageCommand}" />
+                    </Frame.GestureRecognizers>
+
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="30"
                         HorizontalOptions="Start"
+                        Source="ic_close.png"
                         VerticalOptions="EndAndExpand"
-                        WidthRequest="30">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BackPageCommand}" />
-                        </Frame.GestureRecognizers>
+                        WidthRequest="30" />
+                </Frame>
 
-                        <controls:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="30"
-                            HorizontalOptions="Start"
-                            Source="ic_close.png"
-                            VerticalOptions="EndAndExpand"
-                            WidthRequest="30" />
-                    </Frame>
-
-                    <Label
-                        x:Name="title"
-                        FontSize="22"
-                        HorizontalOptions="Center"
-                        StyleClass="BoldText"
-                        Text="Hỗ trợ khách hàng"
-                        TextColor="{DynamicResource WhiteColor}"
-                        VerticalOptions="EndAndExpand" />
-                </Grid>
+                <Label
+                    x:Name="title"
+                    FontSize="22"
+                    HorizontalOptions="Center"
+                    StyleClass="BoldText"
+                    Text="Hỗ trợ khách hàng"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="EndAndExpand" />
+            </Grid>
+            <ScrollView Grid.Row="1">
                 <Grid
-                    Grid.Row="1"
                     Padding="0,20,0,0"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="FillAndExpand"
@@ -76,7 +96,7 @@
                             Text="Danh mục cân hỗ trợ" />
 
                         <Label
-                            FontSize="16"
+                            FontSize="18"
                             HorizontalOptions="Start"
                             Text="Phương tiện" />
 
@@ -99,6 +119,8 @@
                                 <Entry
                                     FontSize="18"
                                     HorizontalOptions="FillAndExpand"
+                                    Keyboard="Numeric"
+                                    MaxLength="10"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
                                     Text="{Binding Number}"
                                     VerticalOptions="Center">
@@ -124,7 +146,10 @@
                                 HorizontalOptions="FillAndExpand"
                                 IsClippedToBounds="True"
                                 VerticalOptions="Center">
-                                <Editor AutoSize="TextChanges" Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí">
+                                <Editor
+                                    AutoSize="TextChanges"
+                                    MaxLength="1000"
+                                    Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí">
                                     <Editor.Effects>
                                         <effects:BorderlessEffect />
                                     </Editor.Effects>
@@ -151,7 +176,7 @@
                         </Grid>
                     </StackLayout>
                 </Grid>
-            </Grid>
-        </ScrollView>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -11,6 +11,7 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportFeePageViewModel : ViewModelBase
     {
+        #region Contructor
         public ICommand BackPageCommand { get; private set; }
         public ICommand PushChangeLicensePlateCommand { get; private set; }
         public ICommand PushMessageSuportPageCommand { get; private set; }
@@ -21,6 +22,39 @@ namespace BA_MobileGPS.Core.ViewModels
             PushChangeLicensePlateCommand = new DelegateCommand(PushChangeLicensePlate);
             PushMessageSuportPageCommand = new DelegateCommand(PushMessageSuportPage);
         }
+        #endregion Contructor
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
+        }
+
+        #endregion Lifecycle
+        //312312312312312
+        #region Property
+
+        #endregion Property
+        #region  PrivateMethod
         public void BackPage()
         {
             SafeExecute(async () =>
@@ -42,5 +76,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("MessageSuportPage", null, true, false);
             });
         }
+        #endregion PrivateMethod
     }
 }

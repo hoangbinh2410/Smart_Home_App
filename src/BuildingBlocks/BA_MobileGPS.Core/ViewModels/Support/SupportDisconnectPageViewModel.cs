@@ -11,17 +11,52 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportDisconnectPageViewModel : ViewModelBase
     {
+        #region Contructor
         public ICommand BackPageCommand { get; private set; }
         public SupportDisconnectPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
         }
-      public void BackPage()
+        #endregion Contructor
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
+        }
+
+        #endregion Lifecycle
+        //312312312312312
+        #region Property
+
+        #endregion Property
+        #region  PrivateMethod
+        public void BackPage()
         {
             SafeExecute(async () =>
             {
                 await NavigationService.GoBackAsync(null, true, false); ;
             });
         }
+        #endregion PrivateMethod
     }
 }

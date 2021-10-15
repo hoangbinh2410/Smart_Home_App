@@ -7,6 +7,27 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
             RowDefinitions="Auto,*"
@@ -38,7 +59,7 @@
 
                 <Label
                     x:Name="title"
-                    FontSize="22"
+                    FontSize="20"
                     HorizontalOptions="Center"
                     StyleClass="BoldText"
                     Text="Hỗ trợ khách hàng"
@@ -57,10 +78,8 @@
                     HorizontalOptions="FillAndExpand">
                     <Label
                         Margin="0,20,0,20"
-                        FontAttributes="Bold"
-                        FontFamily="myFontFamilyBold"
-                        FontSize="20"
                         HorizontalOptions="Center"
+                        Style="{DynamicResource Text18B}"
                         Text="Đổi biển"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="Center" />
@@ -71,10 +90,8 @@
                     Spacing="30">
                     <StackLayout Spacing="20">
                         <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="20"
                             HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Text18B}"
                             Text="Quý khách vui lòng kiểm tra xe có xảy ra tình huống sau không và làm theo hướng dẫn"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
@@ -89,10 +106,9 @@
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40" />
                         <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="22"
-                            Text="Xe đang hết phí" />
+                            Style="{DynamicResource Text20B}"
+                            Text="Xe đang hết phí"
+                            VerticalOptions="Center" />
                     </StackLayout>
                     <pancake:PancakeView BackgroundColor="#00AFE6" CornerRadius="10,10,10,10">
                         <Grid
@@ -111,15 +127,14 @@
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
                                 <Label
-                                    FontAttributes="Bold"
-                                    FontFamily="myFontFamilyBold"
-                                    FontSize="22"
+                                    Style="{DynamicResource Text20B}"
                                     Text="Hướng dẫn sử lý"
-                                    TextColor="{DynamicResource PrimaryColor}" />
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    VerticalOptions="Center" />
                             </StackLayout>
                             <StackLayout Grid.Row="1" Orientation="Horizontal">
                                 <BoxView
-                                    Margin="10,0,5,20"
+                                    Margin="10,3,5,20"
                                     BackgroundColor="Black"
                                     CornerRadius="2.5"
                                     HeightRequest="5"
@@ -127,14 +142,14 @@
                                     VerticalOptions="Center"
                                     WidthRequest="5" />
                                 <Label
-                                    FontSize="20"
                                     HorizontalTextAlignment="Start"
+                                    Style="{DynamicResource Text16}"
                                     Text="Quý khách vui lòng đóng phí cho xe sau đó quay đổi biển."
                                     VerticalTextAlignment="Center" />
                             </StackLayout>
                             <StackLayout Grid.Row="2" Orientation="Horizontal">
                                 <BoxView
-                                    Margin="10,0,5,20"
+                                    Margin="10,3,5,20"
                                     BackgroundColor="Black"
                                     CornerRadius="2.5"
                                     HeightRequest="5"
@@ -142,8 +157,8 @@
                                     VerticalOptions="Center"
                                     WidthRequest="5" />
                                 <Label
-                                    FontSize="20"
                                     HorizontalTextAlignment="Start"
+                                    Style="{DynamicResource Text16}"
                                     Text="Hoặc liên hệ với chúng tôi nếu cần hỗ trợ đóng phí."
                                     VerticalTextAlignment="Center" />
                             </StackLayout>
@@ -160,9 +175,9 @@
                         HeightRequest="1"
                         StyleClass="SlimLine" />
                     <Grid
-                        Padding="20"
+                        Padding="10"
                         ColumnDefinitions="0.5*,0.5*"
-                        ColumnSpacing="20"
+                        ColumnSpacing="10"
                         HorizontalOptions="CenterAndExpand">
                         <Button
                             Grid.Column="0"

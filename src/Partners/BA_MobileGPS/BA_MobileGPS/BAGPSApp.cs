@@ -42,7 +42,7 @@ namespace BA_MobileGPS
             }
             else
             {
-                _ = await NavigationService.NavigateAsync("SupportClientPage");
+                _ = await NavigationService.NavigateAsync("LoginPage");
             }
         }
 
