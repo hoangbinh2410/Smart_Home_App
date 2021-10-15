@@ -50,7 +50,7 @@
                 Padding="0,20,0,0"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 HorizontalOptions="FillAndExpand"
-                RowDefinitions="*,Auto"
+                RowDefinitions="Auto,*"
                 VerticalOptions="FillAndExpand">
                 <StackLayout
                     Grid.Row="0"
@@ -127,7 +127,8 @@
                 <StackLayout
                     Grid.Row="1"
                     Padding="0,0,0,10"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand">
                     <BoxView StyleClass="SlimLine" />
                     <Grid Padding="0,20,0,20" VerticalOptions="FillAndExpand">
                         <Button
