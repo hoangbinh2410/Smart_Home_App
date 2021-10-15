@@ -48,7 +48,7 @@
             <Grid
                 Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
-                RowDefinitions="Auto,*,Auto"
+                RowDefinitions="Auto,Auto,*"
                 VerticalOptions="FillAndExpand">
 
                 <StackLayout
@@ -138,7 +138,8 @@
                 <StackLayout
                     Grid.Row="2"
                     Padding="0,0,0,10"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand">
                     <BoxView
                         Grid.Column="1"
                         HeightRequest="1"
