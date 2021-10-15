@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.Support.FeedbackErrorsSignalPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="colorPancake1">#0474D8</Color>
+            <Color x:Key="colorPancakeItem">#A4DBDB</Color>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="Auto,Auto,*,Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <!--  Tiêu đề  0  -->
+            <Grid
+                Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                StyleClass="TitleBarGrid"
+                VerticalOptions="StartAndExpand">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="20">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackPageCommand}" />
+                    </Frame.GestureRecognizers>
+                    <controls:FontAwesomeIcon
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Start"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.ChevronLeft}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </Frame>
+                <Label
+                    x:Name="title"
+                    Margin="0,0,0,5"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource LabelHeader}"
+                    Text="Hỗ trợ khách hàng"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="EndAndExpand" />
+            </Grid>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

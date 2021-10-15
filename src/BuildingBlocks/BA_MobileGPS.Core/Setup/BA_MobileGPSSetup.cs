@@ -1,7 +1,9 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Core.ViewModels.Support;
 using BA_MobileGPS.Core.Views;
+using BA_MobileGPS.Core.Views.Support;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -210,6 +212,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<QCVN31SpeedReportPage, QCVN31SpeedReportViewModel>("QCVN31SpeedReportPage");
             containerRegistry.RegisterForNavigation<PlaybackUserMessagePopup, PlaybackUserMessagePopupViewModel>("PlaybackUserMessagePopup");
             containerRegistry.RegisterForNavigation<StreamUserMessagePopup, StreamUserMessagePopupViewModel>("StreamUserMessagePopup");
+
+            containerRegistry.RegisterForNavigation<SupportClientPage, SupportClientPageViewModel>("SupportClientPage");
+            containerRegistry.RegisterForNavigation<SupportErrorsSignalPage, SupportErrorsSignalPageViewModel>("SupportErrorsSignalPage");
+            containerRegistry.RegisterForNavigation<FeedbackErrorsSignalPage, FeedbackErrorsSignalPageViewModel>("FeedbackErrorsSignalPage");
+
         }
     }
 }
