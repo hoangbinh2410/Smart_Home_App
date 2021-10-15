@@ -4,7 +4,6 @@ using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
 using System;
@@ -138,7 +137,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowDetailImage()
         {
-            TryExecute(async () =>
+            TryExecute(() =>
             {
                 var xnCode = StaticSettings.User.XNCode;
 
@@ -147,62 +146,68 @@ namespace BA_MobileGPS.Core.ViewModels
                     xnCode = Settings.CurrentCompany.XNCode;
                 }
 
-                ListCameraImage = await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
-                if (ListCameraImage != null && ListCameraImage.Count > 0)
+                RunOnBackground(async () =>
                 {
-                    if (ImageCamera != null)
+                    return await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
+                }, (result) =>
+                {
+                    if (result != null && result.Count > 0)
                     {
-                        Position = ListCameraImage.Select(x => x.Url).ToList().IndexOf(ImageCamera.Url);
-                    }
-                    else
-                    {
-                        Position = 0;
-                        ImageCamera = ListCameraImage.FirstOrDefault();
-                    }
-
-                    PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
-
-                    Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
-                    {
-                        Pins.Clear();
-                        Pins.Add(new Pin()
+                        ListCameraImage = result;
+                        if (ImageCamera != null)
                         {
-                            Type = PinType.Place,
-                            Label = VehiclePlate,
-                            Anchor = new Point(.5, .5),
-                            Address = ListCameraImage[Position].CurrentAddress,
-                            Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
-                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                            IsDraggable = false,
-                            Tag = "CAMERA" + VehiclePlate
-                        });
-                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
-                        SelectedPin = Pins[0];
-                        return false;
-                    });
-
-                    //Add vào zoom slide
-
-                    var tempListData = new ObservableCollection<Photo>();
-                    foreach (var item in ListCameraImage)
-                    {
-                        tempListData.Add(new Photo()
+                            Position = ListCameraImage.Select(x => x.Url).ToList().IndexOf(ImageCamera.Url);
+                        }
+                        else
                         {
-                            URL = item.Url,
-                            Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
-                            Title = item.CurrentAddress
-                        });
-                    }
+                            Position = 0;
+                            ImageCamera = ListCameraImage.FirstOrDefault();
+                        }
 
-                    if (tempListData != null && tempListData.Count > 0)
-                    {
-                        ListphotoImages = new ObservableCollection<Photo>(tempListData);
+                        PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
+
+                        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                        {
+                            Pins.Clear();
+                            Pins.Add(new Pin()
+                            {
+                                Type = PinType.Place,
+                                Label = VehiclePlate,
+                                Anchor = new Point(.5, .5),
+                                Address = ListCameraImage[Position].CurrentAddress,
+                                Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
+                                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                                IsDraggable = false,
+                                Tag = "CAMERA" + VehiclePlate
+                            });
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                            SelectedPin = Pins[0];
+                            return false;
+                        });
+
+                        //Add vào zoom slide
+
+                        var tempListData = new ObservableCollection<Photo>();
+                        foreach (var item in ListCameraImage)
+                        {
+                            tempListData.Add(new Photo()
+                            {
+                                URL = item.Url,
+                                Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
+                                Title = item.CurrentAddress
+                            });
+                        }
+
+                        if (tempListData != null && tempListData.Count > 0)
+                        {
+                            ListphotoImages = new ObservableCollection<Photo>(tempListData);
+                        }
+                        else
+                        {
+                            ListphotoImages = new ObservableCollection<Photo>();
+                        }
                     }
-                    else
-                    {
-                        ListphotoImages = new ObservableCollection<Photo>();
-                    }
-                }
+                });
             });
         }
 
