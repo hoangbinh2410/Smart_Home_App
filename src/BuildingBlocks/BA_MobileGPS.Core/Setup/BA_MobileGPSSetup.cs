@@ -212,6 +212,12 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<QCVN31SpeedReportPage, QCVN31SpeedReportViewModel>("QCVN31SpeedReportPage");
             containerRegistry.RegisterForNavigation<PlaybackUserMessagePopup, PlaybackUserMessagePopupViewModel>("PlaybackUserMessagePopup");
             containerRegistry.RegisterForNavigation<StreamUserMessagePopup, StreamUserMessagePopupViewModel>("StreamUserMessagePopup");
+            containerRegistry.RegisterForNavigation<SupportClientPage, SupportClientPageViewModel>("SupportClientPage");
+            containerRegistry.RegisterForNavigation<SupportDisconnectPage, SupportDisconnectPageViewModel>("SupportDisconnectPage");
+            containerRegistry.RegisterForNavigation<SupportFeePage, SupportFeePageViewModel>("SupportFeePage");
+            containerRegistry.RegisterForNavigation<MessageSuportPage, MessageSuportPageViewModel>("MessageSuportPage");
+            containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");
+            containerRegistry.RegisterForNavigation<NotificationSupportPage, NotificationSupportPageViewModel>("NotificationSupportPage");
             containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
             containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
             containerRegistry.RegisterForNavigation<KpiDriverChartPage, KpiDriverChartPageViewModel>("KpiDriverChartPage");

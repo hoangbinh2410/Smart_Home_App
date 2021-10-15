@@ -484,6 +484,24 @@
 	  <EmbeddedResource Update="Views\Driver\AddDriverInforPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\ChangeLicensePlate.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\MessageSuportPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\NotificationSupportPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\SupportClientPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\SupportDisconnectPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\SupportFeePage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">
