@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Input;
 
-namespace BA_MobileGPS.Core.ViewModels.Support
+namespace BA_MobileGPS.Core.ViewModels
 {
     public class RotatorModel : ViewModelBase
     {

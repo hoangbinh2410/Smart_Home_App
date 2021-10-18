@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Input;
 
-namespace BA_MobileGPS.Core.ViewModels.Support
+namespace BA_MobileGPS.Core.ViewModels
 {
     internal class SupportErrorsSignalPageViewModel : ViewModelBase
     {

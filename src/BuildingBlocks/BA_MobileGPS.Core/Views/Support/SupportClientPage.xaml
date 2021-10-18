@@ -7,6 +7,7 @@
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
@@ -33,228 +34,221 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*" RowSpacing="0">
+    <NavigationPage.TitleView>
         <Grid
-            RowDefinitions="Auto,*"
-            RowSpacing="0"
-            VerticalOptions="FillAndExpand">
-            <!--  Tiêu đề  -->
-            <Grid
-                Grid.Row="0"
-                HorizontalOptions="FillAndExpand"
-                StyleClass="TitleBarGrid"
-                VerticalOptions="StartAndExpand">
-                <Frame
-                    Padding="0"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    HasShadow="False"
-                    HeightRequest="40"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="30">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                    </Frame.GestureRecognizers>
-                    <controls:IconView
-                        Foreground="{DynamicResource WhiteColor}"
-                        HeightRequest="25"
-                        HorizontalOptions="StartAndExpand"
-                        Source="ic_close.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="25" />
-                </Frame>
-
-                <Label
-                    x:Name="title"
-                    Margin="0,0,0,5"
-                    HorizontalOptions="CenterAndExpand"
-                    Style="{DynamicResource LabelItem}"
-                    Text="Hỗ trợ khách hàng"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="EndAndExpand" />
-            </Grid>
-            <pancake:PancakeView
-                Grid.Row="1"
-                Padding="10,10,10,0"
-                BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="10,10,0,0"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <StackLayout Margin="10,10,10,0" Spacing="20">
-
-                    <StackLayout Spacing="15">
-                        <Label
-                            HorizontalOptions="Start"
-                            Style="{DynamicResource LabelItem}"
-                            Text="Phương tiện xử lý"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalOptions="CenterAndExpand" />
-                        <inputLayout:SfTextInputLayout
-                            ContainerType="Outlined"
-                            FocusedColor="{DynamicResource PrimaryColor}"
-                            LeadingViewPosition="Inside"
-                            UnfocusedColor="{DynamicResource PrimaryColor}">
-                            <combobox:SfComboBox
-                                x:Name="comboBoxGender"
-                                DropDownBorderColor="{DynamicResource PrimaryColor}"
-                                IsEditableMode="False"
-                                SelectedItem="{Binding PlateNumber}"
-                                ShowClearButton="False"
-                                TextColor="{DynamicResource PrimaryColor}">
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                                        <x:String>29T191239</x:String>
-                                        <x:String>29H123456</x:String>
-                                    </ListCollection:List>
-                                </combobox:SfComboBox.ComboBoxSource>
-                            </combobox:SfComboBox>
-                        </inputLayout:SfTextInputLayout>
-                        <Label
-                            HorizontalOptions="Start"
-                            Style="{DynamicResource LabelItem}"
-                            Text="Danh mục hỗ trợ"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalOptions="Start" />
-                        <Label
-                            FontAttributes="Italic"
-                            FontSize="13"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Qúy khách vui lòng trọn danh mục cần hỗ trợ dưới đây" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
-                    <StackLayout Spacing="20">
-                        <pancake:PancakeView
-                            BackgroundColor="{DynamicResource colorItem}"
-                            CornerRadius="10"
-                            HeightRequest="60"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand">
-                            <pancake:PancakeView.Border>
-                                <pancake:Border Thickness="2" Color="#2F80ED" />
-                            </pancake:PancakeView.Border>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SupportErrorsSignalCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
-                            <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
-                                <controls:IconView
-                                    Grid.Column="0"
-                                    Foreground="Red"
-                                    HeightRequest="20"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="ic_livestream.png"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="20" />
-                                <Label
-                                    Grid.Column="1"
-                                    FontSize="16"
-                                    HorizontalOptions="StartAndExpand"
-                                    Style="{DynamicResource LabelItem}"
-                                    Text="Mất tín hiệu"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
-                                <controls:FontAwesomeIcon
-                                    Grid.Column="2"
-                                    FontSize="20"
-                                    HorizontalOptions="Center"
-                                    Opacity="0.8"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
-                            </Grid>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView
-                            BackgroundColor="{DynamicResource colorItem}"
-                            CornerRadius="10"
-                            HeightRequest="60"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand">
-                            <pancake:PancakeView.Border>
-                                <pancake:Border Thickness="2" Color="#2F80ED" />
-                            </pancake:PancakeView.Border>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SupportChangePlateCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
-                            <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
-                                <controls:IconView
-                                    Grid.Column="0"
-                                    Foreground="#DA70D6"
-                                    HeightRequest="20"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="ic_count_door_open.png"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="20" />
-                                <Label
-                                    Grid.Column="1"
-                                    FontSize="16"
-                                    HorizontalOptions="StartAndExpand"
-                                    Style="{DynamicResource LabelItem}"
-                                    Text="Đổi biển"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
-                                <controls:FontAwesomeIcon
-                                    Grid.Column="2"
-                                    FontSize="20"
-                                    HorizontalOptions="Center"
-                                    Opacity="0.8"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
-                            </Grid>
-                        </pancake:PancakeView>
-                        <pancake:PancakeView
-                            BackgroundColor="{DynamicResource colorItem}"
-                            CornerRadius="10"
-                            HeightRequest="60"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand">
-                            <pancake:PancakeView.Border>
-                                <pancake:Border Thickness="2" Color="#2F80ED" />
-                            </pancake:PancakeView.Border>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SupportErrorsCameraCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
-                            <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
-                                <controls:IconView
-                                    Grid.Column="0"
-                                    Foreground="Green"
-                                    HeightRequest="20"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Source="ic_video.png"
-                                    VerticalOptions="CenterAndExpand"
-                                    WidthRequest="20" />
-                                <Label
-                                    Grid.Column="1"
-                                    FontSize="16"
-                                    HorizontalOptions="StartAndExpand"
-                                    Style="{DynamicResource LabelItem}"
-                                    Text="Lỗi camera"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
-                                <controls:FontAwesomeIcon
-                                    Grid.Column="2"
-                                    FontSize="20"
-                                    HorizontalOptions="Center"
-                                    Opacity="0.8"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
-                            </Grid>
-                        </pancake:PancakeView>
-                    </StackLayout>
-                    <StackLayout />
-                </StackLayout>
-            </pancake:PancakeView>
-
+            Padding="0,0,10,0"
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <image:CachedImage
+                Grid.Column="0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <image:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </image:CachedImage.GestureRecognizers>
+            </image:CachedImage>
+            <Label
+                Grid.ColumnSpan="3"
+                FontAttributes="Bold"
+                FontFamily="myFontFamilyBold"
+                FontSize="20"
+                HorizontalOptions="CenterAndExpand"
+                LineBreakMode="MiddleTruncation"
+                Text="Hỗ trợ khách hàng"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
         </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <pancake:PancakeView
+            Grid.Row="1"
+            Padding="10,10,10,0"
+            BackgroundColor="{DynamicResource WhiteColor}"
+            CornerRadius="10,10,0,0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <StackLayout Margin="10,10,10,0" Spacing="20">
 
+                <StackLayout Spacing="15">
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{DynamicResource LabelItem}"
+                        Text="Phương tiện xử lý"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand" />
+                    <inputLayout:SfTextInputLayout
+                        ContainerType="Outlined"
+                        FocusedColor="{DynamicResource PrimaryColor}"
+                        LeadingViewPosition="Inside"
+                        UnfocusedColor="{DynamicResource PrimaryColor}">
+                        <combobox:SfComboBox
+                            x:Name="comboBoxGender"
+                            DropDownBorderColor="{DynamicResource PrimaryColor}"
+                            IsEditableMode="False"
+                            SelectedItem="{Binding PlateNumber}"
+                            ShowClearButton="False"
+                            TextColor="{DynamicResource PrimaryColor}">
+                            <combobox:SfComboBox.ComboBoxSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>29T191239</x:String>
+                                    <x:String>29H123456</x:String>
+                                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                        </combobox:SfComboBox>
+                    </inputLayout:SfTextInputLayout>
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{DynamicResource LabelItem}"
+                        Text="Danh mục hỗ trợ"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Start" />
+                    <Label
+                        FontAttributes="Italic"
+                        FontSize="13"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Qúy khách vui lòng trọn danh mục cần hỗ trợ dưới đây" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+                <StackLayout Spacing="20">
+                    <!--  Mất tín hiệu  -->
+                    <pancake:PancakeView
+                        BackgroundColor="{DynamicResource colorItem}"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="2" Color="#2F80ED" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SupportErrorsSignalCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
+                            <controls:IconView
+                                Grid.Column="0"
+                                Foreground="Red"
+                                HeightRequest="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_livestream.png"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="20" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                HorizontalOptions="StartAndExpand"
+                                Style="{DynamicResource LabelItem}"
+                                Text="Mất tín hiệu"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand" />
+                            <controls:FontAwesomeIcon
+                                Grid.Column="2"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Opacity="0.8"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand" />
+                        </Grid>
+                    </pancake:PancakeView>
+                    <!--  Đổi biển  -->
+                    <pancake:PancakeView
+                        BackgroundColor="{DynamicResource colorItem}"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="2" Color="#2F80ED" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SupportChangePlateCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
+                            <controls:IconView
+                                Grid.Column="0"
+                                Foreground="#DA70D6"
+                                HeightRequest="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_count_door_open.png"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="20" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                HorizontalOptions="StartAndExpand"
+                                Style="{DynamicResource LabelItem}"
+                                Text="Đổi biển"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand" />
+                            <controls:FontAwesomeIcon
+                                Grid.Column="2"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Opacity="0.8"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand" />
+                        </Grid>
+                    </pancake:PancakeView>
+                    <!--  Lõi camera  -->
+                    <pancake:PancakeView
+                        BackgroundColor="{DynamicResource colorItem}"
+                        CornerRadius="10"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand">
+                        <pancake:PancakeView.Border>
+                            <pancake:Border Thickness="2" Color="#2F80ED" />
+                        </pancake:PancakeView.Border>
+                        <pancake:PancakeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SupportErrorsCameraCommand}" />
+                        </pancake:PancakeView.GestureRecognizers>
+                        <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
+                            <controls:IconView
+                                Grid.Column="0"
+                                Foreground="Green"
+                                HeightRequest="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="ic_video.png"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="20" />
+                            <Label
+                                Grid.Column="1"
+                                FontSize="16"
+                                HorizontalOptions="StartAndExpand"
+                                Style="{DynamicResource LabelItem}"
+                                Text="Lỗi camera"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand" />
+                            <controls:FontAwesomeIcon
+                                Grid.Column="2"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                Opacity="0.8"
+                                Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand" />
+                        </Grid>
+                    </pancake:PancakeView>
+                </StackLayout>
+                <StackLayout />
+            </StackLayout>
+        </pancake:PancakeView>
+        <!--</Grid>-->
     </ContentPage.Content>
-
 </ContentPage>

@@ -47,24 +47,31 @@ namespace BA_MobileGPS.Core.ViewModels
         {
         }
 
-        #endregion Lifecycle
-        //312312312312312
+        #endregion Lifecycle     
         #region Property
-
+        private bool InotificationView = false;
+        public bool INotificationView
+        {
+            get { return InotificationView; }
+            set
+            {
+                SetProperty(ref InotificationView, value);
+            }
+        }
         #endregion Property
         #region  PrivateMethod
         public void BackPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackAsync(null, true, false); ;
+                await NavigationService.GoBackToRootAsync(null);
             });
         }
         public void PushNotificationSupportPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NotificationSupportPage");
+                INotificationView = true;
             });
         }
         #endregion PrivateMethod

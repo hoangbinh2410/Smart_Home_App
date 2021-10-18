@@ -25,12 +25,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            base.Initialize(parameters);          
+            base.Initialize(parameters);
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);        
+            base.OnNavigatedTo(parameters);
         }
 
         public override void OnPageAppearingFirstTime()
@@ -47,10 +47,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
         }
 
-        #endregion Lifecycle
-        //312312312312312
+        #endregion Lifecycle     
         #region Property
-
+        private bool InotificationView = false;
+        public bool INotificationView
+        {
+            get { return InotificationView; }
+            set
+            {
+                SetProperty(ref InotificationView, value);
+            }
+        }           
         #endregion Property
         #region  PrivateMethod
 
@@ -58,14 +65,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackAsync(null, true, false); ;
+                await NavigationService.GoBackToRootAsync(null);
             });
         }
         public void PushNotificationSupportPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NotificationSupportPage");
+                INotificationView = true;               
             });
         }
         #endregion PrivateMethod

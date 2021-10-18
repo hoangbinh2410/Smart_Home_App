@@ -12,13 +12,15 @@ namespace BA_MobileGPS.Core.ViewModels
     public class SupportClientPageViewModel : ViewModelBase
     {
         #region Contructor
-        public ICommand PushSupportFeePageCommand { get; private set; }
-        public ICommand PushSupportDisconnectPageCommand { get; private set; }
+        public ICommand SupportErrorsSignalCommand { get; private set; }
+        public ICommand SupportChangePlateCommand { get; private set; }
+        public ICommand SupportErrorsCameraCommand { get; private set; }
         public SupportClientPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            PushSupportFeePageCommand = new DelegateCommand(PushSupportFeePage);
+            SupportChangePlateCommand = new DelegateCommand(PushSupportFeePage);
 
-            PushSupportDisconnectPageCommand = new DelegateCommand(PushSupportDisconnectPage);
+            SupportErrorsCameraCommand = new DelegateCommand(PushSupportDisconnectPage);
+            SupportErrorsSignalCommand = new DelegateCommand(PushSupportErrorsSignalPage);
         }
         #endregion Contructor
         #region Lifecycle
@@ -45,9 +47,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-            SupportErrorsSignalCommand = new DelegateCommand(SupportErrorsSignalClicked);
-            SupportChangePlateCommand = new DelegateCommand(SupportChangePlateClicked);
-            SupportErrorsCameraCommand = new DelegateCommand(SupportErrorsCameraClicked);
+            //SupportErrorsSignalCommand = new DelegateCommand(SupportErrorsSignalClicked);
+            //SupportChangePlateCommand = new DelegateCommand(SupportChangePlateClicked);
+            //SupportErrorsCameraCommand = new DelegateCommand(SupportErrorsCameraClicked);
         }
 
         #endregion Lifecycle
@@ -56,19 +58,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Property
         #region  PrivateMethod
-
+        public void PushSupportErrorsSignalPage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("SupportErrorsSignalPage");
+            });
+        }
         public void PushSupportFeePage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NavigationPage/SupportFeePage");
+                await NavigationService.NavigateAsync("SupportFeePage");
             });
         }
         public void PushSupportDisconnectPage()
         {
             SafeExecute(async () =>
         {
-                await NavigationService.NavigateAsync("NavigationPage/SupportDisconnectPage");
+                await NavigationService.NavigateAsync("SupportDisconnectPage");
             });
         }
 
