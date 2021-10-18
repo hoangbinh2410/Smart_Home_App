@@ -63,7 +63,7 @@
 
                     <Label
                         x:Name="title"
-                        FontSize="22"
+                        FontSize="20"
                         HorizontalOptions="Center"
                         StyleClass="BoldText"
                         Text="Hỗ trợ khách hàng"
@@ -85,10 +85,8 @@
                         Spacing="30"
                         VerticalOptions="FillAndExpand">
                         <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="20"
                             HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Text18B}"
                             Text="Quý khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu đổi biển!"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
@@ -96,17 +94,13 @@
                         <Label
                             FontAttributes="Italic"
                             FontFamily="myFontFamilyItalic"
-                            FontSize="18"
+                            FontSize="16"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             Text="Đổi biển sẽ làm thay đổi dũ liệu của phương tiện được chọn, quý khách cần lưu ý trước khi đổi biển."
                             TextColor="#E63C2B" />
 
-                        <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="18"
-                            HorizontalOptions="Start">
+                        <Label HorizontalOptions="Start" Style="{DynamicResource Text18B}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Biển số cũ: " />

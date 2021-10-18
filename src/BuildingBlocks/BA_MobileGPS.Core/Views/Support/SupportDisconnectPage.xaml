@@ -78,10 +78,8 @@
                     HorizontalOptions="FillAndExpand">
                     <Label
                         Margin="0,20,0,20"
-                        FontAttributes="Bold"
-                        FontFamily="myFontFamilyBold"
-                        FontSize="20"
                         HorizontalOptions="Center"
+                        Style="{DynamicResource Text18B}"
                         Text="Đổi biển"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="Center" />
@@ -92,10 +90,8 @@
                     Spacing="30">
                     <StackLayout Spacing="20">
                         <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="22"
                             HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Text18B}"
                             Text="Quý khách vui lòng kiểm tra xe có xảy ra tình huống sau không và làm theo hướng dẫn"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
@@ -109,11 +105,7 @@
                             Source="ic_info_outline_white.png"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="40" />
-                        <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="22"
-                            Text="Xe đang mất tín hiệu" />
+                        <Label Style="{DynamicResource Text20B}" Text="Xe đang mất tín hiệu" />
                     </StackLayout>
                     <pancake:PancakeView BackgroundColor="#00AFE6" CornerRadius="10,10,10,10">
                         <Grid
@@ -132,9 +124,7 @@
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
                                 <Label
-                                    FontAttributes="Bold"
-                                    FontFamily="myFontFamilyBold"
-                                    FontSize="22"
+                                    Style="{DynamicResource Text20B}"
                                     Text="Hướng dẫn sử lý"
                                     TextColor="{DynamicResource PrimaryColor}" />
                             </StackLayout>
@@ -148,8 +138,8 @@
                                     VerticalOptions="Center"
                                     WidthRequest="5" />
                                 <Label
-                                    FontSize="20"
                                     HorizontalTextAlignment="Start"
+                                    Style="{DynamicResource Text16}"
                                     Text="Quý khách vui lòng kiểm tra tín hiệu xe theo hướng dẫn ở mục Mất tín hiệu"
                                     VerticalTextAlignment="Center" />
                             </StackLayout>

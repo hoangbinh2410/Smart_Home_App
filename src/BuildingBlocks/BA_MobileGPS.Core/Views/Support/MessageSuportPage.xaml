@@ -60,7 +60,7 @@
 
                 <Label
                     x:Name="title"
-                    FontSize="22"
+                    FontSize="20"
                     HorizontalOptions="Center"
                     StyleClass="BoldText"
                     Text="Hỗ trợ khách hàng"
@@ -82,23 +82,27 @@
                         Spacing="30">
 
                         <Label
-                            FontAttributes="Bold"
-                            FontFamily="myFontFamilyBold"
-                            FontSize="20"
                             HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Text18B}"
                             Text="Quý khách đã thực hiện tất cả các bước theo hướng dẫn, vui lòng gửi phản hồi nếu lỗi chưa được khắc phục!"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
 
-                        <Label
-                            FontSize="18"
-                            HorizontalOptions="Start"
-                            Text="Danh mục cân hỗ trợ" />
-
-                        <Label
-                            FontSize="18"
-                            HorizontalOptions="Start"
-                            Text="Phương tiện" />
+                        <Label HorizontalOptions="Start" Style="{DynamicResource Text18B}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Danh mục cân hỗ trợ: " />
+                                    <Span />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label HorizontalOptions="Start" Style="{DynamicResource Text18B}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Phương tiện:" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
                         <StackLayout Spacing="15">
                             <Label
@@ -148,6 +152,7 @@
                                 VerticalOptions="Center">
                                 <Editor
                                     AutoSize="TextChanges"
+                                    FontSize="16"
                                     MaxLength="1000"
                                     Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí">
                                     <Editor.Effects>

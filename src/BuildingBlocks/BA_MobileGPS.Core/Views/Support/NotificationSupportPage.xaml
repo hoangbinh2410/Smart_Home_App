@@ -61,7 +61,7 @@
 
                 <Label
                     x:Name="title"
-                    FontSize="22"
+                    FontSize="20"
                     HorizontalOptions="Center"
                     StyleClass="BoldText"
                     Text="Hỗ trợ khách hàng"
@@ -122,27 +122,23 @@
 
                     </StackLayout>
                     <Label
-                        CharacterSpacing="1"
-                        FontAttributes="Bold"
-                        FontFamily="myFontFamilyBold"
-                        FontSize="20"
                         HorizontalOptions="StartAndExpand"
                         HorizontalTextAlignment="Start"
+                        Style="{DynamicResource Text18B}"
                         Text="Cảm ơn quý khách đã gửi phản hồi cho BA GPS!"
                         TextColor="#0474D8" />
                     <Label
-                        CharacterSpacing="5"
-                        FontSize="18"
                         HorizontalOptions="Start"
-                        HorizontalTextAlignment="Start">
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource Text16}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span CharacterSpacing="1" Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khác vui lòng truy cập tính năng " />
+                                <Span Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khác vui lòng truy cập tính năng " />
                                 <Span
                                     CharacterSpacing="1"
                                     Text="Tài khoản &gt; Phản hồi khách hàng "
                                     TextColor="#0474D8" />
-                                <Span CharacterSpacing="1" Text="Để theo dõi phản hồi của CSKH." />
+                                <Span Text="Để theo dõi phản hồi của CSKH." />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
