@@ -45,6 +45,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+            SupportErrorsSignalCommand = new DelegateCommand(SupportErrorsSignalClicked);
+            SupportChangePlateCommand = new DelegateCommand(SupportChangePlateClicked);
+            SupportErrorsCameraCommand = new DelegateCommand(SupportErrorsCameraClicked);
         }
 
         #endregion Lifecycle
@@ -64,10 +67,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public void PushSupportDisconnectPage()
         {
             SafeExecute(async () =>
-            {
+        {
                 await NavigationService.NavigateAsync("NavigationPage/SupportDisconnectPage");
             });
         }
+
         #endregion PrivateMethod
     }
 }

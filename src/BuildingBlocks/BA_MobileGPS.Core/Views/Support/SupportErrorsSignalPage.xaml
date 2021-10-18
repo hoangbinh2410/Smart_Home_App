@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.Support.SupportErrorsSignalPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+    xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="colorPancake1">#0474D8</Color>
+            <Color x:Key="colorPancakeItem">#A4DBDB</Color>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="Auto,Auto,*,Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <!--  Tiêu đề  0  -->
+            <Grid
+                Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                StyleClass="TitleBarGrid"
+                VerticalOptions="StartAndExpand">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="20">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackPageCommand}" />
+                    </Frame.GestureRecognizers>
+                    <controls:FontAwesomeIcon
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Start"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.ChevronLeft}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </Frame>
+                <Label
+                    x:Name="title"
+                    Margin="0,0,0,5"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource LabelHeader}"
+                    Text="Hỗ trợ khách hàng"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="EndAndExpand" />
+            </Grid>
+            <!--  StackLayout  1  -->
+            <StackLayout Grid.Row="1">
+                <pancake:PancakeView
+                    BackgroundColor="{DynamicResource colorPancake1}"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{DynamicResource LabelItem}"
+                        Text="Mất tín hiệu"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        Margin="14,0,0,0"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Qúy khách vui lòng kiểm tra xe có xảy ra các tình huống sau không và làm theo hướng dẫn" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </pancake:PancakeView>
+                <BoxView
+                    Margin="15,0,15,0"
+                    StyleClass="SlimLine"
+                    VerticalOptions="StartAndExpand" />
+            </StackLayout>
+            <!--  ScrollView  2  -->
+            <ScrollView Grid.Row="2" Margin="0,15,0,0">
+                <StackLayout>
+                    <syncfusion:SfRotator
+                        x:Name="rotator"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        DotPlacement="OutSide"
+                        EnableLooping="True"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding PageCollection}"
+                        NavigationDelay="500"
+                        NavigationDirection="Horizontal"
+                        NavigationStripMode="Dots"
+                        NavigationStripPosition="Top"
+                        SelectedDotColor="{DynamicResource PrimaryColor}"
+                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                        VerticalOptions="FillAndExpand">
+                        <syncfusion:SfRotator.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="14,5,14,0" Spacing="15">
+                                    <Grid ColumnDefinitions="50,*">
+                                        <Frame
+                                            Grid.Column="0"
+                                            Padding="0"
+                                            BackgroundColor="#0474D8"
+                                            CornerRadius="20"
+                                            HasShadow="False"
+                                            HeightRequest="40"
+                                            HorizontalOptions="StartAndExpand"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="40">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Lobster-Regular"
+                                                FontSize="18"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding LbTabIndex, Mode=TwoWay}"
+                                                TextColor="{DynamicResource WhiteColor}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontFamily="Lobster-Regular"
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding LbTextPage}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                    <buttons:SfButton
+                                        Padding="5"
+                                        BackgroundColor="{Binding BackgroundColorBtnYes}"
+                                        BorderColor="#0474D8"
+                                        BorderWidth="2"
+                                        Command="{Binding SfButtonYesCommand}"
+                                        CornerRadius="20"
+                                        HorizontalTextAlignment="End"
+                                        ImageAlignment="Left">
+                                        <buttons:SfButton.Content>
+                                            <FlexLayout AlignItems="Center" JustifyContent="Center">
+                                                <controls:IconView
+                                                    Grid.Column="0"
+                                                    Margin="0,0,5,0"
+                                                    Foreground="{DynamicResource PrimaryColor}"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    IsVisible="{Binding ISShowIconBtnYes}"
+                                                    Source="ic_tiktok.png"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="20" />
+                                                <Label Text="{Binding TextBtnYes}" TextColor="{Binding TextColorBtnYes}" />
+                                            </FlexLayout>
+                                        </buttons:SfButton.Content>
+                                    </buttons:SfButton>
+                                    <buttons:SfButton
+                                        Padding="5"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
+                                        BorderColor="#0474D8"
+                                        BorderWidth="2"
+                                        Command="{Binding SfButtonNoCommand}"
+                                        CornerRadius="20">
+                                        <buttons:SfButton.Content>
+                                            <FlexLayout AlignItems="Center" JustifyContent="Center">
+                                                <Label Text="{Binding TextBtnNo}" TextColor="DarkBlue" />
+                                            </FlexLayout>
+                                        </buttons:SfButton.Content>
+                                    </buttons:SfButton>
+                                    <pancake:PancakeView
+                                        Padding="15"
+                                        BackgroundColor="#A4DBDB"
+                                        CornerRadius="10"
+                                        IsVisible="{Binding IsVisibleYesNo}">
+                                        <StackLayout Spacing="15">
+                                            <Grid ColumnDefinitions="50,*">
+                                                <controls:IconView
+                                                    Grid.Column="0"
+                                                    Foreground="{DynamicResource PrimaryColor}"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Source="ic_support.png"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="30" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="Lobster-Regular"
+                                                    FontSize="16"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Hướng dẫn xử lý" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                            <Grid ColumnDefinitions="50,*">
+                                                <Frame
+                                                    Grid.Column="0"
+                                                    Padding="0"
+                                                    BackgroundColor="Black"
+                                                    CornerRadius="2.5"
+                                                    HasShadow="False"
+                                                    HeightRequest="5"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="5" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="Lobster-Regular"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineHeight="1.2"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding LbTextStep1}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                            <Grid ColumnDefinitions="50,*">
+                                                <Frame
+                                                    Grid.Column="0"
+                                                    Padding="0"
+                                                    BackgroundColor="Black"
+                                                    CornerRadius="2.5"
+                                                    HasShadow="False"
+                                                    HeightRequest="5"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="5" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="Lobster-Regular"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineHeight="1.2"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding LbTextStep2}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                            <Grid ColumnDefinitions="50,*" IsVisible="{Binding LbTextIf, Converter={StaticResource HasDataConverter}}">
+                                                <Frame
+                                                    Grid.Column="0"
+                                                    Padding="0"
+                                                    BackgroundColor="Black"
+                                                    CornerRadius="2.5"
+                                                    HasShadow="False"
+                                                    HeightRequest="5"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="5" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="Lobster-Regular"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    LineHeight="1.2"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding LbTextIf}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                        </StackLayout>
+                                    </pancake:PancakeView>
+
+                                </StackLayout>
+                            </DataTemplate>
+                        </syncfusion:SfRotator.ItemTemplate>
+                    </syncfusion:SfRotator>
+                </StackLayout>
+            </ScrollView>
+            <!--  StackLayout  3  -->
+            <StackLayout
+                Grid.Row="3"
+                HeightRequest="60"
+                Spacing="0">
+                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                <buttons:SfButton
+                    x:Name="SfButtonClose"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Command="{Binding ClosePageCommand}"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Đóng"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200" />
+
+            </StackLayout>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>
