@@ -16,6 +16,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public SupportDisconnectPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
+            Title = "Hỗ trợ khách hàng";
         }
         #endregion Contructor
         #region Lifecycle
@@ -54,7 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackAsync(null, true, false); ;
+                await NavigationService.GoBackAsync(); ;
             });
         }
         #endregion PrivateMethod

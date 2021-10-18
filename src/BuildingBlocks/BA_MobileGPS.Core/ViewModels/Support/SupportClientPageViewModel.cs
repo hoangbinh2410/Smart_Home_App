@@ -58,14 +58,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportFeePage",null,true,false);
+                await NavigationService.NavigateAsync("NavigationPage/SupportFeePage");
             });
         }
         public void PushSupportDisconnectPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportDisconnectPage", null, true, false);
+                await NavigationService.NavigateAsync("NavigationPage/SupportDisconnectPage");
             });
         }
         #endregion PrivateMethod

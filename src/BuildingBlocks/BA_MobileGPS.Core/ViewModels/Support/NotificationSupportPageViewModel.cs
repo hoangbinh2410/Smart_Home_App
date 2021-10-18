@@ -16,6 +16,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public NotificationSupportPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
+            Title = "Hỗ trợ khách hàng";
         }
         #endregion Contructor
         #region Lifecycle

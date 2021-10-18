@@ -17,6 +17,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ChangeLicensePlateViewModel(INavigationService navigationService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
+            Title = "Hỗ trợ khách hàng";
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
         }
         #endregion Contructor
@@ -64,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NotificationSupportPage", null, true, false);
+                await NavigationService.NavigateAsync("NotificationSupportPage");
             });
         }
         #endregion PrivateMethod

@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -30,7 +31,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-            <Grid
+            <!--<Grid
                 Padding="0"
                 HorizontalOptions="FillAndExpand"
                 RowDefinitions="Auto,*"
@@ -69,10 +70,9 @@
                         Text="Hỗ trợ khách hàng"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="EndAndExpand" />
-                </Grid>
+                </Grid>-->
 
-                <Grid
-                    Grid.Row="1"
+                <Grid                 
                     Padding="0,20,0,0"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="FillAndExpand"
@@ -157,7 +157,7 @@
                         </Grid>
                     </StackLayout>
                 </Grid>
-            </Grid>
+            <!--</Grid>-->
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

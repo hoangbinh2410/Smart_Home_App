@@ -6,6 +6,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -29,7 +30,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid
+        <!--<Grid
             RowDefinitions="Auto,*"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
@@ -65,9 +66,8 @@
                     Text="Hỗ trợ khách hàng"
                     TextColor="{DynamicResource WhiteColor}"
                     VerticalOptions="EndAndExpand" />
-            </Grid>
+            </Grid>-->
             <Grid
-                Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
                 RowDefinitions="Auto,*,*"
                 VerticalOptions="FillAndExpand">
@@ -166,6 +166,6 @@
                     </Grid>
                 </StackLayout>
             </Grid>
-        </Grid>
+        <!--</Grid>-->
     </ContentPage.Content>
 </ContentPage>

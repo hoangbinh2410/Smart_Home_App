@@ -20,6 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             BackPageCommand = new DelegateCommand(BackPage);
             PushChangeLicensePlateCommand = new DelegateCommand(PushChangeLicensePlate);
+            Title = "Hỗ trợ khách hàng";
             PushMessageSuportPageCommand = new DelegateCommand(PushMessageSuportPage);
         }
         #endregion Contructor
@@ -66,14 +67,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ChangeLicensePlate", null, true, false);
+                await NavigationService.NavigateAsync("ChangeLicensePlate");
             });
         }
         public void PushMessageSuportPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("MessageSuportPage", null, true, false);
+                await NavigationService.NavigateAsync("MessageSuportPage");
             });
         }
         #endregion PrivateMethod
