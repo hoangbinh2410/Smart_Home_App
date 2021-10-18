@@ -74,18 +74,18 @@
                     HeightRequest="50"
                     HorizontalOptions="FillAndExpand">
                     <Label
+                        x:Name="lostSignal"
                         HorizontalOptions="CenterAndExpand"
                         Style="{DynamicResource LabelItem}"
-                        Text="Mất tín hiệu"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="CenterAndExpand" />
                 </pancake:PancakeView>
                 <pancake:PancakeView
+                    Margin="15,0,15,0"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     HeightRequest="40"
                     HorizontalOptions="FillAndExpand">
                     <Label
-                        Margin="14,0,0,0"
                         FontSize="14"
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Start"
@@ -93,7 +93,7 @@
                         TextColor="{DynamicResource PrimaryColor}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Qúy khách vui lòng kiểm tra xe có xảy ra các tình huống sau không và làm theo hướng dẫn" />
+                                <Span x:Name="textSupportCameraError" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -104,8 +104,8 @@
                     VerticalOptions="StartAndExpand" />
             </StackLayout>
             <!--  ScrollView  2  -->
-            <ScrollView Grid.Row="2" Margin="0,15,0,0">
-                <StackLayout>
+            <ScrollView Grid.Row="2">
+                <StackLayout Padding="15">
                     <syncfusion:SfRotator
                         x:Name="rotator"
                         BackgroundColor="{DynamicResource WhiteColor}"
@@ -122,7 +122,7 @@
                         VerticalOptions="FillAndExpand">
                         <syncfusion:SfRotator.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Padding="14,5,14,0" Spacing="15">
+                                <StackLayout Padding="0,5,0,0" Spacing="15">
                                     <Grid ColumnDefinitions="50,*">
                                         <Frame
                                             Grid.Column="0"

@@ -3,7 +3,9 @@
     x:Class="BA_MobileGPS.Core.Views.FeedbackErrorsSignalPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
@@ -25,7 +27,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid
-            RowDefinitions="Auto,Auto,*,Auto"
+            RowDefinitions="Auto,*,Auto"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
             <!--  Tiêu đề  0  -->
@@ -62,6 +64,129 @@
                     TextColor="{DynamicResource WhiteColor}"
                     VerticalOptions="EndAndExpand" />
             </Grid>
+            <!--  StackLayout  1  -->
+            <StackLayout Grid.Row="1" Padding="14">
+                <Label
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Style="{DynamicResource LabelItem}"
+                    TextColor="{DynamicResource PrimaryColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span x:Name="textSupportFeedbackCameraError" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Style="{DynamicResource LabelItem}"
+                    TextColor="Black">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span x:Name="lbSupportFeedbackName" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    Style="{DynamicResource LabelItem}"
+                    TextColor="Black">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span x:Name="lbVehicle" />
+                            <Span Text="29H123456" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span x:Name="lbSupportFeedbackPhoneNumber" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Frame
+                    Padding="5,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource PrimaryColor}"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HeightRequest="35"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center">
+                    <Entry
+                        x:Name="entrySupportFeedbackPhoneNumber"
+                        FontSize="12"
+                        HorizontalOptions="FillAndExpand"
+                        PlaceholderColor="{DynamicResource TextSecondaryColor}"
+                        Text="{Binding TextSearchCourse}"
+                        VerticalOptions="Center">
+                        <Entry.Effects>
+                            <effects:BorderlessEffect />
+                        </Entry.Effects>
+                    </Entry>
+                </Frame>
+                <Label
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span x:Name="lbSupportFeedbackContent" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Frame
+                    Padding="5,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BorderColor="{DynamicResource PrimaryColor}"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HeightRequest="100"
+                    HorizontalOptions="FillAndExpand"
+                    IsClippedToBounds="True"
+                    VerticalOptions="Center">
+                    <Editor
+                        x:Name="editorSupportFeedbackContent"
+                        AutoSize="TextChanges"
+                        FontSize="12"
+                        HorizontalOptions="FillAndExpand"
+                        MaxLength="500"
+                        PlaceholderColor="{DynamicResource TextSecondaryColor}"
+                        Text="{Binding TextSearchCourse}"
+                        VerticalOptions="StartAndExpand">
+                        <Editor.Effects>
+                            <effects:BorderlessEffect />
+                        </Editor.Effects>
+                    </Editor>
+                </Frame>
+            </StackLayout>
+            <!--  StackLayout  2  -->
+            <StackLayout
+                Grid.Row="2"
+                HeightRequest="60"
+                Spacing="0">
+                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                <buttons:SfButton
+                    x:Name="SfBtnSend"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Command="{Binding SendFeedbackCommand}"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Gửi phản hồi"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200" />
+
+            </StackLayout>
         </Grid>
 
     </ContentPage.Content>

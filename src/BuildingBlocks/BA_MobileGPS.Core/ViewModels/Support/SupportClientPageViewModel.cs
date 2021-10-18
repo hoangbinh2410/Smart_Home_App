@@ -1,33 +1,88 @@
 ﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities.Enums;
+using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportClientPageViewModel : ViewModelBase
     {
-        #region Contructor
-        public ICommand SupportErrorsSignalCommand { get; private set; }
-        public ICommand SupportChangePlateCommand { get; private set; }
-        public ICommand SupportErrorsCameraCommand { get; private set; }
-        public SupportClientPageViewModel(INavigationService navigationService) : base(navigationService)
+        #region Property
+        private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
+        public List<SupportCategoryRespone> MenuItems
         {
-            SupportChangePlateCommand = new DelegateCommand(PushSupportFeePage);
-
-            SupportErrorsCameraCommand = new DelegateCommand(PushSupportDisconnectPage);
-            SupportErrorsSignalCommand = new DelegateCommand(PushSupportErrorsSignalPage);
+            get { return menuItems; }
+            set { SetProperty(ref menuItems, value); }
         }
-        #endregion Contructor
+        #endregion Property
+
+        #region Contructor
+        public ICommand NavigateCommand { get; }
+        ISupportCategoryService _iSupportCategoryService;
+        public SupportClientPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService)
+            : base(navigationService)
+        {
+            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            _iSupportCategoryService = iSupportCategoryService;
+        }
+
+        public override void OnDestroy()
+        {
+            //SupportErrorsSignalCommand = new DelegateCommand(SupportErrorsSignalClicked);
+            //SupportChangePlateCommand = new DelegateCommand(SupportChangePlateClicked);
+            //SupportErrorsCameraCommand = new DelegateCommand(SupportErrorsCameraClicked);
+        }
+
+        #endregion Lifecycle
+        //312312312312312
+        #region Property
+
+        private void GetListSupportCategory()
+        {
+            SafeExecute(async () =>
+            {
+                MenuItems = await _iSupportCategoryService.GetListSupportCategory();
+            });
+        }
+        private void NavigateClicked(ItemTappedEventArgs item)
+        {
+            SupportCategoryRespone data = (SupportCategoryRespone)item.ItemData;
+            switch (data.Code)
+            {
+                case (int)SupportPageCode.ErrorSignalPage:
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("SupportErrorsSignalPage");
+                    });
+                    break;
+                case (int)SupportPageCode.ChangePlateNumberPage:
+
+                    break;
+                case (int)SupportPageCode.ErrorCameraPage:
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion PrivateMethod
+
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            GetListSupportCategory();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -47,39 +102,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-            //SupportErrorsSignalCommand = new DelegateCommand(SupportErrorsSignalClicked);
-            //SupportChangePlateCommand = new DelegateCommand(SupportChangePlateClicked);
-            //SupportErrorsCameraCommand = new DelegateCommand(SupportErrorsCameraClicked);
         }
 
         #endregion Lifecycle
-        //312312312312312
-        #region Property
-
-        #endregion Property
-        #region  PrivateMethod
-        public void PushSupportErrorsSignalPage()
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("SupportErrorsSignalPage");
-            });
-        }
-        public void PushSupportFeePage()
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("SupportFeePage");
-            });
-        }
-        public void PushSupportDisconnectPage()
-        {
-            SafeExecute(async () =>
-        {
-                await NavigationService.NavigateAsync("SupportDisconnectPage");
-            });
-        }
-
-        #endregion PrivateMethod
     }
 }
