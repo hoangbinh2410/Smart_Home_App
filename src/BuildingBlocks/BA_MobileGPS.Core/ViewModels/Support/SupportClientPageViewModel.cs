@@ -65,7 +65,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     break;
                 case (int)SupportPageCode.ChangePlateNumberPage:
-
+                    SafeExecute(async () =>
+                    {
+                        await NavigationService.NavigateAsync("SupportFeePage");
+                    });
                     break;
                 case (int)SupportPageCode.ErrorCameraPage:
 
