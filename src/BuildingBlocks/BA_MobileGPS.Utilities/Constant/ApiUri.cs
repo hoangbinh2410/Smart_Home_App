@@ -330,5 +330,9 @@
 
         public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
         #endregion
+
+        #region Support
+        public const string GET_List_SupportCategory = "api/support/getlistsupportcategory";
+        #endregion 
     }
 }
