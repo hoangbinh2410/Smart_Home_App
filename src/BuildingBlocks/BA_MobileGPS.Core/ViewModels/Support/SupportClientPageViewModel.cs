@@ -37,9 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-            //SupportErrorsSignalCommand = new DelegateCommand(SupportErrorsSignalClicked);
-            //SupportChangePlateCommand = new DelegateCommand(SupportChangePlateClicked);
-            //SupportErrorsCameraCommand = new DelegateCommand(SupportErrorsCameraClicked);
+           
         }
 
         #endregion Lifecycle
@@ -103,9 +101,10 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedFrom(parameters);
         }
 
-        public override void OnDestroy()
-        {
-        }
+        //public override void OnDestroy()
+        //{
+
+        //}
 
         #endregion Lifecycle
     }

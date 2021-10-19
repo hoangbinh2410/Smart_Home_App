@@ -74,111 +74,113 @@
                     TextColor="{DynamicResource WhiteColor}"
                     VerticalOptions="EndAndExpand" />
             </Grid>
-            <pancake:PancakeView
-                Grid.Row="1"
-                Padding="20"
-                BackgroundColor="{DynamicResource WhiteColor}"
-                CornerRadius="10,10,0,0"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
-                <StackLayout Spacing="20">
-
-                    <StackLayout Spacing="15">
-                        <Label
-                            x:Name="vehicleProcessing"
-                            HorizontalOptions="Start"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalOptions="CenterAndExpand" />
-                        <inputLayout:SfTextInputLayout
-                            ContainerType="Outlined"
-                            FocusedColor="{DynamicResource PrimaryColor}"
-                            LeadingViewPosition="Inside"
-                            UnfocusedColor="{DynamicResource PrimaryColor}">
-                            <combobox:SfComboBox
-                                x:Name="comboBoxGender"
-                                DropDownBorderColor="{DynamicResource PrimaryColor}"
-                                IsEditableMode="False"
-                                SelectedItem="{Binding PlateNumber}"
-                                ShowClearButton="False"
-                                TextColor="{DynamicResource PrimaryColor}">
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                                        <x:String>29T191239</x:String>
-                                        <x:String>29H123456</x:String>
-                                    </ListCollection:List>
-                                </combobox:SfComboBox.ComboBoxSource>
-                            </combobox:SfComboBox>
-                        </inputLayout:SfTextInputLayout>
-                        <Label
-                            x:Name="supportCategory"
-                            HorizontalOptions="Start"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalOptions="Start" />
-                        <Label
-                            FontAttributes="Italic"
-                            FontSize="13"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span x:Name="textSupport" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
-                    <syncfusion:SfListView
-                        ItemSize="60"
-                        ItemSpacing="0,0,0,15"
-                        ItemsSource="{Binding MenuItems, Mode=TwoWay}"
-                        SelectionBackgroundColor="{DynamicResource WhiteColor}"
-                        TapCommand="{Binding NavigateCommand}">
-                        <syncfusion:SfListView.ItemTemplate>
-                            <DataTemplate>
-                                <pancake:PancakeView
-                                    BackgroundColor="{DynamicResource colorItem}"
-                                    CornerRadius="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    VerticalOptions="FillAndExpand">
-                                    <pancake:PancakeView.Border>
-                                        <pancake:Border Thickness="2" Color="#2F80ED" />
-                                    </pancake:PancakeView.Border>
-                                    <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
-                                        <ffImage:CachedImage
-                                            Grid.Column="0"
-                                            HeightRequest="20"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Source="{Binding IconApp}"
-                                            VerticalOptions="CenterAndExpand"
-                                            WidthRequest="20" />
-                                        <Label
-                                            x:Name="lostSignal"
-                                            Grid.Column="1"
-                                            FontSize="16"
-                                            HorizontalOptions="StartAndExpand"
-                                            Style="{DynamicResource LabelItem}"
-                                            Text="{Binding Name}"
-                                            TextColor="{DynamicResource PrimaryColor}"
-                                            VerticalOptions="CenterAndExpand" />
-                                        <controls:FontAwesomeIcon
-                                            Grid.Column="2"
-                                            FontSize="20"
-                                            HorizontalOptions="Center"
-                                            Opacity="0.8"
-                                            Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
-                                            TextColor="{DynamicResource PrimaryColor}"
-                                            VerticalOptions="CenterAndExpand" />
-                                    </Grid>
-                                </pancake:PancakeView>
-                            </DataTemplate>
-                        </syncfusion:SfListView.ItemTemplate>
-                    </syncfusion:SfListView>
-                    <StackLayout />
-                </StackLayout>
-            </pancake:PancakeView>
         </Grid>
-        </ContentPage.Content>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <pancake:PancakeView
+            Grid.Row="1"
+            Padding="20"
+            BackgroundColor="{DynamicResource WhiteColor}"
+            CornerRadius="10,10,0,0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="20">
+
+                <StackLayout Spacing="15">
+                    <Label
+                        x:Name="vehicleProcessing"
+                        HorizontalOptions="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="CenterAndExpand" />
+                    <inputLayout:SfTextInputLayout
+                        ContainerType="Outlined"
+                        FocusedColor="{DynamicResource PrimaryColor}"
+                        LeadingViewPosition="Inside"
+                        UnfocusedColor="{DynamicResource PrimaryColor}">
+                        <combobox:SfComboBox
+                            x:Name="comboBoxGender"
+                            DropDownBorderColor="{DynamicResource PrimaryColor}"
+                            IsEditableMode="False"
+                            SelectedItem="{Binding PlateNumber}"
+                            ShowClearButton="False"
+                            TextColor="{DynamicResource PrimaryColor}">
+                            <combobox:SfComboBox.ComboBoxSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>29T191239</x:String>
+                                    <x:String>29H123456</x:String>
+                                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                        </combobox:SfComboBox>
+                    </inputLayout:SfTextInputLayout>
+                    <Label
+                        x:Name="supportCategory"
+                        HorizontalOptions="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Start" />
+                    <Label
+                        FontAttributes="Italic"
+                        FontSize="13"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span x:Name="textSupport" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+                <syncfusion:SfListView
+                    ItemSize="60"
+                    ItemSpacing="0,0,0,15"
+                    ItemsSource="{Binding MenuItems, Mode=TwoWay}"
+                    SelectionBackgroundColor="{DynamicResource WhiteColor}"
+                    TapCommand="{Binding NavigateCommand}">
+                    <syncfusion:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <pancake:PancakeView
+                                BackgroundColor="{DynamicResource colorItem}"
+                                CornerRadius="10"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                                <pancake:PancakeView.Border>
+                                    <pancake:Border Thickness="2" Color="#2F80ED" />
+                                </pancake:PancakeView.Border>
+                                <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
+                                    <ffImage:CachedImage
+                                        Grid.Column="0"
+                                        HeightRequest="20"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="{Binding IconApp}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="20" />
+                                    <Label
+                                        x:Name="lostSignal"
+                                        Grid.Column="1"
+                                        FontSize="16"
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{DynamicResource LabelItem}"
+                                        Text="{Binding Name}"
+                                        TextColor="{DynamicResource PrimaryColor}"
+                                        VerticalOptions="CenterAndExpand" />
+                                    <controls:FontAwesomeIcon
+                                        Grid.Column="2"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        Opacity="0.8"
+                                        Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
+                                        TextColor="{DynamicResource PrimaryColor}"
+                                        VerticalOptions="CenterAndExpand" />
+                                </Grid>
+                            </pancake:PancakeView>
+                        </DataTemplate>
+                    </syncfusion:SfListView.ItemTemplate>
+                </syncfusion:SfListView>
+                <StackLayout />
+            </StackLayout>
+        </pancake:PancakeView>
+    </ContentPage.Content>
 </ContentPage>

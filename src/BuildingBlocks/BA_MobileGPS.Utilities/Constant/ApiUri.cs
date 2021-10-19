@@ -333,6 +333,7 @@
 
         #region Support
         public const string GET_List_SupportCategory = "api/support/getlistsupportcategory";
-        #endregion 
+        public const string GET_List_SupportContent = "api/support/getlistsupportcontentbyid";
+        #endregion
     }
 }
