@@ -31,21 +31,15 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref _sourceImage, value); }
         }
 
-        private string address;
-        public string Address { get => address; set => SetProperty(ref address, value); }
-
         private readonly IDownloader downloader;
         private readonly IAlertService alertService;
-        private readonly IGeocodeService geocodeService;
 
         public AlertMaskDetailPageViewModel(INavigationService navigationService,
             IAlertService alertService,
-            IDownloader downloader,
-            IGeocodeService geocodeService) : base(navigationService)
+            IDownloader downloader) : base(navigationService)
         {
             this.alertService = alertService;
             this.downloader = downloader;
-            this.geocodeService = geocodeService;
             downloader.OnFileDownloaded += Downloader_OnFileDownloaded;
             DownloadImageCommand = new Command(DownloadImage);
             TabImageCommand = new Command(TabImage);
@@ -96,7 +90,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && !string.IsNullOrEmpty(result.Url))
                 {
                     AlertMaskModel = result;
-                    GetAddress(result.Latitude.ToString(), result.Longitude.ToString());
                     DrawLine(result.Url, result.ListMask, result.ListNoMask);
                 }
             }, showLoading: true);
@@ -236,21 +229,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
             imageSK.Dispose();
             bitmap.Dispose();
-        }
-
-        private void GetAddress(string lat, string lng)
-        {
-            RunOnBackground(async () =>
-            {
-                return await geocodeService.GetAddressByLatLng(CurrentComanyID, lat, lng);
-            },
-           (result) =>
-           {
-               if (!string.IsNullOrEmpty(result))
-               {
-                   Address = result;
-               }
-           });
         }
     }
 }
