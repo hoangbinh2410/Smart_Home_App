@@ -2728,6 +2728,12 @@
     <Content Include="Resources\ic_helpcustomer%402x.png" />
     <Content Include="Resources\ic_helpcustomer%403x.png" />
     <Content Include="Resources\ic_helpcustomer.png" />
+    <BundleResource Include="Resources\ic_mask.png" />
+    <BundleResource Include="Resources\ic_mask%402x.png" />
+    <BundleResource Include="Resources\ic_mask%403x.png" />
+    <BundleResource Include="Resources\ic_notmask.png" />
+    <BundleResource Include="Resources\ic_notmask%402x.png" />
+    <BundleResource Include="Resources\ic_notmask%403x.png" />
     <Content Include="Resources\ic_rank1%402x.png" />
     <Content Include="Resources\ic_rank1%403x.png" />
     <Content Include="Resources\ic_rank1.png" />
@@ -2737,6 +2743,12 @@
     <Content Include="Resources\ic_rank3%402x.png" />
     <Content Include="Resources\ic_rank3%403x.png" />
     <Content Include="Resources\ic_rank3.png" />
+    <BundleResource Include="Resources\ic_userdistance.png" />
+    <BundleResource Include="Resources\ic_userdistance%402x.png" />
+    <BundleResource Include="Resources\ic_userdistance%403x.png" />
+    <BundleResource Include="Resources\ic_usernotdistance.png" />
+    <BundleResource Include="Resources\ic_usernotdistance%402x.png" />
+    <BundleResource Include="Resources\ic_usernotdistance%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
