@@ -3,12 +3,9 @@
     x:Class="BA_MobileGPS.Core.Views.AlertMaskDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
-    xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
-    xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     Title="Không đeo khẩu trang"
@@ -79,7 +76,7 @@
                         ErrorPlaceholder="camera_placeholder.png"
                         HorizontalOptions="FillAndExpand"
                         LoadingPlaceholder="camera_placeholder.png"
-                        Source="{Binding AlertMaskModel.Url}"
+                        Source="{Binding SourceImage}"
                         VerticalOptions="FillAndExpand" />
                     <controls:FontAwesomeIcon
                         Margin="8"
@@ -127,7 +124,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="BKS: " />
-                                        <Span FontFamily="{StaticResource myFontLatoBold}" Text="{Binding AlertMaskModel.VehiclePlate}" />
+                                        <Span Text="{Binding AlertMaskModel.VehiclePlate}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -149,7 +146,7 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Thời gian: " />
-                                        <Span FontFamily="{StaticResource myFontLatoBold}" Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}" />
+                                        <Span Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -169,7 +166,7 @@
                             VerticalOptions="Center"
                             WidthRequest="20" />
                         <Label
-                            Text="{Binding Address}"
+                            Text="{Binding AlertMaskModel.CurrentAddress}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </StackLayout>
