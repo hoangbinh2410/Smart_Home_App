@@ -52,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public int SelectedTabIndex { get => selectedTabIndex; set => SetProperty(ref selectedTabIndex, value); }
 
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
-        public virtual DateTime FromDate { get => fromDate; set => SetProperty(ref fromDate, value); }
+        public DateTime FromDate { get => fromDate; set => SetProperty(ref fromDate, value); }
 
         private ObservableCollection<DriverRankByDay> rankPointSource = new ObservableCollection<DriverRankByDay>();
         public ObservableCollection<DriverRankByDay> RankPointSource { get => rankPointSource; set => SetProperty(ref rankPointSource, value); }
@@ -69,8 +69,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property RankUserPoint
 
-        private DateTime dateRank = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
-        public virtual DateTime DateRank { get => dateRank; set => SetProperty(ref dateRank, value); }
+        private DateTime dateRank = DateTime.Now;
+        public DateTime DateRank { get => dateRank; set => SetProperty(ref dateRank, value); }
 
         public string searchedText;
         public string SearchedText { get => searchedText; set => SetProperty(ref searchedText, value); }
@@ -287,7 +287,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var toDate = DateRank;
             if (IsShowMonth)
             {
-                toDate = DateRank.AddMonths(1).AddDays(-1);
+                toDate = toDate.AddMonths(1).AddDays(-1);
             }
             var request = new Entities.DriverRankingRequest()
             {

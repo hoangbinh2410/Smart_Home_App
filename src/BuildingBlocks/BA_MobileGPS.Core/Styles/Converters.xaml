@@ -17,6 +17,8 @@
 
     <converters:DateConverter x:Key="DateConverter" />
 
+    <converters:MonthConverter x:Key="MonthConverter" />
+
     <converters:TimeConverter x:Key="TimeConverter" />
 
     <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
@@ -74,5 +76,4 @@
     <converters:MemoryStickConverter x:Key="MemoryStickConverter" />
 
     <converters:HasPermisstionAlertConverter x:Key="HasPermisstionAlertConverter" />
-
 </ResourceDictionary>
