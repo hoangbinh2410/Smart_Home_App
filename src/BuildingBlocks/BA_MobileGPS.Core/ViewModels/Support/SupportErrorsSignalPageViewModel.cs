@@ -1,7 +1,10 @@
 ﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Input;
@@ -33,8 +36,9 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Contructor
 
         public ICommand BackPageCommand { get; private set; }
-
-        public SupportErrorsSignalPageViewModel(INavigationService navigationService)
+        private IMessageSuportService _iMessageSuportService;
+        INavigationService _navigationService;
+        public SupportErrorsSignalPageViewModel(INavigationService navigationService, IMessageSuportService iMessageSuportService)
             : base(navigationService)
         {
             Xamarin.Forms.MessagingCenter.Subscribe<RotatorModel>(this, "NavigationPage", (sender) =>
@@ -60,10 +64,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
             Title = MobileResource.SupportClient_Label_Title;
+            _navigationService = navigationService;
+            _iMessageSuportService = iMessageSuportService;
             BackPageCommand = new DelegateCommand(BackPageClicked);
-            PageCollection.Add(new RotatorModel(navigationService,"1", "Xe đang sửa chữa, ngắt mát ?", "Có", "Không", "Bước 1: Qúy khách vui lòng bật máy và chờ 10 phút.", "Bước 2: Quay lại trang giám sát hoặc danh sách phương tiện và kiểm tra tín hiệu xe.", "Nếu vẫn mất tín hiệu quý khách rút nguồn và cắm lại."));
-            PageCollection.Add(new RotatorModel(navigationService, "2", "Xe đang dưới hầm ?", "Có", "Không", "Bước 1: Qúy khách vui lòng di chuyển xe khỏi hầm đến nơi thoáng.", "Bước 2: Quay lại trang giám sát hoặc danh sách phương tiện và kiểm tra tín hiệu xe.", "Nếu vẫn mất tín hiệu quý khách rút nguồn và cắm lại."));
-            PageCollection.Add(new RotatorModel(navigationService, "3", "Qúy khách đã thực hiện rút nguồn và cắm lại ?", "Chưa thực hiện", "Đã thực hiện", "Bước 1: Qúy khách vui lòng rút nguồn thiết bị trên xe, cắm lại và chờ 5 phút.", "Bước 2: Quay lại trang giám sát hoặc danh sách phương tiện và kiểm tra tín hiệu xe.",""));
         }
 
         #endregion Contructor
@@ -78,6 +81,22 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        private void GetCollectionPage(SupportCategoryRespone obj)
+        {
+            SafeExecute(async () =>
+            {
+                List<MessageSupportRespone> items = await _iMessageSuportService.GetMessagesSupport(obj.ID);
+                int index = 0;
+                if (items.Count>0)
+                {
+                    foreach (var item in items)
+                    {
+                        index++;
+                        PageCollection.Add(new RotatorModel(_navigationService, index.ToString(), item.Questions, "Có", "Không", item.Guides));
+                    }    
+                }    
+            });
+        }
         #endregion PrivateMethod
 
         #region Lifecycle
@@ -90,6 +109,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+            {
+                GetCollectionPage(obj);
+            }
         }
 
         public override void OnPageAppearingFirstTime()

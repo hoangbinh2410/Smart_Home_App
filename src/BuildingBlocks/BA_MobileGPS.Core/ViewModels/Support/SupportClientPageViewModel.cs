@@ -82,8 +82,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion PrivateMethod
 
-
-
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)

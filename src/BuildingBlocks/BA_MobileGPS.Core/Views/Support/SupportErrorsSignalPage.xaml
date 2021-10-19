@@ -32,9 +32,9 @@
     <!--  Tiêu đề  -->
     <NavigationPage.TitleView>
         <Label
-            Style="{DynamicResource LabelHeader}"
             HorizontalOptions="StartAndExpand"
             LineBreakMode="MiddleTruncation"
+            Style="{DynamicResource LabelHeader}"
             Text="{Binding Title}"
             TextColor="White"
             VerticalOptions="Center" />
@@ -130,7 +130,7 @@
                                             VerticalOptions="CenterAndExpand">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding LbTextPage}" />
+                                                    <Span Text="{Binding LbQuestions}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -203,87 +203,22 @@
                                                     </Label.FormattedText>
                                                 </Label>
                                             </Grid>
-                                            <Grid ColumnDefinitions="50,*">
-                                                <Frame
-                                                    Grid.Column="0"
-                                                    Padding="0"
-                                                    BackgroundColor="Black"
-                                                    CornerRadius="2.5"
-                                                    HasShadow="False"
-                                                    HeightRequest="5"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    WidthRequest="5" />
-                                                <Label
-                                                    Grid.Column="1"
-                                                    FontAttributes="Bold"
-                                                    FontFamily="Lobster-Regular"
-                                                    HorizontalOptions="StartAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineHeight="1.2"
-                                                    VerticalOptions="CenterAndExpand">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span Text="{Binding LbTextStep1}" />
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </Grid>
-                                            <Grid ColumnDefinitions="50,*">
-                                                <Frame
-                                                    Grid.Column="0"
-                                                    Padding="0"
-                                                    BackgroundColor="Black"
-                                                    CornerRadius="2.5"
-                                                    HasShadow="False"
-                                                    HeightRequest="5"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    WidthRequest="5" />
-                                                <Label
-                                                    Grid.Column="1"
-                                                    FontAttributes="Bold"
-                                                    FontFamily="Lobster-Regular"
-                                                    HorizontalOptions="StartAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineHeight="1.2"
-                                                    VerticalOptions="CenterAndExpand">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span Text="{Binding LbTextStep2}" />
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </Grid>
-                                            <Grid ColumnDefinitions="50,*" IsVisible="{Binding LbTextIf, Converter={StaticResource HasDataConverter}}">
-                                                <Frame
-                                                    Grid.Column="0"
-                                                    Padding="0"
-                                                    BackgroundColor="Black"
-                                                    CornerRadius="2.5"
-                                                    HasShadow="False"
-                                                    HeightRequest="5"
-                                                    HorizontalOptions="CenterAndExpand"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    WidthRequest="5" />
-                                                <Label
-                                                    Grid.Column="1"
-                                                    FontAttributes="Bold"
-                                                    FontFamily="Lobster-Regular"
-                                                    HorizontalOptions="StartAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    LineHeight="1.2"
-                                                    VerticalOptions="CenterAndExpand">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span Text="{Binding LbTextIf}" />
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </Grid>
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Lobster-Regular"
+                                                FontSize="16"
+                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalTextAlignment="Start"
+                                                TextType="Html"
+                                                VerticalOptions="CenterAndExpand">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding LbTextPage}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
                                         </StackLayout>
                                     </pancake:PancakeView>
-
                                 </StackLayout>
                             </DataTemplate>
                         </syncfusion:SfRotator.ItemTemplate>

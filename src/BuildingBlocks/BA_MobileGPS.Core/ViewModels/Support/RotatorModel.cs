@@ -20,36 +20,12 @@ namespace BA_MobileGPS.Core.ViewModels
             set { _lbTabIndex = value; }
         }
 
-        private String _lbTextPage;
+        private String _lbQuestions;
 
-        public String LbTextPage
+        public String LbQuestions
         {
-            get { return _lbTextPage; }
-            set { _lbTextPage = value; }
-        }
-
-        private String _lbTextStep1;
-
-        public String LbTextStep1
-        {
-            get { return _lbTextStep1; }
-            set { _lbTextStep1 = value; }
-        }
-
-        private String _lbTextStep2;
-
-        public String LbTextStep2
-        {
-            get { return _lbTextStep2; }
-            set { _lbTextStep2 = value; }
-        }
-
-        private String _lbTextIf;
-
-        public String LbTextIf
-        {
-            get { return _lbTextIf; }
-            set { _lbTextIf = value; }
+            get { return _lbQuestions; }
+            set { _lbQuestions = value; }
         }
 
         private String _textBtnYes;
@@ -68,6 +44,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { _textBtnNo = value; }
         }
 
+        private String _lbTextPage;
+
+        public String LbTextPage
+        {
+            get { return _lbTextPage; }
+            set { _lbTextPage = value; }
+        }
+ 
         private bool _isVisibleYesNo;
 
         public bool IsVisibleYesNo
@@ -107,16 +91,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SfButtonYesCommand { get; private set; }
         public ICommand SfButtonNoCommand { get; private set; }
 
-        public RotatorModel(INavigationService navigationService, string lbTabIndex, string lbTextPage, string textBtnYes, string textBtnNo, string lbTextStep1, string lbTextStep2, string lbTextIf)
+        public RotatorModel(INavigationService navigationService, string lbTabIndex, string lbQuestions, string textBtnYes, string textBtnNo, string lbTextPage)
             : base(navigationService)
         {
             LbTabIndex = lbTabIndex;
-            LbTextPage = lbTextPage;
+            LbQuestions = lbQuestions;
             TextBtnYes = textBtnYes;
             TextBtnNo = textBtnNo;
-            LbTextStep1 = lbTextStep1;
-            LbTextStep2 = lbTextStep2;
-            LbTextIf = lbTextIf;
+            LbTextPage = lbTextPage;
             IsVisibleYesNo = false;
             SfButtonYesCommand = new DelegateCommand(SfButtonYesClicked);
             SfButtonNoCommand = new DelegateCommand(SfButtonNoClicked);
