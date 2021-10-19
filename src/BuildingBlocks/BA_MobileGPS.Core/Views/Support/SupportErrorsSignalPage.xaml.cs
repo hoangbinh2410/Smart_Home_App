@@ -9,9 +9,9 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
             //this.title.Text = MobileResource.SupportClient_Label_Title;
-            //this.lostSignal.Text = MobileResource.SupportClient_Label_LostSignal;
-            //this.textSupportCameraError.Text = MobileResource.SupportClient_Label_TextSupportCameraError;
-            //this.SfButtonClose.Text = MobileResource.SupportClient_Button_Close;
+            this.lostSignal.Text = MobileResource.SupportClient_Label_LostSignal;
+            this.textSupportCameraError.Text = MobileResource.SupportClient_Label_TextSupportCameraError;
+            this.SfButtonClose.Text = MobileResource.SupportClient_Button_Close;
         }
     }
 }

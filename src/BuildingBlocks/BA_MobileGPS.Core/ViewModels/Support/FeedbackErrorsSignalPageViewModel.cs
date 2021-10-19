@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using BA_MobileGPS.Core.Resources;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public FeedbackErrorsSignalPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
+            Title = MobileResource.SupportClient_Label_Title;
             BackPageCommand = new DelegateCommand(BackPageClicked);
         }
 
@@ -29,7 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("/SupportClientPage");
+                await NavigationService.NavigateAsync("SupportClientPage");
             });
         }
         #endregion PrivateMethod

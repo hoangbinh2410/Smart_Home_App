@@ -25,47 +25,23 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <!--  Tiêu đề  -->
+    <NavigationPage.TitleView>
+        <Label
+            HorizontalOptions="StartAndExpand"
+            LineBreakMode="MiddleTruncation"
+            Style="{DynamicResource LabelHeader}"
+            Text="{Binding Title}"
+            TextColor="White"
+            VerticalOptions="Center" />
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
-            RowDefinitions="Auto,*,Auto"
+            RowDefinitions="*,Auto"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
-            <!--  Tiêu đề  0  -->
-            <Grid
-                Grid.Row="0"
-                HorizontalOptions="FillAndExpand"
-                StyleClass="TitleBarGrid"
-                VerticalOptions="StartAndExpand">
-                <Frame
-                    Padding="0"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    HasShadow="False"
-                    HeightRequest="40"
-                    HorizontalOptions="Start"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="20">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding BackPageCommand}" />
-                    </Frame.GestureRecognizers>
-                    <controls:FontAwesomeIcon
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        HorizontalOptions="Start"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.ChevronLeft}"
-                        TextColor="{DynamicResource WhiteColor}"
-                        VerticalOptions="CenterAndExpand" />
-                </Frame>
-                <Label
-                    x:Name="title"
-                    Margin="0,0,0,5"
-                    HorizontalOptions="CenterAndExpand"
-                    Style="{DynamicResource LabelHeader}"
-                    Text="Hỗ trợ khách hàng"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="EndAndExpand" />
-            </Grid>
-            <!--  StackLayout  1  -->
-            <StackLayout Grid.Row="1" Padding="14">
+            <!--  StackLayout  0  -->
+            <StackLayout Grid.Row="0" Padding="14">
                 <Label
                     FontSize="14"
                     HorizontalOptions="Start"
@@ -170,9 +146,9 @@
                     </Editor>
                 </Frame>
             </StackLayout>
-            <!--  StackLayout  2  -->
+            <!--  StackLayout  1  -->
             <StackLayout
-                Grid.Row="2"
+                Grid.Row="1"
                 HeightRequest="60"
                 Spacing="0">
                 <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
