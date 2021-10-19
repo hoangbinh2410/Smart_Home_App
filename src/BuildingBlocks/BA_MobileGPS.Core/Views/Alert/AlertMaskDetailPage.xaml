@@ -8,7 +8,7 @@
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    Title="Không đeo khẩu trang"
+    Title="Thông tin an toàn"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
         <Grid
