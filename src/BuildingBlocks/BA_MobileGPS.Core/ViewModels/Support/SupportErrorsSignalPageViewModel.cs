@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using BA_MobileGPS.Core.Resources;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -58,6 +59,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
                 }
             });
+            Title = MobileResource.SupportClient_Label_Title;
             BackPageCommand = new DelegateCommand(BackPageClicked);
             PageCollection.Add(new RotatorModel(navigationService,"1", "Xe đang sửa chữa, ngắt mát ?", "Có", "Không", "Bước 1: Qúy khách vui lòng bật máy và chờ 10 phút.", "Bước 2: Quay lại trang giám sát hoặc danh sách phương tiện và kiểm tra tín hiệu xe.", "Nếu vẫn mất tín hiệu quý khách rút nguồn và cắm lại."));
             PageCollection.Add(new RotatorModel(navigationService, "2", "Xe đang dưới hầm ?", "Có", "Không", "Bước 1: Qúy khách vui lòng di chuyển xe khỏi hầm đến nơi thoáng.", "Bước 2: Quay lại trang giám sát hoặc danh sách phương tiện và kiểm tra tín hiệu xe.", "Nếu vẫn mất tín hiệu quý khách rút nguồn và cắm lại."));
@@ -72,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("/SupportClientPage");
+                await NavigationService.NavigateAsync("SupportClientPage");
             });
         }
 

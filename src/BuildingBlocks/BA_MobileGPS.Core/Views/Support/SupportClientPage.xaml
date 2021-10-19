@@ -13,7 +13,8 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -36,7 +37,7 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <NavigationPage.TitleView>
+    <ContentPage.Content>
         <Grid
             RowDefinitions="Auto,*"
             RowSpacing="0"
@@ -180,5 +181,5 @@
                 </StackLayout>
             </pancake:PancakeView>
         </Grid>
-        </ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

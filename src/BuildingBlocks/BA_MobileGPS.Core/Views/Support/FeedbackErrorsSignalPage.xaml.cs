@@ -8,7 +8,7 @@ namespace BA_MobileGPS.Core.Views
         public FeedbackErrorsSignalPage()
         {
             InitializeComponent();
-            this.title.Text = MobileResource.SupportClient_Label_Title;
+            //this.title.Text = MobileResource.SupportClient_Label_Title;
             this.textSupportFeedbackCameraError.Text = MobileResource.SupportClient_Label_TextSupportFeedbackCameraError;
             this.lbSupportFeedbackName.Text = MobileResource.SupportClient_Label_LbSupportFeedbackName;
             this.lbVehicle.Text = MobileResource.SupportClient_Label_LbSupportFeedbackVehicle;

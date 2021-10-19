@@ -46,7 +46,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Lifecycle
-        //312312312312312
         #region Property
 
         #endregion Property
