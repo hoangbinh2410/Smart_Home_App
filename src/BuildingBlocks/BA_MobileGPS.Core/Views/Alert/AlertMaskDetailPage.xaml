@@ -37,7 +37,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Không đeo khẩu trang"
+                Text="Thông tin an toàn"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
 
