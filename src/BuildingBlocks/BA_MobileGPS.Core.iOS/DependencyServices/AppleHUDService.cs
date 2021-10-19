@@ -1,5 +1,4 @@
 ﻿using BA_MobileGPS.Core.iOS.DependencyServices;
-using BigTed;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(AppleHUDService))]
@@ -12,17 +11,17 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                BTProgressHUD.Show(null, -1, ProgressHUD.MaskType.Black);
+                BTProgressHUD.BTProgressHUD.Show(null, -1, maskType: BTProgressHUD.MaskType.Black);
             }
             else
             {
-                BTProgressHUD.Show(message, -1, ProgressHUD.MaskType.Black);
+                BTProgressHUD.BTProgressHUD.Show(message, -1, maskType: BTProgressHUD.MaskType.Black);
             }
         }
 
         public void Dismiss()
         {
-            BTProgressHUD.Dismiss();
+            BTProgressHUD.BTProgressHUD.Dismiss();
         }
     }
 }

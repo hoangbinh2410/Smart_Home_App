@@ -47,51 +47,55 @@ namespace BA_MobileGPS.Core.ViewModels
                 ItemType = LoginPopupItemType.Facebook,
                 IsEnable = true
             });
-            // Zalo
-            list.Add(new LoginPopupItem
+            if (!(App.AppType == Entities.AppType.Unitel))
             {
-                Title = "Zalo",
-                Icon = "ic_zalo.png",
-                Url = MobileSettingHelper.LinkZalo,
-                ItemType = LoginPopupItemType.Zalo,
-                IsEnable = true
-            });
-            // Youtube
-            list.Add(new LoginPopupItem
-            {
-                Title = "Youtube",
-                Icon = "ic_youtube.png",
-                Url = MobileSettingHelper.LinkYoutube,
-                ItemType = LoginPopupItemType.Youtube,
-                IsEnable = true
-            });
-            // Tiktok
-            list.Add(new LoginPopupItem
-            {
-                Title = "Tiktok",
-                Icon = "ic_tiktok.png",
-                Url = MobileSettingHelper.LinkTiktok,
-                ItemType = LoginPopupItemType.Tiktok,
-                IsEnable = true
-            });
-            // Mạng lưới
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_Network,
-                Icon = "ic_network.png",
-                Url = MobileSettingHelper.Network,
-                ItemType = LoginPopupItemType.Network,
-                IsEnable = MobileSettingHelper.IsUseNetwork
-            });
-            // Trải nghiệm BAGPS
-            list.Add(new LoginPopupItem
-            {
-                Title = MobileResource.Login_Popup_BAGPSExperience,
-                Icon = "ic_minilogo.png",
-                Url = MobileSettingHelper.LinkYoutube,
-                ItemType = LoginPopupItemType.BAGPSExperience,
-                IsEnable = MobileSettingHelper.IsUseExperience
-            });
+                // Zalo
+                list.Add(new LoginPopupItem
+                {
+                    Title = "Zalo",
+                    Icon = "ic_zalo.png",
+                    Url = MobileSettingHelper.LinkZalo,
+                    ItemType = LoginPopupItemType.Zalo,
+                    IsEnable = true
+                });
+                // Youtube
+                list.Add(new LoginPopupItem
+                {
+                    Title = "Youtube",
+                    Icon = "ic_youtube.png",
+                    Url = MobileSettingHelper.LinkYoutube,
+                    ItemType = LoginPopupItemType.Youtube,
+                    IsEnable = true
+                });
+                // Tiktok
+                list.Add(new LoginPopupItem
+                {
+                    Title = "Tiktok",
+                    Icon = "ic_tiktok.png",
+                    Url = MobileSettingHelper.LinkTiktok,
+                    ItemType = LoginPopupItemType.Tiktok,
+                    IsEnable = true
+                });
+                // Mạng lưới
+                list.Add(new LoginPopupItem
+                {
+                    Title = MobileResource.Login_Popup_Network,
+                    Icon = "ic_network.png",
+                    Url = MobileSettingHelper.Network,
+                    ItemType = LoginPopupItemType.Network,
+                    IsEnable = MobileSettingHelper.IsUseNetwork
+                });
+                // Trải nghiệm BAGPS
+                list.Add(new LoginPopupItem
+                {
+                    Title = MobileResource.Login_Popup_BAGPSExperience,
+                    Icon = "ic_minilogo.png",
+                    Url = MobileSettingHelper.LinkYoutube,
+                    ItemType = LoginPopupItemType.BAGPSExperience,
+                    IsEnable = MobileSettingHelper.IsUseExperience
+                });
+            }
+
             // Đăng kí tư vấn
             //list.Add(new LoginPopupItem
             //{
