@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.MessageSuportPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
@@ -11,13 +12,13 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="Text13B" TargetType="Label">
+            <Style x:Key="Text14B" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontFamily" Value="myFontFamilyBold" />
             </Style>
-            <Style x:Key="Text13" TargetType="Label">
-                <Setter Property="FontSize" Value="13" />
+            <Style x:Key="Text14" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
             </Style>
             <Style x:Key="Text16B" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
@@ -55,12 +56,12 @@
 
                         <Label
                             HorizontalTextAlignment="Start"
-                            Style="{DynamicResource Text13B}"
+                            Style="{DynamicResource Text14B}"
                             Text="Quý khách đã thực hiện tất cả các bước theo hướng dẫn, vui lòng gửi phản hồi nếu lỗi chưa được khắc phục!"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
 
-                        <Label HorizontalOptions="Start" Style="{DynamicResource Text13B}">
+                        <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Danh mục cân hỗ trợ: Đổi biển " />
@@ -68,7 +69,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label HorizontalOptions="Start" Style="{DynamicResource Text13B}">
+                        <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Phương tiện:" />
@@ -78,10 +79,9 @@
 
                         <StackLayout Spacing="15">
                             <Label
-                                FontSize="13"
+                                FontSize="14"
                                 HorizontalOptions="Start"
                                 Text="Số điện thoại" />
-
                             <Frame
                                 Padding="5,0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
@@ -91,9 +91,8 @@
                                 HorizontalOptions="FillAndExpand"
                                 IsClippedToBounds="True"
                                 VerticalOptions="Center">
-
                                 <Entry
-                                    FontSize="13"
+                                    FontSize="14"
                                     HorizontalOptions="FillAndExpand"
                                     Keyboard="Numeric"
                                     MaxLength="10"
@@ -109,10 +108,9 @@
 
                         <StackLayout Spacing="15">
                             <Label
-                                FontSize="13"
+                                FontSize="14"
                                 HorizontalOptions="Start"
                                 Text="Nội dung phản hồi" />
-
                             <Frame
                                 Padding="5,0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
@@ -124,7 +122,7 @@
                                 VerticalOptions="Center">
                                 <Editor
                                     AutoSize="TextChanges"
-                                    FontSize="13"
+                                    FontSize="14"
                                     MaxLength="1000"
                                     Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí">
                                     <Editor.Effects>
@@ -135,24 +133,26 @@
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>
+
                 <StackLayout
                     Grid.Row="1"
-                    Padding="0,0,0,10"
+                    HeightRequest="60"
                     HorizontalOptions="FillAndExpand"
+                    Spacing="0"
                     VerticalOptions="EndAndExpand">
-                    <BoxView StyleClass="SlimLine" />
-
-                    <Grid Padding="0,20,0,20" VerticalOptions="FillAndExpand">
-                        <Button
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            Command="{Binding PushNotificationSupportPageCommand}"
-                            HorizontalOptions="Center"
-                            Text="Đóng"
-                            VerticalOptions="FillAndExpand"
-                            WidthRequest="200" />
-                    </Grid>
+                    <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                    <buttons:SfButton
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        Command="{Binding PushNotificationSupportPageCommand}"
+                        CornerRadius="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Gửi phản hồi"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="200" />
                 </StackLayout>
             </Grid>
+
+            <!--  Ẩn trang thông báo  -->
             <ContentView IsVisible="{Binding INotificationView}">
                 <ContentView.Content>
                     <Grid
@@ -216,7 +216,7 @@
                             <Label
                                 HorizontalOptions="Start"
                                 HorizontalTextAlignment="Start"
-                                Style="{DynamicResource Text13}"
+                                Style="{DynamicResource Text14}"
                                 VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -230,21 +230,22 @@
                                 </Label.FormattedText>
                             </Label>
                         </StackLayout>
+
                         <StackLayout
                             Grid.Row="1"
-                            Padding="0,0,0,10"
+                            HeightRequest="60"
                             HorizontalOptions="FillAndExpand"
+                            Spacing="0"
                             VerticalOptions="EndAndExpand">
-                            <BoxView StyleClass="SlimLine" />
-                            <Grid Padding="0,20,0,20" VerticalOptions="FillAndExpand">
-                                <Button
-                                    BackgroundColor="{DynamicResource PrimaryColor}"
-                                    Command="{Binding BackPageCommand}"
-                                    HorizontalOptions="Center"
-                                    Text="Đóng"
-                                    VerticalOptions="FillAndExpand"
-                                    WidthRequest="200" />
-                            </Grid>
+                            <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                            <buttons:SfButton
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding BackPageCommand}"
+                                CornerRadius="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="Đóng"
+                                VerticalOptions="StartAndExpand"
+                                WidthRequest="200" />
                         </StackLayout>
                     </Grid>
                 </ContentView.Content>
