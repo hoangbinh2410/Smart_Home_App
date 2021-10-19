@@ -75,17 +75,14 @@
                     TextColor="{DynamicResource WhiteColor}"
                     VerticalOptions="EndAndExpand" />
             </Grid>
-        </Grid>
-    </NavigationPage.TitleView>
-    <ContentPage.Content>
-        <pancake:PancakeView
-            Grid.Row="1"
-            Padding="20"
-            BackgroundColor="{DynamicResource WhiteColor}"
-            CornerRadius="10,10,0,0"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand">
-            <StackLayout Spacing="20">
+            <pancake:PancakeView
+                Grid.Row="1"
+                Padding="20"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                CornerRadius="10,10,0,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="20">
 
                     <StackLayout Spacing="15">
                         <Label
