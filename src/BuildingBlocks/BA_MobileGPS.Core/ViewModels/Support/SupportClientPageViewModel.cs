@@ -49,6 +49,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void NavigateClicked(ItemTappedEventArgs item)
         {
+            if(item == null || item.ItemData == null)
+            {
+                return;
+            }    
             SupportCategoryRespone data = (SupportCategoryRespone)item.ItemData;
             var parameters = new NavigationParameters
             {
