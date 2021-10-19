@@ -17,7 +17,7 @@
         /// </summary>
         /// <Modified>
         /// Name     Date         Comments
-        /// Namth  16/1/2018   created
+        /// Namth  16/1/2018   created 
         /// </Modified>
         public const string GoogleMapKeyAndroid = "AIzaSyDwhz_8SoIcFYMLVh3rcto1cWGbAPdQfGI";
 
