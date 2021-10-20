@@ -113,13 +113,11 @@
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
                             Spacing="5">
-                            <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                            <ffImage:CachedImage
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="ic_vehicleplate.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
+                                Source="car_blue.png"
+                                VerticalOptions="Center" />
                             <Label
                                 HorizontalOptions="Start"
                                 VerticalOptions="Center"
@@ -205,6 +203,7 @@
                             FontFamily="{StaticResource myFontLatoBold}"
                             HorizontalOptions="EndAndExpand"
                             Text="{Binding AlertMaskModel.CountUserNotMask, StringFormat='{0} người'}"
+                            TextColor="{StaticResource DangerousColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </Grid>
@@ -236,6 +235,7 @@
                             FontFamily="{StaticResource myFontLatoBold}"
                             HorizontalOptions="EndAndExpand"
                             Text="{Binding AlertMaskModel.CountUserUseMask, StringFormat='{0} người'}"
+                            TextColor="{StaticResource GreenColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </Grid>
@@ -267,6 +267,7 @@
                             FontFamily="{StaticResource myFontLatoBold}"
                             HorizontalOptions="EndAndExpand"
                             Text="{Binding AlertMaskModel.DistanceViolationCount, StringFormat='{0} người'}"
+                            TextColor="{StaticResource DangerousColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </Grid>
@@ -298,6 +299,7 @@
                             FontFamily="{StaticResource myFontLatoBold}"
                             HorizontalOptions="EndAndExpand"
                             Text="{Binding AlertMaskModel.CountUserPassDistance, StringFormat='{0} người'}"
+                            TextColor="{StaticResource GreenColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </Grid>
@@ -330,6 +332,7 @@
                             FontFamily="{StaticResource myFontLatoBold}"
                             HorizontalOptions="EndAndExpand"
                             Text="{Binding AlertMaskModel.CountNotValidPersion, StringFormat='{0} người'}"
+                            TextColor="{StaticResource DangerousColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </Grid>
@@ -361,6 +364,7 @@
                             Grid.Column="1"
                             FontFamily="{StaticResource myFontLatoBold}"
                             HorizontalOptions="EndAndExpand"
+                            TextColor="{StaticResource GreenColor}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center">
                             <Label.FormattedText>
