@@ -113,13 +113,11 @@
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
                             Spacing="5">
-                            <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                            <ffImage:CachedImage
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="ic_vehicleplate.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
+                                Source="car_blue.png"
+                                VerticalOptions="Center" />
                             <Label
                                 HorizontalOptions="Start"
                                 VerticalOptions="Center"
