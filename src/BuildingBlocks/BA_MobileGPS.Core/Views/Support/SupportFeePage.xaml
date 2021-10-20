@@ -133,6 +133,7 @@
                         HeightRequest="1"
                         StyleClass="SlimLine" />
                     <Grid
+                        Padding="20,0,20,0"
                         ColumnDefinitions="0.5*,0.5*"
                         ColumnSpacing="10"
                         HorizontalOptions="FillAndExpand">

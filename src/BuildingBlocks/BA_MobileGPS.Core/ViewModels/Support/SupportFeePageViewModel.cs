@@ -16,15 +16,15 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand BackPageCommand { get; private set; }
         public ICommand PushChangeLicensePlateCommand { get; private set; }
         public ICommand PushMessageSuportPageCommand { get; private set; }
-        private IMessageSuportService _iMessageSuport;
+        private ISupportCategoryService _iSupportCategoryService;
 
-        public SupportFeePageViewModel(INavigationService navigationService, IMessageSuportService iMessageSuportService) : base(navigationService)
+        public SupportFeePageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
             PushChangeLicensePlateCommand = new DelegateCommand(PushChangeLicensePlate);
             Title = "Hỗ trợ khách hàng";
             PushMessageSuportPageCommand = new DelegateCommand(PushMessageSuportPage);
-            _iMessageSuport = iMessageSuportService;
+            _iSupportCategoryService = iSupportCategoryService;
         }
 
         #endregion Contructor
@@ -122,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             RunOnBackground(async () =>
             {
-            ListSupportContent = await _iMessageSuport.GetMessagesSupport(Item.ID);
+            ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(Item.ID);
                 if (ListSupportContent.Count > 0)
                 {
                     foreach (var item in ListSupportContent)
