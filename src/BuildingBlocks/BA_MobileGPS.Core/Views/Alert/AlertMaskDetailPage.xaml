@@ -37,7 +37,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Không đeo khẩu trang"
+                Text="Thông tin an toàn"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
 
@@ -105,8 +105,8 @@
                     <!--  Biển số xe  -->
                     <Grid RowSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".4*" />
-                            <ColumnDefinition Width=".6*" />
+                            <ColumnDefinition Width=".5*" />
+                            <ColumnDefinition Width=".5*" />
                         </Grid.ColumnDefinitions>
                         <StackLayout
                             Grid.Column="0"
@@ -120,10 +120,12 @@
                                 Source="ic_vehicleplate.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
-                            <Label VerticalOptions="Center" VerticalTextAlignment="Center">
+                            <Label
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="BKS: " />
                                         <Span Text="{Binding AlertMaskModel.VehiclePlate}" />
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -132,7 +134,7 @@
 
                         <StackLayout
                             Grid.Column="1"
-                            HorizontalOptions="FillAndExpand"
+                            HorizontalOptions="Start"
                             Orientation="Horizontal"
                             Spacing="5">
                             <controls:IconView
@@ -142,10 +144,12 @@
                                 Source="ic_time_black.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
-                            <Label VerticalOptions="Center" VerticalTextAlignment="Center">
+                            <Label
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Thời gian: " />
                                         <Span Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}" />
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -166,6 +170,7 @@
                             VerticalOptions="Center"
                             WidthRequest="20" />
                         <Label
+                            HorizontalOptions="Start"
                             Text="{Binding AlertMaskModel.CurrentAddress}"
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
@@ -173,7 +178,7 @@
 
                     <BoxView StyleClass="SlimLine" />
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -204,7 +209,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -235,7 +240,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -266,7 +271,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -297,7 +302,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -329,7 +334,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />

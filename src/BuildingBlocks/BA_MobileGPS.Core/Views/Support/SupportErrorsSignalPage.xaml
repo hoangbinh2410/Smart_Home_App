@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SupportErrorsSignalPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
+    xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource WhiteColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="colorPancake1">#0474D8</Color>
+            <Color x:Key="colorPancakeItem">#A4DBDB</Color>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!--  Tiêu đề  -->
+    <NavigationPage.TitleView>
+        <Label
+            HorizontalOptions="StartAndExpand"
+            LineBreakMode="MiddleTruncation"
+            Style="{DynamicResource LabelHeader}"
+            Text="{Binding Title}"
+            TextColor="White"
+            VerticalOptions="Center" />
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="Auto,*,Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <!--  StackLayout  0  -->
+            <StackLayout Grid.Row="0">
+                <pancake:PancakeView
+                    BackgroundColor="{DynamicResource colorPancake1}"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        x:Name="lostSignal"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Margin="15,0,15,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span x:Name="textSupportCameraError" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </pancake:PancakeView>
+                <BoxView
+                    Margin="15,0,15,0"
+                    StyleClass="SlimLine"
+                    VerticalOptions="StartAndExpand" />
+            </StackLayout>
+            <!--  StackLayout  1  -->
+            <StackLayout Grid.Row="1" Padding="15">
+                <syncfusion:SfRotator
+                    x:Name="rotator"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    DotPlacement="OutSide"
+                    EnableLooping="True"
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding PageCollection}"
+                    NavigationDelay="500"
+                    NavigationDirection="Horizontal"
+                    NavigationStripMode="Dots"
+                    NavigationStripPosition="Top"
+                    SelectedDotColor="{DynamicResource PrimaryColor}"
+                    SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                    VerticalOptions="FillAndExpand">
+                    <syncfusion:SfRotator.ItemTemplate>
+                        <DataTemplate>
+                            <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                                <StackLayout Padding="0,5,0,0" Spacing="15">
+                                    <Grid ColumnDefinitions="50,*">
+                                        <Frame
+                                            Grid.Column="0"
+                                            Padding="0"
+                                            BackgroundColor="#0474D8"
+                                            CornerRadius="20"
+                                            HasShadow="False"
+                                            HeightRequest="40"
+                                            HorizontalOptions="StartAndExpand"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="40">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Lobster-Regular"
+                                                FontSize="18"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding LbTabIndex, Mode=TwoWay}"
+                                                TextColor="{DynamicResource WhiteColor}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </Frame>
+                                        <Label
+                                            Grid.Column="1"
+                                            FontAttributes="Bold"
+                                            FontFamily="Lobster-Regular"
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            VerticalOptions="CenterAndExpand">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding LbQuestions}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                    <buttons:SfButton
+                                        Padding="5"
+                                        BackgroundColor="{Binding BackgroundColorBtnYes}"
+                                        BorderColor="#0474D8"
+                                        BorderWidth="2"
+                                        Command="{Binding SfButtonYesCommand}"
+                                        CornerRadius="20"
+                                        HorizontalTextAlignment="End"
+                                        ImageAlignment="Left">
+                                        <buttons:SfButton.Content>
+                                            <FlexLayout AlignItems="Center" JustifyContent="Center">
+                                                <Frame
+                                                    Margin="0,0,5,0"
+                                                    Padding="0"
+                                                    BackgroundColor="DeepSkyBlue"
+                                                    BorderColor="{DynamicResource WhiteColor}"
+                                                    CornerRadius="20"
+                                                    HasShadow="False"
+                                                    HeightRequest="20"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    IsVisible="{Binding ISShowIconBtnYes}"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="20">
+                                                    <controls:IconView
+                                                        Grid.Column="0"
+                                                        Foreground="{DynamicResource WhiteColor}"
+                                                        HeightRequest="10"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        Source="ic_btnyes"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        WidthRequest="10" />
+                                                </Frame>
+                                                <Label Text="{Binding TextBtnYes}" TextColor="{Binding TextColorBtnYes}" />
+                                            </FlexLayout>
+                                        </buttons:SfButton.Content>
+                                    </buttons:SfButton>
+                                    <buttons:SfButton
+                                        Padding="5"
+                                        BackgroundColor="{DynamicResource WhiteColor}"
+                                        BorderColor="#0474D8"
+                                        BorderWidth="2"
+                                        Command="{Binding SfButtonNoCommand}"
+                                        CornerRadius="20">
+                                        <buttons:SfButton.Content>
+                                            <FlexLayout AlignItems="Center" JustifyContent="Center">
+                                                <Label Text="{Binding TextBtnNo}" TextColor="DarkBlue" />
+                                            </FlexLayout>
+                                        </buttons:SfButton.Content>
+                                    </buttons:SfButton>
+                                    <pancake:PancakeView
+                                        Padding="15"
+                                        BackgroundColor="#A4DBDB"
+                                        CornerRadius="10"
+                                        IsVisible="{Binding IsVisibleYesNo}">
+                                        <StackLayout Spacing="15">
+                                            <Grid ColumnDefinitions="50,*">
+                                                <controls:IconView
+                                                    Grid.Column="0"
+                                                    Foreground="{DynamicResource PrimaryColor}"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="CenterAndExpand"
+                                                    Source="ic_fixsupport_.png"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    WidthRequest="25" />
+                                                <Label
+                                                    Grid.Column="1"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="Lobster-Regular"
+                                                    FontSize="16"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    TextColor="{DynamicResource PrimaryColor}"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="Hướng dẫn xử lý" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="Lobster-Regular"
+                                                FontSize="14"
+                                                HorizontalOptions="FillAndExpand"
+                                                HorizontalTextAlignment="Start"
+                                                Text="{Binding LbTextPage}"
+                                                TextType="Html"
+                                                VerticalOptions="FillAndExpand" />
+                                        </StackLayout>
+
+                                    </pancake:PancakeView>
+
+                                </StackLayout>
+                            </ScrollView>
+                        </DataTemplate>
+                    </syncfusion:SfRotator.ItemTemplate>
+                </syncfusion:SfRotator>
+            </StackLayout>
+            <!--  StackLayout  2  -->
+            <StackLayout
+                Grid.Row="2"
+                HeightRequest="60"
+                Spacing="0">
+                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                <buttons:SfButton
+                    x:Name="SfButtonClose"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Command="{Binding BackPageCommand}"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200" />
+
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

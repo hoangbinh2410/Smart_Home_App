@@ -5,7 +5,9 @@ using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service.IService.Support;
 using BA_MobileGPS.Service.Service;
+using BA_MobileGPS.Service.Service.Support;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using DryIoc;
@@ -83,6 +85,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
             containerRegistry.RegisterSingleton<IIssueService, IssueService>();
             containerRegistry.RegisterSingleton<IReportQCVN31SpeedService, ReportQCVN31SpeedService>();
+            containerRegistry.RegisterSingleton<ISupportCategoryService, SupportCategoryService>();
             containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
         }
 
@@ -213,11 +216,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<PlaybackUserMessagePopup, PlaybackUserMessagePopupViewModel>("PlaybackUserMessagePopup");
             containerRegistry.RegisterForNavigation<StreamUserMessagePopup, StreamUserMessagePopupViewModel>("StreamUserMessagePopup");
             containerRegistry.RegisterForNavigation<SupportClientPage, SupportClientPageViewModel>("SupportClientPage");
-            containerRegistry.RegisterForNavigation<SupportDisconnectPage, SupportDisconnectPageViewModel>("SupportDisconnectPage");
             containerRegistry.RegisterForNavigation<SupportFeePage, SupportFeePageViewModel>("SupportFeePage");
+            containerRegistry.RegisterForNavigation<SupportErrorsSignalPage, SupportErrorsSignalPageViewModel>("SupportErrorsSignalPage");
             containerRegistry.RegisterForNavigation<MessageSuportPage, MessageSuportPageViewModel>("MessageSuportPage");
+            containerRegistry.RegisterForNavigation<FeedbackErrorsSignalPage, FeedbackErrorsSignalPageViewModel>("FeedbackErrorsSignalPage");
             containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");
-            containerRegistry.RegisterForNavigation<NotificationSupportPage, NotificationSupportPageViewModel>("NotificationSupportPage");
             containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
             containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
             containerRegistry.RegisterForNavigation<KpiDriverChartPage, KpiDriverChartPageViewModel>("KpiDriverChartPage");
