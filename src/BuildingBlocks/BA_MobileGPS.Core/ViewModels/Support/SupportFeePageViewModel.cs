@@ -131,14 +131,14 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
                             Question = query.Questions;
-                            Guide = query.Questions;
+                            Guide = query.Guides;
                             ISupportDisconnectView = false;
                         }
                         else if (item.OrderNo == 0)
                         {
                             var query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
                             Question = query.Questions;
-                            Guide = query.Questions;
+                            Guide = query.Guides;
                             ISupportDisconnectView = true;
                         }
                         else
