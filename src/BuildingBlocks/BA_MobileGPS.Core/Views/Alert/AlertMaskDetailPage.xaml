@@ -173,7 +173,7 @@
 
                     <BoxView StyleClass="SlimLine" />
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -204,7 +204,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -235,7 +235,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -266,7 +266,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -297,7 +297,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -329,7 +329,7 @@
                             VerticalTextAlignment="Center" />
                     </Grid>
 
-                    <Grid RowSpacing="0">
+                    <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />

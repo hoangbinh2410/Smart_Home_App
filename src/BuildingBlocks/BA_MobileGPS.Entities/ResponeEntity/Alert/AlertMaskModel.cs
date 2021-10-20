@@ -43,6 +43,12 @@ namespace BA_MobileGPS.Entities
 
         public List<int> DistanceViolation { get; set; }
 
+        public bool UseMask { get; set; }
+
+        public bool UsePersion { get; set; }
+
+        public bool UseDistance { get; set; }
+
         public int CountUserPassDistance
         {
             get
