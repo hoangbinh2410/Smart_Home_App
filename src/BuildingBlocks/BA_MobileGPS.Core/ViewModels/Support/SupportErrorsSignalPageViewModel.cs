@@ -110,14 +110,14 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand BackPageCommand { get; private set; }
         public ICommand SfButtonYesCommand { get; private set; }
         public ICommand SfButtonNoCommand { get; private set; }
-        private IMessageSuportService _iMessageSuportService;
+        private ISupportCategoryService _iSupportCategoryService;
         private INavigationService _navigationService;
-        public SupportErrorsSignalPageViewModel(INavigationService navigationService, IMessageSuportService iMessageSuportService)
+        public SupportErrorsSignalPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService)
             : base(navigationService)
         { 
             Title = MobileResource.SupportClient_Label_Title;
             _navigationService = navigationService;
-            _iMessageSuportService = iMessageSuportService;
+            _iSupportCategoryService = iSupportCategoryService;
             BackPageCommand = new DelegateCommand(BackPageClicked);
             Xamarin.Forms.MessagingCenter.Subscribe<SupportErrorsSignalPageViewModel>(this, "SelectedIndex", (sender) =>
             {
@@ -186,7 +186,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                List<MessageSupportRespone> items = await _iMessageSuportService.GetMessagesSupport(obj.ID);
+                List<MessageSupportRespone> items = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
                 int index = 0;
                 if (items != null && items.Count>0)
                 {
