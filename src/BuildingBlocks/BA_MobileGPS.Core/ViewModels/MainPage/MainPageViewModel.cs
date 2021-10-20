@@ -595,70 +595,77 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListVehicleOnline()
         {
-            var userID = UserInfo.UserId;
-            var companyID = UserInfo.CompanyId;
-            var xnCode = UserInfo.XNCode;
-            var userType = UserInfo.UserType;
-            var companyType = UserInfo.CompanyType;
+            try
+            {
+                var userID = UserInfo.UserId;
+                var companyID = UserInfo.CompanyId;
+                var xnCode = UserInfo.XNCode;
+                var userType = UserInfo.UserType;
+                var companyType = UserInfo.CompanyType;
 
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-            {
-                userID = Settings.CurrentCompany.UserId;
-                companyID = Settings.CurrentCompany.FK_CompanyID;
-                xnCode = Settings.CurrentCompany.XNCode;
-                userType = Settings.CurrentCompany.UserType;
-                companyType = Settings.CurrentCompany.CompanyType;
-            }
-            int vehicleGroup = 0;
-
-            RunOnBackground(async () =>
-            {
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
-            }, (result) =>
-            {
-                if (result != null && result.Count > 0)
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                 {
-                    result.ForEach(x =>
+                    userID = Settings.CurrentCompany.UserId;
+                    companyID = Settings.CurrentCompany.FK_CompanyID;
+                    xnCode = Settings.CurrentCompany.XNCode;
+                    userType = Settings.CurrentCompany.UserType;
+                    companyType = Settings.CurrentCompany.CompanyType;
+                }
+                int vehicleGroup = 0;
+                RunOnBackground(async () =>
+                {
+                    return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                }, (result) =>
+                {
+                    if (result != null && result.Count > 0)
                     {
-                        x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                        x.StatusEngineer = StateVehicleExtension.EngineState(x);
-
-                        if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                        result.ForEach(x =>
                         {
-                            x.SortOrder = 1;
-                        }
-                        else
+                            x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                            x.StatusEngineer = StateVehicleExtension.EngineState(x);
+
+                            if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                            {
+                                x.SortOrder = 1;
+                            }
+                            else
+                            {
+                                x.SortOrder = 0;
+                            }
+                        });
+
+                        StaticSettings.ListVehilceOnline = result;
+
+                        StartTimmerSynData();
+
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            x.SortOrder = 0;
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
+
+                            await ConnectSignalROnline();
+                            //Join vào nhóm signalR để nhận dữ liệu online
+                            JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                        });
+
+                        // Lấy danh sách cảnh báo
+                        GetCountAlert();
+
+                        if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
+                        {
+                            GetPaperAlert();
                         }
-                    });
-
-                    StaticSettings.ListVehilceOnline = result;
-
-                    StartTimmerSynData();
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
-
-                        await ConnectSignalROnline();
-                        //Join vào nhóm signalR để nhận dữ liệu online
-                        JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
-                    });
-
-                    // Lấy danh sách cảnh báo
-                    GetCountAlert();
-
-                    if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        GetPaperAlert();
                     }
-                }
-                else
-                {
-                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-                }
-            });
+                    else
+                    {
+                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteLog("GetListVehicleOnline", $"Start Error API :{ex.Message}");
+            }
+           
         }
 
         private void GetVehicleIsCamera()
@@ -1177,35 +1184,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
             }
-        }
-
-        private void InsertLogVideo(VideoUpload video)
-        {
-            var request = new SaveVideoByUserRequest()
-            {
-                Channel = (byte)video.Channel,
-                FK_VehicleID = video.VehicleID,
-                FK_CompanyID = CurrentComanyID,
-                StartTime = video.StartTime,
-                EndTime = video.EndTime,
-                Description = "",
-                IsFavorite = false,
-                IsSave = true,
-                Thumbnail = "",
-                VideoName = "",
-                CreatedUser = UserInfo.UserId,
-            };
-
-            RunOnBackground(async () =>
-            {
-                return await streamCameraService.InsertLogVideo(request);
-            },
-            (result) =>
-            {
-                if (result)
-                {
-                }
-            });
         }
 
         private void StartTimmerUploadVideo()

@@ -34,5 +34,34 @@ namespace BA_MobileGPS.Entities
         public List<int> ListMask { get; set; }
 
         public List<int> ListNoMask { get; set; }
+
+        public int PersonCount { get; set; }
+
+        public int Seat { get; set; }
+
+        public int DistanceViolationCount { get; set; }
+
+        public List<int> DistanceViolation { get; set; }
+
+        public int CountUserPassDistance
+        {
+            get
+            {
+                return PersonCount - DistanceViolationCount;
+            }
+        }
+
+        public int CountNotValidPersion
+        {
+            get
+            {
+                if (PersonCount >= Seat)
+                {
+                    return PersonCount - Seat;
+                }
+                else
+                    return 0;
+            }
+        }
     }
 }

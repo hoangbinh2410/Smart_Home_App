@@ -17,6 +17,14 @@ namespace BA_MobileGPS.Core.Views
             checkautologin.Text = MobileResource.Login_Checkbox_Autologin;
             forgotpassword.Text = MobileResource.Login_Lable_Forgotpassword;
             btnLogin.Text = MobileResource.Login_Button_Login.ToUpper();
+            if (Settings.Rememberme)
+            {
+                textPass.EnablePasswordVisibilityToggle = false;
+            }
+            else
+            {
+                textPass.EnablePasswordVisibilityToggle = true;
+            }
             if (App.AppType == AppType.Moto)
             {
                 logo.HeightRequest = 70;

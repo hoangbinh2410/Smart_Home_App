@@ -7,7 +7,6 @@ using Prism.Navigation;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -22,10 +21,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand TabImageCommand { get; private set; }
 
-        public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
-        private Pin selectedPin;
-        public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
-
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
         private ImageSource _sourceImage;
@@ -39,7 +34,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDownloader downloader;
         private readonly IAlertService alertService;
 
-        public AlertMaskDetailPageViewModel(INavigationService navigationService, IAlertService alertService, IDownloader downloader) : base(navigationService)
+        public AlertMaskDetailPageViewModel(INavigationService navigationService,
+            IAlertService alertService,
+            IDownloader downloader) : base(navigationService)
         {
             this.alertService = alertService;
             this.downloader = downloader;
@@ -51,6 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            //GetAlertMaskDetail(new Guid());
             if (parameters.TryGetValue(ParameterKey.AlertMask, out Guid id))
             {
                 GetAlertMaskDetail(id);
@@ -59,6 +57,31 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetAlertMaskDetail(Guid id)
         {
+            //var model = new AlertMaskModel()
+            //{
+            //    WarningType = 74,
+            //    VehicleId = 468259,
+            //    VehiclePlate = "22B00800_C",
+            //    TimeStart = DateTime.Now,
+            //    Latitude = 21.117395401000977,
+            //    Longitude = 105.78012084960938,
+            //    WarningContent = "",
+            //    Url = "https://image35.binhanh.vn/2021/09/20/Image5385/869336030172603_CAM1_20092021_175926_A6YQJK.jpg",
+            //    CountUserNotMask = 1,
+            //    CountUserUseMask = 4,
+            //    ListMask = new List<int> { 521, 94, 17, 31, 488, 81, 20, 31, 347, 50, 23, 30, 313, 396, 43, 42 },
+            //    ListNoMask = new List<int> { 266, 49, 24, 30 },
+            //    PersonCount = 20,
+            //    DistanceViolationCount = 2,
+            //    Seat = 16
+            //};
+            //AlertMaskModel = model;
+            //Device.BeginInvokeOnMainThread(() =>
+            //{
+            //    GetAddress(model.Latitude.ToString(), model.Longitude.ToString());
+            //    DrawLine(model.Url, model.ListMask, model.ListNoMask);
+            //});
+
             RunOnBackground(async () =>
             {
                 return await alertService.GetAlertMaskDetail(id);
@@ -68,24 +91,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     AlertMaskModel = result;
                     DrawLine(result.Url, result.ListMask, result.ListNoMask);
-                    Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
-                    {
-                        Pins.Clear();
-                        Pins.Add(new Pin()
-                        {
-                            Type = PinType.Place,
-                            Label = result.VehiclePlate,
-                            Anchor = new Point(.5, .5),
-                            Address = result.CurrentAddress,
-                            Position = new Position(result.Latitude, result.Longitude),
-                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                            IsDraggable = false,
-                            Tag = "CAMERA" + result.VehiclePlate
-                        });
-                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(result.Latitude, result.Longitude), 14), TimeSpan.FromMilliseconds(10));
-                        SelectedPin = Pins[0];
-                        return false;
-                    });
                 }
             }, showLoading: true);
         }

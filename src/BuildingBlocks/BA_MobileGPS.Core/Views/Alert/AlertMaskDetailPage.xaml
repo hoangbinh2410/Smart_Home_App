@@ -3,15 +3,12 @@
     x:Class="BA_MobileGPS.Core.Views.AlertMaskDetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
-    xmlns:core="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
-    xmlns:googlemapsBehaviors="clr-namespace:BA_MobileGPS.Core.GoogleMap.Behaviors"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
-    Title="Không đeo khẩu trang"
+    Title="Thông tin an toàn"
     prism:ViewModelLocator.AutowireViewModel="True">
     <NavigationPage.TitleView>
         <Grid
@@ -40,7 +37,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Không đeo khẩu trang"
+                Text="Thông tin an toàn"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
 
@@ -58,29 +55,64 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout
+        <Grid
             HorizontalOptions="FillAndExpand"
-            Spacing="5"
+            RowDefinitions="Auto,*"
+            RowSpacing="0"
             VerticalOptions="FillAndExpand">
             <sharpnado:MaterialFrame
-                Padding="15,10"
+                Grid.Row="0"
+                Margin="5,0,5,0"
+                Padding="0"
+                HasShadow="False"
+                HeightRequest="300"
+                HorizontalOptions="FillAndExpand"
+                IsClippedToBounds="True">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <ffImage:CachedImage
+                        Aspect="AspectFill"
+                        BitmapOptimizations="True"
+                        DownsampleToViewSize="True"
+                        ErrorPlaceholder="camera_placeholder.png"
+                        HorizontalOptions="FillAndExpand"
+                        LoadingPlaceholder="camera_placeholder.png"
+                        Source="{Binding SourceImage}"
+                        VerticalOptions="FillAndExpand" />
+                    <controls:FontAwesomeIcon
+                        Margin="8"
+                        FontAttributes="Bold"
+                        FontSize="25"
+                        HorizontalOptions="End"
+                        Text="{x:Static fontawesome:FontAwesomeIcons.Zoom}"
+                        TextColor="#FFFFFF"
+                        VerticalOptions="Start">
+                        <controls:FontAwesomeIcon.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TabImageCommand}" />
+                        </controls:FontAwesomeIcon.GestureRecognizers>
+                    </controls:FontAwesomeIcon>
+                </Grid>
+            </sharpnado:MaterialFrame>
+            <sharpnado:MaterialFrame
+                Grid.Row="1"
+                Padding="10"
                 BackgroundColor="WhiteSmoke"
                 BorderColor="{DynamicResource GrayColor}"
                 CornerRadius="0"
                 HasShadow="False"
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="Start">
-                <StackLayout Spacing="10">
+                VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="15">
                     <!--  Biển số xe  -->
                     <Grid RowSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width=".4*" />
+                            <ColumnDefinition Width=".6*" />
                         </Grid.ColumnDefinitions>
                         <StackLayout
                             Grid.Column="0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            Spacing="5">
                             <controls:IconView
                                 Foreground="{StaticResource PrimaryColor}"
                                 HeightRequest="20"
@@ -88,32 +120,21 @@
                                 Source="ic_vehicleplate.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
-                            <Label
-                                Text="Biển kiểm soát: "
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
+                            <Label VerticalOptions="Center" VerticalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="BKS: " />
+                                        <Span Text="{Binding AlertMaskModel.VehiclePlate}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </StackLayout>
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            FontSize="16"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.VehiclePlate}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
 
-
-                    </Grid>
-
-                    <Grid RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
                         <StackLayout
-                            Grid.Column="0"
+                            Grid.Column="1"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            Spacing="5">
                             <controls:IconView
                                 Foreground="{StaticResource PrimaryColor}"
                                 HeightRequest="20"
@@ -121,21 +142,36 @@
                                 Source="ic_time_black.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
-                            <Label
-                                Text="Thời gian :"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
+                            <Label VerticalOptions="Center" VerticalTextAlignment="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Thời gian: " />
+                                        <Span Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                         </StackLayout>
 
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
                     </Grid>
 
+                    <StackLayout
+                        Grid.Column="0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="5">
+                        <ffImage:CachedImage
+                            HeightRequest="20"
+                            HorizontalOptions="Center"
+                            Source="ic_redlocation.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label
+                            Text="{Binding AlertMaskModel.CurrentAddress}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <BoxView StyleClass="SlimLine" />
 
                     <Grid RowSpacing="0">
                         <Grid.ColumnDefinitions>
@@ -145,12 +181,12 @@
                         <StackLayout
                             Grid.Column="0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
-                            <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <ffImage:CachedImage
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="ic_user.png"
+                                Source="ic_notmask.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                             <Label
@@ -176,12 +212,12 @@
                         <StackLayout
                             Grid.Column="0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
-                            <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <ffImage:CachedImage
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="ic_groupcar.png"
+                                Source="ic_mask.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                             <Label
@@ -198,58 +234,143 @@
                             VerticalOptions="Center"
                             VerticalTextAlignment="Center" />
                     </Grid>
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <ffImage:CachedImage
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_usernotdistance.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Khoảng cách gần:"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.DistanceViolationCount, StringFormat='{0} người'}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <ffImage:CachedImage
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_userdistance.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Khoảng cách an toàn:"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.CountUserPassDistance, StringFormat='{0} người'}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <controls:IconView
+                                Foreground="{StaticResource DangerousColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_groupcar.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Quá số người:"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            Text="{Binding AlertMaskModel.CountNotValidPersion, StringFormat='{0} người'}"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Grid>
+
+                    <Grid RowSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <controls:IconView
+                                Foreground="{StaticResource GreenColor}"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Source="ic_groupcar.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label
+                                Text="Số người trên xe:"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource myFontLatoBold}"
+                            HorizontalOptions="EndAndExpand"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding AlertMaskModel.PersonCount}" />
+                                    <Span Text="/" />
+                                    <Span Text="{Binding AlertMaskModel.Seat}" />
+                                    <Span Text=" người" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
                 </StackLayout>
 
             </sharpnado:MaterialFrame>
-            <sharpnado:MaterialFrame
-                Margin="5,0,5,0"
-                Padding="0"
-                HasShadow="False"
-                HeightRequest="300"
-                HorizontalOptions="FillAndExpand"
-                IsClippedToBounds="True">
-                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                    <ffImage:CachedImage
-                        Aspect="AspectFill"
-                        BitmapOptimizations="True"
-                        DownsampleToViewSize="True"
-                        ErrorPlaceholder="camera_placeholder.png"
-                        HorizontalOptions="FillAndExpand"
-                        LoadingPlaceholder="camera_placeholder.png"
-                        Source="{Binding AlertMaskModel.Url}"
-                        VerticalOptions="FillAndExpand" />
-                    <controls:FontAwesomeIcon
-                        Margin="8"
-                        FontAttributes="Bold"
-                        FontSize="25"
-                        HorizontalOptions="End"
-                        Text="{x:Static fontawesome:FontAwesomeIcons.Zoom}"
-                        TextColor="#FFFFFF"
-                        VerticalOptions="Start">
-                        <controls:FontAwesomeIcon.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding TabImageCommand}" />
-                        </controls:FontAwesomeIcon.GestureRecognizers>
-                    </controls:FontAwesomeIcon>
-                </Grid>
-            </sharpnado:MaterialFrame>
-            <sharpnado:MaterialFrame
-                Margin="5,0,5,5"
-                Padding="0"
-                HasShadow="False"
-                HorizontalOptions="FillAndExpand"
-                IsClippedToBounds="True"
-                VerticalOptions="FillAndExpand">
-                <core:Map
-                    x:Name="Map"
-                    HorizontalOptions="FillAndExpand"
-                    SelectedPin="{Binding SelectedPin}"
-                    VerticalOptions="FillAndExpand">
-                    <core:Map.Behaviors>
-                        <googlemapsBehaviors:BindingPinsBehavior Value="{Binding Pins}" />
-                        <googlemapsBehaviors:AnimateCameraBehavior Request="{Binding AnimateCameraRequest}" />
-                    </core:Map.Behaviors>
-                </core:Map>
-            </sharpnado:MaterialFrame>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

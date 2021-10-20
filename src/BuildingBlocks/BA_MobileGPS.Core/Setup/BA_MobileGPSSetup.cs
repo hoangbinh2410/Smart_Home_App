@@ -86,6 +86,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IIssueService, IssueService>();
             containerRegistry.RegisterSingleton<IReportQCVN31SpeedService, ReportQCVN31SpeedService>();          
             containerRegistry.RegisterSingleton<ISupportCategoryService, SupportCategoryService>();
+            containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -101,6 +102,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectTimePicker, SelectTimePickerViewModel>("SelectTimePicker");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendar, SelectDateTimeCalendarViewModel>("SelectDateTimeCalendar");
             containerRegistry.RegisterForNavigation<SelectDateCalendar, SelectDateCalendarViewModel>("SelectDateCalendar");
+            containerRegistry.RegisterForNavigation<SelectMonthCalendar, SelectMonthCalendarViewModel>("SelectMonthCalendar");
             containerRegistry.RegisterForNavigation<SelectDateTimeCalendarPopup, SelectDateTimeCalendarPopupViewModel>("SelectDateTimeCalendarPopup");
             containerRegistry.RegisterForNavigation<SelectRangeDateTime, SelectRangeDateTimeViewModel>("SelectRangeDateTime");
             containerRegistry.RegisterForNavigation<ComboboxPage, ComboboxPageViewModel>("ComboboxPage");
@@ -216,9 +218,10 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SupportClientPage, SupportClientPageViewModel>("SupportClientPage");         
             containerRegistry.RegisterForNavigation<SupportFeePage, SupportFeePageViewModel>("SupportFeePage");
             containerRegistry.RegisterForNavigation<MessageSuportPage, MessageSuportPageViewModel>("MessageSuportPage");
-            containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");          
-            containerRegistry.RegisterForNavigation<SupportErrorsSignalPage, SupportErrorsSignalPageViewModel>("SupportErrorsSignalPage");
-            containerRegistry.RegisterForNavigation<FeedbackErrorsSignalPage, FeedbackErrorsSignalPageViewModel>("FeedbackErrorsSignalPage");
+            containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");
+            containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
+            containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
+            containerRegistry.RegisterForNavigation<KpiDriverChartPage, KpiDriverChartPageViewModel>("KpiDriverChartPage");
         }
     }
 }

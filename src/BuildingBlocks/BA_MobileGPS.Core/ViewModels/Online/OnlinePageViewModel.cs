@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
@@ -7,6 +8,7 @@ using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -29,6 +31,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IPapersInforService papersInforService;
         private readonly IUserLandmarkGroupService userLandmarkGroupService;
+        private readonly IMapper _mapper;
         public ICommand NavigateToSettingsCommand { get; private set; }
         public ICommand ChangeMapTypeCommand { get; private set; }
         public ICommand PushToRouterPageCommand { get; private set; }
@@ -40,15 +43,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand GoDistancePageCommand { get; private set; }
         public DelegateCommand CloseCarInfoViewCommand { get; private set; }
         public ICommand SelectedMenuCommand { get; }
+        public ICommand MoreMenuCommand { get; }
         public bool IsCheckShowLandmark { get; set; } = false;
 
         public OnlinePageViewModel(INavigationService navigationService,
             IUserLandmarkGroupService userLandmarkGroupService,
-            IPapersInforService papersInforService)
+            IPapersInforService papersInforService, IMapper mapper)
             : base(navigationService)
         {
             this.userLandmarkGroupService = userLandmarkGroupService;
             this.papersInforService = papersInforService;
+            this._mapper = mapper;
             carActive = new VehicleOnline();
             selectedVehicleGroup = new List<int>();
             CarSearch = string.Empty;
@@ -76,7 +81,8 @@ namespace BA_MobileGPS.Core.ViewModels
             GoDistancePageCommand = new DelegateCommand(GoDistancePage);
             PushDirectvehicleOnlineCommand = new DelegateCommand(PushDirectvehicleOnline);
             CloseCarInfoViewCommand = new DelegateCommand(CloseCarInfoView);
-            SelectedMenuCommand = new Command<MenuItem>(SelectedMenu);
+            SelectedMenuCommand = new Command<MenuPageItem>(SelectedMenu);
+            MoreMenuCommand = new DelegateCommand(Moremenu);
         }
 
         public override void OnPageAppearingFirstTime()
@@ -95,12 +101,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 ShowLandmark();
             }
-            else if (parameters?.GetValue<string>("pagetoNavigation") is string action)
+            else if (parameters.ContainsKey("MenuPageItem") && parameters?.GetValue<MenuKeyType>("MenuPageItem") is MenuKeyType action)
             {
-                if (action == MobileResource.Camera_Label_Video)
-                {
-                    GotoVideoPage();
-                }
+                GoToPageAction(action);
+            }
+            else if (parameters.ContainsKey("pagetoNavigation") && parameters?.GetValue<string>("pagetoNavigation") is string menukey)
+            {
+                OnNavigateMenu(menukey);
             }
         }
 
@@ -244,9 +251,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ObservableCollection<Polyline> Polylines { get; set; } = new ObservableCollection<Polyline>();
 
-        private ObservableCollection<MenuItem> menuItems = new ObservableCollection<MenuItem>();
+        private ObservableCollection<MenuPageItem> menuItems = new ObservableCollection<MenuPageItem>();
 
-        public ObservableCollection<MenuItem> MenuItems
+        public ObservableCollection<MenuPageItem> MenuItems
         {
             get
             {
@@ -265,41 +272,41 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void InitMenuItems()
         {
-            var list = new List<MenuItem>();
+            var list = new List<MenuPageItem>();
 
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Route_Label_Title,
                 Icon = "ic_route.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
-                MenuType = MenuType.Route
+                MenuType = MenuKeyType.Route
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.DetailVehicle_Label_TilePage,
                 Icon = "ic_guarantee.png",
                 IsEnable = true,
-                MenuType = MenuType.VehicleDetail
+                MenuType = MenuKeyType.VehicleDetail
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Camera_Label_Video,
                 Icon = "ic_videolive.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
-                MenuType = MenuType.Video
+                MenuType = MenuKeyType.Video
             });
-            list.Add(new MenuItem
+            list.Add(new MenuPageItem
             {
                 Title = MobileResource.Image_Lable_Image,
                 Icon = "ic_cameraonline.png",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
-                MenuType = MenuType.Images
+                MenuType = MenuKeyType.Images
             });
 
             var lstv = list.Where(x => x.IsEnable == true).ToList();
             if (lstv != null && lstv.Count <= 2)
             {
-                MenuItems = new ObservableCollection<MenuItem>();
+                MenuItems = new ObservableCollection<MenuPageItem>();
             }
             else
             {
@@ -727,27 +734,83 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void SelectedMenu(MenuItem obj)
+        public void GotoVideoPlaybackPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasVideo(CarActive.VehiclePlate))
+                {
+                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                    if (photoPermission && storagePermission)
+                    {
+                        var param = new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = CarActive.VehiclePlate,
+                            VehicleId = CarActive.VehicleId,
+                            Imei = CarActive.Imei,
+                            PrivateCode = CarActive.PrivateCode
+                        };
+                        var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                        await NavigationService.NavigateAsync("NavigationPage/CameraRestream", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+        public void GotoExportVideoPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasVideo(CarActive.VehiclePlate))
+                {
+                    var param = _mapper.MapProperties<CameraLookUpVehicleModel>(CarActive);
+                    var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                    var a = await NavigationService.NavigateAsync("BaseNavigationPage/ExportVideoPage", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+        private void SelectedMenu(MenuPageItem obj)
         {
             if (obj == null) return;
-            switch (obj.MenuType)
-            {
-                case MenuType.Route:
-                    PushtoRouterPage();
-                    break;
-
-                case MenuType.VehicleDetail:
-                    PushtoDetailPage();
-                    break;
-
-                case MenuType.Images:
-                    GotoCameraPage();
-                    break;
-
-                case MenuType.Video:
-                    GotoVideoPage();
-                    break;
-            }
+            GoToPageAction(obj.MenuType);
         }
 
         /// <summary>
@@ -765,6 +828,90 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
             else RegistrationDate = null;
+        }
+
+        private void Moremenu()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ListMenuPopupPage", parameters: new NavigationParameters
+                        {
+                            { "vehicleItem",  CarActive}
+                        }, true, true);
+            });
+        }
+
+        public void GoToPageAction(MenuKeyType menuTupe)
+        {
+            switch (menuTupe)
+            {
+                case MenuKeyType.Route:
+                    PushtoRouterPage();
+                    break;
+
+                case MenuKeyType.VehicleDetail:
+                    PushtoDetailPage();
+                    break;
+
+                case MenuKeyType.Images:
+                    GotoCameraPage();
+                    break;
+
+                case MenuKeyType.Video:
+                    GotoVideoPage();
+                    break;
+
+                case MenuKeyType.HelpCustomer:
+                    break;
+
+                case MenuKeyType.ExportVideo:
+                    GotoExportVideoPage();
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+
+        public async void OnNavigateMenu(string menuKey)
+        {
+            switch (menuKey)
+            {
+                case "ListVehiclePage":
+                    await NavigationService.SelectTabAsync("ListVehiclePage");
+                    break;
+
+                case "RoutePage":
+                    PushtoRouterPage();
+                    break;
+
+                case "CameraManagingPage":
+                    GotoVideoPage();
+                    break;
+
+                case "CameraRestream":
+                    GotoVideoPlaybackPage();
+                    break;
+
+                default:
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SafeExecute(async () =>
+                        {//await NavigationService.NavigateAsync("NotificationPopup", useModalNavigation: true);
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                var param = _mapper.MapProperties<Vehicle>(CarActive);
+                                var parameters = new NavigationParameters
+                                  {
+                                      { ParameterKey.VehicleRoute, param }
+                                 };
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + menuKey, parameters, useModalNavigation: true, true);
+                            }
+                        });
+                    });
+                    break;
+            }
         }
 
         #endregion Private Method
