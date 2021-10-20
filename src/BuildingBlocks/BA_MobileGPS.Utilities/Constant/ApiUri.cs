@@ -344,5 +344,11 @@
         public const string GET_DRIVERKPI_RANKING = "api/kpidriver/getdriverranking";
 
         #endregion KPI
+        #endregion
+
+        #region Support
+        public const string GET_List_SupportCategory = "api/support/getlistsupportcategory";
+        public const string GET_List_SupportContent = "api/support/getlistsupportcontentbyid";
+        #endregion
     }
 }
