@@ -40,65 +40,65 @@
             VerticalOptions="Center" />
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <ScrollView VerticalScrollBarVisibility="Always">
-            <Grid
-                RowDefinitions="Auto,*,Auto"
-                RowSpacing="0"
-                VerticalOptions="FillAndExpand">
-                <!--  StackLayout  0  -->
-                <StackLayout Grid.Row="0">
-                    <pancake:PancakeView
-                        BackgroundColor="{DynamicResource colorPancake1}"
-                        HeightRequest="50"
-                        HorizontalOptions="FillAndExpand">
-                        <Label
-                            x:Name="lostSignal"
-                            HorizontalOptions="CenterAndExpand"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource WhiteColor}"
-                            VerticalOptions="CenterAndExpand" />
-                    </pancake:PancakeView>
-                    <pancake:PancakeView
-                        Margin="15,0,15,0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        HeightRequest="40"
-                        HorizontalOptions="FillAndExpand">
-                        <Label
-                            FontSize="14"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span x:Name="textSupportCameraError" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </pancake:PancakeView>
-                    <BoxView
-                        Margin="15,0,15,0"
-                        StyleClass="SlimLine"
-                        VerticalOptions="StartAndExpand" />
-                </StackLayout>
-                <!--  StackLayout  1  -->
-                <StackLayout Grid.Row="1" Padding="15">
-                    <syncfusion:SfRotator
-                        x:Name="rotator"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        DotPlacement="OutSide"
-                        EnableLooping="True"
-                        HorizontalOptions="FillAndExpand"
-                        ItemsSource="{Binding PageCollection}"
-                        NavigationDelay="500"
-                        NavigationDirection="Horizontal"
-                        NavigationStripMode="Dots"
-                        NavigationStripPosition="Top"
-                        SelectedDotColor="{DynamicResource PrimaryColor}"
-                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
-                        VerticalOptions="FillAndExpand">
-                        <syncfusion:SfRotator.ItemTemplate>
-                            <DataTemplate>
+        <Grid
+            RowDefinitions="Auto,*,Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <!--  StackLayout  0  -->
+            <StackLayout Grid.Row="0">
+                <pancake:PancakeView
+                    BackgroundColor="{DynamicResource colorPancake1}"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        x:Name="lostSignal"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="CenterAndExpand" />
+                </pancake:PancakeView>
+                <pancake:PancakeView
+                    Margin="15,0,15,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HeightRequest="40"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{DynamicResource LabelItem}"
+                        TextColor="{DynamicResource PrimaryColor}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span x:Name="textSupportCameraError" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </pancake:PancakeView>
+                <BoxView
+                    Margin="15,0,15,0"
+                    StyleClass="SlimLine"
+                    VerticalOptions="StartAndExpand" />
+            </StackLayout>
+            <!--  StackLayout  1  -->
+            <StackLayout Grid.Row="1" Padding="15">
+                <syncfusion:SfRotator
+                    x:Name="rotator"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    DotPlacement="OutSide"
+                    EnableLooping="True"
+                    HorizontalOptions="FillAndExpand"
+                    ItemsSource="{Binding PageCollection}"
+                    NavigationDelay="500"
+                    NavigationDirection="Horizontal"
+                    NavigationStripMode="Dots"
+                    NavigationStripPosition="Top"
+                    SelectedDotColor="{DynamicResource PrimaryColor}"
+                    SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                    VerticalOptions="FillAndExpand">
+                    <syncfusion:SfRotator.ItemTemplate>
+                        <DataTemplate>
+                            <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
                                 <StackLayout Padding="0,5,0,0" Spacing="15">
                                     <Grid ColumnDefinitions="50,*">
                                         <Frame
@@ -203,7 +203,7 @@
                                                     Grid.Column="1"
                                                     FontAttributes="Bold"
                                                     FontFamily="Lobster-Regular"
-                                                    FontSize="15"
+                                                    FontSize="16"
                                                     HorizontalOptions="StartAndExpand"
                                                     HorizontalTextAlignment="Start"
                                                     TextColor="{DynamicResource PrimaryColor}"
@@ -218,36 +218,38 @@
                                             <Label
                                                 FontAttributes="Bold"
                                                 FontFamily="Lobster-Regular"
-                                                FontSize="13"
+                                                FontSize="14"
                                                 HorizontalOptions="FillAndExpand"
                                                 HorizontalTextAlignment="Start"
                                                 Text="{Binding LbTextPage}"
                                                 TextType="Html"
                                                 VerticalOptions="FillAndExpand" />
                                         </StackLayout>
-                                    </pancake:PancakeView>
-                                </StackLayout>
-                            </DataTemplate>
-                        </syncfusion:SfRotator.ItemTemplate>
-                    </syncfusion:SfRotator>
-                </StackLayout>
-                <!--  StackLayout  2  -->
-                <StackLayout
-                    Grid.Row="2"
-                    HeightRequest="60"
-                    Spacing="0">
-                    <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
-                    <buttons:SfButton
-                        x:Name="SfButtonClose"
-                        BackgroundColor="{DynamicResource PrimaryColor}"
-                        Command="{Binding BackPageCommand}"
-                        CornerRadius="20"
-                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="StartAndExpand"
-                        WidthRequest="200" />
 
-                </StackLayout>
-            </Grid>
-        </ScrollView>
+                                    </pancake:PancakeView>
+
+                                </StackLayout>
+                            </ScrollView>
+                        </DataTemplate>
+                    </syncfusion:SfRotator.ItemTemplate>
+                </syncfusion:SfRotator>
+            </StackLayout>
+            <!--  StackLayout  2  -->
+            <StackLayout
+                Grid.Row="2"
+                HeightRequest="60"
+                Spacing="0">
+                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                <buttons:SfButton
+                    x:Name="SfButtonClose"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Command="{Binding BackPageCommand}"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200" />
+
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
