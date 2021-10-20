@@ -12,11 +12,15 @@ namespace BA_MobileGPS.Core.Resources
         public static string SupportClient_Label_LostSignal => Get(MobileResourceNames.SupportClient_Label_LostSignal, "Mất tín hiệu", "Lost signal");
         public static string SupportClient_Label_ChangeNumberPlate => Get(MobileResourceNames.SupportClient_Label_ChangeNumberPlate, "Đổi biển", "Change number plate");
         public static string SupportClient_Label_CameraError => Get(MobileResourceNames.SupportClient_Label_CameraError, "Lỗi camera", "Camera error");
+        public static string SupportClient_Button_Close => Get(MobileResourceNames.SupportClient_Button_Close, "Đóng", "Close");
         #endregion SupportClientPage
 
         #region SupportErrorsSignalPage
         public static string SupportClient_Label_TextSupportCameraError => Get(MobileResourceNames.SupportClient_Label_TextSupportCameraError, "Quý khách vui lòng kiểm tra xe có xảy ra các tình huống sau không và làm theo hướng dẫn", "Please check your vehicle for the following situations and follow the instructions");
-        public static string SupportClient_Button_Close => Get(MobileResourceNames.SupportClient_Button_Close, "Đóng", "Close");
+        public static string SupportClient_Text_Yes => Get(MobileResourceNames.SupportClient_Text_Yes, "Có", "Yes");
+        public static string SupportClient_Text_No => Get(MobileResourceNames.SupportClient_Text_No, "Không", "No");
+        public static string SupportClient_Text_Unfinished => Get(MobileResourceNames.SupportClient_Text_Unfinished, "Chưa thực hiện", "Unfinished");
+        public static string SupportClient_Text_Accomplished => Get(MobileResourceNames.SupportClient_Text_Accomplished, "Đã thực hiện", "Accomplished");
         #endregion SupportErrorsSignalPage
 
         #region FeedbackErrorsSignalPage

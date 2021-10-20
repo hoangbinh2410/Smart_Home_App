@@ -193,7 +193,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     foreach (var item in items)
                     {
                         index++;
-                        PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, "Có", "Không", item.Guides));
+                        if(item.Questions.Trim() == "Quý khách đã thực hiện rút nguồn và cắm lại ?")
+                        {
+                            PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
+                        }   
+                        else
+                        {
+                            PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Yes, MobileResource.SupportClient_Text_No, item.Guides));
+                        }    
                     }    
                 }    
             });
