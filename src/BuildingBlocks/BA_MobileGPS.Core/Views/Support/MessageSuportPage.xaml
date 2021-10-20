@@ -97,7 +97,7 @@
                                     Keyboard="Numeric"
                                     MaxLength="10"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                    Text="0971432431"
+                                    Text="{Binding Phonenumber}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -124,7 +124,8 @@
                                     AutoSize="TextChanges"
                                     FontSize="14"
                                     MaxLength="1000"
-                                    Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí">
+                                    Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí"
+                                    Text="{Binding Feedack}">
                                     <Editor.Effects>
                                         <effects:BorderlessEffect />
                                     </Editor.Effects>

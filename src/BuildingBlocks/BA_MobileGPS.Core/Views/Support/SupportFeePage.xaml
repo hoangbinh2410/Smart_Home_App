@@ -5,6 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     Title="{Binding Title}"
@@ -55,7 +57,7 @@
                         Margin="0,10,0,10"
                         HorizontalOptions="Center"
                         Style="{DynamicResource Text16B}"
-                        Text="Đổi biển"
+                        Text="{Binding NamePage}"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
@@ -169,7 +171,7 @@
                             Margin="0,10,0,10"
                             HorizontalOptions="Center"
                             Style="{DynamicResource Text16B}"
-                            Text="Đổi biển"
+                            Text="{Binding NamePage}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                     </StackLayout>
@@ -235,6 +237,73 @@
                     </StackLayout>
 
                     <!--  Button  -->
+                    <StackLayout
+                        Grid.Row="2"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                        <buttons:SfButton
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            Command="{Binding BackPageCommand}"
+                            CornerRadius="20"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Đóng"
+                            VerticalOptions="StartAndExpand"
+                            WidthRequest="200" />
+                    </StackLayout>
+                </Grid>
+            </ContentView>
+            
+            <!--  IsVisible="{Binding MessageData, Converter={StaticResource InvertBooleanConverter}}"  -->
+            <ContentView
+                BackgroundColor="{DynamicResource WhiteColor}"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding MessageData}"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,*,*"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout
+                        Grid.Row="0"
+                        BackgroundColor="#0474D8"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            Margin="0,10,0,10"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource Text16B}"
+                            Text="{Binding NamePage}"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout
+                        Grid.Row="1"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="CenterAndExpand">
+                        <!--  Image for display svg image  -->
+                        <ffsvg:SvgCachedImage
+                            Margin="{x:OnIdiom Phone='0,0,0,0',
+                                               Desktop='0',
+                                               Tablet='0'}"
+                            HeightRequest="200"
+                            HorizontalOptions="Center"
+                            Source="NoItem.svg"
+                            VerticalOptions="Center"
+                            WidthRequest="200" />
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="{i18n:TranslateResource ListVehicle_Label_NotFound}" />
+                    </StackLayout>
+
                     <StackLayout
                         Grid.Row="2"
                         HeightRequest="60"

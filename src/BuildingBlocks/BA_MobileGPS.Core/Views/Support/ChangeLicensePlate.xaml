@@ -99,7 +99,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Placeholder="Nhập biển kiểm soát mới"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                    Text="{Binding Number}"
+                                    Text="{Binding LicensePlate}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
