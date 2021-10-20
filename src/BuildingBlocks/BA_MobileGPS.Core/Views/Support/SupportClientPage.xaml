@@ -3,13 +3,10 @@
     x:Class="BA_MobileGPS.Core.Views.SupportClientPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
-    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
-    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
@@ -91,26 +88,50 @@
                             Style="{DynamicResource LabelItem}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand" />
-                        <inputLayout:SfTextInputLayout
-                            ContainerType="Outlined"
-                            FocusedColor="{DynamicResource PrimaryColor}"
-                            LeadingViewPosition="Inside"
-                            UnfocusedColor="{DynamicResource PrimaryColor}">
-                            <combobox:SfComboBox
-                                x:Name="comboBoxGender"
-                                DropDownBorderColor="{DynamicResource PrimaryColor}"
-                                IsEditableMode="False"
-                                SelectedItem="{Binding PlateNumber}"
-                                ShowClearButton="False"
-                                TextColor="{DynamicResource PrimaryColor}">
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                                        <x:String>29T191239</x:String>
-                                        <x:String>29H123456</x:String>
-                                    </ListCollection:List>
-                                </combobox:SfComboBox.ComboBoxSource>
-                            </combobox:SfComboBox>
-                        </inputLayout:SfTextInputLayout>
+                        <!--  SelectVehicleRouterCommand  -->
+                        <Frame
+                            x:Name="cmbVihicle"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="45"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <StackLayout
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectVehicleRouterCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    x:Name="entrySearch"
+                                    FontSize="14"
+                                    HeightRequest="45"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                    Text="{Binding Vehicle.PrivateCode}"
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Margin="0,0,5,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="17.5"
+                                    HorizontalOptions="End"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </StackLayout>
+                        </Frame>
                         <Label
                             x:Name="supportCategory"
                             HorizontalOptions="Start"

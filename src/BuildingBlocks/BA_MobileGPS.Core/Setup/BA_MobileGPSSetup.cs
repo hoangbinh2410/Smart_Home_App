@@ -84,7 +84,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IDriverInforService, DriverInforService>();
             containerRegistry.RegisterSingleton<IPapersInforService, PapersInforService>();
             containerRegistry.RegisterSingleton<IIssueService, IssueService>();
-            containerRegistry.RegisterSingleton<IReportQCVN31SpeedService, ReportQCVN31SpeedService>();          
+            containerRegistry.RegisterSingleton<IReportQCVN31SpeedService, ReportQCVN31SpeedService>();
             containerRegistry.RegisterSingleton<ISupportCategoryService, SupportCategoryService>();
             containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
         }
@@ -215,9 +215,11 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<QCVN31SpeedReportPage, QCVN31SpeedReportViewModel>("QCVN31SpeedReportPage");
             containerRegistry.RegisterForNavigation<PlaybackUserMessagePopup, PlaybackUserMessagePopupViewModel>("PlaybackUserMessagePopup");
             containerRegistry.RegisterForNavigation<StreamUserMessagePopup, StreamUserMessagePopupViewModel>("StreamUserMessagePopup");
-            containerRegistry.RegisterForNavigation<SupportClientPage, SupportClientPageViewModel>("SupportClientPage");         
+            containerRegistry.RegisterForNavigation<SupportClientPage, SupportClientPageViewModel>("SupportClientPage");
             containerRegistry.RegisterForNavigation<SupportFeePage, SupportFeePageViewModel>("SupportFeePage");
+            containerRegistry.RegisterForNavigation<SupportErrorsSignalPage, SupportErrorsSignalPageViewModel>("SupportErrorsSignalPage");
             containerRegistry.RegisterForNavigation<MessageSuportPage, MessageSuportPageViewModel>("MessageSuportPage");
+            containerRegistry.RegisterForNavigation<FeedbackErrorsSignalPage, FeedbackErrorsSignalPageViewModel>("FeedbackErrorsSignalPage");
             containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");
             containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
             containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
