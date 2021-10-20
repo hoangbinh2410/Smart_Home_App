@@ -9,14 +9,13 @@ namespace BA_MobileGPS.Core.Resources
         public static string SupportClient_Label_VehicleProcessing => Get(MobileResourceNames.SupportClient_Label_VehicleProcessing, "Phương tiện xử lý", "Vehicle processing");
         public static string SupportClient_Label_SupportCategory => Get(MobileResourceNames.SupportClient_Label_SupportCategory, "Danh mục hỗ trợ", "Support category");
         public static string SupportClient_Label_TextSupport => Get(MobileResourceNames.SupportClient_Label_TextSupport, "Quý khách vui lòng chọn mục cần hỗ trợ dưới đây", "Please select the item you need support below");
-        public static string SupportClient_Label_LostSignal => Get(MobileResourceNames.SupportClient_Label_LostSignal, "Mất tín hiệu", "Lost signal");
         public static string SupportClient_Label_ChangeNumberPlate => Get(MobileResourceNames.SupportClient_Label_ChangeNumberPlate, "Đổi biển", "Change number plate");
         public static string SupportClient_Label_CameraError => Get(MobileResourceNames.SupportClient_Label_CameraError, "Lỗi camera", "Camera error");
         public static string SupportClient_Button_Close => Get(MobileResourceNames.SupportClient_Button_Close, "Đóng", "Close");
         #endregion SupportClientPage
 
-        #region SupportErrorsSignalPage
-        public static string SupportClient_Label_TextSupportCameraError => Get(MobileResourceNames.SupportClient_Label_TextSupportCameraError, "Quý khách vui lòng kiểm tra xe có xảy ra các tình huống sau không và làm theo hướng dẫn", "Please check your vehicle for the following situations and follow the instructions");
+        #region SupportErrorsPage
+        public static string SupportClient_Label_textSupportError => Get(MobileResourceNames.SupportClient_Label_textSupportError, "Quý khách vui lòng kiểm tra xe có xảy ra các tình huống sau không và làm theo hướng dẫn", "Please check your vehicle for the following situations and follow the instructions");
         public static string SupportClient_Text_Yes => Get(MobileResourceNames.SupportClient_Text_Yes, "Có", "Yes");
         public static string SupportClient_Text_No => Get(MobileResourceNames.SupportClient_Text_No, "Không", "No");
         public static string SupportClient_Text_Unfinished => Get(MobileResourceNames.SupportClient_Text_Unfinished, "Chưa thực hiện", "Unfinished");

@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities.ResponeEntity.Support;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -56,5 +57,40 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
         #endregion PrivateMethod
+
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey("ObjSupport") && parameters.GetValue<SupportCategoryRespone>("ObjSupport") is SupportCategoryRespone obj)
+                {
+                    
+                }
+            }
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
+        }
+
+        #endregion Lifecycle
     }
 }
