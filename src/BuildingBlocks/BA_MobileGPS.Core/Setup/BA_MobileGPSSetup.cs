@@ -220,7 +220,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SupportFeePage, SupportFeePageViewModel>("SupportFeePage");
             containerRegistry.RegisterForNavigation<MessageSuportPage, MessageSuportPageViewModel>("MessageSuportPage");
             containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");
-            containerRegistry.RegisterForNavigation<NotificationSupportPage, NotificationSupportPageViewModel>("NotificationSupportPage");
+            containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
+            containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
+            containerRegistry.RegisterForNavigation<KpiDriverChartPage, KpiDriverChartPageViewModel>("KpiDriverChartPage");
         }
     }
 }
