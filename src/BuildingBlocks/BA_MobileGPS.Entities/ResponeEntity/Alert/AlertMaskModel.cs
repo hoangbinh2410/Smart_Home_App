@@ -49,25 +49,7 @@ namespace BA_MobileGPS.Entities
 
         public bool UseDistance { get; set; }
 
-        public int CountUserPassDistance
-        {
-            get
-            {
-                return PersonCount - DistanceViolationCount;
-            }
-        }
-
-        public int CountNotValidPersion
-        {
-            get
-            {
-                if (PersonCount >= Seat)
-                {
-                    return PersonCount - Seat;
-                }
-                else
-                    return 0;
-            }
-        }
+        public int CountUserPassDistance { get; set; }
+        public int CountNotValidPersion { get; set; }
     }
 }
