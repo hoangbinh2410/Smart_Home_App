@@ -182,20 +182,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
                 MenuType = MenuKeyType.ExportVideo
             });
-            list.Add(new MenuPageItem
-            {
-                Title = "Hỗ trợ khách hàng",
-                Icon = "ic_helpcustomer.png",
-                IsEnable = true,
-                MenuType = MenuKeyType.HelpCustomer
-            });
-            list.Add(new MenuPageItem
-            {
-                Title = "SOS",
-                Icon = "ic_mail.png",
-                IsEnable = true,
-                MenuType = MenuKeyType.SOS
-            });
+            //list.Add(new MenuPageItem
+            //{
+            //    Title = "Hỗ trợ khách hàng",
+            //    Icon = "ic_helpcustomer.png",
+            //    IsEnable = true,
+            //    MenuType = MenuKeyType.HelpCustomer
+            //});
+            //list.Add(new MenuPageItem
+            //{
+            //    Title = "SOS",
+            //    Icon = "ic_mail.png",
+            //    IsEnable = true,
+            //    MenuType = MenuKeyType.SOS
+            //});
             AllListfeatures = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
