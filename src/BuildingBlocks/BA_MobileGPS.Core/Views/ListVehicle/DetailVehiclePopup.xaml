@@ -118,9 +118,8 @@
                 </renderedViews:HorizontalListView.ItemTemplate>
             </renderedViews:HorizontalListView>
 
-            <ScrollView>
-                <StackLayout IsVisible="{Binding IsShowMoreMenu}" Spacing="0">
-
+            <ScrollView IsVisible="{Binding IsShowMoreMenu}">
+                <StackLayout Spacing="0">
                     <pancakeview:PancakeView CornerRadius="10">
                         <StackLayout Spacing="0">
                             <controls:HorizontalList
