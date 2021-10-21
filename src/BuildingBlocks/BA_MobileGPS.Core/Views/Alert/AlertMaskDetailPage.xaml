@@ -101,13 +101,62 @@
                 HasShadow="False"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
-                <StackLayout Spacing="15">
-                    <!--  Biển số xe  -->
-                    <Grid RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".5*" />
-                            <ColumnDefinition Width=".5*" />
-                        </Grid.ColumnDefinitions>
+                <ScrollView>
+                    <StackLayout Spacing="15">
+                        <!--  Biển số xe  -->
+                        <Grid RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*" />
+                                <ColumnDefinition Width=".5*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <ffImage:CachedImage
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="car_blue.png"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding AlertMaskModel.VehiclePlate}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+
+                            <StackLayout
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <controls:IconView
+                                    Foreground="{StaticResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_time_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+
+                        </Grid>
+
                         <StackLayout
                             Grid.Column="0"
                             HorizontalOptions="FillAndExpand"
@@ -116,269 +165,222 @@
                             <ffImage:CachedImage
                                 HeightRequest="20"
                                 HorizontalOptions="Center"
-                                Source="car_blue.png"
-                                VerticalOptions="Center" />
-                            <Label
-                                HorizontalOptions="Start"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding AlertMaskModel.VehiclePlate}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </StackLayout>
-
-                        <StackLayout
-                            Grid.Column="1"
-                            HorizontalOptions="Start"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <controls:IconView
-                                Foreground="{StaticResource PrimaryColor}"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_time_black.png"
+                                Source="ic_redlocation.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                             <Label
                                 HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Text="{Binding AlertMaskModel.CurrentAddress}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+
+                        <BoxView StyleClass="SlimLine" />
+
+                        <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <ffImage:CachedImage
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_notmask.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Text="Không đeo khẩu trang :"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding AlertMaskModel.CountUserNotMask, StringFormat='{0} người'}"
+                                TextColor="{StaticResource DangerousColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <ffImage:CachedImage
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_mask.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Text="Đeo khẩu trang :"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding AlertMaskModel.CountUserUseMask, StringFormat='{0} người'}"
+                                TextColor="{StaticResource GreenColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <ffImage:CachedImage
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_usernotdistance.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Text="Khoảng cách gần:"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding AlertMaskModel.DistanceViolationCount, StringFormat='{0} người'}"
+                                TextColor="{StaticResource DangerousColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <ffImage:CachedImage
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_userdistance.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Text="Khoảng cách an toàn:"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding AlertMaskModel.CountUserPassDistance, StringFormat='{0} người'}"
+                                TextColor="{StaticResource GreenColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <controls:IconView
+                                    Foreground="{StaticResource DangerousColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_groupcar.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Text="Quá số người:"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding AlertMaskModel.CountNotValidPersion, StringFormat='{0} người'}"
+                                TextColor="{StaticResource DangerousColor}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackLayout
+                                Grid.Column="0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="5">
+                                <controls:IconView
+                                    Foreground="{StaticResource GreenColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_groupcar.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                                <Label
+                                    Text="Số người trên xe:"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource myFontLatoBold}"
+                                HorizontalOptions="EndAndExpand"
+                                TextColor="{StaticResource GreenColor}"
                                 VerticalOptions="Center"
                                 VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding AlertMaskModel.TimeStart, Converter={StaticResource DateTimeConverter}}" />
+                                        <Span Text="{Binding AlertMaskModel.PersonCount}" />
+                                        <Span Text="/" />
+                                        <Span Text="{Binding AlertMaskModel.Seat}" />
+                                        <Span Text=" người" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                        </StackLayout>
-
-                    </Grid>
-
-                    <StackLayout
-                        Grid.Column="0"
-                        HorizontalOptions="FillAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="5">
-                        <ffImage:CachedImage
-                            HeightRequest="20"
-                            HorizontalOptions="Center"
-                            Source="ic_redlocation.png"
-                            VerticalOptions="Center"
-                            WidthRequest="20" />
-                        <Label
-                            HorizontalOptions="Start"
-                            Text="{Binding AlertMaskModel.CurrentAddress}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
+                        </Grid>
                     </StackLayout>
-
-                    <BoxView StyleClass="SlimLine" />
-
-                    <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Column="0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <ffImage:CachedImage
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_notmask.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                            <Label
-                                Text="Không đeo khẩu trang :"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.CountUserNotMask, StringFormat='{0} người'}"
-                            TextColor="{StaticResource DangerousColor}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
-
-                    <Grid IsVisible="{Binding AlertMaskModel.UseMask}" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Column="0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <ffImage:CachedImage
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_mask.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                            <Label
-                                Text="Đeo khẩu trang :"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.CountUserUseMask, StringFormat='{0} người'}"
-                            TextColor="{StaticResource GreenColor}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
-
-                    <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Column="0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <ffImage:CachedImage
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_usernotdistance.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                            <Label
-                                Text="Khoảng cách gần:"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.DistanceViolationCount, StringFormat='{0} người'}"
-                            TextColor="{StaticResource DangerousColor}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
-
-                    <Grid IsVisible="{Binding AlertMaskModel.UseDistance}" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Column="0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <ffImage:CachedImage
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_userdistance.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                            <Label
-                                Text="Khoảng cách an toàn:"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.CountUserPassDistance, StringFormat='{0} người'}"
-                            TextColor="{StaticResource GreenColor}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
-
-                    <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Column="0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <controls:IconView
-                                Foreground="{StaticResource DangerousColor}"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_groupcar.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                            <Label
-                                Text="Quá số người:"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            Text="{Binding AlertMaskModel.CountNotValidPersion, StringFormat='{0} người'}"
-                            TextColor="{StaticResource DangerousColor}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center" />
-                    </Grid>
-
-                    <Grid IsVisible="{Binding AlertMaskModel.UsePersion}" RowSpacing="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout
-                            Grid.Column="0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            Spacing="5">
-                            <controls:IconView
-                                Foreground="{StaticResource GreenColor}"
-                                HeightRequest="20"
-                                HorizontalOptions="Center"
-                                Source="ic_groupcar.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                            <Label
-                                Text="Số người trên xe:"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
-                        </StackLayout>
-
-                        <Label
-                            Grid.Column="1"
-                            FontFamily="{StaticResource myFontLatoBold}"
-                            HorizontalOptions="EndAndExpand"
-                            TextColor="{StaticResource GreenColor}"
-                            VerticalOptions="Center"
-                            VerticalTextAlignment="Center">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{Binding AlertMaskModel.PersonCount}" />
-                                    <Span Text="/" />
-                                    <Span Text="{Binding AlertMaskModel.Seat}" />
-                                    <Span Text=" người" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </Grid>
-                </StackLayout>
-
+                </ScrollView>
             </sharpnado:MaterialFrame>
         </Grid>
     </ContentPage.Content>
