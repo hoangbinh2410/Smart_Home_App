@@ -1,11 +1,11 @@
-﻿using BA_MobileGPS.Core.Extensions;
-using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
-using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public SupportFeePageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService, IVehicleOnlineService vehicleOnlineService) : base(navigationService)
         {
-            this.vehicleOnlineService = vehicleOnlineService;         
+            this.vehicleOnlineService = vehicleOnlineService;
             BackPageCommand = new DelegateCommand(BackPage);
             PushChangeLicensePlateCommand = new DelegateCommand(PushChangeLicensePlate);
             Title = "Hỗ trợ khách hàng";
@@ -38,20 +38,35 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
-        {           
+        {
             base.Initialize(parameters);
-            if(parameters != null)
+            if (parameters != null)
             {
-                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && vehicle.PrivateCode != null)
                 {
-                    GetListMessage(obj, 11, 6, DateTime.Now, DateTime.Now);
+                    if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+                    {
+                        //GetListMessage(obj, 3, 6, DateTime.Now, DateTime.Now);
+                        GetListMessage(obj, vehicle);
+                        NamePage = obj.Name;
+                        DataPlate = vehicle.VehiclePlate;
+                    }
+                    else
+                    {
+                        MessageData = true;
+                    }
+                }
+                else
+                {
+                    MessageData = true;
                 }
             }
             else
             {
                 MessageData = true;
-            }                     
+            }
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -74,6 +89,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
+
         private bool messageData = false;
         public bool MessageData { get => messageData; set => SetProperty(ref messageData, value); }
         private bool IsupportDisconnectView = false;
@@ -108,6 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref guide, value);
             }
         }
+
         private string namepage = String.Empty;
 
         public string NamePage
@@ -119,10 +136,10 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private SupportCategoryRespone Item { get; set; }
-       
+        private string DataPlate { get; set; }
+
         public List<MessageSupportRespone> ListSupportContent { get; set; }
-       
+
         private MessageSupportRespone _SupportContent = new MessageSupportRespone();
 
         public MessageSupportRespone SupportContent
@@ -135,16 +152,17 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
-        private void GetListMessage(SupportCategoryRespone obj,int messageId, int dataExt, DateTime GPSTime, DateTime VehicleTime)
+        private void GetListMessage(SupportCategoryRespone obj, Vehicle vehicle)
         {
             RunOnBackground(async () =>
             {
-                NamePage = obj.Name;
+                var qry = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == vehicle.VehicleId);
+
                 ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
                 if (ListSupportContent != null && ListSupportContent.Count > 0)
                 {
                     //nếu messageId==1,2,3,128 thì là xe dừng dịch vụ hoac dang no phi chuyen vao trang no phi
-                    if (StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt) == true || StateVehicleExtension.IsVehicleDebtMoneyViview(messageId, dataExt) == true || StateVehicleExtension.IsVehicleStopService(messageId) == true)
+                    if (StateVehicleExtension.IsVehicleDebtMoney(qry.MessageId, qry.DataExt) == true || StateVehicleExtension.IsVehicleStopService(qry.MessageId) == true)
                     {
                         var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
                         Question = query.Questions;
@@ -153,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     // Nếu không kiểm tra xe mất tín hiệu
                     else
-                        if (StateVehicleExtension.IsLostGPS(GPSTime, VehicleTime) == true && StateVehicleExtension.IsLostGSM(VehicleTime) == true)
+                        if (StateVehicleExtension.IsLostGPS(qry.GPSTime, qry.VehicleTime) == true || StateVehicleExtension.IsLostGSM(qry.VehicleTime) == true)
                     {
                         var query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
                         Question = query.Questions;
@@ -171,6 +189,42 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+        //private void GetListMessage(SupportCategoryRespone obj, int messageId, int dataExt, DateTime GPSTime, DateTime VehicleTime)
+        //{
+        //    RunOnBackground(async () =>
+        //    {
+        //        NamePage = obj.Name;
+        //        ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+        //        if (ListSupportContent != null && ListSupportContent.Count > 0)
+        //        {
+        //            //nếu messageId==1,2,3,128 thì là xe dừng dịch vụ hoac dang no phi chuyen vao trang no phi
+        //            if (StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt) == true || StateVehicleExtension.IsVehicleDebtMoneyViview(messageId, dataExt) == true || StateVehicleExtension.IsVehicleStopService(messageId) == true)
+        //            {
+        //                var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
+        //                Question = query.Questions;
+        //                Guide = query.Guides;
+        //                ISupportDisconnectView = false;
+        //            }
+        //            // Nếu không kiểm tra xe mất tín hiệu
+        //            else
+        //                if (StateVehicleExtension.IsLostGPS(GPSTime, VehicleTime) == true && StateVehicleExtension.IsLostGSM(VehicleTime) == true)
+        //            {
+        //                var query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
+        //                Question = query.Questions;
+        //                Guide = query.Guides;
+        //                ISupportDisconnectView = true;
+        //            }
+        //            else
+        //            {
+        //                MessageData = true;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageData = true;
+        //        }
+        //    });
+        //}
 
         public void BackPage()
         {
@@ -184,7 +238,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("ChangeLicensePlate");
+                var parameters = new NavigationParameters
+            {
+                { ParameterKey.VehicleRoute, DataPlate }
+            };
+
+                await NavigationService.NavigateAsync("ChangeLicensePlate", parameters);
             });
         }
 
@@ -192,7 +251,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("MessageSuportPage");
+                var parameters = new NavigationParameters
+            {
+                { "Support", NamePage },
+                { ParameterKey.VehicleRoute, DataPlate },
+            };
+                await NavigationService.NavigateAsync("MessageSuportPage", parameters);
             });
         }
 

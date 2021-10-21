@@ -64,15 +64,16 @@
                         <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Danh mục cân hỗ trợ: Đổi biển " />
-                                    <Span />
+                                    <Span Text="Danh mục cân hỗ trợ: " />
+                                    <Span Text="{Binding NamePage}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                         <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Phương tiện:" />
+                                    <Span Text="Phương tiện: " />
+                                    <Span Text="{Binding LicensePlateNow}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>

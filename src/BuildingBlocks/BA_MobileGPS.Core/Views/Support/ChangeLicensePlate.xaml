@@ -74,7 +74,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Biển số cũ: " />
-                                    <Span Text="29H123456" />
+                                    <Span Text="{Binding LicensePlateNow}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -99,7 +99,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Placeholder="Nhập biển kiểm soát mới"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                    Text="{Binding LicensePlate}"
+                                    Text="{Binding LicensePlateNew}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />

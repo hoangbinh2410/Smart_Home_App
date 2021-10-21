@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -36,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            LicensePlateNow = parameters.GetValue<string>(ParameterKey.VehicleRoute);
         }
 
         public override void OnPageAppearingFirstTime()
@@ -46,6 +48,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
+
+           
         }
 
         public override void OnDestroy()
@@ -56,8 +60,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
-        private string licensePlate = string.Empty;
-        public string LicensePlate { get { return licensePlate; } set { SetProperty(ref licensePlate, value); } }
+        private string licensePlateNow = string.Empty;
+        public string LicensePlateNow { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
+        private string licensePlatenew = string.Empty;
+        public string LicensePlateNew { get { return licensePlatenew; } set { SetProperty(ref licensePlatenew, value); } }
         private bool InotificationView = false;
         public bool INotificationView { get { return InotificationView; } set { SetProperty(ref InotificationView, value); } }
 
@@ -77,7 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if(LicensePlate != null)
+                if (LicensePlateNew != "")
                 {
                     INotificationView = true;
                 }
@@ -86,7 +92,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     //_pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
                     _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
                 }
-
             });
         }
 
