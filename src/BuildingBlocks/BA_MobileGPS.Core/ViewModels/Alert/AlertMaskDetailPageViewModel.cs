@@ -57,31 +57,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetAlertMaskDetail(Guid id)
         {
-            //var model = new AlertMaskModel()
-            //{
-            //    WarningType = 74,
-            //    VehicleId = 468259,
-            //    VehiclePlate = "22B00800_C",
-            //    TimeStart = DateTime.Now,
-            //    Latitude = 21.117395401000977,
-            //    Longitude = 105.78012084960938,
-            //    WarningContent = "",
-            //    Url = "https://image35.binhanh.vn/2021/09/20/Image5385/869336030172603_CAM1_20092021_175926_A6YQJK.jpg",
-            //    CountUserNotMask = 1,
-            //    CountUserUseMask = 4,
-            //    ListMask = new List<int> { 521, 94, 17, 31, 488, 81, 20, 31, 347, 50, 23, 30, 313, 396, 43, 42 },
-            //    ListNoMask = new List<int> { 266, 49, 24, 30 },
-            //    PersonCount = 20,
-            //    DistanceViolationCount = 2,
-            //    Seat = 16
-            //};
-            //AlertMaskModel = model;
-            //Device.BeginInvokeOnMainThread(() =>
-            //{
-            //    GetAddress(model.Latitude.ToString(), model.Longitude.ToString());
-            //    DrawLine(model.Url, model.ListMask, model.ListNoMask);
-            //});
-
             RunOnBackground(async () =>
             {
                 return await alertService.GetAlertMaskDetail(id);
@@ -90,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && !string.IsNullOrEmpty(result.Url))
                 {
                     AlertMaskModel = result;
-                    DrawLine(result.Url, result.ListMask, result.ListNoMask);
+                    DrawLine(result);
                 }
             }, showLoading: true);
         }
@@ -183,16 +158,17 @@ namespace BA_MobileGPS.Core.ViewModels
             downloader.OnFileDownloaded -= Downloader_OnFileDownloaded;
         }
 
-        private async void DrawLine(string url, List<int> listMask, List<int> listNoMask)
+        private async void DrawLine(AlertMaskModel alert)
         {
-            var stream = await ImageService.Instance.LoadUrl(url).AsJPGStreamAsync();
+            var stream = await ImageService.Instance.LoadUrl(alert.Url).AsJPGStreamAsync();
             var bitmap = SKBitmap.Decode(stream);
             var canvas = new SKCanvas(bitmap);
-            if (listMask != null && listMask.Count > 0 && listMask.Count % 4 == 0)
+
+            if (alert.UseMask && alert.ListMask != null && alert.ListMask.Count > 0 && alert.ListMask.Count % 4 == 0)
             {
-                for (int i = 0; i < listMask.Count; i = i + 4)
+                for (int i = 0; i < alert.ListMask.Count; i = i + 4)
                 {
-                    var rect = SKRect.Create(listMask[i], listMask[i + 1], listMask[i + 2], listMask[i + 3]);
+                    var rect = SKRect.Create(alert.ListMask[i], alert.ListMask[i + 1], alert.ListMask[i + 2], alert.ListMask[i + 3]);
                     // the brush (fill with blue)
                     var paint = new SKPaint
                     {
@@ -204,17 +180,34 @@ namespace BA_MobileGPS.Core.ViewModels
                     canvas.DrawRect(rect, paint);
                 }
             }
-            if (listNoMask != null && listNoMask.Count > 0 && listNoMask.Count % 4 == 0)
+            if (alert.UseMask && alert.ListNoMask != null && alert.ListNoMask.Count > 0 && alert.ListNoMask.Count % 4 == 0)
             {
-                for (int i = 0; i < listNoMask.Count; i = i + 4)
+                for (int i = 0; i < alert.ListNoMask.Count; i = i + 4)
                 {
-                    var rect = SKRect.Create(listNoMask[i], listNoMask[i + 1], listNoMask[i + 2], listNoMask[i + 3]);
+                    var rect = SKRect.Create(alert.ListNoMask[i], alert.ListNoMask[i + 1], alert.ListNoMask[i + 2], alert.ListNoMask[i + 3]);
                     // the brush (fill with blue)
                     var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Stroke,
                         StrokeWidth = 2,
                         Color = SKColor.Parse("#ff0000")
+                    };
+                    // draw stroke
+                    canvas.DrawRect(rect, paint);
+                }
+            }
+
+            if (alert.UseDistance && alert.DistanceViolation != null && alert.DistanceViolation.Count > 0 && alert.DistanceViolation.Count % 4 == 0)
+            {
+                for (int i = 0; i < alert.DistanceViolation.Count; i = i + 4)
+                {
+                    var rect = SKRect.Create(alert.DistanceViolation[i], alert.DistanceViolation[i + 1], alert.DistanceViolation[i + 2], alert.DistanceViolation[i + 3]);
+                    // the brush (fill with blue)
+                    var paint = new SKPaint
+                    {
+                        Style = SKPaintStyle.Stroke,
+                        StrokeWidth = 2,
+                        Color = SKColor.Parse("#9a12b3")
                     };
                     // draw stroke
                     canvas.DrawRect(rect, paint);
