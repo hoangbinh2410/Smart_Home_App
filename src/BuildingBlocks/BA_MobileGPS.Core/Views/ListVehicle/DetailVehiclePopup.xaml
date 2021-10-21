@@ -118,279 +118,281 @@
                 </renderedViews:HorizontalListView.ItemTemplate>
             </renderedViews:HorizontalListView>
 
-            <StackLayout IsVisible="{Binding IsShowMoreMenu}" Spacing="0">
+            <ScrollView>
+                <StackLayout IsVisible="{Binding IsShowMoreMenu}" Spacing="0">
 
-                <pancakeview:PancakeView CornerRadius="10">
-                    <StackLayout Spacing="0">
-                        <controls:HorizontalList
-                            Margin="0,10,0,0"
-                            HorizontalOptions="CenterAndExpand"
-                            ItemsSource="{Binding MenuItems}"
-                            ListOrientation="Horizontal"
-                            SelectedCommand="{Binding SelectMenuCommand}"
-                            VerticalOptions="CenterAndExpand">
-                            <controls:HorizontalList.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout
-                                        Margin="0"
-                                        HeightRequest="100"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Spacing="10"
-                                        WidthRequest="100">
-                                        <pancakeview:PancakeView
-                                            Padding="0"
-                                            BackgroundColor="{DynamicResource WhiteColor}"
-                                            CornerRadius="25"
-                                            HorizontalOptions="CenterAndExpand">
-                                            <pancakeview:PancakeView.Shadow>
-                                                <pancakeview:DropShadow
-                                                    BlurRadius="3"
-                                                    Opacity="0.1"
-                                                    Offset="0,2"
-                                                    Color="{DynamicResource ShadowColor}" />
-                                            </pancakeview:PancakeView.Shadow>
-                                            <controls:IconView
-                                                Margin="10"
-                                                Foreground="{DynamicResource PrimaryColor}"
-                                                HeightRequest="30"
+                    <pancakeview:PancakeView CornerRadius="10">
+                        <StackLayout Spacing="0">
+                            <controls:HorizontalList
+                                Margin="0,10,0,0"
+                                HorizontalOptions="CenterAndExpand"
+                                ItemsSource="{Binding MenuItems}"
+                                ListOrientation="Horizontal"
+                                SelectedCommand="{Binding SelectMenuCommand}"
+                                VerticalOptions="CenterAndExpand">
+                                <controls:HorizontalList.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout
+                                            Margin="0"
+                                            HeightRequest="100"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Spacing="10"
+                                            WidthRequest="100">
+                                            <pancakeview:PancakeView
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource WhiteColor}"
+                                                CornerRadius="25"
+                                                HorizontalOptions="CenterAndExpand">
+                                                <pancakeview:PancakeView.Shadow>
+                                                    <pancakeview:DropShadow
+                                                        BlurRadius="3"
+                                                        Opacity="0.1"
+                                                        Offset="0,2"
+                                                        Color="{DynamicResource ShadowColor}" />
+                                                </pancakeview:PancakeView.Shadow>
+                                                <controls:IconView
+                                                    Margin="10"
+                                                    Foreground="{DynamicResource PrimaryColor}"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding Icon}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30" />
+                                            </pancakeview:PancakeView>
+                                            <Label
+                                                Margin="15,0,15,0"
                                                 HorizontalOptions="Center"
-                                                Source="{Binding Icon}"
-                                                VerticalOptions="Center"
-                                                WidthRequest="30" />
-                                        </pancakeview:PancakeView>
-                                        <Label
-                                            Margin="15,0,15,0"
-                                            HorizontalOptions="Center"
-                                            LineBreakMode="TailTruncation"
-                                            MaxLines="2"
-                                            StyleClass="IconText"
-                                            Text="{Binding Title}"
-                                            VerticalOptions="Center" />
-                                    </StackLayout>
-                                </DataTemplate>
-                            </controls:HorizontalList.ItemTemplate>
-                        </controls:HorizontalList>
-                    </StackLayout>
-                </pancakeview:PancakeView>
-
-                <pancakeview:PancakeView
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="10"
-                    IsVisible="{Binding AllListCamera, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
-                    <StackLayout Spacing="0">
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                x:Name="lblCamera"
-                                Padding="10"
-                                StyleClass="GroupTitleLabel,BoldText" />
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="2"
+                                                StyleClass="IconText"
+                                                Text="{Binding Title}"
+                                                VerticalOptions="Center" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </controls:HorizontalList.ItemTemplate>
+                            </controls:HorizontalList>
                         </StackLayout>
+                    </pancakeview:PancakeView>
 
-                        <CarouselView
-                            HeightRequest="100"
-                            HorizontalOptions="FillAndExpand"
-                            HorizontalScrollBarVisibility="Never"
-                            IndicatorView="indicatorCamera"
-                            ItemsSource="{Binding AllListCamera, Mode=OneWay}"
-                            VerticalOptions="CenterAndExpand">
-                            <CarouselView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <renderedViews:HorizontalListView
-                                            CollectionPadding="0"
-                                            ColumnCount="3"
-                                            HorizontalOptions="FillAndExpand"
-                                            ItemHeight="100"
-                                            ItemSpacing="10"
-                                            ItemWidth="90"
-                                            ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
-                                            ListLayout="Grid"
-                                            SnapStyle="Center"
-                                            TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.NavigativeCommand}"
-                                            VerticalOptions="FillAndExpand">
-                                            <renderedViews:HorizontalListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ViewCell>
-                                                        <StackLayout Margin="0" Spacing="10">
-                                                            <pancakeview:PancakeView
-                                                                Padding="0"
-                                                                BackgroundColor="{DynamicResource WhiteColor}"
-                                                                CornerRadius="25"
-                                                                HorizontalOptions="CenterAndExpand">
-                                                                <pancakeview:PancakeView.Shadow>
-                                                                    <pancakeview:DropShadow
-                                                                        BlurRadius="3"
-                                                                        Opacity="0.1"
-                                                                        Offset="0,2"
-                                                                        Color="{DynamicResource ShadowColor}" />
-                                                                </pancakeview:PancakeView.Shadow>
-                                                                <ff:CachedImage
-                                                                    Margin="10"
-                                                                    HeightRequest="30"
+                    <pancakeview:PancakeView
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        CornerRadius="10"
+                        IsVisible="{Binding AllListCamera, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblCamera"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+
+                            <CarouselView
+                                HeightRequest="100"
+                                HorizontalOptions="FillAndExpand"
+                                HorizontalScrollBarVisibility="Never"
+                                IndicatorView="indicatorCamera"
+                                ItemsSource="{Binding AllListCamera, Mode=OneWay}"
+                                VerticalOptions="CenterAndExpand">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <renderedViews:HorizontalListView
+                                                CollectionPadding="0"
+                                                ColumnCount="3"
+                                                HorizontalOptions="FillAndExpand"
+                                                ItemHeight="100"
+                                                ItemSpacing="10"
+                                                ItemWidth="90"
+                                                ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                ListLayout="Grid"
+                                                SnapStyle="Center"
+                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.NavigativeCommand}"
+                                                VerticalOptions="FillAndExpand">
+                                                <renderedViews:HorizontalListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ViewCell>
+                                                            <StackLayout Margin="0" Spacing="10">
+                                                                <pancakeview:PancakeView
+                                                                    Padding="0"
+                                                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                                                    CornerRadius="25"
+                                                                    HorizontalOptions="CenterAndExpand">
+                                                                    <pancakeview:PancakeView.Shadow>
+                                                                        <pancakeview:DropShadow
+                                                                            BlurRadius="3"
+                                                                            Opacity="0.1"
+                                                                            Offset="0,2"
+                                                                            Color="{DynamicResource ShadowColor}" />
+                                                                    </pancakeview:PancakeView.Shadow>
+                                                                    <ff:CachedImage
+                                                                        Margin="10"
+                                                                        HeightRequest="30"
+                                                                        HorizontalOptions="Center"
+                                                                        Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                                                                        VerticalOptions="Center"
+                                                                        WidthRequest="30" />
+                                                                </pancakeview:PancakeView>
+                                                                <Label
+                                                                    Margin="15,0,15,0"
                                                                     HorizontalOptions="Center"
-                                                                    Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                                                                    VerticalOptions="Center"
-                                                                    WidthRequest="30" />
-                                                            </pancakeview:PancakeView>
-                                                            <Label
-                                                                Margin="15,0,15,0"
-                                                                HorizontalOptions="Center"
-                                                                LineBreakMode="TailTruncation"
-                                                                MaxLines="2"
-                                                                StyleClass="IconText"
-                                                                Text="{Binding NameByCulture}"
-                                                                VerticalOptions="Center" />
-                                                        </StackLayout>
-                                                    </ViewCell>
-                                                </DataTemplate>
-                                            </renderedViews:HorizontalListView.ItemTemplate>
-                                        </renderedViews:HorizontalListView>
-                                    </Grid>
-                                </DataTemplate>
-                            </CarouselView.ItemTemplate>
-                        </CarouselView>
-                        <IndicatorView x:Name="indicatorCamera" Margin="0,5,0,0" />
-                    </StackLayout>
-                </pancakeview:PancakeView>
-
-                <pancakeview:PancakeView
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    CornerRadius="10"
-                    IsVisible="{Binding AllListReport, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
-                    <StackLayout Spacing="0">
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                x:Name="lblReport"
-                                Padding="10"
-                                StyleClass="GroupTitleLabel,BoldText" />
+                                                                    LineBreakMode="TailTruncation"
+                                                                    MaxLines="2"
+                                                                    StyleClass="IconText"
+                                                                    Text="{Binding NameByCulture}"
+                                                                    VerticalOptions="Center" />
+                                                            </StackLayout>
+                                                        </ViewCell>
+                                                    </DataTemplate>
+                                                </renderedViews:HorizontalListView.ItemTemplate>
+                                            </renderedViews:HorizontalListView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView x:Name="indicatorCamera" Margin="0,5,0,0" />
                         </StackLayout>
-                        <CarouselView
-                            HeightRequest="100"
-                            HorizontalOptions="FillAndExpand"
-                            HorizontalScrollBarVisibility="Never"
-                            IndicatorView="indicatorReport"
-                            ItemsSource="{Binding AllListReport, Mode=OneWay}"
-                            VerticalOptions="CenterAndExpand">
-                            <CarouselView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <renderedViews:HorizontalListView
-                                            CollectionPadding="0"
-                                            ColumnCount="3"
-                                            HorizontalOptions="FillAndExpand"
-                                            ItemHeight="100"
-                                            ItemSpacing="10"
-                                            ItemWidth="90"
-                                            ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
-                                            ListLayout="Grid"
-                                            SnapStyle="Center"
-                                            TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.NavigativeCommand}"
-                                            VerticalOptions="FillAndExpand">
-                                            <renderedViews:HorizontalListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ViewCell>
-                                                        <StackLayout Margin="0" Spacing="10">
-                                                            <pancakeview:PancakeView
-                                                                Padding="0"
-                                                                BackgroundColor="{DynamicResource WhiteColor}"
-                                                                CornerRadius="25"
-                                                                HorizontalOptions="CenterAndExpand">
-                                                                <pancakeview:PancakeView.Shadow>
-                                                                    <pancakeview:DropShadow
-                                                                        BlurRadius="3"
-                                                                        Opacity="0.1"
-                                                                        Offset="0,2"
-                                                                        Color="{DynamicResource ShadowColor}" />
-                                                                </pancakeview:PancakeView.Shadow>
-                                                                <ff:CachedImage
-                                                                    Margin="10"
-                                                                    HeightRequest="30"
+                    </pancakeview:PancakeView>
+
+                    <pancakeview:PancakeView
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        CornerRadius="10"
+                        IsVisible="{Binding AllListReport, Mode=TwoWay, Converter={StaticResource HasDataConverter}}">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblReport"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+                            <CarouselView
+                                HeightRequest="100"
+                                HorizontalOptions="FillAndExpand"
+                                HorizontalScrollBarVisibility="Never"
+                                IndicatorView="indicatorReport"
+                                ItemsSource="{Binding AllListReport, Mode=OneWay}"
+                                VerticalOptions="CenterAndExpand">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <renderedViews:HorizontalListView
+                                                CollectionPadding="0"
+                                                ColumnCount="3"
+                                                HorizontalOptions="FillAndExpand"
+                                                ItemHeight="100"
+                                                ItemSpacing="10"
+                                                ItemWidth="90"
+                                                ItemsSource="{Binding FeaturesItem, Mode=OneWay}"
+                                                ListLayout="Grid"
+                                                SnapStyle="Center"
+                                                TapCommand="{Binding Source={x:Reference root}, Path=BindingContext.NavigativeCommand}"
+                                                VerticalOptions="FillAndExpand">
+                                                <renderedViews:HorizontalListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ViewCell>
+                                                            <StackLayout Margin="0" Spacing="10">
+                                                                <pancakeview:PancakeView
+                                                                    Padding="0"
+                                                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                                                    CornerRadius="25"
+                                                                    HorizontalOptions="CenterAndExpand">
+                                                                    <pancakeview:PancakeView.Shadow>
+                                                                        <pancakeview:DropShadow
+                                                                            BlurRadius="3"
+                                                                            Opacity="0.1"
+                                                                            Offset="0,2"
+                                                                            Color="{DynamicResource ShadowColor}" />
+                                                                    </pancakeview:PancakeView.Shadow>
+                                                                    <ff:CachedImage
+                                                                        Margin="10"
+                                                                        HeightRequest="30"
+                                                                        HorizontalOptions="Center"
+                                                                        Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
+                                                                        VerticalOptions="Center"
+                                                                        WidthRequest="30" />
+                                                                </pancakeview:PancakeView>
+                                                                <Label
+                                                                    Margin="15,0,15,0"
                                                                     HorizontalOptions="Center"
-                                                                    Source="{Binding IconMobile, Converter={StaticResource AddRootImageConverter}}"
-                                                                    VerticalOptions="Center"
-                                                                    WidthRequest="30" />
-                                                            </pancakeview:PancakeView>
-                                                            <Label
-                                                                Margin="15,0,15,0"
-                                                                HorizontalOptions="Center"
-                                                                LineBreakMode="TailTruncation"
-                                                                MaxLines="2"
-                                                                StyleClass="IconText"
-                                                                Text="{Binding NameByCulture}"
-                                                                VerticalOptions="Center" />
-                                                        </StackLayout>
-                                                    </ViewCell>
-                                                </DataTemplate>
-                                            </renderedViews:HorizontalListView.ItemTemplate>
-                                        </renderedViews:HorizontalListView>
-                                    </Grid>
-                                </DataTemplate>
-                            </CarouselView.ItemTemplate>
-                        </CarouselView>
-                        <IndicatorView x:Name="indicatorReport" Margin="0,5,0,0" />
-                    </StackLayout>
-                </pancakeview:PancakeView>
-
-                <pancakeview:PancakeView CornerRadius="10">
-                    <StackLayout Spacing="0">
-                        <StackLayout Orientation="Horizontal">
-                            <Label
-                                x:Name="lblFeatures"
-                                Padding="10"
-                                StyleClass="GroupTitleLabel,BoldText" />
+                                                                    LineBreakMode="TailTruncation"
+                                                                    MaxLines="2"
+                                                                    StyleClass="IconText"
+                                                                    Text="{Binding NameByCulture}"
+                                                                    VerticalOptions="Center" />
+                                                            </StackLayout>
+                                                        </ViewCell>
+                                                    </DataTemplate>
+                                                </renderedViews:HorizontalListView.ItemTemplate>
+                                            </renderedViews:HorizontalListView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView x:Name="indicatorReport" Margin="0,5,0,0" />
                         </StackLayout>
+                    </pancakeview:PancakeView>
 
-                        <controls:HorizontalList
-                            Margin="0,10,0,0"
-                            HorizontalOptions="CenterAndExpand"
-                            ItemsSource="{Binding AllListfeatures}"
-                            ListOrientation="Horizontal"
-                            SelectedCommand="{Binding SelectMenuCommand}"
-                            VerticalOptions="CenterAndExpand">
-                            <controls:HorizontalList.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout
-                                        Margin="0"
-                                        HeightRequest="100"
-                                        HorizontalOptions="CenterAndExpand"
-                                        Spacing="10"
-                                        WidthRequest="100">
-                                        <pancakeview:PancakeView
-                                            Padding="0"
-                                            BackgroundColor="{DynamicResource WhiteColor}"
-                                            CornerRadius="25"
-                                            HorizontalOptions="CenterAndExpand">
-                                            <pancakeview:PancakeView.Shadow>
-                                                <pancakeview:DropShadow
-                                                    BlurRadius="3"
-                                                    Opacity="0.1"
-                                                    Offset="0,2"
-                                                    Color="{DynamicResource ShadowColor}" />
-                                            </pancakeview:PancakeView.Shadow>
-                                            <controls:IconView
-                                                Margin="10"
-                                                Foreground="{DynamicResource PrimaryColor}"
-                                                HeightRequest="30"
+                    <pancakeview:PancakeView CornerRadius="10">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    x:Name="lblFeatures"
+                                    Padding="10"
+                                    StyleClass="GroupTitleLabel,BoldText" />
+                            </StackLayout>
+
+                            <controls:HorizontalList
+                                Margin="0,10,0,0"
+                                HorizontalOptions="CenterAndExpand"
+                                ItemsSource="{Binding AllListfeatures}"
+                                ListOrientation="Horizontal"
+                                SelectedCommand="{Binding SelectMenuCommand}"
+                                VerticalOptions="CenterAndExpand">
+                                <controls:HorizontalList.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout
+                                            Margin="0"
+                                            HeightRequest="100"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Spacing="10"
+                                            WidthRequest="100">
+                                            <pancakeview:PancakeView
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource WhiteColor}"
+                                                CornerRadius="25"
+                                                HorizontalOptions="CenterAndExpand">
+                                                <pancakeview:PancakeView.Shadow>
+                                                    <pancakeview:DropShadow
+                                                        BlurRadius="3"
+                                                        Opacity="0.1"
+                                                        Offset="0,2"
+                                                        Color="{DynamicResource ShadowColor}" />
+                                                </pancakeview:PancakeView.Shadow>
+                                                <controls:IconView
+                                                    Margin="10"
+                                                    Foreground="{DynamicResource PrimaryColor}"
+                                                    HeightRequest="30"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding Icon}"
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30" />
+                                            </pancakeview:PancakeView>
+                                            <Label
+                                                Margin="15,0,15,0"
                                                 HorizontalOptions="Center"
-                                                Source="{Binding Icon}"
-                                                VerticalOptions="Center"
-                                                WidthRequest="30" />
-                                        </pancakeview:PancakeView>
-                                        <Label
-                                            Margin="15,0,15,0"
-                                            HorizontalOptions="Center"
-                                            LineBreakMode="TailTruncation"
-                                            MaxLines="2"
-                                            StyleClass="IconText"
-                                            Text="{Binding Title}"
-                                            VerticalOptions="Center" />
-                                    </StackLayout>
-                                </DataTemplate>
-                            </controls:HorizontalList.ItemTemplate>
-                        </controls:HorizontalList>
-                    </StackLayout>
-                </pancakeview:PancakeView>
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="2"
+                                                StyleClass="IconText"
+                                                Text="{Binding Title}"
+                                                VerticalOptions="Center" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </controls:HorizontalList.ItemTemplate>
+                            </controls:HorizontalList>
+                        </StackLayout>
+                    </pancakeview:PancakeView>
 
-            </StackLayout>
+                </StackLayout>
+            </ScrollView>
 
             <StackLayout
                 Padding="10"
