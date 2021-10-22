@@ -95,7 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (Feedack != "" && Phonenumber != null && Phonenumber.Length == 10)
+                if (Feedack != "" && Phonenumber != null && Phonenumber.Length <= 10)
                 {
                     INotificationView = true;
                 }
