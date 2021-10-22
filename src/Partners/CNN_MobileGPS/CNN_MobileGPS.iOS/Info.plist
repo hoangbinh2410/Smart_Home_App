@@ -74,9 +74,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>6.0.0</string>
+	<string>6.1.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>6.0.0</string>
+	<string>6.1.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
