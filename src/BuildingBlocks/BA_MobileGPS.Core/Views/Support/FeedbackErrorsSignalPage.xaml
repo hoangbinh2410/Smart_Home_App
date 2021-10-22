@@ -83,7 +83,7 @@
                             TextColor="{DynamicResource PrimaryColor}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span x:Name="textSupportFeedbackCameraError" />
+                                    <Span x:Name="textSupportFeedbackError" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -96,6 +96,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span x:Name="lbSupportFeedbackName" />
+                                    <Span Text="{Binding ObjSupport.Name}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -108,7 +109,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span x:Name="lbVehicle" />
-                                    <Span Text="29H123456" />
+                                    <Span Text="{Binding Vehicle.PrivateCode}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>

@@ -9,7 +9,7 @@ namespace BA_MobileGPS.Core.Views
         {
             InitializeComponent();
             //this.title.Text = MobileResource.SupportClient_Label_Title;
-            this.textSupportFeedbackCameraError.Text = MobileResource.SupportClient_Label_TextSupportFeedbackCameraError;
+            this.textSupportFeedbackError.Text = MobileResource.SupportClient_Label_TextSupportFeedbackError;
             this.lbSupportFeedbackName.Text = MobileResource.SupportClient_Label_LbSupportFeedbackName;
             this.lbVehicle.Text = MobileResource.SupportClient_Label_LbSupportFeedbackVehicle;
             this.lbSupportFeedbackPhoneNumber.Text = MobileResource.SupportClient_Label_LbSupportFeedbackPhoneNumber;

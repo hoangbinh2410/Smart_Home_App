@@ -1,4 +1,6 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using Prism.Commands;
 using Prism.Navigation;
@@ -25,10 +27,25 @@ namespace BA_MobileGPS.Core.ViewModels
             get => _isVisibleSuccess;
             set => SetProperty(ref _isVisibleSuccess, value);
         }
+
+        private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
+        public SupportCategoryRespone ObjSupport
+        {
+            get => _objSupport;
+            set => SetProperty(ref _objSupport, value);
+        }
+
+        private Vehicle _vehicle = new Vehicle();
+        public Vehicle Vehicle
+        {
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
+        }
+
         #endregion Property
 
         #region Contructor
-    
+
         public ICommand SendFeedbackCommand { get; private set; }
         public ICommand BackPageCommand { get; private set; }
         public FeedbackErrorsSignalPageViewModel(INavigationService navigationService)
@@ -53,7 +70,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportClientPage");
+                await NavigationService.GoBackToRootAsync(null);
             });
         }
         #endregion PrivateMethod
@@ -70,9 +87,13 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
-                if (parameters.ContainsKey("ObjSupport") && parameters.GetValue<SupportCategoryRespone>("ObjSupport") is SupportCategoryRespone obj)
+                if (parameters.ContainsKey("ObjSupport") && parameters.GetValue<SupportCategoryRespone>("ObjSupport") is SupportCategoryRespone objSupport)
                 {
-                    
+                    ObjSupport = objSupport;
+                }
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
                 }
             }
         }
