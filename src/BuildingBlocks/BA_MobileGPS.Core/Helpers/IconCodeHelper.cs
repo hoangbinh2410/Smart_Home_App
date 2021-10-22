@@ -75,7 +75,7 @@ namespace BA_MobileGPS.Core.Helpers
                 }
                 else
                 {
-                    return GetIconCarFromStates(carInfo.IconCode, IconColor.GREY);
+                    return GetIconCarFromStates(carInfo.IconCode, IconColor.BLUE);
                 }
             }
             else

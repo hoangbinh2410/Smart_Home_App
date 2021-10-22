@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SupportClientPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:image="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="colorlb1">#00ADE5</Color>
+            <Color x:Key="colorItem">#E0FFFF</Color>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="Auto,*"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <!--  Tiêu đề  -->
+            <Grid
+                Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                StyleClass="TitleBarGrid"
+                VerticalOptions="StartAndExpand">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="30">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                    </Frame.GestureRecognizers>
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="25"
+                        HorizontalOptions="StartAndExpand"
+                        Source="ic_close.png"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="25" />
+                </Frame>
+                <Label
+                    x:Name="title"
+                    Margin="0,0,0,5"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource LabelItem}"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="EndAndExpand" />
+            </Grid>
+            <pancake:PancakeView
+                Grid.Row="1"
+                Padding="20"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                CornerRadius="10,10,0,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="20">
+
+                    <StackLayout Spacing="15">
+                        <Label
+                            x:Name="vehicleProcessing"
+                            HorizontalOptions="Start"
+                            Style="{DynamicResource LabelItem}"
+                            TextColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="CenterAndExpand" />
+                        <inputLayout:SfTextInputLayout
+                            ContainerType="Outlined"
+                            FocusedColor="{DynamicResource PrimaryColor}"
+                            LeadingViewPosition="Inside"
+                            UnfocusedColor="{DynamicResource PrimaryColor}">
+                            <combobox:SfComboBox
+                                x:Name="comboBoxGender"
+                                DropDownBorderColor="{DynamicResource PrimaryColor}"
+                                IsEditableMode="False"
+                                SelectedItem="{Binding PlateNumber}"
+                                ShowClearButton="False"
+                                TextColor="{DynamicResource PrimaryColor}">
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                                        <x:String>29T191239</x:String>
+                                        <x:String>29H123456</x:String>
+                                    </ListCollection:List>
+                                </combobox:SfComboBox.ComboBoxSource>
+                            </combobox:SfComboBox>
+                        </inputLayout:SfTextInputLayout>
+                        <Label
+                            x:Name="supportCategory"
+                            HorizontalOptions="Start"
+                            Style="{DynamicResource LabelItem}"
+                            TextColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="Start" />
+                        <Label
+                            FontAttributes="Italic"
+                            FontSize="13"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{DynamicResource LabelItem}"
+                            TextColor="{DynamicResource PrimaryColor}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span x:Name="textSupport" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                    <syncfusion:SfListView
+                        ItemSize="60"
+                        ItemSpacing="0,0,0,15"
+                        ItemsSource="{Binding MenuItems, Mode=TwoWay}"
+                        SelectionBackgroundColor="{DynamicResource WhiteColor}"
+                        TapCommand="{Binding NavigateCommand}">
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <pancake:PancakeView
+                                    BackgroundColor="{DynamicResource colorItem}"
+                                    CornerRadius="10"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                    <pancake:PancakeView.Border>
+                                        <pancake:Border Thickness="2" Color="#2F80ED" />
+                                    </pancake:PancakeView.Border>
+                                    <Grid ColumnDefinitions="80,*,50" ColumnSpacing="0">
+                                        <ffImage:CachedImage
+                                            Grid.Column="0"
+                                            HeightRequest="20"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Source="{Binding IconApp}"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="20" />
+                                        <Label
+                                            x:Name="lostSignal"
+                                            Grid.Column="1"
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            Style="{DynamicResource LabelItem}"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <controls:FontAwesomeIcon
+                                            Grid.Column="2"
+                                            FontSize="20"
+                                            HorizontalOptions="Center"
+                                            Opacity="0.8"
+                                            Text="{x:Static fontawesome:FontAwesomeIcons.ChevronRight}"
+                                            TextColor="{DynamicResource PrimaryColor}"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </Grid>
+                                </pancake:PancakeView>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
+                    <StackLayout />
+                </StackLayout>
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
