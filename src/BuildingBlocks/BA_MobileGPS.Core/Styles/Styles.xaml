@@ -173,7 +173,6 @@
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Fill" />
         <Setter Property="InputViewPadding" Value="{OnPlatform Android='11,0,11,0', iOS='11,5,11,5'}" />
-        <Setter Property="FocusedColor" Value="Transparent" />
     </Style>
     <Style Class="LoginAwesomeIcon" TargetType="controls:FontAwesomeIcon">
         <Setter Property="TextColor" Value="{DynamicResource WhiteColor}" />

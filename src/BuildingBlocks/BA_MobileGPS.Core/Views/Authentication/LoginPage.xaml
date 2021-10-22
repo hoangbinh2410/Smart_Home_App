@@ -116,13 +116,12 @@
                         </input:SfTextInputLayout.InputView>
                     </input:SfTextInputLayout>
                     <input:SfTextInputLayout
+                        x:Name="textPass"
                         Grid.Row="1"
                         ErrorText="{Binding Password.ErrorFirst}"
-                        FocusedColor="Transparent"
                         FocusedStrokeWidth="0"
                         HasError="{Binding Password.IsNotValid}"
                         StyleClass="LoginEntry"
-                        UnfocusedColor="Transparent"
                         UnfocusedStrokeWidth="0">
                         <input:SfTextInputLayout.LeadingView>
                             <sh:Shadows

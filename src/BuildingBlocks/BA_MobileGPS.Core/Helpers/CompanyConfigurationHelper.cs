@@ -112,5 +112,9 @@ namespace BA_MobileGPS.Core
         public static int DayAllowRegister => Get(CompanyConfigurationNames.DayAllowRegister, 30);
 
         public static bool UseNewSummaryIconOnline => Get(CompanyConfigurationNames.UseNewSummaryIconOnline, false);
+
+        public static bool ChangeColorIconStopParking => Get(CompanyConfigurationNames.ChangeColorIconStopParking, false);
+
+        
     }
 }

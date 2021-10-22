@@ -44,6 +44,7 @@ namespace BA_MobileGPS.Service
             };
             httpClient.DefaultRequestHeaders.Add("Cache-Control", "no-cache"); // <-- doesn't seem to have any effect
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
 
             if (!string.IsNullOrEmpty(token))
             {

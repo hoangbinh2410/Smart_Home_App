@@ -1245,5 +1245,27 @@
         CabSignInfor_Label_RegisterDate,
         CabSignInfor_Label_DaysNumberForAlertAppear,
         CabSignInfor_Label_Insert,
+
+        #region SupportClient
+        SupportClient_Label_Title,
+        SupportClient_Label_VehicleProcessing,
+        SupportClient_Label_SupportCategory,
+        SupportClient_Label_TextSupport,
+        SupportClient_Label_LostSignal,
+        SupportClient_Label_ChangeNumberPlate,
+        SupportClient_Label_CameraError,
+        SupportClient_Label_TextSupportCameraError,
+        SupportClient_Text_Yes,
+        SupportClient_Text_No,
+        SupportClient_Text_Unfinished,
+        SupportClient_Text_Accomplished,
+        SupportClient_Button_Close,
+        SupportClient_Label_TextSupportFeedbackCameraError,
+        SupportClient_Label_LbSupportFeedbackName,
+        SupportClient_Label_LbSupportFeedbackVehicle,
+        SupportClient_Label_LbSupportFeedbackPhoneNumber,
+        SupportClient_Label_TextSupportFeedbackContent,
+        SupportClient_Button_BtnSupportFeedbackSend,
+        #endregion
     }
 }

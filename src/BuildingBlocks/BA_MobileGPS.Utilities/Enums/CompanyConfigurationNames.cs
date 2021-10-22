@@ -31,6 +31,7 @@
         IsShowDateOfRegistration,
         ShowKmInMonth,
         DayAllowRegister,
-        UseNewSummaryIconOnline
+        UseNewSummaryIconOnline,
+        ChangeColorIconStopParking
     }
 }

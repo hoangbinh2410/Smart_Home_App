@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Extensions;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Interfaces;
+using BA_MobileGPS.Core.Models;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.ViewModels.Base;
 using BA_MobileGPS.Entities;
@@ -75,36 +76,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SetFavoritesVehicle(currentVehicle, isfavorites);
             }
-            else if (parameters.ContainsKey("pagetoNavigation") && parameters?.GetValue<string>("pagetoNavigation") is string action)
+            else if (parameters.ContainsKey("MenuPageItem") && parameters?.GetValue<MenuKeyType>("MenuPageItem") is MenuKeyType action)
             {
-                if (action == MobileResource.DetailVehicle_Label_TilePage)
-                {
-                    GoDetailPage(currentVehicle);
-                }
-                else if (action == MobileResource.Online_Label_TitlePage)
-                {
-                    GoOnlinePage(currentVehicle);
-                }
-                else if (action == MobileResource.Route_Label_Title)
-                {
-                    GoRoutePage(currentVehicle);
-                }
-                else if (action == MobileResource.Image_Lable_Image)
-                {
-                    GotoCameraPage(currentVehicle);
-                }
-                else if (action == MobileResource.DetailVehicle_Label_Fuel)
-                {
-                    GotoFuelPage(currentVehicle);
-                }
-                else if (action == MobileResource.Camera_Label_Video)
-                {
-                    GotoVideoPage(currentVehicle);
-                }
-                else if (action == MobileResource.Camera_Lable_ExportVideo)
-                {
-                    GotoExportVideoPage(currentVehicle);
-                }
+                GoToPageAction(action);
+            }
+            else if (parameters.ContainsKey("pagetoNavigation") && parameters?.GetValue<string>("pagetoNavigation") is string menukey)
+            {
+                OnNavigateMenu(menukey);
             }
         }
 
@@ -710,20 +688,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public void GotoFuelPage(VehicleOnlineViewModel selected)
-        {
-            SafeExecute(async () =>
-            {
-                var param = _mapper.MapProperties<Vehicle>(selected);
-                var parameters = new NavigationParameters
-                {
-                    { ParameterKey.Vehicle, param }
-                };
-
-                await NavigationService.NavigateAsync("NavigationPage/ChartFuelReportPage", parameters, true, true);
-            });
-        }
-
         public void GotoVideoPage(VehicleOnlineViewModel selected)
         {
             SafeExecute(async () =>
@@ -741,6 +705,42 @@ namespace BA_MobileGPS.Core.ViewModels
                      };
 
                         var a = await NavigationService.NavigateAsync("NavigationPage/CameraManagingPage", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              selected.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+        public void GotoVideoPlaybackPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasVideo(selected.VehiclePlate))
+                {
+                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                    if (photoPermission && storagePermission)
+                    {
+                        var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                        var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                        var a = await NavigationService.NavigateAsync("NavigationPage/CameraRestream", parameters, true, true);
                     }
                 }
                 else
@@ -780,6 +780,142 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var action = await PageDialog.DisplayAlertAsync("Thông báo",
                               string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              selected.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+        public void GoToPageAction(MenuKeyType menuTupe)
+        {
+            switch (menuTupe)
+            {
+                case MenuKeyType.Route:
+                    GoRoutePage(currentVehicle);
+                    break;
+
+                case MenuKeyType.VehicleDetail:
+                    GoDetailPage(currentVehicle);
+                    break;
+
+                case MenuKeyType.Images:
+                    GotoCameraPage(currentVehicle);
+                    break;
+
+                case MenuKeyType.Video:
+                    GotoVideoPage(currentVehicle);
+                    break;
+
+                case MenuKeyType.VideoPlayback:
+                    GotoVideoPlaybackPage(currentVehicle);
+                    break;
+
+                case MenuKeyType.Online:
+                    GoOnlinePage(currentVehicle);
+                    break;
+
+                case MenuKeyType.HelpCustomer:
+                    break;
+
+                case MenuKeyType.ExportVideo:
+                    GotoExportVideoPage(currentVehicle);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public async void OnNavigateMenu(string menuKey)
+        {
+            switch (menuKey)
+            {
+                case "ListVehiclePage":
+                    await NavigationService.SelectTabAsync("ListVehiclePage");
+                    break;
+
+                case "OnlinePage":
+                    if (MobileUserSettingHelper.EnableShowCluster)
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePage");
+                    }
+                    else
+                    {
+                        await NavigationService.SelectTabAsync("OnlinePageNoCluster");
+                    }
+                    break;
+
+                case "RoutePage":
+                    await NavigationService.SelectTabAsync("RoutePage");
+                    break;
+
+                case "CameraManagingPage":
+                    GotoVideoPage(currentVehicle);
+                    break;
+
+                case "CameraRestream":
+                    GotoVideoPlaybackPage(currentVehicle);
+                    break;
+
+                case "ImageManagingPage":
+                    GotoCameraPage(currentVehicle);
+                    break;
+
+                case "ListCameraVehicle":
+                    GotoCameraV1Page(currentVehicle);
+                    break;
+
+                default:
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        SafeExecute(async () =>
+                        {
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                var param = _mapper.MapProperties<Vehicle>(currentVehicle);
+                                var parameters = new NavigationParameters
+                                  {
+                                      { ParameterKey.VehicleRoute, param }
+                                 };
+                                var a = await NavigationService.NavigateAsync("NavigationPage/" + menuKey, parameters, useModalNavigation: true, true);
+                            }
+                        });
+                    });
+                    break;
+            }
+        }
+
+        public void GotoCameraV1Page(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasImage(selected.VehiclePlate))
+                {
+                    var param = new Vehicle()
+                    {
+                        VehiclePlate = selected.VehiclePlate,
+                        VehicleId = selected.VehicleId,
+                        Imei = selected.Imei,
+                        PrivateCode = selected.PrivateCode
+                    };
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.Vehicle, param }
+                    };
+
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
                               selected.PrivateCode, MobileSettingHelper.HotlineGps),
                               "Liên hệ", "Bỏ qua");
                         if (action)

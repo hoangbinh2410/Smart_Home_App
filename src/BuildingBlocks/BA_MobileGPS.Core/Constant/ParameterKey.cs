@@ -58,6 +58,8 @@
         public const string VideoUploaded = "VideoUploaded";
         public const string LstVideoUploaded = "LstVideoUploaded";
         public const string GotoMyVideoPage = "GotoMyVideoPage";
-        
+        public const string KPIRankPage = "KPIRankPage";
+        public const string KPIRankDriverID = "KPIRankDriverID";
+
     }
 }

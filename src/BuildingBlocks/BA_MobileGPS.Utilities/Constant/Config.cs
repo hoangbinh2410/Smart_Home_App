@@ -17,7 +17,7 @@
         /// </summary>
         /// <Modified>
         /// Name     Date         Comments
-        /// Namth  16/1/2018   created
+        /// Namth  16/1/2018   created 
         /// </Modified>
         public const string GoogleMapKeyAndroid = "AIzaSyDwhz_8SoIcFYMLVh3rcto1cWGbAPdQfGI";
 
@@ -37,7 +37,7 @@
         /// Name     Date         Comments
         /// Namth  16/1/2018   created
         /// </Modified>
-        public const string SyncfusionKey = "NDY1MDY5QDMxMzkyZTMyMmUzMGRhbHY5MHVhQVhUeEZBR2E5dTVWSDdtVFpXaG1jT0xiTzNLQ2VUQTBBMEk9";
+        public const string SyncfusionKey = "NTEyODM1QDMxMzkyZTMzMmUzMFZhdjM4K3NhUUo4TUFFVlhkL3YvaE9wenFwT25ZZm5Zbm5jazF5dkF0Tkk9";
 
         /// <summary>
         /// Key cho OneSignal

@@ -95,6 +95,43 @@ namespace BA_MobileGPS.Core
         }
     }
 
+    public class MonthConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string result = string.Empty;
+
+            if (!(value is DateTime) && !(value is DateTimeOffset))
+            {
+                return result;
+            }
+
+            DateTime dt = default;
+
+            if (value is DateTime dateTime)
+            {
+                if (dateTime == DateTime.MinValue)
+                {
+                    return string.Empty;
+                }
+                dt = dateTime;
+            }
+            else if (value is DateTimeOffset dateTimeOffset)
+            {
+                dt = dateTimeOffset.DateTime;
+            }
+
+            result = dt.ToLocalTime().ToString("MM/yyyy");
+
+            return result;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return default;
+        }
+    }
+
     public class TimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

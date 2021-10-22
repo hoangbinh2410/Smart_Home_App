@@ -1,6 +1,7 @@
 ﻿using Android.Content;
 using Android.Content.Res;
 using Android.Runtime;
+using BA_MobileGPS.Core.Controls;
 using BA_MobileGPS.Core.Droid.DependencyServices;
 using BA_MobileGPS.Core.Interfaces;
 using Plugin.Permissions;
