@@ -137,8 +137,10 @@
                                 x:Name="entrySupportFeedbackPhoneNumber"
                                 FontSize="12"
                                 HorizontalOptions="FillAndExpand"
+                                Keyboard="Telephone"
+                                MaxLength="10"
                                 PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                Text="{Binding TextSearchCourse}"
+                                Text="{Binding EntryPhoneNumber}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -170,9 +172,9 @@
                                 AutoSize="TextChanges"
                                 FontSize="12"
                                 HorizontalOptions="FillAndExpand"
-                                MaxLength="500"
+                                MaxLength="1000"
                                 PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                Text="{Binding TextSearchCourse}"
+                                Text="{Binding EditorFeedbackContent}"
                                 VerticalOptions="StartAndExpand">
                                 <Editor.Effects>
                                     <effects:BorderlessEffect />

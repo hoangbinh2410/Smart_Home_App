@@ -42,6 +42,20 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _vehicle, value);
         }
 
+        private string _entryPhoneNumber = string.Empty;
+        public string EntryPhoneNumber
+        {
+            get => _entryPhoneNumber;
+            set => SetProperty(ref _entryPhoneNumber, value);
+        }
+
+        private string _editorFeedbackContent = string.Empty;
+        public string EditorFeedbackContent
+        {
+            get => _editorFeedbackContent;
+            set => SetProperty(ref _editorFeedbackContent, value);
+        }
+
         #endregion Property
 
         #region Contructor
@@ -59,21 +73,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Contructor
-
-        #region PrivateMethod
-        private void SendFeedbackClicked()
-        {
-            IsVisibleFeedback = false;
-            IsVisibleSuccess = true;
-        }
-        private void BackPageClicked()
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.GoBackToRootAsync(null);
-            });
-        }
-        #endregion PrivateMethod
 
         #region Lifecycle
 
@@ -113,5 +112,32 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Lifecycle
+
+        #region PrivateMethod
+        private void SendFeedbackClicked()
+        {
+            if (EntryPhoneNumber.Length == 0 )
+            {
+                DisplayMessage.ShowMessageInfo("Số điện thoại không được bỏ trống", 5000);
+                return;
+            }
+            if (EditorFeedbackContent.Length == 0)
+            {
+                DisplayMessage.ShowMessageInfo("Nội dung không được bỏ trống", 5000);
+                return;
+            }
+            IsVisibleFeedback = false;
+            IsVisibleSuccess = true;
+        }
+        private void BackPageClicked()
+        {             
+            SafeExecute(async () =>
+            {
+                await NavigationService.GoBackToRootAsync(null);
+            });
+        }
+        #endregion PrivateMethod
+
+        
     }
 }

@@ -14,6 +14,43 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportClientPageViewModel : ViewModelBase
     {
+        #region Property
+
+        private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
+
+        public List<SupportCategoryRespone> MenuItems
+        {
+            get { return menuItems; }
+            set { SetProperty(ref menuItems, value); }
+        }
+
+        private Vehicle _vehicle = new Vehicle();
+
+        public Vehicle Vehicle
+        {
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
+        }
+
+        #endregion Property
+
+        #region Contructor
+
+        public ICommand NavigateCommand { get; }
+        public ICommand SelectVehicleAllCommand { get; }
+
+        private ISupportCategoryService _iSupportCategoryService;
+
+        public SupportClientPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService)
+            : base(navigationService)
+        {
+            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            SelectVehicleAllCommand = new DelegateCommand(SelectVehicleAll);
+            _iSupportCategoryService = iSupportCategoryService;
+        }
+
+        #endregion Contructor
+
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
@@ -49,44 +86,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Lifecycle
-
-        #region Contructor
-
-        public ICommand NavigateCommand { get; }
-        public ICommand SelectVehicleAllCommand { get; }
-        
-        private ISupportCategoryService _iSupportCategoryService;
-
-        public SupportClientPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService)
-            : base(navigationService)
-        {
-            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
-            SelectVehicleAllCommand = new DelegateCommand(SelectVehicleAll);
-            _iSupportCategoryService = iSupportCategoryService;
-        }
-
-        #endregion Contructor
-
-        #region Property
-
-        private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
-
-        public List<SupportCategoryRespone> MenuItems
-        {
-            get { return menuItems; }
-            set { SetProperty(ref menuItems, value); }
-        }
-
-        private Vehicle _vehicle = new Vehicle();
-
-        public Vehicle Vehicle
-        {
-            get => _vehicle;
-            set => SetProperty(ref _vehicle, value);
-        }
-
-        #endregion Property
-
+              
         #region PrivateMethod
 
         private void GetListSupportCategory()
@@ -153,11 +153,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
-                        {
-                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
-                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
-                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
-                        });
+                      {
+                          { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
+                          {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                          {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                      });
             });
         }
 

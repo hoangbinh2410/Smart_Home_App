@@ -208,6 +208,47 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Contructor
 
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone objSupport)
+                {
+                    ObjSupport = objSupport;
+                    GetCollectionPage(objSupport);
+                }
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
+                }
+            }
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
+
+        }
+
+        #endregion Lifecycle
+
         #region PrivateMethod
 
         private void BackPageClicked()
@@ -293,45 +334,5 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion PrivateMethod
 
-        #region Lifecycle
-
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-            if (parameters != null)
-            {
-                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone objSupport)
-                {
-                    ObjSupport = objSupport;
-                    GetCollectionPage(objSupport);
-                }
-                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
-                {
-                    Vehicle = vehicle;
-                }
-            }
-        }
-
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-        }
-
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            base.OnNavigatedFrom(parameters);
-        }
-
-        public override void OnDestroy()
-        {
-
-        }
-
-        #endregion Lifecycle
     }
 }
