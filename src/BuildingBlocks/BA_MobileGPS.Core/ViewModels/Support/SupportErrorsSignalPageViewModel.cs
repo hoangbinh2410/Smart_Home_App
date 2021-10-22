@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -56,14 +57,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return _lbTextPage; }
             set { _lbTextPage = value; }
-        }
-
-        private String _errorsName = string.Empty;
-
-        public String ErrorsName
-        {
-            get => _errorsName;
-            set => SetProperty(ref _errorsName, value);
         }
 
         private bool _isVisibleYesNo;
@@ -130,7 +123,21 @@ namespace BA_MobileGPS.Core.ViewModels
             set { _pageCollection = value; }
         }
 
-        private SupportCategoryRespone _objSupport { get; set; }
+        private Vehicle _vehicle = new Vehicle();
+
+        public Vehicle Vehicle
+        {
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
+        }
+
+        private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
+
+        public SupportCategoryRespone ObjSupport
+        {
+            get => _objSupport;
+            set => SetProperty(ref _objSupport, value);
+        }
 
         #endregion Property
 
@@ -154,29 +161,34 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (SelectedIndex)
                 {
                     case 0:
-                        SelectedIndex = 1;
+                        if (SelectedIndex == PageCollection.Count -1)
+                        {
+                            NavigationFeedbackPage();
+                            return;
+                        }
                         break;
 
                     case 1:
-                        SelectedIndex = 2;
+                        if (SelectedIndex == PageCollection.Count -1)
+                        {
+                            NavigationFeedbackPage();
+                            return;
+                        }
                         break;
 
                     case 2:
-                        SelectedIndex = 0;
-                        var parameters = new NavigationParameters
+                        if (SelectedIndex == PageCollection.Count -1)
                         {
-                            { "ObjSupport", _objSupport }
-                        };
-                        SafeExecute(async () =>
-                        {
-                            await NavigationService.NavigateAsync("FeedbackErrorsSignalPage", parameters);
-                        });
+                            NavigationFeedbackPage();
+                            return;
+                        }
                         break;
 
                     default:
-                        SelectedIndex = 0;
-                        break;
+                        NavigationFeedbackPage();
+                        return;
                 }
+                SelectedIndex++;
             });
         }
 
@@ -202,7 +214,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportClientPage");
+                await NavigationService.GoBackToRootAsync(null);
             });
         }
 
@@ -229,28 +241,53 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                List<MessageSupportRespone> items = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
-                int index = 0;
-                if (items != null && items.Count > 0)
+                if (IsConnected)
                 {
-                    IsPageCollection = false;
-                    foreach (var item in items)
+                    using (new HUDService(MobileResource.Common_Message_Processing))
                     {
-                        index++;
-                        if (item.Questions.Trim() == "Quý khách đã thực hiện rút nguồn và cắm lại ?" && obj.Code == (int)SupportPageCode.ErrorSignalPage)
+                        List<MessageSupportRespone> items = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+                        int index = 0;
+                        if (items != null && items.Count > 0)
                         {
-                            PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
+                            IsPageCollection = false;
+                            foreach (var item in items)
+                            {
+                                index++;
+                                if (item.OrderNo == 2 && obj.Code == (int)SupportPageCode.ErrorSignalPage)
+                                {
+                                    PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
+                                }
+                                else
+                                {
+                                    PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Yes, MobileResource.SupportClient_Text_No, item.Guides));
+                                }
+                            }
                         }
                         else
                         {
-                            PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Yes, MobileResource.SupportClient_Text_No, item.Guides));
+                            IsPageCollection = true;
                         }
                     }
                 }
                 else
                 {
                     IsPageCollection = true;
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
                 }
+            });
+        }
+
+        private void NavigationFeedbackPage()
+        {
+            SelectedIndex = 0;
+            var parameters = new NavigationParameters
+            {
+                { "ObjSupport", _objSupport },
+                { ParameterKey.VehicleRoute, Vehicle },
+            };
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("FeedbackErrorsSignalPage", parameters);
             });
         }
 
@@ -268,15 +305,14 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
-                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone objSupport)
                 {
-                    ErrorsName = obj.Name;
-                    _objSupport = obj;
-                    GetCollectionPage(obj);
+                    ObjSupport = objSupport;
+                    GetCollectionPage(objSupport);
                 }
                 if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
-                    
+                    Vehicle = vehicle;
                 }
             }
         }
@@ -293,6 +329,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+
         }
 
         #endregion Lifecycle

@@ -55,7 +55,7 @@
                         x:Name="errorsName"
                         HorizontalOptions="CenterAndExpand"
                         Style="{DynamicResource LabelItem}"
-                        Text="{Binding ErrorsName}"
+                        Text="{Binding ObjSupport.Name}"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="CenterAndExpand" />
                 </pancake:PancakeView>
