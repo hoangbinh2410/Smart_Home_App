@@ -341,7 +341,7 @@
 
                             <controls:HorizontalList
                                 Margin="0,10,0,0"
-                                HorizontalOptions="CenterAndExpand"
+                                HorizontalOptions="StartAndExpand"
                                 ItemsSource="{Binding AllListfeatures}"
                                 ListOrientation="Horizontal"
                                 SelectedCommand="{Binding SelectMenuCommand}"
