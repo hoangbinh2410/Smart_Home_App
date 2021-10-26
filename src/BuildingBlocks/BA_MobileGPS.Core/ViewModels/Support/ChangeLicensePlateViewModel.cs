@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -60,6 +61,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
+        private LoginResponse userInfo;
+
+        public LoginResponse UserInfo
+        {
+            get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }
+            set => SetProperty(ref userInfo, value);
+        }
         private string licensePlateNow = string.Empty;
         public string LicensePlateNow { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
         private string licensePlatenew = string.Empty;

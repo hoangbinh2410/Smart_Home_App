@@ -113,6 +113,36 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
+                        <!--  Tên  -->
+                        <StackLayout Spacing="15">
+                            <Label
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Text="Họ và tên" />
+                            <Frame
+                                Padding="5,0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <Entry
+                                    FontSize="14"
+                                    HorizontalOptions="FillAndExpand"
+                                    MaxLength="10"
+                                    PlaceholderColor="{DynamicResource TextSecondaryColor}"
+                                    Text="{Binding UserInfo.FullName}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Frame>
+                        </StackLayout>
+
+                        <!--  Số điệnh thoại  -->
                         <Label
                             FontSize="14"
                             HorizontalOptions="Start"
@@ -138,13 +168,15 @@
                                 FontSize="12"
                                 HorizontalOptions="FillAndExpand"
                                 PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                Text="{Binding TextSearchCourse}"
+                                Text="{Binding UserInfo.PhoneNumber}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
                         </Frame>
+
+                        <!--  Phản hồi  -->
                         <Label
                             FontSize="14"
                             HorizontalOptions="Start"

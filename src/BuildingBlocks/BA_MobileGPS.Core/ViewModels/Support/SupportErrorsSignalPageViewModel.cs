@@ -185,9 +185,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     default:
-                        NavigationFeedbackPage();
+                        //NavigationFeedbackPage();
                         return;
                 }
+                if (SelectedIndex == 2)
+                    return;
                 SelectedIndex++;
             });
         }
@@ -285,10 +287,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 { "ObjSupport", _objSupport },
                 { ParameterKey.VehicleRoute, Vehicle },
             };
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("FeedbackErrorsSignalPage", parameters);
-            });
+            //SafeExecute(async () =>
+            //{
+            //    await NavigationService.NavigateAsync("FeedbackErrorsSignalPage", parameters);
+            //});
         }
 
         #endregion PrivateMethod

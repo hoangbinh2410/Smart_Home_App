@@ -98,7 +98,7 @@
                                     Keyboard="Numeric"
                                     MaxLength="10"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                    Text="{Binding Phonenumber}"
+                                    Text="{Binding UserInfo.PhoneNumber}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />

@@ -142,9 +142,9 @@
                         <buttons:SfButton
                             Grid.Column="0"
                             BackgroundColor="{DynamicResource PrimaryColor}"
-                            Command="{Binding PushChangeLicensePlateCommand}"
+                            Command="{Binding BackPageCommand}"
                             CornerRadius="20"
-                            Text="Đổi biển số" />
+                            Text="Đóng" />
                         <buttons:SfButton
                             Grid.Column="1"
                             BackgroundColor="{DynamicResource PrimaryColor}"
@@ -255,7 +255,7 @@
                     </StackLayout>
                 </Grid>
             </ContentView>
-            
+
             <!--  IsVisible="{Binding MessageData, Converter={StaticResource InvertBooleanConverter}}"  -->
             <ContentView
                 BackgroundColor="{DynamicResource WhiteColor}"

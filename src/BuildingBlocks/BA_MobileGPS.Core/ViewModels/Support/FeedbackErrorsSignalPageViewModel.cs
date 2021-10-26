@@ -2,11 +2,13 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -14,6 +16,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class FeedbackErrorsSignalPageViewModel : ViewModelBase
     {
         #region Property
+        private readonly IUserService _userService;
 
         private bool _isVisibleFeedback;
         public bool IsVisibleFeedback
@@ -41,6 +44,20 @@ namespace BA_MobileGPS.Core.ViewModels
             get => _vehicle;
             set => SetProperty(ref _vehicle, value);
         }
+        private LoginResponse userInfo;
+
+        public LoginResponse UserInfo
+        {
+            get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }
+            set => SetProperty(ref userInfo, value);
+        }
+        private UserInfoRespone _user;
+
+        public UserInfoRespone User
+        {
+            get => _user;
+            set => SetProperty(ref _user, value);
+        }
 
         #endregion Property
 
@@ -48,7 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand SendFeedbackCommand { get; private set; }
         public ICommand BackPageCommand { get; private set; }
-        public FeedbackErrorsSignalPageViewModel(INavigationService navigationService)
+        public FeedbackErrorsSignalPageViewModel(INavigationService navigationService, IUserService userService)
             : base(navigationService)
         {
             Title = MobileResource.SupportClient_Label_Title;
@@ -56,6 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
             BackPageCommand = new DelegateCommand(BackPageClicked);
             IsVisibleFeedback = true;
             IsVisibleSuccess = false;
+            _userService = userService;
         }
 
         #endregion Contructor
@@ -72,7 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 await NavigationService.GoBackToRootAsync(null);
             });
-        }
+        }     
         #endregion PrivateMethod
 
         #region Lifecycle
