@@ -199,6 +199,8 @@
         public const string GET_SHIP_PACKAGE = "api/fishingvesselsms/shippackage";
         public const string GET_GetQCVN31SpeedReport = "api/reports/getqcvn31report";
 
+        public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
+        public const string GET_GetStationDetails = "api/reports/station";
         #endregion report
 
         #region Camera

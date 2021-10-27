@@ -2,11 +2,14 @@
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.Views;
+using BA_MobileGPS.Core.Views.Report.StationDetails;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Service.Report.Station;
 using BA_MobileGPS.Service.Service;
+using BA_MobileGPS.Service.Service.Report.Station;
 using BA_MobileGPS.Service.Service.Support;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities.Constant;
@@ -87,6 +90,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IReportQCVN31SpeedService, ReportQCVN31SpeedService>();
             containerRegistry.RegisterSingleton<ISupportCategoryService, SupportCategoryService>();
             containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
+            containerRegistry.RegisterSingleton<IStationLocationService, StationLocationService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -224,6 +228,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
             containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
             containerRegistry.RegisterForNavigation<KpiDriverChartPage, KpiDriverChartPageViewModel>("KpiDriverChartPage");
+            containerRegistry.RegisterForNavigation<StationDetailsPage, StationDetailsPageViewModel>("StationDetailsPage");
         }
     }
 }
