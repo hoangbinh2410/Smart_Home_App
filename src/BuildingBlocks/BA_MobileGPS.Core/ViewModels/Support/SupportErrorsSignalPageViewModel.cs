@@ -177,19 +177,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case 2:
-                        if (SelectedIndex == PageCollection.Count -1)
+                        if (SelectedIndex == PageCollection.Count - 1)
                         {
-                            NavigationFeedbackPage();
-                            return;
+                            NavigationFeedbackPage();                          
                         }
                         break;
 
-                    default:
-                        //NavigationFeedbackPage();
-                        return;
-                }
-                if (SelectedIndex == 2)
-                    return;
+                    default:                     
+                        break;
+                }             
                 SelectedIndex++;
             });
         }
@@ -255,7 +251,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             foreach (var item in items)
                             {
                                 index++;
-                                if (item.OrderNo == 2 && obj.Code == (int)SupportPageCode.ErrorSignalPage)
+                                if (item.OrderNo == 2 && obj.Code == "MTH")
                                 {
                                     PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
                                 }
@@ -287,10 +283,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 { "ObjSupport", _objSupport },
                 { ParameterKey.VehicleRoute, Vehicle },
             };
-            //SafeExecute(async () =>
-            //{
-            //    await NavigationService.NavigateAsync("FeedbackErrorsSignalPage", parameters);
-            //});
+            SafeExecute(async () =>
+            {
+                await NavigationService.GoBackAsync();
+            });
         }
 
         #endregion PrivateMethod

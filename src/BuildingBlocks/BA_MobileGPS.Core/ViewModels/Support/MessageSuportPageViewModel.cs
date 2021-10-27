@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -23,7 +24,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Title = "Hỗ trợ khách hàng";
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
             _pageDialog = pageDialog;
-            _displayMessage = displayMessage;
+            _displayMessage = displayMessage;         
         }
 
         #endregion Contructor
@@ -69,6 +70,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private string phonenumber;
         public string Phonenumber { get { return phonenumber; } set { SetProperty(ref phonenumber, value); } }
         private bool InotificationView = false;
+        private LoginResponse userInfo;
+        public LoginResponse UserInfo {get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }set => SetProperty(ref userInfo, value);}
 
         public bool INotificationView
         {

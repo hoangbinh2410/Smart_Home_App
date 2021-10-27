@@ -58,6 +58,8 @@ namespace BA_MobileGPS.Core.ViewModels
             get => _user;
             set => SetProperty(ref _user, value);
         }
+        private string feedback = string.Empty;
+        public string Feedack { get { return feedback; } set { SetProperty(ref feedback, value); } }
 
         #endregion Property
 

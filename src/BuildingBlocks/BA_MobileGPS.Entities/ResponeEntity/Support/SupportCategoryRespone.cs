@@ -11,7 +11,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Support
         public Guid ID { get; set; }
 
         [JsonProperty("code")]
-        public int Code { get; set; }
+        public string Code { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

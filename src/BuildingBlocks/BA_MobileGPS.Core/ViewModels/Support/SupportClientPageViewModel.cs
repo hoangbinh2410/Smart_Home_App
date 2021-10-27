@@ -55,6 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Contructor
 
+        private readonly IDisplayMessage _displayMessage;
         public ICommand NavigateCommand { get; }
         public ICommand SelectVehicleAllCommand { get; }
         public ICommand HideSelect { get; }
@@ -63,7 +64,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private ISupportCategoryService _iSupportCategoryService;
 
-        public SupportClientPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService)
+        public SupportClientPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService, IDisplayMessage displayMessage)
             : base(navigationService)
         {
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
@@ -72,6 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
             HideSelect = new DelegateCommand(ClickHideSelect);
             PushSupportMesage = new DelegateCommand(PushFeedbackErrorsPage);
             SupportSelect = new DelegateCommand(PushSupportErrorsPage);
+            _displayMessage = displayMessage;
         }
 
         #endregion Contructor
@@ -153,72 +155,60 @@ namespace BA_MobileGPS.Core.ViewModels
                 { ParameterKey.VehicleRoute, Vehicle },
                 {"BoolPage",ISupportDisconnectView }
             };
-
-            switch (data.Code)
+            var qry = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == Vehicle.VehicleId);
+          
+            // Kiểm tra  page mất tín hiệu
+             if ( data.Code == "MTH")
             {
-                case (int)SupportPageCode.ErrorSignalPage:
-                    SafeExecute(async () =>
+                SafeExecute(async () =>
+                {
+                    ISelect = true;
+                });
+                // Kiểm tra page đổi biển
+            } else if(data.Code == "PLATE")
+            {
+                SafeExecute(async () =>
+                {
+                    if (qry != null)
                     {
-                        ISelect = true;
-                        //await NavigationService.NavigateAsync("SupportErrorsSignalPage", parameters);
-                    });
-                    break;
-
-                case (int)SupportPageCode.ChangePlateNumberPage:
-                    SafeExecute(async () =>
-                    {
-                        //ISelect = true;
-                    //    var parameters = new NavigationParameters
-                    //{
-                    //    { "Support", data },
-                    //    { ParameterKey.VehicleRoute, Vehicle },
-                    //    {"BoolPage",ISupportDisconnectView }
-                    //};
-                        var qry = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == Vehicle.VehicleId);
-                        if (qry != null)
+                        ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(data.ID);
+                        if (ListSupportContent != null && ListSupportContent.Count > 0)
                         {
-                            ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(data.ID);
-                            if (ListSupportContent != null && ListSupportContent.Count > 0)
+                            // Kiểm tra xe mất tín hiệu
+                            //if (StateVehicleExtension.IsVehicleDebtMoney(qry.MessageId, qry.DataExt) == true || StateVehicleExtension.IsVehicleStopService(qry.MessageId) == true)
+                            //{
+                            //    ISupportDisconnectView = false;
+                            //    var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
+                            //    parameters.Add("Support1", query);
+                            //    await NavigationService.NavigateAsync("SupportFeePage", parameters);
+                            //}
+                            if (StateVehicleExtension.IsLostGPS(qry.GPSTime, qry.VehicleTime) == true || StateVehicleExtension.IsLostGSM(qry.VehicleTime) == true)
                             {
-                                // Nếu không kiểm tra xe mất tín hiệu
-                                if (StateVehicleExtension.IsLostGPS(qry.GPSTime, qry.VehicleTime) == true || StateVehicleExtension.IsLostGSM(qry.VehicleTime) == true)
-                                {
-                                    query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
-                                    ISupportDisconnectView = true;
-                                    parameters.Add("Support1", query);
-                                    //Question = query.Questions;
-                                    //Guide = query.Guides;
-
-                                    await NavigationService.NavigateAsync("SupportFeePage", parameters);
-                                }
-                                else //nếu messageId==1,2,3,128 thì là xe dừng dịch vụ hoac dang no phi chuyen vao trang no phi
-                                    if (StateVehicleExtension.IsVehicleDebtMoney(qry.MessageId, qry.DataExt) == true || StateVehicleExtension.IsVehicleStopService(qry.MessageId) == true)
-                                {
-                                    ISupportDisconnectView = false;
-                                    var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
-                                    parameters.Add("Support1", query);
-                                    //Question = query.Questions;
-                                    //Guide = query.Guides;
-                                    await NavigationService.NavigateAsync("SupportFeePage", parameters);
-                                }
-                                else
-                                // Nếu xe còn phí chuyển đến trang đổi biển
-                                {
-                                    SafeExecute(async () =>
-                                    {
-                                        var parameter = new NavigationParameters { { ParameterKey.VehicleRoute, Vehicle.VehiclePlate } };
-
-                                        await NavigationService.NavigateAsync("ChangeLicensePlate", parameter);
-                                    });
-                                }
+                                query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
+                                ISupportDisconnectView = true;
+                                parameters.Add("Support1", query);
+                                await NavigationService.NavigateAsync("SupportFeePage", parameters);
+                            }
+                            else //nếu messageId==1,2,3,128 thì là xe dừng dịch vụ hoac dang no phi chuyen vao trang no phi
+                                 // if (StateVehicleExtension.IsLostGPS(qry.GPSTime, qry.VehicleTime) == true || StateVehicleExtension.IsLostGSM(qry.VehicleTime) == true)
+                                 //{
+                                 //    query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
+                                 //    ISupportDisconnectView = true;
+                                 //    parameters.Add("Support1", query);
+                                 //    await NavigationService.NavigateAsync("SupportFeePage", parameters);
+                                 //}
+                            if (StateVehicleExtension.IsVehicleDebtMoney(qry.MessageId, qry.DataExt) == true || StateVehicleExtension.IsVehicleStopService(qry.MessageId) == true)
+                            {
+                                ISupportDisconnectView = false;
+                                var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
+                                parameters.Add("Support1", query);
+                                await NavigationService.NavigateAsync("SupportFeePage", parameters);
                             }
                             else
+                            // Nếu xe còn phí chuyển đến trang đổi biển
                             {
-                                var parameter = new NavigationParameters
-                                   {
-                              { "NoData", true },
-                                   };
-                                await NavigationService.NavigateAsync("SupportFeePage", parameter);
+                                var parameter = new NavigationParameters { { ParameterKey.VehicleRoute, Vehicle.VehiclePlate } };
+                                await NavigationService.NavigateAsync("ChangeLicensePlate", parameter);
                             }
                         }
                         else
@@ -229,22 +219,30 @@ namespace BA_MobileGPS.Core.ViewModels
                                    };
                             await NavigationService.NavigateAsync("SupportFeePage", parameter);
                         }
-                    });
-                    break;
-
-                case (int)SupportPageCode.ErrorCameraPage:
-                    SafeExecute(async () =>
+                    }
+                    else
                     {
-                        ISelect = true;
-                        //await NavigationService.NavigateAsync("SupportErrorsSignalPage", parameters);
-                    });
-                    break;
-
-                default:
-                    break;
+                        var parameter = new NavigationParameters
+                                   {
+                              { "NoData", true },
+                                   };
+                        await NavigationService.NavigateAsync("SupportFeePage", parameter);
+                    }
+                });
+                // Kiểm tra Page Camera
+            } else if(data.Code == "CMR")
+            {
+                SafeExecute(async () =>
+                {
+                    ISelect = true;
+                });
             }
+             // không đúng thì hiển thị thông báo
+            else
+            {
+                _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+            }             
         }
-
         private void SelectVehicleAll()
         {
             SafeExecute(async () =>
