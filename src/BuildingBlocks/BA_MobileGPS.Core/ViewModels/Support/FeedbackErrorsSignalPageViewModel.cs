@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -58,6 +59,8 @@ namespace BA_MobileGPS.Core.ViewModels
             get => _user;
             set => SetProperty(ref _user, value);
         }
+        private string feedback = string.Empty;
+        public string Feedack { get { return feedback; } set { SetProperty(ref feedback, value); } }
 
         #endregion Property
 
@@ -65,7 +68,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand SendFeedbackCommand { get; private set; }
         public ICommand BackPageCommand { get; private set; }
-        public FeedbackErrorsSignalPageViewModel(INavigationService navigationService, IUserService userService)
+        private ISupportCategoryService _iSupportCategoryService;
+
+        public FeedbackErrorsSignalPageViewModel(INavigationService navigationService, IUserService userService, ISupportCategoryService iSupportCategoryService)
             : base(navigationService)
         {
             Title = MobileResource.SupportClient_Label_Title;
@@ -74,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
             IsVisibleFeedback = true;
             IsVisibleSuccess = false;
             _userService = userService;
+            _iSupportCategoryService = iSupportCategoryService;
         }
 
         #endregion Contructor

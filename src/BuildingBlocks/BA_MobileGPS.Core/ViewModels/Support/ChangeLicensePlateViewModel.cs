@@ -96,8 +96,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     INotificationView = true;
                 }
                 else
-                {
-                    //_pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarDebtMoney, MobileResource.Common_Label_Close);
+                {                    
                     _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
                 }
             });

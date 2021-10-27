@@ -42,14 +42,16 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <Grid
-                Padding="0,20,0,0"
-                BackgroundColor="{DynamicResource WhiteColor}"
-                HorizontalOptions="FillAndExpand"
-                RowDefinitions="Auto,*"
-                VerticalOptions="FillAndExpand">
-                <ScrollView Grid.Row="0">
+            <ScrollView>
+                <Grid
+                    Padding="0,20,0,0"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,*"
+                    VerticalOptions="FillAndExpand">
+
                     <StackLayout
+                        Grid.Row="0"
                         Padding="20,0,20,0"
                         HorizontalOptions="Start"
                         Spacing="30">
@@ -77,6 +79,34 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
+                        <!--  Tên  -->
+                        <StackLayout Spacing="15">
+                            <Label
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Text="Họ và tên" />
+                            <Frame
+                                Padding="5,0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <Entry
+                                    FontSize="14"
+                                    HorizontalOptions="FillAndExpand"
+                                    MaxLength="10"
+                                    PlaceholderColor="{DynamicResource TextSecondaryColor}"
+                                    Text="{Binding UserInfo.FullName}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Frame>
+                        </StackLayout>
 
                         <StackLayout Spacing="15">
                             <Label
@@ -125,7 +155,7 @@
                                     AutoSize="TextChanges"
                                     FontSize="14"
                                     MaxLength="1000"
-                                    Placeholder="Xe hết phí, yêu cầu hỗ trợ đóng phí"
+                                    Placeholder="Nhập nội dung phản hồi"
                                     Text="{Binding Feedack}">
                                     <Editor.Effects>
                                         <effects:BorderlessEffect />
@@ -134,26 +164,26 @@
                             </Frame>
                         </StackLayout>
                     </StackLayout>
-                </ScrollView>
 
-                <StackLayout
-                    Grid.Row="1"
-                    HeightRequest="60"
-                    HorizontalOptions="FillAndExpand"
-                    Spacing="0"
-                    VerticalOptions="EndAndExpand">
-                    <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
-                    <buttons:SfButton
-                        BackgroundColor="{DynamicResource PrimaryColor}"
-                        Command="{Binding PushNotificationSupportPageCommand}"
-                        CornerRadius="20"
-                        HorizontalOptions="CenterAndExpand"
-                        Text="Gửi phản hồi"
-                        VerticalOptions="StartAndExpand"
-                        WidthRequest="200" />
-                </StackLayout>
-            </Grid>
 
+                    <StackLayout
+                        Grid.Row="1"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                        <buttons:SfButton
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            Command="{Binding PushNotificationSupportPageCommand}"
+                            CornerRadius="20"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Gửi phản hồi"
+                            VerticalOptions="StartAndExpand"
+                            WidthRequest="200" />
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
             <!--  Ẩn trang thông báo  -->
             <ContentView IsVisible="{Binding INotificationView}">
                 <ContentView.Content>

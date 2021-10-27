@@ -83,13 +83,14 @@
                     VerticalOptions="StartAndExpand" />
             </StackLayout>
             <!--  StackLayout  1  -->
+            <!--  EnableLooping="True"  -->
             <Grid Grid.Row="1">
                 <StackLayout Padding="15">
                     <syncfusion:SfRotator
                         x:Name="rotator"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         DotPlacement="OutSide"
-                        EnableLooping="True"
+                        EnableLooping="False"
                         HorizontalOptions="FillAndExpand"
                         ItemsSource="{Binding PageCollection}"
                         NavigationDelay="500"
