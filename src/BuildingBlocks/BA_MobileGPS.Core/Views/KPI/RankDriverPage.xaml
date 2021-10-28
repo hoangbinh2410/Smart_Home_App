@@ -377,10 +377,10 @@
                                     VerticalOptions="Center">
                                     <!--  Image for display svg image  -->
                                     <ffsvg:SvgCachedImage
-                                        HeightRequest="200"
+                                        HeightRequest="100"
                                         Source="NoItem.svg"
                                         VerticalOptions="Center"
-                                        WidthRequest="200" />
+                                        WidthRequest="100" />
                                     <!--  Label to display content  -->
                                     <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
                                 </StackLayout>
@@ -1029,10 +1029,10 @@
                                     VerticalOptions="Center">
                                     <!--  Image for display svg image  -->
                                     <ffsvg:SvgCachedImage
-                                        HeightRequest="200"
+                                        HeightRequest="100"
                                         Source="NoItem.svg"
                                         VerticalOptions="Center"
-                                        WidthRequest="200" />
+                                        WidthRequest="100" />
                                     <!--  Label to display content  -->
                                     <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
                                 </StackLayout>
