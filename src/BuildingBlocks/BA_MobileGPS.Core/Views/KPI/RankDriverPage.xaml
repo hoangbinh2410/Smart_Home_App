@@ -633,7 +633,7 @@
                                 Padding="0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
                                 CornerRadius="5"
-                                HorizontalOptions="CenterAndExpand">
+                                HorizontalOptions="FillAndExpand">
                                 <Grid RowDefinitions="*,Auto" RowSpacing="5">
                                     <StackLayout
                                         Grid.Row="0"
@@ -707,7 +707,7 @@
                                 Padding="0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
                                 CornerRadius="5"
-                                HorizontalOptions="CenterAndExpand">
+                                HorizontalOptions="FillAndExpand">
                                 <Grid RowDefinitions="*,Auto" RowSpacing="5">
                                     <StackLayout
                                         Grid.Row="0"
@@ -781,7 +781,7 @@
                                 Padding="0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
                                 CornerRadius="5"
-                                HorizontalOptions="CenterAndExpand">
+                                HorizontalOptions="FillAndExpand">
                                 <Grid RowDefinitions="*,Auto" RowSpacing="5">
                                     <StackLayout
                                         Grid.Row="0"

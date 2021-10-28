@@ -376,7 +376,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (IsShowMonth)
                         {
-                            if (DateRank.Month >= DateTime.Now.Month && DateRank.Year >= DateTime.Now.Year)
+                            if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
                             {
                                 DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
                                 return;
@@ -388,7 +388,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            if (DateRank.Date < DateTime.Now.Date)
+                            if (param.Value.Date < DateTime.Now.Date)
                             {
                                 DateRank = param.Value;
                             }
