@@ -42,7 +42,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
-            //ISelect = false;
         }
 
         public override void OnDestroy()
@@ -68,7 +67,6 @@ namespace BA_MobileGPS.Core.ViewModels
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
             SelectVehicleAllCommand = new DelegateCommand(SelectVehicleAll);
             _iSupportCategoryService = iSupportCategoryService;
-            //HideSelect = new DelegateCommand(ClickHideSelect);
             PushSupportMesage = new DelegateCommand(PushFeedbackErrorsPage);
             SupportSelect = new DelegateCommand(PushSupportErrorsPage);
             _displayMessage = displayMessage;
@@ -154,28 +152,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 data = (SupportCategoryRespone)item.ItemData;
                 var parameters = new NavigationParameters
                 {
-                { "Support", data },
-                { ParameterKey.VehicleRoute, Vehicle }
+                    { "Support", data },
+                    { ParameterKey.VehicleRoute, Vehicle }
                 };
-
-                // Kiểm tra  page mất tín hiệu
+                // Kiểm tra  page mất tín hiệu , // Kiểm tra Page Camera
                 if (data.IsChangePlate == false)
                 {
                     SafeExecute(async () =>
                     {
-                        //ISelect = true;
                         await NavigationService.NavigateAsync("SelectSupportPage", parameters);
-                    });
-
-                    // Kiểm tra page đổi biển
+                    });  
                 }
-                else /*if (data.Code == nameof(SupportCode.PLATE))*/
+                // Kiểm tra page đổi biển
+                else
                 {
                     SafeExecute(async () =>
                     {
                         await NavigationService.NavigateAsync("SelectSupportPage", parameters);
                     });
-                    // Kiểm tra Page Camera
                 }
                 //else if (data.Code == nameof(SupportCode.CMR))
                 //{
@@ -204,11 +198,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
             });
         }
-
-        //private void ClickHideSelect()
-        //{
-        //    ISelect = false;
-        //}
 
         private async void PushFeedbackErrorsPage()
         {

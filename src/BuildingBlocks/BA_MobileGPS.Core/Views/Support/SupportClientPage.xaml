@@ -112,7 +112,7 @@
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectVehicleAllCommand}" />
                                 </StackLayout.GestureRecognizers>
-                                <!--Text="{Binding Vehicle.PrivateCode}"-->
+                                <!--  Text="{Binding Vehicle.PrivateCode}"  -->
                                 <Entry
                                     x:Name="entrySearch"
                                     FontSize="14"
