@@ -112,10 +112,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public string Phonenumber { get { return phonenumber; } set { SetProperty(ref phonenumber, value); } }
 
         private bool InotificationView = false;
-
         private LoginResponse userInfo;
-        public LoginResponse UserInfo {get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }set => SetProperty(ref userInfo, value);}
-
+        public LoginResponse UserInfo {get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }set => SetProperty(ref userInfo, value);}    
         public bool INotificationView
         {
             get { return InotificationView; }

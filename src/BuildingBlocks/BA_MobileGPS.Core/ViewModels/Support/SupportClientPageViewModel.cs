@@ -192,7 +192,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 //}
             }
         }
-
         private void SelectVehicleAll()
         {
             SafeExecute(async () =>
