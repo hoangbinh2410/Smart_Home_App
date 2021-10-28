@@ -295,7 +295,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CompanyID = CurrentComanyID,
                 FromDate = fromDate,
-                ToDate = toDate,
+                ToDate = toDate.AddDays(1).AddMinutes(-1),
                 UserIDs = new string[] { }
             };
             RunOnBackground(async () =>
