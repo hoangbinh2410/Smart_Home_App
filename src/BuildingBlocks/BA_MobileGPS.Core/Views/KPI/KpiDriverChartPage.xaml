@@ -258,9 +258,7 @@
                                                 <chart:CategoryAxis.LabelStyle>
                                                     <chart:ChartAxisLabelStyle
                                                         MaxWidth="80"
-                                                        FontAttributes="Bold"
-                                                        FontFamily="{StaticResource myFontLatoBold}"
-                                                        FontSize="{StaticResource chartfontsize}"
+                                                        FontSize="5"
                                                         LabelAlignment="Start"
                                                         LabelsPosition="Outside"
                                                         WrappedLabelAlignment="Start" />
@@ -638,9 +636,7 @@
                                                     LabelsIntersectAction="Wrap"
                                                     MaximumLabels="10">
                                                     <chart:ChartAxisLabelStyle
-                                                        FontAttributes="Bold"
-                                                        FontFamily="{StaticResource myFontLatoBold}"
-                                                        FontSize="{StaticResource chartfontsize}"
+                                                        FontSize="5"
                                                         LabelAlignment="Start"
                                                         LabelsPosition="Outside"
                                                         WrappedLabelAlignment="Start" />
