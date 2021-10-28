@@ -297,6 +297,7 @@
                                     HorizontalTextAlignment="Center"
                                     IsVisible="{Binding UserRank2.AverageScore, Converter={StaticResource ZeroBooleanConverter}}"
                                     LineBreakMode="WordWrap"
+                                    StyleClass="BoldText"
                                     Text="{Binding UserRank2.AverageScore}"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
@@ -311,6 +312,7 @@
                                     HorizontalOptions="CenterAndExpand"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    StyleClass="BoldText"
                                     Text="{Binding UserRank2.AverageRank}"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
@@ -372,6 +374,7 @@
                                     HorizontalTextAlignment="Center"
                                     IsVisible="{Binding UserRank1.AverageScore, Converter={StaticResource ZeroBooleanConverter}}"
                                     LineBreakMode="WordWrap"
+                                    StyleClass="BoldText"
                                     Text="{Binding UserRank1.AverageScore}"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
@@ -386,6 +389,7 @@
                                     HorizontalOptions="CenterAndExpand"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    StyleClass="BoldText"
                                     Text="{Binding UserRank1.AverageRank}"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
@@ -447,6 +451,7 @@
                                     HorizontalTextAlignment="Center"
                                     IsVisible="{Binding UserRank3.AverageScore, Converter={StaticResource ZeroBooleanConverter}}"
                                     LineBreakMode="WordWrap"
+                                    StyleClass="BoldText"
                                     Text="{Binding UserRank3.AverageScore}"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
@@ -461,6 +466,7 @@
                                     HorizontalOptions="CenterAndExpand"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    StyleClass="BoldText"
                                     Text="{Binding UserRank3.AverageRank}"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />

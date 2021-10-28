@@ -24,6 +24,12 @@
                 <Color>#E63C2B</Color>
                 <Color>#31CB73</Color>
             </chart:ChartColorCollection>
+
+            <OnPlatform
+                x:Key="chartfontsize"
+                x:TypeArguments="x:Double"
+                Android="10"
+                iOS="5" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -70,6 +76,7 @@
                     Title="AN TOÀN"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     SelectionColor="{DynamicResource PrimaryColor}"
+                    StyleClass="BoldText"
                     TitleFontColor="White"
                     TitleFontSize="14">
                     <tabView:SfTabItem.Content>
@@ -241,12 +248,22 @@
                                         VerticalOptions="FillAndExpand">
 
                                         <chart:SfChart.PrimaryAxis>
-                                            <chart:CategoryAxis x:Name="primary">
+                                            <chart:CategoryAxis
+                                                x:Name="primary"
+                                                EdgeLabelsDrawingMode="Shift"
+                                                LabelCreated="primary_LabelCreated"
+                                                LabelPlacement="BetweenTicks"
+                                                LabelsIntersectAction="Wrap"
+                                                MaximumLabels="10">
                                                 <chart:CategoryAxis.LabelStyle>
                                                     <chart:ChartAxisLabelStyle
                                                         MaxWidth="80"
-                                                        LabelAlignment="Center"
-                                                        WrappedLabelAlignment="Center" />
+                                                        FontAttributes="Bold"
+                                                        FontFamily="{StaticResource myFontLatoBold}"
+                                                        FontSize="{StaticResource chartfontsize}"
+                                                        LabelAlignment="Start"
+                                                        LabelsPosition="Outside"
+                                                        WrappedLabelAlignment="Start" />
                                                 </chart:CategoryAxis.LabelStyle>
                                             </chart:CategoryAxis>
                                         </chart:SfChart.PrimaryAxis>
@@ -286,6 +303,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="Bảng tiêu chí an toàn"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
@@ -441,6 +459,7 @@
                     Title="TIẾT KIỆM"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     SelectionColor="{DynamicResource PrimaryColor}"
+                    StyleClass="BoldText"
                     TitleFontColor="White"
                     TitleFontSize="14">
                     <tabView:SfTabItem.Content>
@@ -612,11 +631,19 @@
 
                                         <chart:SfChart.PrimaryAxis>
                                             <chart:CategoryAxis>
-                                                <chart:CategoryAxis.LabelStyle>
+                                                <chart:CategoryAxis.LabelStyle
+                                                    EdgeLabelsDrawingMode="Shift"
+                                                    LabelCreated="primary_LabelCreated"
+                                                    LabelPlacement="BetweenTicks"
+                                                    LabelsIntersectAction="Wrap"
+                                                    MaximumLabels="10">
                                                     <chart:ChartAxisLabelStyle
-                                                        MaxWidth="80"
-                                                        LabelAlignment="Center"
-                                                        WrappedLabelAlignment="Center" />
+                                                        FontAttributes="Bold"
+                                                        FontFamily="{StaticResource myFontLatoBold}"
+                                                        FontSize="{StaticResource chartfontsize}"
+                                                        LabelAlignment="Start"
+                                                        LabelsPosition="Outside"
+                                                        WrappedLabelAlignment="Start" />
                                                 </chart:CategoryAxis.LabelStyle>
                                             </chart:CategoryAxis>
                                         </chart:SfChart.PrimaryAxis>
@@ -655,6 +682,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="Bảng tiêu chí tiết kiệm"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />

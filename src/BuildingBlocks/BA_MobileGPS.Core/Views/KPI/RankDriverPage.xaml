@@ -165,6 +165,7 @@
                                 FontSize="18"
                                 HorizontalOptions="CenterAndExpand"
                                 LineBreakMode="TailTruncation"
+                                StyleClass="BoldText"
                                 Text="{Binding SelectedRankPoint.Date, Converter={StaticResource DateConverter}}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
@@ -183,9 +184,10 @@
                                         FontAttributes="Bold"
                                         FontSize="40"
                                         HorizontalOptions="CenterAndExpand"
+                                        IsVisible="{Binding SelectedRankPoint.Score, Converter={StaticResource ZeroBooleanConverter}}"
                                         LineBreakMode="TailTruncation"
                                         StyleClass="BoldText"
-                                        Text="{Binding SelectedRankPoint.Rank}"
+                                        Text="{Binding SelectedRankPoint.Score}"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -196,7 +198,7 @@
                                         LineBreakMode="TailTruncation"
                                         Text="Điểm"
                                         TextColor="{DynamicResource PrimaryColor}"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="EndAndExpand" />
                                 </StackLayout>
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -211,10 +213,9 @@
                                         FontAttributes="Bold"
                                         FontSize="40"
                                         HorizontalOptions="CenterAndExpand"
-                                        IsVisible="{Binding SelectedRankPoint.Score, Converter={StaticResource ZeroBooleanConverter}}"
                                         LineBreakMode="TailTruncation"
                                         StyleClass="BoldText"
-                                        Text="{Binding SelectedRankPoint.Score}"
+                                        Text="{Binding SelectedRankPoint.Rank}"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -399,6 +400,7 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="Điểm trung bình tháng"
                                         VerticalOptions="Center" />
                                     <Label
@@ -406,6 +408,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="{Binding AverageRankPoint.AverageScore}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -413,6 +416,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="{Binding AverageRankPoint.AverageRank}"
                                         VerticalOptions="Center" />
                                 </Grid>
@@ -680,6 +684,7 @@
                                                 HorizontalTextAlignment="Center"
                                                 IsVisible="{Binding UserRank2.AverageScore, Converter={StaticResource ZeroBooleanConverter}}"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank2.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -694,6 +699,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank2.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -755,6 +761,7 @@
                                                 HorizontalTextAlignment="Center"
                                                 IsVisible="{Binding UserRank1.AverageScore, Converter={StaticResource ZeroBooleanConverter}}"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank1.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -769,6 +776,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank1.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -830,6 +838,7 @@
                                                 HorizontalTextAlignment="Center"
                                                 IsVisible="{Binding UserRank3.AverageScore, Converter={StaticResource ZeroBooleanConverter}}"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank3.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -844,6 +853,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank3.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />

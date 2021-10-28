@@ -33,5 +33,10 @@ namespace BA_MobileGPS.Core.Views
                 e.LabelContent = "E";
             }
         }
+
+        private void primary_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)
+        {
+            
+        }
     }
 }
