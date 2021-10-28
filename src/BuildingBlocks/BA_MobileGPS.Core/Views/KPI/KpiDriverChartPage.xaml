@@ -24,12 +24,6 @@
                 <Color>#E63C2B</Color>
                 <Color>#31CB73</Color>
             </chart:ChartColorCollection>
-
-            <OnPlatform
-                x:Key="chartfontsize"
-                x:TypeArguments="x:Double"
-                Android="10"
-                iOS="5" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -246,19 +240,21 @@
                                         HorizontalOptions="FillAndExpand"
                                         Series="{Binding ChartSeries}"
                                         VerticalOptions="FillAndExpand">
-
+                                        <chart:SfChart.ChartBehaviors>
+                                            <chart:ChartZoomPanBehavior ZoomMode="Y" />
+                                        </chart:SfChart.ChartBehaviors>
                                         <chart:SfChart.PrimaryAxis>
                                             <chart:CategoryAxis
                                                 x:Name="primary"
                                                 EdgeLabelsDrawingMode="Shift"
                                                 LabelCreated="primary_LabelCreated"
                                                 LabelPlacement="BetweenTicks"
-                                                LabelsIntersectAction="Wrap"
+                                                LabelRotationAngle="-45"
+                                                LabelsIntersectAction="MultipleRows"
                                                 MaximumLabels="10">
                                                 <chart:CategoryAxis.LabelStyle>
                                                     <chart:ChartAxisLabelStyle
                                                         MaxWidth="80"
-                                                        FontSize="5"
                                                         LabelAlignment="Start"
                                                         LabelsPosition="Outside"
                                                         WrappedLabelAlignment="Start" />
@@ -636,7 +632,6 @@
                                                     LabelsIntersectAction="Wrap"
                                                     MaximumLabels="10">
                                                     <chart:ChartAxisLabelStyle
-                                                        FontSize="5"
                                                         LabelAlignment="Start"
                                                         LabelsPosition="Outside"
                                                         WrappedLabelAlignment="Start" />
