@@ -5,11 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
     xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:local="clr-namespace:BA_MobileGPS.Core"
@@ -41,11 +43,14 @@
     </ContentPage.Resources>
     <!--  Phần tiêu đề  -->
     <NavigationPage.TitleView>
-        <Grid HeightRequest="44" HorizontalOptions="FillAndExpand">
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <ffImage:CachedImage
                 Grid.Column="0"
@@ -60,24 +65,36 @@
             </ffImage:CachedImage>
             <Label
                 Grid.Column="1"
-                HorizontalOptions="CenterAndExpand"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Style="{DynamicResource LabelItem}"
                 Text="Báo cáo ra vào trạm"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
-            <ffImage:CachedImage
+            <StackLayout
                 Grid.Column="2"
-                Margin="0,0,5,0"
-                HeightRequest="20"
-                HorizontalOptions="Start"
-                Source="ic_settingstation.png"
-                VerticalOptions="Center"
-                WidthRequest="20">
-                <ffImage:CachedImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding SettingShowDataStation}" />
-                </ffImage:CachedImage.GestureRecognizers>
-            </ffImage:CachedImage>
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <controls:FontAwesomeIcon
+                    Margin="5,0,5,0"
+                    IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                    StyleClass="TopFontIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+                <controls:FontAwesomeIcon
+                    Margin="5,0,10,0"
+                    StyleClass="TopFontIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Cog}"
+                    TextColor="White">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+            </StackLayout>
         </Grid>
     </NavigationPage.TitleView>
     <!--  Phần content  -->
@@ -86,6 +103,7 @@
             BackgroundColor="{DynamicResource WhiteColor}"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
+            <!--  Nội dung dạng bảng  -->
             <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -442,6 +460,7 @@
                         <!--  Vào trạm  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="120"
+                            IsHidden="{Binding ShowTimeInStation, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="TimeInStation"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -474,6 +493,7 @@
                         <!--  Ra trạm  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="120"
+                            IsHidden="{Binding ShowTimeOutStation, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="TimeOutStation"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -506,6 +526,7 @@
                         <!--  Tên trạm  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="120"
+                            IsHidden="{Binding ShowNameStation, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="Name"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -538,6 +559,7 @@
                         <!--  Số phút trong trạm  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="80"
+                            IsHidden="{Binding ShowNumberMinuteOfStation, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="PeriodInOutStation"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -655,6 +677,119 @@
                         Text=""
                         TextColor="{DynamicResource TextPrimaryColor}" />
                 </StackLayout>
+            </Grid>
+            <!--  Cài đặt ẩn hiện cột  -->
+            <Grid
+                x:Name="showhideColumn"
+                AbsoluteLayout.LayoutBounds="0,1,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout
+                    Grid.Row="0"
+                    BackgroundColor="Gray"
+                    HorizontalOptions="Fill"
+                    Opacity="0.2"
+                    VerticalOptions="Fill">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <Frame
+                    Grid.Row="1"
+                    Padding="10"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand" RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*" />
+                            <ColumnDefinition Width=".5*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Tên trạm  -->
+                        <checkbox:SfCheckBox
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5"
+                            FontSize="13"
+                            IsChecked="{Binding ShowNameStation}"
+                            Text="Tên trạm" />
+
+                        <!--  Số phút trong trạm  -->
+                        <checkbox:SfCheckBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5.0"
+                            FontSize="13"
+                            IsChecked="{Binding ShowNumberMinuteOfStation}"
+                            Text="Số phút trong trạm" />
+
+                        <!--  Vào trạm  -->
+                        <checkbox:SfCheckBox
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5"
+                            FontSize="13"
+                            IsChecked="{Binding ShowTimeInStation}"
+                            Text="Vào trạm" />
+
+                        <!--  Ra trạm  -->
+                        <checkbox:SfCheckBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5.0"
+                            FontSize="13"
+                            IsChecked="{Binding ShowTimeOutStation}"
+                            Text="Ra trạm" />
+
+                        <!--  button save  -->
+                        <StackLayout
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <Button
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
+                                BorderRadius="0"
+                                BorderWidth="1"
+                                Clicked="HideableToolbarItem_Clicked"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                Text="{i18n:TranslateResource Common_Button_Close,
+                                                              Converter={StaticResource UpperCaseConverter}}"
+                                TextColor="{DynamicResource PrimaryColor}" />
+
+                            <Button
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                BorderRadius="0"
+                                Clicked="Button_Clicked"
+                                Command="{Binding SaveComlumnHideCommand}"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
+                                                              Converter={StaticResource UpperCaseConverter}}"
+                                TextColor="{DynamicResource WhiteColor}" />
+                        </StackLayout>
+                    </Grid>
+                </Frame>
             </Grid>
         </AbsoluteLayout>
     </ContentPage.Content>

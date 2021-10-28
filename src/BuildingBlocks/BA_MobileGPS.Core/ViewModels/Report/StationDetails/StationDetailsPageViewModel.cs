@@ -29,38 +29,33 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override int ShowHideColumnTableID { get; set; } = (int)TableReportEnum.Details;
 
-        private bool showVehicleType = false;
-        public bool ShowVehicleType { get => showVehicleType; set => SetProperty(ref showVehicleType, value); }
+        private bool showTimeInStation = true;
+        public bool ShowTimeInStation 
+        { 
+            get => showTimeInStation; set => 
+            SetProperty(ref showTimeInStation, value); 
+        }
 
-        private bool showVehiclePlate = false;
-        public bool ShowVehiclePlate { get => showVehiclePlate; set => SetProperty(ref showVehiclePlate, value); }
+        private bool showTimeOutStation = true;
+        public bool ShowTimeOutStation 
+        { 
+            get => showTimeOutStation; set => 
+            SetProperty(ref showTimeOutStation, value); 
+        }
 
-        private bool showTripCompensatory = true;
-        public bool ShowTripCompensatory { get => showTripCompensatory; set => SetProperty(ref showTripCompensatory, value); }
+        private bool showNameStation = true;
+        public bool ShowNameStation 
+        { 
+            get => showNameStation; set => 
+            SetProperty(ref showNameStation, value); 
+        }
 
-        private bool showCurrentTime = true;
-        public bool ShowCurrentTime { get => showCurrentTime; set => SetProperty(ref showCurrentTime, value); }
-
-        private bool showTimeActive = true;
-        public bool ShowTimeActive { get => showTimeActive; set => SetProperty(ref showTimeActive, value); }
-
-        private bool showKmGPS = true;
-        public bool ShowKmGPS { get => showKmGPS; set => SetProperty(ref showKmGPS, value); }
-
-        private bool showQuotaFuel = true;
-        public bool ShowQuotaFuel { get => showQuotaFuel; set => SetProperty(ref showQuotaFuel, value); }
-
-        private bool showKmCO = true;
-        public bool ShowKmCO { get => showKmCO; set => SetProperty(ref showKmCO, value); }
-
-        private bool showQuotaFuelConsume = true;
-        public bool ShowQuotaFuelConsume { get => showQuotaFuelConsume; set => SetProperty(ref showQuotaFuelConsume, value); }
-
-        private bool showStartAddress = true;
-        public bool ShowStartAddress { get => showStartAddress; set => SetProperty(ref showStartAddress, value); }
-
-        private bool showEndAddress = true;
-        public bool ShowEndAddress { get => showEndAddress; set => SetProperty(ref showEndAddress, value); }
+        private bool showNumberMinuteOfStation = true;
+        public bool ShowNumberMinuteOfStation 
+        { 
+            get => showNumberMinuteOfStation; 
+            set => SetProperty(ref showNumberMinuteOfStation, value); 
+        }
 
         private StationDetailsResponse selectDetailsItem;
         public StationDetailsResponse SelectDetailsItem { get => selectDetailsItem; set => SetProperty(ref selectDetailsItem, value); }
@@ -108,8 +103,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 new ShowHideColumnResponse() { IDColumn = 1, Value = true},
                 new ShowHideColumnResponse() { IDColumn = 2, Value = false}
             };
-            //FromDate = DateTime.Parse("2021-10-20T00:00:00");
-            //ToDate = DateTime.Parse("2021-10-25T00:00:00");
+            DisplayComlumnHide();
         }
         #endregion
 
@@ -220,6 +214,53 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
             }
         }
+
+        public override IDictionary<int, bool> ShowHideColumnDictionary
+        {
+            get
+            {
+                return new Dictionary<int, bool>
+                {
+                    { 1, ShowTimeInStation },
+                    { 2, ShowTimeOutStation },
+                    { 3, ShowNameStation },
+                    { 4, ShowNumberMinuteOfStation },
+                };
+            }
+        }
+        /// <summary>Lưu các thông tin ẩn hiện cột</summary>
+        /// <param name="data">The data.</param>
+        /// <param name="worksheet">The worksheet.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  27/10/2021   created
+        /// </Modified>      
+        public override void ExecuteSaveComlumnHide()
+        {
+            foreach (var item in ShowHideColumnDictionary)
+            {
+                // đẩy xuống db
+                var model = showHideColumnService.Get(r => r.IDTable == ShowHideColumnTableID && r.IDColumn == item.Key);
+                if (model != null)
+                {
+                    if (model.Value != item.Value)
+                    {
+                        model.Value = item.Value;
+                        showHideColumnService.Update(model);
+                    }
+                }
+                else
+                {
+                    // Thêm resouce vào realm db
+                    showHideColumnService.Add(new ShowHideColumnResponse()
+                    {
+                        IDTable = ShowHideColumnTableID,
+                        IDColumn = item.Key,
+                        Value = item.Value
+                    });
+                }
+            }
+        }
         /// <summary>Xét ẩn hiện cột</summary>
         /// <summary>Displays the comlumn hide.
         /// Name     Date         Comments
@@ -235,47 +276,19 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (item.IDColumn)
                     {
                         case 1:
-                            ShowVehicleType = item.Value;
+                            ShowTimeInStation = item.Value;
                             break;
 
                         case 2:
-                            ShowVehiclePlate = item.Value;
+                            ShowTimeOutStation = item.Value;
                             break;
 
                         case 3:
-                            ShowTripCompensatory = item.Value;
+                            ShowNameStation = item.Value;
                             break;
 
                         case 4:
-                            ShowCurrentTime = item.Value;
-                            break;
-
-                        case 5:
-                            ShowTimeActive = item.Value;
-                            break;
-
-                        case 6:
-                            ShowKmGPS = item.Value;
-                            break;
-
-                        case 7:
-                            ShowQuotaFuel = item.Value;
-                            break;
-
-                        case 8:
-                            ShowKmCO = item.Value;
-                            break;
-
-                        case 9:
-                            ShowQuotaFuelConsume = item.Value;
-                            break;
-
-                        case 10:
-                            ShowStartAddress = item.Value;
-                            break;
-
-                        case 11:
-                            ShowEndAddress = item.Value;
+                            ShowNumberMinuteOfStation = item.Value;
                             break;
                     }
                 }
