@@ -490,9 +490,6 @@
 	  <EmbeddedResource Update="Views\Driver\AddDriverInforPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\FeedbackErrorsSignalPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Support\SelectSupportPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>

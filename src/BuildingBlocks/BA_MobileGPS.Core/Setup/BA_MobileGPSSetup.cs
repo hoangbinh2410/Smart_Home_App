@@ -223,7 +223,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SupportFeePage, SupportFeePageViewModel>("SupportFeePage");
             containerRegistry.RegisterForNavigation<SupportErrorsSignalPage, SupportErrorsSignalPageViewModel>("SupportErrorsSignalPage");
             containerRegistry.RegisterForNavigation<MessageSuportPage, MessageSuportPageViewModel>("MessageSuportPage");
-            containerRegistry.RegisterForNavigation<FeedbackErrorsSignalPage, FeedbackErrorsSignalPageViewModel>("FeedbackErrorsSignalPage");
             containerRegistry.RegisterForNavigation<ChangeLicensePlate, ChangeLicensePlateViewModel>("ChangeLicensePlate");
             containerRegistry.RegisterForNavigation<ListMenuPopupPage, ListMenuPopupPageViewModel>("ListMenuPopupPage");
             containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");

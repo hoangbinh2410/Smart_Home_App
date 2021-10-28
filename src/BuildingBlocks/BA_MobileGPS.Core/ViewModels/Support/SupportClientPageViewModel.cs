@@ -13,9 +13,13 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportClientPageViewModel : ViewModelBase
     {
-        #region Property
+        #region Lifecycle
 
-        private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            GetListSupportCategory();
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -72,7 +76,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Contructor
 
-        #region Lifecycle
+        #region Property
 
         public string vehiclePlate = string.Empty;
 
@@ -84,18 +88,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
 
-        public override void OnPageAppearingFirstTime()
+        public List<SupportCategoryRespone> MenuItems
         {
-            base.OnPageAppearingFirstTime();
+            get { return menuItems; }
+            set { SetProperty(ref menuItems, value); }
         }
 
-        public override void OnNavigatedFrom(INavigationParameters parameters)
-        {
-            base.OnNavigatedFrom(parameters);
-        }
+        private Vehicle _vehicle = new Vehicle();
 
-        public override void OnDestroy()
+        public Vehicle Vehicle
         {
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
         }
 
         private SupportCategoryRespone data = new SupportCategoryRespone();
@@ -159,8 +163,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     SafeExecute(async () =>
                     {
-                    //ISelect = true;
-                    await NavigationService.NavigateAsync("SelectSupportPage", parameters);
+                        //ISelect = true;
+                        await NavigationService.NavigateAsync("SelectSupportPage", parameters);
                     });
 
                     // Kiểm tra page đổi biển
@@ -193,11 +197,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
-                      {
-                          { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
-                          {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
-                          {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
-                      });
+                        {
+                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
+                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                        });
             });
         }
 
