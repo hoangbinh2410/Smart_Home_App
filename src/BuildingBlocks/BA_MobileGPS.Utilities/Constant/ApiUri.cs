@@ -348,6 +348,7 @@
         #region Support
         public const string GET_List_SupportCategory = "api/support/getlistsupportcategory";
         public const string GET_List_SupportContent = "api/support/getlistsupportcontentbyid";
+        public const string POST_MessageSupport = "api/support/insertsupportbap";
         #endregion
     }
 }

@@ -122,7 +122,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        if (LookUpType == VehicleLookUpType.VehicleImage)
+                        if (LookUpType == VehicleLookUpType.VehicleList)
+                        {
+                            listOnline = StaticSettings.ListVehilceOnline.Where(x => (CheckVehcleHasImage(x.VehiclePlate) || CheckVehcleHasIsQcvn31(x.VehiclePlate))).ToList();
+                        }
+
+                        else if (LookUpType == VehicleLookUpType.VehicleImage)
                         {
                             listOnline = StaticSettings.ListVehilceOnline.Where(x => x.MessageId != 65
                                      && x.MessageId != 254
@@ -242,7 +247,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (selected != null)
                         {
                             var navigationPara = new NavigationParameters();
-                            if (LookUpType == VehicleLookUpType.VehicleRoute || LookUpType == VehicleLookUpType.VehicleReport)
+                            if (LookUpType == VehicleLookUpType.VehicleRoute 
+                            || LookUpType == VehicleLookUpType.VehicleReport
+                            || LookUpType == VehicleLookUpType.VehicleList)
                             {
                                 navigationPara.Add(ParameterKey.VehicleRoute, selected);
                             }

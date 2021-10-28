@@ -1,4 +1,7 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
@@ -7,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -63,6 +67,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _isVisibleYesNo, value);
         }
 
+        private bool _isPageCollection;
+
+        public bool IsPageCollection
+        {
+            get => _isPageCollection;
+            set => SetProperty(ref _isPageCollection, value);
+        }
+
         private bool _isShowIconBtnYes;
 
         public bool ISShowIconBtnYes
@@ -87,6 +99,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _textColorBtnYes, value);
         }
 
+        private int _borderWidthBtnYes;
+
+        public int BorderWidthBtnYes
+        {
+            get => _borderWidthBtnYes;
+            set => SetProperty(ref _borderWidthBtnYes, value);
+        }
+
         private int _selectedIndex = 0;
 
         public int SelectedIndex
@@ -103,6 +123,22 @@ namespace BA_MobileGPS.Core.ViewModels
             set { _pageCollection = value; }
         }
 
+        private Vehicle _vehicle = new Vehicle();
+
+        public Vehicle Vehicle
+        {
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
+        }
+
+        private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
+
+        public SupportCategoryRespone ObjSupport
+        {
+            get => _objSupport;
+            set => SetProperty(ref _objSupport, value);
+        }
+
         #endregion Property
 
         #region Contructor
@@ -112,9 +148,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SfButtonNoCommand { get; private set; }
         private ISupportCategoryService _iSupportCategoryService;
         private INavigationService _navigationService;
+
         public SupportErrorsSignalPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService)
             : base(navigationService)
-        { 
+        {
             Title = MobileResource.SupportClient_Label_Title;
             _navigationService = navigationService;
             _iSupportCategoryService = iSupportCategoryService;
@@ -124,24 +161,35 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (SelectedIndex)
                 {
                     case 0:
-                        SelectedIndex = 1;
-                        break;
-                    case 1:
-                        SelectedIndex = 2;
-                        break;
-                    case 2:
-                        SelectedIndex = 0;
-                        SafeExecute(async () =>
+                        if (SelectedIndex == PageCollection.Count -1)
                         {
-                            await NavigationService.NavigateAsync("FeedbackErrorsSignalPage");
-                        });
+                            NavigationFeedbackPage();
+                            return;
+                        }
                         break;
-                    default:
-                        SelectedIndex = 0;
+
+                    case 1:
+                        if (SelectedIndex == PageCollection.Count -1)
+                        {
+                            NavigationFeedbackPage();
+                            return;
+                        }
                         break;
-                }
+
+                    case 2:
+                        if (SelectedIndex == PageCollection.Count - 1)
+                        {
+                            NavigationFeedbackPage();                          
+                        }
+                        break;
+
+                    default:                     
+                        break;
+                }             
+                SelectedIndex++;
             });
         }
+
         public SupportErrorsSignalPageViewModel(INavigationService navigationService, string lbTabIndex, string lbQuestions, string textBtnYes, string textBtnNo, string lbTextPage)
            : base(navigationService)
         {
@@ -151,6 +199,7 @@ namespace BA_MobileGPS.Core.ViewModels
             TextBtnNo = textBtnNo;
             LbTextPage = lbTextPage;
             IsVisibleYesNo = false;
+            BorderWidthBtnYes = 2;
             SfButtonYesCommand = new DelegateCommand(SfButtonYesClicked);
             SfButtonNoCommand = new DelegateCommand(SfButtonNoClicked);
         }
@@ -163,15 +212,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("SupportClientPage");
+                await NavigationService.GoBackToRootAsync(null);
             });
         }
+
         private void SfButtonYesClicked()
         {
             IsVisibleYesNo = true;
             BackgroundColorBtnYes = Color.DeepSkyBlue;
             ISShowIconBtnYes = true;
             TextColorBtnYes = Color.White;
+            BorderWidthBtnYes = 0;
         }
 
         private void SfButtonNoClicked()
@@ -180,31 +231,64 @@ namespace BA_MobileGPS.Core.ViewModels
             BackgroundColorBtnYes = Color.White;
             ISShowIconBtnYes = false;
             TextColorBtnYes = Color.DarkBlue;
+            BorderWidthBtnYes = 2;
             Xamarin.Forms.MessagingCenter.Send<SupportErrorsSignalPageViewModel>(this, "SelectedIndex");
         }
+
         private void GetCollectionPage(SupportCategoryRespone obj)
         {
             SafeExecute(async () =>
             {
-                List<MessageSupportRespone> items = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
-                int index = 0;
-                if (items != null && items.Count>0)
+                if (IsConnected)
                 {
-                    foreach (var item in items)
+                    using (new HUDService(MobileResource.Common_Message_Processing))
                     {
-                        index++;
-                        if(item.Questions.Trim() == "Quý khách đã thực hiện rút nguồn và cắm lại ?")
+                        List<MessageSupportRespone> items = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+                        int index = 0;
+                        if (items != null && items.Count > 0)
                         {
-                            PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
-                        }   
+                            IsPageCollection = false;
+                            foreach (var item in items)
+                            {
+                                index++;
+                                if (item.OrderNo == 2 && obj.Code == "MTH")
+                                {
+                                    PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
+                                }
+                                else
+                                {
+                                    PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Yes, MobileResource.SupportClient_Text_No, item.Guides));
+                                }
+                            }
+                        }
                         else
                         {
-                            PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Yes, MobileResource.SupportClient_Text_No, item.Guides));
-                        }    
-                    }    
-                }    
+                            IsPageCollection = true;
+                        }
+                    }
+                }
+                else
+                {
+                    IsPageCollection = true;
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
             });
         }
+
+        private void NavigationFeedbackPage()
+        {
+            SelectedIndex = 0;
+            var parameters = new NavigationParameters
+            {
+                { "ObjSupport", _objSupport },
+                { ParameterKey.VehicleRoute, Vehicle },
+            };
+            SafeExecute(async () =>
+            {
+                await NavigationService.GoBackToRootAsync(null);
+            });
+        }
+
         #endregion PrivateMethod
 
         #region Lifecycle
@@ -217,9 +301,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+            if (parameters != null)
             {
-                GetCollectionPage(obj);
+                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone objSupport)
+                {
+                    ObjSupport = objSupport;
+                    GetCollectionPage(objSupport);
+                }
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
+                }
             }
         }
 
@@ -235,6 +327,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
+
         }
 
         #endregion Lifecycle

@@ -225,6 +225,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<RankDriverPage, RankDriverPageViewModel>("RankDriverPage");
             containerRegistry.RegisterForNavigation<KpiDriverChartPage, KpiDriverChartPageViewModel>("KpiDriverChartPage");
             containerRegistry.RegisterForNavigation<RankNotDriverPage, RankNotDriverPageViewModel>("RankNotDriverPage");
+            containerRegistry.RegisterForNavigation<SelectSupportPage, SelectSupportPageViewModel>("SelectSupportPage");
         }
     }
 }

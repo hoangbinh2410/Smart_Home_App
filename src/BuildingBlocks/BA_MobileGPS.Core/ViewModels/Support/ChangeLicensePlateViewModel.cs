@@ -1,10 +1,9 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Prism.Services;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -12,15 +11,23 @@ namespace BA_MobileGPS.Core.ViewModels
     public class ChangeLicensePlateViewModel : ViewModelBase
     {
         #region Contructor
+
+        private readonly IPageDialogService _pageDialog;
+        private readonly IDisplayMessage _displayMessage;
         public ICommand BackPageCommand { get; private set; }
         public ICommand PushNotificationSupportPageCommand { get; private set; }
-        public ChangeLicensePlateViewModel(INavigationService navigationService) : base(navigationService)
+
+        public ChangeLicensePlateViewModel(INavigationService navigationService, IPageDialogService pageDialog, IDisplayMessage displayMessage) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
             Title = "Hỗ trợ khách hàng";
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
+            _pageDialog = pageDialog;
+            _displayMessage = displayMessage;
         }
+
         #endregion Contructor
+
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
@@ -31,6 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            LicensePlateNow = parameters.GetValue<string>(ParameterKey.VehicleRoute);
         }
 
         public override void OnPageAppearingFirstTime()
@@ -41,25 +49,35 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
+
+           
         }
 
         public override void OnDestroy()
         {
         }
 
-        #endregion Lifecycle     
+        #endregion Lifecycle
+
         #region Property
-        private bool InotificationView = false;
-        public bool INotificationView
+
+        private LoginResponse userInfo;
+
+        public LoginResponse UserInfo
         {
-            get { return InotificationView; }
-            set
-            {
-                SetProperty(ref InotificationView, value);
-            }
-        }           
+            get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }
+            set => SetProperty(ref userInfo, value);
+        }
+        private string licensePlateNow = string.Empty;
+        public string LicensePlateNow { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
+        private string licensePlatenew = string.Empty;
+        public string LicensePlateNew { get { return licensePlatenew; } set { SetProperty(ref licensePlatenew, value); } }
+        private bool InotificationView = false;
+        public bool INotificationView { get { return InotificationView; } set { SetProperty(ref InotificationView, value); } }
+
         #endregion Property
-        #region  PrivateMethod
+
+        #region PrivateMethod
 
         public void BackPage()
         {
@@ -68,13 +86,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.GoBackToRootAsync(null);
             });
         }
+
         public void PushNotificationSupportPage()
         {
             SafeExecute(async () =>
             {
-                INotificationView = true;               
+                if (LicensePlateNew != "")
+                {
+                    INotificationView = true;
+                }
+                else
+                {                    
+                    _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                }
             });
         }
+
         #endregion PrivateMethod
     }
 }

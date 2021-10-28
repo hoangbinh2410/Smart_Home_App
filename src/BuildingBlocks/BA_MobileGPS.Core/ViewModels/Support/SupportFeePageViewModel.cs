@@ -1,10 +1,12 @@
-﻿using BA_MobileGPS.Entities.ResponeEntity.Support;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -13,15 +15,15 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Contructor
 
+        private readonly IVehicleOnlineService vehicleOnlineService;
         public ICommand BackPageCommand { get; private set; }
-        public ICommand PushChangeLicensePlateCommand { get; private set; }
         public ICommand PushMessageSuportPageCommand { get; private set; }
         private ISupportCategoryService _iSupportCategoryService;
 
-        public SupportFeePageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService) : base(navigationService)
+        public SupportFeePageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService, IVehicleOnlineService vehicleOnlineService) : base(navigationService)
         {
+            this.vehicleOnlineService = vehicleOnlineService;
             BackPageCommand = new DelegateCommand(BackPage);
-            PushChangeLicensePlateCommand = new DelegateCommand(PushChangeLicensePlate);
             Title = "Hỗ trợ khách hàng";
             PushMessageSuportPageCommand = new DelegateCommand(PushMessageSuportPage);
             _iSupportCategoryService = iSupportCategoryService;
@@ -33,10 +35,45 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            Item = parameters.GetValue<SupportCategoryRespone>("Support");
-            GetListMessage();
-
             base.Initialize(parameters);
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey("NoData") && parameters.GetValue<bool>("NoData") is bool para)
+                {
+                    MessageData = para;
+                }
+                else
+                if (parameters.ContainsKey("Support1") && parameters.GetValue<MessageSupportRespone>("Support1") is MessageSupportRespone item)
+                {
+                    //if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                    //{
+                    //    
+                    //}
+                    if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj && parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                    {
+                        //GetListMessage(obj, 3, 6, DateTime.Now, DateTime.Now);
+                        ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
+                        Question = item.Questions;
+                        Guide = item.Guides;
+                        NamePage = obj.Name;
+                        DataPlate = vehicle.VehiclePlate;
+                        data = obj;
+                        Vehicle = vehicle;
+                    }
+                    else
+                    {
+                        MessageData = true;
+                    }
+                }
+                else
+                {
+                    MessageData = true;
+                }
+            }
+            else
+            {
+                MessageData = true;
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -62,6 +99,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
+        private bool messageData = false;
+        public bool MessageData { get => messageData; set => SetProperty(ref messageData, value); }
         private bool IsupportDisconnectView = false;
 
         public bool ISupportDisconnectView
@@ -95,15 +134,16 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private SupportCategoryRespone Item { get; set; }
+        private string namepage = String.Empty;
 
-        private List<MessageSupportRespone> _ListSupportContent = new List<MessageSupportRespone>();
+        public string NamePage
+        { get { return namepage; }set { SetProperty(ref namepage, value);} }
 
-        public List<MessageSupportRespone> ListSupportContent
-        {
-            get { return _ListSupportContent; }
-            set { SetProperty(ref _ListSupportContent, value); }
-        }
+        private string DataPlate { get; set; }
+        private Vehicle Vehicle;
+        private SupportCategoryRespone data;
+
+        public List<MessageSupportRespone> ListSupportContent { get; set; }
 
         private MessageSupportRespone _SupportContent = new MessageSupportRespone();
 
@@ -117,43 +157,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region PrivateMethod
 
-        private void GetListMessage()
-        {
-
-            RunOnBackground(async () =>
-            {
-            ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(Item.ID);
-                if (ListSupportContent.Count > 0)
-                {
-                    foreach (var item in ListSupportContent)
-                    {
-                        if (item.OrderNo == 1)
-                        {
-                            var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
-                            Question = query.Questions;
-                            Guide = query.Guides;
-                            ISupportDisconnectView = false;
-                        }
-                        else if (item.OrderNo == 0)
-                        {
-                            var query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
-                            Question = query.Questions;
-                            Guide = query.Guides;
-                            ISupportDisconnectView = true;
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    return;
-                }          
-            });
-        }
-
         public void BackPage()
         {
             SafeExecute(async () =>
@@ -162,19 +165,16 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public void PushChangeLicensePlate()
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("ChangeLicensePlate");
-            });
-        }
-
         public void PushMessageSuportPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("MessageSuportPage");
+                var parameters = new NavigationParameters
+            {
+                { "Support", data },
+                { ParameterKey.VehicleRoute, Vehicle },
+            };
+                await NavigationService.NavigateAsync("MessageSuportPage", parameters);
             });
         }
 

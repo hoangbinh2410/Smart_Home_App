@@ -83,7 +83,7 @@
                             TextColor="{DynamicResource PrimaryColor}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span x:Name="textSupportFeedbackCameraError" />
+                                    <Span x:Name="textSupportFeedbackError" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -96,6 +96,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span x:Name="lbSupportFeedbackName" />
+                                    <Span Text="{Binding ObjSupport.Name}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -108,10 +109,40 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span x:Name="lbVehicle" />
-                                    <Span Text="29H123456" />
+                                    <Span Text="{Binding Vehicle.PrivateCode}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
+                        <!--  Tên  -->
+                        <StackLayout Spacing="15">
+                            <Label
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Text="Họ và tên" />
+                            <Frame
+                                Padding="5,0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource PrimaryColor}"
+                                HasShadow="False"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <Entry
+                                    FontSize="14"
+                                    HorizontalOptions="FillAndExpand"
+                                    MaxLength="10"
+                                    PlaceholderColor="{DynamicResource TextSecondaryColor}"
+                                    Text="{Binding UserInfo.FullName}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Frame>
+                        </StackLayout>
+
+                        <!--  Số điệnh thoại  -->
                         <Label
                             FontSize="14"
                             HorizontalOptions="Start"
@@ -134,16 +165,18 @@
                             VerticalOptions="Center">
                             <Entry
                                 x:Name="entrySupportFeedbackPhoneNumber"
-                                FontSize="12"
+                                FontSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                Text="{Binding TextSearchCourse}"
+                                Text="{Binding UserInfo.PhoneNumber}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
                             </Entry>
                         </Frame>
+
+                        <!--  Phản hồi  -->
                         <Label
                             FontSize="14"
                             HorizontalOptions="Start"
@@ -167,11 +200,12 @@
                             <Editor
                                 x:Name="editorSupportFeedbackContent"
                                 AutoSize="TextChanges"
-                                FontSize="12"
+                                FontSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 MaxLength="500"
+                                Placeholder="Nhập nội dung phản hổi"
                                 PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                Text="{Binding TextSearchCourse}"
+                                Text="{Binding Feedack}"
                                 VerticalOptions="StartAndExpand">
                                 <Editor.Effects>
                                     <effects:BorderlessEffect />
