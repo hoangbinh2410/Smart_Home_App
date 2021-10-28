@@ -248,6 +248,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
                     if (lstUserShowRank != null && lstUserShowRank.Count <= 3)
                     {
+                        UserRank1 = new DriverRankingRespone();
+                        UserRank2 = new DriverRankingRespone();
+                        UserRank3 = new DriverRankingRespone();
                         for (int i = 0; i < lstUserShowRank.Count; i++)
                         {
                             if (i == 0)
@@ -261,10 +264,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (i == 2)
                             {
                                 UserRank3 = lstUserShowRank[2];
-                            }
-                            else
-                            {
-                                UserRank3 = new DriverRankingRespone();
                             }
                         }
                     }
