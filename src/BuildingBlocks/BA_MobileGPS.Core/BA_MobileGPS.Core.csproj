@@ -108,6 +108,9 @@
 	  <Compile Update="Views\Issue\TemplateDueDate.xaml.cs">
 	    <DependentUpon>TemplateDueDate.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\KPI\RankNotDriverPage.xaml.cs">
+	    <DependentUpon>RankNotDriverPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>

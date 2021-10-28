@@ -845,6 +845,20 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        public void GotoSupportPage()
+        {
+            SafeExecute(async () =>
+            {
+                var param = _mapper.MapProperties<CameraLookUpVehicleModel>(CarActive);
+                var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                var a = await NavigationService.NavigateAsync("BaseNavigationPage/SupportClientPage", parameters, true, true);
+            });
+        }
+
         private void SelectedMenu(MenuPageItem obj)
         {
             if (obj == null) return;
@@ -900,6 +914,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case MenuKeyType.HelpCustomer:
+                    GotoSupportPage();
                     break;
 
                 case MenuKeyType.ExportVideo:

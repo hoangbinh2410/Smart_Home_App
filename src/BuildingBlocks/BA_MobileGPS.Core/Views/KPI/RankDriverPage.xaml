@@ -211,6 +211,7 @@
                                         FontAttributes="Bold"
                                         FontSize="40"
                                         HorizontalOptions="CenterAndExpand"
+                                        IsVisible="{Binding SelectedRankPoint.Score, Converter={StaticResource ZeroBooleanConverter}}"
                                         LineBreakMode="TailTruncation"
                                         StyleClass="BoldText"
                                         Text="{Binding SelectedRankPoint.Score}"
@@ -224,7 +225,7 @@
                                         LineBreakMode="TailTruncation"
                                         Text="Xếp hạng"
                                         TextColor="{DynamicResource PrimaryColor}"
-                                        VerticalOptions="Center" />
+                                        VerticalOptions="EndAndExpand" />
                                 </StackLayout>
                             </pancake:PancakeView>
                         </Grid>
