@@ -2749,6 +2749,9 @@
     <BundleResource Include="Resources\ic_usernotdistance.png" />
     <BundleResource Include="Resources\ic_usernotdistance%402x.png" />
     <BundleResource Include="Resources\ic_usernotdistance%403x.png" />
+    <BundleResource Include="Resources\ic_settingstation.png" />
+    <BundleResource Include="Resources\ic_settingstation%402x.png" />
+    <BundleResource Include="Resources\ic_settingstation%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_btnyes.png" />

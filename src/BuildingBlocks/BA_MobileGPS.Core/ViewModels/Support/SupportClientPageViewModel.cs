@@ -13,13 +13,9 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class SupportClientPageViewModel : ViewModelBase
     {
-        #region Lifecycle
+        #region Property
 
-        public override void Initialize(INavigationParameters parameters)
-        {
-            base.Initialize(parameters);
-            GetListSupportCategory();
-        }
+        private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -76,7 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Contructor
 
-        #region Property
+        #region Lifecycle
 
         public string vehiclePlate = string.Empty;
 
@@ -88,18 +84,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
 
-        public List<SupportCategoryRespone> MenuItems
+        public override void OnPageAppearingFirstTime()
         {
-            get { return menuItems; }
-            set { SetProperty(ref menuItems, value); }
+            base.OnPageAppearingFirstTime();
         }
 
-        private Vehicle _vehicle = new Vehicle();
-
-        public Vehicle Vehicle
+        public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            get => _vehicle;
-            set => SetProperty(ref _vehicle, value);
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
         }
 
         private SupportCategoryRespone data = new SupportCategoryRespone();
@@ -197,11 +193,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
-                        {
-                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
-                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
-                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
-                        });
+                      {
+                          { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
+                          {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
+                          {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
+                      });
             });
         }
 
