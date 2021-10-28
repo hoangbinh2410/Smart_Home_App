@@ -551,6 +551,7 @@
         Common_Label_All,
         Common_Message_Success,
         Common_Message_SaveError,
+        Common_Message_NoSelectLocation,
 
         PourFuelReport_Label_TitlePage,
         PourFuelReport_Label_TitleDetailPage,

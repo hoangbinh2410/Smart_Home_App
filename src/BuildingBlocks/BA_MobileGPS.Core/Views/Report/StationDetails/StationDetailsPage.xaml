@@ -481,7 +481,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TimeInStation, Converter={StaticResource DateConverter}}"
+                                        Text="{Binding TimeInStation, Converter={StaticResource DateTimeConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -514,7 +514,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TimeOutStation, Converter={StaticResource DateConverter}}"
+                                        Text="{Binding TimeOutStation, Converter={StaticResource DateTimeConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -590,6 +590,7 @@
                         </syncDataGrid:GridTemplateColumn>
 
                         <!--  Lộ trình  -->
+
                         <syncDataGrid:GridTemplateColumn
                             Width="80"
                             MappingName="FK_VehicleID"
@@ -608,7 +609,13 @@
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackLayout>
+                                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Path=BindingContext.PushToViewRouteCommand, Source={x:Reference Name=dataGrid}}"
+                                                CommandParameter="{Binding RowNumber}"
+                                                NumberOfTapsRequired="1" />
+                                        </StackLayout.GestureRecognizers>
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
@@ -641,7 +648,13 @@
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackLayout>
+                                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Path=BindingContext.PushToViewVidioCommand, Source={x:Reference Name=dataGrid}}"
+                                                CommandParameter="{Binding RowNumber}"
+                                                NumberOfTapsRequired="1" />
+                                        </StackLayout.GestureRecognizers>
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
@@ -705,90 +718,101 @@
                     CornerRadius="0"
                     HasShadow="False"
                     HorizontalOptions="FillAndExpand">
-                    <Grid HorizontalOptions="FillAndExpand" RowSpacing="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".5*" />
-                            <ColumnDefinition Width=".5*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--  Tên trạm  -->
-                        <checkbox:SfCheckBox
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            CheckedColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="5"
-                            FontSize="13"
-                            IsChecked="{Binding ShowNameStation}"
-                            Text="Tên trạm" />
-
-                        <!--  Số phút trong trạm  -->
-                        <checkbox:SfCheckBox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            CheckedColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="5.0"
-                            FontSize="13"
-                            IsChecked="{Binding ShowNumberMinuteOfStation}"
-                            Text="Số phút trong trạm" />
-
-                        <!--  Vào trạm  -->
-                        <checkbox:SfCheckBox
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            CheckedColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="5"
-                            FontSize="13"
-                            IsChecked="{Binding ShowTimeInStation}"
-                            Text="Vào trạm" />
-
-                        <!--  Ra trạm  -->
-                        <checkbox:SfCheckBox
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            CheckedColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="5.0"
-                            FontSize="13"
-                            IsChecked="{Binding ShowTimeOutStation}"
-                            Text="Ra trạm" />
-
-                        <!--  button save  -->
-                        <StackLayout
-                            Grid.Row="2"
-                            Grid.ColumnSpan="2"
+                    <StackLayout Spacing="10">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{DynamicResource LabelItem}"
+                            Text="CÀI ĐẶT ẨN HIỆN THÔNG TIN"
+                            TextColor="{DynamicResource PrimaryColor}" />
+                        <Grid
+                            Margin="10,0,10,0"
                             HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
-                            <Button
-                                BackgroundColor="{DynamicResource WhiteColor}"
-                                BorderColor="{DynamicResource PrimaryColor}"
-                                BorderRadius="0"
-                                BorderWidth="1"
-                                Clicked="HideableToolbarItem_Clicked"
-                                FontAttributes="Bold"
-                                FontSize="12"
-                                HeightRequest="40"
-                                HorizontalOptions="FillAndExpand"
-                                Text="{i18n:TranslateResource Common_Button_Close,
-                                                              Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{DynamicResource PrimaryColor}" />
+                            RowSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*" />
+                                <ColumnDefinition Width=".5*" />
+                            </Grid.ColumnDefinitions>
 
-                            <Button
-                                BackgroundColor="{DynamicResource PrimaryColor}"
-                                BorderRadius="0"
-                                Clicked="Button_Clicked"
-                                Command="{Binding SaveComlumnHideCommand}"
-                                FontAttributes="Bold"
-                                FontSize="12"
-                                HeightRequest="40"
+                            <!--  Tên trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5"
+                                FontSize="13"
+                                IsChecked="{Binding ShowNameStation}"
+                                Text="Tên trạm" />
+
+                            <!--  Số phút trong trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5.0"
+                                FontSize="13"
+                                IsChecked="{Binding ShowNumberMinuteOfStation}"
+                                Text="Số phút trong trạm" />
+
+                            <!--  Vào trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5"
+                                FontSize="13"
+                                IsChecked="{Binding ShowTimeInStation}"
+                                Text="Vào trạm" />
+
+                            <!--  Ra trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5.0"
+                                FontSize="13"
+                                IsChecked="{Binding ShowTimeOutStation}"
+                                Text="Ra trạm" />
+
+                            <!--  button save  -->
+                            <StackLayout
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                Padding="40,20,40,20"
                                 HorizontalOptions="FillAndExpand"
-                                Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
-                                                              Converter={StaticResource UpperCaseConverter}}"
-                                TextColor="{DynamicResource WhiteColor}" />
-                        </StackLayout>
-                    </Grid>
+                                Orientation="Horizontal">
+                                <Button
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource PrimaryColor}"
+                                    BorderRadius="0"
+                                    BorderWidth="1"
+                                    Clicked="HideableToolbarItem_Clicked"
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{i18n:TranslateResource Common_Button_Close,
+                                                                  Converter={StaticResource UpperCaseConverter}}"
+                                    TextColor="{DynamicResource PrimaryColor}" />
+
+                                <Button
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    BorderRadius="0"
+                                    Clicked="Button_Clicked"
+                                    Command="{Binding SaveComlumnHideCommand}"
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
+                                                                  Converter={StaticResource UpperCaseConverter}}"
+                                    TextColor="{DynamicResource WhiteColor}" />
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
                 </Frame>
             </Grid>
         </AbsoluteLayout>

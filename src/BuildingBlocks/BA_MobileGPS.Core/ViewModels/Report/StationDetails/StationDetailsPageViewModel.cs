@@ -91,18 +91,22 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Contructor
         private readonly IShowHideColumnService showHideColumnService;
         private readonly IStationLocationService _iStationDetailsService;
-        public ICommand DetailVehicleCommand { get; private set; }
+        public ICommand PushToViewRouteCommand { get; private set; }
+        public ICommand PushToViewVidioCommand { get; private set; }
         public StationDetailsPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService
             , IStationLocationService iStationDetailsService)
             : base(navigationService)
         {
             this.showHideColumnService = showHideColumnService;
             this._iStationDetailsService = iStationDetailsService;
+            PushToViewRouteCommand = new DelegateCommand<int?>(PushToViewRoute);
+            PushToViewVidioCommand = new DelegateCommand<int?>(PushToViewVidio);
             ListShowHideComlumn = new ObservableCollection<ShowHideColumnResponse>()
             {
                 new ShowHideColumnResponse() { IDColumn = 1, Value = true},
                 new ShowHideColumnResponse() { IDColumn = 2, Value = false}
             };
+            //Ẩn hiện cột
             DisplayComlumnHide();
         }
         #endregion
@@ -116,6 +120,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Page = Entities.Enums.MenuKeyEnums.ReportActivityDetail,
                 Type = UserBehaviorType.End
             });
+            //Put dữ liệu cho combobox
             GetListLocationStation();
         }
 
@@ -129,7 +134,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
         #endregion
-
 
         #region Menthod
 
@@ -180,6 +184,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         /// <summary>Converts lại số thứ tự theo trang</summary>
+        /// Chưa xử dụng
         /// <param name="data">The data.</param>
         /// <returns></returns>
         /// <Modified>
@@ -196,6 +201,7 @@ namespace BA_MobileGPS.Core.ViewModels
             return data;
         }
         /// <summary>Đổ dữ liệu vào excel</summary>
+        /// Chưa làm
         /// <param name="data">The data.</param>
         /// <param name="worksheet">The worksheet.</param>
         /// <Modified>
@@ -298,6 +304,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         /// <summary>Kiểm tra chọn biển số xe</summary>
+        /// <summary>Kiểm tra chọn địa điểm</summary>
         /// <param name="message">The message.</param>
         /// <returns></returns>
         /// <Modified>
@@ -316,7 +323,34 @@ namespace BA_MobileGPS.Core.ViewModels
                 message = MobileResource.Common_Message_NoSelectVehiclePlate;
                 return false;
             }
+            //không chọn địa điểm
+            if (SelectedLocation == null || SelectedLocation.Name == null || SelectedLocation.PK_LandmarkID==0)
+            {
+                message = MobileResource.Common_Message_PleaseSelectLocation;
+                return false;
+            }    
             return true;
+        }
+
+        /// <summary>Put data xem lộ trình.</summary>
+        /// <param name="obj">The object.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  28/10/2021   created
+        /// </Modified>
+        private void PushToViewRoute(int? obj)
+        {
+            var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();   
+        }
+        /// <summary>Put data xem video.</summary>
+        /// <param name="obj">The object.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  28/10/2021   created
+        /// </Modified>
+        private void PushToViewVidio(int? obj)
+        {
+            var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();
         }
         #endregion
     }
