@@ -622,6 +622,7 @@
                                 </Grid>
                                 <Grid Grid.Row="2">
                                     <chart:SfChart
+                                        x:Name="chart2"
                                         HorizontalOptions="FillAndExpand"
                                         Series="{Binding ChartSeries2}"
                                         VerticalOptions="FillAndExpand">

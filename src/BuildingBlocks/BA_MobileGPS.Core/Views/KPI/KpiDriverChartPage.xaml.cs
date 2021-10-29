@@ -10,6 +10,7 @@ namespace BA_MobileGPS.Core.Views
             if (Device.RuntimePlatform == Device.iOS)
             {
                 Chart.PrimaryAxis.LabelStyle.FontSize = 5;
+                chart2.PrimaryAxis.LabelStyle.FontSize = 5;
             }
 
         }
