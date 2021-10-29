@@ -328,6 +328,7 @@
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Tiêu chí"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -335,6 +336,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Điểm"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -342,6 +344,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="XH"
                                                         VerticalOptions="Center" />
                                                 </Grid>
@@ -704,6 +707,7 @@
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Tiêu chí"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -711,6 +715,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Điểm"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -718,6 +723,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="XH"
                                                         VerticalOptions="Center" />
                                                 </Grid>
@@ -728,7 +734,7 @@
                                                     ColumnDefinitions="*,70,70"
                                                     VerticalOptions="CenterAndExpand">
                                                     <Label
-                                                        Grid.ColumnSpan="3"
+                                                        Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
@@ -736,14 +742,14 @@
                                                         Text="Tiêu chí tiết kiệm"
                                                         VerticalOptions="Center" />
                                                     <Label
-                                                        Grid.Column="3"
+                                                        Grid.Column="1"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         Text="{Binding EvaluationType2.TotalScore}"
                                                         VerticalOptions="Center" />
                                                     <Label
-                                                        Grid.Column="4"
+                                                        Grid.Column="2"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"

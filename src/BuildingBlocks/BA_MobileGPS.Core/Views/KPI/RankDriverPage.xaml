@@ -231,8 +231,8 @@
                             </pancake:PancakeView>
                         </Grid>
 
-                        <Grid Grid.Row="2" RowDefinitions="Auto,Auto,*,Auto">
-                            <pancake:PancakeView
+                        <Grid Grid.Row="2" RowDefinitions="Auto,*,Auto">
+                            <!--<pancake:PancakeView
                                 Grid.Row="0"
                                 Padding="10"
                                 BackgroundColor="#D6F3FF"
@@ -245,10 +245,10 @@
                                     Text="Nhận xét: Bạn đã điều khiển xe rất tốt. Bạn hãy tiếp tục phát huy"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
-                            </pancake:PancakeView>
+                            </pancake:PancakeView>-->
 
                             <pancake:PancakeView
-                                Grid.Row="1"
+                                Grid.Row="0"
                                 Padding="10"
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
@@ -291,7 +291,7 @@
                             </pancake:PancakeView>
 
                             <Grid
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand">
                                 <syncfusionList:SfListView
@@ -388,7 +388,7 @@
                             </Grid>
 
                             <pancake:PancakeView
-                                Grid.Row="3"
+                                Grid.Row="2"
                                 Padding="10,15"
                                 BackgroundColor="#A1C4FD"
                                 CornerRadius="5"
