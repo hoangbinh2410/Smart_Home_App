@@ -7,6 +7,11 @@ namespace BA_MobileGPS.Core.Views
         public KpiDriverChartPage()
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Chart.PrimaryAxis.LabelStyle.FontSize = 5;
+            }
+
         }
 
         private void NumericalAxis_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)
