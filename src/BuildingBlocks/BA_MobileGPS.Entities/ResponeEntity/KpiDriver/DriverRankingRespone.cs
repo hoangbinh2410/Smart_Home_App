@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Entities
         public string AvatarDisplay => string.IsNullOrEmpty(DriverAvatar) ? "ic_driveravatar.png" : $"{ServerConfig.ApiEndpoint}{DriverAvatar}";
 
         public string AverageRank { get; set; }
-        public float AverageScore { get; set; }
+        public float? AverageScore { get; set; }
 
         [JsonIgnore]
         public Color BacgroundYourDriver { get; set; }
@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Entities
     {
         public DateTime Date { get; set; }
         public string Rank { get; set; }
-        public float Score { get; set; }
+        public float? Score { get; set; }
         private Color bacgroundColor=Color.FromHex("#E4E4E4");
         public Color BacgroundColor { get => bacgroundColor; set => SetProperty(ref bacgroundColor, value); }
     }
