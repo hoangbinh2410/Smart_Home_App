@@ -300,6 +300,9 @@
 	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Expense\ExpenceManagementPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Issue\IssuesDetailPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
