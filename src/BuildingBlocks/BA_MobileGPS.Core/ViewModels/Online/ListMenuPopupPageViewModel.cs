@@ -162,7 +162,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Camera_Lable_ExportVideo,
                 Icon = "ic_exportvideo.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
+                IsEnable = CheckPermision((int)PermissionKeyNames.UploadVideoStream),
                 MenuType = MenuKeyType.ExportVideo
             });
             list.Add(new MenuPageItem
