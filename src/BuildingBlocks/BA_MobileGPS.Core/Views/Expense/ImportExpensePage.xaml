@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ImportExpensePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:prism="http://prismlibrary.com"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ColorText">#000000</Color>
+            <Style x:Key="Text14B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text14" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text18" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid
+                RowDefinitions="Auto,Auto,*"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+                <!--  Tiêu đề  -->
+                <Grid
+                    Grid.Row="0"
+                    HorizontalOptions="FillAndExpand"
+                    StyleClass="TitleBarGrid"
+                    VerticalOptions="StartAndExpand">
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        HasShadow="False"
+                        HeightRequest="40"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="EndAndExpand"
+                        WidthRequest="30">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackPageCommand}" />
+                        </Frame.GestureRecognizers>
+                        <controls:IconView
+                            Foreground="{DynamicResource WhiteColor}"
+                            HeightRequest="25"
+                            HorizontalOptions="StartAndExpand"
+                            Source="ic_close.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="25" />
+                    </Frame>
+                    <Label
+                        Margin="0,0,0,5"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{DynamicResource Text18}"
+                        Text="Nhập chi phí"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="EndAndExpand" />
+                </Grid>
+                <StackLayout
+                    Grid.Row="1"
+                    Padding="10,10,0,10"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+
+                    <!--  Loại chị phí  -->
+                    <Label
+                        HorizontalOptions="Start"
+                        Style="{DynamicResource Text14}"
+                        TextColor="{DynamicResource ColorText}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Loại chị phí " />
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="45"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <StackLayout
+                            Padding="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectExpenseCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Entry
+                                FontSize="14"
+                                HeightRequest="45"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                Text="{Binding Expense}"
+                                TextColor="{DynamicResource ColorText}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView
+                                Margin="0,0,5,0"
+                                Foreground="Black"
+                                HeightRequest="17.5"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </StackLayout>
+                    </Frame>
+
+                    <!--  Số tiền  -->
+                    <Label HorizontalOptions="Start" TextColor="{DynamicResource ColorText}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Số tiền (VND) " />
+                                <Span Text="*" TextColor="Red" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="45"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <Entry
+                            FontSize="14"
+                            HeightRequest="45"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Keyboard="Numeric"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                            Text="{Binding PriceExpense}"
+                            TextColor="{DynamicResource ColorText}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </Frame>
+
+                    <!--  Ghi chú  -->
+                    <Label
+                        HorizontalOptions="Start"
+                        Text="Ghi chú"
+                        TextColor="{DynamicResource ColorText}" />
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="45"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <Entry
+                            FontSize="14"
+                            HeightRequest="45"
+                            HorizontalOptions="FillAndExpand"
+                            InputTransparent="True"
+                            Placeholder="Nhập ghi chú"
+                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                            Text="{Binding Note}"
+                            TextColor="{DynamicResource ColorText}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+                    </Frame>
+                    <!--  Test  -->
+                    <Frame
+                        x:Name="cmbLocation"
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="35"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <StackLayout
+                            Padding="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <combobox:SfComboBox
+                                Margin="0,0,0,-2.5"
+                                DataSource="{Binding ListLocationStation}"
+                                DisplayMemberPath="Name"
+                                DropDownTextSize="11"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                IsEditableMode="False"
+                                MaximumDropDownHeight="200"
+                                SelectedDropDownItemColor="Transparent"
+                                SelectedItem="{Binding SelectedLocation}"
+                                ShowBorder="False"
+                                TextColor="{DynamicResource ColorText}"
+                                TextSize="14"
+                                VerticalOptions="FillAndExpand"
+                                Watermark="Địa điểm"
+                                WatermarkColor="{DynamicResource TextPlaceHolderColor}">
+                                <combobox:SfComboBox.Behaviors>
+                                    <behaviors:EventToCommandBehavior
+                                        Command="{Binding TimeSelectingCommand}"
+                                        EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
+                                        EventName="SelectionChanging" />
+                                    <behaviors:EventToCommandBehavior
+                                        Command="{Binding TimeSelectedCommand}"
+                                        EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
+                                        EventName="SelectionChanged" />
+                                </combobox:SfComboBox.Behaviors>
+                                <combobox:SfComboBox.DropDownButtonSettings>
+                                    <!--  DropDownButtonSettings  -->
+                                    <combobox:DropDownButtonSettings Width="15" Height="15">
+                                        <combobox:DropDownButtonSettings.View>
+                                            <controls:IconView
+                                                Foreground="{DynamicResource BlackColor}"
+                                                HeightRequest="15"
+                                                HorizontalOptions="End"
+                                                Source="ic_sortdown.png"
+                                                VerticalOptions="EndAndExpand"
+                                                WidthRequest="15" />
+                                        </combobox:DropDownButtonSettings.View>
+                                    </combobox:DropDownButtonSettings>
+                                </combobox:SfComboBox.DropDownButtonSettings>
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                                        <x:String>Great Britain</x:String>
+                                        <x:String>Uganda</x:String>
+                                        <x:String>Ukraine</x:String>
+                                        <x:String>Canada</x:String>
+                                        <x:String>France</x:String>
+                                        <x:String>Italy</x:String>
+                                        <x:String>United Kingdom</x:String>
+                                        <x:String>China</x:String>
+                                        <x:String>Japan</x:String>
+                                    </ListCollection:List>
+                                </combobox:SfComboBox.ComboBoxSource>
+                            </combobox:SfComboBox>
+
+                        </StackLayout>
+                    </Frame>
+                    <!--  Địa điểm  -->
+                    <Label
+                        HorizontalOptions="Start"
+                        Text="Địa điểm"
+                        TextColor="{DynamicResource ColorText}" />
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="45"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <StackLayout
+                            Padding="5,0,5,0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectPlaceCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Entry
+                                FontSize="14"
+                                HeightRequest="45"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                Text="{Binding Place}"
+                                TextColor="{DynamicResource ColorText}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                            <controls:IconView
+                                Margin="0,0,5,0"
+                                Foreground="Black"
+                                HeightRequest="17.5"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </StackLayout>
+                    </Frame>
+                    <!--  Thêm hình ảnh  -->
+                    <StackLayout
+                        HorizontalOptions="Start"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChoseImageCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <controls:IconView
+                            Margin="0,0,5,0"
+                            Foreground="#0474D8"
+                            HeightRequest="17.5"
+                            HorizontalOptions="End"
+                            Source="ic_plus.png"
+                            VerticalOptions="Center"
+                            WidthRequest="20" />
+                        <Label Text="Thêm hình ảnh" TextColor="#0474D8" />
+                    </StackLayout>
+                    <Grid>
+                        <Frame
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            HeightRequest="300">
+                            <Image
+                                Margin="0"
+                                Aspect="AspectFill"
+                                HorizontalOptions="FillAndExpand"
+                                Source="{Binding ImagePathLocal}"
+                                VerticalOptions="FillAndExpand" />
+                        </Frame>
+                        <Frame
+                            Margin="0,5,5,0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="10"
+                            HeightRequest="20"
+                            HorizontalOptions="End"
+                            VerticalOptions="Start"
+                            WidthRequest="20">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ResetImageCommand}" />
+                            </Frame.GestureRecognizers>
+                            <controls:IconView
+                                Foreground="Black"
+                                HeightRequest="20"
+                                Source="ic_close.png"
+                                WidthRequest="20" />
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+
+                <Grid Grid.Row="2" BackgroundColor="{DynamicResource WhiteColor}">
+                    <StackLayout
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="10"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView
+                            Grid.Column="1"
+                            HeightRequest="1"
+                            StyleClass="SlimLine" />
+                        <Grid>
+                            <Grid
+                                Padding="20,0,20,0"
+                                ColumnDefinitions="0.5*,0.5*"
+                                ColumnSpacing="10"
+                                HorizontalOptions="FillAndExpand">
+                                <buttons:SfButton
+                                    Grid.Column="0"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    Command="{Binding SaveExpenseCommand}"
+                                    CornerRadius="20"
+                                    Text="Lưu" />
+                                <buttons:SfButton
+                                    Grid.Column="1"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    Command="{Binding SaveAndCountinuteCommand}"
+                                    CornerRadius="20"
+                                    Text="Lưu và tiếp tục" />
+                            </Grid>
+                            <Grid
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                HorizontalOptions="FillAndExpand"
+                                IsVisible="{Binding IButtonView}">
+                                <buttons:SfButton
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    Command="{Binding SaveExpenseCommand}"
+                                    CornerRadius="20"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="Đóng"
+                                    VerticalOptions="StartAndExpand"
+                                    WidthRequest="200" />
+                            </Grid>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

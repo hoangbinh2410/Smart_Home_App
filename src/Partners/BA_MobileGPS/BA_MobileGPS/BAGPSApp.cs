@@ -40,9 +40,10 @@ namespace BA_MobileGPS
             {
                 _ = await NavigationService.NavigateAsync("InsertLocalDBPage");
             }
+            //ImportExpensePage
             else
             {
-                _ = await NavigationService.NavigateAsync("LoginPage");
+                _ = await NavigationService.NavigateAsync("ImportExpensePage");
             }
         }
 

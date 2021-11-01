@@ -234,6 +234,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<StationDetailsPage, StationDetailsPageViewModel>("StationDetailsPage");
             containerRegistry.RegisterForNavigation<ExpenceManagementPage, ExpenceManagementPageViewModel>("ExpenceManagementPage");
             containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>();
+            containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
         }
     }
 }
