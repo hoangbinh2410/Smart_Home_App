@@ -763,12 +763,12 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <param name="chanel">kênh</param>
         private void SendRequestTime(int timeSecond, int chanel)
         {
-            if (Vehicle != null && Vehicle.VehicleId > 0)
+            if (Vehicle != null && !string.IsNullOrEmpty(Vehicle.VehiclePlate))
             {
                 var request = new CameraStartRequest()
                 {
                     Channel = chanel,
-                    Duration = 180,
+                    Duration = timeSecond,
                     VehicleName = Vehicle.VehiclePlate,
                     CustomerID = UserInfo.XNCode,
                     Source = (int)CameraSourceType.App,

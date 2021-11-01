@@ -219,6 +219,9 @@ namespace BA_MobileGPS.Core.Models
                     {
                         var err = MobileResource.Camera_Label_Connection_Error;
                         SetError(err);
+
+                        //Check status:
+                        StartWorkUnit(startRequest.VehicleName);
                     }
                 }
             }
