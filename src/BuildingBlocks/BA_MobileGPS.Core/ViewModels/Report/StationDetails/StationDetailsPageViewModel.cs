@@ -24,37 +24,42 @@ namespace BA_MobileGPS.Core.ViewModels
     public class StationDetailsPageViewModel : ReportBase<StationDetailsRequest, StationDetailsService, StationDetailsResponse>
     {
         #region Property
+
         // cấu hình không quá số ngày cho phép để tìm kiếm dữ liệu
         public override int AddDayMinfromDate { get; set; } = MobileSettingHelper.ViewReport;
 
         public override int ShowHideColumnTableID { get; set; } = (int)TableReportEnum.Details;
 
         private bool showTimeInStation = true;
-        public bool ShowTimeInStation 
-        { 
-            get => showTimeInStation; set => 
-            SetProperty(ref showTimeInStation, value); 
+
+        public bool ShowTimeInStation
+        {
+            get => showTimeInStation; set =>
+            SetProperty(ref showTimeInStation, value);
         }
 
         private bool showTimeOutStation = true;
-        public bool ShowTimeOutStation 
-        { 
-            get => showTimeOutStation; set => 
-            SetProperty(ref showTimeOutStation, value); 
+
+        public bool ShowTimeOutStation
+        {
+            get => showTimeOutStation; set =>
+            SetProperty(ref showTimeOutStation, value);
         }
 
         private bool showNameStation = true;
-        public bool ShowNameStation 
-        { 
-            get => showNameStation; set => 
-            SetProperty(ref showNameStation, value); 
+
+        public bool ShowNameStation
+        {
+            get => showNameStation; set =>
+            SetProperty(ref showNameStation, value);
         }
 
         private bool showNumberMinuteOfStation = true;
-        public bool ShowNumberMinuteOfStation 
-        { 
-            get => showNumberMinuteOfStation; 
-            set => SetProperty(ref showNumberMinuteOfStation, value); 
+
+        public bool ShowNumberMinuteOfStation
+        {
+            get => showNumberMinuteOfStation;
+            set => SetProperty(ref showNumberMinuteOfStation, value);
         }
 
         private StationDetailsResponse selectDetailsItem;
@@ -67,32 +72,38 @@ namespace BA_MobileGPS.Core.ViewModels
         // ducpv
 
         private string numberOfMinute = string.Empty;
-        public string NumberOfMinute 
-        { 
-            get => numberOfMinute; 
-            set => SetProperty(ref numberOfMinute, value); 
+
+        public string NumberOfMinute
+        {
+            get => numberOfMinute;
+            set => SetProperty(ref numberOfMinute, value);
         }
 
         private LocationStationResponse _selectedLocation = new LocationStationResponse();
+
         public LocationStationResponse SelectedLocation
         {
             get { return _selectedLocation; }
             set { SetProperty(ref _selectedLocation, value); }
         }
+
         private List<LocationStationResponse> _listLocationStation = new List<LocationStationResponse>();
+
         public List<LocationStationResponse> ListLocationStation
         {
             get { return _listLocationStation; }
             set { SetProperty(ref _listLocationStation, value); }
         }
 
-        #endregion
+        #endregion Property
 
         #region Contructor
+
         private readonly IShowHideColumnService showHideColumnService;
         private readonly IStationLocationService _iStationDetailsService;
         public ICommand PushToViewRouteCommand { get; private set; }
         public ICommand PushToViewVidioCommand { get; private set; }
+
         public StationDetailsPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService
             , IStationLocationService iStationDetailsService)
             : base(navigationService)
@@ -109,9 +120,11 @@ namespace BA_MobileGPS.Core.ViewModels
             //Ẩn hiện cột
             DisplayComlumnHide();
         }
-        #endregion
+
+        #endregion Contructor
 
         #region Lifecycle
+
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -133,7 +146,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = UserBehaviorType.Start
             });
         }
-        #endregion
+
+        #endregion Lifecycle
 
         #region Menthod
 
@@ -161,6 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         /// <summary>Set dữ liệu đầu vào</summary>
         /// <returns></returns>
         /// <Modified>
@@ -169,13 +184,13 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override StationDetailsRequest SetDataInput()
         {
-            int.TryParse(NumberOfMinute , out int numberOfMinute);
+            int.TryParse(NumberOfMinute, out int numberOfMinute);
             return new StationDetailsRequest
             {
                 FromDate = base.FromDate,
                 ToDate = base.ToDate,
                 CompanyID = CurrentComanyID,
-                VehicleIDs =VehicleSelect.VehicleId.ToString(), 
+                VehicleIDs = VehicleSelect.VehicleId.ToString(),
                 LandmarkId = SelectedLocation.PK_LandmarkID,
                 NumberOfMinute = numberOfMinute,
                 PageSize = base.PageSize,
@@ -200,6 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return data;
         }
+
         /// <summary>Đổ dữ liệu vào excel</summary>
         /// Chưa làm
         /// <param name="data">The data.</param>
@@ -234,13 +250,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 };
             }
         }
+
         /// <summary>Lưu các thông tin ẩn hiện cột</summary>
         /// <param name="data">The data.</param>
         /// <param name="worksheet">The worksheet.</param>
         /// <Modified>
         /// Name     Date         Comments
         /// ducpv  27/10/2021   created
-        /// </Modified>      
+        /// </Modified>
         public override void ExecuteSaveComlumnHide()
         {
             foreach (var item in ShowHideColumnDictionary)
@@ -267,6 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
+
         /// <summary>Xét ẩn hiện cột</summary>
         /// <summary>Displays the comlumn hide.
         /// Name     Date         Comments
@@ -303,6 +321,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
             }
         }
+
         /// <summary>Kiểm tra chọn biển số xe</summary>
         /// <summary>Kiểm tra chọn địa điểm</summary>
         /// <param name="message">The message.</param>
@@ -324,11 +343,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
             //không chọn địa điểm
-            if (SelectedLocation == null || SelectedLocation.Name == null || SelectedLocation.PK_LandmarkID==0)
+            if (SelectedLocation == null || SelectedLocation.Name == null || SelectedLocation.PK_LandmarkID == 0)
             {
                 message = MobileResource.Common_Message_PleaseSelectLocation;
                 return false;
-            }    
+            }
             return true;
         }
 
@@ -340,8 +359,21 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void PushToViewRoute(int? obj)
         {
-            var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();   
+            SafeExecute(async () =>
+            {
+                var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
+                var modelparam = new Vehicle();
+                modelparam.VehiclePlate = VehicleSelect.VehiclePlate;
+                modelparam.PrivateCode = VehicleSelect.PrivateCode;
+                modelparam.VehicleId = VehicleSelect.VehicleId;
+                var p = new NavigationParameters
+                {
+                    { ParameterKey.VehicleRoute, modelparam }
+                };
+                await NavigationService.NavigateAsync("RouteReportPage", p);
+            });
         }
+
         /// <summary>Put data xem video.</summary>
         /// <param name="obj">The object.</param>
         /// <Modified>
@@ -350,8 +382,24 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void PushToViewVidio(int? obj)
         {
-            var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();
+            SafeExecute(async () =>
+            {
+                var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
+                var vehicleModel = new CameraLookUpVehicleModel()
+                {
+                    VehiclePlate = VehicleSelect.VehiclePlate,
+                    VehicleId = VehicleSelect.VehicleId,
+                    PrivateCode = VehicleSelect.PrivateCode,
+                };
+                var p = new NavigationParameters()
+                        {
+                            {ParameterKey.SelectDate,model.TimeInStation },
+                            {ParameterKey.VehiclePlate,vehicleModel }
+                        };
+                var a = await NavigationService.NavigateAsync("CameraRestream", p);
+            });
         }
-        #endregion
+
+        #endregion Menthod
     }
 }

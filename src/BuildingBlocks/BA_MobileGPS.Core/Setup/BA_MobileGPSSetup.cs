@@ -171,6 +171,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
             containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
             containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
+            containerRegistry.RegisterForNavigation<RouteReportPage, RoutePageViewModel>("RouteReportPage");
             containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
             containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
             containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
