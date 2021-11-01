@@ -170,6 +170,7 @@ namespace BA_MobileGPS.Core.Models
         public bool AutoRequestPing { get; set; }
 
         public int channel;
+
         public int Channel
         {
             get { return channel; }
@@ -179,6 +180,7 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         public string Link { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -220,7 +222,6 @@ namespace BA_MobileGPS.Core.Models
                         var err = MobileResource.Camera_Label_Connection_Error;
                         SetError(err);
 
-                        //Check status:
                         StartWorkUnit(startRequest.VehicleName);
                     }
                 }
