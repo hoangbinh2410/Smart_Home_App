@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
+using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -65,7 +66,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand SearchDataCommand { get; private set; }
         public ICommand AddDataCommand { get; private set; }
         public ICommand DeleteItemCommand { get; private set; }
-        
+        public ICommand NavigateCommand { get; }
+
 
         public ExpenceManagementPageViewModel(INavigationService navigationService)
             : base(navigationService)
@@ -77,7 +79,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             SearchDataCommand = new DelegateCommand(SearchDataClicked);
             AddDataCommand = new DelegateCommand(AddDataClicked);
             DeleteItemCommand = new DelegateCommand<MenuExpense>(DeleteItemClicked);
-            
+            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+
         }
 
         #endregion Contructor
@@ -251,6 +254,22 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             TotalMoney = TotalMoney - obj.Money;
         }
 
+        public void NavigateClicked(ItemTappedEventArgs item)
+        {
+            if (item == null || item.ItemData == null)
+            {
+                return;
+            };
+            var parameters = new NavigationParameters
+            {
+                { "ExpenseDetails", "" },
+                { ParameterKey.VehicleRoute, Vehicle }
+            };
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
+            });
+        }
         #endregion PrivateMethod
     }
     public class MenuExpense
