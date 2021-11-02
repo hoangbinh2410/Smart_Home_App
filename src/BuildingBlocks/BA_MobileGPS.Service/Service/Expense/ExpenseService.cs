@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Service.Service.Expense
             List<ListExpenseRespone> result = new List<ListExpenseRespone>();
             try
             {
-                string uri = string.Format(ApiUri.GET_List_SupportContent + "?companyid={0}", FK_CompanyID);
+                string uri = string.Format(ApiUri.GET_List_ExpensesCategory + "?companyid={0}", FK_CompanyID);
                 var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<ListExpenseRespone>>>(uri);
                 if (respone != null && respone.Data != null)
                 {
