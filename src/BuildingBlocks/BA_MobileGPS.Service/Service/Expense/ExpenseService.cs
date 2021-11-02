@@ -33,9 +33,8 @@ namespace BA_MobileGPS.Service.Service.Expense
                 Debug.WriteLine(MethodBase.GetCurrentMethod().Name, e);
             }
             return result;
-        }
-
-        public async Task<List<ListExpenseCategoryByCompanyRespone>> GetMessagesSupport(int FK_CompanyID)
+        }     
+        public async Task<List<ListExpenseCategoryByCompanyRespone>> GetExpenseCategory(int FK_CompanyID)
         {
             List<ListExpenseCategoryByCompanyRespone> result = new List<ListExpenseCategoryByCompanyRespone>();
             try

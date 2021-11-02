@@ -46,7 +46,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            base.Initialize(parameters);          
+            base.Initialize(parameters);
+            GetListExpenseCategory();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -74,13 +75,12 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         #endregion Lifecycle
         #region Property
-        private List<ListExpenseCategoryByCompanyRespone> listExpense;
-        public List<ListExpenseCategoryByCompanyRespone> ListExpense
-        { get { return listExpense; } set { SetProperty(ref listExpense, value); } }
-        //private string expense = "Chọn loại phí";
-        //public string Expense
-        //{ get { return expense; } set { SetProperty(ref expense, value); } }
+        private List<ListExpenseCategoryByCompanyRespone> listExpenseCategory;
+        public List<ListExpenseCategoryByCompanyRespone> ListExpenseCategory
+        { get { return listExpenseCategory; } set { SetProperty(ref listExpenseCategory, value); } }
 
+        private LoginResponse userInfo;
+        public LoginResponse UserInfo { get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
         private int priceExpense = 0;
         public int PriceExpense
         { get { return priceExpense; } set { SetProperty(ref priceExpense, value); } }
@@ -136,9 +136,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }
 
         }
-        private void GetListExpense()
+        private void GetListExpenseCategory()
         {
+            SafeExecute(async () =>
+            {
 
+                ListExpenseCategory = await _ExpenseService.GetExpenseCategory(303);                             
+            });
         }
         private async void ResetImage()
         {
