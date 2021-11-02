@@ -352,5 +352,8 @@
         public const string GET_List_SupportContent = "api/support/getlistsupportcontentbyid";
         public const string POST_MessageSupport = "api/support/insertsupportbap";
         #endregion
+        #region Expense
+        public const string GET_List_ExpensesCategory = "api/expenses/getlistexpensescategorybycompany";
+        #endregion Expense
     }
 }
