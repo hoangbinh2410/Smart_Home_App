@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BA_MobileGPS.Entities
 {
-   public class ListExpenseRespone
+   public class ListExpenseCategoryByCompanyRespone
     {
         public Guid ID { get; set; }
         public int FK_CompanyID { get; set; }

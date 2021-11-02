@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -73,9 +74,12 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         #endregion Lifecycle
         #region Property
-        private string expense = "Chọn loại phí";
-        public string Expense
-        { get { return expense; } set { SetProperty(ref expense, value); } }
+        private List<ListExpenseCategoryByCompanyRespone> listExpense;
+        public List<ListExpenseCategoryByCompanyRespone> ListExpense
+        { get { return listExpense; } set { SetProperty(ref listExpense, value); } }
+        //private string expense = "Chọn loại phí";
+        //public string Expense
+        //{ get { return expense; } set { SetProperty(ref expense, value); } }
 
         private int priceExpense = 0;
         public int PriceExpense
@@ -130,6 +134,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PickAvatar();
             }
+
+        }
+        private void GetListExpense()
+        {
 
         }
         private async void ResetImage()

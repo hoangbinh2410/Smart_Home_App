@@ -9,6 +9,6 @@ namespace BA_MobileGPS.Service
    public interface  IExpenseService
     {
         Task<ImportExpenseRespone> GetExpense(ImportExpenseRequest request);
-        Task<List<ListExpenseRespone>> GetMessagesSupport(int FK_CompanyID);
+        Task<List<ListExpenseCategoryByCompanyRespone>> GetMessagesSupport(int FK_CompanyID);
     }
 }
