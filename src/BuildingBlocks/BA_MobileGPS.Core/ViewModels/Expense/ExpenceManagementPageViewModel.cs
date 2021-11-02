@@ -17,13 +17,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
     {
         #region Property
 
-        public string vehiclePlate = string.Empty;
-
-        public string VehiclePlate
-        {
-            get { return vehiclePlate; }
-            set { SetProperty(ref vehiclePlate, value); }
-        }
         private Vehicle _vehicle = new Vehicle();
         public Vehicle Vehicle
         {
@@ -98,10 +91,9 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
-                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
                 {
                     Vehicle = vehicle;
-                    VehiclePlate = vehicle.VehiclePlate;
                 }
             }
         }
@@ -232,16 +224,38 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         private void SearchDataClicked()
         {
-
+            if (ValidateDateTime())
+            {
+                
+            }
         }
-
+        private bool ValidateDateTime()
+        {
+            var result = true;
+            if (FromDate > ToDate)
+            {
+                DisplayMessage.ShowMessageInfo("Thời gian bắt đầu phải nhỏ hơn thời gian kết thúc");
+                result = false;
+            }
+            else if (ToDate.Subtract(FromDate).TotalDays > 90)
+            {
+                DisplayMessage.ShowMessageInfo("Bạn không được phép xem quá 90 ngày");
+                result = false;
+            }
+            return result;
+        }
         private void AddDataClicked()
         {
 
         }
 
-        private void DeleteItemClicked(MenuExpense obj)
+        private async void DeleteItemClicked(MenuExpense obj)
         {
+            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?","Có", "Không");
+            if(!action)
+            {
+                return;
+            }    
             List<MenuExpense> menuItems = new List<MenuExpense>();
             foreach (var item in MenuItems)
             {
@@ -258,12 +272,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if (item == null || item.ItemData == null)
             {
+                SafeExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("ExpenseDetailsPage");
+                });
                 return;
             };
             var parameters = new NavigationParameters
             {
-                { "ExpenseDetails", "" },
-                { ParameterKey.VehicleRoute, Vehicle }
+                { "ExpenseDetails", item.ItemData},
             };
             SafeExecute(async () =>
             {

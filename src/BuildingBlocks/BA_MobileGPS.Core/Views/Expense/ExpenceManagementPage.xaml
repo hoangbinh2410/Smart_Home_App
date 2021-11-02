@@ -235,7 +235,7 @@
                                     HorizontalOptions="Start"
                                     InputTransparent="True"
                                     Placeholder="Phương tiện"
-                                    Text="{Binding VehicleSelect.PrivateCode}"
+                                    Text="{Binding Vehicle.PrivateCode}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -283,7 +283,7 @@
                                     ShowBorder="False"
                                     TextSize="{DynamicResource FontSizeTextPut11}"
                                     VerticalOptions="FillAndExpand"
-                                    Watermark="Địa điểm"
+                                    Watermark="Loại chi phí"
                                     WatermarkColor="{DynamicResource TextPlaceHolderColor}">
                                     <combobox:SfComboBox.Behaviors>
                                         <behaviors:EventToCommandBehavior
@@ -329,7 +329,7 @@
                                 VerticalOptions="CenterAndExpand"
                                 WidthRequest="35">
                                 <sharpnado:MaterialFrame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding AddDataCommand}" />
+                                    <TapGestureRecognizer Command="{Binding NavigateCommand}" />
                                 </sharpnado:MaterialFrame.GestureRecognizers>
                                 <controls:IconView
                                     Foreground="{DynamicResource WhiteColor}"
