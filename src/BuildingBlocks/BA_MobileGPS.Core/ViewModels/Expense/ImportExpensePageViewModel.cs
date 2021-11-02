@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Service;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
@@ -26,7 +27,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SaveExpenseCommand { get; private set; }
         public ICommand SaveAndCountinuteCommand { get; private set; }
         protected IPageDialogService _PageDialog { get; private set; }
-        public ImportExpensePageViewModel(INavigationService navigationService, IPageDialogService PageDialog) : base(navigationService)
+        private IExpenseService _ExpenseService { get;  set; }
+        public ImportExpensePageViewModel(INavigationService navigationService, IPageDialogService PageDialog, IExpenseService ExpenseService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(ClosePage);
             SelectExpenseCommand = new DelegateCommand(SelectExpense);
@@ -35,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ResetImageCommand = new DelegateCommand(ResetImage);
             SaveExpenseCommand = new DelegateCommand(SaveExpense);
             SaveAndCountinuteCommand = new DelegateCommand(SaveAndCountinute);
+            _ExpenseService = ExpenseService;
             _PageDialog = PageDialog;
         }
         #endregion Contructor
@@ -85,13 +88,17 @@ namespace BA_MobileGPS.Core.ViewModels
         private string place ="Chọn địa điểm";
         public string Place
         { get { return place; } set { SetProperty(ref place, value); } }
+
         public bool iButtonView = false;
         public bool IButtonView
         { get { return iButtonView; } set { SetProperty(ref iButtonView, value); } }
+
         private string imagePathLocal = "bg_Account.png";
         public string ImagePathLocal { get => imagePathLocal; set => SetProperty(ref imagePathLocal, value /*,nameof(AvatarDisplay)*/); }
-        public ImageSource AvatarDisplay => string.IsNullOrWhiteSpace(ImagePathLocal)  ? "avatar_default.png" : /*$"{ServerConfig.ApiEndpoint}{AvatarUrl}") :*/ ImageSource.FromFile(ImagePathLocal);
+
+        public ImageSource AvatarDisplay => string.IsNullOrWhiteSpace(ImagePathLocal)  ? "bg_Account.png" : /*$"{ServerConfig.ApiEndpoint}{AvatarUrl}") :*/ ImageSource.FromFile(ImagePathLocal);
         #endregion Property
+
         #region PrivateMethod
         private void ClosePage()
         {

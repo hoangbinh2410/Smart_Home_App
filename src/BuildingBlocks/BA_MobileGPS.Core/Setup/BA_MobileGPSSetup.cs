@@ -11,6 +11,7 @@ using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.IService.Support;
 using BA_MobileGPS.Service.Report.Station;
 using BA_MobileGPS.Service.Service;
+using BA_MobileGPS.Service.Service.Expense;
 using BA_MobileGPS.Service.Service.Report.Station;
 using BA_MobileGPS.Service.Service.Support;
 using BA_MobileGPS.Service.Utilities;
@@ -93,6 +94,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<ISupportCategoryService, SupportCategoryService>();
             containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
             containerRegistry.RegisterSingleton<IStationLocationService, StationLocationService>();
+            containerRegistry.RegisterSingleton<IExpenseService, ExpenseService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)

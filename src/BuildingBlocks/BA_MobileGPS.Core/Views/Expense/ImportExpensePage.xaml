@@ -104,6 +104,79 @@
                         </Label.FormattedText>
                     </Label>
                     <Frame
+                        Grid.Column="1"
+                        Padding="0"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        BorderColor="{DynamicResource GrayColor2}"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        HeightRequest="45"
+                        HorizontalOptions="FillAndExpand"
+                        IsClippedToBounds="True"
+                        VerticalOptions="Center">
+                        <StackLayout
+                            Padding="5,0,10,0"
+                            HeightRequest="40"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            VerticalOptions="Center">
+                            <combobox:SfComboBox
+                                DataSource="{Binding ListLocationStation}"
+                                DisplayMemberPath="Name"
+                                DropDownTextSize="14"
+                                HorizontalOptions="FillAndExpand"
+                                IsEditableMode="False"
+                                MaximumDropDownHeight="200"
+                                SelectedDropDownItemColor="Transparent"
+                                SelectedItem="{Binding SelectedLocation}"
+                                ShowBorder="False"
+                                TextColor="{DynamicResource ColorText}"
+                                TextSize="14"
+                                VerticalOptions="FillAndExpand"
+                                Watermark="Chọn loại chi phí"
+                                WatermarkColor="{DynamicResource TextPlaceHolderColor}">
+                                <!--<combobox:SfComboBox.Behaviors>
+                                    <behaviors:EventToCommandBehavior
+                                        Command="{Binding TimeSelectingCommand}"
+                                        EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
+                                        EventName="SelectionChanging" />
+                                    <behaviors:EventToCommandBehavior
+                                        Command="{Binding TimeSelectedCommand}"
+                                        EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
+                                        EventName="SelectionChanged" />
+                                </combobox:SfComboBox.Behaviors>-->
+                                <combobox:SfComboBox.DropDownButtonSettings>
+                                    <!--  DropDownButtonSettings  -->
+                                    <combobox:DropDownButtonSettings Width="15" Height="15">
+                                        <combobox:DropDownButtonSettings.View>
+                                            <controls:IconView
+                                                Foreground="{DynamicResource BlackColor}"
+                                                HeightRequest="20"
+                                                HorizontalOptions="End"
+                                                Source="ic_sortdown.png"
+                                                VerticalOptions="EndAndExpand"
+                                                WidthRequest="20" />
+                                        </combobox:DropDownButtonSettings.View>
+                                    </combobox:DropDownButtonSettings>
+                                </combobox:SfComboBox.DropDownButtonSettings>
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                                        <x:String>Great Britain</x:String>
+                                        <x:String>Uganda</x:String>
+                                        <x:String>Ukraine</x:String>
+                                        <x:String>Canada</x:String>
+                                        <x:String>France</x:String>
+                                        <x:String>Italy</x:String>
+                                        <x:String>United Kingdom</x:String>
+                                        <x:String>China</x:String>
+                                        <x:String>Japan</x:String>
+                                    </ListCollection:List>
+                                </combobox:SfComboBox.ComboBoxSource>
+                            </combobox:SfComboBox>
+                        </StackLayout>
+                    </Frame>
+
+                    <!--<Frame
                         Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
@@ -143,7 +216,7 @@
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                         </StackLayout>
-                    </Frame>
+                    </Frame>-->
 
                     <!--  Số tiền  -->
                     <Label HorizontalOptions="Start" TextColor="{DynamicResource ColorText}">
@@ -168,7 +241,6 @@
                             FontSize="14"
                             HeightRequest="45"
                             HorizontalOptions="FillAndExpand"
-                            InputTransparent="True"
                             Keyboard="Numeric"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding PriceExpense}"
@@ -199,7 +271,6 @@
                             FontSize="14"
                             HeightRequest="45"
                             HorizontalOptions="FillAndExpand"
-                            InputTransparent="True"
                             Placeholder="Nhập ghi chú"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding Note}"
@@ -211,29 +282,33 @@
                         </Entry>
                     </Frame>
                     <!--  Test  -->
+
+                    <!--  Địa điểm  -->
+                    <Label
+                        HorizontalOptions="Start"
+                        Text="Địa điểm"
+                        TextColor="{DynamicResource ColorText}" />
                     <Frame
-                        x:Name="cmbLocation"
                         Grid.Column="1"
                         Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
                         HasShadow="False"
-                        HeightRequest="35"
+                        HeightRequest="45"
                         HorizontalOptions="FillAndExpand"
                         IsClippedToBounds="True"
                         VerticalOptions="Center">
                         <StackLayout
-                            Padding="5,0,5,0"
+                            Padding="5,0,10,0"
+                            HeightRequest="40"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <combobox:SfComboBox
-                                Margin="0,0,0,-2.5"
                                 DataSource="{Binding ListLocationStation}"
                                 DisplayMemberPath="Name"
-                                DropDownTextSize="11"
-                                HeightRequest="40"
+                                DropDownTextSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 IsEditableMode="False"
                                 MaximumDropDownHeight="200"
@@ -243,9 +318,9 @@
                                 TextColor="{DynamicResource ColorText}"
                                 TextSize="14"
                                 VerticalOptions="FillAndExpand"
-                                Watermark="Địa điểm"
+                                Watermark="Chọn điểm"
                                 WatermarkColor="{DynamicResource TextPlaceHolderColor}">
-                                <combobox:SfComboBox.Behaviors>
+                                <!--<combobox:SfComboBox.Behaviors>
                                     <behaviors:EventToCommandBehavior
                                         Command="{Binding TimeSelectingCommand}"
                                         EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
@@ -254,18 +329,18 @@
                                         Command="{Binding TimeSelectedCommand}"
                                         EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
                                         EventName="SelectionChanged" />
-                                </combobox:SfComboBox.Behaviors>
+                                </combobox:SfComboBox.Behaviors>-->
                                 <combobox:SfComboBox.DropDownButtonSettings>
                                     <!--  DropDownButtonSettings  -->
                                     <combobox:DropDownButtonSettings Width="15" Height="15">
                                         <combobox:DropDownButtonSettings.View>
                                             <controls:IconView
                                                 Foreground="{DynamicResource BlackColor}"
-                                                HeightRequest="15"
+                                                HeightRequest="20"
                                                 HorizontalOptions="End"
                                                 Source="ic_sortdown.png"
                                                 VerticalOptions="EndAndExpand"
-                                                WidthRequest="15" />
+                                                WidthRequest="20" />
                                         </combobox:DropDownButtonSettings.View>
                                     </combobox:DropDownButtonSettings>
                                 </combobox:SfComboBox.DropDownButtonSettings>
@@ -283,15 +358,9 @@
                                     </ListCollection:List>
                                 </combobox:SfComboBox.ComboBoxSource>
                             </combobox:SfComboBox>
-
                         </StackLayout>
                     </Frame>
-                    <!--  Địa điểm  -->
-                    <Label
-                        HorizontalOptions="Start"
-                        Text="Địa điểm"
-                        TextColor="{DynamicResource ColorText}" />
-                    <Frame
+                    <!--<Frame
                         Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
@@ -331,7 +400,7 @@
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
                         </StackLayout>
-                    </Frame>
+                    </Frame>-->
                     <!--  Thêm hình ảnh  -->
                     <StackLayout
                         HorizontalOptions="Start"
