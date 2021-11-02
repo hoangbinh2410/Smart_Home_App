@@ -353,7 +353,7 @@
         public const string POST_MessageSupport = "api/support/insertsupportbap";
         #endregion
         #region Expense
-        public const string GET_List_ExpensesCategory = "api/v1/expenses/getlistexpensescategorybycompany";
+        public const string GET_List_ExpensesCategory = "api/expenses/getlistexpensescategorybycompany";
         #endregion Expense
     }
 }
