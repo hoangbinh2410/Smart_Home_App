@@ -340,7 +340,7 @@
                                                 VerticalOptions="Center">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding Date, Converter={StaticResource DateConverter}}" />
+                                                        <Span Text="{Binding ExpenseDate, Converter={StaticResource DateConverter}}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
@@ -353,7 +353,7 @@
                                                 VerticalOptions="Center">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding Money, StringFormat='{0:N0}'}" />
+                                                        <Span Text="{Binding Total, StringFormat='{0:N0}'}" />
                                                         <Span Text=" đ" />
                                                     </FormattedString>
                                                 </Label.FormattedText>

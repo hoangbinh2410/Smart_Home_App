@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
             _pageDialog = pageDialog;
             _displayMessage = displayMessage;
-            _iSupportCategoryService = iSupportCategoryService ;
+            _iSupportCategoryService = iSupportCategoryService;
         }
 
         #endregion Contructor
@@ -61,12 +61,12 @@ namespace BA_MobileGPS.Core.ViewModels
             else
             {
                 _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
-            }           
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            base.OnNavigatedTo(parameters);       
+            base.OnNavigatedTo(parameters);
             LicensePlateNow = Vehicle.VehiclePlate;
             NamePage = item.Name;
         }
@@ -88,13 +88,13 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region
-        public Vehicle Vehicle ;
-        public SupportCategoryRespone item ;
+        public Vehicle Vehicle;
+        public SupportCategoryRespone item;
 
         public List<Errorlist> Errorlist;
 
         public List<Vehiclelist> Vehiclelist;
-
+        public ContactInfo ContactInfo;
 
         public SupportBapRequest RequestSupport = new SupportBapRequest();
 
@@ -113,7 +113,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool InotificationView = false;
         private LoginResponse userInfo;
-        public LoginResponse UserInfo {get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }set => SetProperty(ref userInfo, value);}    
+        public LoginResponse UserInfo { get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
         public bool INotificationView
         {
             get { return InotificationView; }
@@ -141,6 +141,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (Feedack != "")
                 {
+                    ContactInfo = new ContactInfo()
+                    {
+                        Fullname = UserInfo.FullName,
+                        Username = UserInfo.UserName,
+                        Mobilestr = UserInfo.PhoneNumber
+                    };
                     Errorlist = new List<Errorlist>()
                     {
                         new Errorlist(){ Code = item.Code }
@@ -149,17 +155,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         new Vehiclelist(){ Platestr = Vehicle.VehiclePlate,Description = Feedack, Errorlist = Errorlist }
                     };
-                    
-                    RequestSupport = new SupportBapRequest() {
 
-                        Fullname = UserInfo.FullName,
+                    RequestSupport = new SupportBapRequest()
+                    {
                         Xncode = UserInfo.XNCode,
-                        Username = UserInfo.UserName,
-                        Mobilestr = UserInfo.PhoneNumber,
+                        ContactInfo = ContactInfo,
                         Vehiclelist = Vehiclelist,
                         Description = Feedack
                     };
-                  
+
                     ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
                     if (ResponeSupport.State == true && ResponeSupport != null)
                     {
@@ -171,7 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 }
                 else
-                {                  
+                {
                     _displayMessage.ShowMessageWarning("Nhập đầy đủ thông tin");
                 }
             });

@@ -184,7 +184,7 @@
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
                             Style="{DynamicResource LabelHeader}"
-                            Text="Phương tiện"
+                            Text="Loại chi phí"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <!--  Chọn loại chi phí  -->
@@ -207,7 +207,7 @@
                                 VerticalOptions="Center">
                                 <combobox:SfComboBox
                                     Margin="0,0,0,-2.5"
-                                    DataSource="{Binding ListLocationStation}"
+                                    DataSource="{Binding ListMenuExpense}"
                                     DisplayMemberPath="Name"
                                     DropDownTextSize="11"
                                     HeightRequest="40"
@@ -323,7 +323,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         LineBreakMode="MiddleTruncation"
                                         Style="{DynamicResource LabelItem}"
-                                        Text="{Binding NameExpense}"
+                                        Text="{Binding Name}"
                                         TextColor="Black"
                                         VerticalOptions="EndAndExpand" />
                                     <Label
@@ -336,7 +336,7 @@
                                         VerticalOptions="EndAndExpand">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding MoneyExpense, StringFormat='{0:N0}'}" />
+                                                <Span Text="{Binding ExpenseCost, StringFormat='{0:N0}'}" />
                                                 <Span Text=" đ" />
                                             </FormattedString>
                                         </Label.FormattedText>
@@ -344,9 +344,11 @@
                                     <ImageButton
                                         Grid.Column="2"
                                         Clicked="ShowSfPopup_Clicked"
+                                        Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.ShowPicturnCommand}"
                                         CommandParameter="{Binding .}"
                                         HeightRequest="25"
                                         HorizontalOptions="CenterAndExpand"
+                                        IsVisible="{Binding Photo, Converter={StaticResource HasDataConverter}}"
                                         Source="ic_thumbnailupload.png"
                                         VerticalOptions="StartAndExpand"
                                         WidthRequest="25" />
@@ -377,14 +379,14 @@
                                     FontSize="12"
                                     HorizontalOptions="Start"
                                     HorizontalTextAlignment="Start"
-                                    IsVisible="{Binding LocationExpense, Converter={StaticResource HasDataConverter}}"
+                                    IsVisible="{Binding LandmarkName, Converter={StaticResource HasDataConverter}}"
                                     LineBreakMode="TailTruncation"
                                     Style="{DynamicResource LabelItem}"
                                     VerticalOptions="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="Địa điểm: " />
-                                            <Span Text="{Binding LocationExpense}" />
+                                            <Span Text="{Binding LandmarkName}" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
@@ -422,7 +424,7 @@
                             WidthRequest="300">
                             <sfPopup:PopupView.ContentTemplate>
                                 <DataTemplate>
-                                    <ff:CachedImage Aspect="AspectFill" Source="ic_thumbnailupload.png" />
+                                    <ff:CachedImage Aspect="AspectFill" Source="{Binding SuccessImage}" />
                                 </DataTemplate>
                             </sfPopup:PopupView.ContentTemplate>
                         </sfPopup:PopupView>

@@ -1,7 +1,9 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.Expense;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -30,17 +32,35 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get => _chooseDate;
             set => SetProperty(ref _chooseDate, value);
         }
-        private int _totalMoney = 600000;
-        public int TotalMoney
+        private decimal _totalMoney = 600000;
+        public decimal TotalMoney
         {
             get { return _totalMoney; }
             set { SetProperty(ref _totalMoney, value); }
         }
-        private List<MenuExpenseDetails> _menuItems = new List<MenuExpenseDetails>();
-        public List<MenuExpenseDetails> MenuItems
+        private string _successImage = string.Empty;
+        public string SuccessImage
+        {
+            get { return _successImage; }
+            set { SetProperty(ref _successImage, value); }
+        }
+        private List<ExpenseDetailsRespone> _menuItems = new List<ExpenseDetailsRespone>();
+        public List<ExpenseDetailsRespone> MenuItems
         {
             get { return _menuItems; }
             set { SetProperty(ref _menuItems, value); }
+        }
+        private ListExpenseCategoryByCompanyRespone _selectedLocation = new ListExpenseCategoryByCompanyRespone();
+        public ListExpenseCategoryByCompanyRespone SelectedLocation
+        {
+            get { return _selectedLocation; }
+            set { SetProperty(ref _selectedLocation, value); }
+        }
+        private List<ListExpenseCategoryByCompanyRespone> _listMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
+        public List<ListExpenseCategoryByCompanyRespone> ListMenuExpense
+        {
+            get { return _listMenuExpense; }
+            set { SetProperty(ref _listMenuExpense, value); }
         }
         #endregion
 
@@ -48,13 +68,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand ChooseDateDateTimePageCommand { get; private set; }
         public ICommand NavigateCommand { get; }
         public ICommand ShowPicturnCommand { get; }
-        public ExpenseDetailsPageViewModel(INavigationService navigationService)
+        private IExpenseService _ExpenseService { get; set; }
+        public ExpenseDetailsPageViewModel(INavigationService navigationService, IExpenseService ExpenseService)
             : base(navigationService)
         {
             ChooseDateDateTimePageCommand = new DelegateCommand(ExecuteToChooseDateTime);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
-            ShowPicturnCommand = new DelegateCommand<MenuExpenseDetails>(ShowPicturnClicked);
+            ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
+            _ExpenseService = ExpenseService;
         }
 
         #endregion 
@@ -64,6 +86,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            GetListExpenseCategory();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -76,15 +99,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     Vehicle = vehicle;
                 }
             }
-            if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<MenuExpense>("ExpenseDetails") is MenuExpense objSupport)
+            if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<ExpenseRespone>("ExpenseDetails") is ExpenseRespone objSupport)
             {
-                GetListMenuExpense();
-                TotalMoney = objSupport.Money;
+                TotalMoney = objSupport.Total;
+                MenuItems = objSupport.Expenses;
             }
             else
             {
                 TotalMoney = 0;
-                MenuItems = new List<MenuExpenseDetails>();
+                MenuItems = new List<ExpenseDetailsRespone>();
             }    
         }
 
@@ -132,29 +155,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         private void GetListMenuExpense()
         {
-            SafeExecute(async () =>
-            {
-                if (IsConnected)
-                {
-                    using (new HUDService(MobileResource.Common_Message_Processing))
-                    {
-                        await Task.Delay(500);
-                        MenuItems = new List<MenuExpenseDetails>()
-                        {
-                            new MenuExpenseDetails(){NameExpense = "Đổ dầu",MoneyExpense=100000,LocationExpense="Bến xe Long Thành",ImageExpense=""},
-                            new MenuExpenseDetails(){NameExpense = "Cơm",MoneyExpense=100000,LocationExpense="",ImageExpense=""},
-                            new MenuExpenseDetails(){NameExpense = "Bồi dưỡng",MoneyExpense=100000,LocationExpense="",ImageExpense=""},
-                            new MenuExpenseDetails(){NameExpense = "Sửa chữa, vá vỏ",MoneyExpense=100000,LocationExpense="Ga Hà Nội",ImageExpense=""},
-                            new MenuExpenseDetails(){NameExpense = "Bốc xếp",MoneyExpense=100000,LocationExpense="Ga Hà Nội",ImageExpense=""},
-                            new MenuExpenseDetails(){NameExpense = "Vé cầu đường",MoneyExpense=100000,LocationExpense="BOT Hà Nam",ImageExpense=""},
-                        };
-                    }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
+            
         }
         public void NavigateClicked(ItemTappedEventArgs item)
         {
@@ -175,17 +176,31 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 await NavigationService.NavigateAsync("ImportExpensePage", parameters);
             });
         }
-        public void ShowPicturnClicked(MenuExpenseDetails item)
+        public void ShowPicturnClicked(ExpenseDetailsRespone item)
         {
-           
+            if(item != null)
+            {
+                SuccessImage = item.Photo;
+            }     
+        }
+        private void GetListExpenseCategory()
+        {
+            SafeExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    var companyID = CurrentComanyID;
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        ListMenuExpense = await _ExpenseService.GetExpenseCategory(303);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
         }
         #endregion PrivateMethod
-    }
-    public class MenuExpenseDetails
-    {
-        public string NameExpense { get; set; }
-        public int MoneyExpense { get; set; }
-        public string LocationExpense { get; set; }
-        public string ImageExpense { get; set; }
     }
 }

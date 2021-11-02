@@ -354,6 +354,7 @@
         #endregion
         #region Expense
         public const string GET_List_ExpensesCategory = "api/expenses/getlistexpensescategorybycompany";
+        public const string GET_List_Expenses = "api/expenses/searchexpenses";
         #endregion Expense
     }
 }
