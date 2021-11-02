@@ -58,7 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property RankUserPoint
 
-        private DateTime dateRank = DateTime.Now;
+        private DateTime dateRank = DateTime.Now.Date;
         public DateTime DateRank { get => dateRank; set => SetProperty(ref dateRank, value); }
 
         public string searchedText;
@@ -222,8 +222,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var request = new Entities.DriverRankingRequest()
             {
                 CompanyID = CurrentComanyID,
-                FromDate = fromDate,
-                ToDate = toDate.AddDays(1).AddMinutes(-1),
+                FromDate = fromDate.Date,
+                ToDate = toDate.Date.AddDays(1).AddMinutes(-1),
                 UserIDs = new string[] { }
             };
             RunOnBackground(async () =>

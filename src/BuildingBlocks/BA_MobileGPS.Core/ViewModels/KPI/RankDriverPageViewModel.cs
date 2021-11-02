@@ -294,8 +294,8 @@ namespace BA_MobileGPS.Core.ViewModels
             var request = new Entities.DriverRankingRequest()
             {
                 CompanyID = CurrentComanyID,
-                FromDate = fromDate,
-                ToDate = toDate.AddDays(1).AddMinutes(-1),
+                FromDate = fromDate.Date,
+                ToDate = toDate.Date.AddDays(1).AddMinutes(-1),
                 UserIDs = new string[] { }
             };
             RunOnBackground(async () =>
