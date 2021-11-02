@@ -3,9 +3,6 @@
     x:Class="BA_MobileGPS.Core.Views.Expense.ExpenceManagementPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
-    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
-    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -205,7 +202,6 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <!--  biển số xe  -->
@@ -251,73 +247,8 @@
                                     WidthRequest="15" />
                             </Grid>
                         </Frame>
-                        <!--  Chọn loại chi phí  -->
-                        <Frame
-                            x:Name="cmbLocation"
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            BorderColor="{DynamicResource GrayColor2}"
-                            CornerRadius="5"
-                            HasShadow="False"
-                            HeightRequest="35"
-                            HorizontalOptions="FillAndExpand"
-                            IsClippedToBounds="True"
-                            VerticalOptions="Center">
-                            <StackLayout
-                                Padding="5,0,5,0"
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
-                                VerticalOptions="Center">
-                                <combobox:SfComboBox
-                                    Margin="0,0,0,-2.5"
-                                    DataSource="{Binding ListLocationStation}"
-                                    DisplayMemberPath="Name"
-                                    DropDownTextSize="11"
-                                    HeightRequest="40"
-                                    HorizontalOptions="FillAndExpand"
-                                    IsEditableMode="False"
-                                    MaximumDropDownHeight="200"
-                                    SelectedDropDownItemColor="Transparent"
-                                    SelectedItem="{Binding SelectedLocation}"
-                                    ShowBorder="False"
-                                    TextSize="{DynamicResource FontSizeTextPut11}"
-                                    VerticalOptions="FillAndExpand"
-                                    Watermark="Loại chi phí"
-                                    WatermarkColor="{DynamicResource TextPlaceHolderColor}">
-                                    <combobox:SfComboBox.Behaviors>
-                                        <behaviors:EventToCommandBehavior
-                                            Command="{Binding TimeSelectingCommand}"
-                                            EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
-                                            EventName="SelectionChanging" />
-                                        <behaviors:EventToCommandBehavior
-                                            Command="{Binding TimeSelectedCommand}"
-                                            EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
-                                            EventName="SelectionChanged" />
-                                    </combobox:SfComboBox.Behaviors>
-                                    <combobox:SfComboBox.DropDownButtonSettings>
-                                        <!--  DropDownButtonSettings  -->
-                                        <combobox:DropDownButtonSettings Width="15" Height="15">
-                                            <combobox:DropDownButtonSettings.View>
-                                                <controls:IconView
-                                                    Foreground="{DynamicResource PrimaryColor}"
-                                                    HeightRequest="15"
-                                                    HorizontalOptions="End"
-                                                    Source="ic_sortdown.png"
-                                                    VerticalOptions="EndAndExpand"
-                                                    WidthRequest="15" />
-                                            </combobox:DropDownButtonSettings.View>
-                                        </combobox:DropDownButtonSettings>
-                                    </combobox:SfComboBox.DropDownButtonSettings>
-                                    <combobox:SfComboBox.ComboBoxSource>
-                                        <ListCollection:List x:TypeArguments="x:String" />
-                                    </combobox:SfComboBox.ComboBoxSource>
-                                </combobox:SfComboBox>
-
-                            </StackLayout>
-                        </Frame>
                         <!--  button thêm chi phí  -->
-                        <StackLayout Grid.Column="2" Orientation="Horizontal">
+                        <StackLayout Grid.Column="1" Orientation="Horizontal">
                             <sharpnado:MaterialFrame
                                 x:Name="btnAdd"
                                 Padding="0"

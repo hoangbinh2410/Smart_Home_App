@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Utilities;
@@ -17,12 +18,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
     {
         #region Property
 
-        public string vehiclePlate = string.Empty;
-
-        public string VehiclePlate
+        private Vehicle _vehicle = new Vehicle();
+        public Vehicle Vehicle
         {
-            get { return vehiclePlate; }
-            set { SetProperty(ref vehiclePlate, value); }
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
         }
         private DateTime _chooseDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
         public virtual DateTime ChooseDate
@@ -47,12 +47,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #region Contructor
         public ICommand ChooseDateDateTimePageCommand { get; private set; }
         public ICommand NavigateCommand { get; }
+        public ICommand ShowPicturnCommand { get; }
         public ExpenseDetailsPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
             ChooseDateDateTimePageCommand = new DelegateCommand(ExecuteToChooseDateTime);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            ShowPicturnCommand = new DelegateCommand<MenuExpenseDetails>(ShowPicturnClicked);
         }
 
         #endregion 
@@ -67,6 +69,13 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
+                }
+            }
             if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<MenuExpense>("ExpenseDetails") is MenuExpense objSupport)
             {
                 GetListMenuExpense();
@@ -165,6 +174,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 await NavigationService.NavigateAsync("ImportExpensePage", parameters);
             });
+        }
+        public void ShowPicturnClicked(MenuExpenseDetails item)
+        {
+           
         }
         #endregion PrivateMethod
     }
