@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity.Expense;
 using BA_MobileGPS.Entities.ResponeEntity.Expense;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service;
@@ -10,9 +11,11 @@ using Prism.Navigation;
 using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using SelectionChangedEventArgs = Syncfusion.XForms.ComboBox.SelectionChangedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels.Expense
 {
@@ -44,6 +47,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get { return _successImage; }
             set { SetProperty(ref _successImage, value); }
         }
+        private List<ExpenseDetailsRespone> _menuItemsRemember { get; set; }
         private List<ExpenseDetailsRespone> _menuItems = new List<ExpenseDetailsRespone>();
         public List<ExpenseDetailsRespone> MenuItems
         {
@@ -62,6 +66,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get { return _listMenuExpense; }
             set { SetProperty(ref _listMenuExpense, value); }
         }
+
         #endregion
 
         #region Contructor
@@ -69,6 +74,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand NavigateCommand { get; }
         public ICommand ShowPicturnCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
+        public ICommand ComboboxSelectedCommand { get; }
+        public ICommand DeleteItemCommand { get; private set; }
         public ExpenseDetailsPageViewModel(INavigationService navigationService, IExpenseService ExpenseService)
             : base(navigationService)
         {
@@ -76,6 +83,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
             ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
+            ComboboxSelectedCommand = new DelegateCommand<SelectionChangedEventArgs>(ComboboxSelected);
+            DeleteItemCommand = new DelegateCommand<ExpenseDetailsRespone>(DeleteItemClicked);
             _ExpenseService = ExpenseService;
         }
 
@@ -87,6 +96,18 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             base.Initialize(parameters);
             GetListExpenseCategory();
+            if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<ExpenseRespone>("ExpenseDetails") is ExpenseRespone objSupport)
+            {
+                TotalMoney = objSupport.Total;
+                MenuItems = objSupport.Expenses;
+                _menuItemsRemember = objSupport.Expenses;
+                ChooseDate = objSupport.ExpenseDate;
+            }
+            else
+            {
+                TotalMoney = 0;
+                MenuItems = new List<ExpenseDetailsRespone>();
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -99,17 +120,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     Vehicle = vehicle;
                 }
             }
-            if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<ExpenseRespone>("ExpenseDetails") is ExpenseRespone objSupport)
-            {
-                TotalMoney = objSupport.Total;
-                MenuItems = objSupport.Expenses;
-                ChooseDate = objSupport.ExpenseDate;
-            }
-            else
-            {
-                TotalMoney = 0;
-                MenuItems = new List<ExpenseDetailsRespone>();
-            }    
+
+            GetListExpenseAgain();  
         }
 
         public override void OnPageAppearingFirstTime()
@@ -154,10 +166,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 }
             }
         }
-        private void GetListMenuExpense()
-        {
-            
-        }
         public void NavigateClicked(ItemTappedEventArgs item)
         {
             if (Vehicle == null || Vehicle.PrivateCode == null)
@@ -167,7 +175,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             var parameters = new NavigationParameters
             {
-                { ParameterKey.Vehicle, Vehicle }
+                { ParameterKey.Vehicle, Vehicle },
+                { "DayChoose",ChooseDate },
             };
 
             if (item == null || item.ItemData == null)
@@ -204,6 +213,99 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         ListMenuExpense = await _ExpenseService.GetExpenseCategory(303);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
+        }
+        private void ComboboxSelected(SelectionChangedEventArgs args)
+        {
+            if (args != null && !string.IsNullOrEmpty(args.Value.ToString()))
+            {
+                var item = (ListExpenseCategoryByCompanyRespone)args.Value;
+                MenuItems = _menuItemsRemember.Where(x => x.Name == item.Name)?.ToList();
+            }
+            else
+            {
+                MenuItems = _menuItemsRemember;
+            }    
+        }
+        private async void DeleteItemClicked(ExpenseDetailsRespone obj)
+        {
+            if (obj == null)
+            {
+                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                return;
+            }
+            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?", "Có", "Không");
+            if (!action)
+            {
+                return;
+            }
+            DeleteExpenseRequest request = new DeleteExpenseRequest()
+            { 
+                ListID = new List<Guid>()
+                {
+                    obj.ID
+                }
+            };
+            SafeExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        bool isdeleted = await _ExpenseService.Deletemultiple(request);
+                        if (isdeleted)
+                        {
+                            GetListExpenseAgain();
+                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 5000);
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                        }
+                    }  
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
+        }
+        private void GetListExpenseAgain()
+        {
+            var companyID = CurrentComanyID;
+            var vehicleID = Vehicle.VehicleId;
+            var request = new ExpenseRequest()
+            {
+                CompanyID = companyID,
+                VehicleID = vehicleID,
+                ToDate = ChooseDate,
+                FromDate = ChooseDate
+            };
+            TryExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        var listItems = await _ExpenseService.GetListExpense(request);
+                        TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
+                        _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                        if (!string.IsNullOrEmpty(SelectedLocation.Name))
+                        {
+                            MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses
+                            .Where(y => y.Name == SelectedLocation.Name).ToList();
+                        }    
+                        else
+                        {
+                            MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                        }    
+                        
                     }
                 }
                 else

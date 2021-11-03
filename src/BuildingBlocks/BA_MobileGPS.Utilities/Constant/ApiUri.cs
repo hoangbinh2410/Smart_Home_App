@@ -356,6 +356,7 @@
         public const string GET_List_ExpensesCategory = "api/expenses/getlistexpensescategorybycompany";
         public const string POST_Import_Expense = "api/expenses/insert";
         public const string GET_List_Expenses = "api/expenses/searchexpenses";
+        public const string Delete_Multiple = "api/expenses/deletemultiple";
         #endregion Expense
     }
 }

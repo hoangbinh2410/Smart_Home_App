@@ -227,7 +227,7 @@
                                             EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
                                             EventName="SelectionChanging" />
                                         <behaviors:EventToCommandBehavior
-                                            Command="{Binding TimeSelectedCommand}"
+                                            Command="{Binding ComboboxSelectedCommand}"
                                             EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
                                             EventName="SelectionChanged" />
                                     </combobox:SfComboBox.Behaviors>
@@ -347,32 +347,26 @@
                                         Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.ShowPicturnCommand}"
                                         CommandParameter="{Binding .}"
                                         HeightRequest="25"
-                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalOptions="StartAndExpand"
                                         IsVisible="{Binding Photo, Converter={StaticResource HasDataConverter}}"
                                         Source="ic_thumbnailupload.png"
-                                        VerticalOptions="StartAndExpand"
+                                        VerticalOptions="EndAndExpand"
                                         WidthRequest="25" />
-                                    <!--<StackLayout
-                                        Grid.Column="2"
-                                        HorizontalOptions="StartAndExpand"
-                                        VerticalOptions="CenterAndExpand">
-                                        <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.ShowPicturnCommand}" CommandParameter="{Binding .}" />
-                                        </StackLayout.GestureRecognizers>
-                                        <ff:CachedImage
-                                            Aspect="AspectFill"
-                                            HeightRequest="25"
-                                            Source="ic_thumbnailupload.png"
-                                            WidthRequest="25" />
-                                    </StackLayout>-->
-                                    <controls:IconView
+                                    <StackLayout
                                         Grid.Column="3"
-                                        Foreground="Red"
-                                        HeightRequest="25"
                                         HorizontalOptions="StartAndExpand"
-                                        Source="ic_close.png"
-                                        VerticalOptions="CenterAndExpand"
-                                        WidthRequest="25" />
+                                        VerticalOptions="EndAndExpand">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <controls:IconView
+                                            Foreground="Red"
+                                            HeightRequest="25"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Source="ic_close.png"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="25" />
+                                    </StackLayout>
                                 </Grid>
                                 <Label
                                     Padding="10,0,10,0"
