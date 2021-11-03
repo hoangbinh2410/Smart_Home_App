@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Service
 {
    public interface  IExpenseService
     {
-        Task<ImportExpenseRespone> GetExpense(ImportExpenseRequest request);
+        Task<bool> GetExpense(ImportExpenseRequest request);
         Task<List<ListExpenseCategoryByCompanyRespone>> GetExpenseCategory(int FK_CompanyID);
         Task<List<ExpenseRespone>> GetListExpense(ExpenseRequest request);
     }

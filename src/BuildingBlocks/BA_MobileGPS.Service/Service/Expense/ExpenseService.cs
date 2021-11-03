@@ -19,13 +19,13 @@ namespace BA_MobileGPS.Service.Service.Expense
             this._iRequestProvider = iRequestProvider;
         }
 
-        public async Task<ImportExpenseRespone> GetExpense(ImportExpenseRequest request)
+        public async Task<bool> GetExpense(ImportExpenseRequest request)
         {
-            ImportExpenseRespone result = new ImportExpenseRespone();
+            bool result = false;
             try
             {
-                var respone = await _iRequestProvider.PostAsync<ImportExpenseRequest, BaseResponse<ImportExpenseRespone>>(ApiUri.POST_Import_Expense, request);
-                if (respone != null && respone.Data != null)
+                var respone = await _iRequestProvider.PostAsync<ImportExpenseRequest, BaseResponse<bool>>(ApiUri.POST_Import_Expense, request);
+                if (respone != null)
                 {
                     result = respone.Data;
                 }

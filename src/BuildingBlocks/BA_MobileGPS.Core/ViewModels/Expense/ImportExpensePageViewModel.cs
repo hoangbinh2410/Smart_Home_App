@@ -2,13 +2,13 @@
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.Expense;
 using BA_MobileGPS.Entities.ResponeEntity.Report.Station;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Report.Station;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
 using Prism.Services;
 using System;
@@ -22,6 +22,7 @@ namespace BA_MobileGPS.Core.ViewModels
     public class ImportExpensePageViewModel : ViewModelBase
     {
         #region Contructor
+
         public ICommand BackPageCommand { get; private set; }
         public ICommand SelectExpenseCommand { get; private set; }
         public ICommand SelectPlaceCommand { get; private set; }
@@ -30,9 +31,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SaveExpenseCommand { get; private set; }
         public ICommand SaveAndCountinuteCommand { get; private set; }
         protected IPageDialogService _PageDialog { get; private set; }
-        private IExpenseService _ExpenseService { get;  set; }
-        private IStationLocationService _StationLocation { get;  set; }
+        private IExpenseService _ExpenseService { get; set; }
+        private IStationLocationService _StationLocation { get; set; }
         private readonly IDisplayMessage _displayMessage;
+
         public ImportExpensePageViewModel(INavigationService navigationService, IPageDialogService PageDialog, IExpenseService ExpenseService, IDisplayMessage displayMessage, IStationLocationService StationLocation) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(ClosePage);
@@ -46,26 +48,42 @@ namespace BA_MobileGPS.Core.ViewModels
             _PageDialog = PageDialog;
             _displayMessage = displayMessage;
             _StationLocation = StationLocation;
+            Title = "Nhập chi phí";
         }
+
         #endregion Contructor
+
         #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
             GetListExpenseCategory();
-            //GetListPlace();
-
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle para)
+            {
+                VehicleID = para.VehicleId;
+                if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj)
+                {
+                    GetViewPage(obj);
+                    //Item = obj;
+                }
+                else
+                {
+                    IButtonView = true;
+                }
+            }
+            else
+            {
+                _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+            }
             if (parameters?.GetValue<string>(ParameterKey.ImageLocation) is string imageLocation)
             {
-                ImagePathLocal = imageLocation;
-            }          
+            }
         }
 
         public override void OnPageAppearingFirstTime()
@@ -81,72 +99,153 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnDestroy()
         {
         }
+
         #endregion Lifecycle
+
         #region Property
-        public ImportExpenseRespone ResponeExpense;
+
+        public ExpenseDetailsRespone item;
+
+        public ExpenseDetailsRespone Item
+        { get { return item; } set { SetProperty(ref item, value); } }
+
+        public bool IInsertExpense;
+
         //public ImportExpenseRequest RequestExpense = new ImportExpenseRequest();
-        private List<LocationStationResponse> listPlace;
+
+        private List<LocationStationResponse> listPlace = new List<LocationStationResponse>();
+
         private ListExpenseCategoryByCompanyRespone selected;
-        public ListExpenseCategoryByCompanyRespone Selected
+
+        public ListExpenseCategoryByCompanyRespone SelectedExpense
         { get { return selected; } set { SetProperty(ref selected, value); } }
+
         public List<LocationStationResponse> ListPlace { get { return listPlace; } set { SetProperty(ref listPlace, value); } }
-        private List<ListExpenseCategoryByCompanyRespone> listExpenseCategory;
+        private List<ListExpenseCategoryByCompanyRespone> listExpenseCategory = new List<ListExpenseCategoryByCompanyRespone>();
+
         public List<ListExpenseCategoryByCompanyRespone> ListExpenseCategory
         { get { return listExpenseCategory; } set { SetProperty(ref listExpenseCategory, value); } }
 
         private ListExpenseCategoryByCompanyRespone expenseCategory;
+
         public ListExpenseCategoryByCompanyRespone ExpenseCategory
         { get { return expenseCategory; } set { SetProperty(ref expenseCategory, value); } }
+
         private LoginResponse userInfo;
         public LoginResponse UserInfo { get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
         private decimal priceExpense = 0;
+
         public decimal PriceExpense
         { get { return priceExpense; } set { SetProperty(ref priceExpense, value); } }
 
         private string note = String.Empty;
+
         public string Note
         { get { return note; } set { SetProperty(ref note, value); } }
 
-         private string textExpense = String.Empty;
+        private string textExpense = "Chọn loại chi phí";
+
         public string TextExpense
         { get { return textExpense; } set { SetProperty(ref textExpense, value); } }
-        private string textplace = String.Empty;
+
+        private string otheraddress = String.Empty;
+
+        public string Otheraddress
+        { get { return otheraddress; } set { SetProperty(ref otheraddress, value); } }
+
+        private string textOtherPlace = "Địa điểm khác";
+
+        public string TextOtherPlace
+        { get { return textOtherPlace; } set { SetProperty(ref textOtherPlace, value); } }
+
+        private string textPlace = "Chọn điểm";
+
         public string TextPlace
-        { get { return textplace; } set { SetProperty(ref textplace, value); } }
+        { get { return textPlace; } set { SetProperty(ref textPlace, value); } }
 
         private LocationStationResponse _selectedLocation = new LocationStationResponse();
+
         public LocationStationResponse SelectedLocation
         {
             get { return _selectedLocation; }
             set { SetProperty(ref _selectedLocation, value); }
         }
-        public bool iButtonView = false;
+
+        private bool iButtonView = false;
+
         public bool IButtonView
 
         { get { return iButtonView; } set { SetProperty(ref iButtonView, value); } }
 
+        private bool iHasImage = true;
+
+        public bool IHasImage
+
+        { get { return iHasImage; } set { SetProperty(ref iHasImage, value); } }
+
+        private bool iHasPlace = false;
+
+        public bool IHasPlace
+
+        { get { return iHasPlace; } set { SetProperty(ref iHasPlace, value); } }
+
+        private Guid expenseID;
+
+        public Guid ExpenseID
+
+        { get { return expenseID; } set { SetProperty(ref expenseID, value); } }
+
+        private int? landmarkID = null;
+
+        public int? LandmarkID
+
+        { get { return landmarkID; } set { SetProperty(ref landmarkID, value); } }
+
+        private long vehicleID;
+
+        public long VehicleID
+
+        { get { return vehicleID; } set { SetProperty(ref vehicleID, value); } }
+
+        private DateTime expensedate;
+
+        public DateTime Expensedate
+
+        { get { return expensedate; } set { SetProperty(ref expensedate, value); } }
+
         private string imagePathLocal = "bg_Account.png";
         public string ImagePathLocal { get => imagePathLocal; set => SetProperty(ref imagePathLocal, value /*,nameof(AvatarDisplay)*/); }
 
-        public ImageSource AvatarDisplay => string.IsNullOrWhiteSpace(ImagePathLocal)  ? "bg_Account.png" : /*$"{ServerConfig.ApiEndpoint}{AvatarUrl}") :*/ ImageSource.FromFile(ImagePathLocal);
+        public ImageSource AvatarDisplay => string.IsNullOrWhiteSpace(ImagePathLocal) ? "bg_Account.png" : /*$"{ServerConfig.ApiEndpoint}{AvatarUrl}") :*/ ImageSource.FromFile(ImagePathLocal);
+
         #endregion Property
 
         #region PrivateMethod
+
         private void ClosePage()
         {
             SafeExecute(async () =>
-            {             
+            {
                 await NavigationService.GoBackToRootAsync(null);
             });
         }
+
         private void SelectExpense()
         {
-
+            if (SelectedExpense.HasLandmark == false)
+            {
+                IHasPlace = true;
+            }
+            IHasImage = SelectedExpense.HasPhoto;
+            ExpenseID = SelectedExpense.ID;
         }
+
         private void SelectPlace()
         {
-
+            LandmarkID = SelectedLocation.PK_LandmarkID;
         }
+
+        //chọn ảnh
         private async void ChoseImage()
         {
             string result = await _PageDialog.DisplayActionSheetAsync("", MobileResource.Common_Button_Cancel, null, MobileResource.Common_Message_TakeNewPhoto, MobileResource.Common_Message_ChooseAvailablePhotos);
@@ -162,25 +261,68 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PickAvatar();
             }
-
         }
+
+        private void GetViewPage(ExpenseDetailsRespone obj)
+        {
+            TryExecute(async () =>
+            {
+                TextExpense = obj.Name;
+                Note = obj.Note;
+                var data = ListExpenseCategory.Where(x => x.Name == obj.Name).ToList().FirstOrDefault();
+                PriceExpense = obj.ExpenseCost;
+                TextPlace = obj.LandmarkName;
+                if (data != null)
+                {
+                    if (data.HasLandmark == false)
+                    {
+                        IHasPlace = true;
+                    }
+                    IHasImage = data.HasPhoto;
+
+                    ExpenseID = data.ID;
+                }
+                else
+                {
+                    return;
+                }
+                var place = ListPlace.Where(x => x.Name == obj.LandmarkName).ToList().FirstOrDefault();
+                if (place != null)
+                {
+                    LandmarkID = place.PK_LandmarkID;
+                }
+                else
+                {
+                    return;
+                }
+            });
+        }
+
+        // danh sách phí, danh sách địa điểm trong combobox
         private void GetListExpenseCategory()
         {
             SafeExecute(async () =>
             {
-                //ListExpenseCategory = await _ExpenseService.GetExpenseCategory(UserInfo.CompanyId);     
-                ListExpenseCategory = await _ExpenseService.GetExpenseCategory(303);
-                ListPlace = await _StationLocation.GetListLocationStation(303);
+                //ListExpenseCategory = await _ExpenseService.GetExpenseCategory(UserInfo.CompanyId);
+                ListExpenseCategory = await _ExpenseService.GetExpenseCategory(UserInfo.CompanyId);
+                if (ListExpenseCategory.Count < 0)
+                {
+                    _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                }
+                else
+                {
+                    ListPlace = await _StationLocation.GetListLocationStation(UserInfo.CompanyId);
+                    if (ListExpenseCategory.Count < 0)
+                    {
+                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                    }
+                    else
+                        return;
+                }
             });
         }
-        //private void GetListPlace()
-        //{
-        //    SafeExecute(async () =>
-        //    {
-        //        //ListExpenseCategory = await _stationLocation.GetListLocationStation(UserInfo.CompanyId);     
-               
-        //    });
-        //}
+
+        // reset ảnh
         private async void ResetImage()
         {
             string result = await _PageDialog.DisplayActionSheetAsync("", MobileResource.Common_Button_Cancel, null, MobileResource.Common_Message_TakeNewPhoto, MobileResource.Common_Message_ChooseAvailablePhotos);
@@ -195,28 +337,30 @@ namespace BA_MobileGPS.Core.ViewModels
             else if (result.Equals(MobileResource.Common_Message_ChooseAvailablePhotos))
             {
                 ImagePathLocal = "bg_Account.png";
-            }         
+            }
         }
+
+        // lưu phí
         private void SaveExpense()
         {
-            ImportExpenseRequest RequestExpense = new ImportExpenseRequest()
-            {
-                Photo = ImagePathLocal,
-                OtherAddress = TextPlace,
-                ExpenseCost = PriceExpense,
-                FK_CompanyID = 303,
-                ExpenseDate = DateTime.Now,
-                Note = Note,
-                FK_ExpenseCategoryID = Selected.ID,
-                FK_LandmarkID = SelectedLocation.PK_LandmarkID,
-                FK_VehicleID = 1,              
-            };
             SafeExecute(async () =>
-            {              
-                if (TextExpense != "" && TextPlace != "" && Note!= "")
+            {
+                if (TextExpense != "" && Note != "")
                 {
-                    ResponeExpense = await _ExpenseService.GetExpense(RequestExpense);
-                    if (ResponeExpense.Data == true && ResponeExpense != null)
+                    ImportExpenseRequest RequestExpense = new ImportExpenseRequest()
+                    {
+                        Photo = ImagePathLocal,
+                        OtherAddress = Otheraddress,
+                        ExpenseCost = PriceExpense,
+                        FK_CompanyID = UserInfo.CompanyId,
+                        ExpenseDate = DateTime.Now,
+                        Note = Note,
+                        FK_ExpenseCategoryID = ExpenseID,
+                        FK_LandmarkID = LandmarkID,
+                        FK_VehicleID = VehicleID,
+                    };
+                    IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
+                    if (IInsertExpense && IInsertExpense != null)
                     {
                         await Application.Current.MainPage.DisplayAlert(MobileResource.Common_Message_PickPhotoUnsupported, MobileResource.Common_Message_PickPhotoPermissionNotGranted, MobileResource.Common_Button_OK);
                         await NavigationService.GoBackToRootAsync(null);
@@ -232,11 +376,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         private void SaveAndCountinute()
         {
             TextExpense = "";
-            TextPlace = "";
         }
+
         private void TakeNewAvatar()
         {
             TryExecute(async () =>
@@ -278,6 +423,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
+
         private void PickAvatar()
         {
             TryExecute(async () =>
@@ -308,6 +454,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
+
         private async void ProcessImage()
         {
             var @params = new NavigationParameters
@@ -317,7 +464,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
         }
-        #endregion PrivateMethod
 
+        #endregion PrivateMethod
     }
 }

@@ -10,6 +10,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -48,44 +49,11 @@
     <ContentPage.Content>
         <ScrollView>
             <Grid
-                RowDefinitions="Auto,Auto,*"
+                RowDefinitions="Auto,*"
                 RowSpacing="0"
                 VerticalOptions="FillAndExpand">
-                <!--  Tiêu đề  -->
-                <Grid
-                    Grid.Row="0"
-                    HorizontalOptions="FillAndExpand"
-                    StyleClass="TitleBarGrid"
-                    VerticalOptions="StartAndExpand">
-                    <Frame
-                        Padding="0"
-                        BackgroundColor="{DynamicResource PrimaryColor}"
-                        HasShadow="False"
-                        HeightRequest="40"
-                        HorizontalOptions="StartAndExpand"
-                        VerticalOptions="EndAndExpand"
-                        WidthRequest="30">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BackPageCommand}" />
-                        </Frame.GestureRecognizers>
-                        <controls:IconView
-                            Foreground="{DynamicResource WhiteColor}"
-                            HeightRequest="25"
-                            HorizontalOptions="StartAndExpand"
-                            Source="ic_close.png"
-                            VerticalOptions="CenterAndExpand"
-                            WidthRequest="25" />
-                    </Frame>
-                    <Label
-                        Margin="0,0,0,5"
-                        HorizontalOptions="CenterAndExpand"
-                        Style="{DynamicResource Text18}"
-                        Text="Nhập chi phí"
-                        TextColor="{DynamicResource WhiteColor}"
-                        VerticalOptions="EndAndExpand" />
-                </Grid>
                 <StackLayout
-                    Grid.Row="1"
+                    Grid.Row="0"
                     Padding="10"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="FillAndExpand"
@@ -128,7 +96,7 @@
                                 IsEditableMode="False"
                                 MaximumDropDownHeight="200"
                                 SelectedDropDownItemColor="Transparent"
-                                SelectedItem="{Binding Selected}"
+                                SelectedItem="{Binding SelectedExpense}"
                                 ShowBorder="False"
                                 Text="{Binding TextExpense}"
                                 TextColor="{DynamicResource ColorText}"
@@ -136,16 +104,16 @@
                                 VerticalOptions="FillAndExpand"
                                 Watermark="Chọn loại chi phí"
                                 WatermarkColor="{DynamicResource TextPlaceHolderColor}">
-                                <!--<combobox:SfComboBox.Behaviors>
+                                <combobox:SfComboBox.Behaviors>
                                     <behaviors:EventToCommandBehavior
                                         Command="{Binding TimeSelectingCommand}"
                                         EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
                                         EventName="SelectionChanging" />
                                     <behaviors:EventToCommandBehavior
-                                        Command="{Binding TimeSelectedCommand}"
+                                        Command="{Binding SelectExpenseCommand}"
                                         EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
                                         EventName="SelectionChanged" />
-                                </combobox:SfComboBox.Behaviors>-->
+                                </combobox:SfComboBox.Behaviors>
                                 <combobox:SfComboBox.DropDownButtonSettings>
                                     <!--  DropDownButtonSettings  -->
                                     <combobox:DropDownButtonSettings Width="15" Height="15">
@@ -233,44 +201,114 @@
                     <!--  Test  -->
 
                     <!--  Địa điểm  -->
-                    <Label
-                        HorizontalOptions="Start"
-                        Text="Địa điểm"
-                        TextColor="{DynamicResource ColorText}" />
-                    <Frame
-                        Grid.Column="1"
-                        Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <StackLayout
-                            Padding="5,0,10,0"
-                            HeightRequest="40"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="Center">
-                            <combobox:SfComboBox
-                                DataSource="{Binding ListPlace}"
-                                DisplayMemberPath="Address"
-                                DropDownTextSize="14"
+                    <Grid>
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <Label
+                                HorizontalOptions="Start"
+                                Text="Địa điểm"
+                                TextColor="{DynamicResource ColorText}" />
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="45"
                                 HorizontalOptions="FillAndExpand"
-                                IsEditableMode="False"
-                                MaximumDropDownHeight="200"
-                                SelectedDropDownItemColor="Transparent"
-                                SelectedItem="{Binding SelectedLocation}"
-                                ShowBorder="False"
-                                Text="{Binding TextPlace}"
-                                TextColor="{DynamicResource ColorText}"
-                                TextSize="14"
-                                VerticalOptions="FillAndExpand"
-                                Watermark="Chọn điểm"
-                                WatermarkColor="{DynamicResource TextPlaceHolderColor}">
-                                <!--<combobox:SfComboBox.Behaviors>
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,10,0"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <combobox:SfComboBox
+                                        DataSource="{Binding ListPlace}"
+                                        DisplayMemberPath="Address"
+                                        DropDownTextSize="14"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsEditableMode="False"
+                                        MaximumDropDownHeight="200"
+                                        SelectedDropDownItemColor="Transparent"
+                                        SelectedItem="{Binding SelectedLocation}"
+                                        ShowBorder="False"
+                                        Text="{Binding TextPlace}"
+                                        TextColor="{DynamicResource ColorText}"
+                                        TextSize="14"
+                                        VerticalOptions="FillAndExpand"
+                                        Watermark="Chọn điểm"
+                                        WatermarkColor="{DynamicResource TextPlaceHolderColor}">
+                                        <combobox:SfComboBox.Behaviors>
+                                            <behaviors:EventToCommandBehavior
+                                                Command="{Binding TimeSelectingCommand}"
+                                                EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
+                                                EventName="SelectionChanging" />
+                                            <behaviors:EventToCommandBehavior
+                                                Command="{Binding SelectPlaceCommand}"
+                                                EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
+                                                EventName="SelectionChanged" />
+                                        </combobox:SfComboBox.Behaviors>
+                                        <combobox:SfComboBox.DropDownButtonSettings>
+                                            <!--  DropDownButtonSettings  -->
+                                            <combobox:DropDownButtonSettings Width="15" Height="15">
+                                                <combobox:DropDownButtonSettings.View>
+                                                    <controls:IconView
+                                                        Foreground="{DynamicResource BlackColor}"
+                                                        HeightRequest="20"
+                                                        HorizontalOptions="End"
+                                                        Source="ic_sortdown.png"
+                                                        VerticalOptions="EndAndExpand"
+                                                        WidthRequest="20" />
+                                                </combobox:DropDownButtonSettings.View>
+                                            </combobox:DropDownButtonSettings>
+                                        </combobox:SfComboBox.DropDownButtonSettings>
+                                        <combobox:SfComboBox.ComboBoxSource>
+                                            <ListCollection:List x:TypeArguments="x:String" />
+                                        </combobox:SfComboBox.ComboBoxSource>
+                                    </combobox:SfComboBox>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                        <!--  dia diem khác  -->
+                        <StackLayout IsVisible="{Binding IHasPlace}">
+                            <Label
+                                HorizontalOptions="Start"
+                                Text="Địa điểm"
+                                TextColor="{DynamicResource ColorText}" />
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="45"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,10,0"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <combobox:SfComboBox
+                                        DataSource="{Binding }"
+                                        DisplayMemberPath="Address"
+                                        DropDownTextSize="14"
+                                        HorizontalOptions="FillAndExpand"
+                                        IsEditableMode="False"
+                                        MaximumDropDownHeight="200"
+                                        SelectedDropDownItemColor="Transparent"
+                                        SelectedItem="{Binding SelectedLocation}"
+                                        ShowBorder="False"
+                                        Text="{Binding TextOtherPlace}"
+                                        TextColor="{DynamicResource ColorText}"
+                                        TextSize="14"
+                                        VerticalOptions="FillAndExpand"
+                                        Watermark="Địa điểm khác"
+                                        WatermarkColor="{DynamicResource TextPlaceHolderColor}">
+                                        <!--<combobox:SfComboBox.Behaviors>
                                     <behaviors:EventToCommandBehavior
                                         Command="{Binding TimeSelectingCommand}"
                                         EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
@@ -280,79 +318,109 @@
                                         EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
                                         EventName="SelectionChanged" />
                                 </combobox:SfComboBox.Behaviors>-->
-                                <combobox:SfComboBox.DropDownButtonSettings>
-                                    <!--  DropDownButtonSettings  -->
-                                    <combobox:DropDownButtonSettings Width="15" Height="15">
-                                        <combobox:DropDownButtonSettings.View>
-                                            <controls:IconView
-                                                Foreground="{DynamicResource BlackColor}"
-                                                HeightRequest="20"
-                                                HorizontalOptions="End"
-                                                Source="ic_sortdown.png"
-                                                VerticalOptions="EndAndExpand"
-                                                WidthRequest="20" />
-                                        </combobox:DropDownButtonSettings.View>
-                                    </combobox:DropDownButtonSettings>
-                                </combobox:SfComboBox.DropDownButtonSettings>
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String" />
-                                </combobox:SfComboBox.ComboBoxSource>
-                            </combobox:SfComboBox>
-                        </StackLayout>
-                    </Frame>
-                
-                    <!--  Thêm hình ảnh  -->
-                    <StackLayout
-                        HorizontalOptions="Start"
-                        Orientation="Horizontal"
-                        Spacing="0">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ChoseImageCommand}" />
-                        </StackLayout.GestureRecognizers>
-                        <controls:IconView
-                            Margin="0,0,5,0"
-                            Foreground="#0474D8"
-                            HeightRequest="17.5"
-                            HorizontalOptions="End"
-                            Source="ic_plus.png"
-                            VerticalOptions="Center"
-                            WidthRequest="20" />
-                        <Label Text="Thêm hình ảnh" TextColor="#0474D8" />
-                    </StackLayout>
-                    <Grid>
-                        <Frame
-                            Padding="0"
-                            BackgroundColor="Transparent"
-                            HeightRequest="300">
-                            <Image
-                                Margin="0"
-                                Aspect="AspectFill"
+                                        <combobox:SfComboBox.DropDownButtonSettings>
+                                            <!--  DropDownButtonSettings  -->
+                                            <combobox:DropDownButtonSettings Width="15" Height="15">
+                                                <combobox:DropDownButtonSettings.View>
+                                                    <controls:IconView
+                                                        Foreground="{DynamicResource BlackColor}"
+                                                        HeightRequest="20"
+                                                        HorizontalOptions="End"
+                                                        Source="ic_sortdown.png"
+                                                        VerticalOptions="EndAndExpand"
+                                                        WidthRequest="20" />
+                                                </combobox:DropDownButtonSettings.View>
+                                            </combobox:DropDownButtonSettings>
+                                        </combobox:SfComboBox.DropDownButtonSettings>
+                                        <combobox:SfComboBox.ComboBoxSource>
+                                            <ListCollection:List x:TypeArguments="x:String" />
+                                        </combobox:SfComboBox.ComboBoxSource>
+                                    </combobox:SfComboBox>
+                                </StackLayout>
+                            </Frame>
+                            <!--  Nhập địa chỉ khác  -->
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="45"
                                 HorizontalOptions="FillAndExpand"
-                                Source="{Binding ImagePathLocal}"
-                                VerticalOptions="FillAndExpand" />
-                        </Frame>
-                        <Frame
-                            Margin="0,5,5,0"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="10"
-                            HeightRequest="20"
-                            HorizontalOptions="End"
-                            VerticalOptions="Start"
-                            WidthRequest="20">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ResetImageCommand}" />
-                            </Frame.GestureRecognizers>
-                            <controls:IconView
-                                Foreground="Black"
-                                HeightRequest="20"
-                                Source="ic_close.png"
-                                WidthRequest="20" />
-                        </Frame>
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <Entry
+                                    FontSize="14"
+                                    HeightRequest="45"
+                                    HorizontalOptions="FillAndExpand"
+                                    Placeholder="Nhập địa chỉ"
+                                    PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                    Text="{Binding Otheraddress}"
+                                    TextColor="{DynamicResource ColorText}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Frame>
+                        </StackLayout>
+                        <!--  IsVisible="{Binding IHasPlace}"  -->
                     </Grid>
+
+                    <!--  Thêm hình ảnh  -->
+                    <StackLayout IsVisible="{Binding IHasImage}">
+                        <StackLayout
+                            HorizontalOptions="Start"
+                            Orientation="Horizontal"
+                            Spacing="0">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChoseImageCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <controls:IconView
+                                Margin="0,0,5,0"
+                                Foreground="#0474D8"
+                                HeightRequest="17.5"
+                                HorizontalOptions="End"
+                                Source="ic_plus.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Label Text="Thêm hình ảnh" TextColor="#0474D8" />
+                        </StackLayout>
+                        <Grid>
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                HeightRequest="300">
+                                <Image
+                                    Margin="0"
+                                    Aspect="AspectFill"
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding ImagePathLocal}"
+                                    VerticalOptions="FillAndExpand" />
+                            </Frame>
+                            <Frame
+                                Margin="0,5,5,0"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                CornerRadius="10"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                VerticalOptions="Start"
+                                WidthRequest="20">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ResetImageCommand}" />
+                                </Frame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="Black"
+                                    HeightRequest="20"
+                                    Source="ic_close.png"
+                                    WidthRequest="20" />
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
                 </StackLayout>
 
-                <Grid Grid.Row="2" BackgroundColor="{DynamicResource WhiteColor}">
+                <Grid Grid.Row="1" BackgroundColor="{DynamicResource WhiteColor}">
                     <StackLayout
                         HeightRequest="60"
                         HorizontalOptions="FillAndExpand"
@@ -390,7 +458,7 @@
                                     Command="{Binding SaveExpenseCommand}"
                                     CornerRadius="20"
                                     HorizontalOptions="CenterAndExpand"
-                                    Text="Đóng"
+                                    Text="Lưu"
                                     VerticalOptions="StartAndExpand"
                                     WidthRequest="200" />
                             </Grid>
