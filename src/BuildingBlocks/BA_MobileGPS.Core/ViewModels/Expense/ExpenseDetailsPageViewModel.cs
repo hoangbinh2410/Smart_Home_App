@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get => _vehicle;
             set => SetProperty(ref _vehicle, value);
         }
-        private DateTime _chooseDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+        private DateTime _chooseDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         public virtual DateTime ChooseDate
         {
             get => _chooseDate;
@@ -103,6 +103,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 TotalMoney = objSupport.Total;
                 MenuItems = objSupport.Expenses;
+                ChooseDate = objSupport.ExpenseDate;
             }
             else
             {
@@ -159,22 +160,32 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         public void NavigateClicked(ItemTappedEventArgs item)
         {
+            if (Vehicle == null || Vehicle.PrivateCode == null)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                return;
+            }
+            var parameters = new NavigationParameters
+            {
+                { ParameterKey.Vehicle, Vehicle }
+            };
+
             if (item == null || item.ItemData == null)
             {
                 SafeExecute(async () =>
                 {
-                    await NavigationService.NavigateAsync("ImportExpensePage");
+                    await NavigationService.NavigateAsync("ImportExpensePage", parameters);
                 });
                 return;
-            };
-            var parameters = new NavigationParameters
+            }
+            else
             {
-                { "ImportExpense", item.ItemData},
-            };
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("ImportExpensePage", parameters);
-            });
+                parameters.Add("ImportExpense", item.ItemData);
+                SafeExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("ImportExpensePage", parameters);
+                });
+            }           
         }
         public void ShowPicturnClicked(ExpenseDetailsRespone item)
         {
