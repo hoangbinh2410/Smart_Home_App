@@ -43,7 +43,7 @@ namespace BA_MobileGPS
             //ImportExpensePage
             else
             {
-                _ = await NavigationService.NavigateAsync("ImportExpensePage");
+                _ = await NavigationService.NavigateAsync("/LoginPage");
             }
         }
 

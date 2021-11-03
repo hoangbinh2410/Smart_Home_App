@@ -66,7 +66,7 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Views\Authentication\LoginFailedPopup.xaml.cs">
+	  <Compile Update="Views\Camera\Authentication\LoginFailedPopup.xaml.cs">
 	    <DependentUpon>LoginFailedPopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
@@ -204,10 +204,10 @@
 	  <EmbeddedResource Update="Views\Alert\AlertOnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ChangePasswordPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ChangePasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\PlaybackUserMessagePopup.xaml">
@@ -249,7 +249,7 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ChangePasswordForgotPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ChangePasswordForgotPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\PinInfowindowTimeView.xaml">
@@ -276,7 +276,7 @@
 	  <EmbeddedResource Update="Views\Common\ImageEditorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\LoginPreviewFeaturesPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\LoginPreviewFeaturesPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\PopupHtmlPage.xaml">
@@ -297,7 +297,7 @@
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ForgotPasswordPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Expense\ExpenceManagementPage.xaml">
@@ -397,7 +397,7 @@
 	  <EmbeddedResource Update="Views\Common\PinInfowindowView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\LoginPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\LoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
@@ -522,7 +522,7 @@
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\VerifyCodeSMSPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\VerifyCodeSMSPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailCameraPage.xaml">
