@@ -64,9 +64,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle para)
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle para && parameters.ContainsKey("DayChoose") && parameters.GetValue<DateTime>("DayChoose") is DateTime date)
             {
                 VehicleID = para.VehicleId;
+                Expensedate = date;
                 if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj)
                 {
                     GetViewPage(obj);
@@ -269,6 +270,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 TextExpense = obj.Name;
                 Note = obj.Note;
+                TextOtherPlace = obj.OtherAddress;
                 var data = ListExpenseCategory.Where(x => x.Name == obj.Name).ToList().FirstOrDefault();
                 PriceExpense = obj.ExpenseCost;
                 TextPlace = obj.LandmarkName;
@@ -353,7 +355,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         OtherAddress = Otheraddress,
                         ExpenseCost = PriceExpense,
                         FK_CompanyID = UserInfo.CompanyId,
-                        ExpenseDate = DateTime.Now,
+                        ExpenseDate = Expensedate,
                         Note = Note,
                         FK_ExpenseCategoryID = ExpenseID,
                         FK_LandmarkID = LandmarkID,
