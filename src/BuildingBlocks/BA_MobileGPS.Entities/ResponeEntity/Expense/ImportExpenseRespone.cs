@@ -6,5 +6,6 @@ namespace BA_MobileGPS.Entities
 {
     public class ImportExpenseRespone
     {
+        public bool Data { get; set; }
     }
 }

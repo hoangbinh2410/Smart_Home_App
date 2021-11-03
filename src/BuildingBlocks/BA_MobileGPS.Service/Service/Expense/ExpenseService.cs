@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Service.Service.Expense
             ImportExpenseRespone result = new ImportExpenseRespone();
             try
             {
-                var respone = await _iRequestProvider.PostAsync<ImportExpenseRequest, BaseResponse<ImportExpenseRespone>>(ApiUri.POST_MessageSupport, request);
+                var respone = await _iRequestProvider.PostAsync<ImportExpenseRequest, BaseResponse<ImportExpenseRespone>>(ApiUri.POST_Import_Expense, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;

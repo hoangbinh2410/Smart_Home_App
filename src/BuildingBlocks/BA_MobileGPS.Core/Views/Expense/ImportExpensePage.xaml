@@ -86,7 +86,7 @@
                 </Grid>
                 <StackLayout
                     Grid.Row="1"
-                    Padding="10,10,0,10"
+                    Padding="10"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
@@ -121,15 +121,16 @@
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <combobox:SfComboBox
-                                DataSource="{Binding ListLocationStation}"
+                                DataSource="{Binding ListExpenseCategory}"
                                 DisplayMemberPath="Name"
                                 DropDownTextSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 IsEditableMode="False"
                                 MaximumDropDownHeight="200"
                                 SelectedDropDownItemColor="Transparent"
-                                SelectedItem="{Binding SelectedLocation}"
+                                SelectedItem="{Binding Selected}"
                                 ShowBorder="False"
+                                Text="{Binding TextExpense}"
                                 TextColor="{DynamicResource ColorText}"
                                 TextSize="14"
                                 VerticalOptions="FillAndExpand"
@@ -160,63 +161,11 @@
                                     </combobox:DropDownButtonSettings>
                                 </combobox:SfComboBox.DropDownButtonSettings>
                                 <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                                        <x:String>Great Britain</x:String>
-                                        <x:String>Uganda</x:String>
-                                        <x:String>Ukraine</x:String>
-                                        <x:String>Canada</x:String>
-                                        <x:String>France</x:String>
-                                        <x:String>Italy</x:String>
-                                        <x:String>United Kingdom</x:String>
-                                        <x:String>China</x:String>
-                                        <x:String>Japan</x:String>
-                                    </ListCollection:List>
+                                    <ListCollection:List x:TypeArguments="x:String" />
                                 </combobox:SfComboBox.ComboBoxSource>
                             </combobox:SfComboBox>
                         </StackLayout>
                     </Frame>
-
-                    <!--<Frame
-                        Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <StackLayout
-                            Padding="5,0,5,0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="Center">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectExpenseCommand}" />
-                            </StackLayout.GestureRecognizers>
-                            <Entry
-                                FontSize="14"
-                                HeightRequest="45"
-                                HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text="{Binding Expense}"
-                                TextColor="{DynamicResource ColorText}"
-                                VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                            <controls:IconView
-                                Margin="0,0,5,0"
-                                Foreground="Black"
-                                HeightRequest="17.5"
-                                HorizontalOptions="End"
-                                Source="ic_sortdown.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </StackLayout>
-                    </Frame>-->
 
                     <!--  Số tiền  -->
                     <Label HorizontalOptions="Start" TextColor="{DynamicResource ColorText}">
@@ -306,8 +255,8 @@
                             Orientation="Horizontal"
                             VerticalOptions="Center">
                             <combobox:SfComboBox
-                                DataSource="{Binding ListLocationStation}"
-                                DisplayMemberPath="Name"
+                                DataSource="{Binding ListPlace}"
+                                DisplayMemberPath="Address"
                                 DropDownTextSize="14"
                                 HorizontalOptions="FillAndExpand"
                                 IsEditableMode="False"
@@ -315,6 +264,7 @@
                                 SelectedDropDownItemColor="Transparent"
                                 SelectedItem="{Binding SelectedLocation}"
                                 ShowBorder="False"
+                                Text="{Binding TextPlace}"
                                 TextColor="{DynamicResource ColorText}"
                                 TextSize="14"
                                 VerticalOptions="FillAndExpand"
@@ -345,62 +295,12 @@
                                     </combobox:DropDownButtonSettings>
                                 </combobox:SfComboBox.DropDownButtonSettings>
                                 <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String">
-                                        <x:String>Great Britain</x:String>
-                                        <x:String>Uganda</x:String>
-                                        <x:String>Ukraine</x:String>
-                                        <x:String>Canada</x:String>
-                                        <x:String>France</x:String>
-                                        <x:String>Italy</x:String>
-                                        <x:String>United Kingdom</x:String>
-                                        <x:String>China</x:String>
-                                        <x:String>Japan</x:String>
-                                    </ListCollection:List>
+                                    <ListCollection:List x:TypeArguments="x:String" />
                                 </combobox:SfComboBox.ComboBoxSource>
                             </combobox:SfComboBox>
                         </StackLayout>
                     </Frame>
-                    <!--<Frame
-                        Padding="0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="45"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <StackLayout
-                            Padding="5,0,5,0"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal"
-                            VerticalOptions="Center">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SelectPlaceCommand}" />
-                            </StackLayout.GestureRecognizers>
-                            <Entry
-                                FontSize="14"
-                                HeightRequest="45"
-                                HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                Text="{Binding Place}"
-                                TextColor="{DynamicResource ColorText}"
-                                VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                            <controls:IconView
-                                Margin="0,0,5,0"
-                                Foreground="Black"
-                                HeightRequest="17.5"
-                                HorizontalOptions="End"
-                                Source="ic_sortdown.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </StackLayout>
-                    </Frame>-->
+                
                     <!--  Thêm hình ảnh  -->
                     <StackLayout
                         HorizontalOptions="Start"
