@@ -279,11 +279,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         private void GetListExpenseAgain()
         {
             var companyID = CurrentComanyID;
-            var vehicleID = (int)Vehicle.VehicleId;
+            var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()
             {
-                CompanyID = 303,
-                VehicleID = 43227,
+                CompanyID = companyID,
+                VehicleID = vehicleID,
                 ToDate = ChooseDate,
                 FromDate = ChooseDate
             };

@@ -201,11 +201,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         private void GetListExpense()
         {
             var companyID = CurrentComanyID;
-            var vehicleID = (int)Vehicle.VehicleId;
+            var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()
             {
-                CompanyID = 303,
-                VehicleID = 43227,
+                CompanyID = companyID,
+                VehicleID = vehicleID,
                 ToDate = ToDate,
                 FromDate = FromDate
             };
@@ -216,6 +216,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         MenuItems = await _ExpenseService.GetListExpense(request);
+                        if(MenuItems == null || MenuItems.Count ==0)
+                        {
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 5000);
+                        }    
                         SumMoney();
                     }
                 }
