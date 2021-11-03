@@ -79,17 +79,12 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref numberOfMinute, value);
         }
 
-        private LocationStationResponse _selectedLocation = new LocationStationResponse();
+        private ComboboxResponse _selectedLocation;
+        public ComboboxResponse SelectedLocation { get => _selectedLocation; set => SetProperty(ref _selectedLocation, value); }
 
-        public LocationStationResponse SelectedLocation
-        {
-            get { return _selectedLocation; }
-            set { SetProperty(ref _selectedLocation, value); }
-        }
+        private List<ComboboxRequest> _listLocationStation = new List<ComboboxRequest>();
 
-        private List<LocationStationResponse> _listLocationStation = new List<LocationStationResponse>();
-
-        public List<LocationStationResponse> ListLocationStation
+        public List<ComboboxRequest> ListLocationStation
         {
             get { return _listLocationStation; }
             set { SetProperty(ref _listLocationStation, value); }
@@ -103,6 +98,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IStationLocationService _iStationDetailsService;
         public ICommand PushToViewRouteCommand { get; private set; }
         public ICommand PushToViewVidioCommand { get; private set; }
+        public ICommand PushLandmarkCommand { get; private set; }
 
         public StationDetailsPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService
             , IStationLocationService iStationDetailsService)
@@ -112,6 +108,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this._iStationDetailsService = iStationDetailsService;
             PushToViewRouteCommand = new DelegateCommand<int?>(PushToViewRoute);
             PushToViewVidioCommand = new DelegateCommand<int?>(PushToViewVidio);
+            PushLandmarkCommand = new DelegateCommand(ExecuteLandmarkCombobox);
             ListShowHideComlumn = new ObservableCollection<ShowHideColumnResponse>()
             {
                 new ShowHideColumnResponse() { IDColumn = 1, Value = true},
@@ -159,21 +156,64 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void GetListLocationStation()
         {
-            SafeExecute(async () =>
+            RunOnBackground(async () =>
             {
-                if (IsConnected)
+                return await _iStationDetailsService.GetListLocationStation(CurrentComanyID);
+            },
+             (result) =>
+             {
+                 if (result != null)
+                 {
+                     foreach (var item in result.ToList())
+                     {
+                         ListLocationStation.Add(new ComboboxRequest()
+                         {
+                             Key = item.PK_LandmarkID,
+                             Value = item.Name
+                         });
+                     }
+                 }
+             });
+        }
+
+        public override void UpdateCombobox(ComboboxResponse param)
+        {
+            base.UpdateCombobox(param);
+            if (param != null)
+            {
+                var dataResponse = param;
+                if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
                 {
-                    var companyID = CurrentComanyID;
-                    using (new HUDService(MobileResource.Common_Message_Processing))
-                    {
-                        ListLocationStation = await _iStationDetailsService.GetListLocationStation(companyID);
-                    }
+                    SelectedLocation = dataResponse;
                 }
-                else
+            }
+        }
+
+        public async void ExecuteLandmarkCombobox()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
+            try
+            {
+                var p = new NavigationParameters
                 {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
+                    { "dataCombobox", ListLocationStation },
+                    { "ComboboxType", ComboboxType.First },
+                    { "Title", "Chọn điểm" }
+                };
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         /// <summary>Set dữ liệu đầu vào</summary>
@@ -191,7 +231,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ToDate = base.ToDate,
                 CompanyID = CurrentComanyID,
                 VehicleIDs = VehicleSelect.VehicleId.ToString(),
-                LandmarkId = SelectedLocation.PK_LandmarkID,
+                LandmarkId = SelectedLocation.Key,
                 NumberOfMinute = numberOfMinute,
                 PageSize = base.PageSize,
                 PageIndex = base.PagedNext
@@ -343,7 +383,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
             //không chọn địa điểm
-            if (SelectedLocation == null || SelectedLocation.Name == null || SelectedLocation.PK_LandmarkID == 0)
+            if (SelectedLocation == null || SelectedLocation.Key == 0)
             {
                 message = MobileResource.Common_Message_PleaseSelectLocation;
                 return false;
