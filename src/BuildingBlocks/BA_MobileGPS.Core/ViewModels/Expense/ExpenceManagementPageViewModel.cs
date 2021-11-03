@@ -10,8 +10,6 @@ using Prism.Navigation;
 using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels.Expense
@@ -21,38 +19,48 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #region Property
 
         private Vehicle _vehicle = new Vehicle();
+
         public Vehicle Vehicle
         {
             get => _vehicle;
             set => SetProperty(ref _vehicle, value);
         }
+
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+
         public virtual DateTime FromDate
         {
             get => fromDate;
             set => SetProperty(ref fromDate, value);
         }
+
         private DateTime minfromDate = DateTime.Today.AddYears(-1);
+
         public virtual DateTime MinfromDate
         {
             get => minfromDate;
             set => SetProperty(ref minfromDate, value);
         }
+
         private DateTime toDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
         public virtual DateTime ToDate { get => toDate; set => SetProperty(ref toDate, value); }
 
         private List<ExpenseRespone> _menuItems = new List<ExpenseRespone>();
+
         public List<ExpenseRespone> MenuItems
         {
             get { return _menuItems; }
             set { SetProperty(ref _menuItems, value); }
         }
+
         private decimal _totalMoney = 0;
+
         public decimal TotalMoney
         {
             get { return _totalMoney; }
             set { SetProperty(ref _totalMoney, value); }
         }
+
         #endregion Property
 
         #region Contructor
@@ -64,7 +72,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand DeleteItemCommand { get; private set; }
         public ICommand NavigateCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
-        public ExpenceManagementPageViewModel(INavigationService navigationService,IExpenseService expenseService)
+
+        public ExpenceManagementPageViewModel(INavigationService navigationService, IExpenseService expenseService)
             : base(navigationService)
         {
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
@@ -130,6 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
         }
+
         private void ExecuteToEndDateTime()
         {
             SafeExecute(async () =>
@@ -142,6 +152,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
         }
+
         private void UpdateDate(PickerDateResponse param)
         {
             if (param != null)
@@ -159,6 +170,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 }
             }
         }
+
         private void UpdateDateTime(PickerDateTimeResponse param)
         {
             if (param != null)
@@ -176,6 +188,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 }
             }
         }
+
         private void GetListExpense()
         {
             var companyID = CurrentComanyID;
@@ -203,17 +216,19 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 }
             });
         }
+
         private void SumMoney()
         {
             TotalMoney = 0;
-            if (MenuItems != null && MenuItems.Count>0)
+            if (MenuItems != null && MenuItems.Count > 0)
             {
                 foreach (var obj in MenuItems)
                 {
                     TotalMoney = TotalMoney + obj.Total;
                 }
-            }     
+            }
         }
+
         private void SearchDataClicked()
         {
             if (ValidateDateTime())
@@ -221,6 +236,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 GetListExpense();
             }
         }
+
         private bool ValidateDateTime()
         {
             var result = true;
@@ -236,39 +252,50 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             return result;
         }
+
         private void AddDataClicked()
         {
-
         }
 
         private async void DeleteItemClicked(ExpenseRespone obj)
         {
-            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?","Có", "Không");
-            if(!action)
+            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?", "Có", "Không");
+            if (!action)
             {
                 return;
-            }    
+            }
         }
 
         public void NavigateClicked(ItemTappedEventArgs item)
         {
+            if(Vehicle == null || Vehicle.PrivateCode == null)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                return;
+            }    
+            var parameters = new NavigationParameters
+            {
+                { ParameterKey.Vehicle, Vehicle }
+            };
+
             if (item == null || item.ItemData == null)
             {
                 SafeExecute(async () =>
                 {
-                    await NavigationService.NavigateAsync("ExpenseDetailsPage");
+                    await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
                 });
-                return;
-            };
-            var parameters = new NavigationParameters
+            }
+            else
             {
-                { "ExpenseDetails", item.ItemData},
-            };
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
-            });
+                parameters.Add("ExpenseDetails", item.ItemData);
+                SafeExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
+                });
+            }    
+            
         }
+
         #endregion PrivateMethod
     }
 }
