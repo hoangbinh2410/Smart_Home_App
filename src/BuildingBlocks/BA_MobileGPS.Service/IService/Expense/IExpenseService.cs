@@ -13,5 +13,6 @@ namespace BA_MobileGPS.Service
         Task<ImportExpenseRespone> GetExpense(ImportExpenseRequest request);
         Task<List<ListExpenseCategoryByCompanyRespone>> GetExpenseCategory(int FK_CompanyID);
         Task<List<ExpenseRespone>> GetListExpense(ExpenseRequest request);
+        Task<bool> Deletemultiple(DeleteExpenseRequest request);
     }
 }

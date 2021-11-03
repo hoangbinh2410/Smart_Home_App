@@ -61,6 +61,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             set { SetProperty(ref _totalMoney, value); }
         }
 
+        private bool _isCall = true;
+
         #endregion Property
 
         #region Contructor
@@ -94,7 +96,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetListExpense();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -104,9 +105,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
                 {
+                    _isCall = false;
                     Vehicle = vehicle;
                 }
             }
+            if (_isCall)
+            {
+                GetListExpense();
+            }
+            _isCall = true;
         }
 
         public override void OnPageAppearingFirstTime()
@@ -129,6 +136,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private void ExecuteToFromDateTime()
         {
+            _isCall = false;
             SafeExecute(async () =>
             {
                 var parameters = new NavigationParameters
@@ -142,6 +150,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private void ExecuteToEndDateTime()
         {
+            _isCall = false;
             SafeExecute(async () =>
             {
                 var parameters = new NavigationParameters
@@ -259,11 +268,48 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private async void DeleteItemClicked(ExpenseRespone obj)
         {
+            if (obj == null || obj.Expenses == null)
+            {
+                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                return;
+            }    
             var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?", "Có", "Không");
             if (!action)
             {
                 return;
             }
+            List<Guid> listguid = new List<Guid>();
+            foreach(var guid in obj.Expenses)
+            {
+                listguid.Add(guid.ID);
+            }
+            DeleteExpenseRequest request = new DeleteExpenseRequest()
+            {
+                ListID = new List<Guid>(listguid)
+            };
+            TryExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        bool isdeleted = await _ExpenseService.Deletemultiple(request);
+                        if(isdeleted)
+                        {
+                            GetListExpense();
+                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 5000);
+                        }    
+                        else
+                        {
+                            DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                        }    
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
         }
 
         public void NavigateClicked(ItemTappedEventArgs item)

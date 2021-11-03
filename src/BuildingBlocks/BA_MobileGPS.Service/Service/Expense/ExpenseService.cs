@@ -72,5 +72,22 @@ namespace BA_MobileGPS.Service.Service.Expense
             }
             return result;
         }
+        public async Task<bool> Deletemultiple(DeleteExpenseRequest request)
+        {
+            bool result = false;
+            try
+            {
+                var respone = await _iRequestProvider.PostAsync<DeleteExpenseRequest, ResponseBaseV2<bool>>(ApiUri.Delete_Multiple, request);
+                if (respone != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
+        }
     }
 }
