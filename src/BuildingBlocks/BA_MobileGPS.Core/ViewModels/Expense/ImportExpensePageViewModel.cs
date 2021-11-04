@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDisplayMessage _displayMessage;
 
         public ImportExpensePageViewModel(INavigationService navigationService, IPageDialogService PageDialog, IExpenseService ExpenseService, IDisplayMessage displayMessage, IStationLocationService StationLocation) : base(navigationService)
-        {           
+        {
             SelectExpenseCommand = new DelegateCommand(SelectExpense);
             SelectPlaceCommand = new DelegateCommand(SelectPlace);
             ChoseImageCommand = new DelegateCommand(ChoseImage);
@@ -60,8 +60,8 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             GetListExpenseCategory();
-
         }
+
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -73,7 +73,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Item = obj;
                     GetViewPage(Item);
-                    
                 }
                 else
                 {
@@ -135,9 +134,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             [Description("Địa điểm khác")]
             Place = 1,
+
             [Description("bg_Account.png")]
             Image = 2
-        }       
+        }
+
         private LoginResponse userInfo;
         public LoginResponse UserInfo { get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
         private decimal priceExpense = 0;
@@ -226,23 +227,35 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // Chọn phí
         private void SelectExpense()
-        {           
-            ExpenseID = SelectedExpense.ID;
+        {
+            SafeExecute(async () =>
+            {
+                if (!SelectedExpense.HasLandmark)
+                {
+                    Otheraddress = "";
+                    LandmarkID = null;
+                }
+                ExpenseID = SelectedExpense.ID;
+            });
         }
 
         // Chọn địa điểm
         private void SelectPlace()
         {
-            LandmarkID = SelectedLocation.PK_LandmarkID;
-            if (SelectedLocation.Address == DataItem.Place.ToDescription())
+            SafeExecute(async () =>
             {
-                IHasOtherPlace = true;
-            }
-            else
-            {
-                IHasOtherPlace = false;
-                Otheraddress = "";
-            }
+                LandmarkID = SelectedLocation.PK_LandmarkID;
+                if (SelectedLocation.Address == DataItem.Place.ToDescription())
+                {
+                    IHasOtherPlace = true;
+                    Otheraddress = Item.OtherAddress;
+                }
+                else
+                {
+                    IHasOtherPlace = false;
+                    Otheraddress = "";
+                }
+            });
         }
 
         //chọn ảnh
@@ -270,18 +283,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 TextExpense = obj.Name;
                 Note = obj.Note;
                 ID = obj.ID;
-                Otheraddress = obj.OtherAddress;
-                var data = ListExpenseCategory.Where(x => x.Name == obj.Name).ToList().FirstOrDefault();
                 PriceExpense = obj.ExpenseCost;
                 TextPlace = obj.LandmarkName;
-                if (data != null)
-                {              
-                    ExpenseID = data.ID;
+                if (obj.OtherAddress != "")
+                {
+                    Otheraddress = obj.OtherAddress;
+                    TextPlace = DataItem.Place.ToDescription();
+                    IHasOtherPlace = true;
+                }
+                ExpenseCategory = ListExpenseCategory.Where(x => x.Name == obj.Name).ToList().FirstOrDefault();
+                if (ExpenseCategory != null)
+                {
+                    ExpenseID = ExpenseCategory.ID;
                 }
                 else
                 {
                     return;
                 }
+
                 var place = ListPlace.Where(x => x.Name == obj.LandmarkName).ToList().FirstOrDefault();
                 if (place != null)
                 {
@@ -293,18 +312,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         // danh sách phí, danh sách địa điểm trong combobox
         private void GetListExpenseCategory()
         {
             TryExecute(async () =>
-            {                
+            {
                 ListExpenseCategory = await _ExpenseService.GetExpenseCategory(UserInfo.CompanyId);
                 if (ListExpenseCategory.Count < 0)
                 {
                     _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
                 }
                 else
-                {                    
+                {
                     var _listPlace = await _StationLocation.GetListLocationStation(UserInfo.CompanyId);
                     _listPlace.Add(new LocationStationResponse { Address = DataItem.Place.ToDescription() });
                     ListPlace = _listPlace;
@@ -337,28 +357,37 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (TextExpense != "")
                 {
-                    ImportExpenseRequest RequestExpense = new ImportExpenseRequest()
+                    if (TextPlace == "" && !ExpenseCategory.HasLandmark)
                     {
-                        Id = ID,
-                        Photo = ImagePathLocal,
-                        OtherAddress = Otheraddress,
-                        ExpenseCost = PriceExpense,
-                        FK_CompanyID = UserInfo.CompanyId,
-                        ExpenseDate = Expensedate,
-                        Note = Note,
-                        FK_ExpenseCategoryID = ExpenseID,
-                        FK_LandmarkID = LandmarkID,
-                        FK_VehicleID = VehicleID,
-                    };
-                    IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
-                    if (IInsertExpense)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
-                        await NavigationService.GoBackAsync();
+                        ImportExpenseRequest RequestExpense = new ImportExpenseRequest()
+                        {
+                            Id = ID,
+                            Photo = ImagePathLocal,
+                            OtherAddress = Otheraddress,
+                            ExpenseCost = PriceExpense,
+                            FK_CompanyID = UserInfo.CompanyId,
+                            ExpenseDate = Expensedate,
+                            Note = Note,
+                            FK_ExpenseCategoryID = ExpenseID,
+                            FK_LandmarkID = LandmarkID,
+                            FK_VehicleID = VehicleID,
+                        };
+                        IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
+                        if (IInsertExpense)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
+                            await NavigationService.GoBackAsync();
+                        }
+                        else
+                        {
+                            _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                        }
                     }
                     else
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                        await Application.Current.MainPage.DisplayAlert("Cảnh báo", "Phí không cần địa điểm", MobileResource.Common_Button_OK);
+                        TextPlace = "Chọn điểm";
+                        IHasOtherPlace = false;
                     }
                 }
                 else
@@ -367,6 +396,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         // Tiếp tục lưu phí
         private void SaveAndCountinute()
         {
@@ -395,6 +425,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Note = "";
                         PriceExpense = 0;
                         Otheraddress = "";
+                        IHasOtherPlace = false;
                         TextPlace = "Chọn điểm";
                         ImagePathLocal = DataItem.Image.ToDescription();
                     }
@@ -408,7 +439,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     _displayMessage.ShowMessageWarning("Nhập đầy đủ thông tin");
                 }
             });
-           
         }
 
         private void TakeNewAvatar()
