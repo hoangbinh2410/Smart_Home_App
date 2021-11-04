@@ -146,7 +146,7 @@
                         </Label.FormattedText>
                     </Label>
                     <Frame
-                        Padding="5,0,0,0"
+                        Padding="0"
                         BackgroundColor="{DynamicResource WhiteColor}"
                         BorderColor="{DynamicResource GrayColor2}"
                         CornerRadius="5"
