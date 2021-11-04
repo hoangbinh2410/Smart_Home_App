@@ -160,8 +160,14 @@
 	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Route\RouteReportPage.xaml.cs">
+	    <DependentUpon>RouteReportPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Route\RoutePage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Route\RouteReportView.xaml.cs">
+	    <DependentUpon>RouteReportView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Vehicle\VehicleDetailPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>

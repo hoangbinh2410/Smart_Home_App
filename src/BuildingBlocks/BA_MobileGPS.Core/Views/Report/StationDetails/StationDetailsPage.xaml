@@ -285,7 +285,7 @@
                         </Frame>
                         <!--  Chọn điểm  -->
                         <Frame
-                            x:Name="cmbLocation"
+                            x:Name="cmbLandmark"
                             Grid.Column="1"
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"
@@ -296,57 +296,35 @@
                             HorizontalOptions="FillAndExpand"
                             IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <StackLayout
+                            <Grid
                                 Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
                                 HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
                                 VerticalOptions="Center">
-                                <combobox:SfComboBox
-                                    Margin="0,0,0,-2.5"
-                                    DataSource="{Binding ListLocationStation}"
-                                    DisplayMemberPath="Name"
-                                    DropDownTextSize="11"
-                                    HeightRequest="40"
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushLandmarkCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
                                     HorizontalOptions="FillAndExpand"
-                                    IsEditableMode="False"
-                                    MaximumDropDownHeight="200"
-                                    SelectedDropDownItemColor="Transparent"
-                                    SelectedItem="{Binding SelectedLocation}"
-                                    ShowBorder="False"
-                                    TextSize="11"
-                                    VerticalOptions="FillAndExpand"
-                                    Watermark="Địa điểm"
-                                    WatermarkColor="{DynamicResource TextPlaceHolderColor}">
-                                    <combobox:SfComboBox.Behaviors>
-                                        <behaviors:EventToCommandBehavior
-                                            Command="{Binding TimeSelectingCommand}"
-                                            EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
-                                            EventName="SelectionChanging" />
-                                        <behaviors:EventToCommandBehavior
-                                            Command="{Binding TimeSelectedCommand}"
-                                            EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
-                                            EventName="SelectionChanged" />
-                                    </combobox:SfComboBox.Behaviors>
-                                    <combobox:SfComboBox.DropDownButtonSettings>
-                                        <!--  DropDownButtonSettings  -->
-                                        <combobox:DropDownButtonSettings Width="15" Height="15">
-                                            <combobox:DropDownButtonSettings.View>
-                                                <controls:IconView
-                                                    Foreground="{DynamicResource BlackColor}"
-                                                    HeightRequest="15"
-                                                    HorizontalOptions="End"
-                                                    Source="ic_sortdown.png"
-                                                    VerticalOptions="EndAndExpand"
-                                                    WidthRequest="15" />
-                                            </combobox:DropDownButtonSettings.View>
-                                        </combobox:DropDownButtonSettings>
-                                    </combobox:SfComboBox.DropDownButtonSettings>
-                                    <combobox:SfComboBox.ComboBoxSource>
-                                        <ListCollection:List x:TypeArguments="x:String" />
-                                    </combobox:SfComboBox.ComboBoxSource>
-                                </combobox:SfComboBox>
-
-                            </StackLayout>
+                                    InputTransparent="True"
+                                    Placeholder="Chọn điểm"
+                                    Text="{Binding SelectedLocation.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
                         </Frame>
                         <!--  Chọn số phút  -->
                         <Frame

@@ -232,7 +232,7 @@ namespace BA_MobileGPS.Core
 
         public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 5);
 
-        public static bool UseCameraRTMP => Get(MobileConfigurationNames.UseUserBehavior, false);
+        public static bool UseCameraRTMP => Get(MobileConfigurationNames.UseCameraRTMP, false);
 
         public static string LinkFacebook => Get(MobileConfigurationNames.LinkFacebook, "https://www.facebook.com/bagps.vn");
 

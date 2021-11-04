@@ -170,6 +170,7 @@ namespace BA_MobileGPS.Core.Models
         public bool AutoRequestPing { get; set; }
 
         public int channel;
+
         public int Channel
         {
             get { return channel; }
@@ -179,6 +180,7 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         public string Link { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -217,8 +219,7 @@ namespace BA_MobileGPS.Core.Models
                     TotalTime -= 1;
                     if (internalError)
                     {
-                        var err = MobileResource.Camera_Label_Connection_Error;
-                        SetError(err);
+                        ReloadCameraError();
                     }
                 }
             }
@@ -329,6 +330,50 @@ namespace BA_MobileGPS.Core.Models
             });
         }
 
+
+        /// <summary>
+        /// start via trace current device,which has camera
+        /// this func work after a request start sent successfully
+        /// </summary>
+        /// <param name="url">cam url</param>
+        /// <param name="vehicle">vehicle Plate</param>
+        public void ReloadCameraError()
+        {
+            Task.Run(async () =>
+            {
+                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
+                var result = await streamCameraService.DevicesStart(startRequest);
+                if (result != null && result.Data != null)
+                {
+                    var data = result.Data.FirstOrDefault();
+                    if (data.PlaybackRequests != null
+                    && data.PlaybackRequests.Count > 0
+                    && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                    {
+                        var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
+                        if (user != null)
+                        {
+                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                        }
+                        result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
+                        SetError(result.UserMessage);
+                    }
+                    else
+                    {
+                        Link = data.Link;
+                        SetUrlMedia();
+                        internalError = false;
+                    }
+                }
+                else
+                {
+                    Link = string.Empty;
+                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                }
+            });
+        }
+
         private void StartTrackDeviceStatus(string vehicle)
         {
             int oldTimeout = 0;
@@ -385,14 +430,7 @@ namespace BA_MobileGPS.Core.Models
                     {
                         IsError = false;
                         var url = string.Empty;
-                        if (MobileSettingHelper.UseCameraRTMP)
-                        {
-                            url = Link.Replace("rtsp", "rtmp");
-                        }
-                        else
-                        {
-                            url = Link;
-                        }
+                        url = Link;
                         MediaPlayer.Media = new Media(libVLC, new Uri(url));
                         MediaPlayer.Play();
                     });

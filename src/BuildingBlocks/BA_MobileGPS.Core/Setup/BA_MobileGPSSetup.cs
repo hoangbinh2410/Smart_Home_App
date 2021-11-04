@@ -175,6 +175,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
             containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
             containerRegistry.RegisterForNavigation<RoutePage, RoutePageViewModel>("RoutePage");
+            containerRegistry.RegisterForNavigation<RouteReportPage, RoutePageViewModel>("RouteReportPage");
             containerRegistry.RegisterForNavigation<Account, AccountViewModel>("Account");
             containerRegistry.Register<ContentPage, ListVehiclePage>("ListVehiclePage");
             containerRegistry.Register<ContentPage, OnlinePage>("OnlinePage");
@@ -235,7 +236,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<SelectSupportPage, SelectSupportPageViewModel>("SelectSupportPage");
             containerRegistry.RegisterForNavigation<StationDetailsPage, StationDetailsPageViewModel>("StationDetailsPage");
             containerRegistry.RegisterForNavigation<ExpenceManagementPage, ExpenceManagementPageViewModel>("ExpenceManagementPage");
-            containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>();
+            containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>("ExpenseDetailsPage");
             containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
         }
     }
