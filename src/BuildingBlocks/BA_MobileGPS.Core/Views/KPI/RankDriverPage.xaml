@@ -165,6 +165,7 @@
                                 FontSize="18"
                                 HorizontalOptions="CenterAndExpand"
                                 LineBreakMode="TailTruncation"
+                                StyleClass="BoldText"
                                 Text="{Binding SelectedRankPoint.Date, Converter={StaticResource DateConverter}}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center" />
@@ -173,6 +174,35 @@
                         <Grid Grid.Row="1" ColumnDefinitions=".5*,.5*">
                             <pancake:PancakeView
                                 Grid.Column="0"
+                                Padding="10"
+                                BackgroundColor="#FFD8D8"
+                                CornerRadius="5"
+                                HorizontalOptions="FillAndExpand">
+                                <StackLayout Spacing="0">
+                                    <Label
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="40"
+                                        HorizontalOptions="CenterAndExpand"
+                                        IsVisible="{Binding SelectedRankPoint.Score, Converter={StaticResource NullOrEmptyToBoolConverter}}"
+                                        LineBreakMode="TailTruncation"
+                                        StyleClass="BoldText"
+                                        Text="{Binding SelectedRankPoint.Score}"
+                                        TextColor="{DynamicResource PrimaryColor}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        HorizontalOptions="CenterAndExpand"
+                                        LineBreakMode="TailTruncation"
+                                        Text="Điểm"
+                                        TextColor="{DynamicResource PrimaryColor}"
+                                        VerticalOptions="EndAndExpand" />
+                                </StackLayout>
+                            </pancake:PancakeView>
+                            <pancake:PancakeView
+                                Grid.Column="1"
                                 Padding="10"
                                 BackgroundColor="#FFD8D8"
                                 CornerRadius="5"
@@ -194,35 +224,6 @@
                                         FontSize="16"
                                         HorizontalOptions="CenterAndExpand"
                                         LineBreakMode="TailTruncation"
-                                        Text="Điểm"
-                                        TextColor="{DynamicResource PrimaryColor}"
-                                        VerticalOptions="Center" />
-                                </StackLayout>
-                            </pancake:PancakeView>
-                            <pancake:PancakeView
-                                Grid.Column="1"
-                                Padding="10"
-                                BackgroundColor="#FFD8D8"
-                                CornerRadius="5"
-                                HorizontalOptions="FillAndExpand">
-                                <StackLayout Spacing="0">
-                                    <Label
-                                        Grid.Column="1"
-                                        FontAttributes="Bold"
-                                        FontSize="40"
-                                        HorizontalOptions="CenterAndExpand"
-                                        IsVisible="{Binding SelectedRankPoint.Score, Converter={StaticResource ZeroBooleanConverter}}"
-                                        LineBreakMode="TailTruncation"
-                                        StyleClass="BoldText"
-                                        Text="{Binding SelectedRankPoint.Score}"
-                                        TextColor="{DynamicResource PrimaryColor}"
-                                        VerticalOptions="Center" />
-                                    <Label
-                                        Grid.Column="1"
-                                        FontAttributes="Bold"
-                                        FontSize="16"
-                                        HorizontalOptions="CenterAndExpand"
-                                        LineBreakMode="TailTruncation"
                                         Text="Xếp hạng"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="EndAndExpand" />
@@ -230,8 +231,8 @@
                             </pancake:PancakeView>
                         </Grid>
 
-                        <Grid Grid.Row="2" RowDefinitions="Auto,Auto,*,Auto">
-                            <pancake:PancakeView
+                        <Grid Grid.Row="2" RowDefinitions="Auto,*,Auto">
+                            <!--<pancake:PancakeView
                                 Grid.Row="0"
                                 Padding="10"
                                 BackgroundColor="#D6F3FF"
@@ -244,10 +245,10 @@
                                     Text="Nhận xét: Bạn đã điều khiển xe rất tốt. Bạn hãy tiếp tục phát huy"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
-                            </pancake:PancakeView>
+                            </pancake:PancakeView>-->
 
                             <pancake:PancakeView
-                                Grid.Row="1"
+                                Grid.Row="0"
                                 Padding="10"
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
@@ -290,7 +291,7 @@
                             </pancake:PancakeView>
 
                             <Grid
-                                Grid.Row="2"
+                                Grid.Row="1"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand">
                                 <syncfusionList:SfListView
@@ -387,7 +388,7 @@
                             </Grid>
 
                             <pancake:PancakeView
-                                Grid.Row="3"
+                                Grid.Row="2"
                                 Padding="10,15"
                                 BackgroundColor="#A1C4FD"
                                 CornerRadius="5"
@@ -399,6 +400,7 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="Điểm trung bình tháng"
                                         VerticalOptions="Center" />
                                     <Label
@@ -406,6 +408,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="{Binding AverageRankPoint.AverageScore}"
                                         VerticalOptions="Center" />
                                     <Label
@@ -413,6 +416,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="{Binding AverageRankPoint.AverageRank}"
                                         VerticalOptions="Center" />
                                 </Grid>
@@ -678,7 +682,9 @@
                                                 Grid.Column="1"
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
+                                                IsVisible="{Binding UserRank2.AverageScore, Converter={StaticResource NullOrEmptyToBoolConverter}}"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank2.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -693,6 +699,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank2.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -752,7 +759,9 @@
                                                 Grid.Column="1"
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
+                                                IsVisible="{Binding UserRank1.AverageScore, Converter={StaticResource NullOrEmptyToBoolConverter}}"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank1.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -767,6 +776,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank1.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -826,7 +836,9 @@
                                                 Grid.Column="1"
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
+                                                IsVisible="{Binding UserRank3.AverageScore, Converter={StaticResource NullOrEmptyToBoolConverter}}"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank3.AverageScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
@@ -841,6 +853,7 @@
                                                 HorizontalOptions="CenterAndExpand"
                                                 HorizontalTextAlignment="Center"
                                                 LineBreakMode="WordWrap"
+                                                StyleClass="BoldText"
                                                 Text="{Binding UserRank3.AverageRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
