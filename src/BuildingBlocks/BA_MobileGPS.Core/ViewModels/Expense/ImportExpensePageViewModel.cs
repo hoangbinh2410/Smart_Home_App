@@ -62,7 +62,6 @@ namespace BA_MobileGPS.Core.ViewModels
             GetListExpenseCategory();
 
         }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -110,9 +109,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ExpenseDetailsRespone item;
 
-        public ExpenseDetailsRespone Item
-        { get { return item; } set { SetProperty(ref item, value); } }
-
+        public ExpenseDetailsRespone Item { get { return item; } set { SetProperty(ref item, value); } }
         public bool IInsertExpense;
 
         //public ImportExpenseRequest RequestExpense = new ImportExpenseRequest();
@@ -229,12 +226,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         // Chọn phí
         private void SelectExpense()
-        {
-            //if (SelectedExpense.HasLandmark == false)
-            //{
-            //    IHasPlace = true;
-            //}
-            //IHasImage = SelectedExpense.HasPhoto;
+        {           
             ExpenseID = SelectedExpense.ID;
         }
 
@@ -245,6 +237,11 @@ namespace BA_MobileGPS.Core.ViewModels
             if (SelectedLocation.Address == DataItem.Place.ToDescription())
             {
                 IHasOtherPlace = true;
+            }
+            else
+            {
+                IHasOtherPlace = false;
+                Otheraddress = "";
             }
         }
 
@@ -278,13 +275,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 PriceExpense = obj.ExpenseCost;
                 TextPlace = obj.LandmarkName;
                 if (data != null)
-                {
-                //    if (data.HasLandmark == false)
-                //    {
-                //        //IHasPlace = true;
-                //    }
-                //    IHasImage = data.HasPhoto;
-
+                {              
                     ExpenseID = data.ID;
                 }
                 else
@@ -302,7 +293,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
         // danh sách phí, danh sách địa điểm trong combobox
         private void GetListExpenseCategory()
         {
@@ -361,7 +351,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         FK_VehicleID = VehicleID,
                     };
                     IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
-                    if (IInsertExpense && IInsertExpense != null)
+                    if (IInsertExpense)
                     {
                         await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
                         await NavigationService.GoBackAsync();
@@ -377,7 +367,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
+        // Tiếp tục lưu phí
         private void SaveAndCountinute()
         {
             SafeExecute(async () =>
@@ -398,15 +388,15 @@ namespace BA_MobileGPS.Core.ViewModels
                         FK_VehicleID = VehicleID,
                     };
                     IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
-                    if (IInsertExpense && IInsertExpense != null)
+                    if (IInsertExpense)
                     {
                         await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
                         TextExpense = "";
                         Note = "";
                         PriceExpense = 0;
+                        Otheraddress = "";
+                        TextPlace = "Chọn điểm";
                         ImagePathLocal = DataItem.Image.ToDescription();
-
-
                     }
                     else
                     {
@@ -453,11 +443,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     if (fileAvatar == null)
                         return;
-
                     ImagePathLocal = fileAvatar.Path;
-
                     ProcessImage();
-
                     fileAvatar.Dispose();
                 });
             });
