@@ -222,7 +222,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         MenuItems = await _ExpenseService.GetListExpense(request);
                         if(MenuItems == null || MenuItems.Count ==0)
                         {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 5000);
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
                         }    
                         SumMoney();
                     }
@@ -305,7 +305,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         if(isdeleted)
                         {
                             GetListExpense();
-                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 5000);
+                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
                         }    
                         else
                         {
