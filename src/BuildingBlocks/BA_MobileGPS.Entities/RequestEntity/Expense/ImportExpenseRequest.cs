@@ -6,6 +6,7 @@ namespace BA_MobileGPS.Entities
 {
    public class ImportExpenseRequest
     {
+        public Guid? Id { get; set; }
         public Guid FK_ExpenseCategoryID { get; set; }
         public int FK_CompanyID { get; set; }
         public long FK_VehicleID { get; set; }
