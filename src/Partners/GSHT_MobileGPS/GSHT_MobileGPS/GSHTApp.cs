@@ -17,7 +17,7 @@ namespace GSHT_MobileGPS
         {
         }
 
-        public override string OneSignalKey => base.OneSignalKey;
+        public override string OneSignalKey => Config.OneSignalKey_GSHT;
 
         protected async override void OnInitialized()
         {
@@ -26,14 +26,14 @@ namespace GSHT_MobileGPS
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
             ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerThat;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
 
             Application.Current.Resources.MergedDictionaries.Add(new LightColor());
             Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
 
-            AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
-                   "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
-                   typeof(Analytics), typeof(Crashes));
+            //AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
+            //       "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
+            //       typeof(Analytics), typeof(Crashes));
 
             //Nếu cài app lần đầu tiên hoặc có sự thay đổi dữ liệu trên server thì sẽ vào trang cập nhật thông tin vào localDB
             if (!Settings.IsFistInstallApp || Settings.IsChangeDataLocalDB)
