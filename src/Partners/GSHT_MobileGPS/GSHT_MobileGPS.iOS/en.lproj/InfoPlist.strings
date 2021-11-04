@@ -1,0 +1,12 @@
+﻿"CFBundleDisplayName" = "GISVIET";
+"CFBundleName" = "GISVIET";
+
+"NSLocationAlwaysUsageDescription" = "GISVIET needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationWhenInUseUsageDescription" = "GISVIET needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationUsageDescription" = "GISVIET needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSLocationAlwaysAndWhenInUseUsageDescription"="GISVIET needs to access your location to be able to nominate the right address, do you allow the application to use your location?";
+"NSCalendarsUsageDescription"="GISVIET needs you to allow access to your calendar to choose the time, do you allow the application to access your calendar?";
+"NSCameraUsageDescription"="GISVIET requires access to your camera to let you add pictures to post to your social media channels";
+"NSPhotoLibraryUsageDescription"="GISVIET needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
+"NSMicrophoneUsageDescription"="GISVIET needs you to allow access to your camera to take photos, do you allow the application to access your camera?";
+"NSPhotoLibraryAddUsageDescription"="GISVIET needs to access your camera roll so that you can upload images. Your images will not be shared without your permission";
