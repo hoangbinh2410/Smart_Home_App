@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
     {
         #region Property
 
-        private Vehicle _vehicle = new Vehicle();
+        private Vehicle _vehicle;
         public Vehicle Vehicle
         {
             get => _vehicle;
@@ -212,7 +212,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     var companyID = CurrentComanyID;
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
-                        ListMenuExpense = await _ExpenseService.GetExpenseCategory(303);
+                        ListMenuExpense = await _ExpenseService.GetExpenseCategory(companyID);
                     }
                 }
                 else
@@ -278,6 +278,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         private void GetListExpenseAgain()
         {
+            if (Vehicle == null)
+            {
+                return;
+            }
             var companyID = CurrentComanyID;
             var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()

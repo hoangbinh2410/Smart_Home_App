@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
     {
         #region Property
 
-        private Vehicle _vehicle = new Vehicle();
+        private Vehicle _vehicle;
 
         public Vehicle Vehicle
         {
@@ -200,6 +200,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private void GetListExpense()
         {
+            if (Vehicle == null)
+            {
+                return;
+            }    
             var companyID = CurrentComanyID;
             var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()
