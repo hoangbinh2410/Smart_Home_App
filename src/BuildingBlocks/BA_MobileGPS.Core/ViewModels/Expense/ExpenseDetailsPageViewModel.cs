@@ -168,6 +168,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         public void NavigateClicked(ItemTappedEventArgs item)
         {
+            if(!ValidateDateTime())
+            {
+                return;
+            }    
             if (Vehicle == null || Vehicle.PrivateCode == null)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
@@ -262,7 +266,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         if (isdeleted)
                         {
                             GetListExpenseAgain();
-                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 5000);
+                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
                         }
                         else
                         {
@@ -298,16 +302,26 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         var listItems = await _ExpenseService.GetListExpense(request);
-                        TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
-                        _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
-                        if (!string.IsNullOrEmpty(SelectedLocation.Name))
+                        if(listItems != null && listItems.Count>0)
                         {
-                            MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses
-                            .Where(y => y.Name == SelectedLocation.Name).ToList();
+                            TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
+                            _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                            if (!string.IsNullOrEmpty(SelectedLocation.Name))
+                            {
+                                MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses
+                                .Where(y => y.Name == SelectedLocation.Name).ToList();
+                            }
+                            else
+                            {
+                                MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                            }
                         }    
                         else
                         {
-                            MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
+                            TotalMoney = 0;
+                            MenuItems = new List<ExpenseDetailsRespone>();
+                            _menuItemsRemember = new List<ExpenseDetailsRespone>();
                         }    
                         
                     }
@@ -317,6 +331,16 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
                 }
             });
+        }
+        private bool ValidateDateTime()
+        {
+            var result = true;
+            if (DateTime.Now.Subtract(ChooseDate).TotalDays < 0)
+            {
+                DisplayMessage.ShowMessageError("Ngày được chọn chưa diễn ra");
+                result = false;
+            }
+            return result;
         }
         #endregion PrivateMethod
     }
