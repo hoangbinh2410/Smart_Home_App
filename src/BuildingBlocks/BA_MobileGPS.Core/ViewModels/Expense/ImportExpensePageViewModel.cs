@@ -251,6 +251,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SelectedExpense = ListExpense.Where(x => x.Name == obj.Name).FirstOrDefault();
             PriceExpense = obj.ExpenseCost;
+            Note = obj.Note;
             if (!string.IsNullOrEmpty(obj.OtherAddress))
             {
                 Otheraddress = obj.OtherAddress;
