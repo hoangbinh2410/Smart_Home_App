@@ -99,12 +99,11 @@
                                 SelectedItem="{Binding SelectedExpense}"
                                 ShowBorder="False"
                                 ShowClearButton="False"
-                                Text="{Binding TextExpense}"
                                 TextColor="{DynamicResource ColorText}"
                                 TextSize="14"
                                 VerticalOptions="FillAndExpand"
                                 Watermark="Chọn loại chi phí"
-                                WatermarkColor="{DynamicResource TextPlaceHolderColor}">
+                                WatermarkColor="{DynamicResource ColorText}">
                                 <combobox:SfComboBox.Behaviors>
                                     <behaviors:EventToCommandBehavior
                                         Command="{Binding TimeSelectingCommand}"
@@ -235,12 +234,11 @@
                                         SelectedItem="{Binding SelectedLocation}"
                                         ShowBorder="False"
                                         ShowClearButton="False"
-                                        Text="{Binding TextPlace}"
                                         TextColor="{DynamicResource ColorText}"
                                         TextSize="14"
                                         VerticalOptions="FillAndExpand"
                                         Watermark="Chọn điểm"
-                                        WatermarkColor="{DynamicResource TextPlaceHolderColor}">
+                                        WatermarkColor="{DynamicResource ColorText}">
                                         <combobox:SfComboBox.Behaviors>
                                             <behaviors:EventToCommandBehavior
                                                 Command="{Binding TimeSelectingCommand}"
