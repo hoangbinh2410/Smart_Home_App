@@ -275,16 +275,13 @@ namespace BA_MobileGPS.Core.ViewModels
         // reset ảnh
         private async void ResetImage()
         {
-            string result = await _PageDialog.DisplayActionSheetAsync("", MobileResource.Common_Button_Cancel, null, MobileResource.Common_Message_TakeNewPhoto, MobileResource.Common_Message_ChooseAvailablePhotos);
-
-            if (result == null)
-                return;
-
-            if (result.Equals(MobileResource.Common_Message_TakeNewPhoto))
+           bool result = await _PageDialog.DisplayAlertAsync("Cảnh báo", "Xóa ảnh", MobileResource.Common_Button_Yes, MobileResource.Common_Button_No);
+       
+            if (!result)
             {
                 return;
             }
-            else if (result.Equals(MobileResource.Common_Message_ChooseAvailablePhotos))
+            else
             {
                 ImagePathLocal = DataItem.Image.ToDescription();
             }
