@@ -140,6 +140,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private LoginResponse userInfo;
         public LoginResponse UserInfo { get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
+        //private string priceExpense = "0";
+
+        //public string PriceExpense
+        //{ get { return priceExpense; } set { SetProperty(ref priceExpense, value); } }
         private decimal priceExpense = 0;
 
         public decimal PriceExpense
@@ -250,6 +254,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void GetViewPage(ExpenseDetailsRespone obj, List<ListExpenseCategoryByCompanyRespone> ListExpense)
         {
             SelectedExpense = ListExpense.Where(x => x.Name == obj.Name).FirstOrDefault();
+            //PriceExpense = obj.ExpenseCost.ToString("N");
             PriceExpense = obj.ExpenseCost;
             Note = obj.Note;
             if (!string.IsNullOrEmpty(obj.OtherAddress))
@@ -301,6 +306,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Photo = ImagePathLocal,
                         OtherAddress = Otheraddress,
                         ExpenseCost = PriceExpense,
+                        //ExpenseCost = Convert.ToDecimal(PriceExpense),
                         FK_CompanyID = UserInfo.CompanyId,
                         ExpenseDate = Expensedate,
                         Note = Note,
@@ -338,6 +344,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Photo = ImagePathLocal,
                         OtherAddress = Otheraddress,
                         ExpenseCost = PriceExpense,
+                        //ExpenseCost = Convert.ToDecimal(PriceExpense)
                         FK_CompanyID = UserInfo.CompanyId,
                         ExpenseDate = Expensedate,
                         Note = Note,

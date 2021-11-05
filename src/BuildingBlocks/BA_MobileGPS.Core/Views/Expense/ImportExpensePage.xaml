@@ -10,6 +10,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusion="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
@@ -154,19 +155,31 @@
                         HorizontalOptions="FillAndExpand"
                         IsClippedToBounds="True"
                         VerticalOptions="Center">
-                        <Entry
+                        <syncfusion:SfNumericTextBox
+                            AllowDefaultDecimalDigits="False"
+                            FontSize="14"
+                            FormatString="n"
+                            HeightRequest="45"
+                            HorizontalOptions="FillAndExpand"
+                            TextColor="{DynamicResource ColorText}"
+                            Value="{Binding PriceExpense}">
+                            <syncfusion:SfNumericTextBox.Effects>
+                                <effects:BorderlessEffect />
+                            </syncfusion:SfNumericTextBox.Effects>
+                        </syncfusion:SfNumericTextBox>
+                        <!--<Entry
                             FontSize="14"
                             HeightRequest="45"
                             HorizontalOptions="FillAndExpand"
                             Keyboard="Numeric"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding PriceExpense}"
+                            Text="{Binding PriceExpense, StringFormat='{0:N0}'}"
                             TextColor="{DynamicResource ColorText}"
                             VerticalOptions="Center">
                             <Entry.Effects>
                                 <effects:BorderlessEffect />
                             </Entry.Effects>
-                        </Entry>
+                        </Entry>-->
                     </Frame>
 
                     <!--  Ghi chú  -->

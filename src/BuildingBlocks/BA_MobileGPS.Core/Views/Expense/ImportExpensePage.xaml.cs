@@ -7,6 +7,6 @@ namespace BA_MobileGPS.Core.Views
         public ImportExpensePage()
         {
             InitializeComponent();
-        }
+        }        
     }
 }
