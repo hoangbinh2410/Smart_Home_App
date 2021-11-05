@@ -181,6 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 { ParameterKey.Vehicle, Vehicle },
                 { "DayChoose",ChooseDate },
+                { "MenuExpense", ListMenuExpense}
             };
 
             if (item == null || item.ItemData == null)
