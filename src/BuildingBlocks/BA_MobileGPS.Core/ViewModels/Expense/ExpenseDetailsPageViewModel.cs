@@ -194,7 +194,9 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             else
             {
-                parameters.Add("ImportExpense", item.ItemData);
+                var obj = (ExpenseDetailsRespone)item.ItemData;
+                //obj này giá trị tiền đã bị fomat,gửi sang đúng giá trị từ API
+                parameters.Add("ImportExpense", MenuItems.Where(x => x.ID == obj.ID).FirstOrDefault());
                 SafeExecute(async () =>
                 {
                     await NavigationService.NavigateAsync("ImportExpensePage", parameters);

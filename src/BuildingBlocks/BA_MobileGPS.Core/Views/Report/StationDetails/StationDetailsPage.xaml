@@ -665,7 +665,7 @@
                     <Label
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text=""
+                        Text="{i18n:TranslateResource Common_Message_NoData}"
                         TextColor="{DynamicResource TextPrimaryColor}" />
                 </StackLayout>
             </Grid>

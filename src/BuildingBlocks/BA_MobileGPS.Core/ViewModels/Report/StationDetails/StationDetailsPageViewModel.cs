@@ -114,6 +114,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 new ShowHideColumnResponse() { IDColumn = 1, Value = true},
                 new ShowHideColumnResponse() { IDColumn = 2, Value = false}
             };
+            ToDate = DateTime.Now;
             //Xét default key = 0 => tất cả
             _selectedLocation = new ComboboxResponse()
             {
