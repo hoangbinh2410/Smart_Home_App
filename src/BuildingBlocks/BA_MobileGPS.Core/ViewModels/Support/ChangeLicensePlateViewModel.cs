@@ -129,29 +129,29 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var ContactInfo = new ContactInfo()
                     {
-                        Fullname = UserInfo.FullName,
-                        Username = UserInfo.UserName,
-                        Mobilestr = UserInfo.PhoneNumber
+                        fullname = UserInfo.FullName,
+                        username = UserInfo.UserName,
+                        mobile = UserInfo.PhoneNumber
                     };
                     var Errorlist = new List<Errorlist>()
                             {
                             new Errorlist()
-                            { Code = Item.Code }
+                            { code = Item.Code }
                              };
                     var Vehiclelist = new List<Vehiclelist>()
                             {
                             new Vehiclelist()
                             {
-                                Platestr = LicensePlateNow , Description = LicensePlateNew, Errorlist = Errorlist
+                                platestr = LicensePlateNow , description = LicensePlateNew, errorlist = Errorlist
                             }
                             };
 
                     var RequestSupport = new SupportBapRequest()
                     {
-                        Xncode = UserInfo.XNCode,
-                        ContactInfo = ContactInfo,
-                        Vehiclelist = Vehiclelist,
-                        Description = string.Empty
+                        xncode = UserInfo.XNCode,
+                        contactinfo = ContactInfo,
+                        vehiclelist = Vehiclelist,
+                        description = string.Empty
                 };
 
                     ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);

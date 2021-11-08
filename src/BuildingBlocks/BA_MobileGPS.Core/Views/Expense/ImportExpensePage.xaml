@@ -162,7 +162,7 @@
                             HeightRequest="45"
                             HorizontalOptions="FillAndExpand"
                             TextColor="{DynamicResource ColorText}"
-                            Value="{Binding PriceExpense}">
+                            Value="{Binding ExpenseDetail.ExpenseCost}">
                             <syncfusion:SfNumericTextBox.Effects>
                                 <effects:BorderlessEffect />
                             </syncfusion:SfNumericTextBox.Effects>
@@ -203,7 +203,7 @@
                             HorizontalOptions="FillAndExpand"
                             Placeholder="Nhập ghi chú"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding Note}"
+                            Text="{Binding ExpenseDetail.Note}"
                             TextColor="{DynamicResource ColorText}"
                             VerticalOptions="Center">
                             <Entry.Effects>
@@ -302,7 +302,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Placeholder="Nhập địa chỉ"
                                     PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                    Text="{Binding Otheraddress}"
+                                    Text="{Binding ExpenseDetail.OtherAddress}"
                                     TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
