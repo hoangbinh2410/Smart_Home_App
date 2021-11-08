@@ -67,7 +67,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Danh mục cân hỗ trợ: " />
-                                    <Span Text="{Binding NamePage}" />
+                                    <Span Text="{Binding Item.Name}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>

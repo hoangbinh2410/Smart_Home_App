@@ -44,7 +44,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
                 {
-                    item = obj;
+                    Item = obj;
                     if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                     {
                         Vehicle = vehicle;
@@ -69,7 +69,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnNavigatedTo(parameters);
             LicensePlateNow = Vehicle.VehiclePlate;
-            NamePage = item.Name;
         }
 
         public override void OnPageAppearingFirstTime()
@@ -90,7 +89,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region
         public Vehicle Vehicle;
-        public SupportCategoryRespone item;
+        private SupportCategoryRespone item = new SupportCategoryRespone();
+        public SupportCategoryRespone Item { get { return item; } set { SetProperty(ref item, value); } }
 
         public List<Errorlist> Errorlist;
 
@@ -103,8 +103,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private string licensePlateNow = string.Empty;
         public string LicensePlateNow { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
 
-        private string namepage = String.Empty;
-        public string NamePage { get { return namepage; } set { SetProperty(ref namepage, value); } }
+        //private string namepage = String.Empty;
+        //public string NamePage { get { return namepage; } set { SetProperty(ref namepage, value); } }
 
         private string feedback = string.Empty;
         public string Feedack { get { return feedback; } set { SetProperty(ref feedback, value); } }
@@ -155,7 +155,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                             Errorlist = new List<Errorlist>()
                             {
-                            new Errorlist(){ Code = item.Code }
+                            new Errorlist(){ Code = Item.Code }
                              };
                             Vehiclelist = new List<Vehiclelist>()
                             {

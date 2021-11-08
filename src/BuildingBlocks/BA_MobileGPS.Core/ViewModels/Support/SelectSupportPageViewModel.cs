@@ -146,8 +146,8 @@ namespace BA_MobileGPS.Core.ViewModels
                             else
                             // Nếu xe còn phí chuyển đến trang đổi biển
                             {
-                                var parameter = new NavigationParameters { { ParameterKey.VehicleRoute, Vehicle.VehiclePlate } };
-                                await NavigationService.NavigateAsync("ChangeLicensePlate", parameter);
+                                //var parameter = new NavigationParameters { { ParameterKey.VehicleRoute, Vehicle.VehiclePlate } };
+                                await NavigationService.NavigateAsync("ChangeLicensePlate", item);
                             }
                         }
                         else
