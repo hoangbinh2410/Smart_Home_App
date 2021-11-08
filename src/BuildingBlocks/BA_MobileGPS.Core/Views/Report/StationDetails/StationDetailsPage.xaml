@@ -610,7 +610,7 @@
                         <!--  Link video  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="80"
-                            MappingName="FK_LandmarkID"
+                            MappingName="IsVideoCam"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -626,7 +626,10 @@
                             </syncDataGrid:GridTemplateColumn.HeaderTemplate>
                             <syncDataGrid:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <StackLayout
+                                        HorizontalOptions="CenterAndExpand"
+                                        IsVisible="{Binding IsVideoCam}"
+                                        VerticalOptions="CenterAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Path=BindingContext.PushToViewVidioCommand, Source={x:Reference Name=dataGrid}}"

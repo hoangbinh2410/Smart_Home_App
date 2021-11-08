@@ -30,7 +30,7 @@ namespace BA_MobileGPS.Core.Views
             frVehicleInfo.TranslationX = 0;
             IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
             TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
-            IsExpanded = false;
+            IsExpanded = true;
         }
 
         public static string ConvertIntToHex(int value)
