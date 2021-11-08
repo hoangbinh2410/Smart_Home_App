@@ -312,7 +312,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         /// <summary>Đổ dữ liệu vào excel</summary>
-        /// Chưa làm
         /// <param name="data">The data.</param>
         /// <param name="worksheet">The worksheet.</param>
         /// <Modified>
@@ -323,8 +322,106 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                DisplayMessage.ShowMessageInfo("Đang phát triển", 5000);
-                return;
+                //Gán lại tên file
+                ReportTitle = ReportHelper.GetFileName("Báo cáo ra vào trạm");
+                int numberrow = 4;
+                int numbercolum = 1;
+                // STT
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_Serial;
+                // Vào trạm
+                if (ShowTimeInStation)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Vào trạm";
+                }
+                // Ra trạm
+                if (ShowTimeOutStation)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Ra trạm";
+                }
+                // Tên trạm
+                if (ShowNameStation)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Tên trạm";
+                }
+                // Số phút trong trạm
+                if (ShowNumberMinuteOfStation)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Số phút trong trạm";
+                }
+                // Lộ trình
+                numbercolum += 1;
+                worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
+                // Link video
+                numbercolum += 1;
+                worksheet.Range[numberrow, numbercolum].Text = "Link video";
+
+                worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
+                worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
+
+                //head
+                worksheet.Range[1, 1].Text = MobileResource.DetailsReport_Label_TilePage;
+                worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[1, 1].CellStyle.Font.Bold = true;
+                worksheet.Range[1, 1].CellStyle.Font.Size = 16;
+                worksheet.Range[1, 1, 1, numbercolum].Merge();
+                worksheet.Range[2, 1].Text = MobileResource.Common_Label_PlaceHolder_FromDate + ": " + DateTimeHelper.FormatDateTime(FromDate) + " " + MobileResource.Common_Label_PlaceHolder_ToDate + ": " + DateTimeHelper.FormatDateTime(ToDate);
+                worksheet.Range[2, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[2, 1, 2, numbercolum].Merge();
+                worksheet.Range[3, 1].Text = MobileResource.Common_Label_Grid_VehiclePlate + ": " + VehicleSelect.PrivateCode;
+                worksheet.Range[3, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[3, 1, 3, numbercolum].Merge();
+
+                // data
+                for (int i = 0, length = data.Count; i < length; i++)
+                {
+                    numberrow += 1;
+                    numbercolum = 1;
+                    // Số thứ tự
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
+                    // Vào trạm
+                    if (ShowTimeInStation)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.ToString();
+                    }
+                    // Ra trạm
+                    if (ShowTimeOutStation)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.ToString();
+                    }
+                    // Tên trạm
+                    if (ShowNameStation)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].Name;
+                    }
+                    // Số phút trong trạm
+                    if (ShowNumberMinuteOfStation)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].PeriodInOutStation.ToString();
+                    }
+                    // Lộ trình
+                    if (true)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
+                    }
+                    // Link video
+                    if (true)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = "Link video";
+                    }
+                }
+
+                worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();
+                worksheet.Range[4, 1, numberrow, numbercolum].BorderInside(ExcelLineStyle.Thin, ExcelKnownColors.Black);
             }
             catch (Exception ex)
             {
