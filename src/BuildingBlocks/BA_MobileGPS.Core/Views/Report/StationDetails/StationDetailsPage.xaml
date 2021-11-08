@@ -264,7 +264,7 @@
                                 <Entry
                                     Grid.Column="0"
                                     FontSize="{DynamicResource FontSizeTextPut11}"
-                                    HorizontalOptions="Start"
+                                    HorizontalOptions="StartAndExpand"
                                     InputTransparent="True"
                                     Placeholder="Phương tiện"
                                     Text="{Binding VehicleSelect.PrivateCode}"
@@ -277,7 +277,7 @@
                                     Grid.Column="1"
                                     Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
-                                    HorizontalOptions="EndAndExpand"
+                                    HorizontalOptions="End"
                                     Source="ic_sortdown.png"
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
