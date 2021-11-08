@@ -239,24 +239,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             int.TryParse(NumberOfMinute, out int numberOfMinute);
             string vehicleIDs = "";
-            // không chọn xe thì lấy tất cả VehicleId
-            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            {
-                var listOnline = StaticSettings.ListVehilceOnline;
-                List<long> vehicleId = new List<long>();
-                if (listOnline.Count > 0)
-                {
-                    foreach (var item in listOnline)
-                    {
-                        vehicleId.Add(item.VehicleId);
-                    }
-                }
-                vehicleIDs = string.Join(",", vehicleId);
-            }
-            else
+            if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
-            }
+            }      
             return new StationDetailsRequest
             {
                 FromDate = base.FromDate,
