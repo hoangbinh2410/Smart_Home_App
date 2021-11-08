@@ -321,12 +321,12 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectedIndex = 0;
             var parameters = new NavigationParameters
             {
-                { "ObjSupport", _objSupport },
+                { "Support", _objSupport },
                 { ParameterKey.VehicleRoute, Vehicle },
             };
             SafeExecute(async () =>
             {
-                await NavigationService.GoBackToRootAsync(null);
+                await NavigationService.NavigateAsync("MessageSuportPage", parameters);
             });
         }
 
