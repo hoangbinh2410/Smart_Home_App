@@ -142,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                             new Vehiclelist()
                             {
-                                Platestr = LicensePlateNew , Description = string.Empty, Errorlist = Errorlist
+                                Platestr = LicensePlateNow , Description = LicensePlateNew, Errorlist = Errorlist
                             }
                             };
 
