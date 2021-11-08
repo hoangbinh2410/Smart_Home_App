@@ -118,7 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Xét default key = 0 => tất cả
             _selectedLocation = new ComboboxResponse()
             {
-                Key = 0,
+                Key = -1,
                 Value = MobileResource.ReportSignalLoss_TitleStatus_All
             };
 
@@ -140,8 +140,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             //Put dữ liệu cho combobox
             GetListLocationStation();
-            //Load data khi vào trang
-            ExcuteSearchData();
         }
 
         public override void OnDestroy()
@@ -176,7 +174,7 @@ namespace BA_MobileGPS.Core.ViewModels
                  {
                      ListLocationStation.Add(new ComboboxRequest()
                      {
-                         Key = 0,
+                         Key = -1,
                          Value = MobileResource.ReportSignalLoss_TitleStatus_All
                      });
                      foreach (var item in result.ToList())
@@ -494,16 +492,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
                     var vehicleModel = new CameraLookUpVehicleModel()
                     {
-                        VehiclePlate = VehicleSelect.VehiclePlate,
-                        VehicleId = VehicleSelect.VehicleId,
-                        PrivateCode = VehicleSelect.PrivateCode,
+                        VehiclePlate = model.VehiclePlate,
+                        VehicleId = model.FK_VehicleID,
                     };
                     var p = new NavigationParameters()
                         {
                             {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
                             {ParameterKey.VehiclePlate,vehicleModel }
                         };
-                    var a = await NavigationService.NavigateAsync("CameraRestream", p);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraRestream", p, true, true);
                 }
                 else
                 {
