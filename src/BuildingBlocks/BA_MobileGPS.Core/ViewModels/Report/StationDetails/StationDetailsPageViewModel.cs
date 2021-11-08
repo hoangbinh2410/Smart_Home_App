@@ -242,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
-            }      
+            }
             return new StationDetailsRequest
             {
                 FromDate = base.FromDate,
@@ -562,7 +562,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     var p = new NavigationParameters()
                         {
-                            {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
+                            {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation.AddMinutes(-10),
+                            new DateTime(model.TimeOutStation.Year, model.TimeOutStation.Month, model.TimeOutStation.Day, 23, 59, 59)) },
                             {ParameterKey.VehiclePlate,vehicleModel }
                         };
                     await NavigationService.NavigateAsync("NavigationPage/CameraRestream", p, true, true);
