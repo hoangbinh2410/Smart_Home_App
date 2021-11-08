@@ -35,7 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get => _chooseDate;
             set => SetProperty(ref _chooseDate, value);
         }
-        private decimal _totalMoney = 600000;
+        private decimal _totalMoney = 0;
         public decimal TotalMoney
         {
             get { return _totalMoney; }

@@ -349,7 +349,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
 
                 //head
-                worksheet.Range[1, 1].Text = MobileResource.DetailsReport_Label_TilePage;
+                worksheet.Range[1, 1].Text = "Báo cáo ra vào trạm";
                 worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
                 worksheet.Range[1, 1].CellStyle.Font.Bold = true;
                 worksheet.Range[1, 1].CellStyle.Font.Size = 16;
