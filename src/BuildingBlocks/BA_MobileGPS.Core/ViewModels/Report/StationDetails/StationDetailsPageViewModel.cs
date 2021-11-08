@@ -331,12 +331,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = "Số phút trong trạm";
                 }
-                // Lộ trình
-                numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
-                // Link video
-                numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Link video";
+                //// Lộ trình
+                //numbercolum += 1;
+                //worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
+                //// Link video
+                //numbercolum += 1;
+                //worksheet.Range[numberrow, numbercolum].Text = "Link video";
 
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
@@ -385,18 +385,18 @@ namespace BA_MobileGPS.Core.ViewModels
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = data[i].PeriodInOutStation.ToString();
                     }
-                    // Lộ trình
-                    if (true)
-                    {
-                        numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
-                    }
-                    // Link video
-                    if (true)
-                    {
-                        numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = "Link video";
-                    }
+                    //// Lộ trình
+                    //if (true)
+                    //{
+                    //    numbercolum += 1;
+                    //    worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
+                    //}
+                    //// Link video
+                    //if (true)
+                    //{
+                    //    numbercolum += 1;
+                    //    worksheet.Range[numberrow, numbercolum].Text = "Link video";
+                    //}
                 }
 
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();
