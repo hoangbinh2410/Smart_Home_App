@@ -10,6 +10,7 @@ using Prism.Navigation;
 using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels.Expense
@@ -239,10 +240,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             TotalMoney = 0;
             if (MenuItems != null && MenuItems.Count > 0)
             {
-                foreach (var obj in MenuItems)
-                {
-                    TotalMoney = TotalMoney + obj.Total;
-                }
+                TotalMoney = MenuItems.Sum(x => x.Total);
             }
         }
 
