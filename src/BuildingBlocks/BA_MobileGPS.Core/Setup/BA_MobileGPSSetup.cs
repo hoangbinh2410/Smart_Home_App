@@ -1,7 +1,9 @@
 ﻿using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
+using BA_MobileGPS.Core.ViewModels.Expense;
 using BA_MobileGPS.Core.Views;
+using BA_MobileGPS.Core.Views.Expense;
 using BA_MobileGPS.Core.Views.Report.StationDetails;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
@@ -9,6 +11,7 @@ using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.IService.Support;
 using BA_MobileGPS.Service.Report.Station;
 using BA_MobileGPS.Service.Service;
+using BA_MobileGPS.Service.Service.Expense;
 using BA_MobileGPS.Service.Service.Report.Station;
 using BA_MobileGPS.Service.Service.Support;
 using BA_MobileGPS.Service.Utilities;
@@ -91,6 +94,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<ISupportCategoryService, SupportCategoryService>();
             containerRegistry.RegisterSingleton<IKPIDriverService, KPIDriverService>();
             containerRegistry.RegisterSingleton<IStationLocationService, StationLocationService>();
+            containerRegistry.RegisterSingleton<IExpenseService, ExpenseService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
@@ -231,6 +235,9 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<RankNotDriverPage, RankNotDriverPageViewModel>("RankNotDriverPage");
             containerRegistry.RegisterForNavigation<SelectSupportPage, SelectSupportPageViewModel>("SelectSupportPage");
             containerRegistry.RegisterForNavigation<StationDetailsPage, StationDetailsPageViewModel>("StationDetailsPage");
+            containerRegistry.RegisterForNavigation<ExpenceManagementPage, ExpenceManagementPageViewModel>("ExpenceManagementPage");
+            containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>("ExpenseDetailsPage");
+            containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
         }
     }
 }

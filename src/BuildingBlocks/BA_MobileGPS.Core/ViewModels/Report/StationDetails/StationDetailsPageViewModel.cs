@@ -114,6 +114,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 new ShowHideColumnResponse() { IDColumn = 1, Value = true},
                 new ShowHideColumnResponse() { IDColumn = 2, Value = false}
             };
+            ToDate = DateTime.Now;
+            //Xét default key = 0 => tất cả
+            _selectedLocation = new ComboboxResponse()
+            {
+                Key = 0,
+                Value = MobileResource.ReportSignalLoss_TitleStatus_All
+            };
+
             //Ẩn hiện cột
             DisplayComlumnHide();
         }
@@ -132,6 +140,8 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             //Put dữ liệu cho combobox
             GetListLocationStation();
+            //Load data khi vào trang
+            ExcuteSearchData();
         }
 
         public override void OnDestroy()
@@ -164,6 +174,11 @@ namespace BA_MobileGPS.Core.ViewModels
              {
                  if (result != null)
                  {
+                     ListLocationStation.Add(new ComboboxRequest()
+                     {
+                         Key = 0,
+                         Value = MobileResource.ReportSignalLoss_TitleStatus_All
+                     });
                      foreach (var item in result.ToList())
                      {
                          ListLocationStation.Add(new ComboboxRequest()
@@ -225,12 +240,31 @@ namespace BA_MobileGPS.Core.ViewModels
         public override StationDetailsRequest SetDataInput()
         {
             int.TryParse(NumberOfMinute, out int numberOfMinute);
+            string vehicleIDs = "";
+            // không chọn xe thì lấy tất cả VehicleId
+            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                var listOnline = StaticSettings.ListVehilceOnline;
+                List<long> vehicleId = new List<long>();
+                if (listOnline.Count> 0)
+                {
+                    foreach(var item in listOnline)
+                    {
+                        vehicleId.Add(item.VehicleId);
+                    }    
+                }
+                vehicleIDs = string.Join(",",vehicleId);
+            }    
+            else
+            {
+                vehicleIDs = VehicleSelect.VehicleId.ToString();
+            }    
             return new StationDetailsRequest
             {
                 FromDate = base.FromDate,
                 ToDate = base.ToDate,
                 CompanyID = CurrentComanyID,
-                VehicleIDs = VehicleSelect.VehicleId.ToString(),
+                VehicleIDs = vehicleIDs,
                 LandmarkId = SelectedLocation.Key,
                 NumberOfMinute = numberOfMinute,
                 PageSize = base.PageSize,
@@ -372,22 +406,22 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override bool CheckValidateInput(ref string message)
         {
-            if (!base.CheckValidateInput(ref message))
-            {
-                return false;
-            }
-            //không chọn biển số xe
-            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            {
-                message = MobileResource.Common_Message_NoSelectVehiclePlate;
-                return false;
-            }
-            //không chọn địa điểm
-            if (SelectedLocation == null || SelectedLocation.Key == 0)
-            {
-                message = MobileResource.Common_Message_PleaseSelectLocation;
-                return false;
-            }
+            //if (!base.CheckValidateInput(ref message))
+            //{
+            //    return false;
+            //}
+            ////không chọn biển số xe
+            //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            //{
+            //    message = MobileResource.Common_Message_NoSelectVehiclePlate;
+            //    return false;
+            //}
+            ////không chọn địa điểm
+            //if (SelectedLocation == null || SelectedLocation.Key == 0)
+            //{
+            //    message = MobileResource.Common_Message_PleaseSelectLocation;
+            //    return false;
+            //}
             return true;
         }
 

@@ -94,7 +94,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public List<Errorlist> Errorlist;
 
         public List<Vehiclelist> Vehiclelist;
-
+        public ContactInfo ContactInfo;
 
         public SupportBapRequest RequestSupport = new SupportBapRequest();
 
@@ -141,6 +141,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (Feedack != "")
                 {
+                    ContactInfo = new ContactInfo()
+                    {
+                        Fullname = UserInfo.FullName,
+                        Username = UserInfo.UserName,
+                        Mobilestr = UserInfo.PhoneNumber
+                    };
                     Errorlist = new List<Errorlist>()
                     {
                         new Errorlist(){ Code = item.Code }
@@ -150,12 +156,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         new Vehiclelist(){ Platestr = Vehicle.VehiclePlate,Description = Feedack, Errorlist = Errorlist }
                     };
                     
-                    RequestSupport = new SupportBapRequest() {
-
-                        Fullname = UserInfo.FullName,
+                    RequestSupport = new SupportBapRequest() {                       
                         Xncode = UserInfo.XNCode,
-                        Username = UserInfo.UserName,
-                        Mobilestr = UserInfo.PhoneNumber,
+                        ContactInfo = ContactInfo,
                         Vehiclelist = Vehiclelist,
                         Description = Feedack
                     };

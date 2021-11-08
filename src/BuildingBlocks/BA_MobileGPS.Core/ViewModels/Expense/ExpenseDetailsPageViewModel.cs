@@ -1,0 +1,350 @@
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity.Expense;
+using BA_MobileGPS.Entities.ResponeEntity.Expense;
+using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service;
+using BA_MobileGPS.Utilities;
+using Prism.Commands;
+using Prism.Navigation;
+using Syncfusion.ListView.XForms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using SelectionChangedEventArgs = Syncfusion.XForms.ComboBox.SelectionChangedEventArgs;
+
+namespace BA_MobileGPS.Core.ViewModels.Expense
+{
+    public class ExpenseDetailsPageViewModel : ViewModelBase
+    {
+        #region Property
+
+        private Vehicle _vehicle;
+        public Vehicle Vehicle
+        {
+            get => _vehicle;
+            set => SetProperty(ref _vehicle, value);
+        }
+        private DateTime _chooseDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+        public virtual DateTime ChooseDate
+        {
+            get => _chooseDate;
+            set => SetProperty(ref _chooseDate, value);
+        }
+        private decimal _totalMoney = 600000;
+        public decimal TotalMoney
+        {
+            get { return _totalMoney; }
+            set { SetProperty(ref _totalMoney, value); }
+        }
+        private string _successImage = string.Empty;
+        public string SuccessImage
+        {
+            get { return _successImage; }
+            set { SetProperty(ref _successImage, value); }
+        }
+        private List<ExpenseDetailsRespone> _menuItemsRemember { get; set; }
+        private List<ExpenseDetailsRespone> _menuItems = new List<ExpenseDetailsRespone>();
+        public List<ExpenseDetailsRespone> MenuItems
+        {
+            get { return _menuItems; }
+            set { SetProperty(ref _menuItems, value); }
+        }
+        private ListExpenseCategoryByCompanyRespone _selectedLocation = new ListExpenseCategoryByCompanyRespone();
+        public ListExpenseCategoryByCompanyRespone SelectedLocation
+        {
+            get { return _selectedLocation; }
+            set { SetProperty(ref _selectedLocation, value); }
+        }
+        private List<ListExpenseCategoryByCompanyRespone> _listMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
+        public List<ListExpenseCategoryByCompanyRespone> ListMenuExpense
+        {
+            get { return _listMenuExpense; }
+            set { SetProperty(ref _listMenuExpense, value); }
+        }
+
+        #endregion
+
+        #region Contructor
+        public ICommand ChooseDateDateTimePageCommand { get; private set; }
+        public ICommand NavigateCommand { get; }
+        public ICommand ShowPicturnCommand { get; }
+        private IExpenseService _ExpenseService { get; set; }
+        public ICommand ComboboxSelectedCommand { get; }
+        public ICommand DeleteItemCommand { get; private set; }
+        public ExpenseDetailsPageViewModel(INavigationService navigationService, IExpenseService ExpenseService)
+            : base(navigationService)
+        {
+            ChooseDateDateTimePageCommand = new DelegateCommand(ExecuteToChooseDateTime);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
+            ComboboxSelectedCommand = new DelegateCommand<SelectionChangedEventArgs>(ComboboxSelected);
+            DeleteItemCommand = new DelegateCommand<ExpenseDetailsRespone>(DeleteItemClicked);
+            _ExpenseService = ExpenseService;
+        }
+
+        #endregion 
+
+        #region Lifecycle
+
+        public override void Initialize(INavigationParameters parameters)
+        {
+            base.Initialize(parameters);
+            GetListExpenseCategory();
+            if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<ExpenseRespone>("ExpenseDetails") is ExpenseRespone objSupport)
+            {
+                TotalMoney = objSupport.Total;
+                MenuItems = objSupport.Expenses;
+                _menuItemsRemember = objSupport.Expenses;
+                ChooseDate = objSupport.ExpenseDate;
+            }
+            else
+            {
+                TotalMoney = 0;
+                MenuItems = new List<ExpenseDetailsRespone>();
+            }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
+                {
+                    Vehicle = vehicle;
+                }
+            }
+
+            GetListExpenseAgain();  
+        }
+
+        public override void OnPageAppearingFirstTime()
+        {
+            base.OnPageAppearingFirstTime();
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            base.OnNavigatedFrom(parameters);
+        }
+
+        public override void OnDestroy()
+        {
+        }
+
+        #endregion Lifecycle
+
+        #region PrivateMethod
+        private void ExecuteToChooseDateTime()
+        {
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters
+                {
+                    { "DataPicker", ChooseDate },
+                    { "PickerType", ComboboxType.First }
+                };
+                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+            });
+        }
+        private void UpdateDateTime(PickerDateTimeResponse param)
+        {
+            if (param != null)
+            {
+                if (param.PickerType == (short)ComboboxType.First)
+                {
+                    ChooseDate = param.Value;
+                }
+                else if (param.PickerType == (short)ComboboxType.Third)
+                {
+                }
+            }
+        }
+        public void NavigateClicked(ItemTappedEventArgs item)
+        {
+            if(!ValidateDateTime())
+            {
+                return;
+            }    
+            if (Vehicle == null || Vehicle.PrivateCode == null)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                return;
+            }
+            var parameters = new NavigationParameters
+            {
+                { ParameterKey.Vehicle, Vehicle },
+                { "DayChoose",ChooseDate },
+                { "MenuExpense", ListMenuExpense}
+            };
+
+            if (item == null || item.ItemData == null)
+            {
+                SafeExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("ImportExpensePage", parameters);
+                });
+                return;
+            }
+            else
+            {
+                var obj = (ExpenseDetailsRespone)item.ItemData;
+                //obj này giá trị tiền đã bị fomat,gửi sang đúng giá trị từ API
+                parameters.Add("ImportExpense", MenuItems.Where(x => x.ID == obj.ID).FirstOrDefault());
+                SafeExecute(async () =>
+                {
+                    await NavigationService.NavigateAsync("ImportExpensePage", parameters);
+                });
+            }           
+        }
+        public void ShowPicturnClicked(ExpenseDetailsRespone item)
+        {
+            if(item != null)
+            {
+                SuccessImage = item.Photo;
+            }     
+        }
+        private void GetListExpenseCategory()
+        {
+            SafeExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    var companyID = CurrentComanyID;
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        ListMenuExpense = await _ExpenseService.GetExpenseCategory(companyID);
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
+        }
+        private void ComboboxSelected(SelectionChangedEventArgs args)
+        {
+            if (args != null && !string.IsNullOrEmpty(args.Value.ToString()))
+            {
+                var item = (ListExpenseCategoryByCompanyRespone)args.Value;
+                MenuItems = _menuItemsRemember.Where(x => x.Name == item.Name)?.ToList();
+            }
+            else
+            {
+                MenuItems = _menuItemsRemember;
+            }    
+        }
+        private async void DeleteItemClicked(ExpenseDetailsRespone obj)
+        {
+            if (obj == null)
+            {
+                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                return;
+            }
+            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?", "Có", "Không");
+            if (!action)
+            {
+                return;
+            }
+            DeleteExpenseRequest request = new DeleteExpenseRequest()
+            { 
+                ListID = new List<Guid>()
+                {
+                    obj.ID
+                }
+            };
+            SafeExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        bool isdeleted = await _ExpenseService.Deletemultiple(request);
+                        if (isdeleted)
+                        {
+                            GetListExpenseAgain();
+                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                        }
+                    }  
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
+        }
+        private void GetListExpenseAgain()
+        {
+            if (Vehicle == null)
+            {
+                return;
+            }
+            var companyID = CurrentComanyID;
+            var vehicleID = Vehicle.VehicleId;
+            var request = new ExpenseRequest()
+            {
+                CompanyID = companyID,
+                VehicleID = vehicleID,
+                ToDate = ChooseDate,
+                FromDate = ChooseDate
+            };
+            TryExecute(async () =>
+            {
+                if (IsConnected)
+                {
+                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    {
+                        var listItems = await _ExpenseService.GetListExpense(request);
+                        if(listItems != null && listItems.Count>0)
+                        {
+                            TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
+                            _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                            if (!string.IsNullOrEmpty(SelectedLocation.Name))
+                            {
+                                MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses
+                                .Where(y => y.Name == SelectedLocation.Name).ToList();
+                            }
+                            else
+                            {
+                                MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                            }
+                        }    
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
+                            TotalMoney = 0;
+                            MenuItems = new List<ExpenseDetailsRespone>();
+                            _menuItemsRemember = new List<ExpenseDetailsRespone>();
+                        }    
+                        
+                    }
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                }
+            });
+        }
+        private bool ValidateDateTime()
+        {
+            var result = true;
+            if (DateTime.Now.Subtract(ChooseDate).TotalDays < 0)
+            {
+                DisplayMessage.ShowMessageError("Ngày được chọn chưa diễn ra");
+                result = false;
+            }
+            return result;
+        }
+        #endregion PrivateMethod
+    }
+}

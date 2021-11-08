@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.Expense.ExpenceManagementPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="FontSizeTextPut11">11</x:Double>
+            <Color x:Key="grid2">#E1F4FF</Color>
+            <Color x:Key="colorlb1">#00ADE5</Color>
+            <Color x:Key="colorItem">#E0FFFF</Color>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid
+            RowDefinitions="Auto,*,Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <!--  Tiêu đề  -->
+            <Grid
+                Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                StyleClass="TitleBarGrid"
+                VerticalOptions="StartAndExpand">
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="30">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                    </Frame.GestureRecognizers>
+                    <controls:IconView
+                        Foreground="{DynamicResource WhiteColor}"
+                        HeightRequest="25"
+                        HorizontalOptions="StartAndExpand"
+                        Source="ic_close.png"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="25" />
+                </Frame>
+                <Label
+                    x:Name="title"
+                    Margin="0,0,0,5"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{DynamicResource LabelHeader}"
+                    Text="Quản lý chi phí xe"
+                    TextColor="{DynamicResource WhiteColor}"
+                    VerticalOptions="EndAndExpand" />
+            </Grid>
+            <pancake:PancakeView
+                Grid.Row="1"
+                Padding="10"
+                BackgroundColor="{DynamicResource WhiteColor}"
+                CornerRadius="10,10,0,0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Grid.Row="0"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="15">
+                    <Grid ColumnSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--  từ ngày  -->
+                        <Frame
+                            x:Name="txtfromdate"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <StackLayout
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDateTimePageCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    FontSize="{DynamicResource FontSize11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Text="{Binding FromDate, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="End"
+                                    Source="ic_date_range_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </StackLayout>
+                        </Frame>
+                        <!--  đến ngày  -->
+                        <Frame
+                            x:Name="txttodate"
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <StackLayout
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToEndDateTimePageCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    FontSize="{DynamicResource FontSize11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder=""
+                                    Text="{Binding ToDate, Converter={StaticResource DateConverter}}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="End"
+                                    Source="ic_date_range_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </StackLayout>
+                        </Frame>
+                        <!--  button tìm kiếm  -->
+                        <StackLayout Grid.Column="2" Orientation="Horizontal">
+                            <sharpnado:MaterialFrame
+                                x:Name="btnKeySearch"
+                                Padding="0"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="CenterAndExpand"
+                                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="35">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_search.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </sharpnado:MaterialFrame>
+                        </StackLayout>
+                    </Grid>
+                    <Grid ColumnSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--  biển số xe  -->
+                        <Frame
+                            x:Name="cmbVihicle"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectVehicleCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="Start"
+                                    InputTransparent="True"
+                                    Placeholder="Phương tiện"
+                                    Text="{Binding Vehicle.PrivateCode}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                        <!--  button thêm chi phí  -->
+                        <StackLayout Grid.Column="1" Orientation="Horizontal">
+                            <sharpnado:MaterialFrame
+                                x:Name="btnAdd"
+                                Padding="0"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="CenterAndExpand"
+                                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="35">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateCommand}" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_plus.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </sharpnado:MaterialFrame>
+                        </StackLayout>
+                    </Grid>
+                    <Label
+                        FontSize="18"
+                        HorizontalOptions="Start"
+                        Text="Chi phí theo ngày"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="FillAndExpand" />
+                    <Grid>
+                        <syncfusion:SfListView
+                            x:Name="listMenu"
+                            AllowSwiping="True"
+                            ItemSize="60"
+                            ItemsSource="{Binding MenuItems, Mode=TwoWay}"
+                            SelectionBackgroundColor="{DynamicResource WhiteColor}"
+                            TapCommand="{Binding NavigateCommand}">
+                            <syncfusion:SfListView.RightSwipeTemplate>
+                                <DataTemplate>
+                                    <StackLayout
+                                        BackgroundColor="#E63C2B"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Fill">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <controls:IconView
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Foreground="White"
+                                            HeightRequest="35"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Source="ic_delete.png"
+                                            VerticalOptions="CenterAndExpand"
+                                            WidthRequest="30" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncfusion:SfListView.RightSwipeTemplate>
+                            <syncfusion:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <BoxView StyleClass="SlimLine" />
+                                        <Grid
+                                            Padding="10,7.5,10,0"
+                                            ColumnSpacing="10"
+                                            VerticalOptions="StartAndExpand">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <controls:IconView
+                                                Grid.Column="0"
+                                                Foreground="{DynamicResource PrimaryColor}"
+                                                HeightRequest="25"
+                                                HorizontalOptions="Center"
+                                                Source="ic_date_range_black.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="25" />
+                                            <Label
+                                                Grid.Column="1"
+                                                FontSize="15"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Center"
+                                                LineBreakMode="TailTruncation"
+                                                VerticalOptions="Center">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding ExpenseDate, Converter={StaticResource DateConverter}}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label
+                                                Grid.Column="2"
+                                                FontSize="15"
+                                                HorizontalOptions="Start"
+                                                HorizontalTextAlignment="Start"
+                                                LineBreakMode="TailTruncation"
+                                                VerticalOptions="Center">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding Total, StringFormat='{0:N0}'}" />
+                                                        <Span Text=" đ" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncfusion:SfListView.ItemTemplate>
+                        </syncfusion:SfListView>
+                        <StackLayout
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding MenuItems, Converter={StaticResource IsEmptyDataConverter}}"
+                            Orientation="Vertical"
+                            Spacing="0"
+                            VerticalOptions="CenterAndExpand">
+                            <!--  Image for display svg image  -->
+                            <ffsvg:SvgCachedImage
+                                Margin="{x:OnIdiom Phone='0,0,0,0',
+                                                   Desktop='0',
+                                                   Tablet='0'}"
+                                HeightRequest="200"
+                                Source="NoItem.svg"
+                                VerticalOptions="Center"
+                                WidthRequest="200" />
+                            <Label
+                                FontSize="Large"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="Không có dữ liệu" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </pancake:PancakeView>
+            <pancake:PancakeView
+                Grid.Row="2"
+                BackgroundColor="{DynamicResource grid2}"
+                HeightRequest="100"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Grid Padding="20,10,20,10" VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <controls:IconView
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Foreground="{DynamicResource PrimaryColor}"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
+                        Source="ic_lisence.png"
+                        VerticalOptions="End"
+                        WidthRequest="30" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontSize="16"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="TailTruncation"
+                        Style="{DynamicResource LabelHeader}"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="TỔNG CHI PHÍ" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label
+                        Grid.RowSpan="2"
+                        Grid.Column="2"
+                        FontSize="16"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="TailTruncation"
+                        Style="{DynamicResource LabelHeader}"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TotalMoney, StringFormat='{0:N0}'}" />
+                                <Span Text=" đ" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <controls:IconView
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Foreground="Black"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="ic_date_range_black.png"
+                        VerticalOptions="Start"
+                        WidthRequest="25" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        FontSize="13"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="TailTruncation"
+                        VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding FromDate, Converter={StaticResource DateConverter}}" />
+                                <Span Text=" - " />
+                                <Span Text="{Binding ToDate, Converter={StaticResource DateConverter}}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+
+            </pancake:PancakeView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
