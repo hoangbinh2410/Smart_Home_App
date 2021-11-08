@@ -514,12 +514,12 @@ namespace BA_MobileGPS.Core.ViewModels
             //{
             //    return false;
             //}
-            ////không chọn biển số xe
-            //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            //{
-            //    message = MobileResource.Common_Message_NoSelectVehiclePlate;
-            //    return false;
-            //}
+            //không chọn biển số xe
+            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                message = MobileResource.Common_Message_NoSelectVehiclePlate;
+                return false;
+            }
             ////không chọn địa điểm
             //if (SelectedLocation == null || SelectedLocation.Key == 0)
             //{
