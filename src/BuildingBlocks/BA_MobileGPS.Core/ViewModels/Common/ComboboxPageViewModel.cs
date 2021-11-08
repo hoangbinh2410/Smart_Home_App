@@ -1,16 +1,14 @@
 ﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
-
 using Prism.Navigation;
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
-
 using Xamarin.Forms;
+using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -29,9 +27,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey("dataCombobox") && parameters.GetValue<List<ComboboxRequest>>("dataCombobox") is List<ComboboxRequest> tempData)
                 {
                     DataFull = new ObservableCollection<ComboboxRequest>(tempData);
-
-                    //var groupedData = DataFull.OrderBy(p => p.Value).ToList();
-                    //DataSearch = new ObservableCollection<ComboboxRequest>(groupedData);
 
                     DataSearch = DataFull;
 
@@ -138,8 +133,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get
             {
-                return new Command<ComboboxRequest>(async (item) =>
+                return new Command<ItemTappedEventArgs>(async (args) =>
                 {
+                    if (!(args.ItemData is ComboboxRequest item))
+                        return;
                     if (item != null)
                     {
                         try

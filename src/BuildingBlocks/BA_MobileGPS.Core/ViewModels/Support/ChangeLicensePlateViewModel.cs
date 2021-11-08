@@ -1,9 +1,13 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity.Support;
+using BA_MobileGPS.Entities.ResponeEntity.Support;
+using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -16,14 +20,16 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDisplayMessage _displayMessage;
         public ICommand BackPageCommand { get; private set; }
         public ICommand PushNotificationSupportPageCommand { get; private set; }
+        private ISupportCategoryService _iSupportCategoryService;
 
-        public ChangeLicensePlateViewModel(INavigationService navigationService, IPageDialogService pageDialog, IDisplayMessage displayMessage) : base(navigationService)
+        public ChangeLicensePlateViewModel(INavigationService navigationService, IPageDialogService pageDialog, IDisplayMessage displayMessage, ISupportCategoryService iSupportCategoryService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
             Title = "Hỗ trợ khách hàng";
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
             _pageDialog = pageDialog;
             _displayMessage = displayMessage;
+            _iSupportCategoryService = iSupportCategoryService;
         }
 
         #endregion Contructor
@@ -38,7 +44,29 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            LicensePlateNow = parameters.GetValue<string>(ParameterKey.VehicleRoute);
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+                {
+                    Item = obj;
+                    if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                    {
+                        LicensePlateNow = vehicle.VehiclePlate;
+                    }
+                    else
+                    {
+                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                    }
+                }
+                else
+                {
+                    _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                }
+            }
+            else
+            {
+                _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+            }           
         }
 
         public override void OnPageAppearingFirstTime()
@@ -49,8 +77,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
             base.OnNavigatedFrom(parameters);
-
-           
         }
 
         public override void OnDestroy()
@@ -61,6 +87,13 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
+        private SupportCategoryRespone item = new SupportCategoryRespone();
+        public SupportCategoryRespone Item { get { return item; } set { SetProperty(ref item, value); } }
+        public List<Errorlist> Errorlist;
+
+        public List<Vehiclelist> Vehiclelist;
+        public ContactInfo ContactInfo;
+        public SupportBapRespone ResponeSupport;
         private LoginResponse userInfo;
 
         public LoginResponse UserInfo
@@ -68,6 +101,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; }
             set => SetProperty(ref userInfo, value);
         }
+
         private string licensePlateNow = string.Empty;
         public string LicensePlateNow { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
         private string licensePlatenew = string.Empty;
@@ -91,12 +125,47 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (LicensePlateNew != "")
+                if (!string.IsNullOrEmpty(LicensePlateNew))
                 {
-                    INotificationView = true;
+                    var ContactInfo = new ContactInfo()
+                    {
+                        Fullname = UserInfo.FullName,
+                        Username = UserInfo.UserName,
+                        Mobilestr = UserInfo.PhoneNumber
+                    };
+                    var Errorlist = new List<Errorlist>()
+                            {
+                            new Errorlist()
+                            { Code = Item.Code }
+                             };
+                    var Vehiclelist = new List<Vehiclelist>()
+                            {
+                            new Vehiclelist()
+                            {
+                                Platestr = LicensePlateNow , Description = LicensePlateNew, Errorlist = Errorlist
+                            }
+                            };
+
+                    var RequestSupport = new SupportBapRequest()
+                    {
+                        Xncode = UserInfo.XNCode,
+                        ContactInfo = ContactInfo,
+                        Vehiclelist = Vehiclelist,
+                        Description = string.Empty
+                };
+
+                    ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
+                    if (ResponeSupport.State == true && ResponeSupport != null)
+                    {
+                        INotificationView = true;
+                    }
+                    else
+                    {
+                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                    }
                 }
                 else
-                {                    
+                {
                     _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
                 }
             });

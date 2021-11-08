@@ -67,7 +67,7 @@
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Danh mục cân hỗ trợ: " />
-                                    <Span Text="{Binding NamePage}" />
+                                    <Span Text="{Binding Item.Name}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -97,7 +97,7 @@
                                 <Entry
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
-                                    MaxLength="10"
+                                    Placeholder="Nhập họ tên"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
                                     Text="{Binding UserInfo.FullName}"
                                     VerticalOptions="Center">
@@ -126,7 +126,8 @@
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
                                     Keyboard="Numeric"
-                                    MaxLength="10"
+                                    MaxLength="15"
+                                    Placeholder="Nhập số điện thoại"
                                     PlaceholderColor="{DynamicResource TextSecondaryColor}"
                                     Text="{Binding UserInfo.PhoneNumber}"
                                     VerticalOptions="Center">
@@ -155,7 +156,7 @@
                                     AutoSize="TextChanges"
                                     FontSize="14"
                                     MaxLength="1000"
-                                    Placeholder="Nhập nội dung phản hồi"
+                                    Placeholder="Nhập nội dung hỗ trợ"
                                     Text="{Binding Feedack}">
                                     <Editor.Effects>
                                         <effects:BorderlessEffect />

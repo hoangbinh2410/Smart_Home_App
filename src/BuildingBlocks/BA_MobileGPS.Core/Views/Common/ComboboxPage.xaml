@@ -8,6 +8,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Content>
@@ -18,15 +19,15 @@
             </Grid.RowDefinitions>
 
             <StackLayout Grid.Row="1" Orientation="Vertical">
-                <controls:HorizontalList
+                <syncfusion:SfListView
                     x:Name="listview"
                     BackgroundColor="Transparent"
                     HorizontalOptions="FillAndExpand"
+                    ItemSpacing="10"
                     ItemsSource="{Binding DataSearch}"
-                    SelectedCommand="{Binding SelectedValueCommand}"
-                    Spacing="15"
+                    TapCommand="{Binding SelectedValueCommand}"
                     VerticalOptions="FillAndExpand">
-                    <controls:HorizontalList.ItemTemplate>
+                    <syncfusion:SfListView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout
                                 Padding="10"
@@ -36,8 +37,8 @@
                                 <Label Text="{Binding Value}" VerticalOptions="CenterAndExpand" />
                             </StackLayout>
                         </DataTemplate>
-                    </controls:HorizontalList.ItemTemplate>
-                </controls:HorizontalList>
+                    </syncfusion:SfListView.ItemTemplate>
+                </syncfusion:SfListView>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

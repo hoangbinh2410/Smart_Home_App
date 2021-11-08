@@ -94,6 +94,27 @@
         /// </Modified>
         public const string OneSignalKey_BASAT = "fbe15fa2-7fb4-4f71-a1ff-60304e673d22";
 
+
+        /// <summary>
+        /// Key cho OneSignal
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public const string OneSignalKey_UNITEL = "b4ac86ec-203e-457c-9616-82d0fa9a375c";
+
+
+        /// <summary>
+        /// Key cho OneSignal
+        /// </summary>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// Namth  16/1/2018   created
+        /// </Modified>
+        public const string OneSignalKey_GSHT = "b4ac86ec-203e-457c-9616-82d0fa9a375c";
+
+
         /// <summary>
         /// Key cho OneSignal
         /// </summary>

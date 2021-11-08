@@ -107,7 +107,7 @@ namespace BA_MobileGPS.Core.ViewModels
             this.showHideColumnService = showHideColumnService;
             this._iStationDetailsService = iStationDetailsService;
             PushToViewRouteCommand = new DelegateCommand<int?>(PushToViewRoute);
-            PushToViewVidioCommand = new DelegateCommand<int?>(PushToViewVidio);
+            PushToViewVidioCommand = new DelegateCommand<int?>(PushToViewVideo);
             PushLandmarkCommand = new DelegateCommand(ExecuteLandmarkCombobox);
             ListShowHideComlumn = new ObservableCollection<ShowHideColumnResponse>()
             {
@@ -118,7 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
             //Xét default key = 0 => tất cả
             _selectedLocation = new ComboboxResponse()
             {
-                Key = 0,
+                Key = -1,
                 Value = MobileResource.ReportSignalLoss_TitleStatus_All
             };
 
@@ -174,7 +174,7 @@ namespace BA_MobileGPS.Core.ViewModels
                  {
                      ListLocationStation.Add(new ComboboxRequest()
                      {
-                         Key = 0,
+                         Key = -1,
                          Value = MobileResource.ReportSignalLoss_TitleStatus_All
                      });
                      foreach (var item in result.ToList())
@@ -270,8 +270,31 @@ namespace BA_MobileGPS.Core.ViewModels
             foreach (var item in data)
             {
                 item.OrderNumber = ++i;
+                item.IsVideoCam = ValidateVehicleCamera(item.VehiclePlate);
             }
             return data;
+        }
+
+        private bool ValidateVehicleCamera(string vehiclePlate)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var plate = vehiclePlate.Contains("_C") ? vehiclePlate : vehiclePlate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>Đổ dữ liệu vào excel</summary>
@@ -516,16 +539,24 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
-                var modelparam = new Vehicle();
-                modelparam.VehiclePlate = VehicleSelect.VehiclePlate;
-                modelparam.PrivateCode = VehicleSelect.PrivateCode;
-                modelparam.VehicleId = VehicleSelect.VehicleId;
-                var p = new NavigationParameters
+                if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    { ParameterKey.VehicleRoute, modelparam }
-                };
-                await NavigationService.NavigateAsync("RouteReportPage", p);
+                    var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
+                    var modelparam = new Vehicle();
+                    modelparam.VehiclePlate = VehicleSelect.VehiclePlate;
+                    modelparam.PrivateCode = VehicleSelect.PrivateCode;
+                    modelparam.VehicleId = VehicleSelect.VehicleId;
+                    var p = new NavigationParameters
+                    {
+                        {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
+                        { ParameterKey.VehicleRoute, modelparam }
+                    };
+                    await NavigationService.NavigateAsync("RouteReportPage", p);
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                }
             });
         }
 
@@ -535,23 +566,29 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// ducpv  28/10/2021   created
         /// </Modified>
-        private void PushToViewVidio(int? obj)
+        private void PushToViewVideo(int? obj)
         {
             SafeExecute(async () =>
             {
-                var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
-                var vehicleModel = new CameraLookUpVehicleModel()
+                if (CheckPermision(1354) || CheckPermision(1355))
                 {
-                    VehiclePlate = VehicleSelect.VehiclePlate,
-                    VehicleId = VehicleSelect.VehicleId,
-                    PrivateCode = VehicleSelect.PrivateCode,
-                };
-                var p = new NavigationParameters()
+                    var model = ListDataSearch.Where(x => x.OrderNumber == obj).FirstOrDefault();
+                    var vehicleModel = new CameraLookUpVehicleModel()
+                    {
+                        VehiclePlate = model.VehiclePlate,
+                        VehicleId = model.FK_VehicleID,
+                    };
+                    var p = new NavigationParameters()
                         {
-                            {ParameterKey.SelectDate,model.TimeInStation },
+                            {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
                             {ParameterKey.VehiclePlate,vehicleModel }
                         };
-                var a = await NavigationService.NavigateAsync("CameraRestream", p);
+                    await NavigationService.NavigateAsync("NavigationPage/CameraRestream", p, true, true);
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                }
             });
         }
 
