@@ -177,6 +177,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if (Vehicle == null)
             {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
                 return;
             }    
             var companyID = CurrentComanyID;
