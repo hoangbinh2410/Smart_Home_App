@@ -12,6 +12,7 @@ using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -54,18 +55,25 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get { return _menuItems; }
             set { SetProperty(ref _menuItems, value); }
         }
-        private ListExpenseCategoryByCompanyRespone _selectedLocation = new ListExpenseCategoryByCompanyRespone();
-        public ListExpenseCategoryByCompanyRespone SelectedLocation
-        {
-            get { return _selectedLocation; }
-            set { SetProperty(ref _selectedLocation, value); }
+
+
+        private ComboboxResponse _selectedExpenseName = new ComboboxResponse();
+        public ComboboxResponse SelectedExpenseName
+        { 
+            get => _selectedExpenseName; 
+            set => SetProperty(ref _selectedExpenseName, value); 
         }
-        private List<ListExpenseCategoryByCompanyRespone> _listMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
-        public List<ListExpenseCategoryByCompanyRespone> ListMenuExpense
+
+        private List<ComboboxRequest> _listExpenseName = new List<ComboboxRequest>();
+
+        public List<ComboboxRequest> ListExpenseName
         {
-            get { return _listMenuExpense; }
-            set { SetProperty(ref _listMenuExpense, value); }
+            get { return _listExpenseName; }
+            set { SetProperty(ref _listExpenseName, value); }
         }
+
+        private List<ListExpenseCategoryByCompanyRespone> ListMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
+        private bool _isCall = true;
 
         #endregion
 
@@ -74,8 +82,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand NavigateCommand { get; }
         public ICommand ShowPicturnCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
-        public ICommand ComboboxSelectedCommand { get; }
         public ICommand DeleteItemCommand { get; private set; }
+        public ICommand PushExpenseNameCommand { get; private set; }
         public ExpenseDetailsPageViewModel(INavigationService navigationService, IExpenseService ExpenseService)
             : base(navigationService)
         {
@@ -83,8 +91,9 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
             ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
-            ComboboxSelectedCommand = new DelegateCommand<SelectionChangedEventArgs>(ComboboxSelected);
             DeleteItemCommand = new DelegateCommand<ExpenseDetailsRespone>(DeleteItemClicked);
+            PushExpenseNameCommand = new DelegateCommand(ExecuteExpenseNameCombobox);
+            EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateValueCombobox);
             _ExpenseService = ExpenseService;
         }
 
@@ -120,8 +129,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     Vehicle = vehicle;
                 }
             }
-
-            GetListExpenseAgain();  
+            if(_isCall)
+            {
+                GetListExpenseAgain();
+            }
+            _isCall = true;
         }
 
         public override void OnPageAppearingFirstTime()
@@ -136,6 +148,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SelectComboboxEvent>().Unsubscribe(UpdateValueCombobox);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
         }
 
         #endregion Lifecycle
@@ -172,36 +186,33 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 return;
             }    
+
             if (Vehicle == null || Vehicle.PrivateCode == null)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
                 return;
             }
+
+            var objExpense = new ExpenseDetailsRespone();
+            objExpense.FK_VehicleID = Vehicle.VehicleId;
+            objExpense.ExpenseDate = ChooseDate;
+
+            if (item != null && item.ItemData != null)
+            {
+                var objItem = (ExpenseDetailsRespone)item.ItemData;
+                //obj này giá trị đã bị fomat,gửi sang đúng giá trị từ API
+                objExpense = MenuItems.Where(x => x.ID == objItem.ID).FirstOrDefault();
+            }
             var parameters = new NavigationParameters
             {
-                { ParameterKey.Vehicle, Vehicle },
-                { "DayChoose",ChooseDate },
-                { "MenuExpense", ListMenuExpense}
+                { "MenuExpense", ListMenuExpense},
+                { "ImportExpense", objExpense},
             };
 
-            if (item == null || item.ItemData == null)
+            SafeExecute(async () =>
             {
-                SafeExecute(async () =>
-                {
-                    await NavigationService.NavigateAsync("ImportExpensePage", parameters);
-                });
-                return;
-            }
-            else
-            {
-                var obj = (ExpenseDetailsRespone)item.ItemData;
-                //obj này giá trị tiền đã bị fomat,gửi sang đúng giá trị từ API
-                parameters.Add("ImportExpense", MenuItems.Where(x => x.ID == obj.ID).FirstOrDefault());
-                SafeExecute(async () =>
-                {
-                    await NavigationService.NavigateAsync("ImportExpensePage", parameters);
-                });
-            }           
+                await NavigationService.NavigateAsync("ImportExpensePage", parameters);
+            });
         }
         public void ShowPicturnClicked(ExpenseDetailsRespone item)
         {
@@ -212,28 +223,37 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         private void GetListExpenseCategory()
         {
-            SafeExecute(async () =>
+            RunOnBackground(async () =>
             {
-                if (IsConnected)
-                {
-                    var companyID = CurrentComanyID;
-                    using (new HUDService(MobileResource.Common_Message_Processing))
-                    {
-                        ListMenuExpense = await _ExpenseService.GetExpenseCategory(companyID);
-                    }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
+                var companyID = CurrentComanyID;
+                return await _ExpenseService.GetExpenseCategory(companyID);
+            },
+             (result) =>
+             {
+                 if (result != null)
+                 {
+                     ListMenuExpense = result.ToList();
+                     ListExpenseName.Add(new ComboboxRequest()
+                     {
+                         Key = -1,
+                         Value = MobileResource.ReportSignalLoss_TitleStatus_All
+                     });
+                     foreach (var item in result.ToList())
+                     {
+                         ListExpenseName.Add(new ComboboxRequest()
+                         {
+                             Value = item.Name
+                         });
+                     }
+                 }
+             });
         }
-        private void ComboboxSelected(SelectionChangedEventArgs args)
+        private void FilterData(ComboboxResponse param)
         {
-            if (args != null && !string.IsNullOrEmpty(args.Value.ToString()))
+            _isCall = false;
+            if (param != null && param.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
             {
-                var item = (ListExpenseCategoryByCompanyRespone)args.Value;
-                MenuItems = _menuItemsRemember.Where(x => x.Name == item.Name)?.ToList();
+                MenuItems = _menuItemsRemember.Where(x => x.Name == param.Value)?.ToList();
             }
             else
             {
@@ -309,10 +329,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         {
                             TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
                             _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
-                            if (!string.IsNullOrEmpty(SelectedLocation.Name))
+                            if (!string.IsNullOrEmpty(SelectedExpenseName.Value) && SelectedExpenseName.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
                             {
                                 MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses
-                                .Where(y => y.Name == SelectedLocation.Name).ToList();
+                                .Where(y => y.Name == SelectedExpenseName.Value)?.ToList();
                             }
                             else
                             {
@@ -334,6 +354,45 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
                 }
             });
+        }
+        public async void ExecuteExpenseNameCombobox()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
+            try
+            {
+                var p = new NavigationParameters
+                {
+                    { "dataCombobox", ListExpenseName },
+                    { "ComboboxType", ComboboxType.First },
+                    { "Title", "Chọn loại phí" }
+                };
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public void UpdateValueCombobox(ComboboxResponse param)
+        {
+            base.UpdateCombobox(param);
+            if (param != null)
+            {
+                var dataResponse = param;
+                if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
+                {
+                    SelectedExpenseName = dataResponse;
+                }
+                FilterData(dataResponse);
+            }
         }
         private bool ValidateDateTime()
         {
