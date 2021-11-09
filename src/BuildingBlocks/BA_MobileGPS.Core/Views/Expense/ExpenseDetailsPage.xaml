@@ -189,6 +189,48 @@
                             VerticalOptions="Center" />
                         <!--  Chọn loại chi phí  -->
                         <Frame
+                            x:Name="cmbname"
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushExpenseNameCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="Tất cả chi phí"
+                                    Text="{Binding SelectedExpenseName.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                        <!--<Frame
                             x:Name="cmbLocation"
                             Grid.Column="1"
                             Padding="0"
@@ -232,7 +274,9 @@
                                             EventName="SelectionChanged" />
                                     </combobox:SfComboBox.Behaviors>
                                     <combobox:SfComboBox.DropDownButtonSettings>
-                                        <!--  DropDownButtonSettings  -->
+                        -->
+                        <!--  DropDownButtonSettings  -->
+                        <!--
                                         <combobox:DropDownButtonSettings Width="15" Height="15">
                                             <combobox:DropDownButtonSettings.View>
                                                 <controls:IconView
@@ -251,7 +295,7 @@
                                 </combobox:SfComboBox>
 
                             </StackLayout>
-                        </Frame>
+                        </Frame>-->
                     </StackLayout>
                     <StackLayout HorizontalOptions="FillAndExpand">
                         <Grid ColumnSpacing="10">
