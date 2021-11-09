@@ -6,6 +6,7 @@ using BA_MobileGPS.Entities.ResponeEntity.Expense;
 using BA_MobileGPS.Entities.ResponeEntity.Report.Station;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.Report.Station;
+using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Extensions;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
@@ -16,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -32,6 +34,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand ResetImageCommand { get; private set; }
         public ICommand SaveExpenseCommand { get; private set; }
         public ICommand SaveAndCountinuteCommand { get; private set; }
+        public ICommand PushComboboxPlacePage { get; private set; }
+        public ICommand PushComboboxExpensePage { get; private set; }
         protected IPageDialogService _PageDialog { get; private set; }
         private IExpenseService _ExpenseService { get; set; }
         private IStationLocationService _StationLocation { get; set; }
@@ -45,6 +49,8 @@ namespace BA_MobileGPS.Core.ViewModels
             ResetImageCommand = new DelegateCommand(ResetImage);
             SaveExpenseCommand = new DelegateCommand(SaveExpense);
             SaveAndCountinuteCommand = new DelegateCommand(SaveAndCountinute);
+            PushComboboxPlacePage = new DelegateCommand(PushComboboxPlace);
+            PushComboboxExpensePage = new DelegateCommand(PushComboboxExpensene);
             _ExpenseService = ExpenseService;
             _PageDialog = PageDialog;
             _displayMessage = displayMessage;
@@ -112,7 +118,8 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region Property
-
+        private ComboboxResponse statusSignalLossSelected;
+        public ComboboxResponse StatusSignalLossSelected { get => statusSignalLossSelected; set => SetProperty(ref statusSignalLossSelected, value); }
         public ExpenseDetailsRespone expenseDetail = new ExpenseDetailsRespone();
         public ExpenseDetailsRespone ExpenseDetail { get { return expenseDetail; } set { SetProperty(ref expenseDetail, value); } }
         public bool IInsertExpense;
@@ -146,9 +153,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IButtonView { get { return iButtonView; } set { SetProperty(ref iButtonView, value); } }
 
-        private int? landmarkID = null;
+        //private int? landmarkID = null;
 
-        public int? LandmarkID { get { return landmarkID; } set { SetProperty(ref landmarkID, value); } }
+        //public int? LandmarkID { get { return landmarkID; } set { SetProperty(ref landmarkID, value); } }
 
         private long vehicleID;
 
@@ -177,14 +184,13 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!SelectedExpense.HasLandmark)
             {
                 ExpenseDetail.OtherAddress = string.Empty;
-                LandmarkID = null;
+                SelectedLocation = new LocationStationResponse();
             }
         }
-
         // Chọn địa điểm
         private void SelectPlace()
         {
-            LandmarkID = SelectedLocation.PK_LandmarkID;
+            //LandmarkID = SelectedLocation.PK_LandmarkID;
             if (SelectedLocation.Address == DataItem.Place.ToDescription())
             {
                 IHasOtherPlace = true;
@@ -206,11 +212,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
             if (result.Equals(MobileResource.Common_Message_TakeNewPhoto))
             {
-                TakeNewAvatar();
+                TakeNewImage();
             }
             else if (result.Equals(MobileResource.Common_Message_ChooseAvailablePhotos))
             {
-                PickAvatar();
+                PickImage();
             }
         }
 
@@ -226,7 +232,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             SelectedLocation = ListPlace.Where(x => x.Name == obj.LandmarkName).ToList().FirstOrDefault();
 
-            LandmarkID = SelectedLocation.PK_LandmarkID;
+            //LandmarkID = SelectedLocation.PK_LandmarkID;
         }
 
         // danh sách phí, danh sách địa điểm trong combobox
@@ -278,7 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpenseDate = Expensedate,
                         Note = ExpenseDetail.Note,
                         FK_ExpenseCategoryID = SelectedExpense.ID,
-                        FK_LandmarkID = LandmarkID,
+                        FK_LandmarkID = SelectedLocation.PK_LandmarkID,
                         FK_VehicleID = VehicleID,
                     };
                     IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
@@ -316,17 +322,17 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpenseDate = Expensedate,
                         Note = ExpenseDetail.Note,
                         FK_ExpenseCategoryID = SelectedExpense.ID,
-                        FK_LandmarkID = LandmarkID,
+                        FK_LandmarkID = SelectedLocation.PK_LandmarkID,
                         FK_VehicleID = VehicleID,
                     };
                     IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
                     if (IInsertExpense)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);                                        
+                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
+                        SelectedLocation = null;
                         SelectedExpense = null;
                         ExpenseDetail = new ExpenseDetailsRespone();
-                        IHasOtherPlace = false;
-                        SelectedLocation = null;
+                        //IHasOtherPlace = false;                        
                         ImagePathLocal = DataItem.Image.ToDescription();
                     }
                     else
@@ -341,7 +347,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void TakeNewAvatar()
+        private void TakeNewImage()
         {
             TryExecute(async () =>
             {
@@ -380,7 +386,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void PickAvatar()
+        private void PickImage()
         {
             TryExecute(async () =>
             {
@@ -419,6 +425,82 @@ namespace BA_MobileGPS.Core.ViewModels
             };
 
             await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
+        }
+        public async void PushComboboxPlace()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
+            try
+            {
+                var p = new NavigationParameters
+                {
+                    { "dataCombobox", ListExpenseCategory },
+                    { "ComboboxType", ComboboxType.Second },
+                    { "Title", MobileResource.ReportSignalLoss_TitleStatus }
+                };
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        private List<ComboboxRequest> LoadAllExpense()
+        {
+            return new List<ComboboxRequest>() {
+                    new ComboboxRequest(){Key = 0 , Value = MobileResource.ReportSignalLoss_TitleStatus_All},
+                    new ComboboxRequest(){Key = 1 , Value = MobileResource.ReportSignalLoss_TitleStatus_GPS},
+                    new ComboboxRequest(){Key = 2 , Value = MobileResource.ReportSignalLoss_TitleStatus_GMS},
+                };
+        }
+        public async void PushComboboxExpensene()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+            IsBusy = true;
+            try
+            {
+                var p = new NavigationParameters
+                {
+                    { "dataCombobox", LoadAllExpense() },
+                    { "ComboboxType", ComboboxType.First },
+                    { "Title", MobileResource.ReportSignalLoss_TitleStatus }
+                };
+                await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        public override void UpdateCombobox(ComboboxResponse param)
+        {
+            base.UpdateCombobox(param);
+            if (param != null)
+            {
+                var dataResponse = param;
+                if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
+                {
+                    StatusSignalLossSelected = dataResponse;
+                }
+                if (dataResponse.ComboboxType == (Int16)ComboboxType.Second)
+                {
+                    StatusSignalLossSelected = dataResponse;
+                }
+            }
         }
 
         #endregion PrivateMethod
