@@ -48,6 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                     {
                         Vehicle = vehicle;
+                       
                     }
                     else
                     {
@@ -69,6 +70,12 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.OnNavigatedTo(parameters);
             LicensePlateNow = Vehicle.VehiclePlate;
+            if (StaticSettings.User != null)
+            {
+                Phonenumber = StaticSettings.User.PhoneNumber;
+                UserFullName = StaticSettings.User.FullName;
+
+            }
         }
 
         public override void OnPageAppearingFirstTime()
@@ -111,10 +118,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private string phonenumber;
         public string Phonenumber { get { return phonenumber; } set { SetProperty(ref phonenumber, value); } }
-
+        private string userFullName;
+        public string UserFullName { get { return userFullName; } set { SetProperty(ref userFullName, value); } }
         private bool InotificationView = false;
         private LoginResponse userInfo;
-        public LoginResponse UserInfo { get { if (StaticSettings.User != null) { userInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
+        public LoginResponse UserInfo { get { if (StaticSettings.User != null) { UserInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
 
         public bool INotificationView
         {
@@ -141,17 +149,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (!string.IsNullOrEmpty(UserInfo.FullName))
+                if (!string.IsNullOrEmpty(UserFullName))
                 {
-                    if (!string.IsNullOrEmpty(UserInfo.PhoneNumber))
+                    if (!string.IsNullOrEmpty(Phonenumber))
                     {
                         if (!string.IsNullOrEmpty(Feedack))
                         {
                             ContactInfo = new ContactInfo()
                             {
-                                fullname = UserInfo.FullName,
+                                fullname = UserFullName,
                                 username = UserInfo.UserName,
-                                mobile = UserInfo.PhoneNumber
+                                mobile = Phonenumber
                             };
                             Errorlist = new List<Errorlist>()
                             {

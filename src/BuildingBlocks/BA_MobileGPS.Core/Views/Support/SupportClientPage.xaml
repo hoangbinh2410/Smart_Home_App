@@ -21,6 +21,7 @@
             <Color x:Key="colorlb1">#00ADE5</Color>
             <Color x:Key="colorItem">#E0FFFF</Color>
             <Color x:Key="ColorGray">#F5F5F5</Color>
+            <Color x:Key="ColorText">#000000</Color>
             <Style x:Key="LabelItem" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="18" />
@@ -149,7 +150,7 @@
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}">
+                            TextColor="{DynamicResource ColorText}">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span x:Name="textSupport" />

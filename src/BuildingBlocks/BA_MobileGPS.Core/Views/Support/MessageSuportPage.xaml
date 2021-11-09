@@ -12,6 +12,8 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Color x:Key="ColorText">#000000</Color>
+            <Color x:Key="ColorBoder">#DADADA</Color>
             <Style x:Key="Text14B" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="14" />
@@ -54,7 +56,7 @@
                         Grid.Row="0"
                         Padding="20,0,20,0"
                         HorizontalOptions="Start"
-                        Spacing="30">
+                        Spacing="20">
 
                         <Label
                             HorizontalTextAlignment="Start"
@@ -84,11 +86,12 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Họ và tên" />
+                                Text="Họ và tên"
+                                TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
-                                BorderColor="{DynamicResource PrimaryColor}"
+                                BorderColor="{DynamicResource ColorBoder}"
                                 HasShadow="False"
                                 HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
@@ -98,8 +101,8 @@
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
                                     Placeholder="Nhập họ tên"
-                                    PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                    Text="{Binding UserInfo.FullName}"
+                                    Text="{Binding UserFullName}"
+                                    TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -112,11 +115,12 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Số điện thoại" />
+                                Text="Số điện thoại"
+                                TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
-                                BorderColor="{DynamicResource PrimaryColor}"
+                                BorderColor="{DynamicResource ColorBoder}"
                                 HasShadow="False"
                                 HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
@@ -128,8 +132,8 @@
                                     Keyboard="Numeric"
                                     MaxLength="15"
                                     Placeholder="Nhập số điện thoại"
-                                    PlaceholderColor="{DynamicResource TextSecondaryColor}"
-                                    Text="{Binding UserInfo.PhoneNumber}"
+                                    Text="{Binding Phonenumber}"
+                                    TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -142,11 +146,12 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Nội dung phản hồi" />
+                                Text="Nội dung phản hồi"
+                                TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
-                                BorderColor="{DynamicResource PrimaryColor}"
+                                BorderColor="{DynamicResource ColorBoder}"
                                 HasShadow="False"
                                 HeightRequest="250"
                                 HorizontalOptions="FillAndExpand"
@@ -157,7 +162,8 @@
                                     FontSize="14"
                                     MaxLength="1000"
                                     Placeholder="Nhập nội dung hỗ trợ"
-                                    Text="{Binding Feedack}">
+                                    Text="{Binding Feedack}"
+                                    TextColor="{DynamicResource ColorText}">
                                     <Editor.Effects>
                                         <effects:BorderlessEffect />
                                     </Editor.Effects>
@@ -253,12 +259,13 @@
                                 VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khác vui lòng truy cập tính năng " />
+                                        <Span Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khách vui lòng truy cập tính năng " />
                                         <Span
                                             CharacterSpacing="1"
+                                            Style="{DynamicResource Text14B}"
                                             Text="Tài khoản &gt; Phản hồi khách hàng "
                                             TextColor="#0474D8" />
-                                        <Span Text="Để theo dõi phản hồi của CSKH." />
+                                        <Span Text="để theo dõi phản hồi của CSKH." />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
