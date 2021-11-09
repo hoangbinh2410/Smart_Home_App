@@ -54,7 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             set { SetProperty(ref _totalMoney, value); }
         }
 
-        private bool _isCall = true;
+        private bool _isCall = false;
 
         #endregion Property
 
@@ -73,7 +73,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
             PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);
-            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDate);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             SearchDataCommand = new DelegateCommand(SearchDataClicked);
             AddDataCommand = new DelegateCommand(AddDataClicked);
@@ -121,7 +120,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDate);
             EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
         }
 
@@ -155,24 +153,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 };
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
-        }
-
-        private void UpdateDate(PickerDateResponse param)
-        {
-            if (param != null)
-            {
-                if (param.PickerType == (short)ComboboxType.First)
-                {
-                    FromDate = param.Value;
-                }
-                else if (param.PickerType == (short)ComboboxType.Second)
-                {
-                    ToDate = param.Value;
-                }
-                else if (param.PickerType == (short)ComboboxType.Third)
-                {
-                }
-            }
         }
 
         private void UpdateDateTime(PickerDateTimeResponse param)
@@ -273,7 +253,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
                 return;
             }    
-            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?", "Có", "Không");
+            var action = await PageDialog.DisplayAlertAsync("Cảnh báo",string.Format("Bạn chắc chắn muốn xóa chi phí ngày {0}?", obj.ExpenseDate.ToString("dd/MM/yyyy")) , "Có", "Không");
             if (!action)
             {
                 return;

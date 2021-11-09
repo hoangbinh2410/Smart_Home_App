@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         private List<ExpenseDetailsRespone> _menuItemsRemember { get; set; }
         private List<ComboboxRequest> ListExpenseName = new List<ComboboxRequest>();
         private List<ListExpenseCategoryByCompanyRespone> ListMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
-        private bool _isCall = true;
+        private bool _isCall = false;
 
         #endregion
 
@@ -119,7 +119,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters != null)
+            if(parameters != null)
             {
                 if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
                 {
@@ -265,7 +265,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
                 return;
             }
-            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc chắn muốn xóa?", "Có", "Không");
+            var action = await PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn chắc chắn muốn xóa chi phí này?", "Có", "Không");
             if (!action)
             {
                 return;
