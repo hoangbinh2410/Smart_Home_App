@@ -30,32 +30,34 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get => _vehicle;
             set => SetProperty(ref _vehicle, value);
         }
+
         private DateTime _chooseDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
         public virtual DateTime ChooseDate
         {
             get => _chooseDate;
             set => SetProperty(ref _chooseDate, value);
         }
+
         private decimal _totalMoney = 0;
         public decimal TotalMoney
         {
             get { return _totalMoney; }
             set { SetProperty(ref _totalMoney, value); }
         }
-        private string _successImage = string.Empty;
-        public string SuccessImage
+
+        private string _sourceImage = string.Empty;
+        public string SourceImage
         {
-            get { return _successImage; }
-            set { SetProperty(ref _successImage, value); }
+            get { return _sourceImage; }
+            set { SetProperty(ref _sourceImage, value); }
         }
-        private List<ExpenseDetailsRespone> _menuItemsRemember { get; set; }
+        
         private List<ExpenseDetailsRespone> _menuItems = new List<ExpenseDetailsRespone>();
         public List<ExpenseDetailsRespone> MenuItems
         {
             get { return _menuItems; }
             set { SetProperty(ref _menuItems, value); }
         }
-
 
         private ComboboxResponse _selectedExpenseName = new ComboboxResponse();
         public ComboboxResponse SelectedExpenseName
@@ -64,20 +66,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             set => SetProperty(ref _selectedExpenseName, value); 
         }
 
-        private List<ComboboxRequest> _listExpenseName = new List<ComboboxRequest>();
-
-        public List<ComboboxRequest> ListExpenseName
-        {
-            get { return _listExpenseName; }
-            set { SetProperty(ref _listExpenseName, value); }
-        }
-
+        private List<ExpenseDetailsRespone> _menuItemsRemember { get; set; }
+        private List<ComboboxRequest> ListExpenseName = new List<ComboboxRequest>();
         private List<ListExpenseCategoryByCompanyRespone> ListMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
         private bool _isCall = true;
 
         #endregion
 
         #region Contructor
+
         public ICommand ChooseDateDateTimePageCommand { get; private set; }
         public ICommand NavigateCommand { get; }
         public ICommand ShowPicturnCommand { get; }
@@ -88,11 +85,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             : base(navigationService)
         {
             ChooseDateDateTimePageCommand = new DelegateCommand(ExecuteToChooseDateTime);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
             ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
             DeleteItemCommand = new DelegateCommand<ExpenseDetailsRespone>(DeleteItemClicked);
             PushExpenseNameCommand = new DelegateCommand(ExecuteExpenseNameCombobox);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateValueCombobox);
             _ExpenseService = ExpenseService;
         }
@@ -155,6 +152,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #endregion Lifecycle
 
         #region PrivateMethod
+
         private void ExecuteToChooseDateTime()
         {
             SafeExecute(async () =>
@@ -218,7 +216,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if(item != null)
             {
-                SuccessImage = item.Photo;
+                SourceImage = item.Photo;
             }     
         }
         private void GetListExpenseCategory()
@@ -404,6 +402,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             return result;
         }
+
         #endregion PrivateMethod
     }
 }

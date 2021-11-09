@@ -20,7 +20,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #region Property
 
         private Vehicle _vehicle;
-
         public Vehicle Vehicle
         {
             get => _vehicle;
@@ -28,26 +27,20 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
-
         public virtual DateTime FromDate
         {
             get => fromDate;
             set => SetProperty(ref fromDate, value);
         }
 
-        private DateTime minfromDate = DateTime.Today.AddYears(-1);
-
-        public virtual DateTime MinfromDate
-        {
-            get => minfromDate;
-            set => SetProperty(ref minfromDate, value);
+        private DateTime toDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
+        public virtual DateTime ToDate 
+        { 
+            get => toDate; 
+            set => SetProperty(ref toDate, value); 
         }
 
-        private DateTime toDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
-        public virtual DateTime ToDate { get => toDate; set => SetProperty(ref toDate, value); }
-
         private List<ExpenseRespone> _menuItems = new List<ExpenseRespone>();
-
         public List<ExpenseRespone> MenuItems
         {
             get { return _menuItems; }
@@ -55,7 +48,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private decimal _totalMoney = 0;
-
         public decimal TotalMoney
         {
             get { return _totalMoney; }
@@ -129,6 +121,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDate);
+            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
         }
 
         #endregion Lifecycle
@@ -262,7 +256,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             else if (ToDate.Subtract(FromDate).TotalDays > 90)
             {
-                DisplayMessage.ShowMessageInfo("Bạn không được phép xem quá 90 ngày");
+                DisplayMessage.ShowMessageInfo("Vui lòng tìm kiếm trong phạm vi 90 ngày!");
                 result = false;
             }
             return result;
@@ -325,27 +319,22 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
                 return;
             }    
+
             var parameters = new NavigationParameters
             {
                 { ParameterKey.Vehicle, Vehicle }
             };
 
-            if (item == null || item.ItemData == null)
-            {
-                SafeExecute(async () =>
-                {
-                    await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
-                });
-            }
-            else
+            if (item != null && item.ItemData != null)
             {
                 parameters.Add("ExpenseDetails", item.ItemData);
-                SafeExecute(async () =>
-                {
-                    await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
-                });
-            }    
-            
+            }
+
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
+            });
+
         }
 
         #endregion PrivateMethod
