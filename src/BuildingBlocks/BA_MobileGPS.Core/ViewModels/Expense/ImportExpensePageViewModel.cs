@@ -304,8 +304,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (IInsertExpense)
                     {
                         await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);                      
-                        SelectedExpense = null;
-                        SelectedLocation = null;
+                        SelectedExpense = new ListExpenseCategoryByCompanyRespone();
+                        SelectedLocation = new LocationStationResponse();
                         ExpenseDetail.Note = String.Empty;
                         ExpenseDetail.ExpenseCost = 0;
                         ImagePathLocal = DataItem.Image.ToDescription();
