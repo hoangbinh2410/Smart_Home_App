@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Expense
         public string Name { get; set; }
         public string FK_ExpenseCategoryID { get; set; }
         public int FK_CompanyID { get; set; }
-        public int FK_VehicleID { get; set; }
+        public long FK_VehicleID { get; set; }
         public DateTime ExpenseDate { get; set; }
         public decimal ExpenseCost { get; set; }
         public string Note { get; set; }
