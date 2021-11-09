@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BA_MobileGPS.Entities.ResponeEntity.Expense
 {
-    public class ExpenseDetailsRespone:BaseModel
+    public class ExpenseDetailsRespone : BaseModel
     {
         public Guid ID { get; set; }
         public string Name { get; set; }
