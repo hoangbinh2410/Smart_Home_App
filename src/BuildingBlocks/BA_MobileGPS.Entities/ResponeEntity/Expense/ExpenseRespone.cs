@@ -4,7 +4,8 @@ using System.Text;
 
 namespace BA_MobileGPS.Entities.ResponeEntity.Expense
 {
-    public class ExpenseRespone
+    [Serializable]
+    public class ExpenseRespone:BaseModel
     {
         public DateTime ExpenseDate { get; set; }
         public decimal Total { get; set; }

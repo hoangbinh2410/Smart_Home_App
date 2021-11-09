@@ -387,8 +387,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 if (dataResponse.ComboboxType == (Int16)ComboboxType.First)
                 {
                     SelectedExpenseName = dataResponse;
+                    FilterData(dataResponse);
                 }
-                FilterData(dataResponse);
             }
         }
         private bool ValidateDateTime()
