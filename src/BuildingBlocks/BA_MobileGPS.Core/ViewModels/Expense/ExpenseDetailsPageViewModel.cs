@@ -323,18 +323,17 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         var listItems = await _ExpenseService.GetListExpense(request);
-                        if(listItems != null && listItems.Count>0)
+                        if(listItems != null && listItems.Count > 0)
                         {
                             TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
                             _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
                             if (!string.IsNullOrEmpty(SelectedExpenseName.Value) && SelectedExpenseName.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
                             {
-                                MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses
-                                .Where(y => y.Name == SelectedExpenseName.Value)?.ToList();
+                                MenuItems = _menuItemsRemember.Where(y => y.Name == SelectedExpenseName.Value)?.ToList();
                             }
                             else
                             {
-                                MenuItems = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                                MenuItems = _menuItemsRemember;
                             }
                         }    
                         else
