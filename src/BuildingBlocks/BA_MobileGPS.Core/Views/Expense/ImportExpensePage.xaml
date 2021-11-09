@@ -83,7 +83,8 @@
                         HorizontalOptions="FillAndExpand"
                         IsClippedToBounds="True"
                         VerticalOptions="Center">
-                        <StackLayout
+
+                        <!--<StackLayout
                             Padding="5,0,10,0"
                             HeightRequest="40"
                             HorizontalOptions="FillAndExpand"
@@ -116,7 +117,9 @@
                                         EventName="SelectionChanged" />
                                 </combobox:SfComboBox.Behaviors>
                                 <combobox:SfComboBox.DropDownButtonSettings>
-                                    <!--  DropDownButtonSettings  -->
+                        -->
+                        <!--  DropDownButtonSettings  -->
+                        <!--
                                     <combobox:DropDownButtonSettings Width="15" Height="15">
                                         <combobox:DropDownButtonSettings.View>
                                             <controls:IconView
@@ -133,6 +136,32 @@
                                     <ListCollection:List x:TypeArguments="x:String" />
                                 </combobox:SfComboBox.ComboBoxSource>
                             </combobox:SfComboBox>
+                        </StackLayout>-->
+                        <StackLayout Orientation="Horizontal">
+                            <Entry
+                                FontSize="14"
+                                HeightRequest="45"
+                                HorizontalOptions="FillAndExpand"
+                                Placeholder="Chọn loại chi phí"
+                                PlaceholderColor="{DynamicResource ColorText}"
+                                Text="{Binding SelectedExpense.Name}"
+                                TextColor="{DynamicResource ColorText}"
+                                VerticalOptions="Center">
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                                <Entry.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushComboboxExpense}" />
+                                </Entry.GestureRecognizers>
+                            </Entry>
+                            <controls:IconView
+                                Margin="0,0,5,0"
+                                Foreground="{DynamicResource PrimaryColor}"
+                                HeightRequest="17.5"
+                                HorizontalOptions="End"
+                                Source="ic_sortdown.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
                         </StackLayout>
                     </Frame>
 
@@ -230,7 +259,8 @@
                                 HorizontalOptions="FillAndExpand"
                                 IsClippedToBounds="True"
                                 VerticalOptions="Center">
-                                <StackLayout
+
+                                <!--<StackLayout
                                     Padding="5,0,10,0"
                                     HeightRequest="40"
                                     HorizontalOptions="FillAndExpand"
@@ -263,7 +293,9 @@
                                                 EventName="SelectionChanged" />
                                         </combobox:SfComboBox.Behaviors>
                                         <combobox:SfComboBox.DropDownButtonSettings>
-                                            <!--  DropDownButtonSettings  -->
+                                -->
+                                <!--  DropDownButtonSettings  -->
+                                <!--
                                             <combobox:DropDownButtonSettings Width="15" Height="15">
                                                 <combobox:DropDownButtonSettings.View>
                                                     <controls:IconView
@@ -280,6 +312,32 @@
                                             <ListCollection:List x:TypeArguments="x:String" />
                                         </combobox:SfComboBox.ComboBoxSource>
                                     </combobox:SfComboBox>
+                                </StackLayout>-->
+                                <StackLayout Orientation="Horizontal">
+                                    <Entry
+                                        FontSize="14"
+                                        HeightRequest="45"
+                                        HorizontalOptions="FillAndExpand"
+                                        Placeholder="Chọn điểm"
+                                        PlaceholderColor="{DynamicResource ColorText}"
+                                        Text="{Binding SelectedLocation.Address}"
+                                        TextColor="{DynamicResource ColorText}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                        <Entry.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PushComboboxPlace}" />
+                                        </Entry.GestureRecognizers>
+                                    </Entry>
+                                    <controls:IconView
+                                        Margin="0,0,5,0"
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HeightRequest="17.5"
+                                        HorizontalOptions="End"
+                                        Source="ic_sortdown.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
                                 </StackLayout>
                             </Frame>
                         </StackLayout>
