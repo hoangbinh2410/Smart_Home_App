@@ -51,7 +51,7 @@
                 FontSize="14"
                 HorizontalOptions="Start"
                 HorizontalTextAlignment="Start"
-                Text="Để được hỗ trợ nhanh hơn, Quý khách vui lòng thực hiện các kiểm tra trước khi gửi phản hồi" />
+                Text="Để được hỗ trợ nhanh hơn, quý khách vui lòng thực hiện các kiểm tra trước khi gửi phản hồi" />
             <pancake:PancakeView BackgroundColor="#0474D8" CornerRadius="10">
                 <pancake:PancakeView.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CommandPushSelectSupportPage}" />
@@ -83,9 +83,6 @@
                 </Grid>
             </pancake:PancakeView>
             <StackLayout Orientation="Horizontal">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CommandPushMessageSuportPage}" />
-                </StackLayout.GestureRecognizers>
                 <controls:IconView
                     Foreground="#0474D8"
                     HeightRequest="20"
@@ -96,7 +93,11 @@
                 <Label
                     Style="{DynamicResource Text14}"
                     Text="Gửi hỗ trợ tới bộ phận CSKH"
-                    TextColor="#0474D8" />
+                    TextColor="#0474D8">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CommandPushMessageSuportPage}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -12,6 +12,7 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Color x:Key="ColorBoder">#DADADA</Color>
             <Style x:Key="Text16B" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="16" />
@@ -52,7 +53,7 @@
                     <StackLayout
                         Padding="20,0,20,0"
                         HorizontalOptions="Start"
-                        Spacing="30"
+                        Spacing="20"
                         VerticalOptions="FillAndExpand">
                         <Label
                             HorizontalTextAlignment="Start"
@@ -83,11 +84,12 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Biển số mới" />
+                                Text="Biển số mới"
+                                TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
                                 BackgroundColor="{DynamicResource WhiteColor}"
-                                BorderColor="{DynamicResource PrimaryColor}"
+                                BorderColor="{DynamicResource ColorBoder}"
                                 HasShadow="False"
                                 HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
@@ -98,8 +100,8 @@
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
                                     Placeholder="Nhập biển kiểm soát mới"
-                                    PlaceholderColor="{DynamicResource TextSecondaryColor}"
                                     Text="{Binding LicensePlateNew}"
+                                    TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />

@@ -158,7 +158,7 @@
                                     <Entry
                                         Grid.Column="0"
                                         FontSize="{DynamicResource FontSizeTextPut11}"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="FillAndExpand"
                                         InputTransparent="True"
                                         Placeholder="Phương tiện"
                                         Text="{Binding Vehicle.PrivateCode}"
@@ -462,7 +462,7 @@
                             WidthRequest="300">
                             <sfPopup:PopupView.ContentTemplate>
                                 <DataTemplate>
-                                    <ff:CachedImage Aspect="AspectFill" Source="{Binding SuccessImage}" />
+                                    <ff:CachedImage Aspect="AspectFill" Source="{Binding SourceImage}" />
                                 </DataTemplate>
                             </sfPopup:PopupView.ContentTemplate>
                         </sfPopup:PopupView>

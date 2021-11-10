@@ -83,65 +83,19 @@
                         HorizontalOptions="FillAndExpand"
                         IsClippedToBounds="True"
                         VerticalOptions="Center">
-
-                        <!--<StackLayout
-                            Padding="5,0,10,0"
-                            HeightRequest="40"
+                        <StackLayout
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal"
-                            VerticalOptions="Center">
-                            <combobox:SfComboBox
-                                DataSource="{Binding ListExpenseCategory}"
-                                DisplayMemberPath="Name"
-                                DropDownTextSize="14"
-                                HorizontalOptions="FillAndExpand"
-                                IsEditableMode="False"
-                                MaximumDropDownHeight="200"
-                                SelectedDropDownItemColor="Transparent"
-                                SelectedItem="{Binding SelectedExpense}"
-                                ShowBorder="False"
-                                ShowClearButton="False"
-                                TextColor="{DynamicResource ColorText}"
-                                TextSize="14"
-                                VerticalOptions="FillAndExpand"
-                                Watermark="Chọn loại chi phí"
-                                WatermarkColor="{DynamicResource ColorText}">
-                                <combobox:SfComboBox.Behaviors>
-                                    <behaviors:EventToCommandBehavior
-                                        Command="{Binding TimeSelectingCommand}"
-                                        EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
-                                        EventName="SelectionChanging" />
-                                    <behaviors:EventToCommandBehavior
-                                        Command="{Binding SelectExpenseCommand}"
-                                        EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
-                                        EventName="SelectionChanged" />
-                                </combobox:SfComboBox.Behaviors>
-                                <combobox:SfComboBox.DropDownButtonSettings>
-                        -->
-                        <!--  DropDownButtonSettings  -->
-                        <!--
-                                    <combobox:DropDownButtonSettings Width="15" Height="15">
-                                        <combobox:DropDownButtonSettings.View>
-                                            <controls:IconView
-                                                Foreground="{DynamicResource BlackColor}"
-                                                HeightRequest="20"
-                                                HorizontalOptions="End"
-                                                Source="ic_sortdown.png"
-                                                VerticalOptions="EndAndExpand"
-                                                WidthRequest="20" />
-                                        </combobox:DropDownButtonSettings.View>
-                                    </combobox:DropDownButtonSettings>
-                                </combobox:SfComboBox.DropDownButtonSettings>
-                                <combobox:SfComboBox.ComboBoxSource>
-                                    <ListCollection:List x:TypeArguments="x:String" />
-                                </combobox:SfComboBox.ComboBoxSource>
-                            </combobox:SfComboBox>
-                        </StackLayout>-->
-                        <StackLayout Orientation="Horizontal">
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushComboboxExpensePage}" />
+                            </StackLayout.GestureRecognizers>
                             <Entry
+                                Margin="5,0,0,0"
                                 FontSize="14"
                                 HeightRequest="45"
                                 HorizontalOptions="FillAndExpand"
+                                InputTransparent="True"
                                 Placeholder="Chọn loại chi phí"
                                 PlaceholderColor="{DynamicResource ColorText}"
                                 Text="{Binding SelectedExpense.Name}"
@@ -150,12 +104,10 @@
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
                                 </Entry.Effects>
-                                <Entry.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding PushComboboxExpense}" />
-                                </Entry.GestureRecognizers>
+
                             </Entry>
                             <controls:IconView
-                                Margin="0,0,5,0"
+                                Margin="0,0,10,0"
                                 Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="17.5"
                                 HorizontalOptions="End"
@@ -242,7 +194,7 @@
                     </Frame>
                     <!--  Test  -->
 
-                    <!--  Địa điểm  -->
+                    <!--  Địa điểm , Converter={StaticResource HasDataConverter}  -->
                     <StackLayout IsVisible="{Binding SelectedExpense.HasLandmark}">
                         <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <Label
@@ -313,11 +265,19 @@
                                         </combobox:SfComboBox.ComboBoxSource>
                                     </combobox:SfComboBox>
                                 </StackLayout>-->
-                                <StackLayout Orientation="Horizontal">
+                                <StackLayout
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="FillAndExpand">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PushComboboxPlacePage}" />
+                                    </StackLayout.GestureRecognizers>
                                     <Entry
+                                        Margin="5,0,0,0"
                                         FontSize="14"
                                         HeightRequest="45"
                                         HorizontalOptions="FillAndExpand"
+                                        InputTransparent="True"
                                         Placeholder="Chọn điểm"
                                         PlaceholderColor="{DynamicResource ColorText}"
                                         Text="{Binding SelectedLocation.Address}"
@@ -331,7 +291,7 @@
                                         </Entry.GestureRecognizers>
                                     </Entry>
                                     <controls:IconView
-                                        Margin="0,0,5,0"
+                                        Margin="0,0,10,0"
                                         Foreground="{DynamicResource PrimaryColor}"
                                         HeightRequest="17.5"
                                         HorizontalOptions="End"
@@ -373,6 +333,7 @@
                     </StackLayout>
 
                     <!--  Thêm hình ảnh  -->
+                    <!--  , Converter={StaticResource HasDataConverter}  -->
                     <StackLayout IsVisible="{Binding SelectedExpense.HasPhoto}">
                         <StackLayout
                             HorizontalOptions="Start"
@@ -457,7 +418,7 @@
                             <Grid
                                 BackgroundColor="{DynamicResource WhiteColor}"
                                 HorizontalOptions="FillAndExpand"
-                                IsVisible="{Binding IButtonView}">
+                                IsVisible="{Binding ExpenseDetail.Name, Converter={StaticResource HasDataConverter}}">
                                 <buttons:SfButton
                                     BackgroundColor="{DynamicResource PrimaryColor}"
                                     Command="{Binding SaveExpenseCommand}"

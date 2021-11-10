@@ -228,7 +228,7 @@
                                 <Entry
                                     Grid.Column="0"
                                     FontSize="{DynamicResource FontSizeTextPut11}"
-                                    HorizontalOptions="Start"
+                                    HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
                                     Placeholder="Phương tiện"
                                     Text="{Binding Vehicle.PrivateCode}"
