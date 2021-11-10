@@ -7,6 +7,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
+using GSHT_MobileGPS.Core.Themes;
 using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
@@ -26,14 +27,17 @@ namespace GSHT_MobileGPS.ViewModels
 
         private readonly IAuthenticationService authenticationService;
         private readonly IMobileSettingService mobileSettingService;
+        private readonly IThemeGSHTServices _themeServices;
 
         public LoginPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
-            IMobileSettingService mobileSettingService)
+            IMobileSettingService mobileSettingService, 
+            IThemeGSHTServices themeServices)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
             this.mobileSettingService = mobileSettingService;
+            this._themeServices = themeServices;
             InitValidations();
             isShowRegisterSupport = false;
         }
@@ -176,79 +180,79 @@ namespace GSHT_MobileGPS.ViewModels
         #region ICommand
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
-         {
-             SafeExecute(async () =>
-             {
-                 await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
-             });
-         });
+          {
+              SafeExecute(async () =>
+              {
+                  await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+              });
+          });
 
         public ICommand PushtoRegisterSupportCommand => new DelegateCommand(() =>
-         {
-             SafeExecute(async () =>
-             {
-                 _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
-             });
-         });
+          {
+              SafeExecute(async () =>
+              {
+                  _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
+              });
+          });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
-         {
-             SafeExecute(async () =>
-             {
-                 if (MobileSettingHelper.IsUseForgotpassword)
-                 {
-                     await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
-                 }
-                 else
-                 {
-                     await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-                 }
-             });
-         });
+          {
+              SafeExecute(async () =>
+              {
+                  if (MobileSettingHelper.IsUseForgotpassword)
+                  {
+                      await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                  }
+                  else
+                  {
+                      await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                  }
+              });
+          });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
-         {
-             SafeExecute(async () =>
-             {
-                 await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
-             });
-         });
+          {
+              SafeExecute(async () =>
+              {
+                  await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
+              });
+          });
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
-         {
-             SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
-         });
+          {
+              SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
+          });
 
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
-                 {
-                     try
-                     {
-                         if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
-                         {
-                             string shareurl = String.Empty;
-                             if (Device.RuntimePlatform == Device.iOS)
-                             {
-                                 var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
-                                 shareurl = "mailto:" + email;
-                             }
-                             else
-                             {
-                                 shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
-                             }
-                             Device.OpenUri(new Uri(shareurl));
-                         }
-                     }
-                     catch
-                     {
-                         Device.OpenUri(new Uri("https://accounts.google.com/"));
-                     }
-                 });
+                          {
+                              try
+                              {
+                                  if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
+                                  {
+                                      string shareurl = String.Empty;
+                                      if (Device.RuntimePlatform == Device.iOS)
+                                      {
+                                          var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
+                                          shareurl = "mailto:" + email;
+                                      }
+                                      else
+                                      {
+                                          shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
+                                      }
+                                      Device.OpenUri(new Uri(shareurl));
+                                  }
+                              }
+                              catch
+                              {
+                                  Device.OpenUri(new Uri("https://accounts.google.com/"));
+                              }
+                          });
 
         public ICommand LoginCommand => new DelegateCommand(() =>
-         {
-             Login();
-         });
+          {
+              Login();
+          });
 
         #endregion ICommand
 

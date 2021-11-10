@@ -1,15 +1,13 @@
 ﻿using BA_MobileGPS.Core;
-using GSHT_MobileGPS.Styles;
 using BA_MobileGPS.Utilities.Constant;
 using BA_MobileGPS.Utilities.Enums;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
+using GSHT_MobileGPS.Core.Themes;
+using GSHT_MobileGPS.Styles;
+using GSHT_MobileGPS.ViewModels;
+using GSHT_MobileGPS.Views;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
-using GSHT_MobileGPS.Views;
-using GSHT_MobileGPS.ViewModels;
 
 namespace GSHT_MobileGPS
 {
@@ -21,7 +19,7 @@ namespace GSHT_MobileGPS
 
         public override string OneSignalKey => Config.OneSignalKey_GSHT;
 
-        protected async override void OnInitialized()
+        protected override async void OnInitialized()
         {
             base.OnInitialized();
             ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
@@ -30,8 +28,7 @@ namespace GSHT_MobileGPS
             ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
 
-            Application.Current.Resources.MergedDictionaries.Add(new LightColor());
-            Application.Current.Resources.MergedDictionaries.Add(new BA_MobileGPS.Core.Styles.Styles());
+            SetTheme();
 
             //AppCenter.Start("ios=b9feff6c-5277-4e97-97e9-8a8e5c939eef;" +
             //       "android=db0089bc-c6e2-4df4-bead-0368ccef3cd6",
@@ -52,7 +49,17 @@ namespace GSHT_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
+            containerRegistry.RegisterSingleton<IThemeGSHTServices, ThemeServices>();
+            containerRegistry.Register<ResourceDictionary, Theme1>(ThemeGSHT.Theme1.ToString());
+            containerRegistry.Register<ResourceDictionary, Theme2>(ThemeGSHT.Theme2.ToString());
+            containerRegistry.Register<ResourceDictionary, Theme3>(ThemeGSHT.Theme3.ToString());
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>("LoginPage");
+        }
+
+        private void SetTheme()
+        {
+            var themeServices = Current.Container.Resolve<IThemeGSHTServices>();
+            themeServices.ChangeTheme((ThemeGSHT)Settings.CurrentTheme);
         }
     }
 }
