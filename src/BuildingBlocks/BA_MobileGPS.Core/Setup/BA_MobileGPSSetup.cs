@@ -238,6 +238,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ExpenceManagementPage, ExpenceManagementPageViewModel>("ExpenceManagementPage");
             containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>("ExpenseDetailsPage");
             containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
+            containerRegistry.RegisterForNavigation<ListVehicleSupportPage, ListVehicleSupportPageViewModel>("ListVehicleSupportPage");
         }
     }
 }
