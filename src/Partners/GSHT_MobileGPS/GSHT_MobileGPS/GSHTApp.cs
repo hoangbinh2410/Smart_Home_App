@@ -8,6 +8,8 @@ using Microsoft.AppCenter.Crashes;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Forms;
+using GSHT_MobileGPS.Views;
+using GSHT_MobileGPS.ViewModels;
 
 namespace GSHT_MobileGPS
 {
@@ -50,6 +52,7 @@ namespace GSHT_MobileGPS
         {
             base.RegisterTypes(containerRegistry);
             AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>("LoginPage");
         }
     }
 }
