@@ -57,7 +57,7 @@
                         Margin="0,10,0,10"
                         HorizontalOptions="Center"
                         Style="{DynamicResource Text16B}"
-                        Text="{Binding NamePage}"
+                        Text="{Binding Data.Name}"
                         TextColor="{DynamicResource WhiteColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
@@ -171,7 +171,7 @@
                             Margin="0,10,0,10"
                             HorizontalOptions="Center"
                             Style="{DynamicResource Text16B}"
-                            Text="{Binding NamePage}"
+                            Text="{Binding Data.Name}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                     </StackLayout>

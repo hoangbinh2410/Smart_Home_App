@@ -148,19 +148,6 @@
                                 <effects:BorderlessEffect />
                             </syncfusion:SfNumericTextBox.Effects>
                         </syncfusion:SfNumericTextBox>
-                        <!--<Entry
-                            FontSize="14"
-                            HeightRequest="45"
-                            HorizontalOptions="FillAndExpand"
-                            Keyboard="Numeric"
-                            PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding PriceExpense, StringFormat='{0:N0}'}"
-                            TextColor="{DynamicResource ColorText}"
-                            VerticalOptions="Center">
-                            <Entry.Effects>
-                                <effects:BorderlessEffect />
-                            </Entry.Effects>
-                        </Entry>-->
                     </Frame>
 
                     <!--  Ghi chú  -->
@@ -212,59 +199,6 @@
                                 IsClippedToBounds="True"
                                 VerticalOptions="Center">
 
-                                <!--<StackLayout
-                                    Padding="5,0,10,0"
-                                    HeightRequest="40"
-                                    HorizontalOptions="FillAndExpand"
-                                    Orientation="Horizontal"
-                                    VerticalOptions="Center">
-                                    <combobox:SfComboBox
-                                        DataSource="{Binding ListPlace}"
-                                        DisplayMemberPath="Address"
-                                        DropDownTextSize="14"
-                                        HorizontalOptions="FillAndExpand"
-                                        IsEditableMode="False"
-                                        MaximumDropDownHeight="200"
-                                        SelectedDropDownItemColor="Transparent"
-                                        SelectedItem="{Binding SelectedLocation}"
-                                        ShowBorder="False"
-                                        ShowClearButton="False"
-                                        TextColor="{DynamicResource ColorText}"
-                                        TextSize="14"
-                                        VerticalOptions="FillAndExpand"
-                                        Watermark="Chọn điểm"
-                                        WatermarkColor="{DynamicResource ColorText}">
-                                        <combobox:SfComboBox.Behaviors>
-                                            <behaviors:EventToCommandBehavior
-                                                Command="{Binding TimeSelectingCommand}"
-                                                EventArgsConverter="{StaticResource ComboBoxSelectionChangingEventArgsConverter}"
-                                                EventName="SelectionChanging" />
-                                            <behaviors:EventToCommandBehavior
-                                                Command="{Binding SelectPlaceCommand}"
-                                                EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
-                                                EventName="SelectionChanged" />
-                                        </combobox:SfComboBox.Behaviors>
-                                        <combobox:SfComboBox.DropDownButtonSettings>
-                                -->
-                                <!--  DropDownButtonSettings  -->
-                                <!--
-                                            <combobox:DropDownButtonSettings Width="15" Height="15">
-                                                <combobox:DropDownButtonSettings.View>
-                                                    <controls:IconView
-                                                        Foreground="{DynamicResource BlackColor}"
-                                                        HeightRequest="20"
-                                                        HorizontalOptions="End"
-                                                        Source="ic_sortdown.png"
-                                                        VerticalOptions="EndAndExpand"
-                                                        WidthRequest="20" />
-                                                </combobox:DropDownButtonSettings.View>
-                                            </combobox:DropDownButtonSettings>
-                                        </combobox:SfComboBox.DropDownButtonSettings>
-                                        <combobox:SfComboBox.ComboBoxSource>
-                                            <ListCollection:List x:TypeArguments="x:String" />
-                                        </combobox:SfComboBox.ComboBoxSource>
-                                    </combobox:SfComboBox>
-                                </StackLayout>-->
                                 <StackLayout
                                     HorizontalOptions="FillAndExpand"
                                     Orientation="Horizontal"
@@ -329,7 +263,6 @@
                                 </Entry>
                             </Frame>
                         </StackLayout>
-                        <!--  IsVisible="{Binding IHasPlace}"  -->
                     </StackLayout>
 
                     <!--  Thêm hình ảnh  -->

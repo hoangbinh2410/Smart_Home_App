@@ -29,8 +29,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
                     Vehicle = vehicle;
-                    VehiclePlate = vehicle.VehiclePlate;
                 }
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -54,8 +57,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IDisplayMessage _displayMessage;
         public ICommand NavigateCommand { get; }
-        public ICommand SelectVehicleAllCommand { get; }
+
+        // public ICommand SelectVehicleAllCommand { get; }
         public ICommand HideSelect { get; }
+
         public ICommand SupportSelect { get; }
         public ICommand PushSupportMesage { get; }
 
@@ -65,25 +70,13 @@ namespace BA_MobileGPS.Core.ViewModels
             : base(navigationService)
         {
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
-            SelectVehicleAllCommand = new DelegateCommand(SelectVehicleAll);
             _iSupportCategoryService = iSupportCategoryService;
-            PushSupportMesage = new DelegateCommand(PushFeedbackErrorsPage);
-            SupportSelect = new DelegateCommand(PushSupportErrorsPage);
             _displayMessage = displayMessage;
         }
 
         #endregion Contructor
 
-        #region Property
-
-        public string vehiclePlate = string.Empty;
-
-        public string VehiclePlate
-        {
-            get { return vehiclePlate; }
-            set { SetProperty(ref vehiclePlate, value); }
-        }
-
+        #region Property      
         private List<SupportCategoryRespone> menuItems = new List<SupportCategoryRespone>();
 
         public List<SupportCategoryRespone> MenuItems
@@ -143,80 +136,26 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return;
             }
-            if (VehiclePlate == "")
-            {
-                _displayMessage.ShowMessageInfo("Vui lòng chọn phương tiện xử lý");
-            }
             else
             {
                 data = (SupportCategoryRespone)item.ItemData;
                 var parameters = new NavigationParameters
                 {
-                    { "Support", data },
-                    { ParameterKey.VehicleRoute, Vehicle }
+                    { "Support", data }
                 };
-                // Kiểm tra  page mất tín hiệu , // Kiểm tra Page Camera
-                if (data.IsChangePlate == false)
+                SafeExecute(async () =>
                 {
-                    SafeExecute(async () =>
+                    if (string.IsNullOrEmpty(Vehicle.VehiclePlate))
                     {
-                        await NavigationService.NavigateAsync("SelectSupportPage", parameters);
-                    });  
-                }
-                // Kiểm tra page đổi biển
-                else
-                {
-                    SafeExecute(async () =>
+                        await NavigationService.NavigateAsync("ListVehicleSupportPage", parameters);
+                    }
+                    else
                     {
+                        parameters.Add(ParameterKey.VehicleRoute, Vehicle);
                         await NavigationService.NavigateAsync("SelectSupportPage", parameters);
-                    });
-                }
-                //else if (data.Code == nameof(SupportCode.CMR))
-                //{
-                //    SafeExecute(async () =>
-                //    {
-                //    //ISelect = true;
-                //    await NavigationService.NavigateAsync("SelectSupportPage", parameters);
-                //    });
-                //}
-                //// không đúng thì hiển thị thông báo
-                //else
-                //{
-                //    _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
-                //}
+                    }
+                });
             }
-        }
-        private void SelectVehicleAll()
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("BaseNavigationPage/VehicleLookUp", animated: true, useModalNavigation: true, parameters: new NavigationParameters
-                        {
-                            { ParameterKey.VehicleLookUpType, VehicleLookUpType.VehicleList },
-                            {  ParameterKey.VehicleGroupsSelected, VehicleGroups},
-                            {  ParameterKey.VehicleStatusSelected, ListVehicleStatus}
-                        });
-            });
-        }
-
-        private async void PushFeedbackErrorsPage()
-        {
-            var parameters = new NavigationParameters
-            {
-                { "Support", data },
-                { ParameterKey.VehicleRoute, Vehicle },
-            };
-            await NavigationService.NavigateAsync("FeedbackErrorsSignalPage", parameters);
-        }
-
-        private async void PushSupportErrorsPage()
-        {
-            var parameters = new NavigationParameters
-            {
-                { "Support", data },
-                { ParameterKey.VehicleRoute, Vehicle },
-            };
-            await NavigationService.NavigateAsync("SupportErrorsSignalPage", parameters);
         }
 
         #endregion PrivateMethod
