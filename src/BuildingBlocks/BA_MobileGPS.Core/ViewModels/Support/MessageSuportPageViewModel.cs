@@ -7,7 +7,6 @@ using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
-using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -39,7 +38,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            base.Initialize(parameters);
+            base.Initialize(parameters);         
             if (parameters != null)
             {
                 if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
@@ -48,11 +47,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                     {
                         Vehicle = vehicle;
-                       
+                        LicensePlateNow = Vehicle.VehiclePlate;
                     }
                     else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<Vehicle>>("ListVehicleSupport") is List<Vehicle> listvehicle)
                     {
-                        
+                        ListVehicle = listvehicle;
+                        ListVehiclePlace(listvehicle);
                     }
                 }
                 else
@@ -69,12 +69,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            LicensePlateNow = Vehicle.VehiclePlate;
             if (StaticSettings.User != null)
             {
                 Phonenumber = StaticSettings.User.PhoneNumber;
                 UserFullName = StaticSettings.User.FullName;
-
             }
         }
 
@@ -95,34 +93,55 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Lifecycle
 
         #region
-        public Vehicle Vehicle;
+
+        private List<Vehicle> listVehicle = new List<Vehicle>();
+        public List<Vehicle> ListVehicle
+        { get { return listVehicle; } set { SetProperty(ref listVehicle, value); } }
+
+        public Vehicle vehicle = new Vehicle();
+
+        public Vehicle Vehicle
+        { get { return vehicle; } set { SetProperty(ref vehicle, value); } }
+
         private SupportCategoryRespone item = new SupportCategoryRespone();
-        public SupportCategoryRespone Item { get { return item; } set { SetProperty(ref item, value); } }
+
+        public SupportCategoryRespone Item
+        { get { return item; } set { SetProperty(ref item, value); } }
 
         public List<Errorlist> Errorlist;
-
-        public List<Vehiclelist> Vehiclelist;
+        public List<Vehiclelist> _vehiclelist = new List<Vehiclelist>();
+        public List<Vehiclelist> Vehiclelist
+        { get { return _vehiclelist; } set { SetProperty(ref _vehiclelist, value); } }
         public ContactInfo ContactInfo;
 
         public SupportBapRequest RequestSupport = new SupportBapRequest();
 
         public SupportBapRespone ResponeSupport;
         private string licensePlateNow = string.Empty;
-        public string LicensePlateNow { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
 
-        //private string namepage = String.Empty;
-        //public string NamePage { get { return namepage; } set { SetProperty(ref namepage, value); } }
+        public string LicensePlateNow
+        { get { return licensePlateNow; } set { SetProperty(ref licensePlateNow, value); } }
 
         private string feedback = string.Empty;
-        public string Feedack { get { return feedback; } set { SetProperty(ref feedback, value); } }
+
+        public string Feedack
+        { get { return feedback; } set { SetProperty(ref feedback, value); } }
 
         private string phonenumber;
-        public string Phonenumber { get { return phonenumber; } set { SetProperty(ref phonenumber, value); } }
+
+        public string Phonenumber
+        { get { return phonenumber; } set { SetProperty(ref phonenumber, value); } }
+
         private string userFullName;
-        public string UserFullName { get { return userFullName; } set { SetProperty(ref userFullName, value); } }
+
+        public string UserFullName
+        { get { return userFullName; } set { SetProperty(ref userFullName, value); } }
+
         private bool InotificationView = false;
         private LoginResponse userInfo;
-        public LoginResponse UserInfo { get { if (StaticSettings.User != null) { UserInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
+
+        public LoginResponse UserInfo
+        { get { if (StaticSettings.User != null) { UserInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
 
         public bool INotificationView
         {
@@ -145,6 +164,21 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        public void ListVehiclePlace(List<Vehicle> listVehicle)
+        {
+            foreach (var item in listVehicle)
+            {
+                if (string.IsNullOrEmpty(LicensePlateNow))
+                {
+                    LicensePlateNow = item.VehiclePlate;
+                }
+                else
+                {
+                    LicensePlateNow = LicensePlateNow + $", {item.VehiclePlate}";
+                }
+            }
+        }
+
         public void PushNotificationSupportPage()
         {
             SafeExecute(async () =>
@@ -155,37 +189,78 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (!string.IsNullOrEmpty(Feedack))
                         {
-                            ContactInfo = new ContactInfo()
+                            if (!string.IsNullOrEmpty(Vehicle.VehiclePlate))
                             {
-                                fullname = UserFullName,
-                                username = UserInfo.UserName,
-                                mobile = Phonenumber
+                                ContactInfo = new ContactInfo()
+                                {
+                                    fullname = UserFullName,
+                                    username = UserInfo.UserName,
+                                    mobile = Phonenumber
+                                };
+                                Errorlist = new List<Errorlist>()
+                            {
+                                new Errorlist() { code = Item.Code }
                             };
-                            Errorlist = new List<Errorlist>()
+                                Vehiclelist = new List<Vehiclelist>()
                             {
-                            new Errorlist(){ code = Item.Code }
-                             };
-                            Vehiclelist = new List<Vehiclelist>()
-                            {
-                            new Vehiclelist(){ platestr = Vehicle.VehiclePlate, description = Feedack, errorlist = Errorlist }
-                            };
-
-                            RequestSupport = new SupportBapRequest()
-                            {
-                                xncode = UserInfo.XNCode,
-                                contactinfo = ContactInfo,
-                                vehiclelist = Vehiclelist,
-                                description = Feedack
+                                new Vehiclelist() {
+                                    platestr = Vehicle.VehiclePlate,
+                                    description = Feedack,
+                                    errorlist = Errorlist }
                             };
 
-                            ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
-                            if (ResponeSupport.State == true && ResponeSupport != null)
-                            {
-                                INotificationView = true;
+                                RequestSupport = new SupportBapRequest()
+                                {
+                                    xncode = UserInfo.XNCode,
+                                    contactinfo = ContactInfo,
+                                    vehiclelist = Vehiclelist,
+                                    description = Feedack
+                                };
+
+                                ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
+                                if (ResponeSupport.State == true && ResponeSupport != null)
+                                {
+                                    INotificationView = true;
+                                }
+                                else
+                                {
+                                    _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                                }
                             }
                             else
                             {
-                                _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                                ContactInfo = new ContactInfo()
+                                {
+                                    fullname = UserFullName,
+                                    username = UserInfo.UserName,
+                                    mobile = Phonenumber
+                                };
+                                Errorlist = new List<Errorlist>()
+                                    {
+                                      new Errorlist() { code = Item.Code}
+                                    };
+                                foreach (var item in ListVehicle)
+                                {
+                                    Vehiclelist.Add(new Vehiclelist() { platestr = item.VehiclePlate, description = Feedack, errorlist = Errorlist });                                 
+                                }
+
+                                RequestSupport = new SupportBapRequest()
+                                {
+                                    xncode = UserInfo.XNCode,
+                                    contactinfo = ContactInfo,
+                                    vehiclelist = Vehiclelist,
+                                    description = Feedack
+                                };
+
+                                ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
+                                if (ResponeSupport.State == true && ResponeSupport != null)
+                                {
+                                    INotificationView = true;
+                                }
+                                else
+                                {
+                                    _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                                }
                             }
                         }
                         else

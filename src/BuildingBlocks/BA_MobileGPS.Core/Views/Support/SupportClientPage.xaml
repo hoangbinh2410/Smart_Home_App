@@ -99,7 +99,7 @@
                             TextColor="{DynamicResource PrimaryColor}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Phương tiện xử lý:" />
+                                    <Span Text="Phương tiện xử lý: " />
                                     <Span Text="{Binding Vehicle.VehiclePlate}" />
                                 </FormattedString>
                             </Label.FormattedText>

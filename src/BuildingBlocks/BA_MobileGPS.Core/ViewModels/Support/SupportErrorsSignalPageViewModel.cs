@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
@@ -10,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -131,6 +129,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _vehicle, value);
         }
 
+        private List<Vehicle> _listvehicle = new List<Vehicle>();
+
+        public List<Vehicle> ListVehicle
+        {
+            get => _listvehicle;
+            set => SetProperty(ref _listvehicle, value);
+        }
+
         private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
 
         public SupportCategoryRespone ObjSupport
@@ -161,7 +167,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (SelectedIndex)
                 {
                     case 0:
-                        if (SelectedIndex == PageCollection.Count -1)
+                        if (SelectedIndex == PageCollection.Count - 1)
                         {
                             NavigationFeedbackPage();
                             return;
@@ -169,7 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case 1:
-                        if (SelectedIndex == PageCollection.Count -1)
+                        if (SelectedIndex == PageCollection.Count - 1)
                         {
                             NavigationFeedbackPage();
                             return;
@@ -179,13 +185,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     case 2:
                         if (SelectedIndex == PageCollection.Count - 1)
                         {
-                            NavigationFeedbackPage();                          
+                            NavigationFeedbackPage();
                         }
                         break;
 
-                    default:                     
+                    default:
                         break;
-                }             
+                }
                 SelectedIndex++;
             });
         }
@@ -227,6 +233,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Vehicle = vehicle;
                 }
+                else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<Vehicle>>("ListVehicleSupport") is List<Vehicle> listvehicle)
+                {
+                    ListVehicle = listvehicle;
+                }
             }
         }
 
@@ -242,7 +252,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnDestroy()
         {
-
         }
 
         #endregion Lifecycle
@@ -323,6 +332,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 { "Support", _objSupport },
                 { ParameterKey.VehicleRoute, Vehicle },
+                 {"ListVehicleSupport", ListVehicle}
             };
             SafeExecute(async () =>
             {
@@ -331,6 +341,5 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion PrivateMethod
-
     }
 }

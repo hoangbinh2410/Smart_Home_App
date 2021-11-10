@@ -53,9 +53,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         LicensePlateNow = vehicle.VehiclePlate;
                     }
-                    else
+                    else if(parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<Vehicle>>("ListVehicleSupport") is List<Vehicle> listvehicle)
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                        LicensePlateNow = listvehicle[0].VehiclePlate;
                     }
                 }
                 else

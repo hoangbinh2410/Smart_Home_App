@@ -106,14 +106,14 @@ namespace BA_MobileGPS.Core.ViewModels
              item = new NavigationParameters
             {
                 { "Support", data },
-                { ParameterKey.VehicleRoute, Vehicle }
+                { ParameterKey.VehicleRoute, Vehicle },
+                {"ListVehicleSupport", ListVehicle}
 
             };
             if (data.IsChangePlate == false)
             {
                 SafeExecute(async () =>
                 {
-                    item.Add("ListVehicleSupport", ListVehicle);
                  await NavigationService.NavigateAsync("SupportErrorsSignalPage", item);
                 });
                 // Kiểm tra page đổi biển
@@ -147,7 +147,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else
                             // Nếu xe còn phí chuyển đến trang đổi biển
-                            {                               
+                            {
                                 await NavigationService.NavigateAsync("ChangeLicensePlate", item);
                             }
                         }
