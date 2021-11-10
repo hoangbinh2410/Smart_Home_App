@@ -27,6 +27,11 @@
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontFamily" Value="Lobster-Regular" />
             </Style>
+            <Style x:Key="Text14B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
             <Style x:Key="LabelHeader" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="18" />
@@ -88,56 +93,17 @@
 
                     <StackLayout Spacing="15">
                         <Label
-                            x:Name="vehicleProcessing"
                             HorizontalOptions="Start"
-                            Style="{DynamicResource LabelItem}"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalOptions="CenterAndExpand" />
-                        <!--  SelectVehicleRouterCommand  -->
-                        <Frame
-                            x:Name="cmbVihicle"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            BorderColor="{DynamicResource GrayColor2}"
-                            CornerRadius="5"
-                            HasShadow="False"
-                            HeightRequest="45"
-                            HorizontalOptions="FillAndExpand"
-                            IsClippedToBounds="True"
-                            VerticalOptions="Center">
-                            <StackLayout
-                                Padding="5,0,5,0"
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
-                                VerticalOptions="Center">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectVehicleAllCommand}" />
-                                </StackLayout.GestureRecognizers>
-                                <!--  Text="{Binding Vehicle.PrivateCode}"  -->
-                                <Entry
-                                    x:Name="entrySearch"
-                                    FontSize="14"
-                                    HeightRequest="45"
-                                    HorizontalOptions="FillAndExpand"
-                                    InputTransparent="True"
-                                    PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                                    Text="{Binding VehiclePlate}"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="Center">
-                                    <Entry.Effects>
-                                        <effects:BorderlessEffect />
-                                    </Entry.Effects>
-                                </Entry>
-                                <controls:IconView
-                                    Margin="0,0,5,0"
-                                    Foreground="{DynamicResource PrimaryColor}"
-                                    HeightRequest="17.5"
-                                    HorizontalOptions="End"
-                                    Source="ic_sortdown.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="20" />
-                            </StackLayout>
-                        </Frame>
+                            IsVisible="{Binding Vehicle.VehiclePlate, Converter={StaticResource HasDataConverter}}"
+                            Style="{DynamicResource Text14B}"
+                            TextColor="{DynamicResource PrimaryColor}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Phương tiện xử lý:" />
+                                    <Span Text="{Binding Vehicle.VehiclePlate}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                         <Label
                             x:Name="supportCategory"
                             HorizontalOptions="Start"
@@ -231,75 +197,5 @@
                 </StackLayout>
             </pancake:PancakeView>
         </Grid>
-        <!--  Ẩn lựa chọn  -->
-        <!--<Grid
-                AbsoluteLayout.LayoutBounds="1,1,1,1"
-                AbsoluteLayout.LayoutFlags="All"
-                HorizontalOptions="FillAndExpand"
-                IsVisible="{Binding ISelect}"
-                RowSpacing="0"
-                VerticalOptions="FillAndExpand">
-        -->
-        <!--  to mau xam  -->
-        <!--
-                <StackLayout
-                    BackgroundColor="Gray"
-                    HorizontalOptions="Fill"
-                    Opacity="0.5"
-                    VerticalOptions="Fill">
-                    <StackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding HideSelect}" />
-                    </StackLayout.GestureRecognizers>
-                </StackLayout>
-        -->
-        <!--  button  -->
-        <!--
-                <StackLayout
-                    Padding="10"
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="EndAndExpand">
-                    <pancake:PancakeView
-                        Padding="0,10,0,10"
-                        BackgroundColor="{DynamicResource ColorGray}"
-                        CornerRadius="10"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
-                        <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="Vui lòng chọn phương án hỗ trợ" />
-                            <BoxView StyleClass="SlimLine" VerticalOptions="FillAndExpand" />
-                            <Label
-                                Margin="5"
-                                FontSize="18"
-                                HorizontalOptions="CenterAndExpand"
-                                Text="Kiểm tra theo hướng dẫn"
-                                TextColor="#007AFF">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SupportSelect }" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                            <BoxView StyleClass="SlimLine" VerticalOptions="FillAndExpand" />
-                            <Label
-                                Margin="5"
-                                FontSize="18"
-                                HorizontalOptions="CenterAndExpand"
-                                Text="Gửi phản hồi "
-                                TextColor="#007AFF">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding PushSupportMesage}" />
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </StackLayout>
-                    </pancake:PancakeView>
-                    <Button
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        Command="{Binding HideSelect}"
-                        CornerRadius="10"
-                        HorizontalOptions="FillAndExpand"
-                        Text="Hủy"
-                        TextColor="Red"
-                        VerticalOptions="FillAndExpand" />
-                </StackLayout>
-            </Grid>-->
     </ContentPage.Content>
 </ContentPage>

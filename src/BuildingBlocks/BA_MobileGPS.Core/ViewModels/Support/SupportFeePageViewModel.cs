@@ -45,19 +45,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 if (parameters.ContainsKey("Support1") && parameters.GetValue<MessageSupportRespone>("Support1") is MessageSupportRespone item)
                 {
-                    //if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
-                    //{
-                    //    
-                    //}
                     if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj && parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
-                    {
-                        //GetListMessage(obj, 3, 6, DateTime.Now, DateTime.Now);
+                    {                        
                         ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
                         Question = item.Questions;
-                        Guide = item.Guides;
-                        NamePage = obj.Name;
-                        DataPlate = vehicle.VehiclePlate;
-                        data = obj;
+                        Guide = item.Guides;                        
+                        Data = obj;
                         Vehicle = vehicle;
                     }
                     else
@@ -132,16 +125,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SetProperty(ref guide, value);
             }
-        }
-
-        private string namepage = String.Empty;
-
-        public string NamePage
-        { get { return namepage; }set { SetProperty(ref namepage, value);} }
-
-        private string DataPlate { get; set; }
+        }   
         private Vehicle Vehicle;
         private SupportCategoryRespone data;
+        public SupportCategoryRespone Data { get { return data; } set { SetProperty(ref data, value); } }
 
         public List<MessageSupportRespone> ListSupportContent { get; set; }
 
@@ -171,7 +158,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var parameters = new NavigationParameters
             {
-                { "Support", data },
+                { "Support", Data },
                 { ParameterKey.VehicleRoute, Vehicle },
             };
                 await NavigationService.NavigateAsync("MessageSuportPage", parameters);

@@ -10,11 +10,10 @@ namespace BA_MobileGPS.Core.Views
         public SupportClientPage()
         {
             InitializeComponent();
-            this.title.Text = MobileResource.SupportClient_Label_Title;
-            this.vehicleProcessing.Text = MobileResource.SupportClient_Label_VehicleProcessing;
+            this.title.Text = MobileResource.SupportClient_Label_Title;          
             this.supportCategory.Text = MobileResource.SupportClient_Label_SupportCategory;
             this.textSupport.Text = MobileResource.SupportClient_Label_TextSupport;
-            this.entrySearch.Placeholder = "Chọn phương tiện";
+            //this.entrySearch.Placeholder = "Chọn phương tiện";
         }
     }
 }

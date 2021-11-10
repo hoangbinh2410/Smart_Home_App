@@ -47,9 +47,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         Vehicle = vehicle;
                     }
-                    else
+                    else if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<List<Vehicle>>(ParameterKey.VehicleRoute) is List<Vehicle>listvehicle)
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                        ListVehicle = listvehicle;
                     }
                 }
                 else
@@ -86,7 +86,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property
 
-        private bool ISupportDisconnectView = true;
+        private bool IsSupportDisconnectView = true;
         public NavigationParameters item;
         private SupportCategoryRespone data = new SupportCategoryRespone();
         private Vehicle data1 = new Vehicle();
@@ -94,7 +94,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public Vehicle Vehicle { get => _vehicle; set => SetProperty(ref _vehicle, value); }
         public List<MessageSupportRespone> ListSupportContent { get; set; }
         private MessageSupportRespone query = new MessageSupportRespone();
-
+        private List<Vehicle> _listvehicle = new List<Vehicle>();
+        public List<Vehicle> ListVehicle { get => _listvehicle; set => SetProperty(ref _listvehicle, value); }
         #endregion Property
 
         #region PrivateMethod
@@ -105,14 +106,15 @@ namespace BA_MobileGPS.Core.ViewModels
              item = new NavigationParameters
             {
                 { "Support", data },
-                { ParameterKey.VehicleRoute, Vehicle },
-                
+                { ParameterKey.VehicleRoute, Vehicle }
+
             };
             if (data.IsChangePlate == false)
             {
                 SafeExecute(async () =>
-                {                   
-                    await NavigationService.NavigateAsync("SupportErrorsSignalPage", item);
+                {
+                    item.Add("ListVehicleSupport", ListVehicle);
+                 await NavigationService.NavigateAsync("SupportErrorsSignalPage", item);
                 });
                 // Kiểm tra page đổi biển
             }
@@ -129,24 +131,23 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (StateVehicleExtension.IsLostGPS(qry.GPSTime, qry.VehicleTime) == true || StateVehicleExtension.IsLostGSM(qry.VehicleTime) == true)
                             {
                                 query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
-                                ISupportDisconnectView = true;
-                                item.Add("BoolPage", ISupportDisconnectView);
+                                IsSupportDisconnectView = true;
+                                item.Add("BoolPage", IsSupportDisconnectView);
                                 item.Add("Support1", query);
                                 await NavigationService.NavigateAsync("SupportFeePage", item);
                             }
                             else //nếu messageId==1,2,3,128 thì là xe dừng dịch vụ hoac dang no phi chuyen vao trang no phi                         
                             if (StateVehicleExtension.IsVehicleDebtMoney(qry.MessageId, qry.DataExt) == true || StateVehicleExtension.IsVehicleStopService(qry.MessageId) == true)
                             {
-                                ISupportDisconnectView = false;
+                                IsSupportDisconnectView = false;
                                 var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
-                                item.Add("BoolPage", ISupportDisconnectView);
+                                item.Add("BoolPage", IsSupportDisconnectView);
                                 item.Add("Support1", query);
                                 await NavigationService.NavigateAsync("SupportFeePage", item);
                             }
                             else
                             // Nếu xe còn phí chuyển đến trang đổi biển
-                            {
-                                //var parameter = new NavigationParameters { { ParameterKey.VehicleRoute, Vehicle.VehiclePlate } };
+                            {                               
                                 await NavigationService.NavigateAsync("ChangeLicensePlate", item);
                             }
                         }
@@ -176,23 +177,24 @@ namespace BA_MobileGPS.Core.ViewModels
             item = new NavigationParameters
             {
                 { "Support", data },
-                { ParameterKey.VehicleRoute, Vehicle },               
+                { ParameterKey.VehicleRoute, Vehicle },
+                {"ListVehicleSupport", ListVehicle}              
             };
+            //Kiểm tra xe mất tín hiệu không đúng hiển thị xe đổi biển
             if (data.IsChangePlate == false)
             {
                 SafeExecute(async () =>
-                {
+                {                  
                     await NavigationService.NavigateAsync("MessageSuportPage", item);
                 });
-                // Kiểm tra page đổi biển
+               
             }
-            else /*if (data.Code == nameof(SupportCode.PLATE))*/
+            else
             {
                 SafeExecute(async () =>
                 {
                     await NavigationService.NavigateAsync("MessageSuportPage", item);
-                });
-                // Kiểm tra Page Camera
+                });                
             }
         }
 

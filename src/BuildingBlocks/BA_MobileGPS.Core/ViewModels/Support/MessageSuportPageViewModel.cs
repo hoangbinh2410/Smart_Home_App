@@ -50,9 +50,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         Vehicle = vehicle;
                        
                     }
-                    else
+                    else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<Vehicle>>("ListVehicleSupport") is List<Vehicle> listvehicle)
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                        
                     }
                 }
                 else
