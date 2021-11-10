@@ -110,7 +110,7 @@
                     x:Name="listMenu"
                     AllowSwiping="True"
                     ItemSize="55"
-                    ItemsSource="{Binding ListVehicleGroup}"
+                    ItemsSource="{Binding ListVehicleGroup, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"
                     TapCommand="{Binding SelectedTapGroupCommand}">
                     <syncfusion:SfListView.ItemTemplate>
@@ -159,7 +159,7 @@
                 </syncfusion:SfListView>
                 <StackLayout
                     HorizontalOptions="Center"
-                    IsVisible="{Binding MenuItems, Converter={StaticResource IsEmptyDataConverter}}"
+                    IsVisible="{Binding HasVehicleGroup}"
                     Orientation="Vertical"
                     Spacing="0"
                     VerticalOptions="CenterAndExpand">
@@ -182,6 +182,7 @@
             <StackLayout
                 Grid.Row="2"
                 HeightRequest="60"
+                IsVisible="{Binding HasChooseVehicleGroup}"
                 Spacing="0">
                 <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
                 <buttons:SfButton
