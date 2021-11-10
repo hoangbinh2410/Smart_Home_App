@@ -160,7 +160,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 var parameters = new NavigationParameters
                 {
                     { "DataPicker", ChooseDate },
-                    { "PickerType", ComboboxType.First }
+                    { "PickerType", ComboboxType.Third }
                 };
                 await NavigationService.NavigateAsync("SelectDatePicker", parameters);
             });
@@ -169,12 +169,9 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if (param != null)
             {
-                if (param.PickerType == (short)ComboboxType.First)
+                if (param.PickerType == (short)ComboboxType.Third)
                 {
                     ChooseDate = param.Value;
-                }
-                else if (param.PickerType == (short)ComboboxType.Third)
-                {
                 }
             }
         }
@@ -305,6 +302,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if (Vehicle == null)
             {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
                 return;
             }
             var companyID = CurrentComanyID;
