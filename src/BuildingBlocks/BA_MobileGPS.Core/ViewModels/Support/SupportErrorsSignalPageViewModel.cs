@@ -129,9 +129,9 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _vehicle, value);
         }
 
-        private List<Vehicle> _listvehicle = new List<Vehicle>();
+        private List<VehicleOnline> _listvehicle = new List<VehicleOnline>();
 
-        public List<Vehicle> ListVehicle
+        public List<VehicleOnline> ListVehicle
         {
             get => _listvehicle;
             set => SetProperty(ref _listvehicle, value);
@@ -229,11 +229,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     ObjSupport = objSupport;
                     GetCollectionPage(objSupport);
                 }
-                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
                 {
                     Vehicle = vehicle;
                 }
-                else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<Vehicle>>("ListVehicleSupport") is List<Vehicle> listvehicle)
+                else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
                 {
                     ListVehicle = listvehicle;
                 }

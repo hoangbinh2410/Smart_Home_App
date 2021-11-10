@@ -43,12 +43,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
                 {
                     data = obj;
-                    if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                    if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
                     {
                         Vehicle = vehicle;
                     }
-                    else if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<List<Vehicle>>(ParameterKey.VehicleRoute) is List<Vehicle>listvehicle)
+                    else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
                     {
+                        
                         ListVehicle = listvehicle;
                     }
                 }
@@ -94,15 +95,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public Vehicle Vehicle { get => _vehicle; set => SetProperty(ref _vehicle, value); }
         public List<MessageSupportRespone> ListSupportContent { get; set; }
         private MessageSupportRespone query = new MessageSupportRespone();
-        private List<Vehicle> _listvehicle = new List<Vehicle>();
-        public List<Vehicle> ListVehicle { get => _listvehicle; set => SetProperty(ref _listvehicle, value); }
+        private List<VehicleOnline> _listvehicle = new List<VehicleOnline>();
+        public List<VehicleOnline> ListVehicle { get => _listvehicle; set => SetProperty(ref _listvehicle, value); }
+        private VehicleOnline _vehicleOnline = new VehicleOnline();
+        public VehicleOnline vehicleOnline { get => _vehicleOnline; set => SetProperty(ref _vehicleOnline, value); }
         #endregion Property
 
         #region PrivateMethod
 
         private void PushSelectSupportPage()
-        {
-            var qry = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == Vehicle.VehicleId);
+        {         
+           
              item = new NavigationParameters
             {
                 { "Support", data },
@@ -121,14 +124,23 @@ namespace BA_MobileGPS.Core.ViewModels
             else /*if (data.IsChangePlate == true)*/
             {
                 SafeExecute(async () =>
-                {                 
-                    if (qry != null)
+                {
+                    if (!string.IsNullOrEmpty(Vehicle.VehiclePlate))
+                    {
+                        vehicleOnline = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == Vehicle.VehicleId);
+                    }
+                    else
+                    {
+                        vehicleOnline = ListVehicle[0];
+                    }
+
+                    if (vehicleOnline != null)
                     {
                         ListSupportContent = await _iSupportCategoryService.GetMessagesSupport(data.ID);
                         if (ListSupportContent != null && ListSupportContent.Count > 0)
                         {
                             // Kiểm tra xe mất tín hiệu                          
-                            if (StateVehicleExtension.IsLostGPS(qry.GPSTime, qry.VehicleTime) == true || StateVehicleExtension.IsLostGSM(qry.VehicleTime) == true)
+                            if (StateVehicleExtension.IsLostGPS(vehicleOnline.GPSTime, vehicleOnline.VehicleTime) == true || StateVehicleExtension.IsLostGSM(vehicleOnline.VehicleTime) == true)
                             {
                                 query = ListSupportContent.Where(s => s.OrderNo == 0).FirstOrDefault();
                                 IsSupportDisconnectView = true;
@@ -137,7 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 await NavigationService.NavigateAsync("SupportFeePage", item);
                             }
                             else //nếu messageId==1,2,3,128 thì là xe dừng dịch vụ hoac dang no phi chuyen vao trang no phi                         
-                            if (StateVehicleExtension.IsVehicleDebtMoney(qry.MessageId, qry.DataExt) == true || StateVehicleExtension.IsVehicleStopService(qry.MessageId) == true)
+                            if (StateVehicleExtension.IsVehicleDebtMoney(vehicleOnline.MessageId, vehicleOnline.DataExt) == true || StateVehicleExtension.IsVehicleStopService(vehicleOnline.MessageId) == true)
                             {
                                 IsSupportDisconnectView = false;
                                 var query = ListSupportContent.Where(s => s.OrderNo == 1).FirstOrDefault();
@@ -197,6 +209,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 });                
             }
         }
+
 
         #endregion PrivateMethod
     }
