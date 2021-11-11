@@ -94,6 +94,7 @@
                         HorizontalOptions="Center"
                         IndicatorColor="LightGray"
                         IndicatorSize="7.5"
+                        IndicatorsShape="Square"
                         SelectedIndicatorColor="{DynamicResource PrimaryColor}" />
                     <!--<cardscontrols:IndicatorsControl
                             Margin="10"
