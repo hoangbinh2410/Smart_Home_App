@@ -2725,6 +2725,15 @@
     <BundleResource Include="Resources\ic_delete.png" />
     <BundleResource Include="Resources\ic_delete%402x.png" />
     <BundleResource Include="Resources\ic_delete%403x.png" />
+    <BundleResource Include="Resources\ic_changeplatenumber.png" />
+    <BundleResource Include="Resources\ic_changeplatenumber%402x.png" />
+    <BundleResource Include="Resources\ic_changeplatenumber%403x.png" />
+    <BundleResource Include="Resources\ic_errorcamera.png" />
+    <BundleResource Include="Resources\ic_errorcamera%402x.png" />
+    <BundleResource Include="Resources\ic_errorcamera%403x.png" />
+    <BundleResource Include="Resources\ic_errorsignal.png" />
+    <BundleResource Include="Resources\ic_errorsignal%402x.png" />
+    <BundleResource Include="Resources\ic_errorsignal%403x.png" />
     <Content Include="Resources\ic_exportvideo%402x.png" />
     <Content Include="Resources\ic_exportvideo%403x.png" />
     <Content Include="Resources\ic_exportvideo.png" />
