@@ -14,6 +14,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle=""
     NavigationPage.HasNavigationBar="False">
 
     <ContentPage.Resources>

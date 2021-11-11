@@ -14,6 +14,7 @@
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -37,15 +38,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--  Tiêu đề  -->
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelNaviga}"
-            Text="Chọn phương tiện xử lý"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
             BackgroundColor="{DynamicResource WhiteColor}"

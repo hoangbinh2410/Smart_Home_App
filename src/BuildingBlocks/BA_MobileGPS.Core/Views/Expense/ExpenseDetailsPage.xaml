@@ -15,6 +15,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="Chi tiết chi phí"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -37,16 +38,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <!--  Tiêu đề  -->
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelNaviga}"
-            Text="Chi tiết chi phí"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
             RowDefinitions="Auto,*,Auto"
@@ -340,7 +331,6 @@
                 BackgroundColor="{DynamicResource WhiteColor}">
                 <syncfusion:SfListView
                     x:Name="listMenu"
-                    AllowSwiping="True"
                     ItemSize="70"
                     ItemsSource="{Binding MenuItems, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"
