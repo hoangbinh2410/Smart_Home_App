@@ -40,7 +40,7 @@
     <!--  Tiêu đề  -->
     <NavigationPage.TitleView>
         <Label
-            HorizontalOptions="StartAndExpand"
+            HorizontalOptions="CenterAndExpand"
             LineBreakMode="MiddleTruncation"
             Style="{DynamicResource LabelNaviga}"
             Text="Chi tiết chi phí"

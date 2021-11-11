@@ -16,6 +16,7 @@ using Syncfusion.SfImageEditor.XForms.iOS;
 using Syncfusion.SfMaps.XForms.iOS;
 using Syncfusion.SfPicker.XForms.iOS;
 using Syncfusion.SfRangeSlider.XForms.iOS;
+using Syncfusion.SfRotator.XForms.iOS;
 using Syncfusion.XForms.iOS.BadgeView;
 using Syncfusion.XForms.iOS.Border;
 using Syncfusion.XForms.iOS.Buttons;
@@ -71,6 +72,7 @@ namespace BA_MobileGPS.Core.iOS.Setup
             SfRangeSliderRenderer.Init();
             SfLinearProgressBarRenderer.Init();
             LibVLCSharpFormsRenderer.Init();
+            SfRotatorRenderer.Init();
         }
     }
 }
