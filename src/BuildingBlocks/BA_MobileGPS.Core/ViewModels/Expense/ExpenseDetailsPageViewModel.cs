@@ -53,7 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get { return _sourceImage; }
             set { SetProperty(ref _sourceImage, value); }
         }
-        
+
         private ObservableCollection<ExpenseDetailsRespone> _menuItems = new ObservableCollection<ExpenseDetailsRespone>();
         public ObservableCollection<ExpenseDetailsRespone> MenuItems
         {
@@ -63,15 +63,23 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private ComboboxResponse _selectedExpenseName = new ComboboxResponse();
         public ComboboxResponse SelectedExpenseName
-        { 
-            get => _selectedExpenseName; 
-            set => SetProperty(ref _selectedExpenseName, value); 
+        {
+            get => _selectedExpenseName;
+            set => SetProperty(ref _selectedExpenseName, value);
         }
 
         private List<ExpenseDetailsRespone> _menuItemsRemember { get; set; }
         private List<ComboboxRequest> ListExpenseName = new List<ComboboxRequest>();
         private List<ListExpenseCategoryByCompanyRespone> ListMenuExpense = new List<ListExpenseCategoryByCompanyRespone>();
         private bool _isCall = false;
+        private bool _isShowImage = false;
+        public bool IsShowImage
+        {
+            get { return _isShowImage; }
+            set { SetProperty(ref _isShowImage, value); }
+        }
+
+
 
         #endregion
 
@@ -121,14 +129,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if(parameters != null)
+            if (parameters != null)
             {
                 if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
                 {
                     Vehicle = vehicle;
                 }
             }
-            if(_isCall)
+            if (_isCall)
             {
                 GetListExpenseAgain();
             }
@@ -179,10 +187,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         public void NavigateClicked(ItemTappedEventArgs item)
         {
-            if(!ValidateDateTime())
+            if (!ValidateDateTime())
             {
                 return;
-            }    
+            }
 
             if (Vehicle == null || Vehicle.PrivateCode == null)
             {
@@ -213,10 +221,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         public void ShowPicturnClicked(ExpenseDetailsRespone item)
         {
-            if(item != null)
+            if (item != null)
             {
+                IsShowImage = true;
                 SourceImage = item.Photo;
-            }     
+            }
         }
         private void GetListExpenseCategory()
         {
@@ -255,7 +264,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             else
             {
                 MenuItems = _menuItemsRemember.ToObservableCollection(); ;
-            }    
+            }
         }
         private async void DeleteItemClicked(ExpenseDetailsRespone obj)
         {
@@ -270,7 +279,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 return;
             }
             DeleteExpenseRequest request = new DeleteExpenseRequest()
-            { 
+            {
                 ListID = new List<Guid>()
                 {
                     obj.ID
@@ -292,7 +301,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         {
                             DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
                         }
-                    }  
+                    }
                 }
                 else
                 {
@@ -323,7 +332,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         var listItems = await _ExpenseService.GetListExpense(request);
-                        if(listItems != null && listItems.Count > 0)
+                        if (listItems != null && listItems.Count > 0)
                         {
                             TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
                             _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
@@ -335,15 +344,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                             {
                                 MenuItems = _menuItemsRemember.ToObservableCollection(); ;
                             }
-                        }    
+                        }
                         else
                         {
                             DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
                             TotalMoney = 0;
                             MenuItems = new ObservableCollection<ExpenseDetailsRespone>();
                             _menuItemsRemember = new List<ExpenseDetailsRespone>();
-                        }    
-                        
+                        }
+
                     }
                 }
                 else

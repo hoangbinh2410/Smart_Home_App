@@ -377,7 +377,6 @@
                                     </Label>
                                     <ImageButton
                                         Grid.Column="2"
-                                        Clicked="ShowSfPopup_Clicked"
                                         Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.ShowPicturnCommand}"
                                         CommandParameter="{Binding .}"
                                         HeightRequest="25"
@@ -443,7 +442,10 @@
                         HorizontalTextAlignment="Center"
                         Text="Không có dữ liệu" />
                 </StackLayout>
-                <sfPopup:SfPopupLayout x:Name="popupLayout">
+                <sfPopup:SfPopupLayout
+                    x:Name="popupLayout"
+                    IsOpen="{Binding IsShowImage}"
+                    IsVisible="{Binding IsShowImage}">
                     <sfPopup:SfPopupLayout.PopupView>
                         <sfPopup:PopupView
                             HeaderTitle="Hình ảnh"
