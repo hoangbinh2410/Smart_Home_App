@@ -14,7 +14,9 @@
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    Title="Chọn phương tiện xử lý"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Double x:Key="FontSizeTextPut11">11</x:Double>
@@ -37,15 +39,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--  Tiêu đề  -->
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelNaviga}"
-            Text="Chọn phương tiện xử lý"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
             BackgroundColor="{DynamicResource WhiteColor}"
@@ -62,6 +55,7 @@
                         BackgroundColor="White"
                         BorderColor="{DynamicResource TextPlaceHolderColor}"
                         CornerRadius="22"
+                        HasShadow="False"
                         HeightRequest="45">
 
                         <StackLayout
@@ -116,7 +110,6 @@
             <Grid Grid.Row="1" Margin="0,10,0,0">
                 <syncfusion:SfListView
                     x:Name="listMenu"
-                    AllowSwiping="True"
                     ItemSize="55"
                     ItemsSource="{Binding ListVehicleGroup, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"

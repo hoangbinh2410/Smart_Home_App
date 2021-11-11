@@ -71,7 +71,7 @@
                     <Grid
                         Padding="10"
                         BackgroundColor="{DynamicResource WhiteColor}"
-                        RowDefinitions="Auto,Auto,*">
+                        RowDefinitions="Auto,Auto,Auto,*">
                         <Grid Grid.Row="0" ColumnDefinitions=".6*,.4*">
                             <Grid Grid.Column="0" ColumnDefinitions="Auto,*,Auto">
                                 <pancake:PancakeView
@@ -231,22 +231,29 @@
                             </pancake:PancakeView>
                         </Grid>
 
-                        <Grid Grid.Row="2" RowDefinitions="Auto,*,Auto">
-                            <!--<pancake:PancakeView
-                                Grid.Row="0"
-                                Padding="10"
-                                BackgroundColor="#D6F3FF"
-                                CornerRadius="5"
-                                HorizontalOptions="FillAndExpand">
-                                <Label
-                                    HorizontalOptions="CenterAndExpand"
-                                    HorizontalTextAlignment="Start"
-                                    LineBreakMode="WordWrap"
-                                    Text="Nhận xét: Bạn đã điều khiển xe rất tốt. Bạn hãy tiếp tục phát huy"
-                                    TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="Center" />
-                            </pancake:PancakeView>-->
+                        <pancake:PancakeView
+                            Grid.Row="2"
+                            Padding="10"
+                            BackgroundColor="#D6F3FF"
+                            CornerRadius="5"
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding SelectedRankPoint.Comment, Converter={StaticResource NullOrEmptyToBoolConverter}}">
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                HorizontalTextAlignment="Start"
+                                LineBreakMode="WordWrap"
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Nhận xét: " />
+                                        <Span Text="{Binding SelectedRankPoint.Comment}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </pancake:PancakeView>
 
+                        <Grid Grid.Row="3" RowDefinitions="Auto,*,Auto">
                             <pancake:PancakeView
                                 Grid.Row="0"
                                 Padding="10"

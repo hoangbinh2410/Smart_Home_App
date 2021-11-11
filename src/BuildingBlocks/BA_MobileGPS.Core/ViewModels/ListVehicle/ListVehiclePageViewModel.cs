@@ -933,13 +933,13 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                var param = _mapper.MapProperties<CameraLookUpVehicleModel>(selected);
+                var param = _mapper.MapProperties<Vehicle>(selected);
                 var parameters = new NavigationParameters
                       {
                           { ParameterKey.Vehicle, param }
                      };
 
-                var a = await NavigationService.NavigateAsync("BaseNavigationPage/SupportClientPage", parameters, true, true);
+                var a = await NavigationService.NavigateAsync("NavigationPage/SupportClientPage", parameters, true, true);
             });
         }
 

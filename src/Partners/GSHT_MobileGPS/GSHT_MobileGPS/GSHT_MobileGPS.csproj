@@ -19,13 +19,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Styles\Custom.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
+	  <Compile Update="Styles\Theme1.xaml.cs">
+	    <DependentUpon>Theme1.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Styles\DarkColor.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
+	  <Compile Update="Styles\Theme3.xaml.cs">
+	    <DependentUpon>Theme3.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Styles\LightColor.xaml.cs">
+	  <Compile Update="Styles\Theme2.xaml.cs">
+	    <DependentUpon>Theme2.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Authentication\LoginPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
 	</ItemGroup>

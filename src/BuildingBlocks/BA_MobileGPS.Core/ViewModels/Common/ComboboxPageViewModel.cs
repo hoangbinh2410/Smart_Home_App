@@ -6,8 +6,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Extensions;
 using ItemTappedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -16,6 +19,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         public ComboboxPageViewModel(INavigationService navigationService) : base(navigationService)
         {
+
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -26,9 +30,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (parameters.ContainsKey("dataCombobox") && parameters.GetValue<List<ComboboxRequest>>("dataCombobox") is List<ComboboxRequest> tempData)
                 {
-                    DataFull = new ObservableCollection<ComboboxRequest>(tempData);
+                    DataFull = tempData;
 
-                    DataSearch = DataFull;
+                    DataSearch = DataFull.ToObservableCollection();
 
                     ComboboxType = parameters.GetValue<short>("ComboboxType");
                     Title = parameters.GetValue<string>("Title");
@@ -39,19 +43,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private ObservableCollection<ComboboxRequest> _dataFull;
-
-        public ObservableCollection<ComboboxRequest> DataFull
-        {
-            get
-            {
-                return _dataFull;
-            }
-            set
-            {
-                SetProperty(ref _dataFull, value);
-            }
-        }
+        public List<ComboboxRequest> DataFull = new List<ComboboxRequest>();
 
         private ObservableCollection<ComboboxRequest> _dataSearch;
 
@@ -80,53 +72,47 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref _searchText, value);
             }
         }
-
+        private CancellationTokenSource cts;
         public short ComboboxType { get; set; }
 
         public ICommand SearchValueCommmand
         {
             get
             {
-                return new Command<string>((arg) =>
+                return new Command<TextChangedEventArgs>((arg) =>
                 {
-                    if (arg != null)
-                    {
-                        try
-                        {
-                            if (DataFull.Count > 0)
-                            {
-                                var lst = new List<ComboboxRequest>();
-
-                                if (!string.IsNullOrEmpty(SearchText))
-                                {
-                                    string searchText = SearchText.Trim().ToUpper();
-                                    foreach (var item in DataFull)
-                                    {
-                                        if (item.Value.ToUpper().Contains(searchText))
-                                        {
-                                            lst.Add(item);
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    lst = new List<ComboboxRequest>(DataFull);
-                                }
-
-                                var groupedData =
-                                        lst.OrderBy(p => p.Value)
-                                            .ToList();
-
-                                DataSearch = new ObservableCollection<ComboboxRequest>(groupedData);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-                        }
-                    }
+                    SearchValue(arg);
                 });
             }
+        }
+
+        private void SearchValue(TextChangedEventArgs args)
+        {
+            if (cts != null)
+                cts.Cancel(true);
+
+            cts = new CancellationTokenSource();
+
+            Task.Run(async () =>
+            {
+                await Task.Delay(500, cts.Token);
+
+                if (string.IsNullOrWhiteSpace(args.NewTextValue))
+                {
+                    return DataFull.ToList();
+                }
+                else
+                {
+                    return DataFull.FindAll(vg => vg.Value != null && vg.Value.UnSignContains(args.NewTextValue));
+                }
+            }, cts.Token).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion)
+                {
+                    var result = task.Result;
+                    DataSearch = result.ToObservableCollection();
+                }
+            }));
         }
 
         public Command SelectedValueCommand

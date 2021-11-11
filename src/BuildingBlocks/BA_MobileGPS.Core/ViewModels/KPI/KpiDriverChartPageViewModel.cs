@@ -45,7 +45,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     GetDriverKpiChart(driverID);
                 }
             }
-
         }
 
         public override void OnDestroy()
@@ -160,7 +159,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (item.OrderDisPlayActual != null)
                         {
                             var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
-                            ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            if (rankactual != null)
+                            {
+                                ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            }
+
                         }
                     }
                     DrawChartSeries();
@@ -185,7 +188,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (item.OrderDisPlayActual != null)
                         {
                             var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
-                            ChartDataSourceActual2.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            if (rankactual != null)
+                            {
+                                ChartDataSourceActual2.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            }
                         }
                     }
                     DrawChartSeries2();
@@ -265,13 +271,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Name="A",
                     Value=5,
-                    OrderDisPlay=1
+                    OrderDisPlay=5
                 },
                  new KPIRank()
                 {
                     Name="B",
                     Value=4,
-                    OrderDisPlay=2
+                    OrderDisPlay=4
                 },
                   new KPIRank()
                 {
@@ -283,13 +289,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Name="D",
                     Value=2,
-                    OrderDisPlay=4
+                    OrderDisPlay=2
                 },
                     new KPIRank()
                 {
                     Name="E",
                     Value=1,
-                    OrderDisPlay=5
+                    OrderDisPlay=1
                 }
             };
 

@@ -72,6 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
             _iSupportCategoryService = iSupportCategoryService;
             _displayMessage = displayMessage;
+            Title = MobileResource.SupportClient_Label_Title;
         }
 
         #endregion Contructor

@@ -242,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
-            }      
+            }
             return new StationDetailsRequest
             {
                 FromDate = base.FromDate,
@@ -338,12 +338,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = "Số phút trong trạm";
                 }
-                //// Lộ trình
-                //numbercolum += 1;
-                //worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
-                //// Link video
-                //numbercolum += 1;
-                //worksheet.Range[numberrow, numbercolum].Text = "Link video";
 
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
@@ -392,18 +386,6 @@ namespace BA_MobileGPS.Core.ViewModels
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = data[i].PeriodInOutStation.ToString();
                     }
-                    //// Lộ trình
-                    //if (true)
-                    //{
-                    //    numbercolum += 1;
-                    //    worksheet.Range[numberrow, numbercolum].Text = "Lộ trình";
-                    //}
-                    //// Link video
-                    //if (true)
-                    //{
-                    //    numbercolum += 1;
-                    //    worksheet.Range[numberrow, numbercolum].Text = "Link video";
-                    //}
                 }
 
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();
@@ -514,12 +496,12 @@ namespace BA_MobileGPS.Core.ViewModels
             //{
             //    return false;
             //}
-            ////không chọn biển số xe
-            //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            //{
-            //    message = MobileResource.Common_Message_NoSelectVehiclePlate;
-            //    return false;
-            //}
+            //không chọn biển số xe
+            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                message = MobileResource.Common_Message_NoSelectVehiclePlate;
+                return false;
+            }
             ////không chọn địa điểm
             //if (SelectedLocation == null || SelectedLocation.Key == 0)
             //{
@@ -580,7 +562,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     var p = new NavigationParameters()
                         {
-                            {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
+                            {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation.AddMinutes(-10),
+                            new DateTime(model.TimeOutStation.Year, model.TimeOutStation.Month, model.TimeOutStation.Day, 23, 59, 59)) },
                             {ParameterKey.VehiclePlate,vehicleModel }
                         };
                     await NavigationService.NavigateAsync("NavigationPage/CameraRestream", p, true, true);

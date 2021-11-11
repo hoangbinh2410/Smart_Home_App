@@ -12,8 +12,10 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
     xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="{DynamicResource WhiteColor}">
+    BackgroundColor="{DynamicResource WhiteColor}"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="colorPancake1">#0474D8</Color>
@@ -31,15 +33,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--  Tiêu đề  -->
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelHeader}"
-            Text="{Binding Title}"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
             RowDefinitions="Auto,*,Auto"

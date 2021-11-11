@@ -10,20 +10,5 @@ namespace BA_MobileGPS.Core.Views.Expense
         {
             InitializeComponent();
         }
-
-        private void ShowSfPopup_Clicked(object sender, System.EventArgs e)
-        {
-            try
-            {
-                ImageButton imageButton = (ImageButton)sender;
-                ExpenseDetailsRespone commandParameter = (ExpenseDetailsRespone)imageButton.CommandParameter;
-                popupLayout.PopupView.HeaderTitle = commandParameter.Name;
-                popupLayout.Show();
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
     }
 }

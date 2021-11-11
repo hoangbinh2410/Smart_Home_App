@@ -15,7 +15,9 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    Title="Chi tiết chi phí"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Double x:Key="FontSizeTextPut11">11</x:Double>
@@ -37,16 +39,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <!--  Tiêu đề  -->
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="CenterAndExpand"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelNaviga}"
-            Text="Chi tiết chi phí"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
             RowDefinitions="Auto,*,Auto"
@@ -340,7 +332,6 @@
                 BackgroundColor="{DynamicResource WhiteColor}">
                 <syncfusion:SfListView
                     x:Name="listMenu"
-                    AllowSwiping="True"
                     ItemSize="70"
                     ItemsSource="{Binding MenuItems, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"
@@ -387,7 +378,6 @@
                                     </Label>
                                     <ImageButton
                                         Grid.Column="2"
-                                        Clicked="ShowSfPopup_Clicked"
                                         Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.ShowPicturnCommand}"
                                         CommandParameter="{Binding .}"
                                         HeightRequest="25"
@@ -453,7 +443,10 @@
                         HorizontalTextAlignment="Center"
                         Text="Không có dữ liệu" />
                 </StackLayout>
-                <sfPopup:SfPopupLayout x:Name="popupLayout">
+                <sfPopup:SfPopupLayout
+                    x:Name="popupLayout"
+                    IsOpen="{Binding IsShowImage}"
+                    IsVisible="{Binding IsShowImage}">
                     <sfPopup:SfPopupLayout.PopupView>
                         <sfPopup:PopupView
                             HeaderTitle="Hình ảnh"

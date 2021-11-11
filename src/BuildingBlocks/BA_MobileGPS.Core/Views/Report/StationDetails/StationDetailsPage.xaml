@@ -277,7 +277,7 @@
                                     Grid.Column="1"
                                     Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
-                                    HorizontalOptions="EndAndExpand"
+                                    HorizontalOptions="End"
                                     Source="ic_sortdown.png"
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
