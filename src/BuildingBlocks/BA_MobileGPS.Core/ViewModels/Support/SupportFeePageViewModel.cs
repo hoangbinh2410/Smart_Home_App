@@ -47,21 +47,30 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
                     {
+                        ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
+                        Question = item.Questions;
+                        Guide = item.Guides;
+                        Data = obj;
                         if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
-                        {
-                            ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
-                            Question = item.Questions;
-                            Guide = item.Guides;
-                            Data = obj;
+                        {                          
                             Vehicle = vehicle;
                         }
                         else if(parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
                         {
-                            ListVehicle = listvehicle[0];
-                            ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
-                            Question = item.Questions;
-                            Guide = item.Guides;
-                            Data = obj;
+                            foreach(var vhicleOnline in listvehicle)
+                            {
+                                Vehicle = new Vehicle(){ 
+                                    VehicleId = vhicleOnline.VehicleId,
+                                    VehiclePlate = vhicleOnline.VehiclePlate,
+                                    PrivateCode = vhicleOnline.PrivateCode,
+                                    GroupIDs = vhicleOnline.GroupIDs,
+                                    Imei = vhicleOnline.Imei,
+                                    IconImage = vhicleOnline.IconImage,
+                                    VehicleTime = vhicleOnline.VehicleTime,
+                                    Velocity = vhicleOnline.Velocity,
+                                    SortOrder = vhicleOnline.SortOrder
+                                };
+                            }                                                                      
                         }
                     }
                     else
@@ -169,8 +178,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var parameters = new NavigationParameters
             {
                 { "Support", Data },
-                { ParameterKey.VehicleRoute, Vehicle },
-                     {"ListVehicleSupport", ListVehicle}
+                { ParameterKey.VehicleRoute, Vehicle }               
             };
                 await NavigationService.NavigateAsync("MessageSuportPage", parameters);
             });
