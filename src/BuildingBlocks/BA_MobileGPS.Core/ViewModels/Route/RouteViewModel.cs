@@ -97,8 +97,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (parameters.ContainsKey("ReportDate"))
                     {
                         var selectDate = parameters.GetValue<Tuple<DateTime, DateTime>>("ReportDate");
-                        DateStart = selectDate.Item1;
-                        DateEnd = selectDate.Item2;
+                        DateStart = selectDate.Item1.AddMinutes(-5);
+                        DateEnd = selectDate.Item2.AddMinutes(5);
                     }
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {

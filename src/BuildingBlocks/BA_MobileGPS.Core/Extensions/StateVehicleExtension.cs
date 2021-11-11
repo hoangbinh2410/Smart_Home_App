@@ -238,6 +238,11 @@ namespace BA_MobileGPS.Core.Extensions
             return (messageID == 1 || messageID == 2 || messageID == 3 || (messageID == 128 && (DataExt & 5) > 0)) ? true : false;
         }
 
+        public static bool IsVehicleDebtMoneyViviewOnline(int messageID, int DataExt)
+        {
+            return (messageID == 3 || (messageID == 128 && (DataExt & 5) > 0)) ? true : false;
+        }
+
         /* Xe dừng dịch vụ */
 
         public static bool IsVehicleStopService(int messageID)

@@ -11,6 +11,7 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
+    Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -51,15 +52,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="Center"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelNaviga}"
-            Text="{Binding Title}"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
             <Grid

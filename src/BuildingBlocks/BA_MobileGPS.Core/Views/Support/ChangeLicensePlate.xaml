@@ -8,16 +8,9 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    prism:ViewModelLocator.AutowireViewModel="True">
-    <NavigationPage.TitleView>
-        <Label
-            HorizontalOptions="Center"
-            LineBreakMode="MiddleTruncation"
-            Style="{DynamicResource LabelNaviga}"
-            Text="{Binding Title}"
-            TextColor="White"
-            VerticalOptions="Center" />
-    </NavigationPage.TitleView>
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="LabelNaviga" TargetType="Label">
@@ -68,12 +61,21 @@
                         HorizontalOptions="Start"
                         Spacing="20"
                         VerticalOptions="FillAndExpand">
-                        <Label
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource Text16B}"
-                            Text="Quý khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu đổi biển!"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalTextAlignment="Center" />
+                        <StackLayout HorizontalOptions="Start" Spacing="0">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{DynamicResource Text16B}"
+                                Text="Phương tiện đủ điều kiện cho phép đổi biển."
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalTextAlignment="Start" />
+                            <Label
+                                HorizontalTextAlignment="Start"
+                                Style="{DynamicResource Text16B}"
+                                Text="Quý khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu."
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalTextAlignment="Start" />
+                        </StackLayout>
 
                         <Label
                             FontAttributes="Italic"

@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace GSHT_MobileGPS.Styles
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LightColor : ResourceDictionary
+    public partial class Theme3 : ResourceDictionary
     {
-        public LightColor()
+        public Theme3()
         {
             InitializeComponent();
         }

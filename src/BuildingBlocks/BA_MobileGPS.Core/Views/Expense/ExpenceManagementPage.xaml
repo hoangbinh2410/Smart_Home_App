@@ -12,7 +12,7 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="False">
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Double x:Key="FontSizeTextPut11">11</x:Double>
@@ -31,45 +31,44 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Quản lý chi phí xe"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
         <Grid
-            RowDefinitions="Auto,*,Auto"
+            RowDefinitions="*,Auto"
             RowSpacing="0"
             VerticalOptions="FillAndExpand">
-            <!--  Tiêu đề  -->
-            <Grid
-                Grid.Row="0"
-                HorizontalOptions="FillAndExpand"
-                StyleClass="TitleBarGrid"
-                VerticalOptions="StartAndExpand">
-                <Frame
-                    Padding="0"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    HasShadow="False"
-                    HeightRequest="40"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="30">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                    </Frame.GestureRecognizers>
-                    <controls:IconView
-                        Foreground="{DynamicResource WhiteColor}"
-                        HeightRequest="25"
-                        HorizontalOptions="StartAndExpand"
-                        Source="ic_close.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="25" />
-                </Frame>
-                <Label
-                    x:Name="title"
-                    Margin="0,0,0,5"
-                    HorizontalOptions="CenterAndExpand"
-                    Style="{DynamicResource LabelHeader}"
-                    Text="Quản lý chi phí xe"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="EndAndExpand" />
-            </Grid>
+
             <pancake:PancakeView
                 Grid.Row="1"
                 Padding="10"
@@ -387,12 +386,13 @@
                     </Grid>
                 </StackLayout>
             </pancake:PancakeView>
+
             <pancake:PancakeView
                 Grid.Row="2"
                 BackgroundColor="{DynamicResource grid2}"
                 HeightRequest="100"
                 HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="End">
                 <Grid Padding="20,10,20,10" VerticalOptions="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

@@ -247,9 +247,7 @@
                                             <chart:CategoryAxis
                                                 x:Name="primary"
                                                 EdgeLabelsDrawingMode="Shift"
-                                                LabelCreated="primary_LabelCreated"
-                                                LabelPlacement="BetweenTicks"
-                                                LabelRotationAngle="-45"
+                                                LabelPlacement="OnTicks"
                                                 LabelsIntersectAction="MultipleRows"
                                                 MaximumLabels="10">
                                                 <chart:CategoryAxis.LabelStyle>
@@ -626,16 +624,18 @@
                                         HorizontalOptions="FillAndExpand"
                                         Series="{Binding ChartSeries2}"
                                         VerticalOptions="FillAndExpand">
-
+                                        <chart:SfChart.ChartBehaviors>
+                                            <chart:ChartZoomPanBehavior ZoomMode="Y" />
+                                        </chart:SfChart.ChartBehaviors>
                                         <chart:SfChart.PrimaryAxis>
-                                            <chart:CategoryAxis>
-                                                <chart:CategoryAxis.LabelStyle
-                                                    EdgeLabelsDrawingMode="Shift"
-                                                    LabelCreated="primary_LabelCreated"
-                                                    LabelPlacement="BetweenTicks"
-                                                    LabelsIntersectAction="Wrap"
-                                                    MaximumLabels="10">
+                                            <chart:CategoryAxis
+                                                EdgeLabelsDrawingMode="Shift"
+                                                LabelPlacement="OnTicks"
+                                                LabelsIntersectAction="MultipleRows"
+                                                MaximumLabels="10">
+                                                <chart:CategoryAxis.LabelStyle>
                                                     <chart:ChartAxisLabelStyle
+                                                        MaxWidth="80"
                                                         LabelAlignment="Start"
                                                         LabelsPosition="Outside"
                                                         WrappedLabelAlignment="Start" />
