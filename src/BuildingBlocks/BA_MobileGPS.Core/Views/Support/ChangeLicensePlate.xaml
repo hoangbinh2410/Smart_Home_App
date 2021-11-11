@@ -61,12 +61,21 @@
                         HorizontalOptions="Start"
                         Spacing="20"
                         VerticalOptions="FillAndExpand">
-                        <Label
-                            HorizontalTextAlignment="Start"
-                            Style="{DynamicResource Text16B}"
-                            Text="Quý khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu đổi biển!"
-                            TextColor="{DynamicResource PrimaryColor}"
-                            VerticalTextAlignment="Center" />
+                        <StackLayout HorizontalOptions="Start" Spacing="0">
+                            <Label
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{DynamicResource Text16B}"
+                                Text="Phương tiện đủ điều kiện cho phép đổi biển."
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalTextAlignment="Start" />
+                            <Label
+                                HorizontalTextAlignment="Start"
+                                Style="{DynamicResource Text16B}"
+                                Text="Quý khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu."
+                                TextColor="{DynamicResource PrimaryColor}"
+                                VerticalTextAlignment="Start" />
+                        </StackLayout>
 
                         <Label
                             FontAttributes="Italic"
