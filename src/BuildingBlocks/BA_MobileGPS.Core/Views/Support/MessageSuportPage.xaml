@@ -73,7 +73,11 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
+                        <Label
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Text14B}"
+                            VerticalTextAlignment="Start">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="Phương tiện: " />

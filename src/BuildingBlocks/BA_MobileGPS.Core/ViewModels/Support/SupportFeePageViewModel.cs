@@ -45,22 +45,38 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 if (parameters.ContainsKey("Support1") && parameters.GetValue<MessageSupportRespone>("Support1") is MessageSupportRespone item)
                 {
-                    if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj && parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
-                    {                        
+                    if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+                    {
                         ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
                         Question = item.Questions;
-                        Guide = item.Guides;                        
+                        Guide = item.Guides;
                         Data = obj;
-                        Vehicle = vehicle;
+                        if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
+                        {                          
+                            Vehicle = vehicle;
+                        }
+                        else if(parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
+                        {
+                            foreach(var vhicleOnline in listvehicle)
+                            {
+                                Vehicle = new Vehicle(){ 
+                                    VehicleId = vhicleOnline.VehicleId,
+                                    VehiclePlate = vhicleOnline.VehiclePlate,
+                                    PrivateCode = vhicleOnline.PrivateCode,
+                                    GroupIDs = vhicleOnline.GroupIDs,
+                                    Imei = vhicleOnline.Imei,
+                                    IconImage = vhicleOnline.IconImage,
+                                    VehicleTime = vhicleOnline.VehicleTime,
+                                    Velocity = vhicleOnline.Velocity,
+                                    SortOrder = vhicleOnline.SortOrder
+                                };
+                            }                                                                      
+                        }
                     }
                     else
                     {
                         MessageData = true;
                     }
-                }
-                else
-                {
-                    MessageData = true;
                 }
             }
             else
@@ -125,10 +141,13 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SetProperty(ref guide, value);
             }
-        }   
+        }
+        public VehicleOnline ListVehicle;
         private Vehicle Vehicle;
         private SupportCategoryRespone data;
-        public SupportCategoryRespone Data { get { return data; } set { SetProperty(ref data, value); } }
+
+        public SupportCategoryRespone Data
+        { get { return data; } set { SetProperty(ref data, value); } }
 
         public List<MessageSupportRespone> ListSupportContent { get; set; }
 
@@ -159,7 +178,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 var parameters = new NavigationParameters
             {
                 { "Support", Data },
-                { ParameterKey.VehicleRoute, Vehicle },
+                { ParameterKey.VehicleRoute, Vehicle }               
             };
                 await NavigationService.NavigateAsync("MessageSuportPage", parameters);
             });

@@ -49,13 +49,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
                 {
                     Item = obj;
-                    if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
+                    if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
                     {
                         LicensePlateNow = vehicle.VehiclePlate;
                     }
-                    else
+                    else if(parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                        LicensePlateNow = listvehicle[0].VehiclePlate;
                     }
                 }
                 else
