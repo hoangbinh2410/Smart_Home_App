@@ -633,9 +633,11 @@
                                                     EdgeLabelsDrawingMode="Shift"
                                                     LabelCreated="primary_LabelCreated"
                                                     LabelPlacement="BetweenTicks"
-                                                    LabelsIntersectAction="Wrap"
+                                                    LabelRotationAngle="-45"
+                                                    LabelsIntersectAction="MultipleRows"
                                                     MaximumLabels="10">
                                                     <chart:ChartAxisLabelStyle
+                                                        MaxWidth="80"
                                                         LabelAlignment="Start"
                                                         LabelsPosition="Outside"
                                                         WrappedLabelAlignment="Start" />
