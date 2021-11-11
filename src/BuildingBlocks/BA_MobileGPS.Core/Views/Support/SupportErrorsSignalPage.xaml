@@ -14,7 +14,8 @@
     xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True"
-    BackgroundColor="{DynamicResource WhiteColor}">
+    BackgroundColor="{DynamicResource WhiteColor}"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="colorPancake1">#0474D8</Color>

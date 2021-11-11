@@ -16,7 +16,8 @@
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     Title="Chi tiết chi phí"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <x:Double x:Key="FontSizeTextPut11">11</x:Double>

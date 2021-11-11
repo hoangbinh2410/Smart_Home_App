@@ -9,7 +9,8 @@
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     Title="{Binding Title}"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="LabelNaviga" TargetType="Label">
