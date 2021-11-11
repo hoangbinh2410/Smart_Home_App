@@ -6,7 +6,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    xmlns:prism="http://prismlibrary.com"  
+    xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -45,7 +45,7 @@
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Label
-            HorizontalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
             LineBreakMode="MiddleTruncation"
             Style="{DynamicResource LabelNaviga}"
             Text="{Binding Title}"

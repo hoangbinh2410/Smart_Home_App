@@ -48,7 +48,7 @@
     </ContentPage.Resources>
     <NavigationPage.TitleView>
         <Label
-            HorizontalOptions="Center"
+            HorizontalOptions="CenterAndExpand"
             LineBreakMode="MiddleTruncation"
             Style="{DynamicResource LabelNaviga}"
             Text="{Binding Title}"
