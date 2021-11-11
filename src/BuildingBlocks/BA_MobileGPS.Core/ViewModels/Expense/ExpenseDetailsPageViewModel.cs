@@ -11,11 +11,13 @@ using Prism.Navigation;
 using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms.Extensions;
 using SelectionChangedEventArgs = Syncfusion.XForms.ComboBox.SelectionChangedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels.Expense
@@ -52,8 +54,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             set { SetProperty(ref _sourceImage, value); }
         }
         
-        private List<ExpenseDetailsRespone> _menuItems = new List<ExpenseDetailsRespone>();
-        public List<ExpenseDetailsRespone> MenuItems
+        private ObservableCollection<ExpenseDetailsRespone> _menuItems = new ObservableCollection<ExpenseDetailsRespone>();
+        public ObservableCollection<ExpenseDetailsRespone> MenuItems
         {
             get { return _menuItems; }
             set { SetProperty(ref _menuItems, value); }
@@ -105,14 +107,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             if (parameters.ContainsKey("ExpenseDetails") && parameters.GetValue<ExpenseRespone>("ExpenseDetails") is ExpenseRespone objSupport)
             {
                 TotalMoney = objSupport.Total;
-                MenuItems = objSupport.Expenses;
+                MenuItems = objSupport.Expenses.ToObservableCollection();
                 _menuItemsRemember = objSupport.Expenses;
                 ChooseDate = objSupport.ExpenseDate;
             }
             else
             {
                 TotalMoney = 0;
-                MenuItems = new List<ExpenseDetailsRespone>();
+                MenuItems = new ObservableCollection<ExpenseDetailsRespone>();
             }
         }
 
@@ -248,11 +250,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             _isCall = false;
             if (param != null && param.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
             {
-                MenuItems = _menuItemsRemember.Where(x => x.Name == param.Value)?.ToList();
+                MenuItems = _menuItemsRemember.Where(x => x.Name == param.Value)?.ToList().ToObservableCollection(); ;
             }
             else
             {
-                MenuItems = _menuItemsRemember;
+                MenuItems = _menuItemsRemember.ToObservableCollection(); ;
             }    
         }
         private async void DeleteItemClicked(ExpenseDetailsRespone obj)
@@ -327,18 +329,18 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                             _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
                             if (!string.IsNullOrEmpty(SelectedExpenseName.Value) && SelectedExpenseName.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
                             {
-                                MenuItems = _menuItemsRemember.Where(y => y.Name == SelectedExpenseName.Value)?.ToList();
+                                MenuItems = _menuItemsRemember.Where(y => y.Name == SelectedExpenseName.Value)?.ToList().ToObservableCollection(); ;
                             }
                             else
                             {
-                                MenuItems = _menuItemsRemember;
+                                MenuItems = _menuItemsRemember.ToObservableCollection(); ;
                             }
                         }    
                         else
                         {
                             DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
                             TotalMoney = 0;
-                            MenuItems = new List<ExpenseDetailsRespone>();
+                            MenuItems = new ObservableCollection<ExpenseDetailsRespone>();
                             _menuItemsRemember = new List<ExpenseDetailsRespone>();
                         }    
                         

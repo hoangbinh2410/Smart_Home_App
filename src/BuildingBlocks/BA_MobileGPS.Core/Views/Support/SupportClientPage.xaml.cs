@@ -9,8 +9,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public SupportClientPage()
         {
-            InitializeComponent();
-            this.title.Text = MobileResource.SupportClient_Label_Title;          
+            InitializeComponent(); 
             this.supportCategory.Text = MobileResource.SupportClient_Label_SupportCategory;
             this.textSupport.Text = MobileResource.SupportClient_Label_TextSupport;
             //this.entrySearch.Placeholder = "Chọn phương tiện";

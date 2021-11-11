@@ -14,8 +14,7 @@
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.BackButtonTitle=""
-    NavigationPage.HasNavigationBar="False">
+    NavigationPage.BackButtonTitle="">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -45,53 +44,47 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.Content>
+    <NavigationPage.TitleView>
         <Grid
-            RowDefinitions="Auto,*"
-            RowSpacing="0"
-            VerticalOptions="FillAndExpand">
-            <!--  Tiêu đề  -->
-            <Grid
-                Grid.Row="0"
-                HorizontalOptions="FillAndExpand"
-                StyleClass="TitleBarGrid"
-                VerticalOptions="StartAndExpand">
-                <Frame
-                    Padding="0"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    HasShadow="False"
-                    HeightRequest="40"
-                    HorizontalOptions="StartAndExpand"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="30">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
-                    </Frame.GestureRecognizers>
-                    <controls:IconView
-                        Foreground="{DynamicResource WhiteColor}"
-                        HeightRequest="25"
-                        HorizontalOptions="StartAndExpand"
-                        Source="ic_close.png"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="25" />
-                </Frame>
-                <Label
-                    x:Name="title"
-                    Margin="0,0,0,5"
-                    HorizontalOptions="CenterAndExpand"
-                    Style="{DynamicResource LabelItem}"
-                    TextColor="{DynamicResource WhiteColor}"
-                    VerticalOptions="EndAndExpand" />
-            </Grid>
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="{Binding Title}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <Grid RowSpacing="0" VerticalOptions="FillAndExpand">
             <pancake:PancakeView
-                Grid.Row="1"
                 Padding="20"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="10,10,0,0"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <StackLayout Spacing="20">
-
                     <StackLayout Spacing="15">
                         <Label
                             HorizontalOptions="Start"
