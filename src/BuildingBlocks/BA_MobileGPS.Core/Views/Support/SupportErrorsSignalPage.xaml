@@ -4,6 +4,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:cardscontrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -29,6 +31,14 @@
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <!--  IndicatorsControl  -->
+            <Style x:Key="ActiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
+            </Style>
+            <Style x:Key="InactiveIndicator" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{DynamicResource GrayColor}" />
+                <Setter Property="OutlineColor" Value="{DynamicResource PrimaryColor}" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -79,21 +89,27 @@
             <!--  EnableLooping="True"  -->
             <Grid Grid.Row="1">
                 <StackLayout Padding="15">
-                    <syncfusion:SfRotator
-                        x:Name="rotator"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        DotPlacement="OutSide"
-                        EnableLooping="False"
+                    <IndicatorView
+                        x:Name="indicatorView"
+                        HorizontalOptions="Center"
+                        IndicatorColor="LightGray"
+                        IndicatorSize="7.5"
+                        SelectedIndicatorColor="{DynamicResource PrimaryColor}" />
+                    <!--<cardscontrols:IndicatorsControl
+                            Margin="10"
+                            ToFadeDuration="5000"
+                            HorizontalOptions="CenterAndExpand"
+                            SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
+                            UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"
+                            VerticalOptions="StartAndExpand" />-->
+                    <cards:CarouselView
+                        x:Name="carouselView"
                         HorizontalOptions="FillAndExpand"
-                        ItemsSource="{Binding PageCollection}"
-                        NavigationDelay="500"
-                        NavigationDirection="Horizontal"
-                        NavigationStripMode="Dots"
-                        NavigationStripPosition="Top"
-                        SelectedDotColor="{DynamicResource PrimaryColor}"
-                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                        IndicatorView="indicatorView"
+                        ItemsSource="{Binding PageCarouselData, Mode=TwoWay}"
+                        SelectedIndex="{Binding Position, Mode=TwoWay}"
                         VerticalOptions="FillAndExpand">
-                        <syncfusion:SfRotator.ItemTemplate>
+                        <cards:CarouselView.ItemTemplate>
                             <DataTemplate>
                                 <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
                                     <StackLayout Padding="0,5,0,0" Spacing="15">
@@ -113,7 +129,7 @@
                                                     FontFamily="Lobster-Regular"
                                                     FontSize="18"
                                                     HorizontalOptions="CenterAndExpand"
-                                                    Text="{Binding LbTabIndex, Mode=TwoWay}"
+                                                    Text="{Binding OrderNo, Mode=TwoWay}"
                                                     TextColor="{DynamicResource WhiteColor}"
                                                     VerticalOptions="CenterAndExpand" />
                                             </Frame>
@@ -127,7 +143,7 @@
                                                 VerticalOptions="CenterAndExpand">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding LbQuestions}" />
+                                                        <Span Text="{Binding Questions}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
@@ -137,7 +153,8 @@
                                             BackgroundColor="{Binding BackgroundColorBtnYes}"
                                             BorderColor="#0474D8"
                                             BorderWidth="{Binding BorderWidthBtnYes}"
-                                            Command="{Binding SfButtonYesCommand}"
+                                            Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.SfButtonYesCommand}"
+                                            CommandParameter="{Binding .}"
                                             CornerRadius="20"
                                             HorizontalTextAlignment="End"
                                             ImageAlignment="Left">
@@ -173,7 +190,8 @@
                                             BackgroundColor="{DynamicResource WhiteColor}"
                                             BorderColor="#0474D8"
                                             BorderWidth="2"
-                                            Command="{Binding SfButtonNoCommand}"
+                                            Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.SfButtonNoCommand}"
+                                            CommandParameter="{Binding .}"
                                             CornerRadius="20">
                                             <buttons:SfButton.Content>
                                                 <FlexLayout AlignItems="Center" JustifyContent="Center">
@@ -185,7 +203,7 @@
                                             Padding="15"
                                             BackgroundColor="#A4DBDB"
                                             CornerRadius="10"
-                                            IsVisible="{Binding IsVisibleYesNo}">
+                                            IsVisible="{Binding IsVisibleYesNo, Mode=TwoWay}">
                                             <StackLayout Spacing="15">
                                                 <Grid ColumnDefinitions="50,*">
                                                     <controls:IconView
@@ -218,7 +236,7 @@
                                                     FontSize="14"
                                                     HorizontalOptions="FillAndExpand"
                                                     HorizontalTextAlignment="Start"
-                                                    Text="{Binding LbTextPage}"
+                                                    Text="{Binding Guides}"
                                                     TextType="Html"
                                                     VerticalOptions="FillAndExpand" />
                                             </StackLayout>
@@ -230,8 +248,31 @@
 
 
                             </DataTemplate>
+                        </cards:CarouselView.ItemTemplate>
+                    </cards:CarouselView>
+                    <!--<syncfusion:SfRotator
+                        x:Name="rotator"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        DotPlacement="OutSide"
+                        EnableLooping="False"
+                        HorizontalOptions="FillAndExpand"
+                        ItemsSource="{Binding PageCollection}"
+                        NavigationDelay="500"
+                        NavigationDirection="Horizontal"
+                        NavigationStripMode="Dots"
+                        NavigationStripPosition="Top"
+                        SelectedDotColor="{DynamicResource PrimaryColor}"
+                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
+                        VerticalOptions="FillAndExpand">
+                        <syncfusion:SfRotator.ItemTemplate>
+                            <DataTemplate>
+                                <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                                    <StackLayout Padding="0,5,0,0" Spacing="15">
+                                    </StackLayout>
+                                </ScrollView>
+                            </DataTemplate>
                         </syncfusion:SfRotator.ItemTemplate>
-                    </syncfusion:SfRotator>
+                    </syncfusion:SfRotator>-->
                 </StackLayout>
                 <StackLayout
                     HorizontalOptions="Center"
