@@ -149,14 +149,14 @@
                                     <Image
                                         HeightRequest="25"
                                         HorizontalOptions="CenterAndExpand"
-                                        Source="arrowcars_blue.png"
+                                        Source="{Binding IconImage}"
                                         VerticalOptions="CenterAndExpand"
                                         WidthRequest="25" />
                                     <Label
                                         HorizontalOptions="CenterAndExpand"
                                         LineBreakMode="MiddleTruncation"
                                         Style="{DynamicResource LabelItem}"
-                                        Text="{Binding Name}"
+                                        Text="{Binding VehiclePlate}"
                                         TextColor="Black"
                                         VerticalOptions="CenterAndExpand" />
 

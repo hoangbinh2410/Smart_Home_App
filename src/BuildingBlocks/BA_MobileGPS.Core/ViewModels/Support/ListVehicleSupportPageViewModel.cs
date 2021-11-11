@@ -33,14 +33,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref _hasChooseVehicleGroup, value); }
         }
 
-        private List<VehicleGroupModel> _listVehicleGroup = new List<VehicleGroupModel>();
-        public List<VehicleGroupModel> ListVehicleGroup
+        private List<CameraLookUpVehicleModel> _listVehicleGroup = new List<CameraLookUpVehicleModel>();
+        public List<CameraLookUpVehicleModel> ListVehicleGroup
         {
             get { return _listVehicleGroup; }
             set { SetProperty(ref _listVehicleGroup, value); }
         }
 
-        private List<VehicleGroupModel> _listVehicleGroupRemember;
+        private List<CameraLookUpVehicleModel> _listVehicleGroupRemember;
         private List<VehicleOnline> ListChooseVehicleGroup = new List<VehicleOnline>();
         private SupportCategoryRespone _category;
 
@@ -123,21 +123,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (args == null)
                             return;
 
-                        var seleted = (args.ItemData as VehicleGroupModel);
+                        var seleted = (args.ItemData as CameraLookUpVehicleModel);
                         if (_category.IsChangePlate)
                         {
-                            _listVehicleGroupRemember.Where(x => x.Name != seleted.Name)?.ToList()
+                            _listVehicleGroupRemember.Where(x => x.VehiclePlate != seleted.VehiclePlate)?.ToList()
                             .Select(y => { y.IsSelected = false; return y; })?.ToList();
                         }
 
                         if (seleted.IsSelected)
                         {
-                            ListVehicleGroup.Where(x => x.Name == seleted.Name)?.ToList()
+                            ListVehicleGroup.Where(x => x.VehiclePlate == seleted.VehiclePlate)?.ToList()
                             .Select(y => { y.IsSelected = false; return y; })?.ToList();
                         }
                         else
                         {
-                            ListVehicleGroup.Where(x => x.Name == seleted.Name)?.ToList()
+                            ListVehicleGroup.Where(x => x.VehiclePlate == seleted.VehiclePlate)?.ToList()
                             .Select(y => { y.IsSelected = true; return y; })?.ToList();
                         }
 
@@ -146,7 +146,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (item.IsSelected)
                             {
-                                var obj = StaticSettings.ListVehilceOnline.Where(x => x.VehiclePlate == item.Name).FirstOrDefault();
+                                var obj = StaticSettings.ListVehilceOnline.Where(x => x.VehiclePlate == item.VehiclePlate).FirstOrDefault();
                                 ListChooseVehicleGroup.Add(obj);
                             }
                         }
@@ -181,50 +181,53 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void SearchVehicleGroup(TextChangedEventArgs args)
         {
-            ListVehicleGroup = _listVehicleGroupRemember.Where(x => x.Name.Contains(args.NewTextValue.ToUpper()))?.ToList();
+            ListVehicleGroup = _listVehicleGroupRemember.Where(x => x.VehiclePlate.Contains(args.NewTextValue.ToUpper()))?.ToList();
         }
-        private List<VehicleGroupModel> GetlistCarErrorSingle(List<VehicleOnline> listVehilceOnline)
+        private List<CameraLookUpVehicleModel> GetlistCarErrorSingle(List<VehicleOnline> listVehilceOnline)
         {
-            var listObj = new List<VehicleGroupModel>();
+            var listObj = new List<CameraLookUpVehicleModel>();
             if (listVehilceOnline != null)
             {
                 foreach (var item in listVehilceOnline)
                 {
                     if (StateVehicleExtension.IsLostGPS(item.GPSTime, item.VehicleTime) || StateVehicleExtension.IsLostGSM(item.VehicleTime))
                     {
-                        VehicleGroupModel obj = new VehicleGroupModel();
-                        obj.Name = item.VehiclePlate;
+                        CameraLookUpVehicleModel obj = new CameraLookUpVehicleModel();
+                        obj.VehiclePlate = item.VehiclePlate;
+                        obj.IconImage = item.IconImage;
                         listObj.Add(obj);
                     }
                 }
             }
             return listObj;
         }
-        private List<VehicleGroupModel> GetlistCarChangePlate(List<VehicleOnline> listVehilceOnline)
+        private List<CameraLookUpVehicleModel> GetlistCarChangePlate(List<VehicleOnline> listVehilceOnline)
         {
-            var listObj = new List<VehicleGroupModel>();
+            var listObj = new List<CameraLookUpVehicleModel>();
             if (listVehilceOnline != null)
             {
                 foreach (var item in listVehilceOnline)
                 {
-                    VehicleGroupModel obj = new VehicleGroupModel();
-                    obj.Name = item.VehiclePlate;
+                    CameraLookUpVehicleModel obj = new CameraLookUpVehicleModel();
+                    obj.VehiclePlate = item.VehiclePlate;
+                    obj.IconImage = item.IconImage;
                     listObj.Add(obj);
                 }
             }
             return listObj;
         }
-        private List<VehicleGroupModel> GetlistCarErrorCamera(List<VehicleOnline> listVehilceOnline)
+        private List<CameraLookUpVehicleModel> GetlistCarErrorCamera(List<VehicleOnline> listVehilceOnline)
         {
-            var listObj = new List<VehicleGroupModel>();
+            var listObj = new List<CameraLookUpVehicleModel>();
             if (listVehilceOnline != null)
             {
                 foreach (var item in listVehilceOnline)
                 {
                     if (ValidateVehicleCamera(item.VehiclePlate))
                     {
-                        VehicleGroupModel obj = new VehicleGroupModel();
-                        obj.Name = item.VehiclePlate;
+                        CameraLookUpVehicleModel obj = new CameraLookUpVehicleModel();
+                        obj.VehiclePlate = item.VehiclePlate;
+                        obj.IconImage = item.IconImage;
                         listObj.Add(obj);
                     }
                 }
