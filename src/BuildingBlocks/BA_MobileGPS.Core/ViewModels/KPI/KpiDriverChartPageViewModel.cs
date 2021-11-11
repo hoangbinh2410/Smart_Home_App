@@ -45,7 +45,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     GetDriverKpiChart(driverID);
                 }
             }
-
         }
 
         public override void OnDestroy()
@@ -160,7 +159,11 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (item.OrderDisPlayActual != null)
                         {
                             var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
-                            ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            if(rankactual != null)
+                            {
+                                ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            }
+                            
                         }
                     }
                     DrawChartSeries();
@@ -185,7 +188,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         if (item.OrderDisPlayActual != null)
                         {
                             var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
-                            ChartDataSourceActual2.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            if (rankactual != null)
+                            {
+                                ChartDataSourceActual2.Add(new ChartDataModel(item.Name, rankactual.Value));
+                            }  
                         }
                     }
                     DrawChartSeries2();

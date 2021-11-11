@@ -25,6 +25,8 @@ namespace BA_MobileGPS.Entities
         [JsonIgnore]
         public Color BacgroundYourDriver { get; set; }
 
+        public string Comment { get; set; }
+
         public List<DriverRankByDay> DriverRankByDay { get; set; }
     }
 
@@ -33,6 +35,7 @@ namespace BA_MobileGPS.Entities
         public DateTime Date { get; set; }
         public string Rank { get; set; }
         public float? Score { get; set; }
+        public string Comment { get; set; }
         private Color bacgroundColor=Color.FromHex("#E4E4E4");
         public Color BacgroundColor { get => bacgroundColor; set => SetProperty(ref bacgroundColor, value); }
     }
