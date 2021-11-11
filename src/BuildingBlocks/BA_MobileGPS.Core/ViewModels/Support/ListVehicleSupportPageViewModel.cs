@@ -141,16 +141,16 @@ namespace BA_MobileGPS.Core.ViewModels
                             .Select(y => { y.IsSelected = true; return y; })?.ToList();
                         }
 
-                        _listChooseVehicleGroup = new List<VehicleOnline>();
+                        ListChooseVehicleGroup = new List<VehicleOnline>();
                         foreach (var item in _listVehicleGroupRemember)
                         {
                             if (item.IsSelected)
                             {
-                                var obj = StaticSettings.ListVehilceOnline.Where(x => x.VehiclePlate == item.Name).FirstOrDefault();
+                                var obj = StaticSettings.ListVehilceOnline.Where(x => x.VehiclePlate == item.VehiclePlate).FirstOrDefault();
                                 ListChooseVehicleGroup.Add(obj);
                             }
                         }
-                        HasChooseVehicleGroup = _listChooseVehicleGroup.Count > 0;
+                        HasChooseVehicleGroup = ListChooseVehicleGroup.Count > 0;
                     }
                     catch (System.Exception ex)
                     {
@@ -162,7 +162,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void NavigateClicked()
         {
-            if (_category == null || _listChooseVehicleGroup.Count == 0)
+            if (_category == null || ListChooseVehicleGroup.Count == 0)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoData, 5000);
                 return;
@@ -171,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var parameters = new NavigationParameters
             {
                 { "Support", _category },
-                { "ListVehicleSupport", _listChooseVehicleGroup }
+                { "ListVehicleSupport", ListChooseVehicleGroup }
             };
 
             SafeExecute(async () =>
