@@ -20,7 +20,6 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Property
 
         private bool _hasVehicleGroup = false;
-
         public bool HasVehicleGroup
         {
             get { return _hasVehicleGroup; }
@@ -28,7 +27,6 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool _hasChooseVehicleGroup = false;
-
         public bool HasChooseVehicleGroup
         {
             get { return _hasChooseVehicleGroup; }
@@ -36,13 +34,13 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private List<VehicleGroupModel> _listVehicleGroup = new List<VehicleGroupModel>();
-
         public List<VehicleGroupModel> ListVehicleGroup
         {
             get { return _listVehicleGroup; }
             set { SetProperty(ref _listVehicleGroup, value); }
         }
 
+        private List<VehicleGroupModel> _listVehicleGroupRemember;
         private List<VehicleOnline> ListChooseVehicleGroup = new List<VehicleOnline>();
         private SupportCategoryRespone _category;
 
@@ -51,10 +49,12 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Contructor
 
         public ICommand NavigateCommand { get; }
+        public ICommand SearchVehicleGroupCommand { get; private set; }
 
         public ListVehicleSupportPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             NavigateCommand = new DelegateCommand(NavigateClicked);
+            SearchVehicleGroupCommand = new DelegateCommand<TextChangedEventArgs>(SearchVehicleGroup);
         }
 
         #endregion Contructor
@@ -75,16 +75,17 @@ namespace BA_MobileGPS.Core.ViewModels
             var listVehilceOnline = StaticSettings.ListVehilceOnline;
             if (_category.IsChangePlate && _category.Code == MenuSupportEnum.ChangePlatePage.ToDescription())
             {
-                GetlistCarChangePlate(listVehilceOnline);
+                ListVehicleGroup = GetlistCarChangePlate(listVehilceOnline);
             }
             else if (_category.Code == MenuSupportEnum.ErrorSinglePage.ToDescription())
             {
-                GetlistCarErrorSingle(listVehilceOnline);
+                ListVehicleGroup = GetlistCarErrorSingle(listVehilceOnline);
             }
             else if (_category.Code == MenuSupportEnum.ErrorCameraPage.ToDescription())
             {
-                GetlistCarErrorCamera(listVehilceOnline);
+                ListVehicleGroup = GetlistCarErrorCamera(listVehilceOnline);
             }
+            _listVehicleGroupRemember = ListVehicleGroup;
             HasVehicleGroup = ListVehicleGroup.Count == 0;
         }
 
@@ -125,7 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var seleted = (args.ItemData as VehicleGroupModel);
                         if (_category.IsChangePlate)
                         {
-                            ListVehicleGroup.Where(x => x.Name != seleted.Name)?.ToList()
+                            _listVehicleGroupRemember.Where(x => x.Name != seleted.Name)?.ToList()
                             .Select(y => { y.IsSelected = false; return y; })?.ToList();
                         }
 
@@ -141,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
 
                         ListChooseVehicleGroup = new List<VehicleOnline>();
-                        foreach (var item in ListVehicleGroup)
+                        foreach (var item in _listVehicleGroupRemember)
                         {
                             if (item.IsSelected)
                             {
@@ -178,36 +179,44 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("SelectSupportPage", parameters);
             });
         }
-
-        private void GetlistCarErrorSingle(List<VehicleOnline> listVehilceOnline)
+        private void SearchVehicleGroup(TextChangedEventArgs args)
         {
+            ListVehicleGroup = _listVehicleGroupRemember.Where(x => x.Name.Contains(args.NewTextValue.ToUpper()))?.ToList();
+        }
+        private List<VehicleGroupModel> GetlistCarErrorSingle(List<VehicleOnline> listVehilceOnline)
+        {
+            var listObj = new List<VehicleGroupModel>();
             if (listVehilceOnline != null)
             {
                 foreach (var item in listVehilceOnline)
                 {
-                    if (StateVehicleExtension.IsLostGPS(item.GPSTime, item.VehicleTime) == true || StateVehicleExtension.IsLostGSM(item.VehicleTime) == true)
+                    if (StateVehicleExtension.IsLostGPS(item.GPSTime, item.VehicleTime) || StateVehicleExtension.IsLostGSM(item.VehicleTime))
                     {
                         VehicleGroupModel obj = new VehicleGroupModel();
                         obj.Name = item.VehiclePlate;
-                        ListVehicleGroup.Add(obj);
+                        listObj.Add(obj);
                     }
                 }
             }
+            return listObj;
         }
-        private void GetlistCarChangePlate(List<VehicleOnline> listVehilceOnline)
+        private List<VehicleGroupModel> GetlistCarChangePlate(List<VehicleOnline> listVehilceOnline)
         {
+            var listObj = new List<VehicleGroupModel>();
             if (listVehilceOnline != null)
             {
                 foreach (var item in listVehilceOnline)
                 {
                     VehicleGroupModel obj = new VehicleGroupModel();
                     obj.Name = item.VehiclePlate;
-                    ListVehicleGroup.Add(obj);
+                    listObj.Add(obj);
                 }
             }
+            return listObj;
         }
-        private void GetlistCarErrorCamera(List<VehicleOnline> listVehilceOnline)
+        private List<VehicleGroupModel> GetlistCarErrorCamera(List<VehicleOnline> listVehilceOnline)
         {
+            var listObj = new List<VehicleGroupModel>();
             if (listVehilceOnline != null)
             {
                 foreach (var item in listVehilceOnline)
@@ -216,10 +225,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehicleGroupModel obj = new VehicleGroupModel();
                         obj.Name = item.VehiclePlate;
-                        ListVehicleGroup.Add(obj);
+                        listObj.Add(obj);
                     }
                 }
             }
+            return listObj;
         }
         private bool ValidateVehicleCamera(string vehiclePlate)
         {
@@ -242,6 +252,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return false;
             }
         }
+
         #endregion PrivateMenthod
     }
 }
