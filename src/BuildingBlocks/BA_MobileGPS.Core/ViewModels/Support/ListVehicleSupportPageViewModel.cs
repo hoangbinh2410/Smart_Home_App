@@ -40,8 +40,8 @@ namespace BA_MobileGPS.Core.ViewModels
             set { SetProperty(ref _listVehicleGroup, value); }
         }
 
-        private List<CameraLookUpVehicleModel> _listVehicleGroupRemember;
-        private List<VehicleOnline> ListChooseVehicleGroup = new List<VehicleOnline>();
+        private List<VehicleGroupModel> _listVehicleGroupRemember;
+        private List<VehicleOnline> _listChooseVehicleGroup = new List<VehicleOnline>();
         private SupportCategoryRespone _category;
 
         #endregion Property
@@ -141,16 +141,16 @@ namespace BA_MobileGPS.Core.ViewModels
                             .Select(y => { y.IsSelected = true; return y; })?.ToList();
                         }
 
-                        ListChooseVehicleGroup = new List<VehicleOnline>();
+                        _listChooseVehicleGroup = new List<VehicleOnline>();
                         foreach (var item in _listVehicleGroupRemember)
                         {
                             if (item.IsSelected)
                             {
-                                var obj = StaticSettings.ListVehilceOnline.Where(x => x.VehiclePlate == item.VehiclePlate).FirstOrDefault();
-                                ListChooseVehicleGroup.Add(obj);
+                                var obj = StaticSettings.ListVehilceOnline.Where(x => x.VehiclePlate == item.Name).FirstOrDefault();
+                                _listChooseVehicleGroup.Add(obj);
                             }
                         }
-                        HasChooseVehicleGroup = ListChooseVehicleGroup.Count > 0;
+                        HasChooseVehicleGroup = _listChooseVehicleGroup.Count > 0;
                     }
                     catch (System.Exception ex)
                     {
@@ -162,7 +162,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void NavigateClicked()
         {
-            if (_category == null || ListChooseVehicleGroup.Count == 0)
+            if (_category == null || _listChooseVehicleGroup.Count == 0)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoData, 5000);
                 return;
@@ -171,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var parameters = new NavigationParameters
             {
                 { "Support", _category },
-                { "ListVehicleSupport", ListChooseVehicleGroup }
+                { "ListVehicleSupport", _listChooseVehicleGroup }
             };
 
             SafeExecute(async () =>
