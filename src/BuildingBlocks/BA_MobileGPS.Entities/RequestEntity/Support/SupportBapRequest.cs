@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Entities.RequestEntity.Support
     {
         public string username { get; set; }
         public string fullname { get; set; }
-        public string mobile { get; set; }
+        public string mobilestr { get; set; }
     }
 
     public class Vehiclelist

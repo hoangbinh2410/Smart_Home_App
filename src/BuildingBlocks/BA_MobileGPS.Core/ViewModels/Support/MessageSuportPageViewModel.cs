@@ -195,7 +195,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     fullname = UserFullName,
                                     username = UserInfo.UserName,
-                                    mobile = Phonenumber
+                                    mobilestr = Phonenumber
                                 };
                                 Errorlist = new List<Errorlist>()
                             {
@@ -233,7 +233,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     fullname = UserFullName,
                                     username = UserInfo.UserName,
-                                    mobile = Phonenumber
+                                    mobilestr = Phonenumber
                                 };
                                 Errorlist = new List<Errorlist>()
                                     {

@@ -33,7 +33,7 @@
     <!--  Tiêu đề  -->
     <NavigationPage.TitleView>
         <Label
-            HorizontalOptions="StartAndExpand"
+            HorizontalOptions="CenterAndExpand"
             LineBreakMode="MiddleTruncation"
             Style="{DynamicResource LabelHeader}"
             Text="{Binding Title}"

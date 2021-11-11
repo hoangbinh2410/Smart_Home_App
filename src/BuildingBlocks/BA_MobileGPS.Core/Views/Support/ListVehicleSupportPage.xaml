@@ -39,7 +39,7 @@
     <!--  Tiêu đề  -->
     <NavigationPage.TitleView>
         <Label
-            HorizontalOptions="StartAndExpand"
+            HorizontalOptions="CenterAndExpand"
             LineBreakMode="MiddleTruncation"
             Style="{DynamicResource LabelNaviga}"
             Text="Chọn phương tiện xử lý"
