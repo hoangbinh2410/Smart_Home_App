@@ -114,7 +114,7 @@
                                     WidthRequest="20" />
                                 <Label
                                     Style="{DynamicResource Text16B}"
-                                    Text="Hướng dẫn sử lý"
+                                    Text="Hướng dẫn xử lý"
                                     TextColor="{DynamicResource PrimaryColor}"
                                     VerticalOptions="Center" />
                             </StackLayout>
@@ -228,7 +228,7 @@
                                         WidthRequest="20" />
                                     <Label
                                         Style="{DynamicResource Text16B}"
-                                        Text="Hướng dẫn sử lý"
+                                        Text="Hướng dẫn xử lý"
                                         TextColor="{DynamicResource PrimaryColor}" />
                                 </StackLayout>
                                 <StackLayout Grid.Row="1" Orientation="Horizontal">

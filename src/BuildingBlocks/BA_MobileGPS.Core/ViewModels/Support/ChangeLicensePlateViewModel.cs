@@ -57,6 +57,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         LicensePlateNow = listvehicle[0].VehiclePlate;
                     }
+                    else
+                    {
+                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                    }
                 }
                 else
                 {

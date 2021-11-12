@@ -30,6 +30,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Vehicle = vehicle;
                 }
+                else
+                {
+                    return;
+                }
             }
             else
             {
