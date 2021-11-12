@@ -32,13 +32,23 @@
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontFamily" Value="Lobster-Regular" />
             </Style>
-            <!--  IndicatorsControl  -->
-            <Style x:Key="ActiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}" />
-            </Style>
-            <Style x:Key="InactiveIndicator" TargetType="Frame">
-                <Setter Property="BackgroundColor" Value="{DynamicResource GrayColor}" />
-                <Setter Property="OutlineColor" Value="{DynamicResource PrimaryColor}" />
+            <Style x:Key="IndicatorLabelStyle" TargetType="Label">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="LightGray" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -92,25 +102,34 @@
                     <IndicatorView
                         x:Name="indicatorView"
                         HorizontalOptions="Center"
-                        IndicatorColor="LightGray"
-                        IndicatorSize="7.5"
-                        IndicatorsShape="Square"
-                        SelectedIndicatorColor="{DynamicResource PrimaryColor}" />
-                    <!--<cardscontrols:IndicatorsControl
-                            Margin="10"
-                            ToFadeDuration="5000"
-                            HorizontalOptions="CenterAndExpand"
-                            SelectedIndicatorStyle="{StaticResource ActiveIndicator}"
-                            UnselectedIndicatorStyle="{StaticResource InactiveIndicator}"
-                            VerticalOptions="StartAndExpand" />-->
-                    <cards:CarouselView
+                        IndicatorColor="Transparent"
+                        Position="{Binding Position}"
+                        SelectedIndicatorColor="Transparent">
+                        <IndicatorView.IndicatorTemplate>
+                            <DataTemplate>
+                                <controls:FontAwesomeIcon
+                                    FontAttributes="Bold"
+                                    FontSize="13"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource IndicatorLabelStyle}"
+                                    Text="{x:Static fontawesome:FontAwesomeIcons.Cube}" />
+                            </DataTemplate>
+                        </IndicatorView.IndicatorTemplate>
+                    </IndicatorView>
+
+                    <CarouselView
                         x:Name="carouselView"
+                        CurrentItem="{Binding CurrentSelected, Mode=TwoWay}"
+                        CurrentItemChanged="CarouselView_CurrentItemChanged"
                         HorizontalOptions="FillAndExpand"
+                        HorizontalScrollBarVisibility="Never"
                         IndicatorView="indicatorView"
+                        IsScrollAnimated="False"
+                        IsSwipeEnabled="True"
                         ItemsSource="{Binding PageCarouselData, Mode=TwoWay}"
-                        SelectedIndex="{Binding Position, Mode=TwoWay}"
+                        Loop="False"
                         VerticalOptions="FillAndExpand">
-                        <cards:CarouselView.ItemTemplate>
+                        <CarouselView.ItemTemplate>
                             <DataTemplate>
                                 <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
                                     <StackLayout Padding="0,5,0,0" Spacing="15">
@@ -246,11 +265,9 @@
 
                                     </StackLayout>
                                 </ScrollView>
-
-
                             </DataTemplate>
-                        </cards:CarouselView.ItemTemplate>
-                    </cards:CarouselView>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
                     <!--<syncfusion:SfRotator
                         x:Name="rotator"
                         BackgroundColor="{DynamicResource WhiteColor}"

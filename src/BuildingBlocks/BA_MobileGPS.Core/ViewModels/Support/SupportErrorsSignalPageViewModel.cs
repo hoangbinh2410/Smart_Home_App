@@ -62,6 +62,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _objSupport, value);
         }
 
+
+        private MessageSupportRespone currentSelected;
+
+        public MessageSupportRespone CurrentSelected
+        {
+            get => currentSelected;
+            set => SetProperty(ref currentSelected, value);
+        }
         #endregion Property
 
         #region Contructor
