@@ -4,16 +4,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
-    xmlns:cardscontrols="clr-namespace:PanCardView.Controls;assembly=PanCardView"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:renderedViews="clr-namespace:Sharpnado.Presentation.Forms.RenderedViews;assembly=Sharpnado.Presentation.Forms"
-    xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+    x:Name="root"
     Title="{Binding Title}"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="{DynamicResource WhiteColor}"
@@ -50,6 +46,51 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+
+            <ControlTemplate x:Key="FrameRadioTemplate">
+                <Frame
+                    Padding="5"
+                    BorderColor="#2B79E1"
+                    CornerRadius="10"
+                    HeightRequest="30"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid Margin="4">
+                        <ContentPresenter>
+                            <ContentPresenter.Resources>
+                                <Style TargetType="Label">
+                                    <Setter Property="HorizontalOptions" Value="Center" />
+                                    <Setter Property="VerticalOptions" Value="Center" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Path=IsChecked, Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                            TargetType="Label"
+                                            Value="True">
+                                            <Setter Property="TextColor" Value="White" />
+                                            <Setter Property="FontAttributes" Value="Bold" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentPresenter.Resources>
+                        </ContentPresenter>
+                    </Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#2B79E1" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#f3f2f1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Frame>
+            </ControlTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--  Tiêu đề  -->
@@ -170,62 +211,75 @@
                                                 </Label.FormattedText>
                                             </Label>
                                         </Grid>
-                                        <buttons:SfButton
-                                            Padding="7.5"
-                                            BackgroundColor="{Binding BackgroundColorBtnYes}"
-                                            BorderColor="#0474D8"
-                                            BorderWidth="{Binding BorderWidthBtnYes}"
-                                            Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.SfButtonYesCommand}"
-                                            CommandParameter="{Binding .}"
-                                            CornerRadius="20"
-                                            HorizontalTextAlignment="End"
-                                            ImageAlignment="Left">
-                                            <buttons:SfButton.Content>
-                                                <FlexLayout AlignItems="Center" JustifyContent="Center">
-                                                    <Frame
-                                                        Margin="0,0,5,0"
-                                                        Padding="0"
-                                                        BackgroundColor="DeepSkyBlue"
-                                                        BorderColor="{DynamicResource WhiteColor}"
-                                                        CornerRadius="20"
-                                                        HasShadow="False"
-                                                        HeightRequest="20"
-                                                        HorizontalOptions="StartAndExpand"
-                                                        IsVisible="{Binding ISShowIconBtnYes}"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        WidthRequest="20">
-                                                        <controls:IconView
-                                                            Grid.Column="0"
-                                                            Foreground="{DynamicResource WhiteColor}"
-                                                            HeightRequest="10"
-                                                            HorizontalOptions="CenterAndExpand"
-                                                            Source="ic_btnyes"
-                                                            VerticalOptions="CenterAndExpand"
-                                                            WidthRequest="10" />
-                                                    </Frame>
-                                                    <Label Text="{Binding TextBtnYes}" TextColor="{Binding TextColorBtnYes}" />
-                                                </FlexLayout>
-                                            </buttons:SfButton.Content>
-                                        </buttons:SfButton>
-                                        <buttons:SfButton
-                                            Padding="7.5"
-                                            BackgroundColor="{DynamicResource WhiteColor}"
-                                            BorderColor="#0474D8"
-                                            BorderWidth="2"
-                                            Command="{Binding Source={x:Reference carouselView}, Path=BindingContext.SfButtonNoCommand}"
-                                            CommandParameter="{Binding .}"
-                                            CornerRadius="20">
-                                            <buttons:SfButton.Content>
-                                                <FlexLayout AlignItems="Center" JustifyContent="Center">
-                                                    <Label Text="{Binding TextBtnNo}" TextColor="DarkBlue" />
-                                                </FlexLayout>
-                                            </buttons:SfButton.Content>
-                                        </buttons:SfButton>
+                                        <StackLayout BindableLayout.ItemsSource="{Binding Options, Mode=TwoWay}">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.SelectedAnswerCommand}" CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
+                                                        <Frame
+                                                            Padding="5"
+                                                            BackgroundColor="DeepSkyBlue"
+                                                            BorderColor="DeepSkyBlue"
+                                                            CornerRadius="15"
+                                                            HeightRequest="30"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            IsVisible="{Binding Selected}">
+                                                            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                                                                <Frame
+                                                                    Padding="0"
+                                                                    BackgroundColor="DeepSkyBlue"
+                                                                    BorderColor="{DynamicResource WhiteColor}"
+                                                                    CornerRadius="10"
+                                                                    HasShadow="False"
+                                                                    HeightRequest="20"
+                                                                    HorizontalOptions="StartAndExpand"
+                                                                    IsVisible="{Binding Selected}"
+                                                                    VerticalOptions="CenterAndExpand"
+                                                                    WidthRequest="20">
+                                                                    <controls:IconView
+                                                                        Grid.Column="0"
+                                                                        Foreground="{DynamicResource WhiteColor}"
+                                                                        HeightRequest="10"
+                                                                        HorizontalOptions="CenterAndExpand"
+                                                                        Source="ic_btnyes"
+                                                                        VerticalOptions="CenterAndExpand"
+                                                                        WidthRequest="10" />
+                                                                </Frame>
+
+                                                                <Label
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    Text="{Binding Name}"
+                                                                    TextColor="{DynamicResource WhiteColor}"
+                                                                    VerticalOptions="Center" />
+                                                            </StackLayout>
+                                                        </Frame>
+
+                                                        <Frame
+                                                            Padding="5"
+                                                            BackgroundColor="White"
+                                                            BorderColor="{StaticResource PrimaryColor}"
+                                                            CornerRadius="15"
+                                                            HeightRequest="30"
+                                                            HorizontalOptions="FillAndExpand"
+                                                            IsVisible="{Binding Selected, Converter={StaticResource InvertBooleanConverter}}">
+                                                            <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                                                                <Label
+                                                                    HorizontalOptions="CenterAndExpand"
+                                                                    Text="{Binding Name}"
+                                                                    VerticalOptions="Center" />
+                                                            </StackLayout>
+                                                        </Frame>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
                                         <pancake:PancakeView
                                             Padding="15"
                                             BackgroundColor="#A4DBDB"
                                             CornerRadius="10"
-                                            IsVisible="{Binding IsVisibleYesNo, Mode=TwoWay}">
+                                            IsVisible="{Binding IsShowGuides, Mode=TwoWay}">
                                             <StackLayout Spacing="15">
                                                 <Grid ColumnDefinitions="50,*">
                                                     <controls:IconView
@@ -282,41 +336,16 @@
                                                     </WebView.Source>
                                                 </WebView>
                                             </StackLayout>
-
                                         </pancake:PancakeView>
-
                                     </StackLayout>
                                 </ScrollView>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
-                    <!--<syncfusion:SfRotator
-                        x:Name="rotator"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        DotPlacement="OutSide"
-                        EnableLooping="False"
-                        HorizontalOptions="FillAndExpand"
-                        ItemsSource="{Binding PageCollection}"
-                        NavigationDelay="500"
-                        NavigationDirection="Horizontal"
-                        NavigationStripMode="Dots"
-                        NavigationStripPosition="Top"
-                        SelectedDotColor="{DynamicResource PrimaryColor}"
-                        SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}"
-                        VerticalOptions="FillAndExpand">
-                        <syncfusion:SfRotator.ItemTemplate>
-                            <DataTemplate>
-                                <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
-                                    <StackLayout Padding="0,5,0,0" Spacing="15">
-                                    </StackLayout>
-                                </ScrollView>
-                            </DataTemplate>
-                        </syncfusion:SfRotator.ItemTemplate>
-                    </syncfusion:SfRotator>-->
                 </StackLayout>
                 <StackLayout
                     HorizontalOptions="Center"
-                    IsVisible="{Binding IsPageCollection}"
+                    IsVisible="{Binding PageCarouselData, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
                     Orientation="Vertical"
                     Spacing="0"
                     VerticalOptions="CenterAndExpand">

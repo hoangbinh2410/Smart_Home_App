@@ -3,10 +3,10 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Utilities.Extensions;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.Data.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -19,22 +19,6 @@ namespace BA_MobileGPS.Core.ViewModels
     internal class SupportErrorsSignalPageViewModel : ViewModelBase
     {
         #region Property
-
-        private bool _isPageCollection;
-
-        public bool IsPageCollection
-        {
-            get => _isPageCollection;
-            set => SetProperty(ref _isPageCollection, value);
-        }
-
-        private int _position = 0;
-
-        public int Position
-        {
-            get { return _position; }
-            set { SetProperty(ref _position, value); }
-        }
 
         private ObservableCollection<MessageSupportRespone> _pageCarouselData = new ObservableCollection<MessageSupportRespone>();
 
@@ -81,8 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Contructor
 
         public ICommand BackPageCommand { get; private set; }
-        public ICommand SfButtonYesCommand { get; private set; }
-        public ICommand SfButtonNoCommand { get; private set; }
+        public ICommand SelectedAnswerCommand { get; private set; }
         private ISupportCategoryService _iSupportCategoryService;
         private INavigationService _navigationService;
 
@@ -92,8 +75,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Title = MobileResource.SupportClient_Label_Title;
             _navigationService = navigationService;
             _iSupportCategoryService = iSupportCategoryService;
-            SfButtonYesCommand = new DelegateCommand<MessageSupportRespone>(SfButtonYesClicked);
-            SfButtonNoCommand = new DelegateCommand<MessageSupportRespone>(SfButtonNoClicked);
+            SelectedAnswerCommand = new DelegateCommand<AnswerSupport>(SelectedAnswer);
             BackPageCommand = new DelegateCommand(BackPageClicked);
         }
 
@@ -155,105 +137,107 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetCollectionPage(SupportCategoryRespone obj)
         {
-            Task.Run(async () =>
+            RunOnBackground(async () =>
             {
                 return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
-            }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            }, (result) =>
             {
-                if (task.Status == TaskStatus.RanToCompletion)
+                if (result != null && result.Count > 0)
                 {
-                    var listObj = task.Result.ToObservableCollection();
-                    if (listObj != null && listObj.Count > 0)
+                    foreach (var item in result)
                     {
-                        foreach (var item in listObj)
+                        item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
+                        if (item.OrderNo == 2 && obj.Code == "MTH")
                         {
-                            item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
-                            if (item.OrderNo == 2 && obj.Code == "MTH")
+                            var lstOption = new List<AnswerSupport>()
                             {
-                                item.TextBtnYes = MobileResource.SupportClient_Text_Unfinished;
-                                item.TextBtnNo = MobileResource.SupportClient_Text_Accomplished;
-                                item.OrderNo++;
-                                item.BackgroundColorBtnYes = Color.White;
-                                item.TextColorBtnYes = Color.DarkBlue;
-                                item.BorderWidthBtnYes = 2;
-                                PageCarouselData.Add(item);
+                                new AnswerSupport()
+                                {
+                                    IsAnswer=true,
+                                    Name = MobileResource.SupportClient_Text_Unfinished
+                                },
+                                new AnswerSupport()
+                                {
+                                    IsAnswer=false,
+                                    Name = MobileResource.SupportClient_Text_Accomplished
+                                }
+                            };
+                            item.Options = lstOption;
+                        }
+                        else
+                        {
+                            var lstOption = new List<AnswerSupport>()
+                            {
+                                new AnswerSupport()
+                                {
+                                    IsAnswer=true,
+                                    Name = MobileResource.SupportClient_Text_Yes
+                                },
+                                new AnswerSupport()
+                                {
+                                    IsAnswer=false,
+                                    Name = MobileResource.SupportClient_Text_No
+                                }
+                            };
+                            item.Options = lstOption;
+                        }
+                    }
+                    PageCarouselData = result.ToObservableCollection();
+                }
+            });
+        }
+
+        private void SelectedAnswer(AnswerSupport obj)
+        {
+            if (obj != null)
+            {
+                SafeExecute(() =>
+                {
+                    if (CurrentSelected != null)
+                    {
+                        foreach (var item in CurrentSelected.Options)
+                        {
+                            if (item.Selected)
+                            {
+                                item.Selected = false;
+                            }
+                        }
+                        obj.Selected = true;
+                        if (obj.Selected == obj.IsAnswer)
+                        {
+                            CurrentSelected.IsShowGuides = true;
+                        }
+                        else
+                        {
+                            CurrentSelected.IsShowGuides = false;
+                            var index = PageCarouselData.ToList().FindIndex(CurrentSelected);
+                            if (index >= PageCarouselData.Count - 1)
+                            {
+                                var ischeckall = PageCarouselData.FirstOrDefault(x => x.IsShowGuides == true);
+                                if (ischeckall == null)
+                                {
+                                    Device.BeginInvokeOnMainThread(() =>
+                                    {
+                                        NavigationFeedbackPage();
+                                    });
+                                }
                             }
                             else
                             {
-                                item.TextBtnYes = MobileResource.SupportClient_Text_Yes;
-                                item.TextBtnNo = MobileResource.SupportClient_Text_No;
-                                item.OrderNo++;
-                                item.BackgroundColorBtnYes = Color.White;
-                                item.TextColorBtnYes = Color.DarkBlue;
-                                item.BorderWidthBtnYes = 2;
-                                PageCarouselData.Add(item);
+                                Device.BeginInvokeOnMainThread(async () =>
+                                {
+                                    await Task.Delay(500);
+                                    CurrentSelected = PageCarouselData[index + 1];
+                                });
                             }
                         }
-                        IsPageCollection = PageCarouselData.Count == 0;
                     }
-                }
-            }));
-        }
-
-        private void SfButtonYesClicked(MessageSupportRespone obj)
-        {
-            PageCarouselData.Where(x => x.ID == obj.ID)?.ToList()
-            .Select(y =>
-            {
-                y.IsVisibleYesNo = true;
-                y.BackgroundColorBtnYes = Color.DeepSkyBlue;
-                y.ISShowIconBtnYes = true;
-                y.TextColorBtnYes = Color.White;
-                y.BorderWidthBtnYes = 0; return y;
-            })?.ToList();
-        }
-
-        private void SfButtonNoClicked(MessageSupportRespone obj)
-        {
-            PageCarouselData.Where(x => x.ID == obj.ID)?.ToList()
-            .Select(y =>
-            {
-                y.IsVisibleYesNo = false;
-                y.BackgroundColorBtnYes = Color.White;
-                y.ISShowIconBtnYes = false;
-                y.TextColorBtnYes = Color.DarkBlue;
-                y.BorderWidthBtnYes = 2; return y;
-            })?.ToList();
-            switch (Position)
-            {
-                case 0:
-                    if (Position == PageCarouselData.Count - 1)
-                    {
-                        NavigationFeedbackPage();
-                        return;
-                    }
-                    break;
-
-                case 1:
-                    if (Position == PageCarouselData.Count - 1)
-                    {
-                        NavigationFeedbackPage();
-                        return;
-                    }
-                    break;
-
-                case 2:
-                    if (Position == PageCarouselData.Count - 1)
-                    {
-                        NavigationFeedbackPage();
-                        return;
-                    }
-                    break;
-
-                default:
-                    break;
+                });
             }
-            Position++;
         }
 
         private void NavigationFeedbackPage()
         {
-            Position = 0;
             var parameters = new NavigationParameters
             {
                 { "Support", _objSupport },
