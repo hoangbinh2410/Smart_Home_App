@@ -250,15 +250,11 @@
                                                         </Label.FormattedText>
                                                     </Label>
                                                 </Grid>
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    FontFamily="Lobster-Regular"
-                                                    FontSize="14"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    HorizontalTextAlignment="Start"
-                                                    Text="{Binding Guides}"
-                                                    TextType="Html"
-                                                    VerticalOptions="FillAndExpand" />
+                                                <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                    <WebView.Source>
+                                                        <HtmlWebViewSource Html="{Binding Content}" />
+                                                    </WebView.Source>
+                                                </WebView>
                                             </StackLayout>
 
                                         </pancake:PancakeView>

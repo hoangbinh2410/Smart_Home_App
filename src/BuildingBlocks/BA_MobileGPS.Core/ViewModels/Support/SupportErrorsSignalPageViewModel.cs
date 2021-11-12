@@ -21,6 +21,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Property
 
         private bool _isPageCollection;
+
         public bool IsPageCollection
         {
             get => _isPageCollection;
@@ -28,6 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private int _position = 0;
+
         public int Position
         {
             get { return _position; }
@@ -35,6 +37,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private ObservableCollection<MessageSupportRespone> _pageCarouselData = new ObservableCollection<MessageSupportRespone>();
+
         public ObservableCollection<MessageSupportRespone> PageCarouselData
         {
             get { return _pageCarouselData; }
@@ -42,6 +45,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private Vehicle _vehicle = new Vehicle();
+
         public Vehicle Vehicle
         {
             get => _vehicle;
@@ -49,6 +53,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private List<VehicleOnline> _listvehicle = new List<VehicleOnline>();
+
         public List<VehicleOnline> ListVehicle
         {
             get => _listvehicle;
@@ -56,12 +61,12 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
+
         public SupportCategoryRespone ObjSupport
         {
             get => _objSupport;
             set => SetProperty(ref _objSupport, value);
         }
-
 
         private MessageSupportRespone currentSelected;
 
@@ -70,6 +75,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get => currentSelected;
             set => SetProperty(ref currentSelected, value);
         }
+
         #endregion Property
 
         #region Contructor
@@ -90,8 +96,6 @@ namespace BA_MobileGPS.Core.ViewModels
             SfButtonNoCommand = new DelegateCommand<MessageSupportRespone>(SfButtonNoClicked);
             BackPageCommand = new DelegateCommand(BackPageClicked);
         }
-
-       
 
         #endregion Contructor
 
@@ -159,10 +163,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     var listObj = task.Result.ToObservableCollection();
-                    if(listObj != null && listObj.Count>0)
+                    if (listObj != null && listObj.Count > 0)
                     {
-                        foreach(var item in listObj)
+                        foreach (var item in listObj)
                         {
+                            item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
                             if (item.OrderNo == 2 && obj.Code == "MTH")
                             {
                                 item.TextBtnYes = MobileResource.SupportClient_Text_Unfinished;
@@ -185,7 +190,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                         IsPageCollection = PageCarouselData.Count == 0;
-                    }    
+                    }
                 }
             }));
         }
@@ -193,19 +198,21 @@ namespace BA_MobileGPS.Core.ViewModels
         private void SfButtonYesClicked(MessageSupportRespone obj)
         {
             PageCarouselData.Where(x => x.ID == obj.ID)?.ToList()
-            .Select(y => {
-                y.IsVisibleYesNo = true; 
-                y.BackgroundColorBtnYes = Color.DeepSkyBlue; 
-                y.ISShowIconBtnYes = true; 
-                y.TextColorBtnYes = Color.White; 
-                y.BorderWidthBtnYes = 0; return y; 
+            .Select(y =>
+            {
+                y.IsVisibleYesNo = true;
+                y.BackgroundColorBtnYes = Color.DeepSkyBlue;
+                y.ISShowIconBtnYes = true;
+                y.TextColorBtnYes = Color.White;
+                y.BorderWidthBtnYes = 0; return y;
             })?.ToList();
         }
 
         private void SfButtonNoClicked(MessageSupportRespone obj)
         {
             PageCarouselData.Where(x => x.ID == obj.ID)?.ToList()
-            .Select(y => {
+            .Select(y =>
+            {
                 y.IsVisibleYesNo = false;
                 y.BackgroundColorBtnYes = Color.White;
                 y.ISShowIconBtnYes = false;
