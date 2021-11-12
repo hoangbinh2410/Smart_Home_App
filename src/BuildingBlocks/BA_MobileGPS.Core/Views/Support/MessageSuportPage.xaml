@@ -140,7 +140,7 @@
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
                                     Keyboard="Numeric"
-                                    MaxLength="15"
+                                    MaxLength="10"
                                     Placeholder="Nhập số điện thoại"
                                     Text="{Binding Phonenumber}"
                                     TextColor="{DynamicResource ColorText}"
