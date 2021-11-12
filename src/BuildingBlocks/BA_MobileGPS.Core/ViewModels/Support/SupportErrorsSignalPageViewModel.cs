@@ -137,19 +137,29 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetCollectionPage(SupportCategoryRespone obj)
         {
+            if (obj.MessageSupports != null && obj.MessageSupports.Count > 0)
+            {
+                MapData(obj.MessageSupports, obj);
+            }
             RunOnBackground(async () =>
             {
                 return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
             }, (result) =>
             {
-                if (result != null && result.Count > 0)
+                MapData(result, obj);
+            });
+        }
+
+        private void MapData(List<MessageSupportRespone> lstData, SupportCategoryRespone obj)
+        {
+            if (lstData != null && lstData.Count > 0)
+            {
+                foreach (var item in lstData)
                 {
-                    foreach (var item in result)
+                    item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
+                    if (item.OrderNo == 2 && obj.Code == "MTH")
                     {
-                        item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
-                        if (item.OrderNo == 2 && obj.Code == "MTH")
-                        {
-                            var lstOption = new List<AnswerSupport>()
+                        var lstOption = new List<AnswerSupport>()
                             {
                                 new AnswerSupport()
                                 {
@@ -162,11 +172,11 @@ namespace BA_MobileGPS.Core.ViewModels
                                     Name = MobileResource.SupportClient_Text_Accomplished
                                 }
                             };
-                            item.Options = lstOption;
-                        }
-                        else
-                        {
-                            var lstOption = new List<AnswerSupport>()
+                        item.Options = lstOption;
+                    }
+                    else
+                    {
+                        var lstOption = new List<AnswerSupport>()
                             {
                                 new AnswerSupport()
                                 {
@@ -179,12 +189,11 @@ namespace BA_MobileGPS.Core.ViewModels
                                     Name = MobileResource.SupportClient_Text_No
                                 }
                             };
-                            item.Options = lstOption;
-                        }
+                        item.Options = lstOption;
                     }
-                    PageCarouselData = result.ToObservableCollection();
                 }
-            });
+                PageCarouselData = lstData.ToObservableCollection();
+            }
         }
 
         private void SelectedAnswer(AnswerSupport obj)
@@ -195,6 +204,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (CurrentSelected != null)
                     {
+                        CurrentSelected.IsSelected = true;
                         foreach (var item in CurrentSelected.Options)
                         {
                             if (item.Selected)
@@ -224,11 +234,22 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else
                             {
-                                Device.BeginInvokeOnMainThread(async () =>
+                                var isSelectedAll = PageCarouselData.FirstOrDefault(x => x.IsSelected == false);
+                                if (isSelectedAll != null)
                                 {
-                                    await Task.Delay(500);
-                                    CurrentSelected = PageCarouselData[index + 1];
-                                });
+                                    Device.BeginInvokeOnMainThread(async () =>
+                                    {
+                                        await Task.Delay(500);
+                                        CurrentSelected = PageCarouselData[index + 1];
+                                    });
+                                }
+                                else
+                                {
+                                    Device.BeginInvokeOnMainThread(() =>
+                                    {
+                                        NavigationFeedbackPage();
+                                    });
+                                }
                             }
                         }
                     }

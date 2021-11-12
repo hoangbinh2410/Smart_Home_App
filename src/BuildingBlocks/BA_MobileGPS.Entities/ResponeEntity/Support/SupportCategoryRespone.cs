@@ -23,7 +23,10 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Support
         public string IconApp { get; set; }
 
         [JsonProperty("orderNo")]
-        public string OrderNo { get; set; }     
+        public string OrderNo { get; set; }
+
+        public List<MessageSupportRespone> MessageSupports { get; set; }
+
         public bool IsChangePlate { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Support
         [JsonProperty("OrderNo")]
         public int OrderNo { get; set; }
 
+        private bool _isSelected;
+        public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
         private bool _isShowGuides;
         public bool IsShowGuides { get => _isShowGuides; set => SetProperty(ref _isShowGuides, value); }
         public List<AnswerSupport> Options { get; set; }
