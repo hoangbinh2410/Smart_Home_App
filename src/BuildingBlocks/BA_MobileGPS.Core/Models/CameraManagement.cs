@@ -323,9 +323,8 @@ namespace BA_MobileGPS.Core.Models
                 }
                 else
                 {
-                    Link = string.Empty;
-                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                    await Task.Delay(3000);
+                    ReloadCameraError();
                 }
             });
         }
@@ -363,6 +362,11 @@ namespace BA_MobileGPS.Core.Models
                         SetUrlMedia();
                         internalError = false;
                     }
+                }
+                else
+                {
+                    await Task.Delay(3000);
+                    ReloadCameraError();
                 }
             });
         }
