@@ -252,10 +252,31 @@
                                                         </Label.FormattedText>
                                                     </Label>
                                                 </Grid>
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    FontSize="14"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="{Binding Guides}"
+                                                    TextType="Html"
+                                                    VerticalOptions="FillAndExpand">
+                                                    <Label.IsVisible>
+                                                        <OnPlatform
+                                                            x:TypeArguments="x:Boolean"
+                                                            Android="False"
+                                                            iOS="True" />
+                                                    </Label.IsVisible>
+                                                </Label>
                                                 <WebView
                                                     BackgroundColor="Transparent"
                                                     HorizontalOptions="FillAndExpand"
                                                     VerticalOptions="FillAndExpand">
+                                                    <WebView.IsVisible>
+                                                        <OnPlatform
+                                                            x:TypeArguments="x:Boolean"
+                                                            Android="True"
+                                                            iOS="False" />
+                                                    </WebView.IsVisible>
                                                     <WebView.Source>
                                                         <HtmlWebViewSource Html="{Binding Guides}" />
                                                     </WebView.Source>
