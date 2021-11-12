@@ -5,8 +5,9 @@ using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
-using System;
+using Syncfusion.Data.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -28,11 +29,9 @@ namespace BA_MobileGPS.Core.ViewModels
             PushMessageSuportPageCommand = new DelegateCommand(PushMessageSuportPage);
             _iSupportCategoryService = iSupportCategoryService;
         }
-
         #endregion Contructor
 
         #region Lifecycle
-
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -43,48 +42,40 @@ namespace BA_MobileGPS.Core.ViewModels
                     MessageData = para;
                 }
                 else
-                if (parameters.ContainsKey("Support1") && parameters.GetValue<MessageSupportRespone>("Support1") is MessageSupportRespone item)
+                    if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone objSupport)
                 {
-                    if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone obj)
+                    IsSupportDisconnectView = parameters.GetValue<bool>("BoolPage");
+                    GetCollectionPage(objSupport);
+                    Data = objSupport;
+                    if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
                     {
-                        ISupportDisconnectView = parameters.GetValue<bool>("BoolPage");
-                        Question = item.Questions;
-                        Guide = item.Guides;
-                        Data = obj;
-                        if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle && !string.IsNullOrEmpty(vehicle.VehiclePlate))
-                        {                          
-                            Vehicle = vehicle;
-                        }
-                        else if(parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
-                        {
-                            foreach(var vhicleOnline in listvehicle)
-                            {
-                                Vehicle = new Vehicle(){ 
-                                    VehicleId = vhicleOnline.VehicleId,
-                                    VehiclePlate = vhicleOnline.VehiclePlate,
-                                    PrivateCode = vhicleOnline.PrivateCode,
-                                    GroupIDs = vhicleOnline.GroupIDs,
-                                    Imei = vhicleOnline.Imei,
-                                    IconImage = vhicleOnline.IconImage,
-                                    VehicleTime = vhicleOnline.VehicleTime,
-                                    Velocity = vhicleOnline.Velocity,
-                                    SortOrder = vhicleOnline.SortOrder
-                                };
-                            }                                                                      
-                        }
+                        Vehicle = vehicle;
                     }
-                    else
+                    else if (parameters.ContainsKey("ListVehicleSupport") && parameters.GetValue<List<VehicleOnline>>("ListVehicleSupport") is List<VehicleOnline> listvehicle)
                     {
-                        MessageData = true;
+                        foreach (var vhicleOnline in listvehicle)
+                        {
+                            Vehicle = new Vehicle()
+                            {
+                                VehicleId = vhicleOnline.VehicleId,
+                                VehiclePlate = vhicleOnline.VehiclePlate,
+                                PrivateCode = vhicleOnline.PrivateCode,
+                                GroupIDs = vhicleOnline.GroupIDs,
+                                Imei = vhicleOnline.Imei,
+                                IconImage = vhicleOnline.IconImage,
+                                VehicleTime = vhicleOnline.VehicleTime,
+                                Velocity = vhicleOnline.Velocity,
+                                SortOrder = vhicleOnline.SortOrder
+                            };
+                        }
                     }
                 }
-            }
-            else
-            {
-                MessageData = true;
+                else
+                {
+                    MessageData = true;
+                }
             }
         }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -109,40 +100,21 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Property
 
         private bool messageData = false;
+
         public bool MessageData { get => messageData; set => SetProperty(ref messageData, value); }
-        private bool IsupportDisconnectView = false;
+        private bool IssupportDisconnectView = false;
 
-        public bool ISupportDisconnectView
+        public bool IsSupportDisconnectView
         {
-            get { return IsupportDisconnectView; }
+            get { return IssupportDisconnectView; }
             set
             {
-                SetProperty(ref IsupportDisconnectView, value);
+                SetProperty(ref IssupportDisconnectView, value);
             }
         }
 
-        private string question = String.Empty;
-
-        public string Question
-        {
-            get { return question; }
-            set
-            {
-                SetProperty(ref question, value);
-            }
-        }
-
-        private string guide = String.Empty;
-
-        public string Guide
-        {
-            get { return guide; }
-            set
-            {
-                SetProperty(ref guide, value);
-            }
-        }
         public VehicleOnline ListVehicle;
+
         private Vehicle Vehicle;
         private SupportCategoryRespone data;
 
@@ -178,10 +150,44 @@ namespace BA_MobileGPS.Core.ViewModels
                 var parameters = new NavigationParameters
             {
                 { "Support", Data },
-                { ParameterKey.VehicleRoute, Vehicle }               
+                { ParameterKey.VehicleRoute, Vehicle }
             };
                 await NavigationService.NavigateAsync("MessageSuportPage", parameters);
             });
+        }
+
+        private void GetCollectionPage(SupportCategoryRespone obj)
+        {
+            if (obj.MessageSupports != null && obj.MessageSupports.Count > 0)
+            {
+                MapData(obj.MessageSupports, obj);
+            }
+            else
+            {
+                RunOnBackground(async () =>
+                {
+                    return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+                }, (result) =>
+                {
+                    MapData(result, obj);
+                });
+            }
+        }
+        private void MapData(List<MessageSupportRespone> lstData, SupportCategoryRespone obj)
+        {
+            if (lstData != null && lstData.Count > 0)
+            {
+                if (IsSupportDisconnectView)
+                {
+                    SupportContent = lstData.Where(s => s.OrderNo == 1).FirstOrDefault();
+                    SupportContent.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + SupportContent.Guides;
+                }
+                else
+                {
+                    SupportContent = lstData.Where(s => s.OrderNo == 0).FirstOrDefault();
+                    SupportContent.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + SupportContent.Guides;
+                }
+            }
         }
 
         #endregion PrivateMethod
