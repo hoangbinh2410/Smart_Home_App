@@ -170,7 +170,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                    _displayMessage.ShowMessageInfo("Vui lòng nhập biển số xe mới!");
                 }
             });
         }

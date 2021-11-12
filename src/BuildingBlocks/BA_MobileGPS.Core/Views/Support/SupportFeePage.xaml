@@ -100,7 +100,8 @@
                     <pancake:PancakeView
                         Padding="15"
                         BackgroundColor="#A4DBDB"
-                        CornerRadius="10">
+                        CornerRadius="10"
+                        HeightRequest="300">
                         <StackLayout Spacing="15">
                             <Grid ColumnDefinitions="50,*">
                                 <controls:IconView
@@ -142,10 +143,7 @@
                                         iOS="True" />
                                 </Label.IsVisible>
                             </Label>
-                            <WebView
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand">
+                            <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                 <WebView.IsVisible>
                                     <OnPlatform
                                         x:TypeArguments="x:Boolean"
@@ -161,159 +159,40 @@
                 </StackLayout>
 
                 <!--  Nút  -->
-                <StackLayout
-                    Grid.Row="2"
-                    HeightRequest="60"
-                    HorizontalOptions="FillAndExpand"
-                    Spacing="10"
-                    VerticalOptions="EndAndExpand">
-                    <BoxView
-                        Grid.Column="1"
-                        HeightRequest="1"
-                        StyleClass="SlimLine" />
-                    <Grid
-                        Padding="20,0,20,0"
-                        ColumnDefinitions="0.5*,0.5*"
-                        ColumnSpacing="10"
-                        HorizontalOptions="FillAndExpand">
-                        <buttons:SfButton
-                            Grid.Column="0"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            Command="{Binding BackPageCommand}"
-                            CornerRadius="20"
-                            Text="Đóng" />
-                        <buttons:SfButton
-                            Grid.Column="1"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            Command="{Binding PushMessageSuportPageCommand}"
-                            CornerRadius="20"
-                            Text="Nhập hỗ trợ" />
-                    </Grid>
-                </StackLayout>
-            </Grid>
-
-            <!--  Ẩn trang  mất kết nối  -->
-            <ContentView IsVisible="{Binding ISupportDisconnectView}">
-                <Grid
-                    BackgroundColor="{DynamicResource WhiteColor}"
-                    HorizontalOptions="FillAndExpand"
-                    RowDefinitions="Auto,*,Auto"
-                    VerticalOptions="FillAndExpand">
-
+                <Grid Grid.Row="2">
                     <StackLayout
-                        Grid.Row="0"
-                        BackgroundColor="#0474D8"
-                        HorizontalOptions="FillAndExpand">
-                        <Label
-                            Margin="0,10,0,10"
-                            HorizontalOptions="Center"
-                            Style="{DynamicResource Text16B}"
-                            Text="{Binding Data.Name}"
-                            TextColor="{DynamicResource WhiteColor}"
-                            VerticalOptions="Center" />
-                    </StackLayout>
-
-                    <Grid
-                        Grid.Row="1"
-                        Padding="20,0,20,0"
-                        RowDefinitions="Auto,Auto,*"
-                        RowSpacing="30"
-                        VerticalOptions="FillAndExpand">
-                        <StackLayout Grid.Row="0" Spacing="20">
-                            <Label
-                                HorizontalTextAlignment="Start"
-                                Style="{DynamicResource Text16B}"
-                                Text="Quý khách vui lòng kiểm tra xe có xảy ra tình huống sau không và làm theo hướng dẫn"
-                                TextColor="{DynamicResource PrimaryColor}"
-                                VerticalTextAlignment="Center" />
-                            <BoxView StyleClass="SlimLine" VerticalOptions="FillAndExpand" />
-                        </StackLayout>
-
-                        <StackLayout Grid.Row="1" Orientation="Horizontal">
-                            <controls:IconView
-                                Foreground="#E63C2B"
-                                HeightRequest="40"
-                                HorizontalOptions="Start"
-                                Source="ic_info_outline_white.png"
-                                VerticalOptions="CenterAndExpand"
-                                WidthRequest="40" />
-                            <Label
-                                Style="{DynamicResource Text16B}"
-                                Text="{Binding SupportContent.Questions}"
-                                VerticalOptions="Center" />
-                        </StackLayout>
-
-                        <StackLayout Grid.Row="2" VerticalOptions="StartAndExpand">
-                            <!--  Hiển thị thông báo hướng dẫn  -->
-                            <pancake:PancakeView
-                                Padding="15"
-                                BackgroundColor="#A4DBDB"
-                                CornerRadius="10"
-                                HeightRequest="300">
-                                <StackLayout Spacing="15">
-                                    <Grid ColumnDefinitions="50,*">
-                                        <controls:IconView
-                                            Grid.Column="0"
-                                            Foreground="{DynamicResource PrimaryColor}"
-                                            HeightRequest="25"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Source="ic_fixsupport_.png"
-                                            VerticalOptions="CenterAndExpand"
-                                            WidthRequest="25" />
-                                        <Label
-                                            Grid.Column="1"
-                                            FontAttributes="Bold"
-                                            FontFamily="Lobster-Regular"
-                                            FontSize="16"
-                                            HorizontalOptions="StartAndExpand"
-                                            HorizontalTextAlignment="Start"
-                                            TextColor="{DynamicResource PrimaryColor}"
-                                            VerticalOptions="CenterAndExpand">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Hướng dẫn xử lý" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                    </Grid>
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="14"
-                                        HorizontalOptions="FillAndExpand"
-                                        HorizontalTextAlignment="Start"
-                                        Text="{Binding SupportContent.Guides}"
-                                        TextType="Html"
-                                        VerticalOptions="FillAndExpand">
-                                        <Label.IsVisible>
-                                            <OnPlatform
-                                                x:TypeArguments="x:Boolean"
-                                                Android="False"
-                                                iOS="True" />
-                                        </Label.IsVisible>
-                                    </Label>
-                                    <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                        <WebView.IsVisible>
-                                            <OnPlatform
-                                                x:TypeArguments="x:Boolean"
-                                                Android="True"
-                                                iOS="False" />
-                                        </WebView.IsVisible>
-                                        <WebView.Source>
-                                            <HtmlWebViewSource Html="{Binding SupportContent.Guides}" />
-                                        </WebView.Source>
-                                    </WebView>
-                                </StackLayout>
-                            </pancake:PancakeView>
-                        </StackLayout>
-
-                    </Grid>
-
-                    <!--  Button  -->
-                    <StackLayout
-                        Grid.Row="2"
                         HeightRequest="60"
                         HorizontalOptions="FillAndExpand"
-                        IsVisible="{Binding ISupportDisconnectView}"
+                        Spacing="10"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView
+                            Grid.Column="1"
+                            HeightRequest="1"
+                            StyleClass="SlimLine" />
+                        <Grid
+                            Padding="20,0,20,0"
+                            ColumnDefinitions="0.5*,0.5*"
+                            ColumnSpacing="10"
+                            HorizontalOptions="FillAndExpand">
+                            <buttons:SfButton
+                                Grid.Column="0"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding BackPageCommand}"
+                                CornerRadius="20"
+                                Text="Đóng" />
+                            <buttons:SfButton
+                                Grid.Column="1"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding PushMessageSuportPageCommand}"
+                                CornerRadius="20"
+                                Text="Nhập hỗ trợ" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding IsSupportDisconnectView}"
                         Spacing="0"
                         VerticalOptions="EndAndExpand">
                         <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
@@ -328,7 +207,6 @@
                     </StackLayout>
                 </Grid>
             </Grid>
-            <!--  IsVisible="{Binding MessageData, Converter={StaticResource InvertBooleanConverter}}"  -->
             <ContentView
                 BackgroundColor="{DynamicResource WhiteColor}"
                 HorizontalOptions="FillAndExpand"
