@@ -5,65 +5,20 @@ using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
 using Prism.Commands;
 using Prism.Navigation;
+using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     internal class SupportErrorsSignalPageViewModel : ViewModelBase
     {
         #region Property
-
-        private String _lbTabIndex;
-
-        public String LbTabIndex
-        {
-            get { return _lbTabIndex; }
-            set { _lbTabIndex = value; }
-        }
-
-        private String _lbQuestions;
-
-        public String LbQuestions
-        {
-            get { return _lbQuestions; }
-            set { _lbQuestions = value; }
-        }
-
-        private String _textBtnYes;
-
-        public String TextBtnYes
-        {
-            get { return _textBtnYes; }
-            set { _textBtnYes = value; }
-        }
-
-        private String _textBtnNo;
-
-        public String TextBtnNo
-        {
-            get { return _textBtnNo; }
-            set { _textBtnNo = value; }
-        }
-
-        private String _lbTextPage;
-
-        public String LbTextPage
-        {
-            get { return _lbTextPage; }
-            set { _lbTextPage = value; }
-        }
-
-        private bool _isVisibleYesNo;
-
-        public bool IsVisibleYesNo
-        {
-            get => _isVisibleYesNo;
-            set => SetProperty(ref _isVisibleYesNo, value);
-        }
 
         private bool _isPageCollection;
 
@@ -73,52 +28,20 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _isPageCollection, value);
         }
 
-        private bool _isShowIconBtnYes;
+        private int _position = 0;
 
-        public bool ISShowIconBtnYes
+        public int Position
         {
-            get => _isShowIconBtnYes;
-            set => SetProperty(ref _isShowIconBtnYes, value);
+            get { return _position; }
+            set { SetProperty(ref _position, value); }
         }
 
-        private Color _backgroundColorBtnYes = Color.White;
+        private ObservableCollection<MessageSupportRespone> _pageCarouselData = new ObservableCollection<MessageSupportRespone>();
 
-        public Color BackgroundColorBtnYes
+        public ObservableCollection<MessageSupportRespone> PageCarouselData
         {
-            get => _backgroundColorBtnYes;
-            set => SetProperty(ref _backgroundColorBtnYes, value);
-        }
-
-        private Color _textColorBtnYes = Color.DarkBlue;
-
-        public Color TextColorBtnYes
-        {
-            get => _textColorBtnYes;
-            set => SetProperty(ref _textColorBtnYes, value);
-        }
-
-        private int _borderWidthBtnYes;
-
-        public int BorderWidthBtnYes
-        {
-            get => _borderWidthBtnYes;
-            set => SetProperty(ref _borderWidthBtnYes, value);
-        }
-
-        private int _selectedIndex = 0;
-
-        public int SelectedIndex
-        {
-            get => _selectedIndex;
-            set => SetProperty(ref _selectedIndex, value);
-        }
-
-        private ObservableCollection<SupportErrorsSignalPageViewModel> _pageCollection = new ObservableCollection<SupportErrorsSignalPageViewModel>();
-
-        public ObservableCollection<SupportErrorsSignalPageViewModel> PageCollection
-        {
-            get { return _pageCollection; }
-            set { _pageCollection = value; }
+            get { return _pageCarouselData; }
+            set { SetProperty(ref _pageCarouselData, value); }
         }
 
         private Vehicle _vehicle = new Vehicle();
@@ -145,6 +68,14 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _objSupport, value);
         }
 
+        private MessageSupportRespone currentSelected;
+
+        public MessageSupportRespone CurrentSelected
+        {
+            get => currentSelected;
+            set => SetProperty(ref currentSelected, value);
+        }
+
         #endregion Property
 
         #region Contructor
@@ -161,53 +92,9 @@ namespace BA_MobileGPS.Core.ViewModels
             Title = MobileResource.SupportClient_Label_Title;
             _navigationService = navigationService;
             _iSupportCategoryService = iSupportCategoryService;
+            SfButtonYesCommand = new DelegateCommand<MessageSupportRespone>(SfButtonYesClicked);
+            SfButtonNoCommand = new DelegateCommand<MessageSupportRespone>(SfButtonNoClicked);
             BackPageCommand = new DelegateCommand(BackPageClicked);
-            Xamarin.Forms.MessagingCenter.Subscribe<SupportErrorsSignalPageViewModel>(this, "SelectedIndex", (sender) =>
-            {
-                switch (SelectedIndex)
-                {
-                    case 0:
-                        if (SelectedIndex == PageCollection.Count - 1)
-                        {
-                            NavigationFeedbackPage();
-                            return;
-                        }
-                        break;
-
-                    case 1:
-                        if (SelectedIndex == PageCollection.Count - 1)
-                        {
-                            NavigationFeedbackPage();
-                            return;
-                        }
-                        break;
-
-                    case 2:
-                        if (SelectedIndex == PageCollection.Count - 1)
-                        {
-                            NavigationFeedbackPage();
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-                SelectedIndex++;
-            });
-        }
-
-        public SupportErrorsSignalPageViewModel(INavigationService navigationService, string lbTabIndex, string lbQuestions, string textBtnYes, string textBtnNo, string lbTextPage)
-           : base(navigationService)
-        {
-            LbTabIndex = lbTabIndex;
-            LbQuestions = lbQuestions;
-            TextBtnYes = textBtnYes;
-            TextBtnNo = textBtnNo;
-            LbTextPage = lbTextPage;
-            IsVisibleYesNo = false;
-            BorderWidthBtnYes = 2;
-            SfButtonYesCommand = new DelegateCommand(SfButtonYesClicked);
-            SfButtonNoCommand = new DelegateCommand(SfButtonNoClicked);
         }
 
         #endregion Contructor
@@ -266,68 +153,107 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private void SfButtonYesClicked()
-        {
-            IsVisibleYesNo = true;
-            BackgroundColorBtnYes = Color.DeepSkyBlue;
-            ISShowIconBtnYes = true;
-            TextColorBtnYes = Color.White;
-            BorderWidthBtnYes = 0;
-        }
-
-        private void SfButtonNoClicked()
-        {
-            IsVisibleYesNo = false;
-            BackgroundColorBtnYes = Color.White;
-            ISShowIconBtnYes = false;
-            TextColorBtnYes = Color.DarkBlue;
-            BorderWidthBtnYes = 2;
-            Xamarin.Forms.MessagingCenter.Send<SupportErrorsSignalPageViewModel>(this, "SelectedIndex");
-        }
-
         private void GetCollectionPage(SupportCategoryRespone obj)
         {
-            SafeExecute(async () =>
+            Task.Run(async () =>
             {
-                if (IsConnected)
+                return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+            }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
+            {
+                if (task.Status == TaskStatus.RanToCompletion)
                 {
-                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    var listObj = task.Result.ToObservableCollection();
+                    if (listObj != null && listObj.Count > 0)
                     {
-                        List<MessageSupportRespone> items = await _iSupportCategoryService.GetMessagesSupport(obj.ID);
-                        int index = 0;
-                        if (items != null && items.Count > 0)
+                        foreach (var item in listObj)
                         {
-                            IsPageCollection = false;
-                            foreach (var item in items)
+                            item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
+                            if (item.OrderNo == 2 && obj.Code == "MTH")
                             {
-                                index++;
-                                if (item.OrderNo == 2 && obj.Code == "MTH")
-                                {
-                                    PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Unfinished, MobileResource.SupportClient_Text_Accomplished, item.Guides));
-                                }
-                                else
-                                {
-                                    PageCollection.Add(new SupportErrorsSignalPageViewModel(_navigationService, index.ToString(), item.Questions, MobileResource.SupportClient_Text_Yes, MobileResource.SupportClient_Text_No, item.Guides));
-                                }
+                                item.TextBtnYes = MobileResource.SupportClient_Text_Unfinished;
+                                item.TextBtnNo = MobileResource.SupportClient_Text_Accomplished;
+                                item.OrderNo++;
+                                item.BackgroundColorBtnYes = Color.White;
+                                item.TextColorBtnYes = Color.DarkBlue;
+                                item.BorderWidthBtnYes = 2;
+                                PageCarouselData.Add(item);
+                            }
+                            else
+                            {
+                                item.TextBtnYes = MobileResource.SupportClient_Text_Yes;
+                                item.TextBtnNo = MobileResource.SupportClient_Text_No;
+                                item.OrderNo++;
+                                item.BackgroundColorBtnYes = Color.White;
+                                item.TextColorBtnYes = Color.DarkBlue;
+                                item.BorderWidthBtnYes = 2;
+                                PageCarouselData.Add(item);
                             }
                         }
-                        else
-                        {
-                            IsPageCollection = true;
-                        }
+                        IsPageCollection = PageCarouselData.Count == 0;
                     }
                 }
-                else
-                {
-                    IsPageCollection = true;
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
+            }));
+        }
+
+        private void SfButtonYesClicked(MessageSupportRespone obj)
+        {
+            PageCarouselData.Where(x => x.ID == obj.ID)?.ToList()
+            .Select(y =>
+            {
+                y.IsVisibleYesNo = true;
+                y.BackgroundColorBtnYes = Color.DeepSkyBlue;
+                y.ISShowIconBtnYes = true;
+                y.TextColorBtnYes = Color.White;
+                y.BorderWidthBtnYes = 0; return y;
+            })?.ToList();
+        }
+
+        private void SfButtonNoClicked(MessageSupportRespone obj)
+        {
+            PageCarouselData.Where(x => x.ID == obj.ID)?.ToList()
+            .Select(y =>
+            {
+                y.IsVisibleYesNo = false;
+                y.BackgroundColorBtnYes = Color.White;
+                y.ISShowIconBtnYes = false;
+                y.TextColorBtnYes = Color.DarkBlue;
+                y.BorderWidthBtnYes = 2; return y;
+            })?.ToList();
+            switch (Position)
+            {
+                case 0:
+                    if (Position == PageCarouselData.Count - 1)
+                    {
+                        NavigationFeedbackPage();
+                        return;
+                    }
+                    break;
+
+                case 1:
+                    if (Position == PageCarouselData.Count - 1)
+                    {
+                        NavigationFeedbackPage();
+                        return;
+                    }
+                    break;
+
+                case 2:
+                    if (Position == PageCarouselData.Count - 1)
+                    {
+                        NavigationFeedbackPage();
+                        return;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            Position++;
         }
 
         private void NavigationFeedbackPage()
         {
-            SelectedIndex = 0;
+            Position = 0;
             var parameters = new NavigationParameters
             {
                 { "Support", _objSupport },

@@ -70,7 +70,7 @@
             VerticalOptions="FillAndExpand">
 
             <pancake:PancakeView
-                Grid.Row="1"
+                Grid.Row="0"
                 Padding="10"
                 BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="10,10,0,0"
@@ -388,7 +388,7 @@
             </pancake:PancakeView>
 
             <pancake:PancakeView
-                Grid.Row="2"
+                Grid.Row="1"
                 BackgroundColor="{DynamicResource grid2}"
                 HeightRequest="100"
                 HorizontalOptions="FillAndExpand"
