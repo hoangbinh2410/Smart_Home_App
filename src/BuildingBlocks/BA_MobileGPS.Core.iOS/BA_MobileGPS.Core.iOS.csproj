@@ -49,6 +49,7 @@
     <Compile Include="CustomRenderer\IconViewRenderer.cs" />
     <Compile Include="CustomRenderer\NullableDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\TabbedPageExRenderer.cs" />
+    <Compile Include="CustomRenderer\TransparentWebViewRenderer.cs" />
     <Compile Include="CustomRenderer\ZoomImageRenderer.cs" />
     <Compile Include="DependencyServices\AppleAudioManager.cs" />
     <Compile Include="DependencyServices\AppVersionService.cs" />

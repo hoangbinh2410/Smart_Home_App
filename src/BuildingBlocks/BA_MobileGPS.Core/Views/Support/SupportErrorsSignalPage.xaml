@@ -43,7 +43,7 @@
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="TextColor" Value="Black" />
+                                    <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -108,11 +108,13 @@
                         <IndicatorView.IndicatorTemplate>
                             <DataTemplate>
                                 <controls:FontAwesomeIcon
+                                    Margin="5,0"
                                     FontAttributes="Bold"
-                                    FontSize="13"
+                                    FontSize="10"
                                     HorizontalOptions="Center"
+                                    Rotation="45"
                                     Style="{StaticResource IndicatorLabelStyle}"
-                                    Text="{x:Static fontawesome:FontAwesomeIcons.Cube}" />
+                                    Text="{x:Static fontawesome:FontAwesomeIcons.SquareFull}" />
                             </DataTemplate>
                         </IndicatorView.IndicatorTemplate>
                     </IndicatorView>
@@ -250,9 +252,12 @@
                                                         </Label.FormattedText>
                                                     </Label>
                                                 </Grid>
-                                                <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                <WebView
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="FillAndExpand">
                                                     <WebView.Source>
-                                                        <HtmlWebViewSource Html="{Binding Content}" />
+                                                        <HtmlWebViewSource Html="{Binding Guides}" />
                                                     </WebView.Source>
                                                 </WebView>
                                             </StackLayout>
