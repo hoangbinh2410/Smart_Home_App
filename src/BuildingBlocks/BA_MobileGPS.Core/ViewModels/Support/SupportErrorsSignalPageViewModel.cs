@@ -86,11 +86,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-        }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
             if (parameters != null)
             {
                 if (parameters.ContainsKey("Support") && parameters.GetValue<SupportCategoryRespone>("Support") is SupportCategoryRespone objSupport)
@@ -107,6 +102,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     ListVehicle = listvehicle;
                 }
             }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
         }
 
         public override void OnPageAppearingFirstTime()
@@ -159,7 +159,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 foreach (var item in lstData)
                 {
-                    item.OrderNo = item.OrderNo + 1;
                     item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
                     if (item.OrderNo == 2 && obj.Code == "MTH")
                     {
@@ -195,6 +194,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                         item.Options = lstOption;
                     }
+                    item.OrderNo = item.OrderNo + 1;
                 }
                 PageCarouselData = lstData.ToObservableCollection();
             }

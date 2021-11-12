@@ -46,51 +46,6 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-
-            <ControlTemplate x:Key="FrameRadioTemplate">
-                <Frame
-                    Padding="5"
-                    BorderColor="#2B79E1"
-                    CornerRadius="10"
-                    HeightRequest="30"
-                    HorizontalOptions="FillAndExpand">
-                    <Grid Margin="4">
-                        <ContentPresenter>
-                            <ContentPresenter.Resources>
-                                <Style TargetType="Label">
-                                    <Setter Property="HorizontalOptions" Value="Center" />
-                                    <Setter Property="VerticalOptions" Value="Center" />
-
-                                    <Style.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Path=IsChecked, Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
-                                            TargetType="Label"
-                                            Value="True">
-                                            <Setter Property="TextColor" Value="White" />
-                                            <Setter Property="FontAttributes" Value="Bold" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentPresenter.Resources>
-                        </ContentPresenter>
-                    </Grid>
-                    <VisualStateManager.VisualStateGroups>
-                        <VisualStateGroup x:Name="CheckedStates">
-                            <VisualState x:Name="Checked">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#2B79E1" />
-                                </VisualState.Setters>
-                            </VisualState>
-
-                            <VisualState x:Name="Unchecked">
-                                <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#f3f2f1" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateManager.VisualStateGroups>
-                </Frame>
-            </ControlTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--  Tiêu đề  -->
@@ -223,6 +178,7 @@
                                                             BackgroundColor="DeepSkyBlue"
                                                             BorderColor="DeepSkyBlue"
                                                             CornerRadius="15"
+                                                            HasShadow="False"
                                                             HeightRequest="30"
                                                             HorizontalOptions="FillAndExpand"
                                                             IsVisible="{Binding Selected}">
@@ -261,6 +217,7 @@
                                                             BackgroundColor="White"
                                                             BorderColor="{StaticResource PrimaryColor}"
                                                             CornerRadius="15"
+                                                            HasShadow="False"
                                                             HeightRequest="30"
                                                             HorizontalOptions="FillAndExpand"
                                                             IsVisible="{Binding Selected, Converter={StaticResource InvertBooleanConverter}}">

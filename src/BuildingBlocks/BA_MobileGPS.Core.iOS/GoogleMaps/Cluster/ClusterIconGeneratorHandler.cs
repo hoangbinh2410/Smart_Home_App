@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Core.iOS
             uint index = 0;
             var buckets = options.Buckets;
 
-            while (index + 1 < buckets.Length && buckets[index + 1] <= size)
+            while (index + 1 < buckets.Length && buckets[index] <= size)
                 ++index;
 
             return index;
