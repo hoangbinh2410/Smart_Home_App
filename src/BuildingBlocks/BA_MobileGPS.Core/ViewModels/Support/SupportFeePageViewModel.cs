@@ -179,12 +179,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (IsSupportDisconnectView)
                 {
-                    SupportContent = lstData.Where(s => s.OrderNo == 1).FirstOrDefault();
+                    SupportContent = lstData.Where(s => s.OrderNo == 0).FirstOrDefault();
                     SupportContent.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + SupportContent.Guides;
                 }
                 else
                 {
-                    SupportContent = lstData.Where(s => s.OrderNo == 0).FirstOrDefault();
+                    SupportContent = lstData.Where(s => s.OrderNo == 1).FirstOrDefault();
                     SupportContent.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + SupportContent.Guides;
                 }
             }
