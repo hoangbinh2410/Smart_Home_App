@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity.Support;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -191,21 +192,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (!string.IsNullOrEmpty(Phonenumber))
                     {
-                        if (!string.IsNullOrEmpty(Feedack))
+                        if (StringHelper.ValidPhoneNumer(Phonenumber, MobileSettingHelper.LengthAndPrefixNumberPhone))
                         {
-                            if (!string.IsNullOrEmpty(Vehicle.VehiclePlate))
+                            if (!string.IsNullOrEmpty(Feedack))
                             {
-                                ContactInfo = new ContactInfo()
+                                if (!string.IsNullOrEmpty(Vehicle.VehiclePlate))
                                 {
-                                    fullname = UserFullName,
-                                    username = UserInfo.UserName,
-                                    mobilestr = Phonenumber
-                                };
-                                Errorlist = new List<Errorlist>()
+                                    ContactInfo = new ContactInfo()
+                                    {
+                                        fullname = UserFullName,
+                                        username = UserInfo.UserName,
+                                        mobilestr = Phonenumber
+                                    };
+                                    Errorlist = new List<Errorlist>()
                             {
                                 new Errorlist() { code = Item.Code }
                             };
-                                Vehiclelist = new List<Vehiclelist>()
+                                    Vehiclelist = new List<Vehiclelist>()
                             {
                                 new Vehiclelist() {
                                     platestr = Vehicle.VehiclePlate,
@@ -213,73 +216,78 @@ namespace BA_MobileGPS.Core.ViewModels
                                     errorlist = Errorlist }
                             };
 
-                                RequestSupport = new SupportBapRequest()
-                                {
-                                    xncode = UserInfo.XNCode,
-                                    contactinfo = ContactInfo,
-                                    vehiclelist = Vehiclelist,
-                                    description = Feedack
-                                };
+                                    RequestSupport = new SupportBapRequest()
+                                    {
+                                        xncode = UserInfo.XNCode,
+                                        contactinfo = ContactInfo,
+                                        vehiclelist = Vehiclelist,
+                                        description = Feedack
+                                    };
 
-                                ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
-                                if (ResponeSupport.State == true && ResponeSupport != null)
-                                {
-                                    INotificationView = true;
+                                    ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
+                                    if (ResponeSupport.State == true && ResponeSupport != null)
+                                    {
+                                        INotificationView = true;
+                                    }
+                                    else
+                                    {
+                                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                                    }
                                 }
                                 else
                                 {
-                                    _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                                    ContactInfo = new ContactInfo()
+                                    {
+                                        fullname = UserFullName,
+                                        username = UserInfo.UserName,
+                                        mobilestr = Phonenumber
+                                    };
+                                    Errorlist = new List<Errorlist>()
+                                    {
+                                      new Errorlist() { code = Item.Code}
+                                    };
+                                    foreach (var item in ListVehicle)
+                                    {
+                                        Vehiclelist.Add(new Vehiclelist() { platestr = item.VehiclePlate, description = Feedack, errorlist = Errorlist });
+                                    }
+
+                                    RequestSupport = new SupportBapRequest()
+                                    {
+                                        xncode = UserInfo.XNCode,
+                                        contactinfo = ContactInfo,
+                                        vehiclelist = Vehiclelist,
+                                        description = Feedack
+                                    };
+
+                                    ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
+                                    if (ResponeSupport.State == true && ResponeSupport != null)
+                                    {
+                                        INotificationView = true;
+                                    }
+                                    else
+                                    {
+                                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                                    }
                                 }
                             }
                             else
                             {
-                                ContactInfo = new ContactInfo()
-                                {
-                                    fullname = UserFullName,
-                                    username = UserInfo.UserName,
-                                    mobilestr = Phonenumber
-                                };
-                                Errorlist = new List<Errorlist>()
-                                    {
-                                      new Errorlist() { code = Item.Code}
-                                    };
-                                foreach (var item in ListVehicle)
-                                {
-                                    Vehiclelist.Add(new Vehiclelist() { platestr = item.VehiclePlate, description = Feedack, errorlist = Errorlist });                                 
-                                }
-
-                                RequestSupport = new SupportBapRequest()
-                                {
-                                    xncode = UserInfo.XNCode,
-                                    contactinfo = ContactInfo,
-                                    vehiclelist = Vehiclelist,
-                                    description = Feedack
-                                };
-
-                                ResponeSupport = await _iSupportCategoryService.Getfeedback(RequestSupport);
-                                if (ResponeSupport.State == true && ResponeSupport != null)
-                                {
-                                    INotificationView = true;
-                                }
-                                else
-                                {
-                                    _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
-                                }
+                                _displayMessage.ShowMessageWarning("Vui lòng nhập phản hồi!");
                             }
                         }
                         else
                         {
-                            _displayMessage.ShowMessageWarning("Vui lòng nhập phản hồi");
+                            _displayMessage.ShowMessageWarning("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!");
                         }
                     }
                     else
                     {
-                        _displayMessage.ShowMessageWarning("Vui lòng nhập số điện thoại");
+                        _displayMessage.ShowMessageWarning("Vui lòng nhập số điện thoại!");
                     }
                 }
                 else
                 {
-                    _displayMessage.ShowMessageWarning("Vui lòng nhập họ tên");
+                    _displayMessage.ShowMessageWarning("Vui lòng nhập họ tên!");
                 }
             });
         }

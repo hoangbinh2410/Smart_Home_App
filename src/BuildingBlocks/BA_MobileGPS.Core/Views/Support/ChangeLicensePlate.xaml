@@ -83,7 +83,7 @@
                             FontSize="14"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            Text="Đổi biển sẽ làm thay đổi dũ liệu của phương tiện được chọn, quý khách cần lưu ý trước khi đổi biển."
+                            Text="Đổi biển sẽ làm thay đổi dữ liệu của phương tiện được chọn, quý khách cần lưu ý trước khi đổi biển."
                             TextColor="#E63C2B" />
 
                         <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
