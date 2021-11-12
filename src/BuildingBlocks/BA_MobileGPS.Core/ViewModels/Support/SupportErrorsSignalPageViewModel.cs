@@ -44,20 +44,19 @@ namespace BA_MobileGPS.Core.ViewModels
             set => SetProperty(ref _listvehicle, value);
         }
 
-        private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
-
-        public SupportCategoryRespone ObjSupport
-        {
-            get => _objSupport;
-            set => SetProperty(ref _objSupport, value);
-        }
-
         private MessageSupportRespone currentSelected;
 
         public MessageSupportRespone CurrentSelected
         {
             get => currentSelected;
             set => SetProperty(ref currentSelected, value);
+        }
+        private SupportCategoryRespone _objSupport = new SupportCategoryRespone();
+
+        public SupportCategoryRespone ObjSupport
+        {
+            get => _objSupport;
+            set => SetProperty(ref _objSupport, value);
         }
 
         #endregion Property
@@ -155,12 +154,19 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void MapData(List<MessageSupportRespone> lstData, SupportCategoryRespone obj)
         {
+            var lstSource = new List<MessageSupportRespone>();
+
             if (lstData != null && lstData.Count > 0)
             {
                 foreach (var item in lstData)
                 {
-                    item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
-                    if (item.OrderNo == 2 && obj.Code == "MTH")
+                    var model = new MessageSupportRespone();
+                    model.FK_SupportCategoryID = item.FK_SupportCategoryID;
+                    model.ID = item.ID;
+                    model.Questions = item.Questions;
+                    model.OrderNo = item.OrderNo;
+                    model.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
+                    if (model.OrderNo == 2 && obj.Code == "MTH")
                     {
                         var lstOption = new List<AnswerSupport>()
                             {
@@ -175,7 +181,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     Name = MobileResource.SupportClient_Text_Accomplished
                                 }
                             };
-                        item.Options = lstOption;
+                        model.Options = lstOption;
                     }
                     else
                     {
@@ -192,11 +198,12 @@ namespace BA_MobileGPS.Core.ViewModels
                                     Name = MobileResource.SupportClient_Text_No
                                 }
                             };
-                        item.Options = lstOption;
+                        model.Options = lstOption;
                     }
-                    item.OrderNo = item.OrderNo + 1;
+                    model.OrderNo = item.OrderNo + 1;
+                    lstSource.Add(model);
                 }
-                PageCarouselData = lstData.ToObservableCollection();
+                PageCarouselData = lstSource.ToObservableCollection();
             }
         }
 
