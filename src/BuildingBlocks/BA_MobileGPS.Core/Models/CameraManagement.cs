@@ -330,7 +330,6 @@ namespace BA_MobileGPS.Core.Models
             });
         }
 
-
         /// <summary>
         /// start via trace current device,which has camera
         /// this func work after a request start sent successfully
@@ -364,12 +363,6 @@ namespace BA_MobileGPS.Core.Models
                         SetUrlMedia();
                         internalError = false;
                     }
-                }
-                else
-                {
-                    Link = string.Empty;
-                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
                 }
             });
         }
