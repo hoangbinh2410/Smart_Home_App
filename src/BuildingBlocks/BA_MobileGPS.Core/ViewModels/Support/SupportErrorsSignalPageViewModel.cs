@@ -156,6 +156,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 foreach (var item in lstData)
                 {
+                    item.OrderNo = item.OrderNo + 1;
                     item.Guides = "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,maximum-scale=1\" />" + item.Guides;
                     if (item.OrderNo == 2 && obj.Code == "MTH")
                     {
