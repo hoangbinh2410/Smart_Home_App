@@ -141,13 +141,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 MapData(obj.MessageSupports, obj);
             }
-            RunOnBackground(async () =>
+            else
             {
-                return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
-            }, (result) =>
-            {
-                MapData(result, obj);
-            });
+                RunOnBackground(async () =>
+                {
+                    return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+                }, (result) =>
+                {
+                    MapData(result, obj);
+                });
+            }
         }
 
         private void MapData(List<MessageSupportRespone> lstData, SupportCategoryRespone obj)

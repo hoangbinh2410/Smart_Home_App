@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.iOS
             if (options.EnableBuckets)
             {
                 var buckets = options.Buckets;
-                bucketIndex = BucketIndexForSize((nint)size);
+                bucketIndex = BucketIndexForSize((nint)size / 2);
             }
             if (options.RendererCallback != null)
                 return DefaultImageFactory.Instance.ToUIImage(options.RendererCallback(sizes.ToString()));
