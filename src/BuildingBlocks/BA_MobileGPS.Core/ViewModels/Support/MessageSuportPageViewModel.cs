@@ -54,6 +54,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         ListVehicle = listvehicle;
                         ListVehiclePlace(listvehicle);
                     }
+                    else
+                    {
+                        _displayMessage.ShowMessageInfo(MobileResource.Common_Message_SelectCompany);
+                    }
                 }
                 else
                 {
