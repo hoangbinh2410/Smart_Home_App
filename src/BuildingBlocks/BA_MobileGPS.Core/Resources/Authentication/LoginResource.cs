@@ -40,13 +40,12 @@ namespace BA_MobileGPS.Core.Resources
         public static string Login_PasswordProperty_NullOrEmpty => Get(MobileResourceNames.Login_UserNameProperty_NullOrEmpty, "Mật khẩu không được để trống", "Password cannot be empty");
 
         public static string Login_Message_LoginWebOnly => Get(MobileResourceNames.Login_Message_LoginWebOnly, "Tài khoản này chỉ được phép đăng nhập trên Web", "This account is only allowed to login on the Web");
+        public static string Login_Message_LoginLicenseAppFailed => Get(MobileResourceNames.Login_Message_LoginLicenseAppFailed, "Tài khoản này không được phép đăng nhập trên ứng dụng này. Vui lòng liên hệ với quản trị để biết thêm thông tin", "This account is not allow the login on this application. Please contact the administrator for more information");
         public static string Login_Message_UpdateVersionNew => Get(MobileResourceNames.Login_Message_UpdateVersionNew, "Cập nhập phiên bản mới", "Update new version");
 
         public static string Login_Message_UpdateVersionMessage => Get(MobileResourceNames.Login_Message_UpdateVersionMessage, "Cập nhật lên phiên bản mới nhất sẽ có nhiều cải tiến và nâng cấp bảo mật giúp bạn có trải nghiệm tốt hơn, an toàn và tiện dụng hơn.",
             "Updating to the latest version includes many security enhancements and enhancements that make your experience better, safer, and more convenient.");
 
-
-        public static string Login_Message_PleaseCall=> Get(MobileResourceNames.Login_Message_PleaseCall, "Vui lòng gọi đến số {0} để được hỗ trợ", "Please call {0} for assistance");
-
+        public static string Login_Message_PleaseCall => Get(MobileResourceNames.Login_Message_PleaseCall, "Vui lòng gọi đến số {0} để được hỗ trợ", "Please call {0} for assistance");
     }
 }

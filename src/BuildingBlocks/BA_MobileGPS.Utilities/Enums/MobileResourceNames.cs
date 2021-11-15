@@ -107,6 +107,7 @@
         Login_Message_AccountAllowedSystem,
         Login_Message_AccountLocked,
         Login_Message_LoginWebOnly,
+        Login_Message_LoginLicenseAppFailed,
         Login_Message_UpdateVersionNew,
         Login_Message_UpdateVersionMessage,
         Login_ForgotPassword_PopupTitle,
