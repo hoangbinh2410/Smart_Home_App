@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
@@ -31,11 +32,16 @@ namespace BA_MobileGPS.Core.Models
         private CancellationTokenSource cts = new CancellationTokenSource();
         private readonly IEventAggregator _eventAggregator;
 
-        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, CameraStartRequest startRequest, IEventAggregator eventAggregator)
+        public CameraManagement(int maxTimeLoadingMedia,
+            LibVLC libVLC,
+            IStreamCameraService streamCameraService,
+            CameraStartRequest startRequest,
+            CameraLookUpVehicleModel vehicle,
+            IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
+            Vehicle = vehicle;
             this.LibVLC = libVLC;
             InitMediaPlayer();
             totalTime = 1;
@@ -100,6 +106,21 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
+        private bool isPlayback = false;
+
+        public bool IsPlayback
+        {
+            get { return isPlayback; }
+            set
+            {
+                SetProperty(ref isPlayback, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private MediaPlayer mediaPlayer;
 
@@ -317,19 +338,27 @@ namespace BA_MobileGPS.Core.Models
                             countLoadingTimer.Start();
                         }
                         IsLoaded = false;
+                        IsPlayback = false;
                         //Check status:
                         StartTrackDeviceStatus(vehicle);
                     }
                 }
                 else
                 {
-                    Link = string.Empty;
-                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                    if (StateVehicleExtension.IsLostGSM(Vehicle.VehicleTime))
+                    {
+                        Link = string.Empty;
+                        _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                        SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                    }
+                    else
+                    {
+                        await Task.Delay(3000);
+                        ReloadCameraError();
+                    }
                 }
             });
         }
-
 
         /// <summary>
         /// start via trace current device,which has camera
@@ -339,39 +368,47 @@ namespace BA_MobileGPS.Core.Models
         /// <param name="vehicle">vehicle Plate</param>
         public void ReloadCameraError()
         {
-            Task.Run(async () =>
+            if (IsPlayback)
             {
-                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
-                var result = await streamCameraService.DevicesStart(startRequest);
-                if (result != null && result.Data != null)
+                var err = MobileResource.Camera_Label_Connection_Error;
+                SetError(err);
+            }
+            else
+            {
+                Task.Run(async () =>
                 {
-                    var data = result.Data.FirstOrDefault();
-                    if (data.PlaybackRequests != null
-                    && data.PlaybackRequests.Count > 0
-                    && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                    //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
+                    var result = await streamCameraService.DevicesStart(startRequest);
+                    if (result != null && result.Data != null)
                     {
-                        var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
-                        if (user != null)
+                        var data = result.Data.FirstOrDefault();
+                        if (data.PlaybackRequests != null
+                        && data.PlaybackRequests.Count > 0
+                        && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
                         {
-                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                            var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
+                            if (user != null)
+                            {
+                                _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                            }
+                            result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
+                            SetError(result.UserMessage);
                         }
-                        result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
-                        SetError(result.UserMessage);
+                        else
+                        {
+                            Link = data.Link;
+                            SetUrlMedia();
+                            internalError = false;
+                            IsPlayback = false;
+                        }
                     }
                     else
                     {
-                        Link = data.Link;
-                        SetUrlMedia();
-                        internalError = false;
+                        await Task.Delay(3000);
+                        ReloadCameraError();
                     }
-                }
-                else
-                {
-                    Link = string.Empty;
-                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
-                }
-            });
+                });
+            }
         }
 
         private void StartTrackDeviceStatus(string vehicle)
