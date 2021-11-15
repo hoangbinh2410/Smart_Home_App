@@ -89,12 +89,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 IconColor = Color.FromHex("#FF9900")
             });
             // Hướng dẫn sử dụng
+            // HelperPage
             list.Add(new MenuItem
             {
                 Title = MobileResource.AccountTab_Label_DeviceManual,
                 Icon = "ic_devicemanual.png",
                 UseModalNavigation = true,
-                Url = "NavigationPage/HelperPage",
+                Url = "NavigationPage/TransportBusinessPage",
                 MenuType = MenuType.DeviceManual,
                 IsEnable = MobileSettingHelper.UseHelper,
                 IconColor = Color.FromHex("#FF9900")

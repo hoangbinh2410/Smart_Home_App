@@ -5,6 +5,7 @@ using BA_MobileGPS.Core.ViewModels.Expense;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Core.Views.Expense;
 using BA_MobileGPS.Core.Views.Report.StationDetails;
+using BA_MobileGPS.Core.Views.Report.TransportBusiness;
 using BA_MobileGPS.Entities.Infrastructure.Repository;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService;
@@ -239,6 +240,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>("ExpenseDetailsPage");
             containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
             containerRegistry.RegisterForNavigation<ListVehicleSupportPage, ListVehicleSupportPageViewModel>("ListVehicleSupportPage");
+            containerRegistry.RegisterForNavigation<TransportBusinessPage, TransportBusinessPageViewModel>("TransportBusinessPage");
         }
     }
 }
