@@ -225,6 +225,7 @@
                                                                 <Label
                                                                     HorizontalOptions="CenterAndExpand"
                                                                     Text="{Binding Name}"
+                                                                    TextColor="{DynamicResource PrimaryColor}"
                                                                     VerticalOptions="Center" />
                                                             </StackLayout>
                                                         </Frame>
