@@ -352,41 +352,46 @@ namespace BA_MobileGPS.Core.Models
         {
             if (IsPlayback)
             {
-                return;
+                var err = MobileResource.Camera_Label_Connection_Error;
+                SetError(err);
             }
-            Task.Run(async () =>
+            else
             {
-                //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
-                var result = await streamCameraService.DevicesStart(startRequest);
-                if (result != null && result.Data != null)
+                Task.Run(async () =>
                 {
-                    var data = result.Data.FirstOrDefault();
-                    if (data.PlaybackRequests != null
-                    && data.PlaybackRequests.Count > 0
-                    && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                    //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
+                    var result = await streamCameraService.DevicesStart(startRequest);
+                    if (result != null && result.Data != null)
                     {
-                        var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
-                        if (user != null)
+                        var data = result.Data.FirstOrDefault();
+                        if (data.PlaybackRequests != null
+                        && data.PlaybackRequests.Count > 0
+                        && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
                         {
-                            _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                            var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
+                            if (user != null)
+                            {
+                                _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                            }
+                            result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
+                            SetError(result.UserMessage);
                         }
-                        result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
-                        SetError(result.UserMessage);
+                        else
+                        {
+                            Link = data.Link;
+                            SetUrlMedia();
+                            internalError = false;
+                            IsPlayback = false;
+                        }
                     }
                     else
                     {
-                        Link = data.Link;
-                        SetUrlMedia();
-                        internalError = false;
-                        IsPlayback = false;
+                        await Task.Delay(3000);
+                        ReloadCameraError();
                     }
-                }
-                else
-                {
-                    await Task.Delay(3000);
-                    ReloadCameraError();
-                }
-            });
+                });
+            }
+
         }
 
         private void StartTrackDeviceStatus(string vehicle)
