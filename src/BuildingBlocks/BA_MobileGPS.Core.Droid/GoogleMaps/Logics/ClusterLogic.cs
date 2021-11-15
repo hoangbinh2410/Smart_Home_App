@@ -128,7 +128,6 @@ namespace BA_MobileGPS.Core.Droid
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
@@ -288,6 +287,13 @@ namespace BA_MobileGPS.Core.Droid
                     }
                     else
                     {
+                        if (!outerItem.IsVisible)
+                        {
+                            iconView = new Xamarin.Forms.BoxView();
+                            iconView.BackgroundColor = Xamarin.Forms.Color.Transparent;
+                            iconView.WidthRequest = 10;
+                            iconView.HeightRequest = 10;
+                        }
                         var nativeView = await Utils.ConvertFormsToNative(iconView,
                             new Rectangle(0, 0, Utils.DpToPx((float)iconView.WidthRequest),
                             Utils.DpToPx((float)iconView.HeightRequest)));

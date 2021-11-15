@@ -40,7 +40,8 @@ namespace BA_MobileGPS
                 Position = new Position(vehicle.Lat, vehicle.Lng),
                 Label = vehicle.VehiclePlate,
                 Icon = BitmapDescriptorFactory.FromView(new PinInfowindowView(vehicle.PrivateCode)),
-                Tag = vehicle.VehiclePlate + "Plate"
+                Tag = vehicle.VehiclePlate + "Plate",
+                IsVisible = true
             };
             return this;
         }
