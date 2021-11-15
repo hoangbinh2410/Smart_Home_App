@@ -101,7 +101,7 @@
                         Padding="15"
                         BackgroundColor="#A4DBDB"
                         CornerRadius="10"
-                        HeightRequest="300">
+                        HeightRequest="200">
                         <StackLayout Spacing="15">
                             <Grid ColumnDefinitions="50,*">
                                 <controls:IconView
