@@ -101,6 +101,18 @@ namespace BA_MobileGPS.Core.Models
             }
         }
 
+        private bool isPlayback = false;
+
+        public bool IsPlayback
+        {
+            get { return isPlayback; }
+            set
+            {
+                SetProperty(ref isPlayback, value);
+                RaisePropertyChanged();
+            }
+        }
+
         private MediaPlayer mediaPlayer;
 
         /// <summary>
@@ -317,6 +329,7 @@ namespace BA_MobileGPS.Core.Models
                             countLoadingTimer.Start();
                         }
                         IsLoaded = false;
+                        IsPlayback = false;
                         //Check status:
                         StartTrackDeviceStatus(vehicle);
                     }
@@ -337,6 +350,10 @@ namespace BA_MobileGPS.Core.Models
         /// <param name="vehicle">vehicle Plate</param>
         public void ReloadCameraError()
         {
+            if (IsPlayback)
+            {
+                return;
+            }
             Task.Run(async () =>
             {
                 //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
@@ -361,6 +378,7 @@ namespace BA_MobileGPS.Core.Models
                         Link = data.Link;
                         SetUrlMedia();
                         internalError = false;
+                        IsPlayback = false;
                     }
                 }
                 else

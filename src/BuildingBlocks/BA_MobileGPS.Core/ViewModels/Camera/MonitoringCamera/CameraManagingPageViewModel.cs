@@ -756,6 +756,17 @@ namespace BA_MobileGPS.Core.ViewModels
             ItemsSource = new List<ChildStackSource>();
         }
 
+        private void SetPlaybackToItemSource()
+        {
+            foreach (var child in ItemsSource)
+            {
+                foreach (var item in child.ChildSource)
+                {
+                    item.IsPlayback = true;
+                }
+            }
+        }
+
         /// <summary>
         /// Gửi request ping  cho việc gia hạn
         /// </summary>
@@ -993,6 +1004,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SetErrorErrorDoubleStremingCamera(List<CameraStartRespone> lst)
         {
+            SetPlaybackToItemSource();
             var lstUser = new List<PlaybackUserRequest>();
             foreach (var item in lst)
             {
