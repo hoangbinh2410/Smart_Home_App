@@ -234,7 +234,7 @@
                                         </StackLayout>
                                         <pancake:PancakeView
                                             Padding="15"
-                                            BackgroundColor="#A4DBDB"
+                                            BackgroundColor="#DCFDFF"
                                             CornerRadius="10"
                                             IsVisible="{Binding IsShowGuides, Mode=TwoWay}">
                                             <StackLayout Spacing="15">

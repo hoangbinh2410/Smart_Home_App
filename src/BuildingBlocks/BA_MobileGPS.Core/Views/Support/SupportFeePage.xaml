@@ -99,7 +99,7 @@
                     <!--  Hiển thị thông báo hướng dẫn  -->
                     <pancake:PancakeView
                         Padding="15"
-                        BackgroundColor="#A4DBDB"
+                        BackgroundColor="#DCFDFF"
                         CornerRadius="10"
                         HeightRequest="200">
                         <StackLayout Spacing="15">
