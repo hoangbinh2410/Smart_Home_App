@@ -218,6 +218,7 @@
                                         <Span Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khác vui lòng truy cập tính năng " />
                                         <Span
                                             CharacterSpacing="1"
+                                            Style="{DynamicResource Text14B}"
                                             Text="Tài khoản &gt; Phản hồi khách hàng "
                                             TextColor="#0474D8" />
                                         <Span Text="Để theo dõi phản hồi của CSKH." />
