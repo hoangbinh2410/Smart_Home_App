@@ -239,6 +239,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>("ExpenseDetailsPage");
             containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
             containerRegistry.RegisterForNavigation<ListVehicleSupportPage, ListVehicleSupportPageViewModel>("ListVehicleSupportPage");
+            containerRegistry.RegisterForNavigation<QRCodeLogin, QRCodeLoginViewModel>("QRCodeLogin");
+            containerRegistry.RegisterForNavigation<VerifyOTPCodePage, VerifyOTPCodePageViewModel>("VerifyOTPCodePage");
         }
     }
 }
