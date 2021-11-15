@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
@@ -31,11 +32,16 @@ namespace BA_MobileGPS.Core.Models
         private CancellationTokenSource cts = new CancellationTokenSource();
         private readonly IEventAggregator _eventAggregator;
 
-        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, CameraStartRequest startRequest, IEventAggregator eventAggregator)
+        public CameraManagement(int maxTimeLoadingMedia,
+            LibVLC libVLC,
+            IStreamCameraService streamCameraService,
+            CameraStartRequest startRequest,
+            CameraLookUpVehicleModel vehicle,
+            IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
+            Vehicle = vehicle;
             this.LibVLC = libVLC;
             InitMediaPlayer();
             totalTime = 1;
@@ -112,6 +118,9 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private MediaPlayer mediaPlayer;
 
@@ -336,8 +345,17 @@ namespace BA_MobileGPS.Core.Models
                 }
                 else
                 {
-                    await Task.Delay(3000);
-                    ReloadCameraError();
+                    if (StateVehicleExtension.IsLostGSM(Vehicle.VehicleTime))
+                    {
+                        Link = string.Empty;
+                        _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                        SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                    }
+                    else
+                    {
+                        await Task.Delay(3000);
+                        ReloadCameraError();
+                    }
                 }
             });
         }
@@ -391,7 +409,6 @@ namespace BA_MobileGPS.Core.Models
                     }
                 });
             }
-
         }
 
         private void StartTrackDeviceStatus(string vehicle)

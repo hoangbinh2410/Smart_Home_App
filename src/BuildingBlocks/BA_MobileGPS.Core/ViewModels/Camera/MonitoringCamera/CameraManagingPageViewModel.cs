@@ -599,7 +599,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                        var cam = new CameraManagement(maxLoadingTime,
                                            libVLC,
                                            _streamCameraService,
-                                           request, EventAggregator);
+                                           request, Vehicle, EventAggregator);
                                        listCam.Add(cam);
                                    }
                                }
@@ -930,7 +930,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                                 User = UserInfo.UserName,
                                                 SessionID = StaticSettings.SessionID
                                             };
-                                            var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, EventAggregator);
+                                            var cam = new CameraManagement(maxLoadingTime, libVLC, _streamCameraService, request, Vehicle, EventAggregator);
                                             listCam.Add(cam);
                                         }
                                         else
@@ -1004,7 +1004,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SetErrorErrorDoubleStremingCamera(List<CameraStartRespone> lst)
         {
-            SetPlaybackToItemSource();
             var lstUser = new List<PlaybackUserRequest>();
             foreach (var item in lst)
             {
@@ -1045,6 +1044,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
+                SetPlaybackToItemSource();
                 await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, message, MobileResource.Common_Button_Close);
             });
         }
