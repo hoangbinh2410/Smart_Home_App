@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.ViewModels.Expense;
+using BA_MobileGPS.Core.ViewModels.Report.TransportBusiness;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Core.Views.Expense;
 using BA_MobileGPS.Core.Views.Report.StationDetails;
@@ -241,6 +242,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
             containerRegistry.RegisterForNavigation<ListVehicleSupportPage, ListVehicleSupportPageViewModel>("ListVehicleSupportPage");
             containerRegistry.RegisterForNavigation<TransportBusinessPage, TransportBusinessPageViewModel>("TransportBusinessPage");
+            containerRegistry.RegisterForNavigation<DetailedFilterPage, DetailedFilterPageViewModel>("DetailedFilterPage");
         }
     }
 }

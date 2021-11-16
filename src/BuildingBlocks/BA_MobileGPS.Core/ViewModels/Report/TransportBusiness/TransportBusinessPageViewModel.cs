@@ -1,8 +1,9 @@
-﻿using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Core.Resources;
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
+using BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.Service.Report.TransportBusiness;
 using BA_MobileGPS.Utilities;
 
 using Prism.Commands;
@@ -11,13 +12,11 @@ using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
-    public class TransportBusinessPageViewModel : ReportBase<ActivityDetailsRequest, ActivityDetailsService, ActivityDetailsModel>
+    public class TransportBusinessPageViewModel : ReportBase<TransportBusinessRequest, TransportBusinessService, TransportBusinessResponse>
     {
 
         #region Property
@@ -117,14 +116,11 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// ducpv  15/11/2021   created
         /// </Modified>
-        public override ActivityDetailsRequest SetDataInput()
+        public override TransportBusinessRequest SetDataInput()
         {
-            return new ActivityDetailsRequest
+            return new TransportBusinessRequest
             {
                 CompanyID = CurrentComanyID,
-                VehicleIDs = VehicleSelect.VehicleId.ToString(),
-                FromDate = base.FromDate,
-                ToDate = base.ToDate,
                 IsAddress = true,
                 PageIndex = base.PagedNext,
                 PageSize = base.PageSize
@@ -138,7 +134,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// linhlv  11/13/2019   created
         /// </Modified>
-        public override IList<ActivityDetailsModel> ConvertDataBeforeDisplay(IList<ActivityDetailsModel> data)
+        public override IList<TransportBusinessResponse> ConvertDataBeforeDisplay(IList<TransportBusinessResponse> data)
         {
             int i = (PagedNext - 1) * PageSize;
             foreach (var item in data)
@@ -155,8 +151,11 @@ namespace BA_MobileGPS.Core.ViewModels
         /// ducpv  15/11/2021   created
         /// </Modified>
         private void ExecuteFilterDetails()
-        {
-            
+        {   
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("DetailedFilterPage");
+            });
         }
 
         /// <summary>Đổ dữ liệu vào excel</summary>
@@ -166,7 +165,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// ducpv  15/11/2021   created
         /// </Modified>
-        public override void FillDataTableExcell(IList<ActivityDetailsModel> data, ref IWorksheet worksheet)
+        public override void FillDataTableExcell(IList<TransportBusinessResponse> data, ref IWorksheet worksheet)
         {
 
         }

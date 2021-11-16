@@ -1,9 +1,8 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness;
 using Syncfusion.Data;
 using Syncfusion.SfDataGrid.XForms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
@@ -65,46 +64,50 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
         }
     }
 
-    public class CustomActivityDetailsAggregate : ISummaryAggregate
+    public class CustomTransportBusinessAggregate : ISummaryAggregate
     {
-        public CustomActivityDetailsAggregate()
+        public CustomTransportBusinessAggregate()
         {
         }
 
-        public double TotalTime
+        public double TotalTimes
         {
             get; set;
-        } = 0;
+        } = 100;
 
         public double SumTotalKm
         {
             get; set;
-        } = 0;
+        } = 200;
         
-        public double SumTotalKmMechanical
+        public double TotalKmMechanical
         {
             get; set;
-        } = 0;
+        } = 300;
 
         public double TotalNorms
         {
             get; set;
-        } = 0;
+        } = 400;
 
         public double TotalConstantNorms
         {
             get; set;
-        } = 0;
+        } = 500;
 
         public Action<System.Collections.IEnumerable, string, System.ComponentModel.PropertyDescriptor> CalculateAggregateFunc()
         {
             return (items, property, pd) =>
             {
-                var enumerableItems = items as IEnumerable<ActivityDetailsModel>;
-                TimeSpan ret = TimeSpan.Zero;
-                foreach (var p in enumerableItems)
-                    if (p.TotalTimes != null)
-                        ret = ret + p.TotalTimes;
+                var enumerableItems = items as IEnumerable<TransportBusinessResponse>;
+                foreach(var item in enumerableItems)
+                {
+
+                }    
+                //TimeSpan ret = TimeSpan.Zero;
+                //foreach (var p in enumerableItems)
+                //    if (p.TotalTimes != null)
+                //        ret = ret + p.TotalTimes;
                 //this.TotalTime = string.Format("{0:hh\\:mm}", ret);
                 //this.SumTotalKm = Math.Round(enumerableItems.Sum(x => x.TotalKm), 2);
                 //this.TotalConstantNorms = enumerableItems.FirstOrDefault().ConstantNorms;

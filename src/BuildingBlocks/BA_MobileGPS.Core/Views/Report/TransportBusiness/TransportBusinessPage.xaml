@@ -10,8 +10,7 @@
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
-    xmlns:local="clr-namespace:BA_MobileGPS.Core"
-    xmlns:local1="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:local11="clr-namespace:BA_MobileGPS.Core.Views.Report.TransportBusiness"
     xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -23,9 +22,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
-            <local:TableSummaryConverter x:Key="SummaryTotalKmConverter" ColName="TotalKm" />
-            <local:TableSummaryConverter x:Key="SummaryTotalKmMechanicalConverter" ColName="TotalKmMechanical" />
-            <local1:CustomActivityDetailsAggregate x:Key="CustomActivityDetailsConverter" />
+            <local11:CustomTransportBusinessAggregate x:Key="CustomTransportBusinessConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <!--  Phần tiêu đề  -->
@@ -794,12 +791,13 @@
                         </syncDataGrid:GridTemplateColumn>
 
                     </syncDataGrid:SfDataGrid.Columns>
+                    <!--  Sum  -->
                     <syncDataGrid:SfDataGrid.TableSummaryRows>
                         <syncDataGrid:GridTableSummaryRow ShowSummaryInRow="False">
                             <syncDataGrid:GridTableSummaryRow.SummaryColumns>
 
                                 <syncDataGrid:GridSummaryColumn
-                                    Name="SumTotalKmMechanical"
+                                    Name="SumName"
                                     Format="{}{Sum}"
                                     MappingName="StartAddress"
                                     SummaryType="DoubleAggregate">
@@ -822,38 +820,39 @@
 
                                 <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalTimes"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
-                                    Format="{}{TotalTime}"
+                                    CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
+                                    Format="{}{TotalTimes}"
                                     MappingName="TotalTimes"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
-                                    Name="SumTotalKms"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
+                                    Name="SumTotalKm"
+                                    CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{SumTotalKm}"
                                     MappingName="TotalKm"
                                     SummaryType="Custom" />
 
-                                <!--<syncDataGrid:GridSummaryColumn
-                                    Name="SumTotalKmMechanicals"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
-                                    Format="{}{SumTotalKmMechanical}"
+                                <syncDataGrid:GridSummaryColumn
+                                    Name="SumTotalKmMechanical"
+                                    CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
+                                    Format="{}{TotalKmMechanical}"
                                     MappingName="TotalKmMechanical"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
-                                    Name="SumNorms"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
-                                    Format="{}TotalNorms}"
+                                    Name="SumTotalNorms"
+                                    CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
+                                    Format="{}{TotalNorms}"
                                     MappingName="Norms"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
-                                    Name="SumConstantNorms"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
+                                    Name="SumTotalConstantNorms"
+                                    CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{TotalConstantNorms}"
                                     MappingName="ConstantNorms"
-                                    SummaryType="Custom" />-->
+                                    SummaryType="Custom" />
+
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>
                         </syncDataGrid:GridTableSummaryRow>
                     </syncDataGrid:SfDataGrid.TableSummaryRows>
