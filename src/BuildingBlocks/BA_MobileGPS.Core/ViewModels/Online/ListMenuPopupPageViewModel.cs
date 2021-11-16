@@ -148,7 +148,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = "Hỗ trợ khách hàng",
                 Icon = "ic_helpcustomer.png",
-                IsEnable = true,
+                IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer
             });
             MenuItems = list.Where(x => x.IsEnable == true).ToObservableCollection();
@@ -169,7 +169,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = "Hỗ trợ khách hàng",
                 Icon = "ic_helpcustomer.png",
-                IsEnable = true,
+                IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer
             });
 

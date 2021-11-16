@@ -316,13 +316,6 @@ namespace BA_MobileGPS.Core.Droid.Logics
                     }
                     else
                     {
-                        if (!outerItem.IsVisible)
-                        {
-                            iconView = new Xamarin.Forms.BoxView();
-                            iconView.BackgroundColor = Xamarin.Forms.Color.Transparent;
-                            iconView.WidthRequest = 10;
-                            iconView.HeightRequest = 10;
-                        }
                         var nativeView = await Utils.ConvertFormsToNative(iconView,
                             new Xamarin.Forms.Rectangle(0, 0, Utils.DpToPx((float)iconView.WidthRequest),
                             Utils.DpToPx((float)iconView.HeightRequest)));
