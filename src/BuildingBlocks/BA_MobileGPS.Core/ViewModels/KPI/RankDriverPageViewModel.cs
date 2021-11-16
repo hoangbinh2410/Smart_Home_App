@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Property RankUserPoint
 
-        private DateTime dateRank = DateTime.Now;
+        private DateTime dateRank = DateTime.Today;
         public DateTime DateRank { get => dateRank; set => SetProperty(ref dateRank, value); }
 
         public string searchedText;
@@ -284,16 +284,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListUserRank(bool isloading = true)
         {
+            var fromDate = DateRank;
             var toDate = DateRank;
             if (IsShowMonth)
             {
-                toDate = toDate.AddMonths(1).AddDays(-1);
+                fromDate = new DateTime(fromDate.Year, fromDate.Month, 1, 0, 0, 0);
+                toDate = new DateTime(toDate.Year, toDate.Month, 1, 0, 0, 0).AddMonths(1).AddDays(-1);
             }
             var request = new Entities.DriverRankingRequest()
             {
                 CompanyID = CurrentComanyID,
-                FromDate = DateRank,
-                ToDate = toDate,
+                FromDate = fromDate.Date,
+                ToDate = toDate.Date.AddDays(1).AddMinutes(-1),
                 UserIDs = new string[] { }
             };
             RunOnBackground(async () =>
@@ -320,6 +322,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
                     if (lstUserShowRank != null && lstUserShowRank.Count <= 3)
                     {
+                        UserRank1 = new DriverRankingRespone();
+                        UserRank2 = new DriverRankingRespone();
+                        UserRank3 = new DriverRankingRespone();
                         for (int i = 0; i < lstUserShowRank.Count; i++)
                         {
                             if (i == 0)
@@ -333,10 +338,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             if (i == 2)
                             {
                                 UserRank3 = lstUserShowRank[2];
-                            }
-                            else
-                            {
-                                UserRank3 = new DriverRankingRespone();
                             }
                         }
                     }
@@ -374,7 +375,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (IsShowMonth)
                         {
-                            if (DateRank.Month >= DateTime.Now.Month && DateRank.Year >= DateTime.Now.Year)
+                            if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
                             {
                                 DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
                                 return;
@@ -386,7 +387,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            if (DateRank.Date < DateTime.Now.Date)
+                            if (param.Value.Date < DateTime.Now.Date)
                             {
                                 DateRank = param.Value;
                             }

@@ -95,6 +95,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GotoMyVideoPage();
             }
+            if (parameters.ContainsKey("ReportDate")
+                  && (parameters.ContainsKey(ParameterKey.VehiclePlate)))
+            {
+                var selectDate = parameters.GetValue<Tuple<DateTime, DateTime>>("ReportDate");
+                var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
+                ValidateVehicleCamera(vehicleDetail);
+                DateStart = selectDate.Item1;
+                DateEnd = selectDate.Item2;
+                SearchData();
+            }
         }
 
         public override void OnDestroy()

@@ -7,6 +7,12 @@ namespace BA_MobileGPS.Core.Views
         public KpiDriverChartPage()
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                Chart.PrimaryAxis.LabelStyle.FontSize = 5;
+                chart2.PrimaryAxis.LabelStyle.FontSize = 5;
+            }
+
         }
 
         private void NumericalAxis_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)
@@ -31,6 +37,21 @@ namespace BA_MobileGPS.Core.Views
             if (data == 1)
             {
                 e.LabelContent = "E";
+            }
+        }
+
+        private void primary_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)
+        {
+            if (e.LabelStyle != null)
+            {
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    e.LabelStyle.FontSize = 5;
+                }
+                else
+                {
+                    e.LabelStyle.FontSize = 10;
+                }
             }
         }
     }

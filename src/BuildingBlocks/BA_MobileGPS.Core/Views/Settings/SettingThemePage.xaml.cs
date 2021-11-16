@@ -18,11 +18,11 @@ namespace BA_MobileGPS.Core.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (Settings.CurrentTheme == Theme.Light.ToString())
+            if (Settings.CurrentTheme == (int)Theme.Light)
             {
                 light.IsChecked = true;
             }
-            else if (Settings.CurrentTheme == Theme.Dark.ToString())
+            else if (Settings.CurrentTheme == (int)Theme.Dark)
             {
                 dark.IsChecked = true;
             }
