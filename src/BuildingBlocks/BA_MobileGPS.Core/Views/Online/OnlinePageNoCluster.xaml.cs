@@ -735,16 +735,17 @@ namespace BA_MobileGPS.Core.Views
 
         private void ShowBoxInfoCarActive(VehicleOnline carInfo, int messageId, int dataExt)
         {
-            //nếu messageId==128 thì là xe dừng dịch vụ
-            //if (messageId == 128)
-            //{
-            //    pageDialog.DisplayAlertAsync(MobileResource.Common_Message_Warning, MobileResource.Online_Message_CarStopService, MobileResource.Common_Label_Close);
-
-            //    return;
-            //}
-
+            bool IsIsVehicleDebt = false;
+            if (App.AppType == AppType.Viview)
+            {
+                IsIsVehicleDebt = StateVehicleExtension.IsVehicleDebtMoneyViviewOnline(messageId, dataExt);
+            }
+            else
+            {
+                IsIsVehicleDebt = StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt);
+            }
             //Nếu messageId=2 hoặc 3 là xe phải thu phí
-            if (!StateVehicleExtension.IsVehicleDebtMoney(messageId, dataExt) || !MobileSettingHelper.IsUseVehicleDebtMoney)
+            if (!IsIsVehicleDebt || !MobileSettingHelper.IsUseVehicleDebtMoney)
             {
                 //nếu đang có xe active thì xóa active xe ý đi
                 if (mCarActive != null && mCarActive.VehicleId > 0)

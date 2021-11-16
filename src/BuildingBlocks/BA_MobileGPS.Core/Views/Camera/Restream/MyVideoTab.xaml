@@ -10,6 +10,7 @@
     xmlns:icons="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
+    xmlns:syncfusionList="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
     xmlns:views="clr-namespace:BA_MobileGPS.Core.Views"
     x:Name="root"
@@ -286,82 +287,80 @@
                                         Text="{i18n:TranslateResource Camera_Title_ListDownloadingvideo}"
                                         VerticalOptions="Center" />
                                 </StackLayout>
-                                <ScrollView Grid.Row="1">
-                                    <StackLayout>
-                                        <ProgressBar
-                                            Margin="0"
-                                            HorizontalOptions="Fill"
-                                            IsVisible="{Binding IsDownloading}"
-                                            Progress="{Binding ProgressValue, Converter={StaticResource ValueProgressBarConverter}}"
-                                            ProgressColor="Green" />
-                                        <!--  Danh sách video  -->
-                                        <StackLayout
-                                            x:Name="listview"
-                                            Grid.Row="2"
-                                            Padding="5,0"
-                                            BindableLayout.ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
-                                            Spacing="10">
-                                            <BindableLayout.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackLayout>
-                                                        <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
-                                                            <Grid.GestureRecognizers>
-                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
-                                                            </Grid.GestureRecognizers>
-                                                            <icons:IconView
-                                                                Grid.Column="0"
-                                                                Foreground="#00ADE5"
-                                                                HeightRequest="30"
-                                                                HorizontalOptions="Start"
-                                                                Source="ic_videoplaceholder.png"
-                                                                VerticalOptions="Center"
-                                                                WidthRequest="30" />
+                                <StackLayout Grid.Row="1">
+                                    <ProgressBar
+                                        Margin="0"
+                                        HorizontalOptions="Fill"
+                                        IsVisible="{Binding IsDownloading}"
+                                        Progress="{Binding ProgressValue, Converter={StaticResource ValueProgressBarConverter}}"
+                                        ProgressColor="Green" />
+                                    <!--  Danh sách video  -->
+                                    <syncfusionList:SfListView
+                                        x:Name="listview"
+                                        Grid.Row="2"
+                                        Padding="5,0"
+                                        AutoFitMode="DynamicHeight"
+                                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
+                                        RowSpacing="5">
+                                        <syncfusionList:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout>
+                                                    <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                        <Grid.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
+                                                        </Grid.GestureRecognizers>
+                                                        <icons:IconView
+                                                            Grid.Column="0"
+                                                            Foreground="#00ADE5"
+                                                            HeightRequest="30"
+                                                            HorizontalOptions="Start"
+                                                            Source="ic_videoplaceholder.png"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="30" />
 
-                                                            <StackLayout
-                                                                Grid.Column="1"
-                                                                Padding="10,0"
-                                                                HorizontalOptions="FillAndExpand"
-                                                                VerticalOptions="Center">
-                                                                <Label
-                                                                    FontAttributes="Bold"
-                                                                    FontFamily="{StaticResource myFontLatoBold}"
-                                                                    HorizontalOptions="Start"
-                                                                    Text="{Binding VehicleName}" />
-                                                                <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
-                                                                    <Label.FormattedText>
-                                                                        <FormattedString>
-                                                                            <Span Text="{Binding StartTime, Converter={StaticResource TimeConverter}}" />
-                                                                            <Span Text=" - " />
-                                                                            <Span Text="{Binding EndTime, Converter={StaticResource TimeConverter}}" />
-                                                                            <Span Text=" · " />
-                                                                            <Span Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}" />
-                                                                        </FormattedString>
-                                                                    </Label.FormattedText>
-                                                                </Label>
-                                                            </StackLayout>
-                                                            <icons:IconView
-                                                                Grid.Column="2"
-                                                                Foreground="{StaticResource PrimaryColor}"
-                                                                HeightRequest="20"
-                                                                Source="ic_dowload.png"
-                                                                WidthRequest="20">
-                                                                <icons:IconView.GestureRecognizers>
-                                                                    <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
-                                                                </icons:IconView.GestureRecognizers>
-                                                            </icons:IconView>
-                                                        </Grid>
-                                                        <BoxView
-                                                            BackgroundColor="{StaticResource TextPlaceHolderColor}"
-                                                            HeightRequest="1"
+                                                        <StackLayout
+                                                            Grid.Column="1"
+                                                            Padding="10,0"
                                                             HorizontalOptions="FillAndExpand"
-                                                            VerticalOptions="End" />
-                                                    </StackLayout>
-                                                </DataTemplate>
-                                            </BindableLayout.ItemTemplate>
-                                        </StackLayout>
-                                    </StackLayout>
-                                </ScrollView>
-
+                                                            VerticalOptions="Center">
+                                                            <Label
+                                                                FontAttributes="Bold"
+                                                                FontFamily="{StaticResource myFontLatoBold}"
+                                                                HorizontalOptions="Start"
+                                                                Text="{Binding VehicleName}" />
+                                                            <Label HorizontalOptions="Start" HorizontalTextAlignment="Start">
+                                                                <Label.FormattedText>
+                                                                    <FormattedString>
+                                                                        <Span Text="{Binding StartTime, Converter={StaticResource TimeConverter}}" />
+                                                                        <Span Text=" - " />
+                                                                        <Span Text="{Binding EndTime, Converter={StaticResource TimeConverter}}" />
+                                                                        <Span Text=" · " />
+                                                                        <Span Text="{Binding Channel, Converter={StaticResource CameraChanelNameConverter}}" />
+                                                                    </FormattedString>
+                                                                </Label.FormattedText>
+                                                            </Label>
+                                                        </StackLayout>
+                                                        <icons:IconView
+                                                            Grid.Column="2"
+                                                            Foreground="{StaticResource PrimaryColor}"
+                                                            HeightRequest="20"
+                                                            Source="ic_dowload.png"
+                                                            WidthRequest="20">
+                                                            <icons:IconView.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.DowloadVideoInListTappedCommand}" CommandParameter="{Binding .}" />
+                                                            </icons:IconView.GestureRecognizers>
+                                                        </icons:IconView>
+                                                    </Grid>
+                                                    <BoxView
+                                                        BackgroundColor="{StaticResource TextPlaceHolderColor}"
+                                                        HeightRequest="1"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="End" />
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </syncfusionList:SfListView.ItemTemplate>
+                                    </syncfusionList:SfListView>
+                                </StackLayout>
                                 <StackLayout
                                     Grid.Row="1"
                                     BackgroundColor="Transparent"

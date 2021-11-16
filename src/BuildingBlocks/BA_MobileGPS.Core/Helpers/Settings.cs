@@ -79,7 +79,7 @@ namespace BA_MobileGPS.Core
         private static readonly int SortOrderKeyDefault = (int)SortOrderType.DefaultDES;
 
         private const string CurrentThemeKey = "CurrentThemeKey";
-        private static readonly string CurrentThemeDefault = Theme.Light.ToString();
+        private static readonly int CurrentThemeDefault = (int)Theme.Light;
 
         private const string FavoritesVehicleImageKey = "FavoritesVehicleImageKey";
         private static readonly string FavoritesVehicleImageDefault = string.Empty;
@@ -273,7 +273,7 @@ namespace BA_MobileGPS.Core
             set => Preferences.Set(SortOrderKey, value);
         }
 
-        public static string CurrentTheme
+        public static int CurrentTheme
         {
             get => Preferences.Get(CurrentThemeKey, CurrentThemeDefault);
             set => Preferences.Set(CurrentThemeKey, value);

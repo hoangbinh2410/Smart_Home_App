@@ -820,6 +820,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case MenuKeyType.HelpCustomer:
+                    GotoSupportPage(currentVehicle);
                     break;
 
                 case MenuKeyType.ExportVideo:
@@ -924,6 +925,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                     });
                 }
+            });
+        }
+
+
+        public void GotoSupportPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                var a = await NavigationService.NavigateAsync("NavigationPage/SupportClientPage", parameters, true, true);
             });
         }
 

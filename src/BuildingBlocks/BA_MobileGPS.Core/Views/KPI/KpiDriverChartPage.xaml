@@ -70,6 +70,7 @@
                     Title="AN TOÀN"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     SelectionColor="{DynamicResource PrimaryColor}"
+                    StyleClass="BoldText"
                     TitleFontColor="White"
                     TitleFontSize="14">
                     <tabView:SfTabItem.Content>
@@ -239,14 +240,22 @@
                                         HorizontalOptions="FillAndExpand"
                                         Series="{Binding ChartSeries}"
                                         VerticalOptions="FillAndExpand">
-
+                                        <chart:SfChart.ChartBehaviors>
+                                            <chart:ChartZoomPanBehavior ZoomMode="Y" />
+                                        </chart:SfChart.ChartBehaviors>
                                         <chart:SfChart.PrimaryAxis>
-                                            <chart:CategoryAxis x:Name="primary">
+                                            <chart:CategoryAxis
+                                                x:Name="primary"
+                                                EdgeLabelsDrawingMode="Shift"
+                                                LabelPlacement="OnTicks"
+                                                LabelsIntersectAction="MultipleRows"
+                                                MaximumLabels="10">
                                                 <chart:CategoryAxis.LabelStyle>
                                                     <chart:ChartAxisLabelStyle
                                                         MaxWidth="80"
-                                                        LabelAlignment="Center"
-                                                        WrappedLabelAlignment="Center" />
+                                                        LabelAlignment="Start"
+                                                        LabelsPosition="Outside"
+                                                        WrappedLabelAlignment="Start" />
                                                 </chart:CategoryAxis.LabelStyle>
                                             </chart:CategoryAxis>
                                         </chart:SfChart.PrimaryAxis>
@@ -286,6 +295,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="Bảng tiêu chí an toàn"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
@@ -316,6 +326,7 @@
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Tiêu chí"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -323,6 +334,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Điểm"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -330,6 +342,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="XH"
                                                         VerticalOptions="Center" />
                                                 </Grid>
@@ -411,21 +424,25 @@
                                             </Grid>
                                         </pancake:PancakeView>
 
-                                        <StackLayout
+                                        <!--<StackLayout
                                             BackgroundColor="Transparent"
                                             HorizontalOptions="Center"
                                             IsVisible="{Binding EvaluationType1.Evaluations, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
                                             Spacing="10"
                                             VerticalOptions="Center">
-                                            <!--  Image for display svg image  -->
+                                        -->
+                                        <!--  Image for display svg image  -->
+                                        <!--
                                             <ffsvg:SvgCachedImage
-                                                HeightRequest="200"
+                                                HeightRequest="100"
                                                 Source="NoItem.svg"
                                                 VerticalOptions="Center"
-                                                WidthRequest="200" />
-                                            <!--  Label to display content  -->
+                                                WidthRequest="100" />
+                                        -->
+                                        <!--  Label to display content  -->
+                                        <!--
                                             <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
-                                        </StackLayout>
+                                        </StackLayout>-->
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -437,6 +454,7 @@
                     Title="TIẾT KIỆM"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     SelectionColor="{DynamicResource PrimaryColor}"
+                    StyleClass="BoldText"
                     TitleFontColor="White"
                     TitleFontSize="14">
                     <tabView:SfTabItem.Content>
@@ -602,17 +620,25 @@
                                 </Grid>
                                 <Grid Grid.Row="2">
                                     <chart:SfChart
+                                        x:Name="chart2"
                                         HorizontalOptions="FillAndExpand"
                                         Series="{Binding ChartSeries2}"
                                         VerticalOptions="FillAndExpand">
-
+                                        <chart:SfChart.ChartBehaviors>
+                                            <chart:ChartZoomPanBehavior ZoomMode="Y" />
+                                        </chart:SfChart.ChartBehaviors>
                                         <chart:SfChart.PrimaryAxis>
-                                            <chart:CategoryAxis>
+                                            <chart:CategoryAxis
+                                                EdgeLabelsDrawingMode="Shift"
+                                                LabelPlacement="OnTicks"
+                                                LabelsIntersectAction="MultipleRows"
+                                                MaximumLabels="10">
                                                 <chart:CategoryAxis.LabelStyle>
                                                     <chart:ChartAxisLabelStyle
                                                         MaxWidth="80"
-                                                        LabelAlignment="Center"
-                                                        WrappedLabelAlignment="Center" />
+                                                        LabelAlignment="Start"
+                                                        LabelsPosition="Outside"
+                                                        WrappedLabelAlignment="Start" />
                                                 </chart:CategoryAxis.LabelStyle>
                                             </chart:CategoryAxis>
                                         </chart:SfChart.PrimaryAxis>
@@ -651,6 +677,7 @@
                                         HorizontalOptions="StartAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
+                                        StyleClass="BoldText"
                                         Text="Bảng tiêu chí tiết kiệm"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
@@ -669,7 +696,7 @@
                                             <pancake:PancakeView.Border>
                                                 <pancake:Border Thickness="1" Color="#CED6E0" />
                                             </pancake:PancakeView.Border>
-                                            <Grid RowDefinitions="Auto,*,Auto" RowSpacing="0">
+                                            <Grid RowDefinitions="Auto,Auto,*" RowSpacing="0">
                                                 <Grid
                                                     Grid.Row="0"
                                                     Padding="10"
@@ -681,6 +708,7 @@
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Tiêu chí"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -688,6 +716,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="Điểm"
                                                         VerticalOptions="Center" />
                                                     <Label
@@ -695,6 +724,7 @@
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
+                                                        StyleClass="BoldText"
                                                         Text="XH"
                                                         VerticalOptions="Center" />
                                                 </Grid>
@@ -705,7 +735,7 @@
                                                     ColumnDefinitions="*,70,70"
                                                     VerticalOptions="CenterAndExpand">
                                                     <Label
-                                                        Grid.ColumnSpan="3"
+                                                        Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
@@ -713,14 +743,14 @@
                                                         Text="Tiêu chí tiết kiệm"
                                                         VerticalOptions="Center" />
                                                     <Label
-                                                        Grid.Column="3"
+                                                        Grid.Column="1"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         Text="{Binding EvaluationType2.TotalScore}"
                                                         VerticalOptions="Center" />
                                                     <Label
-                                                        Grid.Column="4"
+                                                        Grid.Column="2"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
@@ -776,21 +806,25 @@
                                             </Grid>
                                         </pancake:PancakeView>
 
-                                        <StackLayout
+                                        <!--<StackLayout
                                             BackgroundColor="Transparent"
                                             HorizontalOptions="Center"
                                             IsVisible="{Binding EvaluationType1.Evaluations, Mode=TwoWay, Converter={StaticResource IsEmptyDataConverter}}"
                                             Spacing="10"
                                             VerticalOptions="Center">
-                                            <!--  Image for display svg image  -->
+                                        -->
+                                        <!--  Image for display svg image  -->
+                                        <!--
                                             <ffsvg:SvgCachedImage
-                                                HeightRequest="200"
+                                                HeightRequest="100"
                                                 Source="NoItem.svg"
                                                 VerticalOptions="Center"
-                                                WidthRequest="200" />
-                                            <!--  Label to display content  -->
+                                                WidthRequest="100" />
+                                        -->
+                                        <!--  Label to display content  -->
+                                        <!--
                                             <Label Text="{i18n:TranslateResource Common_Message_NoData}" VerticalTextAlignment="Center" />
-                                        </StackLayout>
+                                        </StackLayout>-->
                                     </Grid>
                                 </Grid>
                             </Grid>

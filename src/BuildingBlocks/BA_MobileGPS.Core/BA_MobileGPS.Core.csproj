@@ -27,23 +27,23 @@
 		<PackageReference Include="CardsView" Version="2.8.0" />
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
 		<PackageReference Include="Prism.Plugin.Popups" Version="8.0.76" />
-		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.13" />
+		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.6.1" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.3.0.45" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.3.0.45" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.3.0.48" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.3.0.48" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
@@ -66,7 +66,7 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Views\Authentication\LoginFailedPopup.xaml.cs">
+	  <Compile Update="Views\Camera\Authentication\LoginFailedPopup.xaml.cs">
 	    <DependentUpon>LoginFailedPopup.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
@@ -107,6 +107,9 @@
 	  </Compile>
 	  <Compile Update="Views\Issue\TemplateDueDate.xaml.cs">
 	    <DependentUpon>TemplateDueDate.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\KPI\RankNotDriverPage.xaml.cs">
+	    <DependentUpon>RankNotDriverPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
@@ -157,8 +160,14 @@
 	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Route\RouteReportPage.xaml.cs">
+	    <DependentUpon>RouteReportPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\Route\RoutePage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Route\RouteReportView.xaml.cs">
+	    <DependentUpon>RouteReportView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Vehicle\VehicleDetailPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
@@ -201,10 +210,10 @@
 	  <EmbeddedResource Update="Views\Alert\AlertOnlinePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ChangePasswordPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ChangePasswordPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPopup.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ForgotPasswordPopup.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\PlaybackUserMessagePopup.xaml">
@@ -246,7 +255,7 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ChangePasswordForgotPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ChangePasswordForgotPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Camera\Restream\PinInfowindowTimeView.xaml">
@@ -273,7 +282,7 @@
 	  <EmbeddedResource Update="Views\Common\ImageEditorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\LoginPreviewFeaturesPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\LoginPreviewFeaturesPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\PopupHtmlPage.xaml">
@@ -294,7 +303,16 @@
 	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\ForgotPasswordPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\ForgotPasswordPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Expense\ExpenceManagementPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Expense\ExpenseDetailsPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Expense\ImportExpensePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Issue\IssuesDetailPage.xaml">
@@ -385,7 +403,7 @@
 	  <EmbeddedResource Update="Views\Common\PinInfowindowView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\LoginPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\LoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
@@ -457,6 +475,9 @@
 	  <EmbeddedResource Update="Views\Report\QCVN31Speed\QCVN31SpeedReportPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Report\StationDetails\StationDetailsPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
@@ -484,7 +505,10 @@
 	  <EmbeddedResource Update="Views\Driver\AddDriverInforPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\FeedbackErrorsSignalPage.xaml">
+	  <EmbeddedResource Update="Views\Support\ListVehicleSupportPage.xaml">
+	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Views\Support\SelectSupportPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Support\SupportClientPage.xaml">
@@ -507,7 +531,7 @@
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\VerifyCodeSMSPage.xaml">
+	  <EmbeddedResource Update="Views\Camera\Authentication\VerifyCodeSMSPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailCameraPage.xaml">

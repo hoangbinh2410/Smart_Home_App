@@ -164,6 +164,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Message_SaveError => Get(MobileResourceNames.Common_Message_SaveError, "Lưu không thành công bạn vui lòng kiểm tra lại", "Save failed, please check again");
 
+        public static string Common_Message_PleaseSelectLocation => Get(MobileResourceNames.Common_Message_NoSelectLocation, "Bạn chưa chọn địa điểm", "Please select a location");
+
         #endregion Report Common
 
         #region datetime picker

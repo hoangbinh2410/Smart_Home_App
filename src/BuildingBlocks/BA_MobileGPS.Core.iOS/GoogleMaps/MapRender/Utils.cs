@@ -41,6 +41,11 @@ namespace BA_MobileGPS.Core.iOS
         {
             UIImage img = new UIImage();
             var iconView = vehicle.Icon.View;
+            if (!vehicle.IsVisible)
+            {
+                iconView = new Xamarin.Forms.BoxView();
+                iconView.BackgroundColor = Xamarin.Forms.Color.Transparent;
+            }
             var nativeView = Utils.ConvertFormsToNative(iconView, new CGRect(0, 0, iconView.WidthRequest, iconView.HeightRequest));
             if (iconView.BackgroundColor != Color.Transparent)
             {

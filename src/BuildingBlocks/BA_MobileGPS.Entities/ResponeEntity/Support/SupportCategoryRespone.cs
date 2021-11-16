@@ -11,7 +11,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Support
         public Guid ID { get; set; }
 
         [JsonProperty("code")]
-        public int Code { get; set; }
+        public string Code { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -24,5 +24,9 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Support
 
         [JsonProperty("orderNo")]
         public string OrderNo { get; set; }
+
+        public List<MessageSupportRespone> MessageSupports { get; set; }
+
+        public bool IsChangePlate { get; set; }
     }
 }

@@ -16,7 +16,4 @@
 	    <HintPath>..\Library\Shared\StaxiCrypt.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="RequestEntity\Support\" />
-	</ItemGroup>
 </Project>

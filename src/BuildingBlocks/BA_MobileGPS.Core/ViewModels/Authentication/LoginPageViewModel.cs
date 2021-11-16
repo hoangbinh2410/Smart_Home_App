@@ -174,79 +174,79 @@ namespace BA_MobileGPS.Core.ViewModels
         #region ICommand
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
-            });
-        });
+         {
+             SafeExecute(async () =>
+             {
+                 await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+             });
+         });
 
         public ICommand PushtoRegisterSupportCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () =>
-            {
-                _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
-            });
-        });
+         {
+             SafeExecute(async () =>
+             {
+                 _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
+             });
+         });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () =>
-            {
-                if (MobileSettingHelper.IsUseForgotpassword)
-                {
-                    await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
-                }
-                else
-                {
-                    await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-                }
-            });
-        });
+         {
+             SafeExecute(async () =>
+             {
+                 if (MobileSettingHelper.IsUseForgotpassword)
+                 {
+                     await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                 }
+                 else
+                 {
+                     await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                 }
+             });
+         });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
-            });
-        });
+         {
+             SafeExecute(async () =>
+             {
+                 await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
+             });
+         });
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
-        {
-            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
-        });
+         {
+             SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
+         });
 
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
-        {
-            try
-            {
-                if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
-                {
-                    string shareurl = String.Empty;
-                    if (Device.RuntimePlatform == Device.iOS)
-                    {
-                        var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
-                        shareurl = "mailto:" + email;
-                    }
-                    else
-                    {
-                        shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
-                    }
-                    Device.OpenUri(new Uri(shareurl));
-                }
-            }
-            catch
-            {
-                Device.OpenUri(new Uri("https://accounts.google.com/"));
-            }
-        });
+                 {
+                     try
+                     {
+                         if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
+                         {
+                             string shareurl = String.Empty;
+                             if (Device.RuntimePlatform == Device.iOS)
+                             {
+                                 var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
+                                 shareurl = "mailto:" + email;
+                             }
+                             else
+                             {
+                                 shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
+                             }
+                             Device.OpenUri(new Uri(shareurl));
+                         }
+                     }
+                     catch
+                     {
+                         Device.OpenUri(new Uri("https://accounts.google.com/"));
+                     }
+                 });
 
         public ICommand LoginCommand => new DelegateCommand(() =>
-        {
-            Login();
-        });
+         {
+             Login();
+         });
 
         #endregion ICommand
 
@@ -364,6 +364,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                     case LoginStatus.UserLoginOnlyWeb:
 
                                         DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginWebOnly);
+                                        break;
+
+                                    case LoginStatus.LicenseAppFailed:
+                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginLicenseAppFailed);
                                         break;
                                 }
                             }

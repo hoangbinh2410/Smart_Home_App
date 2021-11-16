@@ -94,6 +94,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
+                    if (parameters.ContainsKey("ReportDate"))
+                    {
+                        var selectDate = parameters.GetValue<Tuple<DateTime, DateTime>>("ReportDate");
+                        DateStart = selectDate.Item1.AddMinutes(-5);
+                        DateEnd = selectDate.Item2.AddMinutes(5);
+                    }
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);

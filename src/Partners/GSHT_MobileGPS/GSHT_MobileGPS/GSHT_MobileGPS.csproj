@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Styles\Theme1.xaml.cs">
+	    <DependentUpon>Theme1.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Styles\Theme3.xaml.cs">
+	    <DependentUpon>Theme3.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Styles\Theme2.xaml.cs">
+	    <DependentUpon>Theme2.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Authentication\LoginPage.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+
+</Project>

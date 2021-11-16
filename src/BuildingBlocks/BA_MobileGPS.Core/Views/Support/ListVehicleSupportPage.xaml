@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.ListVehicleSupportPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    Title="Chọn phương tiện xử lý"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="FontSizeTextPut11">11</x:Double>
+            <Color x:Key="grid2">#E1F4FF</Color>
+            <Color x:Key="colorlb1">#00ADE5</Color>
+            <Color x:Key="colorItem">#E0FFFF</Color>
+            <Style x:Key="LabelNaviga" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!--  Tiêu đề  -->
+    <ContentPage.Content>
+        <Grid
+            BackgroundColor="{DynamicResource WhiteColor}"
+            RowDefinitions="Auto,*,Auto"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <pancake:PancakeView
+                Padding="15"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="FillAndExpand" Spacing="15">
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="White"
+                        BorderColor="{DynamicResource TextPlaceHolderColor}"
+                        CornerRadius="22"
+                        HasShadow="False"
+                        HeightRequest="45">
+
+                        <StackLayout
+                            Padding="0"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <pancake:PancakeView
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="22"
+                                HeightRequest="45"
+                                WidthRequest="45">
+                                <controls:IconView
+                                    Margin="13"
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    HeightRequest="20"
+                                    Source="ic_search.png"
+                                    WidthRequest="20" />
+                            </pancake:PancakeView>
+                            <Entry
+                                x:Name="entrySearch"
+                                FontSize="14"
+                                HeightRequest="40"
+                                HorizontalOptions="FillAndExpand"
+                                InputTransparent="False"
+                                Placeholder="Tìm kiếm phương tiện"
+                                PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
+                                Text="{Binding CarSearch}"
+                                TextColor="{DynamicResource TextPrimaryColor}"
+                                VerticalOptions="Center">
+                                <Entry.Behaviors>
+                                    <prismbehaviors:EventToCommandBehavior
+                                        Command="{Binding SearchVehicleGroupCommand}"
+                                        EventArgsConverter="{StaticResource TextChangedEventArgsConverter}"
+                                        EventName="TextChanged" />
+                                </Entry.Behaviors>
+                                <Entry.Effects>
+                                    <effects:BorderlessEffect />
+                                </Entry.Effects>
+                            </Entry>
+                        </StackLayout>
+                    </Frame>
+                    <Label
+                        FontSize="13"
+                        HorizontalOptions="StartAndExpand"
+                        LineBreakMode="MiddleTruncation"
+                        Style="{DynamicResource LabelNaviga}"
+                        Text="Quý khách vui lòng chọn phương tiện cần kiểm tra"
+                        TextColor="{DynamicResource PrimaryColor}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </pancake:PancakeView>
+            <Grid Grid.Row="1" Margin="0,10,0,0">
+                <syncfusion:SfListView
+                    x:Name="listMenu"
+                    ItemSize="55"
+                    ItemsSource="{Binding ListVehicleGroup, Mode=TwoWay}"
+                    SelectionBackgroundColor="{DynamicResource WhiteColor}"
+                    TapCommand="{Binding SelectedTapGroupCommand}">
+                    <syncfusion:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Spacing="2.5">
+                                <BoxView StyleClass="SlimLine" />
+                                <StackLayout
+                                    Padding="15,0,15,0"
+                                    HorizontalOptions="StartAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Grid Grid.Column="0">
+                                        <Image
+                                            HeightRequest="25"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding IsSelected}"
+                                            Source="selected.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="25" />
+                                        <Image
+                                            HeightRequest="25"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding IsSelected, Converter={StaticResource InvertBooleanConverter}}"
+                                            Source="notSelected.png"
+                                            VerticalOptions="Center"
+                                            WidthRequest="25" />
+                                    </Grid>
+                                    <Image
+                                        HeightRequest="25"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Source="{Binding IconImage}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="25" />
+                                    <Label
+                                        HorizontalOptions="CenterAndExpand"
+                                        LineBreakMode="MiddleTruncation"
+                                        Style="{DynamicResource LabelItem}"
+                                        Text="{Binding VehiclePlate}"
+                                        TextColor="Black"
+                                        VerticalOptions="CenterAndExpand" />
+
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfListView.ItemTemplate>
+                </syncfusion:SfListView>
+                <StackLayout
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasVehicleGroup}"
+                    Orientation="Vertical"
+                    Spacing="0"
+                    VerticalOptions="CenterAndExpand">
+                    <!--  Image for display svg image  -->
+                    <ffsvg:SvgCachedImage
+                        Margin="{x:OnIdiom Phone='0,0,0,0',
+                                           Desktop='0',
+                                           Tablet='0'}"
+                        HeightRequest="200"
+                        Source="NoItem.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="200" />
+                    <Label
+                        FontSize="Large"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="Không có dữ liệu" />
+                </StackLayout>
+            </Grid>
+            <StackLayout
+                Grid.Row="2"
+                HeightRequest="60"
+                IsVisible="{Binding HasChooseVehicleGroup}"
+                Spacing="0">
+                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                <buttons:SfButton
+                    x:Name="sfButtonAddExpense"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Command="{Binding NavigateCommand}"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Tiếp tục"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200" />
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

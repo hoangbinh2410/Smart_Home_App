@@ -61,6 +61,7 @@
     <Compile Include="CustomRender\IconViewRenderer.cs" />
     <Compile Include="CustomRender\NullableDatePickerRenderer.cs" />
     <Compile Include="CustomRender\ScaleImageView.cs" />
+    <Compile Include="CustomRender\TransparentWebViewRenderer.cs" />
     <Compile Include="CustomRender\ZoomImageRenderer.cs" />
     <Compile Include="DependencyServices\AndroidAlert.cs" />
     <Compile Include="DependencyServices\AndroidDownloader.cs" />
@@ -145,13 +146,13 @@
       <Version>8.1.97</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
-      <Version>2.0.0.13</Version>
+      <Version>2.0.0.14</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>19.3.0.45</Version>
+      <Version>19.3.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRangeSlider">
-      <Version>19.3.0.45</Version>
+      <Version>19.3.0.48</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.Android">
       <Version>3.2.0.1</Version>
@@ -195,20 +196,20 @@
     <PackageReference Include="Sharpnado.Presentation.Forms">
       <Version>1.7.1</Version>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.3.0.45" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.3.0.45" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.3.0.48" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.3.0.48" />
     <!--<PackageReference Include="Toasts.Forms.Plugin">
       <Version>3.3.2</Version>
     </PackageReference>-->
@@ -1272,9 +1273,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_ratingstar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_sharecircle.png" />
@@ -4067,6 +4065,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fixsupport_.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -179,16 +179,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Title = MobileResource.Camera_Lable_ExportVideo,
                 Icon = "ic_exportvideo.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.ViewModuleRoute),
+                IsEnable = CheckPermision((int)PermissionKeyNames.UploadVideoStream),
                 MenuType = MenuKeyType.ExportVideo
             });
-            //list.Add(new MenuPageItem
-            //{
-            //    Title = "Hỗ trợ khách hàng",
-            //    Icon = "ic_helpcustomer.png",
-            //    IsEnable = true,
-            //    MenuType = MenuKeyType.HelpCustomer
-            //});
+            list.Add(new MenuPageItem
+            {
+                Title = "Hỗ trợ khách hàng",
+                Icon = "ic_helpcustomer.png",
+                IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
+                MenuType = MenuKeyType.HelpCustomer
+            });
             //list.Add(new MenuPageItem
             //{
             //    Title = "SOS",
