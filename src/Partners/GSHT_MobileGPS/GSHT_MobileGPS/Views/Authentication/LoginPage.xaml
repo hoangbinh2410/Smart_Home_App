@@ -14,348 +14,273 @@
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     prism:ViewModelLocator.AutowireViewModel="True">
-    <Grid RowSpacing="0">
-        <Grid RowDefinitions="*,2.8*">
-            <StackLayout
-                Grid.Row="0"
-                Margin="0,35,0,0"
-                Padding="20,0"
-                HorizontalOptions="End"
-                Orientation="Horizontal"
-                VerticalOptions="Start">
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding PushtoLanguageCommand}" />
-                </StackLayout.GestureRecognizers>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelNaviga" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Color x:Key="LoginBntColor">#2DADB6</Color>
+            <Color x:Key="ColorText">#000000</Color>
+            <Style x:Key="Text14B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text14" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text18" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid BackgroundColor="White" RowSpacing="0">
+            <Grid RowDefinitions="*,2.8*">
+                <StackLayout
+                    Grid.Row="0"
+                    Margin="0,35,0,0"
+                    Padding="20,0"
+                    HorizontalOptions="End"
+                    Orientation="Horizontal"
+                    VerticalOptions="Start">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PushtoLanguageCommand}" />
+                    </StackLayout.GestureRecognizers>
+                    <ff:CachedImage
+                        BitmapOptimizations="True"
+                        HeightRequest="25"
+                        Source="{Binding Language.Icon}"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
+                    <Label Text="{Binding Language.Description}" VerticalOptions="Center" />
+                </StackLayout>
                 <ff:CachedImage
-                    BitmapOptimizations="True"
-                    HeightRequest="25"
-                    Source="{Binding Language.Icon}"
-                    VerticalOptions="Center"
-                    WidthRequest="25" />
-                <Label
-                    Text="{Binding Language.Description}"
-                    TextColor="{DynamicResource LoginTextColor}"
-                    VerticalOptions="Center" />
-            </StackLayout>
-            <ff:CachedImage
-                x:Name="logo"
-                Grid.Row="0"
-                HeightRequest="90"
-                HorizontalOptions="Center"
-                Source="logo_Login.png"
-                VerticalOptions="EndAndExpand"
-                WidthRequest="180" />
-            <StackLayout Grid.Row="1" Spacing="15">
-                <Grid
-                    RowDefinitions="Auto,Auto,40,40"
-                    RowSpacing="5"
-                    VerticalOptions="CenterAndExpand">
-                    <!--  Entry  -->
-                    <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorText="{Binding UserName.ErrorFirst}"
-                        FocusedColor="Transparent"
-                        FocusedStrokeWidth="0"
-                        HasError="{Binding UserName.IsNotValid}"
-                        StyleClass="LoginEntry"
-                        UnfocusedColor="Transparent"
-                        UnfocusedStrokeWidth="0">
-                        <!--<input:SfTextInputLayout.LeadingView>
-                            <sh:Shadows
-                                CornerRadius="21"
-                                HeightRequest="42"
-                                Scale="{OnPlatform Android=1.02,
-                                                   iOS=1.01}"
-                                WidthRequest="42">
-                                <sh:Shadows.Shades>
-                                    <sh:ImmutableShades>
-                                        <sh:Shade
-                                            BlurRadius="4"
-                                            Opacity="0.3"
-                                            Offset="-2,0"
-                                            Color="{DynamicResource WhiteColor}" />
-                                    </sh:ImmutableShades>
-                                </sh:Shadows.Shades>
-                                <sharpnado:MaterialFrame
-                                    Padding="0"
-                                    CornerRadius="21"
-                                    HeightRequest="42"
-                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                    TranslationX="{OnPlatform Android=-1.2,
-                                                              iOS=-2.2}"
-                                    TranslationY="0.5"
-                                    WidthRequest="42">
-                                    <controls:FontAwesomeIcon
-                                        Margin="9"
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center"
-                                        Text="{x:Static fontawesome:FontAwesomeIcons.User}"
-                                        TextColor="{DynamicResource WhiteColor}"
-                                        VerticalOptions="CenterAndExpand" />
-                        -->
-                        <!--<controls:IconView
-                                        Margin="9"
-                                        Foreground="{DynamicResource WhiteColor}"
-                                        HorizontalOptions="Center"
-                                        Source="ic_userwhite.png"
-                                        VerticalOptions="CenterAndExpand" />-->
-                        <!--
-                                </sharpnado:MaterialFrame>
-
-                            </sh:Shadows>
-                        </input:SfTextInputLayout.LeadingView>-->
-                        <input:SfTextInputLayout.InputView>
-                            <StackLayout Spacing="0">
-                                <Entry
-                                    x:Name="account"
-                                    HeightRequest="{OnPlatform Android=40,
-                                                               iOS=30}"
-                                    Text="{Binding UserName.Value}">
-                                    <Entry.Effects>
-                                        <effects:ClearEntryEffect />
-                                    </Entry.Effects>
-                                </Entry>
-                                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
-                            </StackLayout>
-                        </input:SfTextInputLayout.InputView>
-                    </input:SfTextInputLayout>
-                    <input:SfTextInputLayout
-                        x:Name="textPass"
-                        Grid.Row="1"
-                        ErrorText="{Binding Password.ErrorFirst}"
-                        FocusedStrokeWidth="0"
-                        HasError="{Binding Password.IsNotValid}"
-                        StyleClass="LoginEntry"
-                        UnfocusedStrokeWidth="0">
-                        <!--<input:SfTextInputLayout.LeadingView>
-                            <sh:Shadows
-                                CornerRadius="21"
-                                HeightRequest="42"
-                                Scale="{OnPlatform Android=1.02,
-                                                   iOS=1.01}"
-                                WidthRequest="42">
-                                <sh:Shadows.Shades>
-                                    <sh:ImmutableShades>
-                                        <sh:Shade
-                                            BlurRadius="4"
-                                            Opacity="0.3"
-                                            Offset="-2,0"
-                                            Color="{DynamicResource WhiteColor}" />
-                                    </sh:ImmutableShades>
-                                </sh:Shadows.Shades>
-                                <sharpnado:MaterialFrame
-                                    Padding="0"
-                                    CornerRadius="21"
-                                    HeightRequest="42"
-                                    LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
-                                    TranslationX="{OnPlatform Android=-1.2,
-                                                              iOS=-2.2}"
-                                    TranslationY="0.5"
-                                    WidthRequest="42">
+                    x:Name="logo"
+                    Grid.Row="0"
+                    HeightRequest="150"
+                    HorizontalOptions="Center"
+                    Source="Logo_GSHT.png"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="180" />
+                <StackLayout Grid.Row="1" Spacing="10">
+                    <Grid
+                        Padding="30,0,30,0"
+                        RowDefinitions="Auto,40"
+                        RowSpacing="40"
+                        VerticalOptions="CenterAndExpand">
+                        <StackLayout Grid.Row="0" Spacing="30">
+                            <!--  Entry  -->
+                            <!--  user  -->
+                            <input:SfTextInputLayout
+                                ContainerType="Filled"
+                                ErrorText="{Binding UserName.ErrorFirst}"
+                                HasError="{Binding UserName.IsNotValid}"
+                                HorizontalOptions="FillAndExpand"
+                                StyleClass="LoginEntry">
+                                <input:SfTextInputLayout.LeadingView>
                                     <controls:IconView
                                         Margin="9"
-                                        Foreground="{DynamicResource WhiteColor}"
+                                        Foreground="{DynamicResource ColorText}"
                                         HorizontalOptions="Center"
-                                        Source="ic_lock.png"
+                                        Source="ic_account.png"
                                         VerticalOptions="CenterAndExpand" />
-                                </sharpnado:MaterialFrame>
-                            </sh:Shadows>
-                        </input:SfTextInputLayout.LeadingView>-->
-                        <input:SfTextInputLayout.InputView>
-                            <StackLayout Spacing="0">
-                                <Entry
-                                    x:Name="pass"
-                                    HeightRequest="{OnPlatform Android=40,
-                                                               iOS=30}"
-                                    IsPassword="True"
-                                    Text="{Binding Password.Value}">
-                                    <Entry.Effects>
-                                        <effects:ClearEntryEffect />
-                                    </Entry.Effects>
-                                </Entry>
-                                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                                </input:SfTextInputLayout.LeadingView>
+                                <input:SfTextInputLayout.InputView>
+                                    <Entry
+                                        x:Name="account"
+                                        HeightRequest="{OnPlatform Android=40,
+                                                                   iOS=30}"
+                                        Text="{Binding UserName.Value}">
+                                        <Entry.Effects>
+                                            <effects:ClearEntryEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </input:SfTextInputLayout.InputView>
+                            </input:SfTextInputLayout>
+
+                            <!--  Pass  -->
+                            <input:SfTextInputLayout
+                                x:Name="textPass"
+                                Grid.Row="1"
+                                ContainerType="Filled"
+                                ErrorText="{Binding Password.ErrorFirst}"
+                                HasError="{Binding Password.IsNotValid}"
+                                HorizontalOptions="FillAndExpand"
+                                StyleClass="LoginEntry">
+                                <input:SfTextInputLayout.LeadingView>
+                                    <controls:IconView
+                                        Margin="9"
+                                        Foreground="{DynamicResource ColorText}"
+                                        HorizontalOptions="Center"
+                                        Source="ic_lock_light.png"
+                                        VerticalOptions="CenterAndExpand" />
+                                </input:SfTextInputLayout.LeadingView>
+                                <input:SfTextInputLayout.InputView>
+                                    <Entry
+                                        x:Name="pass"
+                                        HeightRequest="{OnPlatform Android=40,
+                                                                   iOS=30}"
+                                        IsPassword="True"
+                                        Text="{Binding Password.Value}">
+                                        <Entry.Effects>
+                                            <effects:ClearEntryEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </input:SfTextInputLayout.InputView>
+                            </input:SfTextInputLayout>
+
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="0"
+                                WidthRequest="300">
+                                <Grid TranslationX="-5">
+                                    <buttons:SfCheckBox
+                                        BorderWidth="1"
+                                        CornerRadius="0"
+                                        FontFamily="{StaticResource myFontFamily}"
+                                        IsChecked="False"
+                                        ScaleX="0.8"
+                                        ScaleY="0.8"
+                                        UncheckedColor="{DynamicResource ColorText}" />
+                                    <buttons:SfCheckBox
+                                        BorderWidth="0.5"
+                                        CheckedColor="Transparent"
+                                        CornerRadius="0"
+                                        IsChecked="{Binding Rememberme}"
+                                        ScaleX="0.8"
+                                        ScaleY="0.8"
+                                        TickColor="{DynamicResource ColorText}"
+                                        UncheckedColor="Transparent" />
+                                </Grid>
+                                <Label
+                                    x:Name="checkautologin"
+                                    TextColor="{DynamicResource ColorText}"
+                                    TranslationX="-7"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    x:Name="forgotpassword"
+                                    HorizontalOptions="EndAndExpand"
+                                    TextColor="{DynamicResource ColorText}"
+                                    VerticalOptions="Center">
+                                    <Label.Behaviors>
+                                        <animation:ViewTappedBehavior AnimationType="Scale" />
+                                    </Label.Behaviors>
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
-                        </input:SfTextInputLayout.InputView>
-                    </input:SfTextInputLayout>
-                    <StackLayout
-                        Grid.Row="2"
-                        HorizontalOptions="CenterAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="0"
-                        WidthRequest="300">
-                        <Grid TranslationX="-5">
-                            <buttons:SfCheckBox
-                                BorderWidth="1"
-                                CornerRadius="0"
-                                FontFamily="{StaticResource myFontFamily}"
-                                IsChecked="False"
-                                ScaleX="0.8"
-                                ScaleY="0.8"
-                                UncheckedColor="{DynamicResource LoginTextColor}" />
-                            <buttons:SfCheckBox
-                                BorderWidth="0.5"
-                                CheckedColor="Transparent"
-                                CornerRadius="0"
-                                IsChecked="{Binding Rememberme}"
-                                ScaleX="0.8"
-                                ScaleY="0.8"
-                                TickColor="{DynamicResource LoginTextColor}"
-                                UncheckedColor="Transparent" />
-                        </Grid>
-                        <Label
-                            x:Name="checkautologin"
-                            TextColor="{DynamicResource LoginTextColor}"
-                            TranslationX="-7"
-                            VerticalOptions="Center" />
-                        <Label
-                            x:Name="forgotpassword"
-                            HorizontalOptions="EndAndExpand"
-                            TextColor="{DynamicResource LoginTextColor}"
-                            VerticalOptions="Center">
-                            <Label.Behaviors>
-                                <animation:ViewTappedBehavior AnimationType="Scale" />
-                            </Label.Behaviors>
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </StackLayout>
-                    <!--<sh:Shadows
-                        x:Name="TabHost"
-                        Grid.Row="3"
-                        CornerRadius="20">
-                        <sh:Shadows.Shades>
-                            <sh:ImmutableShades>
-                                <sh:Shade
-                                    BlurRadius="4"
-                                    Opacity="0.4"
-                                    Offset="0,0"
-                                    Color="{DynamicResource WhiteColor}" />
-                            </sh:ImmutableShades>
-                        </sh:Shadows.Shades>
+                        </StackLayout>
+
                         <Button
                             x:Name="btnLogin"
+                            Grid.Row="1"
                             Padding="0"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            BackgroundColor="{DynamicResource LoginBntColor}"
                             Command="{Binding LoginCommand}"
                             CornerRadius="20"
                             HeightRequest="38"
-                            HorizontalOptions="Center"
+                            HorizontalOptions="FillAndExpand"
                             TextColor="White"
                             WidthRequest="300" />
-                    </sh:Shadows>-->
-                    <Frame
-                        x:Name="TabHost"
-                        Grid.Row="3"
-                        CornerRadius="20">
-                        <!--<sh:Shadows.Shades>
-                            <sh:ImmutableShades>
-                                <sh:Shade
-                                    BlurRadius="4"
-                                    Opacity="0.4"
-                                    Offset="0,0"
-                                    Color="{DynamicResource WhiteColor}" />
-                            </sh:ImmutableShades>
-                        </sh:Shadows.Shades>-->
-                        <Button
-                            x:Name="btnLogin"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            Command="{Binding LoginCommand}"
-                            CornerRadius="20"
-                            HeightRequest="38"
-                            HorizontalOptions="Center"
-                            TextColor="White"
-                            WidthRequest="300" />
-                    </Frame>
-                </Grid>
-                <!--  Footer  -->
-                <Grid
-                    Margin="0,0,0,20"
-                    HeightRequest="40"
-                    VerticalOptions="EndAndExpand">
-                    <StackLayout
-                        Margin="20,0,0,0"
-                        HorizontalOptions="CenterAndExpand"
-                        Orientation="Horizontal"
-                        Spacing="20">
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
-                            HeightRequest="42"
-                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
-                            WidthRequest="42">
-                            <controls:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource LoginIconColor}"
-                                Source="ic_phone.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
-                            HeightRequest="42"
-                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
-                            WidthRequest="42">
-                            <controls:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource LoginIconColor}"
-                                Source="ic_mail.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
-                            HeightRequest="42"
-                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
-                            WidthRequest="42">
-                            <controls:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource LoginIconColor}"
-                                Source="ic_global.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
-                            HeightRequest="42"
-                            IsVisible="{Binding IsShowRegisterSupport}"
-                            LightThemeBackgroundColor="{DynamicResource LoginIconBackgroundColor}"
-                            WidthRequest="42">
-                            <controls:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource LoginIconColor}"
-                                Source="ic_chatsupport.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushtoRegisterSupportCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                    </StackLayout>
-                    <!--<controls:IconView
-                        Margin="0,0,20,0"
-                        Foreground="{DynamicResource LoginIconBackgroundColor}"
-                        HorizontalOptions="End"
-                        Source="ic_foursquare.png"
-                        WidthRequest="40">
-                        <controls:IconView.Behaviors>
-                            <animation:ViewTappedBehavior AnimationType="Scale" />
-                        </controls:IconView.Behaviors>
-                        <controls:IconView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OpenLoginFragmentCommand}" NumberOfTapsRequired="1" />
-                        </controls:IconView.GestureRecognizers>
-                    </controls:IconView>-->
-                </Grid>
-            </StackLayout>
+                    </Grid>
+                    <!--  Footer  -->
+                    <Grid
+                        Margin="0,0,0,20"
+                        HeightRequest="40"
+                        VerticalOptions="EndAndExpand">
+                        <StackLayout
+                            Margin="20,0,0,0"
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="20">
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="21"
+                                HeightRequest="42"
+                                LightThemeBackgroundColor="Transparent"
+                                WidthRequest="42">
+                                <controls:IconView
+                                    Margin="4"
+                                    Foreground="{DynamicResource LoginBntColor}"
+                                    Source="ic_phone.png"
+                                    VerticalOptions="CenterAndExpand" />
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                            </sharpnado:MaterialFrame>
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="21"
+                                HeightRequest="42"
+                                LightThemeBackgroundColor="Transparent"
+                                WidthRequest="42">
+                                <controls:IconView
+                                    Margin="4"
+                                    Foreground="{DynamicResource LoginBntColor}"
+                                    Source="ic_mail.png"
+                                    VerticalOptions="CenterAndExpand" />
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                            </sharpnado:MaterialFrame>
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="21"
+                                HeightRequest="42"
+                                LightThemeBackgroundColor="Transparent"
+                                WidthRequest="42">
+                                <controls:IconView
+                                    Margin="6"
+                                    Foreground="{DynamicResource LoginBntColor}"
+                                    Source="ic_global.png"
+                                    VerticalOptions="CenterAndExpand" />
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                            </sharpnado:MaterialFrame>
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="21"
+                                HeightRequest="42"
+                                IsVisible="{Binding IsShowRegisterSupport}"
+                                LightThemeBackgroundColor="Transparent"
+                                WidthRequest="42">
+                                <controls:IconView
+                                    Margin="6"
+                                    Foreground="{DynamicResource LoginBntColor}"
+                                    Source="ic_chatsupport.png"
+                                    VerticalOptions="CenterAndExpand" />
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushtoRegisterSupportCommand}" NumberOfTapsRequired="1" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                            </sharpnado:MaterialFrame>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollView>
 </ContentPage>
