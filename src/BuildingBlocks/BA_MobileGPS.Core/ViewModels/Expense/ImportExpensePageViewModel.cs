@@ -16,11 +16,12 @@ using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
-
+using Xamarin.Forms.Extensions;
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class ImportExpensePageViewModel : ViewModelBase
@@ -70,11 +71,9 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("MenuExpense") && parameters.GetValue<List<ListExpenseCategoryByCompanyRespone>>("MenuExpense") is List<ListExpenseCategoryByCompanyRespone> ListExpense)
             {
                 ListExpenseCategory = ListExpense;
-               // GetListExpenseCategory(ListExpense);
-                if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj)
+                if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj )
                 {
                     ExpenseDetail = obj;
-                    //GetViewPage(obj, ListExpense);
                     GetListExpenseCategory(obj,ListExpense);
                 }
                 else
@@ -189,6 +188,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
+                ImagePathLocal = obj.Photo;
                 ListExpenseCategory = ListExpense.ToList();
                 foreach (var item in ListExpense.ToList())
                 {
@@ -252,7 +252,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var RequestExpense = new ImportExpenseRequest()
                     {
                         Id = ExpenseDetail.ID,
-                        Photo = ImagePathLocal,
+                        Photo = ImagePathLocal.ToBase64(),
                         OtherAddress = ExpenseDetail.OtherAddress,
                         ExpenseCost = ExpenseDetail.ExpenseCost,
                         FK_CompanyID = UserInfo.CompanyId,
@@ -290,7 +290,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     var RequestExpense = new ImportExpenseRequest()
                     {
                         Id = ExpenseDetail.ID,
-                        Photo = ImagePathLocal,
+                        Photo = ImagePathLocal.ToBase64(),
+                       // Photo = GetBase64StringForImage(ImagePathLocal),
                         OtherAddress = ExpenseDetail.OtherAddress,
                         ExpenseCost = ExpenseDetail.ExpenseCost,
                         FK_CompanyID = UserInfo.CompanyId,
@@ -526,7 +527,23 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return;
             }
-        }    
+        }     
+        ////CHuyển ảnh từ base64 string to photo
+        //private void GetImage(string photo)
+        //{
+        //    Image test = new Image();
+        //    byte[] Base64Stream = Convert.FromBase64String(photo);
+        //    test.Source = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
+
+
+        //}
+        //// Chuyển từ image to base64
+        //private  string GetBase64StringForImage(string imgPath)
+        //{
+        //    byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+        //    string base64String = Convert.ToBase64String(imageBytes);
+        //    return base64String;
+        //}
         #endregion PrivateMethod
     }
 }
