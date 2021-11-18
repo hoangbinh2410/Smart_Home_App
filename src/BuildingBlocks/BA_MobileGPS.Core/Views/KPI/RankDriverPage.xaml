@@ -922,7 +922,7 @@
                                 BackgroundColor="{StaticResource PrimaryColor}"
                                 CornerRadius="5"
                                 HorizontalOptions="FillAndExpand">
-                                <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
+                                <Grid ColumnDefinitions=".1*,.4*,.2*,.2*,.2*">
                                     <Label
                                         Grid.Column="0"
                                         HorizontalOptions="Center"
@@ -955,6 +955,15 @@
                                         Text="Xếp hạng"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="Center" />
+
+                                    <Label
+                                        Grid.Column="4"
+                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalTextAlignment="Start"
+                                        LineBreakMode="WordWrap"
+                                        Text="Chi tiết"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="Center" />
                                 </Grid>
                             </pancake:PancakeView>
                             <Grid
@@ -979,7 +988,7 @@
                                                 BackgroundColor="{Binding BacgroundYourDriver}"
                                                 CornerRadius="5"
                                                 HorizontalOptions="FillAndExpand">
-                                                <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
+                                                <Grid ColumnDefinitions=".1*,.4*,.2*,.2*,.2*">
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Center"
@@ -1020,6 +1029,19 @@
                                                         LineBreakMode="WordWrap"
                                                         Text="{Binding AverageRank}"
                                                         VerticalOptions="Center" />
+
+                                                    <Label
+                                                        Grid.Column="4"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="WordWrap"
+                                                        Text="Xem"
+                                                        TextDecorations="Underline"
+                                                        VerticalOptions="Center">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference listViewUser}, Path=BindingContext.NavigateRankUserCommand}" CommandParameter="{Binding .}" />
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
                                                 </Grid>
                                             </pancake:PancakeView>
                                         </DataTemplate>

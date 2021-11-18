@@ -38,10 +38,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters != null)
             {
                 if (parameters.GetValue<int>(ParameterKey.KPIRankDriverID) is int driverID
-                    && parameters.TryGetValue(ParameterKey.KPIRankPage, out DriverRankByDay rankByDay))
+                    && parameters.TryGetValue(ParameterKey.KPIRankPage, out DateTime date))
                 {
                     DriverID = driverID;
-                    DateSearch = rankByDay.Date;
+                    DateSearch = date;
                     GetDriverKpiChart(driverID);
                 }
             }
@@ -163,7 +163,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
                             }
-
                         }
                     }
                     DrawChartSeries();
