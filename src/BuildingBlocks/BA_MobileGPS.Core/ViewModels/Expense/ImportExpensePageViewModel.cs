@@ -18,7 +18,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
@@ -145,10 +147,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             [Description("Địa điểm khác")]
             Place = 1,
-            [Description("bg_Account.png")]
-            Image = 2
-            //[Description("https://v5m6g2b4.rocketcdn.me/wp-content/uploads/2020/12/8fc0bff637.jpeg")]
+            //[Description("bg_Account.png")]
             //Image = 2
+            [Description("https://v5m6g2b4.rocketcdn.me/wp-content/uploads/2020/12/8fc0bff637.jpeg")]
+            Image = 2
         }
 
         private LocationStationResponse _selectedLocation = new LocationStationResponse();
@@ -189,7 +191,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                ImagePathLocal = obj.Photo;
+                
                 ListExpenseCategory = ListExpense.ToList();
                 foreach (var item in ListExpense.ToList())
                 {
@@ -224,6 +226,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (!string.IsNullOrEmpty(obj.OtherAddress))
                 {
                     IHasOtherPlace = true;
+                }
+                if (!string.IsNullOrEmpty(obj.Photo))
+                {
+                    ImagePathLocal = obj.Photo;
                 }
             });
         }
@@ -527,10 +533,28 @@ namespace BA_MobileGPS.Core.ViewModels
         //// Chuyển từ image to base64
         private string GetBase64StringForImage(string imgPath)
         {
-            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
-            string base64String = Convert.ToBase64String(imageBytes);
-            return base64String;
-        }
+            if (ImagePathLocal == DataItem.Image.ToDescription())
+            {
+                WebClient webClient = new WebClient();
+                string base64String;
+                try
+                {
+                    byte[] imageBytes = webClient.DownloadData("https://v5m6g2b4.rocketcdn.me/wp-content/uploads/2020/12/8fc0bff637.jpeg");
+                    base64String = Convert.ToBase64String(imageBytes);
+                    return base64String;
+                }
+                catch
+                {
+                    return "1";
+                }            
+            }
+            else
+            {
+                byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+                string base64String = Convert.ToBase64String(imageBytes);
+                return base64String;
+            }                    
+        }      
         #endregion PrivateMethod
     }
 }
