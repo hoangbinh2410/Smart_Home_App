@@ -249,7 +249,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 if (!string.IsNullOrEmpty(SelectedExpense.Name))
-                {
+                {                   
                     var RequestExpense = new ImportExpenseRequest()
                     {
                         Id = ExpenseDetail.ID,
