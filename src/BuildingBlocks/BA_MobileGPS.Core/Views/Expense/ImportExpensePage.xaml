@@ -272,6 +272,7 @@
 
                     <!--  Thêm hình ảnh  -->
                     <!--  , Converter={StaticResource HasDataConverter}  -->
+                    <!--<StackLayout >-->
                     <StackLayout IsVisible="{Binding SelectedExpense.HasPhoto}">
                         <StackLayout
                             HorizontalOptions="Start"
@@ -301,6 +302,8 @@
                                     HorizontalOptions="FillAndExpand"
                                     Source="{Binding ImagePathLocal}"
                                     VerticalOptions="FillAndExpand" />
+                                <!--  Source="https://v5m6g2b4.rocketcdn.me/wp-content/uploads/2020/12/8fc0bff637.jpeg"  -->
+
                             </Frame>
                             <Frame
                                 Margin="0,5,5,0"

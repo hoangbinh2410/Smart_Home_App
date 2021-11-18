@@ -16,11 +16,12 @@ using Prism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
-
+using Xamarin.Forms.Extensions;
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class ImportExpensePageViewModel : ViewModelBase
@@ -51,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SaveExpenseCommand = new DelegateCommand(SaveExpense);
             SaveAndCountinuteCommand = new DelegateCommand(SaveAndCountinute);
             PushComboboxPlacePage = new DelegateCommand(PushComboboxPlace);
-            PushComboboxExpensePage = new DelegateCommand(PushComboboxExpensene);           
+            PushComboboxExpensePage = new DelegateCommand(PushComboboxExpensene);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateDataCombobox);
             _ExpenseService = ExpenseService;
             _PageDialog = PageDialog;
@@ -70,12 +71,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("MenuExpense") && parameters.GetValue<List<ListExpenseCategoryByCompanyRespone>>("MenuExpense") is List<ListExpenseCategoryByCompanyRespone> ListExpense)
             {
                 ListExpenseCategory = ListExpense;
-               // GetListExpenseCategory(ListExpense);
                 if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj)
                 {
                     ExpenseDetail = obj;
-                    //GetViewPage(obj, ListExpense);
-                    GetListExpenseCategory(obj,ListExpense);
+                    GetListExpenseCategory(obj, ListExpense);
                 }
                 else
                 {
@@ -104,11 +103,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            base.OnNavigatedFrom(parameters);          
+            base.OnNavigatedFrom(parameters);
         }
 
         public override void OnDestroy()
-        {          
+        {
             EventAggregator.GetEvent<SelectComboboxEvent>().Unsubscribe(UpdateDataCombobox);
         }
 
@@ -146,9 +145,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             [Description("Địa điểm khác")]
             Place = 1,
-
             [Description("bg_Account.png")]
             Image = 2
+            //[Description("https://v5m6g2b4.rocketcdn.me/wp-content/uploads/2020/12/8fc0bff637.jpeg")]
+            //Image = 2
         }
 
         private LocationStationResponse _selectedLocation = new LocationStationResponse();
@@ -165,7 +165,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion Property
 
         #region PrivateMethod
-      
+
         //chọn ảnh
         private async void ChoseImage()
         {
@@ -183,12 +183,13 @@ namespace BA_MobileGPS.Core.ViewModels
                 PickImage();
             }
         }
-   
-      // danh sách phí, danh sách địa điểm trong combobox
+
+        // danh sách phí, danh sách địa điểm trong combobox
         private void GetListExpenseCategory(ExpenseDetailsRespone obj, List<ListExpenseCategoryByCompanyRespone> ListExpense)
         {
             SafeExecute(async () =>
             {
+                ImagePathLocal = obj.Photo;
                 ListExpenseCategory = ListExpense.ToList();
                 foreach (var item in ListExpense.ToList())
                 {
@@ -238,7 +239,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                ImagePathLocal = DataItem.Image.ToDescription();
+                ImagePathLocal = DataItem.Image.ToDescription();             
             }
         }
 
@@ -252,7 +253,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var RequestExpense = new ImportExpenseRequest()
                     {
                         Id = ExpenseDetail.ID,
-                        Photo = ImagePathLocal,
+                        Photo = GetBase64StringForImage(ImagePathLocal),
                         OtherAddress = ExpenseDetail.OtherAddress,
                         ExpenseCost = ExpenseDetail.ExpenseCost,
                         FK_CompanyID = UserInfo.CompanyId,
@@ -290,7 +291,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     var RequestExpense = new ImportExpenseRequest()
                     {
                         Id = ExpenseDetail.ID,
-                        Photo = ImagePathLocal,
+                        Photo = GetBase64StringForImage(ImagePathLocal),
                         OtherAddress = ExpenseDetail.OtherAddress,
                         ExpenseCost = ExpenseDetail.ExpenseCost,
                         FK_CompanyID = UserInfo.CompanyId,
@@ -303,7 +304,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
                     if (IInsertExpense)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);                      
+                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
                         SelectedExpense = new ListExpenseCategoryByCompanyRespone();
                         SelectedLocation = new LocationStationResponse();
                         ExpenseDetail.Note = String.Empty;
@@ -355,7 +356,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (fileAvatar == null)
                         return;
                     ImagePathLocal = fileAvatar.Path;
-                    ProcessImage();
                     fileAvatar.Dispose();
                 });
             });
@@ -385,23 +385,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     ImagePathLocal = fileAvatar.Path;
 
-                    ProcessImage();
-
                     fileAvatar.Dispose();
                 });
             });
         }
-
-        private async void ProcessImage()
-        {
-            var @params = new NavigationParameters
-            {
-                { "ImagePath", ImagePathLocal }
-            };
-
-            await NavigationService.NavigateAsync("BaseNavigationPage/ImageEditorPage", @params, true, true);
-        }
-
+      
         //danh sách Địa điẻm
         public async void PushComboboxPlace()
         {
@@ -465,7 +453,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 IsBusy = false;
             }
-        }       
+        }
         // Trả về giá trị loại phí được chọn
         private void FilterExpense(ComboboxResponse param)
         {
@@ -501,7 +489,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedExpenseName = dataResponse;
                     FilterExpense(dataResponse);
                 }
-                
+
 
             }
         }
@@ -526,7 +514,23 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return;
             }
-        }    
+        }
+        ////CHuyển ảnh từ base64 string to photo
+        //private void GetImage(string photo)
+        //{
+        //    Image test = new Image();
+        //    byte[] Base64Stream = Convert.FromBase64String(photo);
+        //    test.Source = ImageSource.FromStream(() => new MemoryStream(Base64Stream));
+
+
+        //}
+        //// Chuyển từ image to base64
+        private string GetBase64StringForImage(string imgPath)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
         #endregion PrivateMethod
     }
 }
