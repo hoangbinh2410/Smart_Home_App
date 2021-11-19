@@ -137,7 +137,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", FromDate },
                     { "PickerType", ComboboxType.First }
                 };
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
             });
         }
 
@@ -151,7 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", ToDate },
                     { "PickerType", ComboboxType.Second }
                 };
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
             });
         }
 
@@ -196,10 +196,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         MenuItems = await _ExpenseService.GetListExpense(request);
-                        if(MenuItems == null || MenuItems.Count ==0)
-                        {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
-                        }    
+                        //if(MenuItems == null || MenuItems.Count ==0)
+                        //{
+                        //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
+                        //}    
                         SumMoney();
                     }
                 }
@@ -295,19 +295,20 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public void NavigateClicked(ItemTappedEventArgs item)
         {
-            if(Vehicle == null || Vehicle.PrivateCode == null)
-            {
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-                return;
-            }    
+            //if(Vehicle == null || Vehicle.PrivateCode == null)
+            //{
+            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+            //    return;
+            //}    
 
-            var parameters = new NavigationParameters
-            {
-                { ParameterKey.Vehicle, Vehicle }
-            };
+            var parameters = new NavigationParameters();
+            //{
+            //    { ParameterKey.Vehicle, Vehicle }
+            //};
 
             if (item != null && item.ItemData != null)
             {
+
                 parameters.Add("ExpenseDetails", item.ItemData);
             }
 

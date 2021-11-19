@@ -381,7 +381,7 @@
                                 FontSize="Large"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="Không có dữ liệu" />
+                                Text="Không có dữ liệu trong khoảng thời gian tìm kiếm" />
                         </StackLayout>
                     </Grid>
                 </StackLayout>

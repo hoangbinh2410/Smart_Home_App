@@ -6,6 +6,7 @@ using BA_MobileGPS.Entities.ResponeEntity.Expense;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Extensions;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.ListView.XForms;
@@ -172,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", ChooseDate },
                     { "PickerType", ComboboxType.Third }
                 };
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
             });
         }
         private void UpdateDateTime(PickerDateTimeResponse param)
@@ -212,8 +213,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 { "MenuExpense", ListMenuExpense},
                 { "ImportExpense", objExpense},
-            };
-
+            };           
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("ImportExpensePage", parameters);
@@ -242,7 +242,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                      ListExpenseName.Add(new ComboboxRequest()
                      {
                          Key = -1,
-                         Value = MobileResource.ReportSignalLoss_TitleStatus_All
+                         Value = DataItem.AllExpense.ToDescription()
                      });
                      foreach (var item in result.ToList())
                      {
@@ -257,13 +257,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         private void FilterData(ComboboxResponse param)
         {
             _isCall = false;
-            if (param != null && param.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
+            if (param != null && param.Value != DataItem.AllExpense.ToDescription())
             {
                 MenuItems = _menuItemsRemember.Where(x => x.Name == param.Value)?.ToList().ToObservableCollection(); ;
+                SumMoney();
             }
             else
             {
                 MenuItems = _menuItemsRemember.ToObservableCollection(); ;
+                SumMoney();
             }
         }
         private async void DeleteItemClicked(ExpenseDetailsRespone obj)
@@ -336,7 +338,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         {
                             TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
                             _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
-                            if (!string.IsNullOrEmpty(SelectedExpenseName.Value) && SelectedExpenseName.Value != MobileResource.ReportSignalLoss_TitleStatus_All)
+                            if (!string.IsNullOrEmpty(SelectedExpenseName.Value) && SelectedExpenseName.Value != DataItem.AllExpense.ToDescription())
                             {
                                 MenuItems = _menuItemsRemember.Where(y => y.Name == SelectedExpenseName.Value)?.ToList().ToObservableCollection(); ;
                             }
@@ -347,7 +349,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
+
                             TotalMoney = 0;
                             MenuItems = new ObservableCollection<ExpenseDetailsRespone>();
                             _menuItemsRemember = new List<ExpenseDetailsRespone>();
@@ -363,6 +365,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         public async void ExecuteExpenseNameCombobox()
         {
+            if (Vehicle == null || Vehicle.PrivateCode == null)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                return;
+            }
             if (IsBusy)
             {
                 return;
@@ -410,7 +417,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             return result;
         }
-
+        private void SumMoney()
+        {
+            TotalMoney = 0;
+            if (MenuItems != null && MenuItems.Count > 0)
+            {
+                TotalMoney = MenuItems.Sum(x => x.ExpenseCost);
+            }
+        }
         #endregion PrivateMethod
     }
 }
