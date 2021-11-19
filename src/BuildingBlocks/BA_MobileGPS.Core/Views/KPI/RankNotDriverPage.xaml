@@ -178,11 +178,11 @@
                                 WidthRequest="50">
                                 <!--  Text="Ngày"  -->
                                 <Label
-                                    x:Name="date_lb"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    Text="{i18n:TranslateResource Date_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -194,11 +194,11 @@
                                 WidthRequest="50">
                                 <!--  Text="Tháng"  -->
                                 <Label
-                                    x:Name="month_lb"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    Text="{i18n:TranslateResource Month_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </StackLayout>
@@ -215,11 +215,11 @@
                                 WidthRequest="50">
                                 <!--  Text="Ngày"  -->
                                 <Label
-                                    x:Name="date_lb2"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    Text="{i18n:TranslateResource Date_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -231,11 +231,11 @@
                                 WidthRequest="50">
                                 <!--  Text="Tháng"  -->
                                 <Label
-                                    x:Name="month_lb2"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
+                                    Text="{i18n:TranslateResource Month_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </StackLayout>
@@ -512,6 +512,7 @@
                             x:Name="entrySearchVehicle"
                             HeightRequest="40"
                             HorizontalOptions="FillAndExpand"
+                            Placeholder="{i18n:TranslateResource SearchVehicle}"
                             Text="{Binding SearchedText}">
                             <Entry.Behaviors>
                                 <prismbehaviors:EventToCommandBehavior
@@ -535,38 +536,38 @@
                     <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
                         <!--  Text="STT"  -->
                         <Label
-                            x:Name="STT_lb"
                             Grid.Column="0"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
+                            Text="{i18n:TranslateResource Ordinal_Number_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                         <!--  Text="Lái xe"  -->
                         <Label
-                            x:Name="driver_lb"
                             Grid.Column="1"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
+                            Text="{i18n:TranslateResource Driver_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                         <!--  Text="Điểm"  -->
                         <Label
-                            x:Name="point_lb"
                             Grid.Column="2"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
+                            Text="{i18n:TranslateResource Point_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                         <!--  Text="Xếp hạng"  -->
                         <Label
-                            x:Name="rank_lb"
                             Grid.Column="3"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
+                            Text="{i18n:TranslateResource Rank_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                     </Grid>
