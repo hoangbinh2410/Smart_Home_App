@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BA_MobileGPS.Core.Resources;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -11,8 +12,28 @@ namespace BA_MobileGPS.Core.Views
             {
                 Chart.PrimaryAxis.LabelStyle.FontSize = 5;
                 chart2.PrimaryAxis.LabelStyle.FontSize = 5;
-            }
-
+            }        
+            text_assess.Text = MobileResource.Text_Assess;
+            title_tabview.Title = MobileResource.Title_Tabview;
+            before_day_lb.Text = MobileResource.Before_Day_lb;
+            next_day_lb.Text = MobileResource.Next_Day_lb;
+            sum_lb.Text = MobileResource.Sum_Point_lb;
+            rank_lb.Text = MobileResource.Rank_lb;
+            table_lb.Text = MobileResource.Table_lb;
+            criteria_lb.Text = MobileResource.Criteria_lb;
+            point_lb.Text = MobileResource.Point_lb;
+            rank_lb2.Text = MobileResource.Rank_lb2;
+            safe_criteria_lb.Text = MobileResource.Safe_Criteria_lb;
+            economical_tabview.Title = MobileResource.Economical_Tabview;
+            before_day_lb2.Text = MobileResource.Before_Day_lb;
+            next_day_lb_2.Text = MobileResource.Next_Day_lb;
+            point_sum_lb.Text = MobileResource.Sum_Point_lb;
+            rank_lb3.Text = MobileResource.Rank_lb2;
+            table_criteria_lb.Text = MobileResource.Table_Criteria_lb;
+            rank_lb4.Text = MobileResource.Rank_lb2;
+            point_lb2.Text = MobileResource.Point_lb;
+            criteria_lb2.Text = MobileResource.Criteria_lb;
+            economical_criteria_lb.Text = MobileResource.Economical_Criteria_lb;
         }
 
         private void NumericalAxis_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)

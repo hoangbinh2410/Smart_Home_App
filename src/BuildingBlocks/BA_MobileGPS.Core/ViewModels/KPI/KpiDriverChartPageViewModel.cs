@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -22,7 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public KpiDriverChartPageViewModel(INavigationService navigationService, IKPIDriverService KPIDriverService) : base(navigationService)
         {
-            Title = "Điểm xếp hạng lái xe";
+            Title = MobileResource.Title_Kpi_Page;
             _KPIDriverService = KPIDriverService;
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             NextTimeCommand = new DelegateCommand(NextTime);

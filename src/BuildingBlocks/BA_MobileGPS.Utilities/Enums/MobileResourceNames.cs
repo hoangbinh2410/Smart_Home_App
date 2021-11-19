@@ -1266,5 +1266,33 @@
         SupportClient_Label_TextSupportFeedbackContent,
         SupportClient_Button_BtnSupportFeedbackSend,
         #endregion
+        #region KPI
+        Title_Tabview,
+        Title_Kpi_Page,
+        Before_Day_lb,
+        Sum_Point_lb,
+        Rank_lb,
+        Next_Day_lb,
+        Point_lb,
+        Rank_lb2,
+        Safe_Criteria_lb,
+        Economical_Tabview,
+        Table_Criteria_lb,
+        Economical_Criteria_lb,
+        Criteria_lb,
+        Text_Assess, 
+        My_Point_TabView_Title,
+        Comment_Span,
+        Date_lb,
+        Month_lb, 
+        Ordinal_Number_lb,
+        Detail_lb,
+        Rank_Table_Tabview,
+        SearchVehicle, 
+        Month_Point_Medium, 
+        Driver_lb,
+        Look_lb,
+        Table_lb
+        #endregion KPI
     }
 }

@@ -176,12 +176,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Ngày"  -->
                                 <Label
+                                    x:Name="date_lb"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Ngày"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -191,12 +192,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Tháng"  -->
                                 <Label
+                                    x:Name="month_lb"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Tháng"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </StackLayout>
@@ -211,12 +213,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Ngày"  -->
                                 <Label
+                                    x:Name="date_lb2"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Ngày"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -226,12 +229,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Tháng"  -->
                                 <Label
+                                    x:Name="month_lb2"
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Tháng"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </StackLayout>
@@ -503,11 +507,11 @@
                                 Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_search.png" />
                         </pancake:PancakeView>
+                        <!--  Placeholder="Tìm kiếm lái xe"  -->
                         <Entry
                             x:Name="entrySearchVehicle"
                             HeightRequest="40"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Tìm kiếm lái xe"
                             Text="{Binding SearchedText}">
                             <Entry.Behaviors>
                                 <prismbehaviors:EventToCommandBehavior
@@ -530,35 +534,38 @@
                     HorizontalOptions="FillAndExpand">
                     <Grid ColumnDefinitions=".1*,.4*,.2*,.2*,.2*">
                         <Label
+                            x:Name="STT_lb"
                             Grid.Column="0"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="STT"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
+                        <!--  Text="Lái xe"  -->
                         <Label
+                            x:Name="driver_lb"
                             Grid.Column="1"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Lái xe"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
+                        <!--  Text="Điểm"  -->
                         <Label
+                            x:Name="point_lb"
                             Grid.Column="2"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Điểm"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
+                        <!--  Text="Xếp hạng"  -->
                         <Label
+                            x:Name="rank_lb"
                             Grid.Column="3"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Xếp hạng"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
 
