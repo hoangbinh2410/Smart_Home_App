@@ -913,6 +913,7 @@
         Camera_Label_Video_Event_Numbers,
         Camera_Label_Start_Watch,
         Camera_ChildTab_Device,
+        Camera_ChildTab_Dowload,
         Camera_ChildTab_BACloud,
         Camera_Lable_ListVideo,
         Camera_ChildTab_MyVideo,

@@ -25,7 +25,9 @@ namespace BA_MobileGPS.Core.Resources
         public static string Camera_Label_Video_Event_Numbers => Get(MobileResourceNames.Camera_Label_Video_Event_Numbers, "Số video sự kiện", "Total video have event");
         public static string Camera_Label_Start_Watch => Get(MobileResourceNames.Camera_Label_Start_Watch, "Xem video", "Start Watch");
         public static string Camera_ChildTab_Device => Get(MobileResourceNames.Camera_ChildTab_Device, "Thiết bị", "Device");
-        public static string Camera_ChildTab_BACloud => Get(MobileResourceNames.Camera_ChildTab_BACloud, "Tải về", "Download");
+
+        public static string Camera_ChildTab_Dowload => Get(MobileResourceNames.Camera_ChildTab_Dowload, "Tải về", "Download");
+        public static string Camera_ChildTab_BACloud => Get(MobileResourceNames.Camera_ChildTab_BACloud, "BA Cloud", "BA Cloud");
         public static string Camera_Lable_ListVideo => Get(MobileResourceNames.Camera_Lable_ListVideo, "Danh sách video", "List of videos");
 
         public static string Camera_Alert_Title => Get(MobileResourceNames.Camera_Alert_Title, "Thông báo", "Notification");
