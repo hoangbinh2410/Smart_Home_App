@@ -241,7 +241,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="Center">
                                 <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectVehicleGroupCommand}" />
+                                    <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
                                 </Grid.GestureRecognizers>
                                 <Entry
                                     Grid.Column="0"

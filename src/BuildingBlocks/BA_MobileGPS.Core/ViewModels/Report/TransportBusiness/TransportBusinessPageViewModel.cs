@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Core.Resources;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
 using BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness;
@@ -94,6 +95,11 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
+        //public override void OnNavigatedTo(INavigationParameters parameters)
+        //{
+        //    base.Initialize(parameters);
+        //}
+
         public override void OnDestroy()
         {
             base.Dispose();
@@ -118,9 +124,20 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override TransportBusinessRequest SetDataInput()
         {
+            string vehicleIDs = "347503";
+            if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                vehicleIDs = VehicleSelect.VehicleId.ToString();
+            }
+            // test
+            vehicleIDs = "347503";
             return new TransportBusinessRequest
             {
                 CompanyID = CurrentComanyID,
+                VehicleIDs = vehicleIDs,
+                FromDate = base.FromDate,
+                ToDate = base.ToDate,
+
                 IsAddress = true,
                 PageIndex = base.PagedNext,
                 PageSize = base.PageSize
@@ -277,11 +294,11 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override bool CheckValidateInput(ref string message)
         {
+
             //if (!base.CheckValidateInput(ref message))
             //{
             //    return false;
             //}
-
             ////không chọn biển số xe
             //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             //{

@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Service.Service.Report.TransportBusiness
             var respone = new List<TransportBusinessResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<TransportBusinessRequest, BaseResponse<List<TransportBusinessResponse>>>(ApiUri.GET_DETAILS, input);
+                var temp = await RequestProvider.PostAsync<TransportBusinessRequest, BaseResponse<List<TransportBusinessResponse>>>(ApiUri.GET_GetTransportBusiness, input);
                 if (temp != null)
                 {
                     if (temp.Success)
