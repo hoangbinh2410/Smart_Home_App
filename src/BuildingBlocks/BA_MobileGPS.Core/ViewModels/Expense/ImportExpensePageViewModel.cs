@@ -15,7 +15,6 @@ using Prism.Navigation;
 using Prism.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -118,45 +117,43 @@ namespace BA_MobileGPS.Core.ViewModels
         private ComboboxResponse statusSignalLossSelected;
         public ComboboxResponse StatusSignalLossSelected { get => statusSignalLossSelected; set => SetProperty(ref statusSignalLossSelected, value); }
         public ExpenseDetailsRespone expenseDetail = new ExpenseDetailsRespone();
+
         public ExpenseDetailsRespone ExpenseDetail
         { get { return expenseDetail; } set { SetProperty(ref expenseDetail, value); } }
+
         public bool IInsertExpense;
 
         private ListExpenseCategoryByCompanyRespone selected = new ListExpenseCategoryByCompanyRespone();
+
         public ListExpenseCategoryByCompanyRespone SelectedExpense
         { get { return selected; } set { SetProperty(ref selected, value); } }
 
         private List<LocationStationResponse> listPlace = new List<LocationStationResponse>();
+
         public List<LocationStationResponse> ListPlace
         { get { return listPlace; } set { SetProperty(ref listPlace, value); } }
+
         private List<ListExpenseCategoryByCompanyRespone> listExpenseCategory = new List<ListExpenseCategoryByCompanyRespone>();
+
         public List<ListExpenseCategoryByCompanyRespone> ListExpenseCategory
         { get { return listExpenseCategory; } set { SetProperty(ref listExpenseCategory, value); } }
+
         private ComboboxResponse _selectedExpenseName = new ComboboxResponse();
 
         public ComboboxResponse SelectedExpenseName { get => _selectedExpenseName; set => SetProperty(ref _selectedExpenseName, value); }
 
         private List<ComboboxRequest> _listExpenseName = new List<ComboboxRequest>();
+
         public List<ComboboxRequest> ListExpenseName
         { get { return _listExpenseName; } set { SetProperty(ref _listExpenseName, value); } }
 
         private List<ComboboxRequest> _listPlaceName = new List<ComboboxRequest>();
+
         public List<ComboboxRequest> ListPlaceName
         { get { return _listPlaceName; } set { SetProperty(ref _listPlaceName, value); } }
 
         private ComboboxResponse _selectedPlaceName = new ComboboxResponse();
         public ComboboxResponse SelectedPlaceName { get => _selectedPlaceName; set => SetProperty(ref _selectedPlaceName, value); }
-
-        public enum DataItem
-        {
-            [Description("Địa điểm khác")]
-            Place = 1,
-
-            [Description("bg_Account.png")]
-            Image = 2
-            //[Description("https://v5m6g2b4.rocketcdn.me/wp-content/uploads/2020/12/8fc0bff637.jpeg")]
-            //Image = 2
-        }
 
         private LocationStationResponse _selectedLocation = new LocationStationResponse();
 
@@ -167,6 +164,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public bool IHasOtherPlace
         { get { return iHasOtherPlace; } set { SetProperty(ref iHasOtherPlace, value); } }
+
+        private bool isHasImg = true;
+
+        public bool IsHasImg
+        { get { return isHasImg; } set { SetProperty(ref isHasImg, value); } }
 
         private string imagePathLocal = DataItem.Image.ToDescription();
         public string ImagePathLocal { get => imagePathLocal; set => SetProperty(ref imagePathLocal, value /*,nameof(AvatarDisplay)*/); }
@@ -198,6 +200,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
+                if (!string.IsNullOrEmpty(obj.Name))
+                {
+                    IsHasImg = false;
+                }
                 ListExpenseCategory = ListExpense.ToList();
                 foreach (var item in ListExpense.ToList())
                 {
@@ -213,13 +219,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    _listPlace.Add(new LocationStationResponse { Address = DataItem.Place.ToDescription() });
                     ListPlace = _listPlace;
+                    //ListPlace.Add(new LocationStationResponse {
+                    //    Address =
+                    //});
+                    ListPlaceName.Add(new ComboboxRequest()
+                    {
+                        Key = -1,
+                        Value = DataItem.Place.ToDescription()
+                    });
                     foreach (var item in _listPlace.ToList())
                     {
                         ListPlaceName.Add(new ComboboxRequest()
                         {
-                            Value = item.Address
+                            Value = item.Name
                         });
                     }
                 }
@@ -243,7 +256,7 @@ namespace BA_MobileGPS.Core.ViewModels
         // reset ảnh
         private async void ResetImage()
         {
-            bool result = await _PageDialog.DisplayAlertAsync("Cảnh báo", "Xóa ảnh", MobileResource.Common_Button_Yes, MobileResource.Common_Button_No);
+            bool result = await _PageDialog.DisplayAlertAsync("bạn có chắc muốn xóa ảnh không?", "Xóa ảnh", MobileResource.Common_Button_Yes, MobileResource.Common_Button_No);
 
             if (!result)
             {
@@ -254,12 +267,30 @@ namespace BA_MobileGPS.Core.ViewModels
                 ImagePathLocal = DataItem.Image.ToDescription();
             }
         }
-
         // lưu phí
         private void SaveExpense()
         {
             SafeExecute(async () =>
             {
+                if (ExpenseDetail.ExpenseCost < 0)
+                {
+                    _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                }
+                if (StringHelper.HasDangerousChars(ExpenseDetail.Note))
+                {
+                    _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                }
+                if (SelectedLocation.Name == DataItem.Place.ToDescription())
+                {
+                    if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
+                    {
+                        _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                    }
+                    if (StringHelper.HasDangerousChars(ExpenseDetail.OtherAddress))
+                    {
+                        _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                    }
+                }
                 if (!string.IsNullOrEmpty(SelectedExpense.Name))
                 {
                     if (ImagePathLocal == DataItem.Image.ToDescription())
@@ -267,7 +298,24 @@ namespace BA_MobileGPS.Core.ViewModels
                         var RequestExpense = new ImportExpenseRequest()
                         {
                             Id = ExpenseDetail.ID,
-                            Photo = null,
+                            Photo = "",
+                            OtherAddress = ExpenseDetail.OtherAddress,
+                            ExpenseCost = ExpenseDetail.ExpenseCost,
+                            FK_CompanyID = UserInfo.CompanyId,
+                            ExpenseDate = ExpenseDetail.ExpenseDate,
+                            Note = ExpenseDetail.Note,
+                            FK_ExpenseCategoryID = SelectedExpense.ID,
+                            FK_LandmarkID = SelectedLocation.PK_LandmarkID,
+                            FK_VehicleID = ExpenseDetail.FK_VehicleID,
+                        };
+                        IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
+                    }
+                    else if (ImagePathLocal == ExpenseDetail.Photo)
+                    {
+                        var RequestExpense = new ImportExpenseRequest()
+                        {
+                            Id = ExpenseDetail.ID,
+                            Photo = ImagePathLocal,
                             OtherAddress = ExpenseDetail.OtherAddress,
                             ExpenseCost = ExpenseDetail.ExpenseCost,
                             FK_CompanyID = UserInfo.CompanyId,
@@ -298,12 +346,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     if (IInsertExpense)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
+                        await Application.Current.MainPage.DisplayAlert("Thông báo", "Lưu thành công", MobileResource.Common_Button_OK);
                         await NavigationService.GoBackAsync();
                     }
                     else
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                        await Application.Current.MainPage.DisplayAlert("Thông báo", "Lưu thất bại", MobileResource.Common_Button_OK);
                     }
                 }
                 else
@@ -312,12 +360,30 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
         // Tiếp tục lưu phí
         private void SaveAndCountinute()
         {
             SafeExecute(async () =>
             {
+                if (ExpenseDetail.ExpenseCost < 0)
+                {
+                    _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                }
+                if (StringHelper.HasDangerousChars(ExpenseDetail.Note))
+                {
+                    _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                }
+                if (SelectedLocation.Name == DataItem.Place.ToDescription())
+                {
+                    if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
+                    {
+                        _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                    }
+                    if (StringHelper.HasDangerousChars(ExpenseDetail.OtherAddress))
+                    {
+                        _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                    }
+                }
                 if (!string.IsNullOrEmpty(SelectedExpense.Name))
                 {
                     if (ImagePathLocal == DataItem.Image.ToDescription())
@@ -325,7 +391,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         var RequestExpense = new ImportExpenseRequest()
                         {
                             Id = ExpenseDetail.ID,
-                            Photo = null,
+                            Photo = "",
                             OtherAddress = ExpenseDetail.OtherAddress,
                             ExpenseCost = ExpenseDetail.ExpenseCost,
                             FK_CompanyID = UserInfo.CompanyId,
@@ -356,7 +422,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     if (IInsertExpense)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Thành công", "Lưu thành công", MobileResource.Common_Button_OK);
+                        await Application.Current.MainPage.DisplayAlert("Thông báo", "Lưu thành công", MobileResource.Common_Button_OK);
                         SelectedExpense = new ListExpenseCategoryByCompanyRespone();
                         SelectedLocation = new LocationStationResponse();
                         ExpenseDetail.Note = String.Empty;
@@ -365,7 +431,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        _displayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error);
+                        await Application.Current.MainPage.DisplayAlert("Thông báo", "Lưu thất bại", MobileResource.Common_Button_OK);
                     }
                 }
                 else
@@ -374,7 +440,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
         private void TakeNewImage()
         {
             TryExecute(async () =>
@@ -412,7 +477,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
-
         private void PickImage()
         {
             TryExecute(async () =>
@@ -441,7 +505,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
-
         //danh sách Địa điẻm
         public async void PushComboboxPlace()
         {
@@ -469,7 +532,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsBusy = false;
             }
         }
-
         private List<ComboboxRequest> LoadAllExpense()
         {
             return new List<ComboboxRequest>() {
@@ -478,7 +540,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     new ComboboxRequest(){Key = 2 , Value = MobileResource.ReportSignalLoss_TitleStatus_GMS},
                 };
         }
-
         //Danh sách loại chi phí
         public async void PushComboboxExpensene()
         {
@@ -506,7 +567,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsBusy = false;
             }
         }
-
         // Trả về giá trị loại phí được chọn
         private void FilterExpense(ComboboxResponse param)
         {
@@ -524,7 +584,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 SelectedExpense = new ListExpenseCategoryByCompanyRespone();
             }
         }
-
         // chọn địa điểm từ combobox
         public void UpdateDataCombobox(ComboboxResponse param)
         {
@@ -550,48 +609,42 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (param != null)
             {
-                SelectedLocation = ListPlace.Where(x => x.Address == param.Value).FirstOrDefault();
-                if (SelectedLocation.Address == DataItem.Place.ToDescription())
+                if (param != null && param.Value != DataItem.Place.ToDescription())
                 {
-                    IHasOtherPlace = true;
-                }
-                else
-                {
+                    SelectedLocation = ListPlace.Where(x => x.Name == param.Value).FirstOrDefault();
                     IHasOtherPlace = false;
                     ExpenseDetail.OtherAddress = string.Empty;
                 }
+                else
+                {                  
+                    SelectedLocation = new LocationStationResponse
+                    {
+                        Name = DataItem.Place.ToDescription()                        
+                     };
+                    IHasOtherPlace = true;
+                };
+             
             }
             else
             {
                 return;
             }
         }
-
+        // Convert url image to base64
+        private string GetBase64StringForUrlImage(string imgPath)
+        {
+            var webClient = new WebClient();
+            //byte[] imageBytes = webClient.DownloadData("http://www.google.com/images/logos/ps_logo2.png");
+            byte[] imageBytes = webClient.DownloadData(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
+        }
         //// Chuyển từ image to base64
         private string GetBase64StringForImage(string imgPath)
-        {   if(ExpenseDetail != null)
-            {
-                try{
-                    var webClient = new WebClient();
-                    byte[] imageBytes = webClient.DownloadData(imgPath);
-                    string base64String = Convert.ToBase64String(imageBytes);
-                    return base64String;
-                }
-                catch
-                {
-                    return "1";
-                }                              
-            }
-            //var webClient = new WebClient();
-            //byte[] imageBytes = webClient.DownloadData("http://www.google.com/images/logos/ps_logo2.png");
-            //string base64String = Convert.ToBase64String(imageBytes);
-            //return base64String;
-
-           else {
-                byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
-                string base64String = Convert.ToBase64String(imageBytes);
-                return base64String;
-            }
+        {        
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
 
         #endregion PrivateMethod
