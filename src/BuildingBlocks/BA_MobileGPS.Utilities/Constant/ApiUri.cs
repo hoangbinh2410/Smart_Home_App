@@ -228,6 +228,7 @@
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
         public const string SET_HOSTSPOT = "api/stream/sethospot";
         public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
+        public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
 
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";
