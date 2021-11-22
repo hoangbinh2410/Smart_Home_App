@@ -105,7 +105,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             if (_isCall)
             {
-                GetListExpense();
+               // GetListExpense();
             }
             _isCall = true;
         }
