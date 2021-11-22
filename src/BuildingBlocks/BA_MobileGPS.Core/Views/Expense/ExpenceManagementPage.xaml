@@ -259,7 +259,7 @@
                                 VerticalOptions="CenterAndExpand"
                                 WidthRequest="35">
                                 <sharpnado:MaterialFrame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavigateCommand}" />
+                                    <TapGestureRecognizer Command="{Binding NewNavigateCommand}" />
                                 </sharpnado:MaterialFrame.GestureRecognizers>
                                 <controls:IconView
                                     Foreground="{DynamicResource WhiteColor}"

@@ -66,6 +66,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand AddDataCommand { get; private set; }
         public ICommand DeleteItemCommand { get; private set; }
         public ICommand NavigateCommand { get; }
+        public ICommand NewNavigateCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
 
         public ExpenceManagementPageViewModel(INavigationService navigationService, IExpenseService expenseService)
@@ -78,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             AddDataCommand = new DelegateCommand(AddDataClicked);
             DeleteItemCommand = new DelegateCommand<ExpenseRespone>(DeleteItemClicked);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            NewNavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NewNavigateClicked);
             _ExpenseService = expenseService;
         }
 
@@ -295,6 +297,31 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public void NavigateClicked(ItemTappedEventArgs item)
         {
+            //if (Vehicle == null || Vehicle.PrivateCode == null)
+            //{
+            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+            //    return;
+            //}
+
+            var parameters = new NavigationParameters
+            {
+                { ParameterKey.Vehicle, Vehicle }
+            };
+
+            if (item != null && item.ItemData != null)
+            {
+
+                parameters.Add("ExpenseDetails", item.ItemData);
+            }
+
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
+            });
+
+        }
+        public void NewNavigateClicked(ItemTappedEventArgs item)
+        {
             //if(Vehicle == null || Vehicle.PrivateCode == null)
             //{
             //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
@@ -317,8 +344,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
             });
 
-        }
-
+        }      
         #endregion PrivateMethod
     }
 }

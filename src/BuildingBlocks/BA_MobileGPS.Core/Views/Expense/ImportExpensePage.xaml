@@ -270,13 +270,12 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <!--  Thêm hình ảnh  -->
+                    <!--  Thêm hình ảnh    IsVisible="{Binding IsHasImg}"  -->
                     <!--  , Converter={StaticResource HasDataConverter}  -->
                     <!--<StackLayout >-->
                     <StackLayout IsVisible="{Binding SelectedExpense.HasPhoto}">
                         <StackLayout
                             HorizontalOptions="Start"
-                            IsVisible="{Binding IsHasImg}"
                             Orientation="Horizontal"
                             Spacing="0">
                             <StackLayout.GestureRecognizers>
@@ -312,7 +311,6 @@
                                 CornerRadius="10"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
-                                IsVisible="{Binding IsHasImg}"
                                 VerticalOptions="Start"
                                 WidthRequest="20">
                                 <Frame.GestureRecognizers>
