@@ -1,8 +1,11 @@
-﻿namespace BA_MobileGPS.Entities
+﻿using Newtonsoft.Json;
+
+namespace BA_MobileGPS.Entities
 {
     public class PartnersConfiguration
     {
-        public int Id { get; set; }
+        [JsonProperty("Id")]
+        public int IdPartner { get; set; }
 
         public int FK_CompanyID { get; set; }
 
