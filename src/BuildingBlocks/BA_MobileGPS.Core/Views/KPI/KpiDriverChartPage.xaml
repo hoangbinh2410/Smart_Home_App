@@ -352,7 +352,7 @@
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="{i18n:TranslateResource Rank_lb2}"
+                                                        Text="{i18n:TranslateResource Rank_lb}"
                                                         VerticalOptions="Center" />
                                                 </Grid>
                                                 <Grid
@@ -744,7 +744,7 @@
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="{i18n:TranslateResource Rank_lb2}"
+                                                        Text="{i18n:TranslateResource Rank_lb}"
                                                         VerticalOptions="Center" />
                                                 </Grid>
                                                 <Grid

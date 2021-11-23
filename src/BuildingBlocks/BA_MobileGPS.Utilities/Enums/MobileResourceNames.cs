@@ -1293,7 +1293,9 @@
         Month_Point_Medium, 
         Driver_lb,
         Look_lb,
-        Table_lb
+        Table_lb,
+        Common_Message_Search_Month,
+        Common_Message_Search_Day
         #endregion KPI
     }
 }
