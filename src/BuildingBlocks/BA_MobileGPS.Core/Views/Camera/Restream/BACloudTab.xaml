@@ -81,9 +81,8 @@
                     RowDefinitions="*,*,Auto"
                     RowSpacing="5">
 
-                    <Grid ColumnDefinitions="*,40">
+                    <StackLayout Orientation="Horizontal">
                         <pancake:PancakeView
-                            Grid.Column="0"
                             Padding="0"
                             BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="19"
@@ -131,66 +130,6 @@
                         </pancake:PancakeView>
 
                         <pancake:PancakeView
-                            Grid.Column="1"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource PrimaryColor}"
-                            CornerRadius="18"
-                            HeightRequest="35"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            WidthRequest="35">
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow
-                                    BlurRadius="2"
-                                    Offset="0,0"
-                                    Color="{DynamicResource BlackColor}" />
-                            </pancake:PancakeView.Shadow>
-                            <pancake:PancakeView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SearchCommand}" />
-                            </pancake:PancakeView.GestureRecognizers>
-                            <icons:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource WhiteColor}"
-                                HeightRequest="20"
-                                Source="ic_search.png"
-                                VerticalOptions="Center"
-                                WidthRequest="20" />
-                        </pancake:PancakeView>
-
-
-                    </Grid>
-
-                    <Grid
-                        Grid.Row="1"
-                        ColumnDefinitions="*,Auto"
-                        ColumnSpacing="10">
-                        <pancake:PancakeView
-                            Grid.Column="0"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            CornerRadius="18"
-                            HeightRequest="35"
-                            VerticalOptions="Center">
-                            <pancake:PancakeView.Shadow>
-                                <pancake:DropShadow
-                                    BlurRadius="2"
-                                    Offset="0,0"
-                                    Color="{DynamicResource BlackColor}" />
-                            </pancake:PancakeView.Shadow>
-                            <views:DateTimePickerView
-                                x:Name="dtStart"
-                                BorderColor="Transparent"
-                                DateSelectedCommand="{Binding DateSelectedCommand}"
-                                DateTime="{Binding DateStart}"
-                                FontSize="13"
-                                HorizontalOptions="FillAndExpand"
-                                IconColor="{DynamicResource PrimaryColor}"
-                                PickerMode="Popup"
-                                VerticalOptions="FillAndExpand" />
-                        </pancake:PancakeView>
-
-                        <pancake:PancakeView
-                            Grid.Column="1"
                             Padding="10,0"
                             BackgroundColor="{DynamicResource WhiteColor}"
                             CornerRadius="18"
@@ -225,6 +164,85 @@
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
                             </Grid>
+                        </pancake:PancakeView>
+                    </StackLayout>
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="*,*,40"
+                        ColumnSpacing="10">
+                        <pancake:PancakeView
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="18"
+                            HeightRequest="35"
+                            VerticalOptions="Center">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="2"
+                                    Offset="0,0"
+                                    Color="{DynamicResource BlackColor}" />
+                            </pancake:PancakeView.Shadow>
+                            <views:DateTimePickerView
+                                x:Name="dtStart"
+                                BorderColor="Transparent"
+                                DateSelectedCommand="{Binding DateSelectedCommand}"
+                                DateTime="{Binding FromDate}"
+                                FontSize="13"
+                                HorizontalOptions="FillAndExpand"
+                                IconColor="{DynamicResource PrimaryColor}"
+                                PickerMode="Popup"
+                                VerticalOptions="FillAndExpand" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            CornerRadius="18"
+                            HeightRequest="35"
+                            VerticalOptions="Center">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="2"
+                                    Offset="0,0"
+                                    Color="{DynamicResource BlackColor}" />
+                            </pancake:PancakeView.Shadow>
+                            <views:DateTimePickerView
+                                x:Name="dtEnd"
+                                BorderColor="Transparent"
+                                DateSelectedCommand="{Binding DateSelectedCommand}"
+                                DateTime="{Binding ToDate}"
+                                FontSize="13"
+                                HorizontalOptions="FillAndExpand"
+                                IconColor="{DynamicResource PrimaryColor}"
+                                PickerMode="Popup"
+                                VerticalOptions="FillAndExpand" />
+                        </pancake:PancakeView>
+                        <pancake:PancakeView
+                            Grid.Column="2"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="18"
+                            HeightRequest="35"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="35">
+                            <pancake:PancakeView.Shadow>
+                                <pancake:DropShadow
+                                    BlurRadius="2"
+                                    Offset="0,0"
+                                    Color="{DynamicResource BlackColor}" />
+                            </pancake:PancakeView.Shadow>
+                            <pancake:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchCommand}" />
+                            </pancake:PancakeView.GestureRecognizers>
+                            <icons:IconView
+                                Margin="6"
+                                Foreground="{DynamicResource WhiteColor}"
+                                HeightRequest="20"
+                                Source="ic_search.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
                         </pancake:PancakeView>
                     </Grid>
 

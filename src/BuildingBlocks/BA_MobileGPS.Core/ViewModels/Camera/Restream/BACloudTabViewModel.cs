@@ -91,20 +91,20 @@ namespace BA_MobileGPS.Core.ViewModels
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
-        private DateTime dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+        private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
 
-        public DateTime DateStart
+        public DateTime FromDate
         {
-            get => dateStart;
-            set => SetProperty(ref dateStart, value);
+            get => fromDate;
+            set => SetProperty(ref fromDate, value);
         }
 
-        private DateTime dateEnd = DateTime.Now;
+        private DateTime toDate = DateTime.Now;
 
-        public DateTime DateEnd
+        public DateTime ToDate
         {
-            get => dateEnd;
-            set => SetProperty(ref dateEnd, value);
+            get => toDate;
+            set => SetProperty(ref toDate, value);
         }
 
         private ObservableCollection<VideoUpload> listVideoUpload;
@@ -197,12 +197,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool ValidateInput()
         {
-            if (dateStart > dateEnd)
+            if (FromDate > ToDate)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
-            if (dateStart.Date != dateEnd.Date)
+            if (FromDate.Date != ToDate.Date)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
@@ -256,7 +256,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         return await _streamCameraService.GetListCameraCloud(new Entities.GetCameraCloudRequest()
                         {
                             Customer = UserInfo.XNCode,
-                            Time = DateStart.Date,
+                            StartTime = FromDate,
+                            EndTime = ToDate,
                             Vehicle = Vehicle.VehiclePlate,
                             Source = (int)CameraSourceType.App,
                             User = UserInfo.UserName,
