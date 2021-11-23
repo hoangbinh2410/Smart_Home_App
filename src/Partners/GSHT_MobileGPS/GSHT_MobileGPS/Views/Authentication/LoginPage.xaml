@@ -180,67 +180,54 @@
                         HorizontalOptions="CenterAndExpand"
                         Orientation="Horizontal"
                         Spacing="20">
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
+                        <controls:IconView
+                            Margin="4"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="42"
-                            LightThemeBackgroundColor="Transparent"
+                            Source="ic_phone.png"
+                            VerticalOptions="CenterAndExpand"
                             WidthRequest="42">
-                            <controls:IconView
-                                Margin="4"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                Source="ic_phone.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+
+                        <controls:IconView
+                            Margin="4"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="42"
-                            LightThemeBackgroundColor="Transparent"
+                            Source="ic_mail.png"
+                            VerticalOptions="CenterAndExpand"
                             WidthRequest="42">
-                            <controls:IconView
-                                Margin="4"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                Source="ic_mail.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+                        <controls:IconView
+                            Margin="4"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="42"
-                            LightThemeBackgroundColor="Transparent"
+                            Source="ic_global.png"
+                            VerticalOptions="CenterAndExpand"
                             WidthRequest="42">
-                            <controls:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                Source="ic_global.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
-                        <sharpnado:MaterialFrame
-                            Padding="0"
-                            CornerRadius="21"
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+
+                        <controls:IconView
+                            Margin="4"
+                            Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="42"
-                            IsVisible="{Binding IsShowRegisterSupport}"
-                            LightThemeBackgroundColor="Transparent"
+                            Source="ic_chatsupport.png"
                             WidthRequest="42">
-                            <controls:IconView
-                                Margin="6"
-                                Foreground="{DynamicResource PrimaryColor}"
-                                Source="ic_chatsupport.png"
-                                VerticalOptions="CenterAndExpand" />
-                            <sharpnado:MaterialFrame.GestureRecognizers>
+                            <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushtoRegisterSupportCommand}" NumberOfTapsRequired="1" />
-                            </sharpnado:MaterialFrame.GestureRecognizers>
-                        </sharpnado:MaterialFrame>
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+
+
+
                     </StackLayout>
                 </Grid>
             </StackLayout>
