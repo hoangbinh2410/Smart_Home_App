@@ -751,7 +751,17 @@ namespace BA_MobileGPS.Utilities
             Match match = regex.Match(input);
 
             return !match.Success;
-        }       
+        }
+        public static bool HasDangerousCharsCanNull(string input)
+        {
+            if (input == null)
+                return true;
+
+            Regex regex = new Regex("['\"<>/&]");
+            Match match = regex.Match(input);
+
+            return !match.Success;
+        }
         #region So dien thoai
 
         public static bool ValidPhoneNumer(string phoneNumber, string lengthAndPrefixNumber, out string newPhoneNumer)

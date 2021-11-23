@@ -28,9 +28,6 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Contructor
 
-        //public ICommand SelectExpenseCommand { get; private set; }
-
-        //public ICommand SelectPlaceCommand { get; private set; }
         public ICommand ChoseImageCommand { get; private set; }
 
         public ICommand ResetImageCommand { get; private set; }
@@ -45,8 +42,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ImportExpensePageViewModel(INavigationService navigationService, IPageDialogService PageDialog, IExpenseService ExpenseService, IDisplayMessage displayMessage, IStationLocationService StationLocation) : base(navigationService)
         {
-            //SelectExpenseCommand = new DelegateCommand(SelectExpense);
-            //SelectPlaceCommand = new DelegateCommand(SelectPlace);
             ChoseImageCommand = new DelegateCommand(ChoseImage);
             ResetImageCommand = new DelegateCommand(ResetImage);
             SaveExpenseCommand = new DelegateCommand(SaveExpense);
@@ -282,8 +277,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ExpenseDetail.ExpenseCost < 0)
                     {
                         _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                        return;
                     }
-                    if (!StringHelper.ValidateAddress(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
+                    if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                     {
                         _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
                         return;
@@ -305,24 +301,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
                             return;
                         }
-                    }
-                    //if ()
-                    //{
-                    //    var RequestExpense = new ImportExpenseRequest()
-                    //    {
-                    //        Id = ExpenseDetail.ID,
-                    //        Photo = "",
-                    //        OtherAddress = ExpenseDetail.OtherAddress,
-                    //        ExpenseCost = ExpenseDetail.ExpenseCost,
-                    //        FK_CompanyID = UserInfo.CompanyId,
-                    //        ExpenseDate = ExpenseDetail.ExpenseDate,
-                    //        Note = ExpenseDetail.Note,
-                    //        FK_ExpenseCategoryID = SelectedExpense.ID,
-                    //        FK_LandmarkID = SelectedLocation.PK_LandmarkID,
-                    //        FK_VehicleID = ExpenseDetail.FK_VehicleID,
-                    //    };
-                    //    IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
-                    //}
+                    }                  
                     if (ImagePathLocal == ExpenseDetail.Photo || string.IsNullOrEmpty(ImagePathLocal))
                     {
                         var RequestExpense = new ImportExpenseRequest()
@@ -385,7 +364,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
                         return;
                     }
-                    if (StringHelper.HasDangerousChars(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
+                    if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                     {
                         _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
                         return;
@@ -408,7 +387,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             return;
                         }
                     }
-                    if (string.IsNullOrEmpty(ImagePathLocal))
+                    if (ImagePathLocal == ExpenseDetail.Photo || string.IsNullOrEmpty(ImagePathLocal))
                     {
                         var RequestExpense = new ImportExpenseRequest()
                         {
@@ -599,7 +578,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ExpenseDetail.OtherAddress = string.Empty;
                     SelectedLocation = new LocationStationResponse();
-                    // ExpenseDetail.Photo = DataItem.Image.ToDescription();
                     ImagePathLocal = String.Empty;
                 }
             }
@@ -655,14 +633,14 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         // Convert url image to base64
-        private string GetBase64StringForUrlImage(string imgPath)
-        {
-            var webClient = new WebClient();
-            //byte[] imageBytes = webClient.DownloadData("http://www.google.com/images/logos/ps_logo2.png");
-            byte[] imageBytes = webClient.DownloadData(imgPath);
-            string base64String = Convert.ToBase64String(imageBytes);
-            return base64String;
-        }
+        //private string GetBase64StringForUrlImage(string imgPath)
+        //{
+        //    var webClient = new WebClient();
+        //    //byte[] imageBytes = webClient.DownloadData("http://www.google.com/images/logos/ps_logo2.png");
+        //    byte[] imageBytes = webClient.DownloadData(imgPath);
+        //    string base64String = Convert.ToBase64String(imageBytes);
+        //    return base64String;
+        //}
         //// Chuyển từ image to base64
         private string GetBase64StringForImage(string imgPath)
         {        
