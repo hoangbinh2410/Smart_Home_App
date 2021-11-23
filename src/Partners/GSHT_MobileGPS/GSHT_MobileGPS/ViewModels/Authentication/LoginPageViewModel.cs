@@ -7,12 +7,14 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
+using GSHT_MobileGPS.Constant;
 using GSHT_MobileGPS.Core.Themes;
 using Prism.Commands;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -31,7 +33,7 @@ namespace GSHT_MobileGPS.ViewModels
 
         public LoginPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
-            IMobileSettingService mobileSettingService, 
+            IMobileSettingService mobileSettingService,
             IThemeGSHTServices themeServices)
             : base(navigationService)
         {
@@ -39,7 +41,6 @@ namespace GSHT_MobileGPS.ViewModels
             this.mobileSettingService = mobileSettingService;
             this._themeServices = themeServices;
             InitValidations();
-            isShowRegisterSupport = false;
         }
 
         #endregion Constructor
@@ -50,16 +51,11 @@ namespace GSHT_MobileGPS.ViewModels
         {
             if (parameters.TryGetValue(ParameterKey.Logout, out bool isLogout))
             {
-                IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
-                if (!isLogout)
-                {
-                    GetMobileVersion();
-                }
             }
             else
             {
                 GetMobileSetting();
-                GetMobileVersion();
+                GetLocalPartnerConfig();
             }
         }
 
@@ -163,96 +159,83 @@ namespace GSHT_MobileGPS.ViewModels
             }
         }
 
-        private bool isShowRegisterSupport;
-
-        public bool IsShowRegisterSupport
-        {
-            get => isShowRegisterSupport;
-            set
-            {
-                SetProperty(ref isShowRegisterSupport, value);
-                RaisePropertyChanged();
-            }
-        }
-
         #endregion Property
 
         #region ICommand
 
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
-          {
-              SafeExecute(async () =>
-              {
-                  await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
-              });
-          });
+                   {
+                       SafeExecute(async () =>
+                       {
+                           await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+                       });
+                   });
 
         public ICommand PushtoRegisterSupportCommand => new DelegateCommand(() =>
-          {
-              SafeExecute(async () =>
-              {
-                  _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
-              });
-          });
+                   {
+                       SafeExecute(async () =>
+                       {
+                           _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
+                       });
+                   });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
-          {
-              SafeExecute(async () =>
-              {
-                  if (MobileSettingHelper.IsUseForgotpassword)
-                  {
-                      await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
-                  }
-                  else
-                  {
-                      await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-                  }
-              });
-          });
+                   {
+                       SafeExecute(async () =>
+                       {
+                           if (MobileSettingHelper.IsUseForgotpassword)
+                           {
+                               await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                           }
+                           else
+                           {
+                               await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                           }
+                       });
+                   });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
-          {
-              SafeExecute(async () =>
-              {
-                  await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
-              });
-          });
+                   {
+                       SafeExecute(async () =>
+                       {
+                           await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
+                       });
+                   });
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
-          {
-              SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
-          });
+                   {
+                       SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
+                   });
 
-        [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
-                          {
-                              try
-                              {
-                                  if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
-                                  {
-                                      string shareurl = String.Empty;
-                                      if (Device.RuntimePlatform == Device.iOS)
-                                      {
-                                          var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
-                                          shareurl = "mailto:" + email;
-                                      }
-                                      else
-                                      {
-                                          shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
-                                      }
-                                      Device.OpenUri(new Uri(shareurl));
-                                  }
-                              }
-                              catch
-                              {
-                                  Device.OpenUri(new Uri("https://accounts.google.com/"));
-                              }
-                          });
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
+                    {
+                        string shareurl = String.Empty;
+                        if (Device.RuntimePlatform == Device.iOS)
+                        {
+                            var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
+                            shareurl = "mailto:" + email;
+                        }
+                        else
+                        {
+                            shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
+                        }
+                        Device.OpenUri(new Uri(shareurl));
+                    }
+                }
+                catch
+                {
+                    Device.OpenUri(new Uri("https://accounts.google.com/"));
+                }
+            });
 
         public ICommand LoginCommand => new DelegateCommand(() =>
-          {
-              Login();
-          });
+                   {
+                       Login();
+                   });
 
         #endregion ICommand
 
@@ -332,7 +315,7 @@ namespace GSHT_MobileGPS.ViewModels
                                     case LoginStatus.Success://Đăng nhập thành công
                                         if (!string.IsNullOrEmpty(user.AccessToken))
                                         {
-                                            OnLoginSuccess(user);
+                                            GetPartnerConfig(user);
                                         }
                                         else
                                         {
@@ -469,17 +452,42 @@ namespace GSHT_MobileGPS.ViewModels
                if (result != null && result.Count > 0)
                {
                    MobileSettingHelper.SetData(result);
-                   IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
                }
            });
         }
 
-        private void GetMobileVersion()
+        private void GetPartnerConfig(LoginResponse user)
         {
-            
+            if (GlobalResourcesGSHT.Current.PartnerConfig != null && GlobalResourcesGSHT.Current.PartnerConfig.Id > 0)
+            {
+                OnLoginSuccess(user, GlobalResourcesGSHT.Current.PartnerConfig);
+            }
+            else
+            {
+                RunOnBackground(async () =>
+                {
+                    return await mobileSettingService.GetPartnerConfigByCompanyID(user.CompanyId);
+                }, (result) =>
+                {
+                    mobileSettingService.Add(result);
+                    GlobalResourcesGSHT.Current.PartnerConfig = result;
+                    _themeServices.ChangeTheme((ThemeGSHT)result.Theme);
+                    OnLoginSuccess(user, result);
+                });
+            }
         }
 
-        private async void OnLoginSuccess(LoginResponse user)
+        private void GetLocalPartnerConfig()
+        {
+            // get db local
+            var dbLocal = mobileSettingService.All().ToList();
+            if (dbLocal != null && dbLocal.Count > 0)
+            {
+                GlobalResourcesGSHT.Current.PartnerConfig = dbLocal.First();
+            }
+        }
+
+        private async void OnLoginSuccess(LoginResponse user, PartnersConfiguration parnerConfig)
         {
             try
             {

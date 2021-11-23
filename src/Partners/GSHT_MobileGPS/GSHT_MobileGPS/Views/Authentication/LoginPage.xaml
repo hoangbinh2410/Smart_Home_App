@@ -8,10 +8,9 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:localstatic="clr-namespace:GSHT_MobileGPS.Constant;assembly=GSHT_MobileGPS"
     xmlns:prism="http://prismlibrary.com"
-    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
@@ -80,7 +79,7 @@
                     Grid.Row="0"
                     HeightRequest="150"
                     HorizontalOptions="Center"
-                    Source="Logo_GSHT.png"
+                    Source="{Binding PartnerConfig.LoginLogo, Source={x:Static localstatic:GlobalResourcesGSHT.Current}}"
                     VerticalOptions="EndAndExpand"
                     WidthRequest="180" />
                 <StackLayout Grid.Row="1" Spacing="10">

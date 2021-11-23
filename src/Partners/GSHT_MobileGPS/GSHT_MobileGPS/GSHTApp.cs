@@ -22,7 +22,7 @@ namespace GSHT_MobileGPS
         protected override async void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerTest;
             ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
             ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
             ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
