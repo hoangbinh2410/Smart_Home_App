@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
-    x:Class="GSHT_MobileGPS.Styles.Theme3"
+    x:Class="GSHT_MobileGPS.Styles.Theme4"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#0D2D6C</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#F7921C</Color>
+    <Color x:Key="PrimaryColor">#DE3928</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <Color x:Key="BlackColor">Black</Color>

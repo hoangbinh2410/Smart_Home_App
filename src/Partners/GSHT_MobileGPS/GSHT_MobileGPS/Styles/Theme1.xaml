@@ -9,7 +9,7 @@
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#0D2D6C</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#0D2D6C</Color>
+    <Color x:Key="PrimaryColor">#17B75B</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <Color x:Key="BlackColor">Black</Color>
