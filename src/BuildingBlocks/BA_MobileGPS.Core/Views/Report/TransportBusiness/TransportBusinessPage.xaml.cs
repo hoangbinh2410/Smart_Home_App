@@ -73,44 +73,46 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
         public double TotalTimes
         {
             get; set;
-        } = 100;
+        } = 0;
 
         public double SumTotalKm
         {
             get; set;
-        } = 200;
+        } = 0;
         
         public double TotalKmMechanical
         {
             get; set;
-        } = 300;
+        } = 0;
 
         public double TotalNorms
         {
             get; set;
-        } = 400;
+        } = 0;
 
         public double TotalConstantNorms
         {
             get; set;
-        } = 500;
+        } = 0;
 
         public Action<System.Collections.IEnumerable, string, System.ComponentModel.PropertyDescriptor> CalculateAggregateFunc()
         {
             return (items, property, pd) =>
             {
+                TotalTimes = 0;
+                SumTotalKm = 0;
+                TotalKmMechanical = 0;
+                TotalNorms = 0;
+                TotalConstantNorms = 0;
                 var enumerableItems = items as IEnumerable<TransportBusinessResponse>;
                 foreach(var item in enumerableItems)
                 {
-
+                    TotalTimes = TotalTimes + item.TotalTime ;
+                    SumTotalKm = SumTotalKm + item.TotalKmGps;
+                    TotalKmMechanical = TotalKmMechanical + item.KmOfPulseMechanical;
+                    TotalNorms = TotalNorms + item.TotalLitersOutsideStation;
+                    TotalConstantNorms = TotalConstantNorms + item.Norms;
                 }    
-                //TimeSpan ret = TimeSpan.Zero;
-                //foreach (var p in enumerableItems)
-                //    if (p.TotalTimes != null)
-                //        ret = ret + p.TotalTimes;
-                //this.TotalTime = string.Format("{0:hh\\:mm}", ret);
-                //this.SumTotalKm = Math.Round(enumerableItems.Sum(x => x.TotalKm), 2);
-                //this.TotalConstantNorms = enumerableItems.FirstOrDefault().ConstantNorms;
             };
         }
     }

@@ -21,6 +21,7 @@
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Color x:Key="colorDataColumn">#00ADE5</Color>
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
             <local11:CustomTransportBusinessAggregate x:Key="CustomTransportBusinessConverter" />
         </ResourceDictionary>
@@ -461,7 +462,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding StartTimes}"
+                                        Text="{Binding StartTime, Converter={StaticResource DateTimeConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -495,7 +496,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding EndTimes}"
+                                        Text="{Binding EndTime, Converter={StaticResource DateTimeConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -509,7 +510,7 @@
                             Width="70"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowTimeActive, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="TotalTimes"
+                            MappingName="TotalTime"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -529,7 +530,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TotalTimes, StringFormat='{}{0:hh\\:mm}'}"
+                                        Text="{Binding TotalTime}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -543,7 +544,7 @@
                             Width="70"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowKmGPS, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="TotalKm"
+                            MappingName="TotalKmGps"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -563,7 +564,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TotalKm, StringFormat='{0:0.##}'}"
+                                        Text="{Binding TotalKmGps}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -577,7 +578,7 @@
                             Width="70"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowKmCO, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="TotalKmMechanical"
+                            MappingName="KmOfPulseMechanical"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -597,7 +598,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding KmOfMechanical, StringFormat='{0:0.##}'}"
+                                        Text="{Binding KmOfPulseMechanical}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -611,7 +612,7 @@
                             Width="90"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowQuotaFuelConsume, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="Norms"
+                            MappingName="TotalLitersOutsideStation"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -631,7 +632,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding Norms, StringFormat='{0:0.##}'}"
+                                        Text="{Binding TotalLitersOutsideStation}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -665,7 +666,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ConstantNormsInKm, StringFormat='{0:0.##}'}"
+                                        Text="{Binding ConstantNorms}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -679,7 +680,7 @@
                             Width="90"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowQuotaFuel, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="ConstantNorms"
+                            MappingName="Norms"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -699,7 +700,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ConstantNorms, StringFormat='{0:0.##}'}"
+                                        Text="{Binding Norms}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -732,7 +733,7 @@
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Path=BindingContext.PushToViewRouteCommand, Source={x:Reference Name=dataGrid}}"
-                                                CommandParameter="{Binding RowNumber}"
+                                                CommandParameter="{Binding OrderNumber}"
                                                 NumberOfTapsRequired="1" />
                                         </StackLayout.GestureRecognizers>
                                         <Label
@@ -773,8 +774,8 @@
                                         VerticalOptions="CenterAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer
-                                                Command="{Binding Path=BindingContext.PushToViewVidioCommand, Source={x:Reference Name=dataGrid}}"
-                                                CommandParameter="{Binding RowNumber}"
+                                                Command="{Binding Path=BindingContext.PushToViewPicturnCommand, Source={x:Reference Name=dataGrid}}"
+                                                CommandParameter="{Binding OrderNumber}"
                                                 NumberOfTapsRequired="1" />
                                         </StackLayout.GestureRecognizers>
                                         <Label
@@ -822,35 +823,35 @@
                                     Name="SumTotalTimes"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{TotalTimes}"
-                                    MappingName="TotalTimes"
+                                    MappingName="TotalTime"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalKm"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{SumTotalKm}"
-                                    MappingName="TotalKm"
+                                    MappingName="TotalKmGps"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalKmMechanical"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{TotalKmMechanical}"
-                                    MappingName="TotalKmMechanical"
+                                    MappingName="KmOfPulseMechanical"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalNorms"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{TotalNorms}"
-                                    MappingName="Norms"
+                                    MappingName="TotalLitersOutsideStation"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalConstantNorms"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{TotalConstantNorms}"
-                                    MappingName="ConstantNorms"
+                                    MappingName="Norms"
                                     SummaryType="Custom" />
 
                             </syncDataGrid:GridTableSummaryRow.SummaryColumns>

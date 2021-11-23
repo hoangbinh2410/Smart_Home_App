@@ -99,15 +99,15 @@
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="Center">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushStartAddressCommand}" />
+                                <TapGestureRecognizer Command="{Binding PushLandmarkCommandStart}" />
                             </Grid.GestureRecognizers>
                             <Entry
                                 Grid.Column="0"
                                 FontSize="{DynamicResource FontSizeTextPut11}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="Tất cả chi phí"
-                                Text="{Binding SelectedExpenseName.Value}"
+                                Placeholder="Chọn điểm đi"
+                                Text="{Binding SelectedLocationStart.Value}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -150,15 +150,15 @@
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="Center">
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushEndAddressCommand}" />
+                                <TapGestureRecognizer Command="{Binding PushLandmarkCommandEnd}" />
                             </Grid.GestureRecognizers>
                             <Entry
                                 Grid.Column="0"
                                 FontSize="{DynamicResource FontSizeTextPut11}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="Tất cả chi phí"
-                                Text="{Binding SelectedExpenseName.Value}"
+                                Placeholder="Chọn điểm đến"
+                                Text="{Binding SelectedLocationEnd.Value}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -203,8 +203,7 @@
                                 FontSize="{DynamicResource FontSizeTextPut11}"
                                 HorizontalOptions="FillAndExpand"
                                 Keyboard="Numeric"
-                                Placeholder="Tất cả chi phí"
-                                Text="{Binding SelectedExpenseName.Value}"
+                                Text="{Binding MinKm}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -244,8 +243,7 @@
                                 FontSize="{DynamicResource FontSizeTextPut11}"
                                 HorizontalOptions="FillAndExpand"
                                 Keyboard="Numeric"
-                                Placeholder="Tất cả chi phí"
-                                Text="{Binding SelectedExpenseName.Value}"
+                                Text="{Binding MaxKm}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />

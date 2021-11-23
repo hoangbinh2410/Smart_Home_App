@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Core.Resources;
+﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
@@ -13,6 +14,8 @@ using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -51,7 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool _showQuotaFuel = true;
         public bool ShowQuotaFuel { get => _showQuotaFuel; set => SetProperty(ref _showQuotaFuel, value); }
 
-
+        private TransportBusinessRequest _objRequest;
         private ActivityDetailsModel selectDetailsItem;
         public ActivityDetailsModel SelectDetailsItem { get => selectDetailsItem; set => SetProperty(ref selectDetailsItem, value); }
 
@@ -64,6 +67,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IShowHideColumnService showHideColumnService;
         public ICommand FilterDetailsCommand { get; private set; }
+        public ICommand PushToViewRouteCommand { get; private set; }
+        public ICommand PushToViewPicturnCommand { get; private set; }
         public TransportBusinessPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService)
             : base(navigationService)
         {
@@ -76,6 +81,8 @@ namespace BA_MobileGPS.Core.ViewModels
             };
 
             FilterDetailsCommand = new DelegateCommand(ExecuteFilterDetails);
+            PushToViewRouteCommand = new DelegateCommand<int?>(PushToViewRoute);
+            PushToViewPicturnCommand = new DelegateCommand<int?>(PushToViewPicturn);
             DisplayComlumnHide();
             IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportActivityDetailExport);
             ToDate = DateTime.Now;
@@ -84,6 +91,15 @@ namespace BA_MobileGPS.Core.ViewModels
         #endregion
 
         #region Lifecycle
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters.ContainsKey("DataBusinessRequest") && parameters.GetValue<TransportBusinessRequest>("DataBusinessRequest") is TransportBusinessRequest objRequest)
+            {
+                _objRequest = objRequest;
+            }
+        }
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -94,11 +110,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = UserBehaviorType.End
             });
         }
-
-        //public override void OnNavigatedTo(INavigationParameters parameters)
-        //{
-        //    base.Initialize(parameters);
-        //}
 
         public override void OnDestroy()
         {
@@ -124,23 +135,24 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override TransportBusinessRequest SetDataInput()
         {
-            string vehicleIDs = "347503";
+            if(_objRequest != null)
+            {
+                return _objRequest;
+            }    
+            string vehicleIDs = "";
             if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
             }
             // test
             vehicleIDs = "347503";
+            //
             return new TransportBusinessRequest
             {
                 CompanyID = CurrentComanyID,
                 VehicleIDs = vehicleIDs,
-                FromDate = base.FromDate,
-                ToDate = base.ToDate,
-
-                IsAddress = true,
-                PageIndex = base.PagedNext,
-                PageSize = base.PageSize
+                FromDate = FromDate,
+                ToDate = ToDate,
             };
         }
 
@@ -149,44 +161,204 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <returns></returns>
         /// <Modified>
         /// Name     Date         Comments
-        /// linhlv  11/13/2019   created
+        /// ducpv  11/13/2019   created
         /// </Modified>
         public override IList<TransportBusinessResponse> ConvertDataBeforeDisplay(IList<TransportBusinessResponse> data)
         {
-            int i = (PagedNext - 1) * PageSize;
+            int stt = 0;
             foreach (var item in data)
             {
-                item.OrderNumber = ++i;
+                item.OrderNumber = ++stt;
             }
             return data;
         }
 
+        /// <summary>Put dữ liệu vào excel</summary>
+        /// <param name="data">The data.</param>
+        /// <param name="worksheet">The worksheet.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  26/11/2021   created
+        /// </Modified>
+        public override void FillDataTableExcell(IList<TransportBusinessResponse> data, ref IWorksheet worksheet)
+        {
+            try
+            {
+                //Gán lại tên file
+                ReportTitle = ReportHelper.GetFileName("Báo cáo chuyến kinh doanh");
+                int numberrow = 4;
+                int numbercolum = 1;
+                // STT
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_Serial;
+                // Điểm đi
+                if (ShowStartAddress)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Điểm đi";
+                }
+                // Điểm đến
+                if (ShowEndAddress)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Điểm đến";
+                }
+                // Giờ đi
+                if (ShowStartTime)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Giờ đi";
+                }
+                // Giờ đến
+                if (ShowEndTime)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Giờ đến";
+                }
+                // Số phút hoạt động
+                if (ShowTimeActive)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Số phút hoạt động";
+                }
+                // Km GPS
+                if (ShowKmGPS)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Km GPS";
+                }
+                // Km cơ
+                worksheet.Range[numberrow, numbercolum].Text = "Km cơ";
+                // NL tiêu thụ
+                if (ShowQuotaFuelConsume)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "NL tiêu thụ";
+                }
+                // Định mức NL trên 1km
+                worksheet.Range[numberrow, numbercolum].Text = "Định mức NL trên 1km";
+                // NL tiêu thụ định mức
+                if (ShowQuotaFuel)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "NL tiêu thụ định mức";
+                }
+                worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
+                worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
+
+                //head
+                worksheet.Range[1, 1].Text = "Báo cáo ra vào trạm";
+                worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[1, 1].CellStyle.Font.Bold = true;
+                worksheet.Range[1, 1].CellStyle.Font.Size = 16;
+                worksheet.Range[1, 1, 1, numbercolum].Merge();
+                worksheet.Range[2, 1].Text = MobileResource.Common_Label_PlaceHolder_FromDate + ": " + DateTimeHelper.FormatDateTime(FromDate) + " " + MobileResource.Common_Label_PlaceHolder_ToDate + ": " + DateTimeHelper.FormatDateTime(ToDate);
+                worksheet.Range[2, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[2, 1, 2, numbercolum].Merge();
+                worksheet.Range[3, 1].Text = MobileResource.Common_Label_Grid_VehiclePlate + ": " + VehicleSelect.PrivateCode;
+                worksheet.Range[3, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                worksheet.Range[3, 1, 3, numbercolum].Merge();
+
+                // data
+                for (int i = 0, length = data.Count; i < length; i++)
+                {
+                    numberrow += 1;
+                    numbercolum = 1;
+                    // Số thứ tự
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
+                    // Điểm đi
+                    if (ShowStartAddress)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].StartAddress.ToString();
+                    }
+                    // Điểm đến
+                    if (ShowEndAddress)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].EndAddress.ToString();
+                    }
+                    // Giờ đi
+                    if (ShowStartTime)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].StartTime.ToString("ss:mm:HH dd:MM:yyyy");
+                    }
+                    // Giờ đến
+                    if (ShowEndTime)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].EndTime.ToString("ss:mm:HH dd:MM:yyyy");
+                    }
+                    // Số phút hoạt động
+                    if (ShowTimeActive)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TotalTime.ToString();
+                    }
+                    // Km GPS
+                    if (ShowKmGPS)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TotalKmGps.ToString();
+                    }
+                    // Km GPS
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].KmOfPulseMechanical.ToString();
+                    // NL tiêu thụ
+                    if (ShowQuotaFuelConsume)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TotalLitersOutsideStation.ToString();
+                    }
+                    // Định mức NL trên 1km
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].ConstantNorms.ToString();
+                    // NL tiêu thụ định mức
+                    if (ShowQuotaFuel)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].Norms.ToString();
+                    }
+                }
+
+                worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();
+                worksheet.Range[4, 1, numberrow, numbercolum].BorderInside(ExcelLineStyle.Thin, ExcelKnownColors.Black);
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            }
+        }
+
         /// <summary>Truyền sang trang lọc chi tiết nâng cao</summary>
-        /// <param name="OrderNumber">The order number.</param>
         /// <Modified>
         /// Name     Date         Comments
         /// ducpv  15/11/2021   created
         /// </Modified>
         private void ExecuteFilterDetails()
-        {   
+        {
+            string message = "";
+            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                return;
+            }
+            if (!base.CheckValidateInput(ref message))
+            {
+                DisplayMessage.ShowMessageInfo(message, 5000);
+                return;
+            }
+            var parameters = new NavigationParameters
+            {
+                { ParameterKey.Vehicle, VehicleSelect },
+                { "FromDate", FromDate },
+                { "ToDate", ToDate },
+            };
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("DetailedFilterPage");
+                await NavigationService.NavigateAsync("DetailedFilterPage", parameters);
             });
         }
-
-        /// <summary>Đổ dữ liệu vào excel</summary>
-        /// <param name="data">The data.</param>
-        /// <param name="worksheet">The worksheet.</param>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// ducpv  15/11/2021   created
-        /// </Modified>
-        public override void FillDataTableExcell(IList<TransportBusinessResponse> data, ref IWorksheet worksheet)
-        {
-
-        }
-
         /// <summary>Lưu các thông tin ẩn hiện cột</summary>
         /// <Modified>
         /// Name     Date         Comments
@@ -295,17 +467,70 @@ namespace BA_MobileGPS.Core.ViewModels
         public override bool CheckValidateInput(ref string message)
         {
 
-            //if (!base.CheckValidateInput(ref message))
-            //{
-            //    return false;
-            //}
-            ////không chọn biển số xe
-            //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            //{
-            //    message = MobileResource.Common_Message_NoSelectVehiclePlate;
-            //    return false;
-            //}
+            if (!base.CheckValidateInput(ref message))
+            {
+                DisplayMessage.ShowMessageInfo(message, 5000);
+                return false;
+            }
+            //không chọn biển số xe
+            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                message = MobileResource.Common_Message_NoSelectVehiclePlate;
+                return false;
+            }
             return true;
+        }
+
+        /// <summary>Put data xem lộ trình.</summary>
+        /// <param name="obj">The object.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  28/11/2021   created
+        /// </Modified>
+        private void PushToViewRoute(int? obj)
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
+                {
+                    var model = ListDataSearch.Where(x => x.STT == obj).FirstOrDefault();
+                    var modelparam = new Vehicle();
+                    modelparam.VehiclePlate = VehicleSelect.VehiclePlate;
+                    modelparam.PrivateCode = VehicleSelect.PrivateCode;
+                    modelparam.VehicleId = VehicleSelect.VehicleId;
+                    var p = new NavigationParameters
+                    {
+                        {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
+                        { ParameterKey.VehicleRoute, modelparam }
+                    };
+                    await NavigationService.NavigateAsync("RouteReportPage", p);
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                }
+            });
+        }
+
+        /// <summary>Put data xem video.</summary>
+        /// <param name="obj">The object.</param>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  28/11/2021   created
+        /// </Modified>
+        private void PushToViewPicturn(int? obj)
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckPermision(1354) || CheckPermision(1355))
+                {
+                    var model = ListDataSearch.Where(x => x.STT == obj).FirstOrDefault();
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                }
+            });
         }
 
         #endregion
