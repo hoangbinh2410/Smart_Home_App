@@ -488,7 +488,7 @@
                         VerticalOptions="Center"
                         WidthRequest="200" />
                     <Label
-                        FontSize="Large"
+                        FontSize="14"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
                         Text="Không có dữ liệu trong khoảng thời gian tìm kiếm" />
