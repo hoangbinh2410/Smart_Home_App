@@ -283,12 +283,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
                         return;
-                    }
-                    if (string.IsNullOrEmpty(SelectedLocation.Name) && SelectedExpense.HasLandmark == true)
-                    {
-                        _displayMessage.ShowMessageWarning("Vui lòng chọn địa điểm");
-                        return;
-                    }
+                    }                  
                     if (SelectedLocation.Name == DataItem.Place.ToDescription())
                     {
                         if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
@@ -368,12 +363,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
                         return;
-                    }
-                    if (string.IsNullOrEmpty(SelectedLocation.Name) && SelectedExpense.HasLandmark == true)
-                    {
-                        _displayMessage.ShowMessageWarning("Vui lòng chọn địa điểm");
-                        return;
-                    }
+                    }                   
                     if (SelectedLocation.Name == DataItem.Place.ToDescription())
                     {
                         if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))

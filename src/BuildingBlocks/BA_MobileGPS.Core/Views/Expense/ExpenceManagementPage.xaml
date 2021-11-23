@@ -327,11 +327,11 @@
                                             Grid.Row="0"
                                             Grid.Column="0"
                                             Foreground="White"
-                                            HeightRequest="35"
+                                            HeightRequest="25"
                                             HorizontalOptions="CenterAndExpand"
                                             Source="ic_delete.png"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="30" />
+                                            WidthRequest="20" />
                                     </StackLayout>
                                 </DataTemplate>
                             </syncfusion:SfListView.RightSwipeTemplate>
@@ -436,11 +436,11 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Foreground="{DynamicResource PrimaryColor}"
-                        HeightRequest="35"
+                        HeightRequest="25"
                         HorizontalOptions="Center"
-                        Source="ic_lisence.png"
+                        Source="ic_expence.png"
                         VerticalOptions="End"
-                        WidthRequest="30" />
+                        WidthRequest="20" />
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"

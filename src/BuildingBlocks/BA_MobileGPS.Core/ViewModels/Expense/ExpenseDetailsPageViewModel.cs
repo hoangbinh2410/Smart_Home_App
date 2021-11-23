@@ -173,7 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", ChooseDate },
                     { "PickerType", ComboboxType.Third }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
         private void UpdateDateTime(PickerDateTimeResponse param)

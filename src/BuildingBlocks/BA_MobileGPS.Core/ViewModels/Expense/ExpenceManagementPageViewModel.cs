@@ -139,7 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", FromDate },
                     { "PickerType", ComboboxType.First }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
 
@@ -153,7 +153,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", ToDate },
                     { "PickerType", ComboboxType.Second }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
 

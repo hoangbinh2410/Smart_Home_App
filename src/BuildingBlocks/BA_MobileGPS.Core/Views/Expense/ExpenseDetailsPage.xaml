@@ -325,8 +325,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.55*" />
-                                <ColumnDefinition Width="0.45*" />
+                                <ColumnDefinition Width="0.43*" />
+                                <ColumnDefinition Width="0.57*" />
                             </Grid.ColumnDefinitions>
                             <Label
                                 Grid.Column="0"
@@ -378,8 +378,8 @@
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.6*" />
-                                        <ColumnDefinition Width="0.25*" />
+                                        <ColumnDefinition Width="0.45*" />
+                                        <ColumnDefinition Width="0.35*" />
                                         <ColumnDefinition Width="0.1*" />
                                         <ColumnDefinition Width="0.1*" />
                                     </Grid.ColumnDefinitions>
@@ -418,7 +418,7 @@
                                         WidthRequest="25" />
                                     <StackLayout
                                         Grid.Column="3"
-                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalOptions="EndAndExpand"
                                         VerticalOptions="EndAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
@@ -498,14 +498,25 @@
                     IsOpen="{Binding IsShowImage}"
                     IsVisible="{Binding IsShowImage}">
                     <sfPopup:SfPopupLayout.PopupView>
-                        <sfPopup:PopupView
-                            HeaderTitle="Hình ảnh"
-                            HeightRequest="250"
-                            ShowFooter="False"
-                            WidthRequest="300">
+                        <sfPopup:PopupView HeaderTitle="Hình ảnh" ShowFooter="False">
                             <sfPopup:PopupView.ContentTemplate>
                                 <DataTemplate>
-                                    <ff:CachedImage Aspect="AspectFill" Source="{Binding SourceImage}" />
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="Transparent"
+                                        HeightRequest="350"
+                                        WidthRequest="300">
+                                        <Image
+                                            Margin="0"
+                                            Aspect="AspectFill"
+                                            HorizontalOptions="FillAndExpand"
+                                            Source="{Binding SourceImage}"
+                                            VerticalOptions="FillAndExpand" />
+                                    </Frame>
+                                    <!--<ff:CachedImage
+                                        Margin="0"
+                                        Aspect="AspectFill"
+                                        Source="{Binding SourceImage}" />-->
                                 </DataTemplate>
                             </sfPopup:PopupView.ContentTemplate>
                         </sfPopup:PopupView>
