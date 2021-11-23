@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,6 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SearchDriverCommand { get; private set; }
         public ICommand TapRankByDayCommand { get; private set; }
         public ICommand NavigateCommand { get; private set; }
+        public ICommand NavigateRankUserCommand { get; private set; }
 
         public RankDriverPageViewModel(INavigationService navigationService,
             IKPIDriverService kPIDriverService) : base(navigationService)
@@ -41,6 +41,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SwichDateTypeCommand = new DelegateCommand(SwichDateType);
             SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriverwithText);
             NavigateCommand = new DelegateCommand<DriverRankByDay>(Navigate);
+            NavigateRankUserCommand = new DelegateCommand<DriverRankingRespone>(NavigateRankUser);
             TapRankByDayCommand = new DelegateCommand<ItemTappedEventArgs>(TapRankByDay);
         }
 
@@ -435,21 +436,34 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public void Navigate(DriverRankByDay args)
         {
-            try
+            SafeExecute(async () =>
+            {
+                var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
+                         { ParameterKey.KPIRankPage,args.Date },
+                    };
+                await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);
+            });
+        }
+
+        private void NavigateRankUser(DriverRankingRespone obj)
+        {
+            if (!IsShowMonth)
             {
                 SafeExecute(async () =>
                 {
                     var parameters = new NavigationParameters
                     {
                         { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
-                         { ParameterKey.KPIRankPage,args },
+                         { ParameterKey.KPIRankPage,DateRank },
                     };
                     await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);
                 });
             }
-            catch (Exception ex)
+            else
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                DisplayMessage.ShowMessageInfo("Chỉ hỗ trợ xem biểu đồ theo ngày");
             }
         }
 

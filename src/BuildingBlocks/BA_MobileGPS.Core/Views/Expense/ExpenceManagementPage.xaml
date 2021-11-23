@@ -29,6 +29,35 @@
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="FontFamily" Value="Lobster-Regular" />
             </Style>
+            <Style x:Key="Text14B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text14" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text18" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <NavigationPage.TitleView>
@@ -259,7 +288,7 @@
                                 VerticalOptions="CenterAndExpand"
                                 WidthRequest="35">
                                 <sharpnado:MaterialFrame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavigateCommand}" />
+                                    <TapGestureRecognizer Command="{Binding NewNavigateCommand}" />
                                 </sharpnado:MaterialFrame.GestureRecognizers>
                                 <controls:IconView
                                     Foreground="{DynamicResource WhiteColor}"
@@ -378,10 +407,10 @@
                                 VerticalOptions="Center"
                                 WidthRequest="200" />
                             <Label
-                                FontSize="Large"
+                                FontSize="14"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="Không có dữ liệu" />
+                                Text="Không có dữ liệu trong khoảng thời gian tìm kiếm" />
                         </StackLayout>
                     </Grid>
                 </StackLayout>
