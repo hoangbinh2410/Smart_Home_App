@@ -181,46 +181,42 @@
                         Orientation="Horizontal"
                         Spacing="20">
                         <controls:IconView
-                            Margin="4"
                             Foreground="{DynamicResource PrimaryColor}"
-                            HeightRequest="42"
+                            HeightRequest="30"
                             Source="ic_phone.png"
                             VerticalOptions="CenterAndExpand"
-                            WidthRequest="42">
+                            WidthRequest="30">
                             <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
                             </controls:IconView.GestureRecognizers>
                         </controls:IconView>
 
                         <controls:IconView
-                            Margin="4"
                             Foreground="{DynamicResource PrimaryColor}"
-                            HeightRequest="42"
+                            HeightRequest="30"
                             Source="ic_mail.png"
                             VerticalOptions="CenterAndExpand"
-                            WidthRequest="42">
+                            WidthRequest="30">
                             <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
                             </controls:IconView.GestureRecognizers>
                         </controls:IconView>
                         <controls:IconView
-                            Margin="4"
                             Foreground="{DynamicResource PrimaryColor}"
-                            HeightRequest="42"
+                            HeightRequest="30"
                             Source="ic_global.png"
                             VerticalOptions="CenterAndExpand"
-                            WidthRequest="42">
+                            WidthRequest="30">
                             <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
                             </controls:IconView.GestureRecognizers>
                         </controls:IconView>
 
                         <controls:IconView
-                            Margin="4"
                             Foreground="{DynamicResource PrimaryColor}"
-                            HeightRequest="42"
+                            HeightRequest="30"
                             Source="ic_chatsupport.png"
-                            WidthRequest="42">
+                            WidthRequest="30">
                             <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding PushtoRegisterSupportCommand}" NumberOfTapsRequired="1" />
                             </controls:IconView.GestureRecognizers>
