@@ -289,7 +289,7 @@
                                         HorizontalOptions="CenterAndExpand"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
-                                        Text="{i18n:TranslateResource Rank_lb2}"
+                                        Text="{i18n:TranslateResource Rank_lb}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="Center" />
                                     <!--  Text="Chi tiết"  -->

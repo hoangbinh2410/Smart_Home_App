@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -27,9 +28,6 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Contructor
 
-        //public ICommand SelectExpenseCommand { get; private set; }
-
-        //public ICommand SelectPlaceCommand { get; private set; }
         public ICommand ChoseImageCommand { get; private set; }
 
         public ICommand ResetImageCommand { get; private set; }
@@ -44,8 +42,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ImportExpensePageViewModel(INavigationService navigationService, IPageDialogService PageDialog, IExpenseService ExpenseService, IDisplayMessage displayMessage, IStationLocationService StationLocation) : base(navigationService)
         {
-            //SelectExpenseCommand = new DelegateCommand(SelectExpense);
-            //SelectPlaceCommand = new DelegateCommand(SelectPlace);
             ChoseImageCommand = new DelegateCommand(ChoseImage);
             ResetImageCommand = new DelegateCommand(ResetImage);
             SaveExpenseCommand = new DelegateCommand(SaveExpense);
@@ -170,7 +166,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IsHasImg
         { get { return isHasImg; } set { SetProperty(ref isHasImg, value); } }
 
-        private string imagePathLocal = DataItem.Image.ToDescription();
+        private string imagePathLocal = String.Empty;
         public string ImagePathLocal { get => imagePathLocal; set => SetProperty(ref imagePathLocal, value /*,nameof(AvatarDisplay)*/); }
 
         #endregion Property
@@ -242,6 +238,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     SelectedExpense = new ListExpenseCategoryByCompanyRespone();
                 }
                 SelectedLocation = ListPlace.Where(x => x.Name == obj.LandmarkName).ToList().FirstOrDefault();
+                if(SelectedLocation == null)
+                {
+                    SelectedLocation = new LocationStationResponse();
+                }
                 if (!string.IsNullOrEmpty(obj.OtherAddress))
                 {
                     IHasOtherPlace = true;
@@ -256,7 +256,7 @@ namespace BA_MobileGPS.Core.ViewModels
         // reset ảnh
         private async void ResetImage()
         {
-            bool result = await _PageDialog.DisplayAlertAsync("bạn có chắc muốn xóa ảnh không?", "Xóa ảnh", MobileResource.Common_Button_Yes, MobileResource.Common_Button_No);
+            bool result = await _PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc muốn xóa ảnh không?", MobileResource.Common_Button_Yes, MobileResource.Common_Button_No);
 
             if (!result)
             {
@@ -264,7 +264,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                ImagePathLocal = DataItem.Image.ToDescription();
+                ImagePathLocal = String.Empty;
             }
         }
         // lưu phí
@@ -277,40 +277,32 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ExpenseDetail.ExpenseCost < 0)
                     {
                         _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                        return;
                     }
-                    if (StringHelper.HasDangerousChars(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
+                    if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                     {
                         _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(SelectedLocation.Name) && SelectedExpense.HasLandmark == true)
+                    {
+                        _displayMessage.ShowMessageWarning("Vui lòng chọn địa điểm");
+                        return;
                     }
                     if (SelectedLocation.Name == DataItem.Place.ToDescription())
                     {
                         if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
                         {
                             _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                            return;
                         }
-                        if (StringHelper.HasDangerousChars(ExpenseDetail.OtherAddress))
+                        if (!StringHelper.ValidateAddress(ExpenseDetail.OtherAddress))
                         {
                             _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                            return;
                         }
-                    }
-                    if (ImagePathLocal == DataItem.Image.ToDescription())
-                    {
-                        var RequestExpense = new ImportExpenseRequest()
-                        {
-                            Id = ExpenseDetail.ID,
-                            Photo = "",
-                            OtherAddress = ExpenseDetail.OtherAddress,
-                            ExpenseCost = ExpenseDetail.ExpenseCost,
-                            FK_CompanyID = UserInfo.CompanyId,
-                            ExpenseDate = ExpenseDetail.ExpenseDate,
-                            Note = ExpenseDetail.Note,
-                            FK_ExpenseCategoryID = SelectedExpense.ID,
-                            FK_LandmarkID = SelectedLocation.PK_LandmarkID,
-                            FK_VehicleID = ExpenseDetail.FK_VehicleID,
-                        };
-                        IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
-                    }
-                    else if (ImagePathLocal == ExpenseDetail.Photo)
+                    }                  
+                    if (ImagePathLocal == ExpenseDetail.Photo || string.IsNullOrEmpty(ImagePathLocal))
                     {
                         var RequestExpense = new ImportExpenseRequest()
                         {
@@ -370,28 +362,37 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ExpenseDetail.ExpenseCost < 0)
                     {
                         _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                        return;
                     }
-                    if (StringHelper.HasDangerousChars(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
+                    if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                     {
                         _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(SelectedLocation.Name) && SelectedExpense.HasLandmark == true)
+                    {
+                        _displayMessage.ShowMessageWarning("Vui lòng chọn địa điểm");
+                        return;
                     }
                     if (SelectedLocation.Name == DataItem.Place.ToDescription())
                     {
                         if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
                         {
                             _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                            return;
                         }
-                        if (StringHelper.HasDangerousChars(ExpenseDetail.OtherAddress))
+                        if (!StringHelper.ValidateAddress(ExpenseDetail.OtherAddress))
                         {
                             _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                            return;
                         }
                     }
-                    if (ImagePathLocal == DataItem.Image.ToDescription())
+                    if (ImagePathLocal == ExpenseDetail.Photo || string.IsNullOrEmpty(ImagePathLocal))
                     {
                         var RequestExpense = new ImportExpenseRequest()
                         {
                             Id = ExpenseDetail.ID,
-                            Photo = "",
+                            Photo = ImagePathLocal,
                             OtherAddress = ExpenseDetail.OtherAddress,
                             ExpenseCost = ExpenseDetail.ExpenseCost,
                             FK_CompanyID = UserInfo.CompanyId,
@@ -427,7 +428,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         SelectedLocation = new LocationStationResponse();
                         ExpenseDetail.Note = String.Empty;
                         ExpenseDetail.ExpenseCost = 0;
-                        ImagePathLocal = DataItem.Image.ToDescription();
+                        ImagePathLocal =String.Empty;
                     }
                     else
                     {
@@ -577,7 +578,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ExpenseDetail.OtherAddress = string.Empty;
                     SelectedLocation = new LocationStationResponse();
-                    ExpenseDetail.Photo = DataItem.Image.ToDescription();
+                    ImagePathLocal = String.Empty;
                 }
             }
             else
@@ -632,14 +633,14 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
         // Convert url image to base64
-        private string GetBase64StringForUrlImage(string imgPath)
-        {
-            var webClient = new WebClient();
-            //byte[] imageBytes = webClient.DownloadData("http://www.google.com/images/logos/ps_logo2.png");
-            byte[] imageBytes = webClient.DownloadData(imgPath);
-            string base64String = Convert.ToBase64String(imageBytes);
-            return base64String;
-        }
+        //private string GetBase64StringForUrlImage(string imgPath)
+        //{
+        //    var webClient = new WebClient();
+        //    //byte[] imageBytes = webClient.DownloadData("http://www.google.com/images/logos/ps_logo2.png");
+        //    byte[] imageBytes = webClient.DownloadData(imgPath);
+        //    string base64String = Convert.ToBase64String(imageBytes);
+        //    return base64String;
+        //}
         //// Chuyển từ image to base64
         private string GetBase64StringForImage(string imgPath)
         {        
@@ -647,7 +648,6 @@ namespace BA_MobileGPS.Core.ViewModels
             string base64String = Convert.ToBase64String(imageBytes);
             return base64String;
         }
-
         #endregion PrivateMethod
     }
 }

@@ -103,10 +103,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     Vehicle = vehicle;
                 }
             }
-            if (_isCall)
-            {
-                GetListExpense();
-            }
+            //if (_isCall)
+            //{
+            //    GetListExpense();
+            //}
             _isCall = true;
         }
 
