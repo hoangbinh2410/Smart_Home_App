@@ -223,5 +223,9 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Message_LoadMore => Get(MobileResourceNames.Common_Message_LoadMore, " Xem thêm", "Load more");
 
         #endregion Vehicle
+        #region
+        public static string Common_Message_Search_Month => Get(MobileResourceNames.Common_Message_Search_Month, "Tháng tìm kiếm không được lớn hơn ngày hiện tại", "Search month cannot be greater than current date");
+        public static string Common_Message_Search_Day => Get(MobileResourceNames.Common_Message_Search_Day, "Ngày tìm kiếm không được lớn hơn ngày hiện tại", "Search month cannot be greater than current date");
+        #endregion
     }
 }
