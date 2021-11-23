@@ -226,6 +226,7 @@ namespace BA_MobileGPS.Core.Resources
         #region
         public static string Common_Message_Search_Month => Get(MobileResourceNames.Common_Message_Search_Month, "Tháng tìm kiếm không được lớn hơn ngày hiện tại", "Search month cannot be greater than current date");
         public static string Common_Message_Search_Day => Get(MobileResourceNames.Common_Message_Search_Day, "Ngày tìm kiếm không được lớn hơn ngày hiện tại", "Search month cannot be greater than current date");
+        public static string Common_Message_Support_View => Get(MobileResourceNames.Common_Message_Support_View, "Chỉ hỗ trợ xem biểu đồ theo ngày", " Only support daily chart viewing");     
         #endregion
     }
 }

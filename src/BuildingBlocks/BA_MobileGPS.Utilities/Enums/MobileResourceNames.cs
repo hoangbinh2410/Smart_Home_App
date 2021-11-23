@@ -1295,7 +1295,8 @@
         View_lb,
         Table_lb,
         Common_Message_Search_Month,
-        Common_Message_Search_Day
+        Common_Message_Search_Day,
+        Common_Message_Support_View,
         #endregion KPI
     }
 }

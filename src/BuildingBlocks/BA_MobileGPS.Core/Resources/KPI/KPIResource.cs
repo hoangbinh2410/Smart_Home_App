@@ -31,12 +31,13 @@ namespace BA_MobileGPS.Core.Resources
         public static string Date_lb => Get(MobileResourceNames.Date_lb, "Ngày", "Date");
         public static string Month_lb => Get(MobileResourceNames.Month_lb, "Tháng", "Month");
         public static string Ordinal_Number_lb => Get(MobileResourceNames.Ordinal_Number_lb, "STT", "NO");
-        public static string Detail_Text_lb => Get(MobileResourceNames.Detail_Text_lb, "Chi tiết", "Detail");
+
         public static string Rank_Table_Tabview => Get(MobileResourceNames.Rank_Table_Tabview, "Bảng xếp hạng", "Chart");
         public static string SearchVehicle => Get(MobileResourceNames.SearchVehicle, "Tìm kiếm lái xe", "Search driver");
         public static string Month_Point_Medium => Get(MobileResourceNames.Month_Point_Medium, "Điểm trung bình tháng", "Average score of the month");
         public static string Driver_lb => Get(MobileResourceNames.Driver_lb, "Lái xe", "Driver");
-        public static string View_lb => Get(MobileResourceNames.View_lb, "Xem", "View");       
+        public static string View_lb => Get(MobileResourceNames.View_lb, "Xem", "View");
+        public static string Detail_Text_lb => Get(MobileResourceNames.Detail_Text_lb, "Chi tiết", "Detail");
         #endregion RankDriverPage
 
         #region RankNotDriverPage
