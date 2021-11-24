@@ -337,26 +337,26 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void ExecuteFilterDetails()
         {
-            string message = "";
-            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            {
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-                return;
-            }
-            if (!base.CheckValidateInput(ref message))
-            {
-                DisplayMessage.ShowMessageInfo(message, 5000);
-                return;
-            }
-            var parameters = new NavigationParameters
-            {
-                { ParameterKey.Vehicle, VehicleSelect },
-                { "FromDate", FromDate },
-                { "ToDate", ToDate },
-            };
+            //string message = "";
+            //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            //{
+            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+            //    return;
+            //}
+            //if (!base.CheckValidateInput(ref message))
+            //{
+            //    DisplayMessage.ShowMessageInfo(message, 5000);
+            //    return;
+            //}
+            //var parameters = new NavigationParameters
+            //{
+            //    { ParameterKey.Vehicle, VehicleSelect },
+            //    { "FromDate", FromDate },
+            //    { "ToDate", ToDate },
+            //};
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("DetailedFilterPage", parameters);
+                await NavigationService.NavigateAsync("DetailedFilterPage");
             });
         }
         /// <summary>Lưu các thông tin ẩn hiện cột</summary>
