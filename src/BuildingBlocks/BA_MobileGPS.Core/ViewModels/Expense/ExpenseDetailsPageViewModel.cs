@@ -18,9 +18,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 //using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
-using SelectionChangedEventArgs = Syncfusion.XForms.ComboBox.SelectionChangedEventArgs;
+using SelectionChangedEventArgs = Syncfusion.ListView.XForms.ItemTappedEventArgs;
 
 namespace BA_MobileGPS.Core.ViewModels.Expense
 {
@@ -104,7 +105,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             : base(navigationService)
         {
             ChooseDateDateTimePageCommand = new DelegateCommand(ExecuteToChooseDateTime);
-            NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            NavigateCommand = new DelegateCommand<SelectionChangedEventArgs>(NavigateClicked);
             ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
             DeleteItemCommand = new DelegateCommand<ExpenseDetailsRespone>(DeleteItemClicked);
             PushExpenseNameCommand = new DelegateCommand(ExecuteExpenseNameCombobox);
@@ -195,7 +196,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 }
             }
         }
-        public void NavigateClicked(ItemTappedEventArgs item)
+        public void NavigateClicked(SelectionChangedEventArgs item)
         {
             if (!ValidateDateTime())
             {
@@ -446,33 +447,33 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             try
             {
-                //if (Device.RuntimePlatform == Device.Android)
-                //{
+                if (Device.RuntimePlatform == Device.Android)
+                {
                     new PhotoBrowser
                     {
-                        Photos = new List<Photo>() 
+                        Photos = new List<Photo>()
                         {
                             new Photo{ URL = SourceImage, Info = SourceLocal}
                         },
                         ActionButtonPressed = (index) =>
                         {
                             PhotoBrowser.Close();
-                        },                     
+                        },
                         EnableGrid = true
                     }.Show();
-                //}
-                //else
-                //{
-                //    new PhotoBrowser
-                //    {
-                //        Photos = new List<Photo>()
-                //        {
-                //            new Photo{ URL = SourceImage, Info = SourceLocal}
-                //        },
-                //        ActionButtonPressed = null,                     
-                //        EnableGrid = true
-                //    }.Show();
-                //}
+                }
+                else
+                {
+                    new PhotoBrowser
+                    {
+                        Photos = new List<Photo>()
+                        {
+                            new Photo{ URL = SourceImage, Info = SourceLocal}
+                        },
+                        ActionButtonPressed = null,
+                        EnableGrid = true
+                    }.Show();
+                }
             }
             catch (Exception ex)
             {
