@@ -48,7 +48,8 @@
                 </Entry>
             </inputLayout:SfTextInputLayout>
 
-            <StackLayout Grid.Row="1" Orientation="Vertical">
+            <!--<Grid Grid.Row="1" Orientation="Vertical">-->
+            <Grid Grid.Row="1">
                 <syncfusion:SfListView
                     x:Name="listview"
                     BackgroundColor="Transparent"
@@ -90,7 +91,7 @@
                         HorizontalTextAlignment="Center"
                         Text="{i18n:TranslateResource Common_Message_NoDataJoinDay}" />
                 </StackLayout>
-            </StackLayout>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

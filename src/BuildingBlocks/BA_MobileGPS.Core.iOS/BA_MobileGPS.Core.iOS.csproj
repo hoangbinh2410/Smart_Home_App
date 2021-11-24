@@ -2735,6 +2735,9 @@
     <BundleResource Include="Resources\ic_errorsignal.png" />
     <BundleResource Include="Resources\ic_errorsignal%402x.png" />
     <BundleResource Include="Resources\ic_errorsignal%403x.png" />
+    <BundleResource Include="Resources\ic_expence%402x.png" />
+    <BundleResource Include="Resources\ic_expence%403x.png" />
+    <BundleResource Include="Resources\ic_expence.png" />
     <Content Include="Resources\ic_exportvideo%402x.png" />
     <Content Include="Resources\ic_exportvideo%403x.png" />
     <Content Include="Resources\ic_exportvideo.png" />
