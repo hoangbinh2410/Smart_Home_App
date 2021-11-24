@@ -68,6 +68,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj)
                 {
                     ExpenseDetail = obj;
+                    //if (!string.IsNullOrEmpty(obj.Photo))
+                    //{
+                    //    IsHasImg = false;
+                    //}
                     GetListExpenseCategory(obj, ListExpense);
                 }
                 else
@@ -157,7 +161,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IHasOtherPlace
         { get { return iHasOtherPlace; } set { SetProperty(ref iHasOtherPlace, value); } }
 
-        private bool isHasImg = true;
+        private bool isHasImg = false;
 
         public bool IsHasImg
         { get { return isHasImg; } set { SetProperty(ref isHasImg, value); } }
@@ -185,6 +189,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PickImage();
             }
+            IsHasImg = true;
         }
 
         // danh sách phí, danh sách địa điểm trong combobox
@@ -244,6 +249,11 @@ namespace BA_MobileGPS.Core.ViewModels
         // reset ảnh
         private async void ResetImage()
         {
+            //if (!string.IsNullOrEmpty(ExpenseDetail.Photo))
+            //{
+            //    _displayMessage.ShowMessageWarning("Không được xóa ảnh!");
+            //    return;
+            //}
             bool result = await _PageDialog.DisplayAlertAsync("Cảnh báo", "Bạn có chắc muốn xóa ảnh không?", MobileResource.Common_Button_Yes, MobileResource.Common_Button_No);
 
             if (!result)
@@ -253,6 +263,7 @@ namespace BA_MobileGPS.Core.ViewModels
             else
             {
                 ImagePathLocal = String.Empty;
+                IsHasImg = false;
             }
         }
         //Đổi phí
@@ -283,7 +294,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                 }
-                if (ImagePathLocal == ExpenseDetail.Photo || string.IsNullOrEmpty(ImagePathLocal))
+                if (ImagePathLocal == ExpenseDetail.Photo )
                 {
                     var RequestExpense = new ImportExpenseRequest()
                     {
@@ -301,7 +312,25 @@ namespace BA_MobileGPS.Core.ViewModels
                         IsChangePhoto = false
                     };
                     IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
-                }
+                } //else if (string.IsNullOrEmpty(ImagePathLocal))
+                //{
+                //    var RequestExpense = new ImportExpenseRequest()
+                //    {
+                //        Id = ExpenseDetail.ID,
+                //        Photo = ImagePathLocal,
+                //        OtherAddress = ExpenseDetail.OtherAddress,
+                //        ExpenseCost = ExpenseDetail.ExpenseCost,
+                //        FK_CompanyID = UserInfo.CompanyId,
+                //        ExpenseDate = ExpenseDetail.ExpenseDate,
+                //        Note = ExpenseDetail.Note,
+                //        FK_ExpenseCategoryID = SelectedExpense.ID,
+                //        FK_LandmarkID = SelectedLocation.PK_LandmarkID,
+                //        FK_VehicleID = ExpenseDetail.FK_VehicleID,
+                //        User = UserInfo.UserId,
+                //        IsChangePhoto = true
+                //    };
+                //    IInsertExpense = await _ExpenseService.GetExpense(RequestExpense);
+                //}
                 else
                 {
                     var RequestExpense = new ImportExpenseRequest()
@@ -449,6 +478,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpenseDetail.Note = String.Empty;
                         ExpenseDetail.ExpenseCost = 0;
                         ImagePathLocal = String.Empty;
+                        IsHasImg = false;
                     }
                     else
                     {
@@ -618,6 +648,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ImagePathLocal = string.Empty;
                 }
+                IsHasImg = false;
             }
             else
             {
@@ -690,7 +721,6 @@ namespace BA_MobileGPS.Core.ViewModels
             string base64String = Convert.ToBase64String(imageBytes);
             return base64String;
         }
-
         #endregion PrivateMethod
     }
 }

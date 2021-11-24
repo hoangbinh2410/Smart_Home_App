@@ -307,6 +307,7 @@
                                     Source="{Binding ImagePathLocal}"
                                     VerticalOptions="FillAndExpand" />
                             </Frame>
+                            <!--, Converter={StaticResource HasDataConverter}-->
                             <Frame
                                 Margin="0,5,5,0"
                                 Padding="0"
@@ -314,7 +315,7 @@
                                 CornerRadius="10"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
-                                IsVisible="{Binding ImagePathLocal, Converter={StaticResource HasDataConverter}}"
+                                IsVisible="{Binding IsHasImg}"
                                 VerticalOptions="Start"
                                 WidthRequest="20">
                                 <Frame.GestureRecognizers>
