@@ -168,7 +168,7 @@ namespace BA_MobileGPS.Core.ViewModels
             int stt = 0;
             foreach (var item in data)
             {
-                item.OrderNumber = ++stt;
+                item.RowNumber = ++stt;
             }
             return data;
         }
@@ -264,7 +264,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numberrow += 1;
                     numbercolum = 1;
                     // Số thứ tự
-                    worksheet.Range[numberrow, numbercolum].Text = data[i].OrderNumber.ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = data[i].RowNumber.ToString();
                     // Điểm đi
                     if (ShowStartAddress)
                     {
@@ -493,7 +493,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (CheckPermision((int)PermissionKeyNames.ViewModuleRoute))
                 {
-                    var model = ListDataSearch.Where(x => x.STT == obj).FirstOrDefault();
+                    var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();
                     var modelparam = new Vehicle();
                     modelparam.VehiclePlate = VehicleSelect.VehiclePlate;
                     modelparam.PrivateCode = VehicleSelect.PrivateCode;
@@ -524,7 +524,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (CheckPermision(1354) || CheckPermision(1355))
                 {
-                    var model = ListDataSearch.Where(x => x.STT == obj).FirstOrDefault();
+                    var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();
                 }
                 else
                 {

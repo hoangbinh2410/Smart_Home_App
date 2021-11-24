@@ -14,9 +14,8 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
     /// ducpv  19/11/2021   created
     /// </Modified>
     [Serializable]
-    public class TransportBusinessResponse : ReportStation
+    public class TransportBusinessResponse 
     {
-        public int OrderNumber { get; set; }
         /// <summary>
         /// Ngày
         /// </summary>
@@ -53,15 +52,15 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
         /// </summary>
         public string EndAddress { get; set; }
 
-        ///// <summary>
-        ///// Tổng số KmGPS xe đi được trong ngày
-        ///// </summary>
-        //public double TotalKmGps { get; set; }
+        /// <summary>
+        /// Tổng số KmGPS xe đi được trong ngày
+        /// </summary>
+        public double TotalKmGps { get; set; }
 
         ///// <summary>
         ///// Xung trong ngày
         ///// </summary>
-        //public double KmOfPulseMechanical { get; set; }
+        public double KmOfPulseMechanical { get; set; }
 
         /// <summary>
         /// Định mức tiêu thụ nhiên liệu/1km
@@ -88,134 +87,20 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
         public byte ChangeType { get; set; }
         public int ReaderID { get; set; }
 
-        public string CreatedDateStr => CreatedDate != DateTime.MinValue ? CreatedDate.ToString("dd/MM/yyyy HH:mm:ss") : string.Empty;
+        //
 
-        public string VehicleTypeName { get; set; }
+        public int RowNumber { get; set; }
 
-        public bool OnBen { get; set; }
+        /// <summary>
+        /// Gets or Sets VehicleID
+        /// </summary>
+        [JsonProperty("v_id")]
+        public long FK_VehicleID { get; set; }
 
-        public int CurrentBenVelocity { get; set; }
-
-        public int StartAddressId { get; set; }
-        public int EndAddressId { get; set; }
-    }
-
-    /// <summary>
-    /// Báo cáo ra vào trạm
-    /// </summary>
-    /// <Modified>
-    /// Name     Date         Comments
-    /// ducpv  19/11/2021   created
-    /// </Modified>
-    [Serializable]
-    public class ReportStation : ReportBase
-    {
         /// <summary>
         /// ID tram
         /// </summary>
         public int LandmarkID { get; set; }
-
-        /// <summary>
-        /// Ten tram
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Thoi gian vao tram
-        /// </summary>
-        public DateTime TimeInStation { get; set; }
-
-        public string TimeInStationDisplay => TimeInStation == DateTime.MinValue ? string.Empty : DateTimeHelper.FormatDateTime(TimeInStation);
-
-        /// <summary>
-        /// Thoi gian ra tram
-        /// </summary>
-        public DateTime TimeOutStation { get; set; }
-
-        public string TimeOutStationDisplay => TimeOutStation == DateTime.MinValue ? string.Empty : DateTimeHelper.FormatDateTime(TimeOutStation);
-
-        public string Description { get; set; }
-        public bool IsOnline { get; set; }
-
-        /// <summary>
-        /// Km GPS ra trạm
-        /// </summary>
-        public double KmOutsideStation { get; set; }
-
-        /// <summary>
-        /// Xung Km ra trạm
-        /// </summary>
-        public double PulseOutSideStation { get; set; }
-
-        public int PeriodInOutStation { get; set; }
-
-        /// <summary>
-        /// Tổng số KmGPS xe đi được trong ngày
-        /// </summary>
-        public double TotalKmGps { get; set; }
-
-        /// <summary>
-        /// Xung trong ngày
-        /// </summary>
-        public double KmOfPulseMechanical { get; set; }
-
-        /// <summary>
-        /// Diem roi khoi tram
-        /// </summary>
-        public string PointOutStation { get; set; }
-
-        /// <summary>
-        /// Diem trong tram
-        /// </summary>
-        public string PointInStation { get; set; }
-
-        /// <summary>
-        /// ID loại điểm trạm
-        /// </summary>
-        public int LandmarkCatalogueID { get; set; }
-
-        public string TimeInStationString { get; set; }
-        public string TimeOutStationString { get; set; }
-        public int Direction { get; set; }
-        public string DateCheck { get; set; }
-
-        /// <summary>
-        /// Gets or set TypeVehicle
-        /// </summary>
-        public string NameType { get; set; }
-
-        /// <summary>
-        /// Gets or set MinutesOfAirConditionerOn
-        /// </summary>
-        public int MinutesOfAirConditionerOn { get; set; }
-
-        /// <summary>
-        /// Gets or set MinutesOfAirConditionerOn
-        /// </summary>
-        public DateTime FromTimeOfAirConditionerOn { get; set; }
-
-        public string FromTimeOfAirConditionerOnStr { get => FromTimeOfAirConditionerOn == new DateTime() ? "" : FromTimeOfAirConditionerOn.ToString("HH:mm"); }
-        public string FromTimeOfAirConditionerOnAll { get => FromTimeOfAirConditionerOn == new DateTime() ? "" : FromTimeOfAirConditionerOn.ToString("HH:mm") + " (" + MinutesOfAirConditionerOn.ToString() + ")"; }
-
-        /// <summary>
-        /// Gets or set MinutesOfAirConditionerOn
-        /// </summary>
-        public DateTime ToTimeOfAirConditionerOn { get; set; }
-
-        /// <summary>
-        /// Tổng số KmGPS xe đi được trong ngày 3 điểm
-        /// </summary>
-        public double TotalKmGps3Points { get; set; }
-
-        /// <summary>
-        /// Nhiên liệu khi vào trạm
-        /// </summary>
-        public double FuelInStation { get; set; }
-
-        /// <summary>
-        /// Nhiên liệu khi ra trạm
-        /// </summary>
-        public double FuelOutStation { get; set; }
 
         /// <summary>
         /// Số lít tiêu thụ
@@ -232,43 +117,21 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
         /// </summary>
         public double Norms3Points { get; set; }
 
-        public string CompanyName { get; set; }
         public string GroupName { get; set; }
-        public int MinutesLimited { get; set; }
-
-        public double StopSeconds { get; set; }
-
-        public double StopMinutes => Math.Round(StopSeconds / 60, MidpointRounding.AwayFromZero);
-
-        public bool UseTimeOutStation { get; set; }
-
-        public bool GoInBackOut { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public DateTime FK_Date { get; set; }
-    }
-    /// <summary>
-    /// Cac truong co ban cua bao cao
-    /// </summary>
-    /// <Modified>
-    /// Name     Date         Comments
-    /// ducpv  19/11/2021   created
-    /// </Modified>
-    [Serializable]
-    public class ReportBase
-    {
-        /// <summary>
-        /// Gets or Sets VehicleID
-        /// </summary>
-        [JsonProperty("v_id")]
-        public long VehicleID { get; set; }
 
         /// <summary>
-        /// Gets or Sets VehiclePlate
+        /// Nhiên liệu khi vào trạm
         /// </summary>
-        public string VehiclePlate { get; set; }
+        public double FuelInStation { get; set; }
 
-        public int STT { get; set; }
+        /// <summary>
+        /// Nhiên liệu khi ra trạm
+        /// </summary>
+        public double FuelOutStation { get; set; }
+
+        /// <summary>
+        /// Tổng số KmGPS xe đi được trong ngày 3 điểm
+        /// </summary>
 
         /// <summary>
         /// Gets or Sets PrivateCode
@@ -277,35 +140,45 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
         public string PrivateCode { get; set; }
 
         /// <summary>
-        /// Gets or Sets CompanyID
+        /// Km GPS ra trạm
         /// </summary>
-        public int CompanyID { get; set; }
+        public double KmOutsideStation { get; set; }
 
         /// <summary>
-        /// Get or Set DriverLicense
+        /// Xung Km ra trạm
         /// </summary>
-        public string DriverLicense { get; set; }
+        public double PulseOutSideStation { get; set; }
 
         /// <summary>
-        /// Get or Set DisplayName
+        /// Gets or Sets VehiclePlate
         /// </summary>
-        public string DisplayName { get; set; }
+        public string VehiclePlate { get; set; }
+
+        public string Name { get; set; }
 
         /// <summary>
-        /// Get or Set DriverName
+        /// Thoi gian vao tram
         /// </summary>
-        public string DriverName { get; set; }
+        public DateTime TimeInStation { get; set; }
 
         /// <summary>
-        /// Gets or Set EmployeeID
+        /// Thoi gian ra tram
         /// </summary>
-        public int EmployeeID { get; set; }
 
+        public DateTime TimeOutStation { get; set; }
+
+        /// <summary>
+        /// Tổng số KmGPS xe đi được trong ngày 3 điểm
+        /// </summary>
+
+        public double TotalKmGps3Points { get; set; }
+
+        //
+        public string VehicleTypeName { get; set; }
+        public bool OnBen { get; set; }
+        public int CurrentBenVelocity { get; set; }
+        public int StartAddressId { get; set; }
+        public int EndAddressId { get; set; }
         public decimal ConstantMechanicalKm { get; set; }
-
-        public string ResourceCode { get; set; }
-        public double? Temperature { get; set; }
-
-        public string TemperatureStr { get; set; }
     }
 }

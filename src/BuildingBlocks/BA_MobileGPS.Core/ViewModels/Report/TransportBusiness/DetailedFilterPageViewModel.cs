@@ -253,15 +253,15 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 return;
             }    
-            string fromPositionIdHis = "";
+            string fromPositionIds = "";
             string toPositionIds = "";
             if (SelectedLocationStart.Key != -1)
             {
-                fromPositionIdHis = SelectedLocationStart.Value;
+                fromPositionIds = SelectedLocationStart.Key.ToString();
             }
             if (SelectedLocationEnd.Key != -1)
             {
-                fromPositionIdHis = SelectedLocationEnd.Value;
+                toPositionIds = SelectedLocationEnd.Key.ToString();
             }
             var objRequest = new TransportBusinessRequest()
             {
@@ -269,7 +269,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
                 VehicleIDs = Vehicle.VehicleId.ToString(),
                 FromDate = _fromDate,
                 ToDate = _toDate,
-                FromPositionIdHis = fromPositionIdHis,
+                FromPositionIds = fromPositionIds,
                 ToPositionIds = toPositionIds,
                 MinKm = MinKm,
                 MaxKm = MaxKm,

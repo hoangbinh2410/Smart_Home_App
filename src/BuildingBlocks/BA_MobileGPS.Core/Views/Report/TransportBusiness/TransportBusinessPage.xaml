@@ -340,7 +340,7 @@
                         <!--  Số thứ tự  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="30"
-                            MappingName="OrderNumber"
+                            MappingName="RowNumber"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -360,7 +360,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="{Binding OrderNumber}"
+                                            Text="{Binding RowNumber}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
                                             YAlign="Center" />
@@ -476,7 +476,7 @@
                             Width="120"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowEndTime, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="Date"
+                            MappingName="EndTime"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -646,7 +646,7 @@
                             Width="90"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowQuotaFuelInKm, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="ConstantNormsInKm"
+                            MappingName="ConstantNorms"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
