@@ -298,14 +298,13 @@
                                     <syncfusionList:SfListView
                                         x:Name="listview"
                                         Grid.Row="2"
-                                        Padding="5,0"
-                                        AutoFitMode="DynamicHeight"
-                                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
-                                        RowSpacing="5">
+                                        AutoFitMode="Height"
+                                        ItemSpacing="10"
+                                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}">
                                         <syncfusionList:SfListView.ItemTemplate>
                                             <DataTemplate>
                                                 <StackLayout>
-                                                    <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                                    <Grid ColumnDefinitions="Auto,*,Auto">
                                                         <Grid.GestureRecognizers>
                                                             <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
                                                         </Grid.GestureRecognizers>

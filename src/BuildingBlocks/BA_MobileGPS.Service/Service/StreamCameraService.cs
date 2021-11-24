@@ -288,7 +288,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request)
+        public async Task<List<CameraRestreamUploadInfo>> GetListVideoDowload(CameraRestreamRequest request)
         {
             var result = new List<CameraRestreamUploadInfo>();
             try
@@ -423,6 +423,25 @@ namespace BA_MobileGPS.Service.Service
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return respone;
+        }
+
+        public async Task<CameraCloudRespone> GetListCameraCloud(GetCameraCloudRequest request)
+        {
+            var result = new CameraCloudRespone();
+            try
+            {
+                string url = string.Format(ApiUri.GET_LISTCAMERACLOUD);
+                var response = await requestProvider.PostAsync<GetCameraCloudRequest, ResponseBaseV2<CameraCloudRespone>>(url, request);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
         }
     }
 }

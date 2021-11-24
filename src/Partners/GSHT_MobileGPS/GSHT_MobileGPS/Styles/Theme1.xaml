@@ -43,6 +43,7 @@
     <Color x:Key="LoginTextColor">White</Color>
     <Color x:Key="LoginIconBackgroundColor">White</Color>
     <Color x:Key="LoginIconColor">#0D2D6C</Color>
+    <Color x:Key="LoginBntColor">#2DADB6</Color>
     <Color x:Key="LoginGradientStartColor">White</Color>
     <Color x:Key="LoginGradientEndColor">White</Color>
     <!--  Camera  -->

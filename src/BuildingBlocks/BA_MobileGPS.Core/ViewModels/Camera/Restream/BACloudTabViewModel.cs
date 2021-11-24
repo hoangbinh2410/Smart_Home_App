@@ -15,7 +15,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Timers;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -54,7 +53,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
             SetChannelSource();
-            GetListVideoUpload();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -93,20 +91,20 @@ namespace BA_MobileGPS.Core.ViewModels
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
-        private DateTime dateStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
+        private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
 
-        public DateTime DateStart
+        public DateTime FromDate
         {
-            get => dateStart;
-            set => SetProperty(ref dateStart, value);
+            get => fromDate;
+            set => SetProperty(ref fromDate, value);
         }
 
-        private DateTime dateEnd = DateTime.Now;
+        private DateTime toDate = DateTime.Now;
 
-        public DateTime DateEnd
+        public DateTime ToDate
         {
-            get => dateEnd;
-            set => SetProperty(ref dateEnd, value);
+            get => toDate;
+            set => SetProperty(ref toDate, value);
         }
 
         private ObservableCollection<VideoUpload> listVideoUpload;
@@ -199,12 +197,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool ValidateInput()
         {
-            if (dateStart > dateEnd)
+            if (FromDate > ToDate)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
-            if (dateStart.Date != dateEnd.Date)
+            if (FromDate.Date != ToDate.Date)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
@@ -246,47 +244,41 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <summary>
         /// Lấy danh sách video từ server
         /// </summary>
-        private void GetListVideoDataFrom()
+        private void GetListVideoDataFromCloud()
         {
             try
             {
                 if (ValidateInput())
                 {
-                    VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
+                    var lstData = new List<VideoUploadInfo>();
                     RunOnBackground(async () =>
                     {
-                        return await _streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
+                        return await _streamCameraService.GetListCameraCloud(new Entities.GetCameraCloudRequest()
                         {
-                            CustomerId = UserInfo.XNCode,
-                            Date = DateStart.Date,
-                            VehicleNames = Vehicle.VehiclePlate
+                            Customer = UserInfo.XNCode,
+                            StartTime = FromDate,
+                            EndTime = ToDate,
+                            Vehicle = Vehicle.VehiclePlate,
+                            Source = (int)CameraSourceType.App,
+                            User = UserInfo.UserName,
+                            SessionID = StaticSettings.SessionID
                         });
                     }, (result) =>
                     {
-                        if (result != null && result.Count > 0)
+                        if (result != null && result.Data != null)
                         {
-                            var lstvideoupload = new List<VideoUploadInfo>();
-                            foreach (var item in result)
+                            foreach (var item in result.Data)
                             {
-                                foreach (var item1 in item.Data)
+                                lstData.Add(new VideoUploadInfo()
                                 {
-                                    item1.Channel = item.Channel;
-                                    item1.VehicleName = item.VehicleName;
-                                    item1.EndTime = item1.StartTime.AddSeconds(item1.Duration);
-                                }
-                                lstvideoupload.AddRange(item.Data);
+                                    Channel = (byte)item.Channel,
+                                    EndTime = item.EndTime,
+                                    StartTime = item.StartTime,
+                                    Link = item.Link,
+                                    VehicleName = result.Vehicle
+                                });
                             }
-                            if (lstvideoupload != null && lstvideoupload.Count > 0)
-                            {
-                                var lstvideo = new List<VideoUploadInfo>();
-                                var video = lstvideoupload.Where(x => x.StartTime >= DateStart
-                                && x.StartTime <= DateEnd
-                                && (x.Channel == SelectedChannel.Value
-                                || SelectedChannel.Value == 0
-                                || SelectedChannel == null)).OrderBy(x => x.StartTime).ToList();
-                                lstvideo.AddRange(video);
-                                VideoItemsSource = lstvideo.ToObservableCollection();
-                            }
+                            VideoItemsSource = lstData.ToObservableCollection();
                         }
                     }, showLoading: true);
                 }
@@ -297,55 +289,9 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private async void GetListVideoUpload()
-        {
-            List<VideoUpload> result = new List<VideoUpload>();
-            try
-            {
-                if (StaticSettings.ListVehilceCamera != null && StaticSettings.ListVehilceCamera.Count > 0)
-                {
-                    var listVehicle = StaticSettings.ListVehilceCamera.Select(x => x.VehiclePlate).ToList();
-                    var respone = await _streamCameraService.GetUploadingProgressInfor(new UploadStatusRequest()
-                    {
-                        CustomerID = UserInfo.XNCode,
-                        VehicleName = listVehicle,
-                        Source = (int)CameraSourceType.App,
-                        User = UserInfo.UserName,
-                        SessionID = StaticSettings.SessionID
-                    });
-                    if (respone != null && respone.Count > 0)
-                    {
-                        foreach (var item in respone)
-                        {
-                            if (item.UploadFiles != null && item.UploadFiles.Count > 0)
-                            {
-                                var list = item.UploadFiles.Where(x => x.State != (int)VideoUploadStatus.Uploaded);
-                                foreach (var item1 in list)
-                                {
-                                    var model = new VideoUpload()
-                                    {
-                                        Channel = item.Channel,
-                                        StartTime = item1.Time,
-                                        EndTime = item.EndTime,
-                                        Status = (VideoUploadStatus)item1.State,
-                                        VehicleName = item.VehicleName
-                                    };
-                                    result.Add(model);
-                                }
-                            }
-                        }
-                        ListVideoUpload = new ObservableCollection<VideoUpload>(result.OrderBy(x => x.Status).ThenBy(x => x.StartTime));
-                    }
-                }
-            }
-            catch (System.Exception)
-            {
-            }
-        }
-
         private void SearchData()
         {
-            GetListVideoDataFrom();
+            GetListVideoDataFromCloud();
         }
 
         private void VideoSelectedChange(VideoUploadInfo obj)
@@ -356,7 +302,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var parameters = new NavigationParameters
                     {
-                        {   ParameterKey.VideoUploaded, obj
+                        {   ParameterKey.VideoUploaded,obj
                         },
                         {
                             ParameterKey.LstVideoUploaded, VideoItemsSource.ToList()
@@ -366,7 +312,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             }
         }
-
 
         private void DowloadVideoInList(VideoUploadInfo obj)
         {

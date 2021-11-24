@@ -364,7 +364,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
                         {
-                            DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Search_Month);
                             return;
                         }
                         else
@@ -379,7 +379,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
                             {
-                                DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Search_Month);
                                 return;
                             }
                             else
@@ -395,7 +395,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else
                             {
-                                DisplayMessage.ShowMessageInfo("Ngày tìm kiếm không được lớn hơn ngày hiện tại");
+                                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Search_Day);
                                 return;
                             }
                         }

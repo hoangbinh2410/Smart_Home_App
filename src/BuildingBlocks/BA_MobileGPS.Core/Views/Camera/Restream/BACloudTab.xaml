@@ -187,7 +187,7 @@
                                 x:Name="dtStart"
                                 BorderColor="Transparent"
                                 DateSelectedCommand="{Binding DateSelectedCommand}"
-                                DateTime="{Binding DateStart}"
+                                DateTime="{Binding FromDate}"
                                 FontSize="13"
                                 HorizontalOptions="FillAndExpand"
                                 IconColor="{DynamicResource PrimaryColor}"
@@ -211,7 +211,7 @@
                                 x:Name="dtEnd"
                                 BorderColor="Transparent"
                                 DateSelectedCommand="{Binding DateSelectedCommand}"
-                                DateTime="{Binding DateEnd}"
+                                DateTime="{Binding ToDate}"
                                 FontSize="13"
                                 HorizontalOptions="FillAndExpand"
                                 IconColor="{DynamicResource PrimaryColor}"
@@ -267,14 +267,13 @@
                         <syncfusionList:SfListView
                             x:Name="listview"
                             Grid.Row="2"
-                            Padding="5,0"
-                            AutoFitMode="DynamicHeight"
-                            ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
-                            RowSpacing="5">
+                            AutoFitMode="Height"
+                            ItemSpacing="10"
+                            ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}">
                             <syncfusionList:SfListView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackLayout>
-                                        <Grid Padding="10,0" ColumnDefinitions="Auto,*,Auto">
+                                    <StackLayout Spacing="15">
+                                        <Grid ColumnDefinitions="Auto,*,Auto">
                                             <Grid.GestureRecognizers>
                                                 <TapGestureRecognizer Command="{Binding Source={x:Reference root}, Path=BindingContext.VideoItemTapCommand}" CommandParameter="{Binding .}" />
                                             </Grid.GestureRecognizers>
@@ -311,6 +310,7 @@
                                             </StackLayout>
                                             <icons:IconView
                                                 Grid.Column="2"
+                                                Margin="10,0"
                                                 Foreground="{StaticResource PrimaryColor}"
                                                 HeightRequest="20"
                                                 Source="ic_dowload.png"

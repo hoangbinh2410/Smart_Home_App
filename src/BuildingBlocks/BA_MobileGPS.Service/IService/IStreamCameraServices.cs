@@ -38,7 +38,7 @@ namespace BA_MobileGPS.Service
 
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
 
-        Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request);
+        Task<List<CameraRestreamUploadInfo>> GetListVideoDowload(CameraRestreamRequest request);
 
         Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request);
 
@@ -51,6 +51,8 @@ namespace BA_MobileGPS.Service
         Task<bool> InsertLogVideo(SaveVideoByUserRequest request);
 
         Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode);
+
+        Task<CameraCloudRespone> GetListCameraCloud(GetCameraCloudRequest request);
     }
 
     public enum ConditionType
