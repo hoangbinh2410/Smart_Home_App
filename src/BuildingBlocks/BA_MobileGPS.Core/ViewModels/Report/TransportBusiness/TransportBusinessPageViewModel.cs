@@ -5,6 +5,7 @@ using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
 using BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness;
 using BA_MobileGPS.Service;
+using BA_MobileGPS.Service.Report.Station;
 using BA_MobileGPS.Service.Service.Report.TransportBusiness;
 using BA_MobileGPS.Utilities;
 
@@ -55,8 +56,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool ShowQuotaFuel { get => _showQuotaFuel; set => SetProperty(ref _showQuotaFuel, value); }
 
         private TransportBusinessRequest _objRequest;
-        private ActivityDetailsModel selectDetailsItem;
-        public ActivityDetailsModel SelectDetailsItem { get => selectDetailsItem; set => SetProperty(ref selectDetailsItem, value); }
+        private List<ComboboxRequest> _listLocation = new List<ComboboxRequest>();
 
         private ObservableCollection<ShowHideColumnResponse> listShowHideComlumn;
         public ObservableCollection<ShowHideColumnResponse> ListShowHideComlumn { get => listShowHideComlumn; set => SetProperty(ref listShowHideComlumn, value); }
@@ -66,13 +66,16 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Contructor
 
         private readonly IShowHideColumnService showHideColumnService;
+        private readonly IStationLocationService _iStationDetailsService;
         public ICommand FilterDetailsCommand { get; private set; }
         public ICommand PushToViewRouteCommand { get; private set; }
         public ICommand PushToViewPicturnCommand { get; private set; }
-        public TransportBusinessPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService)
+        public TransportBusinessPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService,
+                                              IStationLocationService iStationDetailsService)
             : base(navigationService)
         {
             this.showHideColumnService = showHideColumnService;
+            this._iStationDetailsService = iStationDetailsService;
 
             ListShowHideComlumn = new ObservableCollection<ShowHideColumnResponse>()
             {
@@ -109,6 +112,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Page = Entities.Enums.MenuKeyEnums.ReportActivityDetail,
                 Type = UserBehaviorType.End
             });
+            GetListLocationStation();
         }
 
         public override void OnDestroy()
@@ -125,6 +129,39 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #region Menthod
 
+        /// <summary>Put dữ liệu cho combobox</summary>
+        /// <returns>Chọn địa điểm</returns>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  23/11/2021   created
+        /// </Modified>
+        private void GetListLocationStation()
+        {
+            RunOnBackground(async () =>
+            {
+                return await _iStationDetailsService.GetListLocationStation(CurrentComanyID);
+            },
+             (result) =>
+             {
+                 if (result != null)
+                 {
+                     _listLocation.Add(new ComboboxRequest()
+                     {
+                         Key = -1,
+                         Value = MobileResource.ReportSignalLoss_TitleStatus_All
+                     });
+                     foreach (var item in result.ToList())
+                     {
+                         _listLocation.Add(new ComboboxRequest()
+                         {
+                             Key = item.PK_LandmarkID,
+                             Value = item.Name
+                         });
+                     }
+                 }
+             });
+        }
+
         public bool IsExportExcel { get; set; }
 
         /// <summary>Set dữ liệu đầu vào</summary>
@@ -135,24 +172,55 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override TransportBusinessRequest SetDataInput()
         {
-            if(_objRequest != null)
-            {
-                return _objRequest;
-            }    
+
             string vehicleIDs = "";
             if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
             }
-            // test
-            vehicleIDs = "347503";
+            // Test
+            vehicleIDs = "212019";
             //
+            string positionIds = "";
+            List<int> listLocationId = new List<int>();
+            foreach (var item in _listLocation)
+            {
+                if(item.Key != -1)
+                {
+                    listLocationId.Add(item.Key);
+                }    
+            }
+            positionIds = string.Join(",", listLocationId);
+
+            // Trường hợp đã lựa chọn nâng cao
+            if (_objRequest != null)
+            {
+                _objRequest.CompanyID = CurrentComanyID;
+                _objRequest.VehicleIDs = vehicleIDs;
+                _objRequest.FromDate = FromDate;
+                _objRequest.ToDate = ToDate;
+                if(string.IsNullOrEmpty(_objRequest.FromPositionIds))
+                {
+                    _objRequest.FromPositionIds = positionIds;
+                }
+                if (string.IsNullOrEmpty(_objRequest.ToPositionIds))
+                {
+                    _objRequest.ToPositionIds = positionIds;
+                }
+                return _objRequest;
+            }
+            // Trường hợp chưa lựa chọn nâng cao
             return new TransportBusinessRequest
             {
                 CompanyID = CurrentComanyID,
                 VehicleIDs = vehicleIDs,
                 FromDate = FromDate,
                 ToDate = ToDate,
+                FromPositionIds = positionIds,
+                ToPositionIds = positionIds,
+                MinKm = 1,
+                MaxKm = 1000,
+                ISChecked = false
             };
         }
 
@@ -308,7 +376,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowQuotaFuelConsume)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TotalLitersOutsideStation.ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].UseFuel.ToString();
                     }
                     // Định mức NL trên 1km
                     numbercolum += 1;
@@ -348,15 +416,13 @@ namespace BA_MobileGPS.Core.ViewModels
             //    DisplayMessage.ShowMessageInfo(message, 5000);
             //    return;
             //}
-            //var parameters = new NavigationParameters
-            //{
-            //    { ParameterKey.Vehicle, VehicleSelect },
-            //    { "FromDate", FromDate },
-            //    { "ToDate", ToDate },
-            //};
+            var parameters = new NavigationParameters
+            {
+                { "ListLocation", _listLocation },
+            };
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("DetailedFilterPage");
+                await NavigationService.NavigateAsync("DetailedFilterPage", parameters);
             });
         }
         /// <summary>Lưu các thông tin ẩn hiện cột</summary>

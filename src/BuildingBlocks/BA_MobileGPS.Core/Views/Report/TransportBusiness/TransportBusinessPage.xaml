@@ -612,7 +612,7 @@
                             Width="90"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowQuotaFuelConsume, Converter={StaticResource ShowHideColumnConverter}}"
-                            MappingName="TotalLitersOutsideStation"
+                            MappingName="UseFuel"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -632,7 +632,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TotalLitersOutsideStation}"
+                                        Text="{Binding UseFuel}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -733,7 +733,7 @@
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Path=BindingContext.PushToViewRouteCommand, Source={x:Reference Name=dataGrid}}"
-                                                CommandParameter="{Binding OrderNumber}"
+                                                CommandParameter="{Binding RowNumber}"
                                                 NumberOfTapsRequired="1" />
                                         </StackLayout.GestureRecognizers>
                                         <Label
@@ -775,7 +775,7 @@
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Path=BindingContext.PushToViewPicturnCommand, Source={x:Reference Name=dataGrid}}"
-                                                CommandParameter="{Binding OrderNumber}"
+                                                CommandParameter="{Binding RowNumber}"
                                                 NumberOfTapsRequired="1" />
                                         </StackLayout.GestureRecognizers>
                                         <Label
@@ -844,7 +844,7 @@
                                     Name="SumTotalNorms"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
                                     Format="{}{TotalNorms}"
-                                    MappingName="TotalLitersOutsideStation"
+                                    MappingName="UseFuel"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn

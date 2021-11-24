@@ -48,21 +48,18 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             set => SetProperty(ref _maxKm, value);
         }
 
-        private DateTime _fromDate;
-        private DateTime _toDate;
-
         private ComboboxResponse _selectedLocationStart;
         public ComboboxResponse SelectedLocationStart { get => _selectedLocationStart; set => SetProperty(ref _selectedLocationStart, value); }
 
         private ComboboxResponse _selectedLocationEnd;
         public ComboboxResponse SelectedLocationEnd { get => _selectedLocationEnd; set => SetProperty(ref _selectedLocationEnd, value); }
 
-        private List<ComboboxRequest> _listLocationStation = new List<ComboboxRequest>();
+        private List<ComboboxRequest> _listLocation = new List<ComboboxRequest>();
 
-        public List<ComboboxRequest> ListLocationStation
+        public List<ComboboxRequest> ListLocation
         {
-            get { return _listLocationStation; }
-            set { SetProperty(ref _listLocationStation, value); }
+            get { return _listLocation; }
+            set { SetProperty(ref _listLocation, value); }
         }
 
         #endregion Property
@@ -104,26 +101,14 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-            GetListLocationStation();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters != null)
+            if (parameters.ContainsKey("ListLocation") && parameters.GetValue<List<ComboboxRequest>>("ListLocation") is List<ComboboxRequest> listLocation)
             {
-                if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehicle)
-                {
-                    Vehicle = vehicle;
-                }
-                if (parameters.ContainsKey("FromDate") && parameters.GetValue<DateTime>("FromDate") is DateTime fromDate)
-                {
-                    _fromDate = fromDate;
-                }
-                if (parameters.ContainsKey("ToDate") && parameters.GetValue<DateTime>("ToDate") is DateTime toDate)
-                {
-                    _toDate = toDate;
-                }
+                ListLocation = listLocation;
             }
         }
 
@@ -146,39 +131,6 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
 
         #region PrivateMethod
 
-        /// <summary>Put dữ liệu cho combobox</summary>
-        /// <returns>Chọn địa điểm</returns>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// ducpv  23/11/2021   created
-        /// </Modified>
-        private void GetListLocationStation()
-        {
-            RunOnBackground(async () =>
-            {
-                return await _iStationDetailsService.GetListLocationStation(CurrentComanyID);
-            },
-             (result) =>
-             {
-                 if (result != null)
-                 {
-                     ListLocationStation.Add(new ComboboxRequest()
-                     {
-                         Key = -1,
-                         Value = MobileResource.ReportSignalLoss_TitleStatus_All
-                     });
-                     foreach (var item in result.ToList())
-                     {
-                         ListLocationStation.Add(new ComboboxRequest()
-                         {
-                             Key = item.PK_LandmarkID,
-                             Value = item.Name
-                         });
-                     }
-                 }
-             });
-        }
-
         public async void ExecuteLandmarkComboboxStart()
         {
             if (IsBusy)
@@ -190,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 var p = new NavigationParameters
                 {
-                    { "dataCombobox", ListLocationStation },
+                    { "dataCombobox", ListLocation },
                     { "ComboboxType", ComboboxType.First },
                     { "Title", "Chọn điểm" }
                 };
@@ -216,7 +168,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 var p = new NavigationParameters
                 {
-                    { "dataCombobox", ListLocationStation },
+                    { "dataCombobox", ListLocation },
                     { "ComboboxType", ComboboxType.Second },
                     { "Title", "Chọn điểm" }
                 };
@@ -265,10 +217,6 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             }
             var objRequest = new TransportBusinessRequest()
             {
-                CompanyID = CurrentComanyID,
-                VehicleIDs = Vehicle.VehicleId.ToString(),
-                FromDate = _fromDate,
-                ToDate = _toDate,
                 FromPositionIds = fromPositionIds,
                 ToPositionIds = toPositionIds,
                 MinKm = MinKm,
@@ -286,9 +234,9 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
         }
         private bool CheckValidateKmInput()
         {
-            if (MinKm < 1)
+            if (MinKm < 0)
             {
-                DisplayMessage.ShowMessageInfo("Giá trị km tối thiểu phải lơn hơn 1", 3000);
+                DisplayMessage.ShowMessageInfo("Giá trị km tối thiểu phải lơn hơn 0", 3000);
                 return false;
             }
             if (MinKm >= MaxKm)

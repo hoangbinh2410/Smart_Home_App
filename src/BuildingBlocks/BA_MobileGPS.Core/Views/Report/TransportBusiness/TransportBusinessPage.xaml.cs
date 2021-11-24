@@ -110,7 +110,7 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
                     TotalTimes = TotalTimes + item.TotalTime ;
                     SumTotalKm = SumTotalKm + item.TotalKmGps;
                     TotalKmMechanical = TotalKmMechanical + item.KmOfPulseMechanical;
-                    TotalNorms = TotalNorms + item.TotalLitersOutsideStation;
+                    TotalNorms = TotalNorms + item.UseFuel;
                     TotalConstantNorms = TotalConstantNorms + item.Norms;
                 }    
             };
