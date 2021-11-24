@@ -18,5 +18,8 @@ namespace BA_MobileGPS.Entities
 
         [Description("AlertMask")]
         AlertMask = 4,
+
+        [Description("UpdateApp")]
+        UpdateApp = 5,
     }
 }
