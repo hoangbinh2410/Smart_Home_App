@@ -317,21 +317,20 @@
                             <syncfusion:SfListView.RightSwipeTemplate>
                                 <DataTemplate>
                                     <StackLayout
+                                        Margin="10,0,0,0"
                                         BackgroundColor="#E63C2B"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="Fill">
+                                        HeightRequest="60"
+                                        WidthRequest="30">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
                                         </StackLayout.GestureRecognizers>
                                         <controls:IconView
-                                            Grid.Row="0"
-                                            Grid.Column="0"
                                             Foreground="White"
                                             HeightRequest="25"
                                             HorizontalOptions="CenterAndExpand"
                                             Source="ic_delete.png"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="15" />
+                                            WidthRequest="25" />
                                     </StackLayout>
                                 </DataTemplate>
                             </syncfusion:SfListView.RightSwipeTemplate>
