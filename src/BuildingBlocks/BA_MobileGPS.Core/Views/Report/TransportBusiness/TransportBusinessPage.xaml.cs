@@ -85,12 +85,12 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
             get; set;
         } = 0;
 
-        public double TotalNorms
+        public double TotalUseFuel
         {
             get; set;
         } = 0;
 
-        public double TotalConstantNorms
+        public double TotalNorms
         {
             get; set;
         } = 0;
@@ -102,17 +102,26 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
                 TotalTimes = 0;
                 SumTotalKm = 0;
                 TotalKmMechanical = 0;
+                TotalUseFuel = 0;
                 TotalNorms = 0;
-                TotalConstantNorms = 0;
                 var enumerableItems = items as IEnumerable<TransportBusinessResponse>;
-                foreach(var item in enumerableItems)
+                if(enumerableItems != null)
                 {
-                    TotalTimes = TotalTimes + item.TotalTime ;
-                    SumTotalKm = SumTotalKm + item.TotalKmGps;
-                    TotalKmMechanical = TotalKmMechanical + item.KmOfPulseMechanical;
-                    TotalNorms = TotalNorms + item.UseFuel;
-                    TotalConstantNorms = TotalConstantNorms + item.Norms;
+                    foreach (var item in enumerableItems)
+                    {
+                        TotalTimes = TotalTimes + item.TotalTime;
+                        SumTotalKm = SumTotalKm + item.TotalKmGps;
+                        TotalKmMechanical = TotalKmMechanical + item.KmOfPulseMechanical;
+                        TotalUseFuel = TotalUseFuel + item.UseFuel;
+                        TotalNorms = TotalNorms + item.Norms;
+                    }
+                    TotalTimes = Math.Round(TotalTimes, 2);
+                    SumTotalKm = Math.Round(SumTotalKm, 2);
+                    TotalKmMechanical = Math.Round(TotalKmMechanical, 2);
+                    TotalUseFuel = Math.Round(TotalUseFuel, 2);
+                    TotalNorms = Math.Round(TotalNorms, 2);
                 }    
+                
             };
         }
     }

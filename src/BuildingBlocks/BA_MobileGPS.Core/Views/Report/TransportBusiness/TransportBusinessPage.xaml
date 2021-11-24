@@ -541,7 +541,7 @@
 
                         <!--  Km GPS  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="70"
+                            Width="80"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowKmGPS, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="TotalKmGps"
@@ -564,7 +564,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TotalKmGps}"
+                                        Text="{Binding TotalKmGps, StringFormat='{0:0.##}'}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -575,7 +575,7 @@
 
                         <!--  KmCO  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="70"
+                            Width="80"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowKmCO, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="KmOfPulseMechanical"
@@ -598,7 +598,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding KmOfPulseMechanical}"
+                                        Text="{Binding KmOfPulseMechanical, StringFormat='{0:0.##}'}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -609,9 +609,9 @@
 
                         <!--  Nhiên liệu tiêu thụ  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="90"
+                            Width="70"
                             ColumnSizer="Auto"
-                            IsHidden="{Binding ShowQuotaFuelConsume, Converter={StaticResource ShowHideColumnConverter}}"
+                            IsHidden="{Binding ShowUseFuel, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="UseFuel"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -643,7 +643,7 @@
 
                         <!--  Định mức nhiên liệu  / 1km  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="90"
+                            Width="80"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowQuotaFuelInKm, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="ConstantNorms"
@@ -666,7 +666,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ConstantNorms}"
+                                        Text="{Binding ConstantNorms, StringFormat='{0:0.##}'}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -677,9 +677,9 @@
 
                         <!--  NL tiêu thụ định mức  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="90"
+                            Width="70"
                             ColumnSizer="Auto"
-                            IsHidden="{Binding ShowQuotaFuel, Converter={StaticResource ShowHideColumnConverter}}"
+                            IsHidden="{Binding ShowNorms, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="Norms"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -700,7 +700,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding Norms}"
+                                        Text="{Binding Norms, StringFormat='{0:0.##}'}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -841,16 +841,16 @@
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
-                                    Name="SumTotalNorms"
+                                    Name="SumTotalUseFuel"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
-                                    Format="{}{TotalNorms}"
+                                    Format="{}{TotalUseFuel}"
                                     MappingName="UseFuel"
                                     SummaryType="Custom" />
 
                                 <syncDataGrid:GridSummaryColumn
-                                    Name="SumTotalConstantNorms"
+                                    Name="SumTotalNorms"
                                     CustomAggregate="{StaticResource CustomTransportBusinessConverter}"
-                                    Format="{}{TotalConstantNorms}"
+                                    Format="{}{TotalNorms}"
                                     MappingName="Norms"
                                     SummaryType="Custom" />
 
@@ -986,7 +986,7 @@
                                 CheckedColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="5.0"
                                 FontSize="13"
-                                IsChecked="{Binding ShowQuotaFuelConsume}"
+                                IsChecked="{Binding ShowUseFuel}"
                                 Text="Tiêu thụ" />
 
                             <!--  Điểm đến  -->
@@ -1006,7 +1006,7 @@
                                 CheckedColor="{DynamicResource PrimaryColor}"
                                 CornerRadius="5.0"
                                 FontSize="13"
-                                IsChecked="{Binding ShowQuotaFuel}"
+                                IsChecked="{Binding ShowNorms}"
                                 Text="Định mức tiêu thụ" />
 
                             <!--  button save  -->

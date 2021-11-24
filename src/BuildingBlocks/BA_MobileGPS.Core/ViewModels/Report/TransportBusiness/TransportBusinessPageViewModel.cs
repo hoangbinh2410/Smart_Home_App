@@ -46,14 +46,14 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool _showStartAddress = true;
         public bool ShowStartAddress { get => _showStartAddress; set => SetProperty(ref _showStartAddress, value); }
 
-        private bool _showQuotaFuelConsume = true;
-        public bool ShowQuotaFuelConsume { get => _showQuotaFuelConsume; set => SetProperty(ref _showQuotaFuelConsume, value); }
+        private bool _showUseFuel = true;
+        public bool ShowUseFuel { get => _showUseFuel; set => SetProperty(ref _showUseFuel, value); }
 
         private bool _showEndAddress = true;
         public bool ShowEndAddress { get => _showEndAddress; set => SetProperty(ref _showEndAddress, value); }
 
-        private bool _showQuotaFuel = true;
-        public bool ShowQuotaFuel { get => _showQuotaFuel; set => SetProperty(ref _showQuotaFuel, value); }
+        private bool _showNorms = true;
+        public bool ShowNorms { get => _showNorms; set => SetProperty(ref _showNorms, value); }
 
         private TransportBusinessRequest _objRequest;
         private List<ComboboxRequest> _listLocation = new List<ComboboxRequest>();
@@ -112,7 +112,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Page = Entities.Enums.MenuKeyEnums.ReportActivityDetail,
                 Type = UserBehaviorType.End
             });
-            GetListLocationStation();
+            GetListLocation();
         }
 
         public override void OnDestroy()
@@ -135,7 +135,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Name     Date         Comments
         /// ducpv  23/11/2021   created
         /// </Modified>
-        private void GetListLocationStation()
+        private void GetListLocation()
         {
             RunOnBackground(async () =>
             {
@@ -178,10 +178,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
             }
-            // Test
-            vehicleIDs = "212019";
-            //
-            string positionIds = "";
+            string allPositionIds = "";
             List<int> listLocationId = new List<int>();
             foreach (var item in _listLocation)
             {
@@ -190,7 +187,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     listLocationId.Add(item.Key);
                 }    
             }
-            positionIds = string.Join(",", listLocationId);
+            allPositionIds = string.Join(",", listLocationId);
 
             // Trường hợp đã lựa chọn nâng cao
             if (_objRequest != null)
@@ -201,11 +198,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 _objRequest.ToDate = ToDate;
                 if(string.IsNullOrEmpty(_objRequest.FromPositionIds))
                 {
-                    _objRequest.FromPositionIds = positionIds;
+                    _objRequest.FromPositionIds = allPositionIds;
                 }
                 if (string.IsNullOrEmpty(_objRequest.ToPositionIds))
                 {
-                    _objRequest.ToPositionIds = positionIds;
+                    _objRequest.ToPositionIds = allPositionIds;
                 }
                 return _objRequest;
             }
@@ -216,8 +213,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 VehicleIDs = vehicleIDs,
                 FromDate = FromDate,
                 ToDate = ToDate,
-                FromPositionIds = positionIds,
-                ToPositionIds = positionIds,
+                FromPositionIds = allPositionIds,
+                ToPositionIds = allPositionIds,
                 MinKm = 1,
                 MaxKm = 1000,
                 ISChecked = false
@@ -295,17 +292,19 @@ namespace BA_MobileGPS.Core.ViewModels
                     worksheet.Range[numberrow, numbercolum].Text = "Km GPS";
                 }
                 // Km cơ
+                numbercolum += 1;
                 worksheet.Range[numberrow, numbercolum].Text = "Km cơ";
                 // NL tiêu thụ
-                if (ShowQuotaFuelConsume)
+                if (ShowUseFuel)
                 {
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = "NL tiêu thụ";
                 }
                 // Định mức NL trên 1km
+                numbercolum += 1;
                 worksheet.Range[numberrow, numbercolum].Text = "Định mức NL trên 1km";
                 // NL tiêu thụ định mức
-                if (ShowQuotaFuel)
+                if (ShowNorms)
                 {
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = "NL tiêu thụ định mức";
@@ -314,7 +313,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
 
                 //head
-                worksheet.Range[1, 1].Text = "Báo cáo ra vào trạm";
+                worksheet.Range[1, 1].Text = "Báo cáo chuyến kinh doanh";
                 worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
                 worksheet.Range[1, 1].CellStyle.Font.Bold = true;
                 worksheet.Range[1, 1].CellStyle.Font.Size = 16;
@@ -367,30 +366,86 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowKmGPS)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TotalKmGps.ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].TotalKmGps,2).ToString();
                     }
-                    // Km GPS
+                    // Km Cơ
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = data[i].KmOfPulseMechanical.ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].KmOfPulseMechanical,2).ToString();
                     // NL tiêu thụ
-                    if (ShowQuotaFuelConsume)
+                    if (ShowUseFuel)
                     {
                         numbercolum += 1;
                         worksheet.Range[numberrow, numbercolum].Text = data[i].UseFuel.ToString();
                     }
                     // Định mức NL trên 1km
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = data[i].ConstantNorms.ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].ConstantNorms,2).ToString();
                     // NL tiêu thụ định mức
-                    if (ShowQuotaFuel)
+                    if (ShowNorms)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].Norms.ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].Norms,2).ToString();
                     }
                 }
 
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderAround();
                 worksheet.Range[4, 1, numberrow, numbercolum].BorderInside(ExcelLineStyle.Thin, ExcelKnownColors.Black);
+
+                // sum
+                numberrow += 1;
+                // Số thứ tự
+                numbercolum = 1;
+                // Điểm đi
+                if (ShowStartAddress)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = "Tổng";
+                }
+                // Điểm đến
+                if (ShowEndAddress)
+                {
+                    numbercolum += 1;
+                }
+                // Giờ đi
+                if (ShowStartTime)
+                {
+                    numbercolum += 1;
+                }
+                // Giờ đến
+                if (ShowEndTime)
+                {
+                    numbercolum += 1;
+                }
+                // Số phút hoạt động
+                if (ShowTimeActive)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = data.Sum(x => x.TotalTime).ToString();
+                }
+                // Km GPS
+                if (ShowKmGPS)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.TotalKmGps),2).ToString();
+                }
+                // Km Cơ
+                numbercolum += 1;
+                worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.KmOfPulseMechanical),2).ToString();
+                // NL tiêu thụ
+                if (ShowUseFuel)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = data.Sum(x => x.UseFuel).ToString();
+                }
+                // Định mức NL trên 1km
+                numbercolum += 1;
+                // NL tiêu thụ định mức
+                if (ShowNorms)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.Norms),2).ToString();
+                }
+
             }
             catch (Exception ex)
             {
@@ -468,9 +523,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     { 3, ShowEndTime },
                     { 4, ShowKmGPS },
                     { 5, ShowStartAddress },
-                    { 6, ShowQuotaFuelConsume },
+                    { 6, ShowUseFuel },
                     { 7, ShowEndAddress },
-                    { 8, ShowQuotaFuel },
+                    { 8, ShowNorms },
                 };
             }
         }
@@ -505,7 +560,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             break;
 
                         case 6:
-                            ShowQuotaFuelConsume = item.Value;
+                            ShowUseFuel = item.Value;
                             break;
 
                         case 7:
@@ -513,7 +568,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             break;
 
                         case 8:
-                            ShowQuotaFuel = item.Value;
+                            ShowNorms = item.Value;
                             break;
                     }
                 }
