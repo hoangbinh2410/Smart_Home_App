@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+//using Xamarin.Forms;
 using Xamarin.Forms.Extensions;
 using SelectionChangedEventArgs = Syncfusion.XForms.ComboBox.SelectionChangedEventArgs;
 
@@ -54,6 +55,12 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             get { return _sourceImage; }
             set { SetProperty(ref _sourceImage, value); }
         }
+        private string _sourceLocal = string.Empty;
+        public string SourceLocal
+        {
+            get { return _sourceLocal; }
+            set { SetProperty(ref _sourceLocal, value); }
+        }
 
         private ObservableCollection<ExpenseDetailsRespone> _menuItems = new ObservableCollection<ExpenseDetailsRespone>();
         public ObservableCollection<ExpenseDetailsRespone> MenuItems
@@ -87,6 +94,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #region Contructor
 
         public ICommand ChooseDateDateTimePageCommand { get; private set; }
+        public ICommand TabImageCommand { get; private set; }
         public ICommand NavigateCommand { get; }
         public ICommand ShowPicturnCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
@@ -100,7 +108,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             ShowPicturnCommand = new DelegateCommand<ExpenseDetailsRespone>(ShowPicturnClicked);
             DeleteItemCommand = new DelegateCommand<ExpenseDetailsRespone>(DeleteItemClicked);
             PushExpenseNameCommand = new DelegateCommand(ExecuteExpenseNameCombobox);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
+            TabImageCommand = new DelegateCommand(TabImage);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateValueCombobox);
             _ExpenseService = ExpenseService;
         }
@@ -157,7 +166,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public override void OnDestroy()
         {
             EventAggregator.GetEvent<SelectComboboxEvent>().Unsubscribe(UpdateValueCombobox);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
         }
 
         #endregion Lifecycle
@@ -176,7 +185,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
-        private void UpdateDateTime(PickerDateTimeResponse param)
+        private void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
             {
@@ -225,6 +234,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 IsShowImage = true;
                 SourceImage = item.Photo;
+                if (!StringHelper.ValidateAddress(item.OtherAddress))
+                {
+                   SourceLocal = item.OtherAddress ;
+                }
+                else
+                {
+                    SourceLocal = item.LandmarkName;
+                }
             }
         }
         private void GetListExpenseCategory()
@@ -425,6 +442,44 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 TotalMoney = MenuItems.Sum(x => x.ExpenseCost);
             }
         }
+        private void TabImage()
+        {
+            try
+            {
+                //if (Device.RuntimePlatform == Device.Android)
+                //{
+                    new PhotoBrowser
+                    {
+                        Photos = new List<Photo>() 
+                        {
+                            new Photo{ URL = SourceImage, Info = SourceLocal}
+                        },
+                        ActionButtonPressed = (index) =>
+                        {
+                            PhotoBrowser.Close();
+                        },                     
+                        EnableGrid = true
+                    }.Show();
+                //}
+                //else
+                //{
+                //    new PhotoBrowser
+                //    {
+                //        Photos = new List<Photo>()
+                //        {
+                //            new Photo{ URL = SourceImage, Info = SourceLocal}
+                //        },
+                //        ActionButtonPressed = null,                     
+                //        EnableGrid = true
+                //    }.Show();
+                //}
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+        }
+
         #endregion PrivateMethod
     }
 }
