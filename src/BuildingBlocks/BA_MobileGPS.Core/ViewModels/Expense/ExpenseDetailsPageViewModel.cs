@@ -354,15 +354,19 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         var listItems = await _ExpenseService.GetListExpense(request);
                         if (listItems != null && listItems.Count > 0)
                         {
-                            TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
-                            _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;
+                            //  TotalMoney = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Total;
+                           
+                            _menuItemsRemember = listItems.Where(x => x.ExpenseDate.Day == ChooseDate.Day).FirstOrDefault().Expenses;                        
                             if (!string.IsNullOrEmpty(SelectedExpenseName.Value) && SelectedExpenseName.Value != DataItem.AllExpense.ToDescription())
                             {
                                 MenuItems = _menuItemsRemember.Where(y => y.Name == SelectedExpenseName.Value)?.ToList().ToObservableCollection(); ;
+                                SumMoney();
+
                             }
                             else
                             {
                                 MenuItems = _menuItemsRemember.ToObservableCollection(); ;
+                                SumMoney();
                             }
                         }
                         else
