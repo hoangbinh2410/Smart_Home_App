@@ -315,7 +315,7 @@
                                 CornerRadius="10"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
-                                IsVisible="{Binding IsHasImg}"
+                                IsVisible="{Binding ImagePathLocal, Converter={StaticResource HasDataConverter}}"
                                 VerticalOptions="Start"
                                 WidthRequest="20">
                                 <Frame.GestureRecognizers>

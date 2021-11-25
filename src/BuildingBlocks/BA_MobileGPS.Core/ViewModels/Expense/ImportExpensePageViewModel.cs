@@ -161,10 +161,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IHasOtherPlace
         { get { return iHasOtherPlace; } set { SetProperty(ref iHasOtherPlace, value); } }
 
-        private bool isHasImg = false;
+        //private bool isHasImg = false;
 
-        public bool IsHasImg
-        { get { return isHasImg; } set { SetProperty(ref isHasImg, value); } }
+        //public bool IsHasImg
+        //{ get { return isHasImg; } set { SetProperty(ref isHasImg, value); } }
 
         private string imagePathLocal = String.Empty;
         public string ImagePathLocal { get => imagePathLocal; set => SetProperty(ref imagePathLocal, value /*,nameof(AvatarDisplay)*/); }
@@ -189,7 +189,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 PickImage();
             }
-            IsHasImg = true;
+            //IsHasImg = true;
         }
 
         // danh sách phí, danh sách địa điểm trong combobox
@@ -263,7 +263,7 @@ namespace BA_MobileGPS.Core.ViewModels
             else
             {
                 ImagePathLocal = String.Empty;
-                IsHasImg = false;
+                //IsHasImg = false;
             }
         }
         //Đổi phí
@@ -294,7 +294,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         return;
                     }
                 }
-                if (ImagePathLocal == ExpenseDetail.Photo )
+                if (ImagePathLocal == ExpenseDetail.Photo || string.IsNullOrEmpty(ImagePathLocal))
                 {
                     var RequestExpense = new ImportExpenseRequest()
                     {
@@ -478,7 +478,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         ExpenseDetail.Note = String.Empty;
                         ExpenseDetail.ExpenseCost = 0;
                         ImagePathLocal = String.Empty;
-                        IsHasImg = false;
+                        //IsHasImg = false;
                     }
                     else
                     {
@@ -648,7 +648,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     ImagePathLocal = string.Empty;
                 }
-                IsHasImg = false;
+                //IsHasImg = false;
             }
             else
             {
