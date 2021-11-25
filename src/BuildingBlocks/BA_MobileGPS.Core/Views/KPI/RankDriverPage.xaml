@@ -58,13 +58,13 @@
                 <tabView:SelectionIndicatorSettings
                     Position="Fill"
                     StrokeThickness="10"
-                    Color="#00ABE1" />
+                    Color="{DynamicResource WhiteColor}" />
             </tabView:SfTabView.SelectionIndicatorSettings>
 
             <!--  Title="Điểm của tôi"  -->
             <tabView:SfTabItem
                 Title="{i18n:TranslateResource My_Point_TabView_Title}"
-                SelectionColor="{DynamicResource WhiteColor}"
+                SelectionColor="{DynamicResource PrimaryColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"
                 TitleFontSize="14">
@@ -443,7 +443,7 @@
             <!--  Title="Bảng xếp hạng"  -->
             <tabView:SfTabItem
                 Title="{i18n:TranslateResource Rank_Table_Tabview}"
-                SelectionColor="{DynamicResource WhiteColor}"
+                SelectionColor="{DynamicResource PrimaryColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"
                 TitleFontSize="14">
@@ -661,7 +661,7 @@
                                     <StackLayout
                                         Grid.Row="0"
                                         Padding="10"
-                                        BackgroundColor="#E4E4E4"
+                                        BackgroundColor="#D6F3FF"
                                         HorizontalOptions="FillAndExpand"
                                         Spacing="0"
                                         VerticalOptions="FillAndExpand">
@@ -695,7 +695,7 @@
                                         <pancake:PancakeView
                                             Grid.Column="0"
                                             Padding="10"
-                                            BackgroundColor="#E4E4E4"
+                                            BackgroundColor="#D6F3FF"
                                             HorizontalOptions="FillAndExpand">
                                             <Label
                                                 Grid.Column="1"
@@ -711,7 +711,7 @@
                                         <pancake:PancakeView
                                             Grid.Column="1"
                                             Padding="10"
-                                            BackgroundColor="#E4E4E4"
+                                            BackgroundColor="#D6F3FF"
                                             HorizontalOptions="FillAndExpand">
                                             <Label
                                                 Grid.Column="1"
@@ -772,7 +772,7 @@
                                         <pancake:PancakeView
                                             Grid.Column="0"
                                             Padding="10"
-                                            BackgroundColor="#D6F3FF"
+                                            BackgroundColor="#A1C4FD"
                                             HorizontalOptions="FillAndExpand">
                                             <Label
                                                 Grid.Column="1"
@@ -788,7 +788,7 @@
                                         <pancake:PancakeView
                                             Grid.Column="1"
                                             Padding="10"
-                                            BackgroundColor="#D6F3FF"
+                                            BackgroundColor="#A1C4FD"
                                             HorizontalOptions="FillAndExpand">
                                             <Label
                                                 Grid.Column="1"
@@ -815,7 +815,7 @@
                                     <StackLayout
                                         Grid.Row="0"
                                         Padding="10"
-                                        BackgroundColor="#E4E4E4"
+                                        BackgroundColor="#D6F3FF"
                                         HorizontalOptions="FillAndExpand"
                                         Spacing="0"
                                         VerticalOptions="FillAndExpand">
@@ -849,7 +849,7 @@
                                         <pancake:PancakeView
                                             Grid.Column="0"
                                             Padding="10"
-                                            BackgroundColor="#E4E4E4"
+                                            BackgroundColor="#D6F3FF"
                                             HorizontalOptions="FillAndExpand">
                                             <Label
                                                 Grid.Column="1"
@@ -865,7 +865,7 @@
                                         <pancake:PancakeView
                                             Grid.Column="1"
                                             Padding="10"
-                                            BackgroundColor="#E4E4E4"
+                                            BackgroundColor="#D6F3FF"
                                             HorizontalOptions="FillAndExpand">
                                             <Label
                                                 Grid.Column="1"
@@ -1012,7 +1012,7 @@
                                                         Text="{Binding STT}"
                                                         VerticalOptions="Center" />
                                                     <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                                        <ffImage:CachedImage
+                                                        <!--<ffImage:CachedImage
                                                             HeightRequest="20"
                                                             HorizontalOptions="Start"
                                                             Source="ic_accountsolid.png"
@@ -1021,7 +1021,7 @@
                                                             <ffImage:CachedImage.GestureRecognizers>
                                                                 <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                                                             </ffImage:CachedImage.GestureRecognizers>
-                                                        </ffImage:CachedImage>
+                                                        </ffImage:CachedImage>-->
                                                         <Label
                                                             HorizontalOptions="Start"
                                                             HorizontalTextAlignment="Start"
