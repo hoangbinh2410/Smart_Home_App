@@ -18,20 +18,23 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
     public class TransportBusinessPageViewModel : ReportBase<TransportBusinessRequest, TransportBusinessService, TransportBusinessResponse>
     {
-
         #region Property
 
         // cấu hình không quá số ngày cho phép để tìm kiếm dữ liệu
         public override int AddDayMinfromDate { get; set; } = MobileSettingHelper.ViewReport;
+
         public override int ShowHideColumnTableID { get; set; } = (int)TableReportEnum.Details;
 
         // ẩn hiện cột
         private bool _showStartTime = true;
+
         public bool ShowStartTime { get => _showStartTime; set => SetProperty(ref _showStartTime, value); }
 
         private bool _showTimeActive = true;
@@ -61,7 +64,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private ObservableCollection<ShowHideColumnResponse> listShowHideComlumn;
         public ObservableCollection<ShowHideColumnResponse> ListShowHideComlumn { get => listShowHideComlumn; set => SetProperty(ref listShowHideComlumn, value); }
 
-        #endregion
+        #endregion Property
 
         #region Contructor
 
@@ -70,6 +73,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand FilterDetailsCommand { get; private set; }
         public ICommand PushToViewRouteCommand { get; private set; }
         public ICommand PushToViewPicturnCommand { get; private set; }
+
         public TransportBusinessPageViewModel(INavigationService navigationService, IShowHideColumnService showHideColumnService,
                                               IStationLocationService iStationDetailsService)
             : base(navigationService)
@@ -91,7 +95,7 @@ namespace BA_MobileGPS.Core.ViewModels
             ToDate = DateTime.Now;
         }
 
-        #endregion
+        #endregion Contructor
 
         #region Lifecycle
 
@@ -125,7 +129,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        #endregion
+        #endregion Lifecycle
 
         #region Menthod
 
@@ -172,7 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override TransportBusinessRequest SetDataInput()
         {
-
             string vehicleIDs = "";
             if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
@@ -182,10 +185,10 @@ namespace BA_MobileGPS.Core.ViewModels
             List<int> listLocationId = new List<int>();
             foreach (var item in _listLocation)
             {
-                if(item.Key != -1)
+                if (item.Key != -1)
                 {
                     listLocationId.Add(item.Key);
-                }    
+                }
             }
             allPositionIds = string.Join(",", listLocationId);
 
@@ -196,7 +199,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 _objRequest.VehicleIDs = vehicleIDs;
                 _objRequest.FromDate = FromDate;
                 _objRequest.ToDate = ToDate;
-                if(string.IsNullOrEmpty(_objRequest.FromPositionIds))
+                if (string.IsNullOrEmpty(_objRequest.FromPositionIds))
                 {
                     _objRequest.FromPositionIds = allPositionIds;
                 }
@@ -366,11 +369,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowKmGPS)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].TotalKmGps,2).ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].TotalKmGps, 2).ToString();
                     }
                     // Km Cơ
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].KmOfPulseMechanical,2).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].KmOfPulseMechanical, 2).ToString();
                     // NL tiêu thụ
                     if (ShowUseFuel)
                     {
@@ -379,12 +382,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     // Định mức NL trên 1km
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].ConstantNorms,2).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].ConstantNorms, 2).ToString();
                     // NL tiêu thụ định mức
                     if (ShowNorms)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].Norms,2).ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].Norms, 2).ToString();
                     }
                 }
 
@@ -426,11 +429,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowKmGPS)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.TotalKmGps),2).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.TotalKmGps), 2).ToString();
                 }
                 // Km Cơ
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.KmOfPulseMechanical),2).ToString();
+                worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.KmOfPulseMechanical), 2).ToString();
                 // NL tiêu thụ
                 if (ShowUseFuel)
                 {
@@ -443,9 +446,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowNorms)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.Norms),2).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.Norms), 2).ToString();
                 }
-
             }
             catch (Exception ex)
             {
@@ -480,6 +482,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 await NavigationService.NavigateAsync("DetailedFilterPage", parameters);
             });
         }
+
         /// <summary>Lưu các thông tin ẩn hiện cột</summary>
         /// <Modified>
         /// Name     Date         Comments
@@ -587,7 +590,6 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override bool CheckValidateInput(ref string message)
         {
-
             if (!base.CheckValidateInput(ref message))
             {
                 DisplayMessage.ShowMessageInfo(message, 5000);
@@ -621,7 +623,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     modelparam.VehicleId = VehicleSelect.VehicleId;
                     var p = new NavigationParameters
                     {
-                        {"ReportDate", new Tuple<DateTime,DateTime>(model.TimeInStation,model.TimeOutStation) },
+                        {"ReportDate", new Tuple<DateTime,DateTime>(model.StartTime,model.EndTime) },
                         { ParameterKey.VehicleRoute, modelparam }
                     };
                     await NavigationService.NavigateAsync("RouteReportPage", p);
@@ -633,7 +635,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        /// <summary>Put data xem video.</summary>
+        /// <summary>Put data xem ảnh.</summary>
         /// <param name="obj">The object.</param>
         /// <Modified>
         /// Name     Date         Comments
@@ -646,6 +648,38 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (CheckPermision(1354) || CheckPermision(1355))
                 {
                     var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();
+                    if (CheckVehcleHasImage(VehicleSelect.VehiclePlate))
+                    {
+                        var vehicleModel = new Vehicle()
+                        {
+                            VehiclePlate = VehicleSelect.VehiclePlate,
+                            VehicleId = VehicleSelect.VehicleId,
+                            Imei = VehicleSelect.Imei,
+                            PrivateCode = VehicleSelect.PrivateCode
+                        };
+                        var parameters = new NavigationParameters()
+                        {
+                            {"ReportDate", new Tuple<DateTime,DateTime>(model.EndTime.AddMinutes(-10),
+                            new DateTime(model.StartTime.Year, model.StartTime.Month, model.StartTime.Day, 23, 59, 59)) },
+                            {ParameterKey.VehiclePlate,vehicleModel }
+                        };
+
+                        await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                                  string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                                  VehicleSelect.PrivateCode, MobileSettingHelper.HotlineGps),
+                                  "Liên hệ", "Bỏ qua");
+                            if (action)
+                            {
+                                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                            }
+                        });
+                    }
                 }
                 else
                 {
@@ -654,6 +688,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        #endregion
+        #endregion Menthod
     }
 }

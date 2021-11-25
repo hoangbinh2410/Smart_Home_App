@@ -507,7 +507,7 @@
 
                         <!--  Số phút hoạt động  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="70"
+                            Width="80"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowTimeActive, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="TotalTime"
@@ -564,7 +564,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TotalKmGps, StringFormat='{0:0.##}'}}"
+                                        Text="{Binding TotalKmGps, StringFormat='{0:0.##}'}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -598,7 +598,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding KmOfPulseMechanical, StringFormat='{0:0.##}'}}"
+                                        Text="{Binding KmOfPulseMechanical, StringFormat='{0:0.##}'}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -609,7 +609,7 @@
 
                         <!--  Nhiên liệu tiêu thụ  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="70"
+                            Width="80"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowUseFuel, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="UseFuel"
@@ -666,7 +666,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding ConstantNorms, StringFormat='{0:0.##}'}}"
+                                        Text="{Binding ConstantNorms, StringFormat='{0:0.##}'}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -677,7 +677,7 @@
 
                         <!--  NL tiêu thụ định mức  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="70"
+                            Width="80"
                             ColumnSizer="Auto"
                             IsHidden="{Binding ShowNorms, Converter={StaticResource ShowHideColumnConverter}}"
                             MappingName="Norms"
@@ -700,7 +700,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding Norms, StringFormat='{0:0.##}'}}"
+                                        Text="{Binding Norms, StringFormat='{0:0.##}'}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
