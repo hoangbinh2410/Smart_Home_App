@@ -1287,15 +1287,16 @@
         Date_lb,
         Month_lb, 
         Ordinal_Number_lb,
-        Detail_lb,
+        Detail_Text_lb,
         Rank_Table_Tabview,
         SearchVehicle, 
         Month_Point_Medium, 
         Driver_lb,
-        Look_lb,
+        View_lb,
         Table_lb,
         Common_Message_Search_Month,
-        Common_Message_Search_Day
+        Common_Message_Search_Day,
+        Common_Message_Support_View,
         #endregion KPI
     }
 }

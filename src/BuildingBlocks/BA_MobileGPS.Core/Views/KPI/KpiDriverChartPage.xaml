@@ -627,7 +627,7 @@
                                                 FontSize="16"
                                                 HorizontalOptions="CenterAndExpand"
                                                 LineBreakMode="TailTruncation"
-                                                Text="{i18n:TranslateResource Rank_lb2}"
+                                                Text="{i18n:TranslateResource Rank_lb}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>

@@ -353,7 +353,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             else
             {
-                DisplayMessage.ShowMessageInfo("Chỉ hỗ trợ xem biểu đồ theo ngày");
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Support_View);
             }
         }
 

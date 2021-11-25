@@ -569,13 +569,13 @@
                             Text="{i18n:TranslateResource Rank_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
-
+                        <!--  Text="Chi tiết"  -->
                         <Label
                             Grid.Column="4"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Chi tiết"
+                            Text="{i18n:TranslateResource Detail_Text_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                     </Grid>
@@ -643,13 +643,13 @@
                                             LineBreakMode="WordWrap"
                                             Text="{Binding AverageRank}"
                                             VerticalOptions="Center" />
-
+                                        <!--  Text="Xem"  -->
                                         <Label
                                             Grid.Column="4"
                                             HorizontalOptions="CenterAndExpand"
                                             HorizontalTextAlignment="Start"
                                             LineBreakMode="WordWrap"
-                                            Text="Xem"
+                                            Text="{i18n:TranslateResource View_lb}"
                                             TextDecorations="Underline"
                                             VerticalOptions="Center">
                                             <Label.GestureRecognizers>
