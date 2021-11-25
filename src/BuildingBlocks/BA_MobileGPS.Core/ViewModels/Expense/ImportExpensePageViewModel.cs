@@ -68,10 +68,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey("ImportExpense") && parameters.GetValue<ExpenseDetailsRespone>("ImportExpense") is ExpenseDetailsRespone obj)
                 {
                     ExpenseDetail = obj;
-                    //if (!string.IsNullOrEmpty(obj.Photo))
-                    //{
-                    //    IsHasImg = false;
-                    //}
+                    if (!string.IsNullOrEmpty(ExpenseDetail.Name))
+                    {
+                        IsHasCombobox = false;
+                    }
                     GetListExpenseCategory(obj, ListExpense);
                 }
                 else
@@ -161,10 +161,10 @@ namespace BA_MobileGPS.Core.ViewModels
         public bool IHasOtherPlace
         { get { return iHasOtherPlace; } set { SetProperty(ref iHasOtherPlace, value); } }
 
-        //private bool isHasImg = false;
+        private bool isCombobox = true;
 
-        //public bool IsHasImg
-        //{ get { return isHasImg; } set { SetProperty(ref isHasImg, value); } }
+        public bool IsHasCombobox
+        { get { return isCombobox; } set { SetProperty(ref isCombobox, value); } }
 
         private string imagePathLocal = String.Empty;
         public string ImagePathLocal { get => imagePathLocal; set => SetProperty(ref imagePathLocal, value /*,nameof(AvatarDisplay)*/); }

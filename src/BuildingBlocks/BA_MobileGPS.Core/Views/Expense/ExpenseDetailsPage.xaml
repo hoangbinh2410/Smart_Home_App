@@ -357,17 +357,17 @@
                 BackgroundColor="{DynamicResource WhiteColor}">
                 <syncfusion:SfListView
                     x:Name="listMenu"
-                    ItemSize="70"
+                    ItemSize="80"
                     ItemsSource="{Binding MenuItems, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"
                     TapCommand="{Binding NavigateCommand}">
                     <syncfusion:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Spacing="2.5">
+                            <StackLayout Spacing="2">
                                 <BoxView StyleClass="SlimLine" />
                                 <Grid
                                     Margin="0,10,0,0"
-                                    Padding="10,0,10,0"
+                                    Padding="10,0,5,0"
                                     ColumnSpacing="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -428,15 +428,16 @@
                                     </StackLayout>
                                 </Grid>
                                 <Grid>
+                                    <!--  LineBreakMode="TailTruncation"  -->
                                     <Label
                                         Padding="10,0,10,0"
                                         FontSize="12"
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         IsVisible="{Binding LandmarkName, Converter={StaticResource HasDataConverter}}"
-                                        LineBreakMode="TailTruncation"
                                         Style="{DynamicResource LabelItem}"
-                                        VerticalOptions="Center">
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="Địa điểm: " />
@@ -445,15 +446,16 @@
                                         </Label.FormattedText>
                                     </Label>
                                     <!--  Địa điểm khác  -->
+                                    <!--  LineBreakMode="TailTruncation"  -->
                                     <Label
                                         Padding="10,0,10,0"
                                         FontSize="12"
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         IsVisible="{Binding OtherAddress, Converter={StaticResource HasDataConverter}}"
-                                        LineBreakMode="TailTruncation"
                                         Style="{DynamicResource LabelItem}"
-                                        VerticalOptions="Center">
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="Địa điểm khác: " />
@@ -487,7 +489,7 @@
                         HorizontalTextAlignment="Center"
                         Text="Không có dữ liệu trong khoảng thời gian tìm kiếm" />
                 </StackLayout>
-                <sfPopup:SfPopupLayout
+                <!--<sfPopup:SfPopupLayout
                     x:Name="popupLayout"
                     IsOpen="{Binding IsShowImage}"
                     IsVisible="{Binding IsShowImage}">
@@ -525,7 +527,7 @@
                             </sfPopup:PopupView.ContentTemplate>
                         </sfPopup:PopupView>
                     </sfPopup:SfPopupLayout.PopupView>
-                </sfPopup:SfPopupLayout>
+                </sfPopup:SfPopupLayout>-->
             </Grid>
             <StackLayout
                 Grid.Row="2"
@@ -536,7 +538,7 @@
                 <buttons:SfButton
                     x:Name="sfButtonAddExpense"
                     BackgroundColor="#FFA502"
-                    Command="{Binding NavigateCommand}"
+                    Command="{Binding PushImportExpensePage}"
                     CornerRadius="20"
                     HorizontalOptions="CenterAndExpand"
                     Text="Thêm chi phí"
