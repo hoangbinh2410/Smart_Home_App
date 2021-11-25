@@ -22,6 +22,8 @@
 
         public const string GET_MOBILECONFIG = "api/mobileconfigurations/getall";
 
+        public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
+
         public const string GET_SENTOTP = "api/v2/authentcation/sentotp";
         public const string GET_VERIFYOTP = "api/v2/authentcation/verifyotp";
 
@@ -201,6 +203,7 @@
 
         public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
         public const string GET_GetStationDetails = "api/reports/station";
+        public const string GET_GetTransportBusiness = "api/reports/transportbusiness";
         #endregion report
 
         #region Camera

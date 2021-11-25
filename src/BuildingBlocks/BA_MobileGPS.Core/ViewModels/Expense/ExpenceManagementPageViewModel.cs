@@ -74,7 +74,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
             PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             SearchDataCommand = new DelegateCommand(SearchDataClicked);
             AddDataCommand = new DelegateCommand(AddDataClicked);
             DeleteItemCommand = new DelegateCommand<ExpenseRespone>(DeleteItemClicked);
@@ -103,10 +103,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     Vehicle = vehicle;
                 }
             }
-            //if (_isCall)
-            //{
-            //    GetListExpense();
-            //}
+            if (_isCall)
+            {
+                GetListExpense();
+            }
             _isCall = true;
         }
 
@@ -122,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
         }
 
         #endregion Lifecycle
@@ -139,7 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", FromDate },
                     { "PickerType", ComboboxType.First }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
 
@@ -153,11 +153,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", ToDate },
                     { "PickerType", ComboboxType.Second }
                 };
-                await NavigationService.NavigateAsync("SelectDateTimeCalendar", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
 
-        private void UpdateDateTime(PickerDateTimeResponse param)
+        private void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
             {
@@ -176,12 +176,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private void GetListExpense()
-        {
-            if (Vehicle == null)
-            {
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-                return;
-            }    
+        {           
             var companyID = CurrentComanyID;
             var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()
@@ -225,6 +220,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if (ValidateDateTime())
             {
+                if (Vehicle == null)
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                    return;
+                }
                 GetListExpense();
             }
         }

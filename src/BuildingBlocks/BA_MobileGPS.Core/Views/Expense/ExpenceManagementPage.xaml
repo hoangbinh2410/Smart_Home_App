@@ -317,21 +317,20 @@
                             <syncfusion:SfListView.RightSwipeTemplate>
                                 <DataTemplate>
                                     <StackLayout
+                                        Margin="10,0,0,0"
                                         BackgroundColor="#E63C2B"
-                                        HorizontalOptions="FillAndExpand"
-                                        VerticalOptions="Fill">
+                                        HeightRequest="60"
+                                        WidthRequest="30">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
                                         </StackLayout.GestureRecognizers>
                                         <controls:IconView
-                                            Grid.Row="0"
-                                            Grid.Column="0"
                                             Foreground="White"
-                                            HeightRequest="35"
+                                            HeightRequest="25"
                                             HorizontalOptions="CenterAndExpand"
                                             Source="ic_delete.png"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="30" />
+                                            WidthRequest="25" />
                                     </StackLayout>
                                 </DataTemplate>
                             </syncfusion:SfListView.RightSwipeTemplate>
@@ -436,11 +435,11 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Foreground="{DynamicResource PrimaryColor}"
-                        HeightRequest="35"
+                        HeightRequest="25"
                         HorizontalOptions="Center"
-                        Source="ic_lisence.png"
+                        Source="ic_expence.png"
                         VerticalOptions="End"
-                        WidthRequest="30" />
+                        WidthRequest="20" />
                     <Label
                         Grid.Row="0"
                         Grid.Column="1"

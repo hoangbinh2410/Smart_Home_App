@@ -1,8 +1,8 @@
-﻿using Com.OneSignal;
+﻿using BA_MobileGPS.Entities;
+using Com.OneSignal;
 using Com.OneSignal.Abstractions;
 using Prism.Events;
 using Prism.Ioc;
-using System.Diagnostics;
 
 namespace BA_MobileGPS.Core.Helpers
 {
@@ -29,13 +29,22 @@ namespace BA_MobileGPS.Core.Helpers
             if (payload.additionalData.TryGetValue("Types", out var types))
             {
                 var t = types.ToString();
-                //trả về parameter thích làm gì thì làm
-                if (payload.additionalData.TryGetValue("Value", out var values))
+
+                //NẾU Firebase là tung điều thì mở lên cuốc được tung điều đó
+                if (t == (((int)FirebaseNotificationTypeEnum.UpdateApp).ToString()))
                 {
-                    Settings.ReceivedNotificationType = types.ToString();
-                    Settings.ReceivedNotificationValue = values.ToString();
-                    Settings.ReceivedNotificationTitle = payload.title;
-                };
+                    Settings.IsUpdateApp = true;
+                }
+                else
+                {
+                    //trả về parameter thích làm gì thì làm
+                    if (payload.additionalData.TryGetValue("Value", out var values))
+                    {
+                        Settings.ReceivedNotificationType = types.ToString();
+                        Settings.ReceivedNotificationValue = values.ToString();
+                        Settings.ReceivedNotificationTitle = payload.title;
+                    };
+                }
             };
         }
 

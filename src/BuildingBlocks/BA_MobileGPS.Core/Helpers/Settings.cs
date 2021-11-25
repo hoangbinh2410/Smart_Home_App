@@ -1,5 +1,4 @@
-﻿using BA_MobileGPS.Core.Themes;
-using BA_MobileGPS.Entities;
+﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Enums;
 using Newtonsoft.Json;
@@ -69,8 +68,8 @@ namespace BA_MobileGPS.Core
         private const string LoadedMap = "LoadMap";
         private static readonly bool IsLoadedMapDefault = false;
 
-        private const string FistInstallPopup = "FisrtPopup";
-        private static readonly bool FistInstallPopupDefault = true;
+        private const string IsUpdateAppKey = "IsUpdateAppKey";
+        private static readonly bool IsUpdateAppDefault = false;
 
         private const string TempVersionNameKey = "TempVersionNameKey";
         private static readonly string TempVersionNameKeyDefault = string.Empty;
@@ -79,7 +78,7 @@ namespace BA_MobileGPS.Core
         private static readonly int SortOrderKeyDefault = (int)SortOrderType.DefaultDES;
 
         private const string CurrentThemeKey = "CurrentThemeKey";
-        private static readonly int CurrentThemeDefault = (int)Theme.Light;
+        private static readonly int CurrentThemeDefault = 0;
 
         private const string FavoritesVehicleImageKey = "FavoritesVehicleImageKey";
         private static readonly string FavoritesVehicleImageDefault = string.Empty;
@@ -255,10 +254,10 @@ namespace BA_MobileGPS.Core
             set => Preferences.Set(LoadedMap, value);
         }
 
-        public static bool IsFirstPopup
+        public static bool IsUpdateApp
         {
-            get => Preferences.Get(FistInstallPopup, FistInstallPopupDefault);
-            set => Preferences.Set(FistInstallPopup, value);
+            get => Preferences.Get(IsUpdateAppKey, IsUpdateAppDefault);
+            set => Preferences.Set(IsUpdateAppKey, value);
         }
 
         public static string TempVersionName

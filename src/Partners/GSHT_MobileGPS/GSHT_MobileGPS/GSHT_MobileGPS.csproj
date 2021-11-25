@@ -19,6 +19,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Styles\Theme6.xaml.cs">
+	    <DependentUpon>Theme6.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Styles\Theme5.xaml.cs">
+	    <DependentUpon>Theme5.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Styles\Theme4.xaml.cs">
+	    <DependentUpon>Theme4.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Styles\ThemeDefault.xaml.cs">
+	    <DependentUpon>ThemeDefault.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Styles\Theme1.xaml.cs">
 	    <DependentUpon>Theme1.xaml</DependentUpon>
 	  </Compile>

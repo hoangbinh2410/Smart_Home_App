@@ -115,7 +115,7 @@
       <Version>4.0.11</Version>
     </PackageReference>
     <PackageReference Include="LibVLCSharp.Forms">
-      <Version>3.6.1</Version>
+      <Version>3.5.1</Version>
     </PackageReference>
     <PackageReference Include="PhotoBrowser.Forms">
       <Version>0.1.4</Version>
@@ -2735,6 +2735,9 @@
     <BundleResource Include="Resources\ic_errorsignal.png" />
     <BundleResource Include="Resources\ic_errorsignal%402x.png" />
     <BundleResource Include="Resources\ic_errorsignal%403x.png" />
+    <BundleResource Include="Resources\ic_expence%402x.png" />
+    <BundleResource Include="Resources\ic_expence%403x.png" />
+    <BundleResource Include="Resources\ic_expence.png" />
     <Content Include="Resources\ic_exportvideo%402x.png" />
     <Content Include="Resources\ic_exportvideo%403x.png" />
     <Content Include="Resources\ic_exportvideo.png" />
