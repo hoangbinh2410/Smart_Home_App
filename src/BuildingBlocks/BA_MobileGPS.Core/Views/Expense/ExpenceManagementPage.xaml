@@ -317,10 +317,10 @@
                             <syncfusion:SfListView.RightSwipeTemplate>
                                 <DataTemplate>
                                     <StackLayout
-                                        Margin="10,0,0,0"
+                                        Padding="0"
                                         BackgroundColor="#E63C2B"
                                         HeightRequest="60"
-                                        WidthRequest="30">
+                                        WidthRequest="40">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
                                         </StackLayout.GestureRecognizers>
