@@ -116,6 +116,7 @@
                                 Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="17.5"
                                 HorizontalOptions="End"
+                                IsVisible="{Binding IsHasCombobox}"
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
@@ -307,7 +308,7 @@
                                     Source="{Binding ImagePathLocal}"
                                     VerticalOptions="FillAndExpand" />
                             </Frame>
-                            <!--, Converter={StaticResource HasDataConverter}-->
+                            <!--  , Converter={StaticResource HasDataConverter}  -->
                             <Frame
                                 Margin="0,5,5,0"
                                 Padding="0"

@@ -251,48 +251,55 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private async void DeleteItemClicked(ExpenseRespone obj)
         {
-            if (obj == null || obj.Expenses == null)
+            if (CheckPermision((int)PermissionKeyNames.DeleteExpense))
             {
-                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
-                return;
-            }    
-            var action = await PageDialog.DisplayAlertAsync("Cảnh báo",string.Format("Bạn chắc chắn muốn xóa chi phí ngày {0}?", obj.ExpenseDate.ToString("dd/MM/yyyy")) , "Có", "Không");
-            if (!action)
-            {
-                return;
-            }
-            List<Guid> listguid = new List<Guid>();
-            foreach(var guid in obj.Expenses)
-            {
-                listguid.Add(guid.ID);
-            }
-            DeleteExpenseRequest request = new DeleteExpenseRequest()
-            {
-                ListID = new List<Guid>(listguid)
-            };
-            TryExecute(async () =>
-            {
-                if (IsConnected)
+                if (obj == null || obj.Expenses == null)
                 {
-                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                    return;
+                }
+                var action = await PageDialog.DisplayAlertAsync("Cảnh báo", string.Format("Bạn chắc chắn muốn xóa chi phí ngày {0}?", obj.ExpenseDate.ToString("dd/MM/yyyy")), "Có", "Không");
+                if (!action)
+                {
+                    return;
+                }
+                List<Guid> listguid = new List<Guid>();
+                foreach (var guid in obj.Expenses)
+                {
+                    listguid.Add(guid.ID);
+                }
+                DeleteExpenseRequest request = new DeleteExpenseRequest()
+                {
+                    ListID = new List<Guid>(listguid)
+                };
+                TryExecute(async () =>
+                {
+                    if (IsConnected)
                     {
-                        bool isdeleted = await _ExpenseService.Deletemultiple(request);
-                        if(isdeleted)
+                        using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            GetListExpense();
-                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
-                        }    
-                        else
-                        {
-                            DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
-                        }    
+                            bool isdeleted = await _ExpenseService.Deletemultiple(request);
+                            if (isdeleted)
+                            {
+                                GetListExpense();
+                                DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
+                            }
+                            else
+                            {
+                                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
+                    else
+                    {
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    }
+                });
+            }
+            else
+            {
+                DisplayMessage.ShowMessageError("Bạn không có quyền xóa chi phí!");
+            }
         }
 
         public void NavigateClicked(ItemTappedEventArgs item)
