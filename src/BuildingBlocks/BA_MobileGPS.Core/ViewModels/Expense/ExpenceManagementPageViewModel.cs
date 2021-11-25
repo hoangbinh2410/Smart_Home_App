@@ -298,7 +298,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             else
             {
-                DisplayMessage.ShowMessageError("Bạn không có quyền xóa chi phí!");
+                DisplayMessage.ShowMessageInfo("Bạn không có quyền xóa chi phí!");
             }
         }
 
