@@ -273,24 +273,24 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (ExpenseDetail.ExpenseCost < 0)
                 {
-                    _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                    _displayMessage.ShowMessageInfo("Số tiền không được nhỏ hơn 0");
                     return;
                 }
                 if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                 {
-                    _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                    _displayMessage.ShowMessageInfo("Không được nhập ký tự đặc biệt");
                     return;
                 }
                 if (SelectedLocation.Name == DataItem.Place.ToDescription())
                 {
                     if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
                     {
-                        _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                        _displayMessage.ShowMessageInfo("Vui lòng nhập địa chỉ khác");
                         return;
                     }
                     if (!StringHelper.ValidateAddress(ExpenseDetail.OtherAddress))
                     {
-                        _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                        _displayMessage.ShowMessageInfo("Không được nhập ký tự đặc biệt");
                         return;
                     }
                 }
@@ -371,24 +371,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (ExpenseDetail.ExpenseCost < 0)
                     {
-                        _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                        _displayMessage.ShowMessageInfo("Số tiền không được nhỏ hơn 0");
                         return;
                     }
                     if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                     {
-                        _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                        _displayMessage.ShowMessageInfo("Không được nhập ký tự đặc biệt");
                         return;
                     }
                     if (SelectedLocation.Name == DataItem.Place.ToDescription())
                     {
                         if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
                         {
-                            _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                            _displayMessage.ShowMessageInfo("Vui lòng nhập địa chỉ khác");
                             return;
                         }
                         if (!StringHelper.ValidateAddress(ExpenseDetail.OtherAddress))
                         {
-                            _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                            _displayMessage.ShowMessageInfo("Không được nhập ký tự đặc biệt");
                             return;
                         }
                     }                 
@@ -420,7 +420,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    _displayMessage.ShowMessageWarning("Vui lòng chọn loại chi phí");
+                    _displayMessage.ShowMessageInfo("Vui lòng chọn loại chi phí");
                 }
             });
         }
@@ -433,24 +433,24 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (ExpenseDetail.ExpenseCost < 0)
                     {
-                        _displayMessage.ShowMessageWarning("Số tiền không được nhỏ hơn 0");
+                        _displayMessage.ShowMessageInfo("Số tiền không được nhỏ hơn 0");
                         return;
                     }
                     if (!StringHelper.HasDangerousCharsCanNull(ExpenseDetail.Note) && !string.IsNullOrEmpty(ExpenseDetail.Note))
                     {
-                        _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                        _displayMessage.ShowMessageInfo("Không được nhập ký tự đặc biệt");
                         return;
                     }
                     if (SelectedLocation.Name == DataItem.Place.ToDescription())
                     {
                         if (string.IsNullOrEmpty(ExpenseDetail.OtherAddress))
                         {
-                            _displayMessage.ShowMessageWarning("Vui lòng nhập địa chỉ khác");
+                            _displayMessage.ShowMessageInfo("Vui lòng nhập địa chỉ khác");
                             return;
                         }
                         if (!StringHelper.ValidateAddress(ExpenseDetail.OtherAddress))
                         {
-                            _displayMessage.ShowMessageWarning("Không được nhập ký tự đặc biệt");
+                            _displayMessage.ShowMessageInfo("Không được nhập ký tự đặc biệt");
                             return;
                         }
                     }              
@@ -487,7 +487,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    _displayMessage.ShowMessageWarning("Vui lòng chọn loại chi phí");
+                    _displayMessage.ShowMessageInfo("Vui lòng chọn loại chi phí");
                 }
             });
         }
@@ -601,7 +601,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!string.IsNullOrEmpty(ExpenseDetail.Name))
             {
-                _displayMessage.ShowMessageWarning("Vui lòng không đổi loại phí!");
+                _displayMessage.ShowMessageInfo("Vui lòng không đổi loại phí!");
                 return;
             }
             if (IsBusy)
