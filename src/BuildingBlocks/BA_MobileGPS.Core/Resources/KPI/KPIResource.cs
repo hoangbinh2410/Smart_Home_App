@@ -15,7 +15,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Before_Day_lb => Get(MobileResourceNames.Before_Day_lb, "Ngày trước", "Befor day");
         public static string Next_Day_lb => Get(MobileResourceNames.Next_Day_lb, "Ngày sau", "Next day");
         public static string Sum_Point_lb => Get(MobileResourceNames.Sum_Point_lb, "Tổng điểm", "Total score");
-        public static string Rank_lb => Get(MobileResourceNames.Rank_lb, "Xếp hạng", "Rating");
+        public static string Rank_lb => Get(MobileResourceNames.Rank_lb, "Xếp hạng", "Rank");
         public static string Table_lb => Get(MobileResourceNames.Table_lb, "Bảng tiêu chí an toàn", "Safe criteria Table");
         public static string Criteria_lb => Get(MobileResourceNames.Criteria_lb, "Tiêu chí", "Criteria");
         public static string Point_lb => Get(MobileResourceNames.Point_lb, "Điểm", "Score");
