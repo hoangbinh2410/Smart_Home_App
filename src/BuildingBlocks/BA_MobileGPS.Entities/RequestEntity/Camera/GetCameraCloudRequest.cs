@@ -11,5 +11,7 @@ namespace BA_MobileGPS.Entities
         public DateTime EndTime { get; set; }
 
         public string Vehicle { get; set; }
+
+        public int Channel { get; set; }
     }
 }

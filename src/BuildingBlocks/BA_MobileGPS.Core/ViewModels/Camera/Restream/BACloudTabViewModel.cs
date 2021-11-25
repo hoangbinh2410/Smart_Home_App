@@ -261,6 +261,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             Vehicle = Vehicle.VehiclePlate,
                             Source = (int)CameraSourceType.App,
                             User = UserInfo.UserName,
+                            Channel = SelectedChannel.Value,
                             SessionID = StaticSettings.SessionID
                         });
                     }, (result) =>
