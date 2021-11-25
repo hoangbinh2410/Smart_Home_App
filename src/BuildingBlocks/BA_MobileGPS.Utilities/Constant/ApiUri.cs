@@ -203,6 +203,7 @@
 
         public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
         public const string GET_GetStationDetails = "api/reports/station";
+        public const string GET_GetTransportBusiness = "api/reports/transportbusiness";
         #endregion report
 
         #region Camera
