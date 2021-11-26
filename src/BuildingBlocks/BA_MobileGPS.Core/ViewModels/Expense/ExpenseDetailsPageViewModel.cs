@@ -241,7 +241,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             else
             {
-                DisplayMessage.ShowMessageError("Bạn không có quyền sửa chi phí này!");
+                DisplayMessage.ShowMessageInfo("Bạn không có quyền sửa chi phí này!");
             }
         }
         public void PushImportExpense()
@@ -419,7 +419,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             else
             {
-                DisplayMessage.ShowMessageError("Bạn không có quyền xóa chi phí!");
+                DisplayMessage.ShowMessageInfo("Bạn không có quyền xóa chi phí!");
             }
         }
 
@@ -528,7 +528,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             var result = true;
             if (DateTime.Now.Subtract(ChooseDate).TotalDays < 0)
             {
-                DisplayMessage.ShowMessageError("Ngày được chọn chưa diễn ra");
+                DisplayMessage.ShowMessageInfo("Ngày được chọn chưa diễn ra");
                 result = false;
             }
             return result;

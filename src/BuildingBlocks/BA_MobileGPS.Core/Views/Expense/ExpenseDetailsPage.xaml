@@ -357,6 +357,7 @@
                 BackgroundColor="{DynamicResource WhiteColor}">
                 <syncfusion:SfListView
                     x:Name="listMenu"
+                    AutoFitMode="Height"
                     ItemSize="80"
                     ItemsSource="{Binding MenuItems, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"
@@ -366,7 +367,7 @@
                             <StackLayout Spacing="2">
                                 <BoxView StyleClass="SlimLine" />
                                 <Grid
-                                    Margin="0,10,0,0"
+                                    Margin="0,10,0,10"
                                     Padding="10,0,5,0"
                                     ColumnSpacing="5">
                                     <Grid.RowDefinitions>
@@ -430,7 +431,8 @@
                                 <Grid>
                                     <!--  LineBreakMode="TailTruncation"  -->
                                     <Label
-                                        Padding="10,0,10,0"
+                                        Margin="0,0,0,10"
+                                        Padding="10,0,30,0"
                                         FontSize="12"
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
@@ -448,7 +450,8 @@
                                     <!--  Địa điểm khác  -->
                                     <!--  LineBreakMode="TailTruncation"  -->
                                     <Label
-                                        Padding="10,0,10,0"
+                                        Margin="0,0,0,10"
+                                        Padding="10,0,30,0"
                                         FontSize="12"
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
