@@ -120,6 +120,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ApiEndpointTypes.ServerUNITEL:
                         return ApiEndpointTypes.ServerUNITEL.ToDescription();
 
+                    case ApiEndpointTypes.ServerGSHT:
+                        return ApiEndpointTypes.ServerGSHT.ToDescription();
+                        
                     default:
                         return ApiEndpointTypes.ServerTest.ToDescription();
                 }

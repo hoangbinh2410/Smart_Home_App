@@ -22,11 +22,10 @@ namespace GSHT_MobileGPS
         protected override async void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerTest;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
-            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerGSHT;
 
             SetTheme();
 
@@ -48,7 +47,7 @@ namespace GSHT_MobileGPS
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
-            AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
+            AppType = BA_MobileGPS.Entities.AppType.Viview;
             containerRegistry.RegisterSingleton<IThemeGSHTServices, ThemeServices>();
             containerRegistry.Register<ResourceDictionary, ThemeDefault>(ThemeGSHT.ThemeDefault.ToString());
             containerRegistry.Register<ResourceDictionary, Theme1>(ThemeGSHT.Theme1.ToString());
