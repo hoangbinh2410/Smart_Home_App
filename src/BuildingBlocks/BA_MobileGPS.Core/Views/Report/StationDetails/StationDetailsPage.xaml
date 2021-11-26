@@ -238,7 +238,6 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <!--  biển số xe  -->
                         <Frame
@@ -326,39 +325,42 @@
                                     WidthRequest="15" />
                             </Grid>
                         </Frame>
-                        <!--  Chọn số phút  -->
-                        <Frame
-                            x:Name="cmbMin"
-                            Grid.Column="2"
-                            Padding="0"
-                            BackgroundColor="{DynamicResource WhiteColor}"
-                            BorderColor="{DynamicResource GrayColor2}"
-                            CornerRadius="5"
-                            HasShadow="False"
-                            HeightRequest="35"
-                            HorizontalOptions="FillAndExpand"
-                            IsClippedToBounds="True"
-                            VerticalOptions="Center">
-                            <StackLayout
-                                Padding="5,0,5,0"
-                                HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
-                                VerticalOptions="Center">
-                                <Entry
-                                    FontSize="{DynamicResource FontSizeTextPut11}"
-                                    HorizontalOptions="FillAndExpand"
-                                    Keyboard="Numeric"
-                                    Placeholder="Số phút &gt;="
-                                    Text="{Binding NumberOfMinute}"
-                                    VerticalOptions="Center">
-                                    <Entry.Effects>
-                                        <effects:BorderlessEffect />
-                                    </Entry.Effects>
-                                </Entry>
-                            </StackLayout>
-                        </Frame>
                         <!--  ecxel  -->
-                        <StackLayout Grid.Column="3" Orientation="Horizontal">
+                        <StackLayout
+                            Grid.Column="2"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <!--  Chọn số phút  -->
+                            <Frame
+                                x:Name="cmbMin"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,5,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <Entry
+                                        FontSize="{DynamicResource FontSizeTextPut11}"
+                                        HorizontalOptions="FillAndExpand"
+                                        Keyboard="Numeric"
+                                        Placeholder="Số phút &gt;="
+                                        Text="{Binding NumberOfMinute}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
                             <!--  button ecxel  -->
                             <sharpnado:MaterialFrame
                                 Padding="0"
@@ -366,6 +368,7 @@
                                 HasShadow="False"
                                 HeightRequest="35"
                                 HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding IsExportExcel}"
                                 LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="CenterAndExpand"
                                 WidthRequest="35">

@@ -221,7 +221,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <!--<ColumnDefinition Width="Auto" />-->
                         </Grid.ColumnDefinitions>
                         <!--  biển số xe  -->
                         <Frame
@@ -267,7 +267,11 @@
                             </Grid>
                         </Frame>
                         <!--  lọc nâng cao  -->
-                        <StackLayout Grid.Column="1" Orientation="Horizontal">
+                        <StackLayout
+                            Grid.Column="1"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
                             <!--  button lọc  -->
                             <sharpnado:MaterialFrame
                                 Padding="0"
@@ -290,16 +294,14 @@
                                     VerticalOptions="Center"
                                     WidthRequest="20" />
                             </sharpnado:MaterialFrame>
-                        </StackLayout>
-                        <!--  ecxel  -->
-                        <StackLayout Grid.Column="2" Orientation="Horizontal">
-                            <!--  button ecxel  -->
+                            <!--  ecxel  -->
                             <sharpnado:MaterialFrame
                                 Padding="0"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="35"
                                 HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding IsExportExcel}"
                                 LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="CenterAndExpand"
                                 WidthRequest="35">
@@ -315,6 +317,36 @@
                                     WidthRequest="20" />
                             </sharpnado:MaterialFrame>
                         </StackLayout>
+                        <!--  ecxel bỏ  -->
+                        <!--<StackLayout
+                            Grid.Column="2"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                        -->
+                        <!--  button ecxel  -->
+                        <!--
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding IsExportExcel}"
+                                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="35">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_excel.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </sharpnado:MaterialFrame>
+                        </StackLayout>-->
                     </Grid>
                 </StackLayout>
                 <syncDataGrid:SfDataGrid

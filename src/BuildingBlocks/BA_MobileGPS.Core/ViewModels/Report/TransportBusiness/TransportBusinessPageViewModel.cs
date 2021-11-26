@@ -55,6 +55,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool _showEndAddress = true;
         public bool ShowEndAddress { get => _showEndAddress; set => SetProperty(ref _showEndAddress, value); }
 
+        public bool IsExportExcel { get; set; }
         private bool _showNorms = true;
         public bool ShowNorms { get => _showNorms; set => SetProperty(ref _showNorms, value); }
 
@@ -91,7 +92,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToViewRouteCommand = new DelegateCommand<int?>(PushToViewRoute);
             PushToViewPicturnCommand = new DelegateCommand<int?>(PushToViewPicturn);
             DisplayComlumnHide();
-            IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportActivityDetailExport);
+            IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportBusinessTripExport);
             ToDate = DateTime.Now;
         }
 
@@ -165,8 +166,6 @@ namespace BA_MobileGPS.Core.ViewModels
                  }
              });
         }
-
-        public bool IsExportExcel { get; set; }
 
         /// <summary>Set dữ liệu đầu vào</summary>
         /// <returns></returns>
