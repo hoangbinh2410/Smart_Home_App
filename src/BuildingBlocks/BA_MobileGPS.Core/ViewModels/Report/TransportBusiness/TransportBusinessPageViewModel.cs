@@ -229,7 +229,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <returns></returns>
         /// <Modified>
         /// Name     Date         Comments
-        /// ducpv  11/13/2019   created
+        /// ducpv  11/13/2021   created
         /// </Modified>
         public override IList<TransportBusinessResponse> ConvertDataBeforeDisplay(IList<TransportBusinessResponse> data)
         {
