@@ -96,8 +96,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #region Contructor
 
         public ICommand ChooseDateDateTimePageCommand { get; private set; }
+
         //public ICommand TabImageCommand { get; private set; }
         public ICommand NavigateCommand { get; }
+
         public ICommand PushImportExpensePage { get; }
         public ICommand ShowPicturnCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
@@ -114,14 +116,12 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             PushExpenseNameCommand = new DelegateCommand(ExecuteExpenseNameCombobox);
             EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             //TabImageCommand = new DelegateCommand(TabImage);
-           PushImportExpensePage =new DelegateCommand(PushImportExpense);
+            PushImportExpensePage =new DelegateCommand(PushImportExpense);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateValueCombobox);
             _ExpenseService = ExpenseService;
         }
 
         #endregion Contructor
-
-
 
         #region Lifecycle
 
@@ -244,6 +244,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 DisplayMessage.ShowMessageInfo("Bạn không có quyền sửa chi phí này!");
             }
         }
+
         public void PushImportExpense()
         {
             if (CheckPermision((int)PermissionKeyNames.AddExpense))
@@ -261,7 +262,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
                 var objExpense = new ExpenseDetailsRespone();
                 objExpense.FK_VehicleID = Vehicle.VehicleId;
-                objExpense.ExpenseDate = ChooseDate;              
+                objExpense.ExpenseDate = ChooseDate;
                 var parameters = new NavigationParameters
             {
                 { "MenuExpense", ListMenuExpense},
@@ -277,6 +278,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 DisplayMessage.ShowMessageError("Bạn không có quyền thêm mới chi phí!");
             }
         }
+
         public void ShowPicturnClicked(ExpenseDetailsRespone item)
         {
             if (item != null)
@@ -292,25 +294,28 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                         {
                             Photos = new List<Photo>()
                         {
-                            new Photo{ URL = item.Photo, Info = SourceLocal}
+                            new Photo{ URL = item.Photo, Title = SourceLocal}
                         },
                             ActionButtonPressed = (index) =>
                             {
                                 PhotoBrowser.Close();
                             },
-                            EnableGrid = true
+                            EnableGrid = true,
+                            StartIndex=0
                         }.Show();
                     }
                     else
                     {
+                        var url = item.Photo.Replace("\\", "/");
                         new PhotoBrowser
                         {
                             Photos = new List<Photo>()
                         {
-                            new Photo{ URL = item.Photo, Info = SourceLocal}
+                            new Photo{ URL = url, Title = SourceLocal}
                         },
                             ActionButtonPressed = null,
-                            EnableGrid = true
+                            EnableGrid = true,
+                            StartIndex=0,
                         }.Show();
                     }
                 }
