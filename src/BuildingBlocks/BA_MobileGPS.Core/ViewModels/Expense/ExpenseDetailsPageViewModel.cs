@@ -116,7 +116,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             PushExpenseNameCommand = new DelegateCommand(ExecuteExpenseNameCombobox);
             EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             //TabImageCommand = new DelegateCommand(TabImage);
-            PushImportExpensePage =new DelegateCommand(PushImportExpense);
+            PushImportExpensePage = new DelegateCommand(PushImportExpense);
             EventAggregator.GetEvent<SelectComboboxEvent>().Subscribe(UpdateValueCombobox);
             _ExpenseService = ExpenseService;
         }
@@ -285,6 +285,18 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 //  IsShowImage = true;
                 //SourceImage = item.Photo;
+                if (!string.IsNullOrEmpty(item.OtherAddress))
+                {
+                    SourceLocal = item.OtherAddress;
+                }
+                else if (!string.IsNullOrEmpty(item.LandmarkName))
+                {
+                    SourceLocal = item.LandmarkName;
+                }
+                else
+                {
+                    SourceLocal = string.Empty;
+                }
 
                 try
                 {
@@ -323,14 +335,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                 {
                     Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
                 }
-                if (!StringHelper.ValidateAddress(item.OtherAddress))
-                {
-                    SourceLocal = item.OtherAddress;
-                }
-                else
-                {
-                    SourceLocal = item.LandmarkName;
-                }
+                //if (!StringHelper.ValidateAddress(item.OtherAddress))
+                //{
+                //    SourceLocal = item.OtherAddress;
+                //}
+                //else
+                //{
+                //    SourceLocal = item.LandmarkName;
+                //}
             }
         }
 
