@@ -7,7 +7,7 @@ namespace BA_MobileGPS.Core.Extensions
     {
         public static bool IsRestreaming(int state)
         {
-            if (state == (int)VideoStatusEnum.Playback)
+            if (state == (int)VideoStatusEnum.Playback || state==(int)VideoStatusEnum.PlaybackAccOff)
             {
                 return true;
             }

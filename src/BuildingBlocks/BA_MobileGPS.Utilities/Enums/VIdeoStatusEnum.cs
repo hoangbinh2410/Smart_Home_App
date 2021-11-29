@@ -12,6 +12,7 @@
         Ok = 0,
         Sleep = 1,
         Playback = 2,
+        PlaybackAccOff = 3,
         Uploading = 4,
     }
 }
