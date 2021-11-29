@@ -124,6 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
             //Ẩn hiện cột
             DisplayComlumnHide();
+            IsExportExcel = CheckPermision((int)PermissionKeyNames.ReportStationExport);
         }
 
         #endregion Contructor
