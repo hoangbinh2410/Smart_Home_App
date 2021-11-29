@@ -23,9 +23,9 @@
 	<key>CFBundleDisplayName</key>
 	<string>VN GPS</string>
 	<key>CFBundleIdentifier</key>
-	<string>vn.unitel.gpsmobile</string>
+	<string>vn.gsht.gpsmobile</string>
 	<key>CFBundleName</key>
-	<string>GISVIET</string>
+	<string>VN GPS</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
