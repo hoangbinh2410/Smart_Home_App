@@ -476,6 +476,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 { "ListLocation", _listLocation },
             };
+            if(_objRequest != null)
+            {
+                parameters.Add("ObjRequest", _objRequest);
+            }    
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("DetailedFilterPage", parameters);
@@ -591,7 +595,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (!base.CheckValidateInput(ref message))
             {
-                DisplayMessage.ShowMessageInfo(message, 5000);
                 return false;
             }
             //không chọn biển số xe
