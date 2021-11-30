@@ -239,8 +239,8 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 return;
             }    
-            string fromPositionIds = "";
-            string toPositionIds = "";
+            string fromPositionIds = string.Empty;
+            string toPositionIds = string.Empty;
             if (SelectedLocationStart.Key != -1)
             {
                 fromPositionIds = SelectedLocationStart.Key.ToString();

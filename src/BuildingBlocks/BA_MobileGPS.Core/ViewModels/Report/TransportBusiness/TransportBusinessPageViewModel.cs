@@ -106,6 +106,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("DataBusinessRequest") && parameters.GetValue<TransportBusinessRequest>("DataBusinessRequest") is TransportBusinessRequest objRequest)
             {
                 _objRequest = objRequest;
+                ExcuteSearchData();
             }
         }
 
@@ -175,12 +176,12 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         public override TransportBusinessRequest SetDataInput()
         {
-            string vehicleIDs = "";
+            string vehicleIDs = string.Empty;
             if (!string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
             {
                 vehicleIDs = VehicleSelect.VehicleId.ToString();
             }
-            string allPositionIds = "";
+            string allPositionIds = string.Empty;
             List<int> listLocationId = new List<int>();
             foreach (var item in _listLocation)
             {
@@ -222,7 +223,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 ISChecked = false
             };
         }
-
         /// <summary>Converts lại số thứ tự theo trang</summary>
         /// <param name="data">The data.</param>
         /// <returns></returns>
@@ -461,17 +461,17 @@ namespace BA_MobileGPS.Core.ViewModels
         /// </Modified>
         private void ExecuteFilterDetails()
         {
-            //string message = "";
-            //if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
-            //{
-            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-            //    return;
-            //}
-            //if (!base.CheckValidateInput(ref message))
-            //{
-            //    DisplayMessage.ShowMessageInfo(message, 5000);
-            //    return;
-            //}
+            string message = string.Empty;
+            if (string.IsNullOrEmpty(VehicleSelect.VehiclePlate))
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                return;
+            }
+            if (!base.CheckValidateInput(ref message))
+            {
+                DisplayMessage.ShowMessageInfo(message, 5000);
+                return;
+            }
             var parameters = new NavigationParameters
             {
                 { "ListLocation", _listLocation },
