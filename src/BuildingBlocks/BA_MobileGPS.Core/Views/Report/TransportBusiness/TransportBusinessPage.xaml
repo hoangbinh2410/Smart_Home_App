@@ -275,7 +275,7 @@
                             <!--  button lọc  -->
                             <sharpnado:MaterialFrame
                                 Padding="0"
-                                BorderColor="{DynamicResource PrimaryColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
                                 CornerRadius="5"
                                 HasShadow="False"
                                 HeightRequest="35"
@@ -361,7 +361,6 @@
                     IsBusy="{Binding IsBusy}"
                     IsVisible="{Binding HasData}"
                     ItemsSource="{Binding ListDataSearch}"
-                    LoadMoreCommand="{Binding LoadMoreDataCommand}"
                     LoadMorePosition="Bottom"
                     LoadMoreText="{i18n:TranslateResource Common_Message_LoadMore}"
                     VerticalOptions="FillAndExpand"
@@ -664,7 +663,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding UseFuel}"
+                                        Text="{Binding UseFuel, StringFormat='{0:0.##}'}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -791,7 +790,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Xem"
+                                        Text="Hình ảnh"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -989,7 +988,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowEndTime}"
-                                Text="Vào trạm" />
+                                Text="Giờ đến" />
 
                             <!--  Km GPS  -->
                             <checkbox:SfCheckBox

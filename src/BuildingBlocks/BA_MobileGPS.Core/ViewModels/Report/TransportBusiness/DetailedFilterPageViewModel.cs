@@ -54,13 +54,8 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
         private ComboboxResponse _selectedLocationEnd;
         public ComboboxResponse SelectedLocationEnd { get => _selectedLocationEnd; set => SetProperty(ref _selectedLocationEnd, value); }
 
+        private TransportBusinessRequest _objRequest;
         private List<ComboboxRequest> _listLocation = new List<ComboboxRequest>();
-
-        public List<ComboboxRequest> ListLocation
-        {
-            get { return _listLocation; }
-            set { SetProperty(ref _listLocation, value); }
-        }
 
         #endregion Property
 
@@ -108,7 +103,15 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey("ListLocation") && parameters.GetValue<List<ComboboxRequest>>("ListLocation") is List<ComboboxRequest> listLocation)
             {
-                ListLocation = listLocation;
+                _listLocation = listLocation;
+            }
+            if (parameters.ContainsKey("ObjRequest") && parameters.GetValue<TransportBusinessRequest>("ObjRequest") is TransportBusinessRequest objRequest)
+            {
+                _objRequest = objRequest;
+                if(_objRequest != null)
+                {
+                    InPutValueRequest(_objRequest);
+                }    
             }
         }
 
@@ -131,6 +134,37 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
 
         #region PrivateMethod
 
+        /// <summary>Ghi nhớ dữ liệu lọc nâng cao</summary>
+        /// <returns></returns>
+        /// <Modified>
+        /// Name     Date         Comments
+        /// ducpv  29/11/2021   created
+        /// </Modified>
+        private void InPutValueRequest(TransportBusinessRequest objRequest)
+        {
+            if (!string.IsNullOrEmpty(objRequest.FromPositionIds) && !objRequest.FromPositionIds.Contains(","))
+            {
+                var objPosition = _listLocation.Where(x => x.Key.ToString() == objRequest.FromPositionIds).FirstOrDefault();
+                SelectedLocationStart = new ComboboxResponse()
+                {
+                    Key = objPosition.Key,
+                    Value = objPosition.Value,
+                };
+            }
+            if (!string.IsNullOrEmpty(objRequest.ToPositionIds) && !objRequest.ToPositionIds.Contains(","))
+            {
+                var objPosition = _listLocation.Where(x => x.Key.ToString() == objRequest.ToPositionIds).FirstOrDefault();
+                SelectedLocationEnd = new ComboboxResponse()
+                {
+                    Key = objPosition.Key,
+                    Value = objPosition.Value,
+                };
+            }
+            MinKm = objRequest.MinKm;
+            MaxKm = objRequest.MaxKm;
+            ISCheckAddress = objRequest.ISChecked;
+
+        }
         public async void ExecuteLandmarkComboboxStart()
         {
             if (IsBusy)
@@ -142,7 +176,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 var p = new NavigationParameters
                 {
-                    { "dataCombobox", ListLocation },
+                    { "dataCombobox", _listLocation },
                     { "ComboboxType", ComboboxType.First },
                     { "Title", "Chọn điểm" }
                 };
@@ -168,7 +202,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 var p = new NavigationParameters
                 {
-                    { "dataCombobox", ListLocation },
+                    { "dataCombobox", _listLocation },
                     { "ComboboxType", ComboboxType.Second },
                     { "Title", "Chọn điểm" }
                 };
@@ -205,8 +239,8 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
             {
                 return;
             }    
-            string fromPositionIds = "";
-            string toPositionIds = "";
+            string fromPositionIds = string.Empty;
+            string toPositionIds = string.Empty;
             if (SelectedLocationStart.Key != -1)
             {
                 fromPositionIds = SelectedLocationStart.Key.ToString();

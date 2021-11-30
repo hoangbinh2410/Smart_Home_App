@@ -63,222 +63,223 @@
     </NavigationPage.TitleView>-->
     <!--  Nội dung  -->
     <ContentPage.Content>
-        <Grid
-            RowDefinitions="*,Auto"
-            RowSpacing="0"
-            VerticalOptions="FillAndExpand">
-            <StackLayout
-                Grid.Row="0"
-                Padding="10"
-                BackgroundColor="{DynamicResource WhiteColor}"
-                HorizontalOptions="FillAndExpand"
-                Spacing="15"
+        <ScrollView>
+            <Grid
+                RowDefinitions="*,Auto"
+                RowSpacing="0"
                 VerticalOptions="FillAndExpand">
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
-                    <Label
-                        FontSize="{DynamicResource FontSizeHeader}"
-                        HorizontalOptions="StartAndExpand"
-                        LineBreakMode="MiddleTruncation"
-                        Text="Địa chỉ đi"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <Frame
-                        x:Name="cmbStartAddress"
-                        Padding="0,5,0,0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="35"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <Grid
-                            Padding="5,0,5,0"
-                            ColumnDefinitions="*,Auto"
+                <StackLayout
+                    Grid.Row="0"
+                    Padding="10"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="15"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="Địa chỉ đi"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="cmbStartAddress"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
                             HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushLandmarkCommandStart}" />
-                            </Grid.GestureRecognizers>
-                            <Entry
-                                Grid.Column="0"
-                                FontSize="{DynamicResource FontSizeTextPut11}"
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
                                 HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                Placeholder="Chọn điểm đi"
-                                Text="{Binding SelectedLocationStart.Value}"
                                 VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                            <controls:IconView
-                                Grid.Column="1"
-                                Margin="0,0,5,0"
-                                Foreground="{DynamicResource BlackColor}"
-                                HeightRequest="15"
-                                HorizontalOptions="EndAndExpand"
-                                Source="ic_sortdown.png"
-                                VerticalOptions="Center"
-                                WidthRequest="15" />
-                        </Grid>
-                    </Frame>
-                </StackLayout>
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
-                    <Label
-                        FontSize="{DynamicResource FontSizeHeader}"
-                        HorizontalOptions="StartAndExpand"
-                        LineBreakMode="MiddleTruncation"
-                        Text="Địa chỉ đến"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <Frame
-                        x:Name="cmbEndAddress"
-                        Padding="0,5,0,0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="35"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <Grid
-                            Padding="5,0,5,0"
-                            ColumnDefinitions="*,Auto"
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushLandmarkCommandStart}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="Chọn điểm đi"
+                                    Text="{Binding SelectedLocationStart.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="Địa chỉ đến"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="cmbEndAddress"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
                             HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushLandmarkCommandEnd}" />
-                            </Grid.GestureRecognizers>
-                            <Entry
-                                Grid.Column="0"
-                                FontSize="{DynamicResource FontSizeTextPut11}"
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
                                 HorizontalOptions="FillAndExpand"
-                                InputTransparent="True"
-                                Placeholder="Chọn điểm đến"
-                                Text="{Binding SelectedLocationEnd.Value}"
                                 VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                            <controls:IconView
-                                Grid.Column="1"
-                                Margin="0,0,5,0"
-                                Foreground="{DynamicResource BlackColor}"
-                                HeightRequest="15"
-                                HorizontalOptions="EndAndExpand"
-                                Source="ic_sortdown.png"
-                                VerticalOptions="Center"
-                                WidthRequest="15" />
-                        </Grid>
-                    </Frame>
-                </StackLayout>
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
-                    <Label
-                        FontSize="{DynamicResource FontSizeHeader}"
-                        HorizontalOptions="StartAndExpand"
-                        LineBreakMode="MiddleTruncation"
-                        Text="Số km tối thiểu"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <Frame
-                        x:Name="inputMinimum"
-                        Padding="0,5,0,0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="35"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <Grid
-                            Padding="5,0,5,0"
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushLandmarkCommandEnd}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="Chọn điểm đến"
+                                    Text="{Binding SelectedLocationEnd.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="Số km tối thiểu"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="inputMinimum"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
                             HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <Entry
-                                FontSize="{DynamicResource FontSizeTextPut11}"
+                            <Grid
+                                Padding="5,0,5,0"
                                 HorizontalOptions="FillAndExpand"
-                                Keyboard="Numeric"
-                                Text="{Binding MinKm}"
                                 VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </Grid>
-                    </Frame>
-                </StackLayout>
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
-                    <Label
-                        FontSize="{DynamicResource FontSizeHeader}"
-                        HorizontalOptions="StartAndExpand"
-                        LineBreakMode="MiddleTruncation"
-                        Text="Số km tối đa"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-                    <Frame
-                        x:Name="inputMaximum"
-                        Padding="0,5,0,0"
-                        BackgroundColor="{DynamicResource WhiteColor}"
-                        BorderColor="{DynamicResource GrayColor2}"
-                        CornerRadius="5"
-                        HasShadow="False"
-                        HeightRequest="35"
-                        HorizontalOptions="FillAndExpand"
-                        IsClippedToBounds="True"
-                        VerticalOptions="Center">
-                        <Grid
-                            Padding="5,0,5,0"
-                            ColumnDefinitions="*"
+                                <Entry
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Numeric"
+                                    Text="{Binding MinKm}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="Số km tối đa"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="inputMaximum"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
                             HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushEndAddressCommand}" />
-                            </Grid.GestureRecognizers>
-                            <Entry
-                                FontSize="{DynamicResource FontSizeTextPut11}"
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*"
                                 HorizontalOptions="FillAndExpand"
-                                Keyboard="Numeric"
-                                Text="{Binding MaxKm}"
                                 VerticalOptions="Center">
-                                <Entry.Effects>
-                                    <effects:BorderlessEffect />
-                                </Entry.Effects>
-                            </Entry>
-                        </Grid>
-                    </Frame>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushEndAddressCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Numeric"
+                                    Text="{Binding MaxKm}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <checkbox:SfCheckBox
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            IsChecked="{Binding ISCheckAddress}"
+                            Text="Không đi qua điểm nào"
+                            TextColor="Black" />
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
-                    <checkbox:SfCheckBox
-                        CheckedColor="{DynamicResource PrimaryColor}"
-                        FontSize="16"
-                        HorizontalOptions="Start"
-                        IsChecked="{Binding ISCheckAddress}"
-                        Text="Không đi qua điểm nào"
-                        TextColor="Black" />
+                <StackLayout
+                    Grid.Row="1"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HeightRequest="60"
+                    Spacing="0">
+                    <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                    <buttons:SfButton
+                        x:Name="sfButtonAddExpense"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        Command="{Binding ExcuteFilterCommand}"
+                        CornerRadius="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Áp dụng"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="200" />
                 </StackLayout>
-            </StackLayout>
-            <StackLayout
-                Grid.Row="1"
-                BackgroundColor="{DynamicResource WhiteColor}"
-                HeightRequest="60"
-                Spacing="0">
-                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
-                <buttons:SfButton
-                    x:Name="sfButtonAddExpense"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
-                    Command="{Binding ExcuteFilterCommand}"
-                    CornerRadius="20"
-                    HorizontalOptions="CenterAndExpand"
-                    Text="Áp dụng"
-                    VerticalOptions="StartAndExpand"
-                    WidthRequest="200" />
-            </StackLayout>
-
-        </Grid>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
