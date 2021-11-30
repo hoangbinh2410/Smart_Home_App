@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -72,6 +73,7 @@
     </NavigationPage.TitleView>
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -129,7 +131,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -170,7 +172,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />

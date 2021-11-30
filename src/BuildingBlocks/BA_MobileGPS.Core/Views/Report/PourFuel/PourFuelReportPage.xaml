@@ -19,6 +19,7 @@
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <local:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
             <local:TableSummaryConverter x:Key="SummaryChangingFuelConverter" ColName="ChangingFuel" />
         </ResourceDictionary>
@@ -126,7 +127,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -168,7 +169,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -431,7 +432,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="{Binding StartTime, Converter={StaticResource DateTimeConverter}}"
+                                            Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}"
                                             TextColor="{DynamicResource PrimaryColor}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"

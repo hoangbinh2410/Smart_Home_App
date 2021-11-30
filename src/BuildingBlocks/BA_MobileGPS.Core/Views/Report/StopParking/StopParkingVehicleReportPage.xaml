@@ -20,6 +20,7 @@
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <local:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <local1:CustomStopParkingVehicleAggregate x:Key="CustomStopParkingVehicleConverter" />
             <local:TableSummaryConverter x:Key="SummaryTotalTimeStopConverter" ColName="TotalTimeStop" />
             <local:TableSummaryConverter x:Key="SummaryMinutesOfManchineOnConverter" ColName="MinutesOfManchineOn" />
@@ -130,7 +131,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -172,7 +173,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
