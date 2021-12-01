@@ -65,10 +65,10 @@
                             <!--  Nhập số điện thoại  -->
                             <input:SfTextInputLayout
                                 ContainerType="Outlined"
-                                ErrorText="{Binding UserName.ErrorFirst}"
+                                ErrorText="{Binding NumberPhone.ErrorFirst}"
                                 FocusedColor="Transparent"
                                 FocusedStrokeWidth="0"
-                                HasError="{Binding UserName.IsNotValid}"
+                                HasError="{Binding NumberPhone.IsNotValid}"
                                 StyleClass="LoginEntry"
                                 UnfocusedColor="Transparent"
                                 UnfocusedStrokeWidth="0">
@@ -115,7 +115,7 @@
                                         Keyboard="Telephone"
                                         MaxLength="10"
                                         Placeholder="Số điện thoại"
-                                        Text="{Binding UserName.Value}">
+                                        Text="{Binding NumberPhone.Value}">
                                         <Entry.Effects>
                                             <effects:ClearEntryEffect />
                                         </Entry.Effects>

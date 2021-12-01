@@ -14,6 +14,10 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class VerifyOTPCodePageViewModel : ViewModelBaseLogin
     {
+        #region Property
+
+        #endregion Property
+
         #region Constructor
 
         public ICommand GetOTPAgain { get; private set; }
@@ -53,9 +57,8 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Lifecycle
-        #region Property
-        #endregion Property
 
+        
 
         #region PrivateMethod 
         // Xác thực OTP

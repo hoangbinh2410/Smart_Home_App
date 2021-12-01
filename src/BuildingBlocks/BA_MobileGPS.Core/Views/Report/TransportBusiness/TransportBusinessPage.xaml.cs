@@ -70,56 +70,37 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
         {
         }
 
-        public double TotalTimes
-        {
-            get; set;
-        } = 0;
-
-        public double SumTotalKm
-        {
-            get; set;
-        } = 0;
-        
-        public double TotalKmMechanical
-        {
-            get; set;
-        } = 0;
-
-        public double TotalUseFuel
-        {
-            get; set;
-        } = 0;
-
-        public double TotalNorms
-        {
-            get; set;
-        } = 0;
+        public string TotalTimes {get; set;}
+        public string SumTotalKm {get; set;} 
+        public string TotalKmMechanical {get; set;}
+        public string TotalUseFuel {get; set;}
+        public string TotalNorms {get; set;}
 
         public Action<System.Collections.IEnumerable, string, System.ComponentModel.PropertyDescriptor> CalculateAggregateFunc()
         {
             return (items, property, pd) =>
             {
-                TotalTimes = 0;
-                SumTotalKm = 0;
-                TotalKmMechanical = 0;
-                TotalUseFuel = 0;
-                TotalNorms = 0;
+                double totalTimes = 0;
+                double sumTotalKm = 0;
+                double totalKmMechanical = 0;
+                double totalUseFuel = 0;
+                double totalNorms = 0;
                 var enumerableItems = items as IEnumerable<TransportBusinessResponse>;
                 if(enumerableItems != null)
                 {
                     foreach (var item in enumerableItems)
                     {
-                        TotalTimes = TotalTimes + item.TotalTime;
-                        SumTotalKm = SumTotalKm + item.TotalKmGps;
-                        TotalKmMechanical = TotalKmMechanical + item.KmOfPulseMechanical;
-                        TotalUseFuel = TotalUseFuel + item.UseFuel;
-                        TotalNorms = TotalNorms + item.Norms;
+                        totalTimes = totalTimes + item.TotalTime;
+                        sumTotalKm = sumTotalKm + item.TotalKmGps;
+                        totalKmMechanical = totalKmMechanical + item.KmOfPulseMechanical;
+                        totalUseFuel = totalUseFuel + item.UseFuel;
+                        totalNorms = totalNorms + item.Norms;
                     }
-                    TotalTimes = Math.Round(TotalTimes, 2);
-                    SumTotalKm = Math.Round(SumTotalKm, 2);
-                    TotalKmMechanical = Math.Round(TotalKmMechanical, 2);
-                    TotalUseFuel = Math.Round(TotalUseFuel, 2);
-                    TotalNorms = Math.Round(TotalNorms, 2);
+                    TotalTimes = String.Format("{0:n}", Math.Round(totalTimes, 2));
+                    SumTotalKm = String.Format("{0:n}", Math.Round(sumTotalKm, 2));
+                    TotalKmMechanical = String.Format("{0:n}", Math.Round(totalKmMechanical, 2));
+                    TotalUseFuel = String.Format("{0:n}", Math.Round(totalUseFuel, 2));
+                    TotalNorms = String.Format("{0:n}", Math.Round(totalNorms, 2));
                 }    
                 
             };
