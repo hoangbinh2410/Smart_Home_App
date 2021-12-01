@@ -10,6 +10,7 @@
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core"
     xmlns:local11="clr-namespace:BA_MobileGPS.Core.Views.Report.TransportBusiness"
     xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
     xmlns:prism="http://prismlibrary.com"
@@ -21,6 +22,7 @@
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <local:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <Color x:Key="colorDataColumn">#00ADE5</Color>
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
             <local11:CustomTransportBusinessAggregate x:Key="CustomTransportBusinessConverter" />
@@ -133,7 +135,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
                                     Placeholder=""
-                                    Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                    Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -174,7 +176,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
                                     Placeholder=""
-                                    Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                    Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -493,7 +495,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding StartTime, Converter={StaticResource DateTimeConverter}}"
+                                        Text="{Binding StartTime, Converter={StaticResource DateTimeViewConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -527,7 +529,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding EndTime, Converter={StaticResource DateTimeConverter}}"
+                                        Text="{Binding EndTime, Converter={StaticResource DateTimeViewConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
