@@ -22,9 +22,9 @@ namespace GSHT_MobileGPS
         protected override async void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerVIVIEW;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerVIVIEW;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerVIVIEW;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerGSHT;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerGSHT;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerGSHT;
             ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerGSHT;
 
             SetTheme();
