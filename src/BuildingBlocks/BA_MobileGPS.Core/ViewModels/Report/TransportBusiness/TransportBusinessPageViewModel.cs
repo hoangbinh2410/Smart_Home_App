@@ -350,13 +350,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowStartTime)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].StartTime.ToString("ss:mm:HH dd:MM:yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].StartTime.ToString("HH:mm dd/MM/yyyy");
                     }
                     // Giờ đến
                     if (ShowEndTime)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].EndTime.ToString("ss:mm:HH dd:MM:yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].EndTime.ToString("HH:mm dd/MM/yyyy");
                     }
                     // Số phút hoạt động
                     if (ShowTimeActive)

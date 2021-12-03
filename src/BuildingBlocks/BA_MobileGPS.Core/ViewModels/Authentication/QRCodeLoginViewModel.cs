@@ -114,26 +114,27 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    return;
+                }
+                // Sau khi gọi API
+                if (objResponse != null && !string.IsNullOrEmpty(objResponse.OTP))
+                {
+                    var parameters = new NavigationParameters
+                    {
+                        { "OTP", objResponse },
+                    };
+                    await NavigationService.NavigateAsync("VerifyOTPCodePage", parameters);
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại mã xác thực OTP", 5000);
                 }
             });
-            if (objResponse != null && !string.IsNullOrEmpty(objResponse.OTP))
-            {
-                SafeExecute(async () =>
-                {
-                    await NavigationService.NavigateAsync("VerifyOTPCodePage");
-                });
-            }    
-            else
-            {
-                DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại xác thực OTP", 5000);
-            }    
+            
         }
         private void PushZaloPage()
         {
-            SafeExecute(async () =>
-            {
-                await NavigationService.NavigateAsync("VerifyOTPCodePage");
-            });
+            
         }
 
         # endregion PrivateMethod

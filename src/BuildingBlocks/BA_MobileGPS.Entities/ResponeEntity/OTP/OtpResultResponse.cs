@@ -8,5 +8,6 @@ namespace BA_MobileGPS.Entities.ResponeEntity.OTP
     {
         public string ServerID { get; set; }
         public string OTP { get; set; }
+        public DateTime StartTimeOtp { get; set; }
     }
 }
