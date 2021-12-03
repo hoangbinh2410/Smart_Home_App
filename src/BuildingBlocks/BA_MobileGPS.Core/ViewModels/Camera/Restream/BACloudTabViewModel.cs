@@ -266,7 +266,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                     }, (result) =>
                     {
-                        if (result != null && result.Data != null)
+                        if (result != null && result.Data != null && result.Data.Count >0)
                         {
                             foreach (var item in result.Data)
                             {
@@ -280,6 +280,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                 });
                             }
                             VideoItemsSource = lstData.ToObservableCollection();
+                        }
+                        else
+                        {
+                            VideoItemsSource=new ObservableCollection<VideoUploadInfo>();
                         }
                     }, showLoading: true);
                 }
