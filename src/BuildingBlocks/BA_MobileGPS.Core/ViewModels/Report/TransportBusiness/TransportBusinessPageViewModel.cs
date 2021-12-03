@@ -377,7 +377,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowUseFuel)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].UseFuel.ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].UseFuel, 2).ToString(); 
                     }
                     // Định mức NL trên 1km
                     numbercolum += 1;
@@ -428,16 +428,16 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowKmGPS)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.TotalKmGps), 2).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.TotalKmGps), 2));
                 }
                 // Km Cơ
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.KmOfPulseMechanical), 2).ToString();
+                worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.KmOfPulseMechanical), 2)); 
                 // NL tiêu thụ
                 if (ShowUseFuel)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = data.Sum(x => x.UseFuel).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.UseFuel), 2)); 
                 }
                 // Định mức NL trên 1km
                 numbercolum += 1;
@@ -445,7 +445,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowNorms)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.Norms), 2).ToString();
+                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.Norms), 2)); 
                 }
             }
             catch (Exception ex)

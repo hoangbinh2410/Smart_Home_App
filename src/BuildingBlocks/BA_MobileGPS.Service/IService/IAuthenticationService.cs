@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service
@@ -16,5 +17,7 @@ namespace BA_MobileGPS.Service
         Task<CheckVerifyCodeResponse> CheckVerifyCode(VerifyCodeRequest input);
 
         Task<bool> ChangePassWordForget(ChangePasswordForgotRequest input);
+
+        Task<OtpResultResponse> GetOTP(string targetNumber, string customerID);
     }
 }
