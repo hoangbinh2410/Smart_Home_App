@@ -367,13 +367,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowTimeInStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.ToString("HH:mm dd/MM/yyyy");
                     }
                     // Ra trạm
                     if (ShowTimeOutStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.ToString();
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.ToString("HH:mm dd/MM/yyyy");
                     }
                     // Tên trạm
                     if (ShowNameStation)

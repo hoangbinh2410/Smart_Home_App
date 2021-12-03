@@ -3,13 +3,9 @@
     x:Class="BA_MobileGPS.Core.Views.VerifyOTPCodePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors"
-    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:prism="http://prismlibrary.com"
     xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows">
     <ScrollView>
         <Grid RowSpacing="0">
@@ -38,10 +34,10 @@
                             <!--  Nhập mã OTP  -->
                             <input:SfTextInputLayout
                                 ContainerType="Outlined"
-                                ErrorText="{Binding UserName.ErrorFirst}"
+                                ErrorText="{Binding OtpValue.ErrorFirst}"
                                 FocusedColor="Transparent"
                                 FocusedStrokeWidth="0"
-                                HasError="{Binding UserName.IsNotValid}"
+                                HasError="{Binding OtpValue.IsNotValid}"
                                 StyleClass="LoginEntry"
                                 UnfocusedColor="Transparent"
                                 UnfocusedStrokeWidth="0">
@@ -51,9 +47,9 @@
                                                                    iOS=30}"
                                         HorizontalOptions="CenterAndExpand"
                                         Keyboard="Telephone"
-                                        MaxLength="10"
+                                        MaxLength="6"
                                         Placeholder="Nhập mã OTP"
-                                        Text="{Binding OTPCode}">
+                                        Text="{Binding OtpValue.Value}">
                                         <Entry.Effects>
                                             <effects:ClearEntryEffect />
                                         </Entry.Effects>

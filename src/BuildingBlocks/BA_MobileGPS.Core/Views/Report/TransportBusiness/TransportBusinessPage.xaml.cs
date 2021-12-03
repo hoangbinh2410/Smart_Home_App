@@ -96,7 +96,7 @@ namespace BA_MobileGPS.Core.Views.Report.TransportBusiness
                         totalUseFuel = totalUseFuel + item.UseFuel;
                         totalNorms = totalNorms + item.Norms;
                     }
-                    TotalTimes = String.Format("{0:n}", Math.Round(totalTimes, 2));
+                    TotalTimes = totalTimes.ToString();
                     SumTotalKm = String.Format("{0:n}", Math.Round(sumTotalKm, 2));
                     TotalKmMechanical = String.Format("{0:n}", Math.Round(totalKmMechanical, 2));
                     TotalUseFuel = String.Format("{0:n}", Math.Round(totalUseFuel, 2));
