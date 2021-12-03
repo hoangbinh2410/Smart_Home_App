@@ -279,7 +279,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     VehicleName = result.Vehicle
                                 });
                             }
-                            VideoItemsSource = lstData.ToObservableCollection();
+                            VideoItemsSource = lstData.OrderBy(x=>x.StartTime).ToObservableCollection();
                         }
                         else
                         {
