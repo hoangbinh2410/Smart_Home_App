@@ -115,6 +115,10 @@ namespace BA_MobileGPS.Core
 
         public static bool ChangeColorIconStopParking => Get(CompanyConfigurationNames.ChangeColorIconStopParking, false);
 
+
+        public static bool LostConnectIncludeLostGPSOnline => Get(CompanyConfigurationNames.LostConnectIncludeLostGPSOnline, false);
         
+
+
     }
 }

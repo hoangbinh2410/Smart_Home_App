@@ -476,10 +476,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 { "ListLocation", _listLocation },
             };
-            if(_objRequest != null)
+            if (_objRequest != null)
             {
                 parameters.Add("ObjRequest", _objRequest);
-            }    
+            }
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("DetailedFilterPage", parameters);
@@ -647,7 +647,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                if (CheckPermision(1354) || CheckPermision(1355))
+                if (CheckPermision((int)PermissionKeyNames.AdminUtilityImageView))
                 {
                     var model = ListDataSearch.Where(x => x.RowNumber == obj).FirstOrDefault();
                     if (CheckVehcleHasImage(VehicleSelect.VehiclePlate))
@@ -661,12 +661,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         };
                         var parameters = new NavigationParameters()
                         {
-                            {"ReportDate", new Tuple<DateTime,DateTime>(model.EndTime.AddMinutes(-10),
-                            new DateTime(model.StartTime.Year, model.StartTime.Month, model.StartTime.Day, 23, 59, 59)) },
-                            {ParameterKey.VehiclePlate,vehicleModel }
+                            {"ReportDate", new Tuple<DateTime,DateTime>(model.StartTime.AddMinutes(-5),
+                            model.EndTime.AddMinutes(5)) },
+                            {ParameterKey.Vehicle,vehicleModel }
                         };
 
-                        await NavigationService.NavigateAsync("NavigationPage/ImageManagingPage", parameters, true, true);
+                        await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
                     }
                     else
                     {

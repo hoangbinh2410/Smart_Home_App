@@ -23,6 +23,7 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <local:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
             <local:TableSummaryConverter x:Key="SummaryTotalKmConverter" ColName="TotalKm" />
             <local:TableSummaryConverter x:Key="SummaryTotalKmMechanicalConverter" ColName="TotalKmMechanical" />
@@ -149,7 +150,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
                                     Placeholder=""
-                                    Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                    Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -190,7 +191,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
                                     Placeholder=""
-                                    Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                    Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
                                         <effects:BorderlessEffect />
@@ -462,7 +463,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TimeInStation, Converter={StaticResource DateTimeConverter}}"
+                                        Text="{Binding TimeInStation, Converter={StaticResource DateTimeViewConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"
@@ -495,7 +496,7 @@
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalOptions="FillAndExpand"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TimeOutStation, Converter={StaticResource DateTimeConverter}}"
+                                        Text="{Binding TimeOutStation, Converter={StaticResource DateTimeViewConverter}}"
                                         VerticalOptions="FillAndExpand"
                                         VerticalTextAlignment="Center"
                                         XAlign="Center"

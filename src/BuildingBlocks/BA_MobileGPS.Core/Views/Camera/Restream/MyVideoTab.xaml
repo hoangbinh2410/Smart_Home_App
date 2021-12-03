@@ -300,7 +300,8 @@
                                         Grid.Row="2"
                                         AutoFitMode="Height"
                                         ItemSpacing="10"
-                                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}">
+                                        ItemsSource="{Binding VideoItemsSource, Mode=TwoWay}"
+                                        SelectionBackgroundColor="Transparent">
                                         <syncfusionList:SfListView.ItemTemplate>
                                             <DataTemplate>
                                                 <StackLayout>

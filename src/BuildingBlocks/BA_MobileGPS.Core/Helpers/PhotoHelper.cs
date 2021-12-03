@@ -1,6 +1,4 @@
-﻿using BA_MobileGPS.Core.Views.Permissions;
-using Plugin.Permissions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Core.Helpers
@@ -9,24 +7,18 @@ namespace BA_MobileGPS.Core.Helpers
     {
         public static async Task CanTakePhoto(Action action)
         {
-            await PermissionHelper.
-                 RequestPermission<Plugin.Permissions.CameraPermission>(
-                            new Views.Permissions.CameraPermission(async () => await RequireStoragePermission(action)),
-                            async () => await RequireStoragePermission(action));
+            if (await PermissionHelper.CheckPhotoPermissions())
+            {
+                action?.Invoke();
+            }
         }
 
         public static async Task CanPickPhoto(Action action = null)
         {
-            await PermissionHelper.
-                  RequestPermission<PhotosPermission>(
-                             new PhotoPermission(async () => await RequireStoragePermission(action)),
-                             async () => await RequireStoragePermission(action));
-        }
-
-        private static async Task RequireStoragePermission(Action action = null)
-        {
-            await PermissionHelper.
-                  RequestPermission<Plugin.Permissions.StoragePermission>(new Views.Permissions.StoragePermission(action), action);
+            if (await PermissionHelper.CheckStoragePermissions())
+            {
+                action?.Invoke();
+            }
         }
     }
 }
