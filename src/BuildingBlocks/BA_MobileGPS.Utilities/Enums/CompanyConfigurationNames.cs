@@ -33,6 +33,7 @@
         DayAllowRegister,
         UseNewSummaryIconOnline,
         ChangeColorIconStopParking,
-        LostConnectIncludeLostGPSOnline
+        LostConnectIncludeLostGPSOnline,
+        Has2FactorAuthentication
     }
 }
