@@ -9,46 +9,6 @@ namespace BA_MobileGPS.Utilities.Enums
     /// Name     Date         Comments
     /// Namth  16/1/2018   created
     /// </Modified>
-    public enum ServerTypes
-    {
-        [Description("signalr.vietnamcnn.vn")]
-        ServerCNN,
-
-        [Description("https://signalr.bagroup.vn")]
-        ServerThat,
-
-        [Description("10.1.11.131")]
-        ServerNamth,
-
-        [Description("http://125.212.226.154:6656")]
-        ServerTest,
-
-        [Description("signalr.vietnamcnn.vn")]
-        ServerTestCNN,
-
-        [Description("signalr.vietnamcnn.vn")]
-        ServerVNSAT,
-
-        [Description("signalrviview.bagroup.vn")]
-        ServerVIVIEW,
-
-        [Description("signalr.vietnamcnn.vn")]
-        ServerGISVIET,
-
-        [Description("https://signalr.bagroup.vn")]
-        ServerVMS,
-
-        [Description("signalrmoto.bagroup.vn")]
-        ServerMoto,
-    }
-
-    /// <summary>
-    /// Server đang trên máy nào?
-    /// </summary>
-    /// <Modified>
-    /// Name     Date         Comments
-    /// Namth  16/1/2018   created
-    /// </Modified>
     public enum ServerIdentityHubTypes
     {
         [Description("http://logincnn.bagroup.vn")]
@@ -71,6 +31,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://loginviview.bagroup.vn")]
         ServerUNITEL,
+
+        [Description("http://loginviview.bagroup.vn")]
+        ServerGSHT,
 
         [Description("http://loginbagps.bagroup.vn")]
         ServerVMS,
@@ -109,6 +72,9 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://vehicleonlineviview.bagroup.vn")]
         ServerUNITEL,
 
+        [Description("http://vehicleonlineviview.bagroup.vn")]
+        ServerGSHT,
+
         [Description("http://vehicleonlinegps.bagroup.vn")]
         ServerVMS,
 
@@ -145,6 +111,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://alertviview.bagroup.vn")]
         ServerUNITEL,
+
+        [Description("http://alertviview.bagroup.vn")]
+        ServerGSHT,
 
         [Description("http://alertvms.bagroup.vn")]
         ServerVMS,
@@ -183,6 +152,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://125.212.192.175:8095")]
         ServerUNITEL,
+
+        [Description("http://125.212.192.175:8095")]
+        ServerGSHT,
 
         [Description("http://125.212.192.175:8095")]
         ServerVMS,

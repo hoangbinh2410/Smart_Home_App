@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -26,19 +27,19 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand SwichDateTypeCommand { get; private set; }
         public ICommand SearchDriverCommand { get; private set; }
         public ICommand TapRankByDayCommand { get; private set; }
-        public ICommand NavigateCommand { get; private set; }
+        public ICommand NavigateRankUserCommand { get; private set; }
 
         public RankNotDriverPageViewModel(INavigationService navigationService,
             IKPIDriverService kPIDriverService) : base(navigationService)
         {
             _kPIDriverService = kPIDriverService;
-            Title = "Điểm xếp hạng lái xe";
+            Title = MobileResource.Title_Kpi_Page;
             PushToFromDatePageCommand = new DelegateCommand(ExecuteToFromDate);
             NextTimeCommand = new DelegateCommand(NextTime);
             PreviosTimeCommand = new DelegateCommand(PreviosTime);
             SwichDateTypeCommand = new DelegateCommand(SwichDateType);
             SearchDriverCommand = new DelegateCommand<TextChangedEventArgs>(SearchDriverwithText);
-            NavigateCommand = new DelegateCommand<DriverRankByDay>(Navigate);
+            NavigateRankUserCommand = new DelegateCommand<DriverRankingRespone>(NavigateRankUser);
         }
 
         #region Property RankPoint
@@ -290,7 +291,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (param.Value.Month >= DateTime.Now.Month && param.Value.Year >= DateTime.Now.Year)
                         {
-                            DisplayMessage.ShowMessageInfo("Tháng tìm kiếm không được lớn hơn ngày hiện tại");
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Search_Month);
                             return;
                         }
                         else
@@ -306,7 +307,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo("Ngày tìm kiếm không được lớn hơn ngày hiện tại");
+                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Search_Day);
                             return;
                         }
                     }
@@ -336,23 +337,23 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public void Navigate(DriverRankByDay args)
+        private void NavigateRankUser(DriverRankingRespone obj)
         {
-            try
+            if (!IsShowMonth)
             {
                 SafeExecute(async () =>
                 {
                     var parameters = new NavigationParameters
                     {
                         { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
-                         { ParameterKey.KPIRankPage,args },
+                         { ParameterKey.KPIRankPage,DateRank },
                     };
                     await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);
                 });
             }
-            catch (Exception ex)
+            else
             {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_Support_View);
             }
         }
 

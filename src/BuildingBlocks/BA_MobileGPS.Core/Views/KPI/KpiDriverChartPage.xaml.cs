@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using BA_MobileGPS.Core.Resources;
+using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core.Views
 {
@@ -11,8 +12,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 Chart.PrimaryAxis.LabelStyle.FontSize = 5;
                 chart2.PrimaryAxis.LabelStyle.FontSize = 5;
-            }
-
+            }                             
         }
 
         private void NumericalAxis_LabelCreated(object sender, Syncfusion.SfChart.XForms.ChartAxisLabelEventArgs e)

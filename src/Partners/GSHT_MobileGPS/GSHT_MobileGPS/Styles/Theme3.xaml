@@ -6,7 +6,7 @@
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#0D2D6C</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#0D2D6C</Color>
+    <Color x:Key="PrimaryColor">#F7921C</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <Color x:Key="BlackColor">Black</Color>
@@ -29,9 +29,9 @@
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#0D2D6C</Color>
-    <Color x:Key="MainTabUnSelectedColor">#0D2D6C</Color>
-    <Color x:Key="MainTabSelectedTextColor">#0D2D6C</Color>
+    <Color x:Key="MainTabSelectedColor">#F7921C</Color>
+    <Color x:Key="MainTabUnSelectedColor">#F7921C</Color>
+    <Color x:Key="MainTabSelectedTextColor">#F7921C</Color>
     <Color x:Key="MainTabUnSelectedTextColor">#57606F</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>

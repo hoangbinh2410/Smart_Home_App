@@ -66,6 +66,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         public ICommand AddDataCommand { get; private set; }
         public ICommand DeleteItemCommand { get; private set; }
         public ICommand NavigateCommand { get; }
+        public ICommand NewNavigateCommand { get; }
         private IExpenseService _ExpenseService { get; set; }
 
         public ExpenceManagementPageViewModel(INavigationService navigationService, IExpenseService expenseService)
@@ -73,11 +74,12 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             PushToFromDateTimePageCommand = new DelegateCommand(ExecuteToFromDateTime);
             PushToEndDateTimePageCommand = new DelegateCommand(ExecuteToEndDateTime);
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Subscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             SearchDataCommand = new DelegateCommand(SearchDataClicked);
             AddDataCommand = new DelegateCommand(AddDataClicked);
             DeleteItemCommand = new DelegateCommand<ExpenseRespone>(DeleteItemClicked);
             NavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NavigateClicked);
+            NewNavigateCommand = new DelegateCommand<ItemTappedEventArgs>(NewNavigateClicked);
             _ExpenseService = expenseService;
         }
 
@@ -120,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<SelectDateTimeEvent>().Unsubscribe(UpdateDateTime);
+            EventAggregator.GetEvent<SelectDateEvent>().Unsubscribe(UpdateDateTime);
         }
 
         #endregion Lifecycle
@@ -137,7 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", FromDate },
                     { "PickerType", ComboboxType.First }
                 };
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
 
@@ -151,11 +153,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     { "DataPicker", ToDate },
                     { "PickerType", ComboboxType.Second }
                 };
-                await NavigationService.NavigateAsync("SelectDatePicker", parameters);
+                await NavigationService.NavigateAsync("SelectDateCalendar", parameters);
             });
         }
 
-        private void UpdateDateTime(PickerDateTimeResponse param)
+        private void UpdateDateTime(PickerDateResponse param)
         {
             if (param != null)
             {
@@ -174,12 +176,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private void GetListExpense()
-        {
-            if (Vehicle == null)
-            {
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-                return;
-            }    
+        {           
             var companyID = CurrentComanyID;
             var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()
@@ -196,10 +193,10 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         MenuItems = await _ExpenseService.GetListExpense(request);
-                        if(MenuItems == null || MenuItems.Count ==0)
-                        {
-                            DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
-                        }    
+                        //if(MenuItems == null || MenuItems.Count ==0)
+                        //{
+                        //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
+                        //}    
                         SumMoney();
                     }
                 }
@@ -223,6 +220,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             if (ValidateDateTime())
             {
+                if (Vehicle == null)
+                {
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+                    return;
+                }
                 GetListExpense();
             }
         }
@@ -249,57 +251,64 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         private async void DeleteItemClicked(ExpenseRespone obj)
         {
-            if (obj == null || obj.Expenses == null)
+            if (CheckPermision((int)PermissionKeyNames.DeleteExpense))
             {
-                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
-                return;
-            }    
-            var action = await PageDialog.DisplayAlertAsync("Cảnh báo",string.Format("Bạn chắc chắn muốn xóa chi phí ngày {0}?", obj.ExpenseDate.ToString("dd/MM/yyyy")) , "Có", "Không");
-            if (!action)
-            {
-                return;
-            }
-            List<Guid> listguid = new List<Guid>();
-            foreach(var guid in obj.Expenses)
-            {
-                listguid.Add(guid.ID);
-            }
-            DeleteExpenseRequest request = new DeleteExpenseRequest()
-            {
-                ListID = new List<Guid>(listguid)
-            };
-            TryExecute(async () =>
-            {
-                if (IsConnected)
+                if (obj == null || obj.Expenses == null)
                 {
-                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                    return;
+                }
+                var action = await PageDialog.DisplayAlertAsync("Cảnh báo", string.Format("Bạn chắc chắn muốn xóa chi phí ngày {0}?", obj.ExpenseDate.ToString("dd/MM/yyyy")), "Có", "Không");
+                if (!action)
+                {
+                    return;
+                }
+                List<Guid> listguid = new List<Guid>();
+                foreach (var guid in obj.Expenses)
+                {
+                    listguid.Add(guid.ID);
+                }
+                DeleteExpenseRequest request = new DeleteExpenseRequest()
+                {
+                    ListID = new List<Guid>(listguid)
+                };
+                TryExecute(async () =>
+                {
+                    if (IsConnected)
                     {
-                        bool isdeleted = await _ExpenseService.Deletemultiple(request);
-                        if(isdeleted)
+                        using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            GetListExpense();
-                            DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
-                        }    
-                        else
-                        {
-                            DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
-                        }    
+                            bool isdeleted = await _ExpenseService.Deletemultiple(request);
+                            if (isdeleted)
+                            {
+                                GetListExpense();
+                                DisplayMessage.ShowMessageSuccess("Xóa thành công!", 1500);
+                            }
+                            else
+                            {
+                                DisplayMessage.ShowMessageError("Có lỗi khi xóa, kiểm tra lại", 5000);
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                }
-            });
+                    else
+                    {
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    }
+                });
+            }
+            else
+            {
+                DisplayMessage.ShowMessageInfo("Bạn không có quyền xóa chi phí!");
+            }
         }
 
         public void NavigateClicked(ItemTappedEventArgs item)
         {
-            if(Vehicle == null || Vehicle.PrivateCode == null)
-            {
-                DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-                return;
-            }    
+            //if (Vehicle == null || Vehicle.PrivateCode == null)
+            //{
+            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+            //    return;
+            //}
 
             var parameters = new NavigationParameters
             {
@@ -308,6 +317,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
             if (item != null && item.ItemData != null)
             {
+
                 parameters.Add("ExpenseDetails", item.ItemData);
             }
 
@@ -317,7 +327,31 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             });
 
         }
+        public void NewNavigateClicked(ItemTappedEventArgs item)
+        {
+            //if(Vehicle == null || Vehicle.PrivateCode == null)
+            //{
+            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
+            //    return;
+            //}    
 
+            var parameters = new NavigationParameters();
+            //{
+            //    { ParameterKey.Vehicle, Vehicle }
+            //};
+
+            if (item != null && item.ItemData != null)
+            {
+
+                parameters.Add("ExpenseDetails", item.ItemData);
+            }
+
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
+            });
+
+        }      
         #endregion PrivateMethod
     }
 }

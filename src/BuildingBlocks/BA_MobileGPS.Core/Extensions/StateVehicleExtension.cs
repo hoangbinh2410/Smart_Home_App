@@ -560,10 +560,24 @@ namespace BA_MobileGPS.Core.Extensions
                             break;
 
                         case VehicleStatusGroup.LostGSM:
-                            if (IsLostGSM(x.VehicleTime))
+
+                            if (CompanyConfigurationHelper.LostConnectIncludeLostGPSOnline)
                             {
-                                result += 1;
+                                if ((IsLostGSM(x.VehicleTime)
+                                  || StaticSettings.TimeServer.Subtract(x.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+                                  && !x.IsPowerOff)
+                                {
+                                    result += 1;
+                                }
                             }
+                            else
+                            {
+                                if (IsLostGSM(x.VehicleTime))
+                                {
+                                    result += 1;
+                                }
+                            }
+
                             break;
 
                         case VehicleStatusGroup.VehicleDebtMoney:
@@ -674,9 +688,21 @@ namespace BA_MobileGPS.Core.Extensions
                         break;
 
                     case VehicleStatusGroup.LostGSM:
-                        if (IsLostGSM(x.VehicleTime))
+                        if (CompanyConfigurationHelper.LostConnectIncludeLostGPSOnline)
                         {
-                            result.Add(x);
+                            if ((IsLostGSM(x.VehicleTime)
+                              || StaticSettings.TimeServer.Subtract(x.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+                              && !x.IsPowerOff)
+                            {
+                                result.Add(x);
+                            }
+                        }
+                        else
+                        {
+                            if (IsLostGSM(x.VehicleTime))
+                            {
+                                result.Add(x);
+                            }
                         }
                         break;
 

@@ -294,6 +294,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             ListVehicleDebtMoney = temp.OrderByDescending(x => x.CountExpireDate).OrderBy(x => x.SortOrder).ToObservableCollection();
             TotalCountVehicle = ListVehicleDebtMoney.Count();
+           
         }
 
         private void InitVehicleFree(List<VehicleFreeResponse> lst)

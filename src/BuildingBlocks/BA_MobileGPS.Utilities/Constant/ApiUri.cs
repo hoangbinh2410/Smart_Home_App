@@ -22,6 +22,8 @@
 
         public const string GET_MOBILECONFIG = "api/mobileconfigurations/getall";
 
+        public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
+
         public const string GET_SENTOTP = "api/v2/authentcation/sentotp";
         public const string GET_VERIFYOTP = "api/v2/authentcation/verifyotp";
 
@@ -134,6 +136,8 @@
 
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
+        public const string GETOTP = "api/sms/getotp";
+
         public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
 
         #endregion ForgotPassword
@@ -201,6 +205,7 @@
 
         public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
         public const string GET_GetStationDetails = "api/reports/station";
+        public const string GET_GetTransportBusiness = "api/reports/transportbusiness";
         #endregion report
 
         #region Camera
@@ -228,6 +233,7 @@
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
         public const string SET_HOSTSPOT = "api/stream/sethospot";
         public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
+        public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
 
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";

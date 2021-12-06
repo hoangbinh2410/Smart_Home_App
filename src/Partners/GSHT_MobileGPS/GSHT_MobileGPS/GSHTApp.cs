@@ -22,11 +22,10 @@ namespace GSHT_MobileGPS
         protected override async void OnInitialized()
         {
             base.OnInitialized();
-            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerThat;
-            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerThat;
-            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerThat;
-            ServerConfig.ServerUserBehaviorHubType = ServerUserBehaviorHubTypes.ServerThat;
-            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerTest;
+            ServerConfig.ServerIdentityHubType = ServerIdentityHubTypes.ServerGSHT;
+            ServerConfig.ServerVehicleOnlineHubType = ServerVehicleOnlineHubTypes.ServerGSHT;
+            ServerConfig.ServerAlertHubType = ServerAlertHubTypes.ServerGSHT;
+            ServerConfig.ApiEndpointTypes = ApiEndpointTypes.ServerGSHT;
 
             SetTheme();
 
@@ -48,11 +47,15 @@ namespace GSHT_MobileGPS
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             base.RegisterTypes(containerRegistry);
-            AppType = BA_MobileGPS.Entities.AppType.BinhAnh;
+            AppType = BA_MobileGPS.Entities.AppType.GSHT;
             containerRegistry.RegisterSingleton<IThemeGSHTServices, ThemeServices>();
+            containerRegistry.Register<ResourceDictionary, ThemeDefault>(ThemeGSHT.ThemeDefault.ToString());
             containerRegistry.Register<ResourceDictionary, Theme1>(ThemeGSHT.Theme1.ToString());
             containerRegistry.Register<ResourceDictionary, Theme2>(ThemeGSHT.Theme2.ToString());
             containerRegistry.Register<ResourceDictionary, Theme3>(ThemeGSHT.Theme3.ToString());
+            containerRegistry.Register<ResourceDictionary, Theme4>(ThemeGSHT.Theme4.ToString());
+            containerRegistry.Register<ResourceDictionary, Theme5>(ThemeGSHT.Theme5.ToString());
+            containerRegistry.Register<ResourceDictionary, Theme6>(ThemeGSHT.Theme6.ToString());
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>("LoginPage");
         }
 

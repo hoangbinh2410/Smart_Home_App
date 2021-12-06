@@ -9,7 +9,7 @@
     <!--  Color Primary  -->
     <Color x:Key="BlueDarkColor">#0D2D6C</Color>
     <Color x:Key="BluePrimaryColor">#00AEEF</Color>
-    <Color x:Key="PrimaryColor">#0D2D6C</Color>
+    <Color x:Key="PrimaryColor">#17B75B</Color>
     <Color x:Key="BlueColor">#89DFFF</Color>
     <Color x:Key="WhiteColor">White</Color>
     <Color x:Key="BlackColor">Black</Color>
@@ -32,9 +32,9 @@
     <FileImageSource x:Key="HomePageTopImageSource" File="bg_HomeTop.png" />
     <FileImageSource x:Key="HomePageBotImageSource" File="bg_HomeBot.png" />
 
-    <Color x:Key="MainTabSelectedColor">#0D2D6C</Color>
-    <Color x:Key="MainTabUnSelectedColor">#0D2D6C</Color>
-    <Color x:Key="MainTabSelectedTextColor">#0D2D6C</Color>
+    <Color x:Key="MainTabSelectedColor">#17B75B</Color>
+    <Color x:Key="MainTabUnSelectedColor">#17B75B</Color>
+    <Color x:Key="MainTabSelectedTextColor">#17B75B</Color>
     <Color x:Key="MainTabUnSelectedTextColor">#57606F</Color>
 
     <Color x:Key="PopupYesBtnTextColor">White</Color>
@@ -43,6 +43,7 @@
     <Color x:Key="LoginTextColor">White</Color>
     <Color x:Key="LoginIconBackgroundColor">White</Color>
     <Color x:Key="LoginIconColor">#0D2D6C</Color>
+    <Color x:Key="LoginBntColor">#2DADB6</Color>
     <Color x:Key="LoginGradientStartColor">White</Color>
     <Color x:Key="LoginGradientEndColor">White</Color>
     <!--  Camera  -->

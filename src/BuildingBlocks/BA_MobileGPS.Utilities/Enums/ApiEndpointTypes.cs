@@ -39,5 +39,9 @@ namespace BA_MobileGPS.Utilities.Enums
 
         [Description("http://apiunitel.bagroup.vn")]
         ServerUNITEL,
+
+        [Description("http://apigsht.bagroup.vn")]
+        ServerGSHT,
+
     }
 }
