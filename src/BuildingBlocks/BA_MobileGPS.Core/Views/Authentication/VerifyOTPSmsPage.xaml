@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.VerifyOTPSmsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sh="clr-namespace:Sharpnado.Shades;assembly=Sharpnado.Shadows"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ScrollView>
+        <Grid RowSpacing="0">
+            <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
+            <Grid RowDefinitions="*,2.5*" RowSpacing="0">
+                <ff:CachedImage
+                    Grid.Row="0"
+                    HeightRequest="90"
+                    HorizontalOptions="Center"
+                    Source="logo_Login.png"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="180" />
+                <StackLayout Grid.Row="1" Spacing="20">
+                    <Grid
+                        RowDefinitions="Auto,Auto,40"
+                        RowSpacing="20"
+                        VerticalOptions="CenterAndExpand">
+                        <StackLayout Grid.Row="0" Spacing="20">
+                            <StackLayout>
+                                <!--  Text hướng dẫn  -->
+                                <Label
+                                    Padding="50,0,50,0"
+                                    FontSize="14"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Nhập mã OTP để đăng nhập."
+                                    TextColor="{DynamicResource WhiteColor}" />
+                                <Label
+                                    Padding="50,0,50,0"
+                                    FontSize="14"
+                                    HorizontalTextAlignment="Center"
+                                    TextColor="{DynamicResource WhiteColor}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Thời gian hiệu lực mã OPT còn " />
+                                            <Span Text="{Binding TimeRequest}" />
+                                            <Span Text="s" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+
+                            <!--  Entry  -->
+                            <!--  Nhập mã OTP  -->
+                            <input:SfTextInputLayout
+                                ContainerType="Outlined"
+                                ErrorText="{Binding OtpValue.ErrorFirst}"
+                                FocusedColor="Transparent"
+                                FocusedStrokeWidth="0"
+                                HasError="{Binding OtpValue.IsNotValid}"
+                                StyleClass="LoginEntry"
+                                UnfocusedColor="Transparent"
+                                UnfocusedStrokeWidth="0">
+                                <input:SfTextInputLayout.InputView>
+                                    <Entry
+                                        HeightRequest="{OnPlatform Android=40,
+                                                                   iOS=30}"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Keyboard="Telephone"
+                                        MaxLength="6"
+                                        Placeholder="Nhập mã xác thực"
+                                        Text="{Binding OtpValue.Value}">
+                                        <Entry.Effects>
+                                            <effects:ClearEntryEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </input:SfTextInputLayout.InputView>
+                            </input:SfTextInputLayout>
+                        </StackLayout>
+
+                        <!--  lấy lại Mã OTP  -->
+                        <StackLayout Grid.Row="1">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GetOTPAgainCommand}" />
+                            </StackLayout.GestureRecognizers>
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Gửi lại mã khác?"
+                                TextColor="{DynamicResource WhiteColor}" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="2">
+                            <!--  Button  -->
+                            <!--  Button 1  -->
+                            <sh:Shadows CornerRadius="20">
+                                <sh:Shadows.Shades>
+                                    <sh:ImmutableShades>
+                                        <sh:Shade
+                                            BlurRadius="4"
+                                            Opacity="0.4"
+                                            Offset="0,0"
+                                            Color="{DynamicResource WhiteColor}" />
+                                    </sh:ImmutableShades>
+                                </sh:Shadows.Shades>
+                                <Button
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    Command="{Binding PushMainPageCommand}"
+                                    CornerRadius="20"
+                                    HeightRequest="40"
+                                    HorizontalOptions="Center"
+                                    Text="Đồng Ý"
+                                    TextColor="{DynamicResource WhiteColor}"
+                                    WidthRequest="300" />
+                            </sh:Shadows>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>
