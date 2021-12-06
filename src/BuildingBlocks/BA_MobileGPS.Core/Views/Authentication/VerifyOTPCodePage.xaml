@@ -65,7 +65,7 @@
                             </StackLayout.GestureRecognizers>
                             <Label
                                 HorizontalOptions="Center"
-                                Text="Lấy mã khác?"
+                                Text="{Binding TextGetOTPAgain}"
                                 TextColor="{DynamicResource WhiteColor}" />
                         </StackLayout>
                         <StackLayout Grid.Row="2">

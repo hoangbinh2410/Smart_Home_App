@@ -191,6 +191,8 @@ namespace BA_MobileGPS.Core
 
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
 
+        public static string LinkZaloBA => Get(MobileConfigurationNames.LinkBAGPS, "https://zalo.me/1958838581480438876");
+
         public static string LinkAdvertising => Get(MobileConfigurationNames.LinkAdvertising, "");
 
         public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
