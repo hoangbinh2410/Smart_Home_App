@@ -49,7 +49,7 @@ namespace BA_MobileGPS.Entities
         public CustomerType SubCustomer { get; set; }
 
         [JsonProperty("13")]
-        public bool IsNewUser { get; set; }
+        public bool Has2FactorAuthentication { get; set; }
 
         [JsonProperty("14")]
         public bool IsNeededOtp { get; set; }
