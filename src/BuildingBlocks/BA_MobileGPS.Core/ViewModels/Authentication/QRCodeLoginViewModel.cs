@@ -123,7 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         { "OTP", objResponse },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPCodePage", parameters);
+                    await NavigationService.NavigateAsync("/VerifyOTPCodePage", parameters);
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
         private void PushZaloPage()
         {
-            
+            SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkZaloBA)));
         }
 
         # endregion PrivateMethod

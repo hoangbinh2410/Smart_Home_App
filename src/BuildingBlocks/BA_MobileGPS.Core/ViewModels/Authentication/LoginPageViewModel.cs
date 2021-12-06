@@ -600,7 +600,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    await NavigationService.NavigateAsync("/MainPage");
+                    // Kiểm tra tài khoản có bảo mất 2 lớp không
+                    if(!CompanyConfigurationHelper.Has2FactorAuthentication)
+                    {
+                        await NavigationService.NavigateAsync("/QRCodeLogin");
+                    }   
+                    else
+                    {
+                        await NavigationService.NavigateAsync("/MainPage");
+                    }    
                 }
             }
             catch (Exception ex)
