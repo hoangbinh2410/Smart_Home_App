@@ -121,7 +121,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var parameters = new NavigationParameters
                     {
-                        { "OTP", objResponse },
+                        { "OTPZalo", objResponse },
                     };
                     await NavigationService.NavigateAsync("/VerifyOTPCodePage", parameters);
                 }

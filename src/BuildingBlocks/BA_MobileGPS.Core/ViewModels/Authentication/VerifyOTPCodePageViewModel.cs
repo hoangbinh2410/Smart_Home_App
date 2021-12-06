@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             if (parameters != null)
             {
-                if (parameters.ContainsKey("OTP") && parameters.GetValue<OtpResultResponse>("OTP") is OtpResultResponse objOtp)
+                if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<OtpResultResponse>("OTPZalo") is OtpResultResponse objOtp)
                 {
                     _isGetOTPAgain = false;
                     SetTimerGetOTPAgain();

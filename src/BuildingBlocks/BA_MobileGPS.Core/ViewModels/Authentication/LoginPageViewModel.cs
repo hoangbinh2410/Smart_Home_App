@@ -601,7 +601,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     // Kiểm tra tài khoản có bảo mất 2 lớp không
-                    if(!CompanyConfigurationHelper.Has2FactorAuthentication)
+                    if(StaticSettings.User.Has2FactorAuthentication)
                     {
                         await NavigationService.NavigateAsync("/QRCodeLogin");
                     }   
