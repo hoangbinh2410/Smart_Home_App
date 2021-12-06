@@ -284,7 +284,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     VideoItemsSource = new ObservableCollection<VideoUploadInfo>();
                     RunOnBackground(async () =>
                     {
-                        return await _streamCameraService.GetListVideoOnCloud(new Entities.CameraRestreamRequest()
+                        return await _streamCameraService.GetListVideoDowload(new Entities.CameraRestreamRequest()
                         {
                             CustomerId = UserInfo.XNCode,
                             Date = DateStart.Date,

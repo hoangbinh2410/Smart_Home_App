@@ -16,6 +16,8 @@ namespace BA_MobileGPS.Entities
         public int? FK_LandmarkID { get; set; }
         public string OtherAddress { get; set; }
         public string Photo { get; set; }
+        public Guid User { get; set; }
+        public bool IsChangePhoto { get; set; }
 
     }
 }

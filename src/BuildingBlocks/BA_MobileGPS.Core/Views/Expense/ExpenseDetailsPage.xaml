@@ -3,14 +3,11 @@
     x:Class="BA_MobileGPS.Core.Views.Expense.ExpenseDetailsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
-    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
-    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
-    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
@@ -36,6 +33,35 @@
             <Style x:Key="LabelItem" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="FontSize" Value="15" />
+            </Style>
+            <Style x:Key="Text14B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text14" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text18" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -206,6 +232,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
                                     Placeholder="Tất cả chi phí"
+                                    PlaceholderColor="Black"
                                     Text="{Binding SelectedExpenseName.Value}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
@@ -285,7 +312,6 @@
                                         <ListCollection:List x:TypeArguments="x:String" />
                                     </combobox:SfComboBox.ComboBoxSource>
                                 </combobox:SfComboBox>
-
                             </StackLayout>
                         </Frame>-->
                     </StackLayout>
@@ -295,8 +321,8 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.55*" />
-                                <ColumnDefinition Width="0.45*" />
+                                <ColumnDefinition Width="0.43*" />
+                                <ColumnDefinition Width="0.57*" />
                             </Grid.ColumnDefinitions>
                             <Label
                                 Grid.Column="0"
@@ -311,7 +337,7 @@
                                 HorizontalOptions="Start"
                                 HorizontalTextAlignment="Start"
                                 LineBreakMode="TailTruncation"
-                                Style="{DynamicResource LabelHeader}"
+                                Style="{DynamicResource Text16}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="Center">
                                 <Label.FormattedText>
@@ -323,7 +349,6 @@
                             </Label>
                         </Grid>
                     </StackLayout>
-
                 </StackLayout>
             </pancake:PancakeView>
             <Grid
@@ -332,24 +357,25 @@
                 BackgroundColor="{DynamicResource WhiteColor}">
                 <syncfusion:SfListView
                     x:Name="listMenu"
-                    ItemSize="70"
+                    AutoFitMode="Height"
+                    ItemSize="80"
                     ItemsSource="{Binding MenuItems, Mode=TwoWay}"
                     SelectionBackgroundColor="{DynamicResource WhiteColor}"
                     TapCommand="{Binding NavigateCommand}">
                     <syncfusion:SfListView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Spacing="2.5">
+                            <StackLayout Spacing="2">
                                 <BoxView StyleClass="SlimLine" />
                                 <Grid
-                                    Margin="0,10,0,0"
-                                    Padding="10,0,10,0"
+                                    Margin="0,10,0,10"
+                                    Padding="10,0,5,0"
                                     ColumnSpacing="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.6*" />
-                                        <ColumnDefinition Width="0.25*" />
+                                        <ColumnDefinition Width="0.45*" />
+                                        <ColumnDefinition Width="0.35*" />
                                         <ColumnDefinition Width="0.1*" />
                                         <ColumnDefinition Width="0.1*" />
                                     </Grid.ColumnDefinitions>
@@ -366,7 +392,7 @@
                                         HorizontalOptions="Start"
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="TailTruncation"
-                                        Style="{DynamicResource LabelItem}"
+                                        Style="{DynamicResource Text16}"
                                         TextColor="Black"
                                         VerticalOptions="EndAndExpand">
                                         <Label.FormattedText>
@@ -388,7 +414,7 @@
                                         WidthRequest="25" />
                                     <StackLayout
                                         Grid.Column="3"
-                                        HorizontalOptions="StartAndExpand"
+                                        HorizontalOptions="EndAndExpand"
                                         VerticalOptions="EndAndExpand">
                                         <StackLayout.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={x:Reference listMenu}, Path=BindingContext.DeleteItemCommand}" CommandParameter="{Binding .}" />
@@ -402,22 +428,45 @@
                                             WidthRequest="25" />
                                     </StackLayout>
                                 </Grid>
-                                <Label
-                                    Padding="10,0,10,0"
-                                    FontSize="12"
-                                    HorizontalOptions="Start"
-                                    HorizontalTextAlignment="Start"
-                                    IsVisible="{Binding LandmarkName, Converter={StaticResource HasDataConverter}}"
-                                    LineBreakMode="TailTruncation"
-                                    Style="{DynamicResource LabelItem}"
-                                    VerticalOptions="Center">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="Địa điểm: " />
-                                            <Span Text="{Binding LandmarkName}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                                <Grid>
+                                    <!--  LineBreakMode="TailTruncation"  -->
+                                    <Label
+                                        Margin="0,0,0,10"
+                                        Padding="10,0,30,0"
+                                        FontSize="12"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        IsVisible="{Binding LandmarkName, Converter={StaticResource HasDataConverter}}"
+                                        Style="{DynamicResource LabelItem}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Địa điểm: " />
+                                                <Span Text="{Binding LandmarkName}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <!--  Địa điểm khác  -->
+                                    <!--  LineBreakMode="TailTruncation"  -->
+                                    <Label
+                                        Margin="0,0,0,10"
+                                        Padding="10,0,30,0"
+                                        FontSize="12"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        IsVisible="{Binding OtherAddress, Converter={StaticResource HasDataConverter}}"
+                                        Style="{DynamicResource LabelItem}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Địa điểm khác: " />
+                                                <Span Text="{Binding OtherAddress}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
                             </StackLayout>
                         </DataTemplate>
                     </syncfusion:SfListView.ItemTemplate>
@@ -438,29 +487,50 @@
                         VerticalOptions="Center"
                         WidthRequest="200" />
                     <Label
-                        FontSize="Large"
+                        FontSize="14"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text="Không có dữ liệu" />
+                        Text="Không có dữ liệu trong khoảng thời gian tìm kiếm" />
                 </StackLayout>
-                <sfPopup:SfPopupLayout
+                <!--<sfPopup:SfPopupLayout
                     x:Name="popupLayout"
                     IsOpen="{Binding IsShowImage}"
                     IsVisible="{Binding IsShowImage}">
                     <sfPopup:SfPopupLayout.PopupView>
-                        <sfPopup:PopupView
-                            HeaderTitle="Hình ảnh"
-                            HeightRequest="250"
-                            ShowFooter="False"
-                            WidthRequest="300">
+                        <sfPopup:PopupView HeaderTitle="Hình ảnh" ShowFooter="False">
                             <sfPopup:PopupView.ContentTemplate>
                                 <DataTemplate>
-                                    <ff:CachedImage Aspect="AspectFill" Source="{Binding SourceImage}" />
+                                    <Grid>
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="Transparent"
+                                            HeightRequest="350"
+                                            WidthRequest="300">
+                                            <Image
+                                                Margin="0"
+                                                Aspect="AspectFill"
+                                                HorizontalOptions="FillAndExpand"
+                                                Source="{Binding SourceImage}"
+                                                VerticalOptions="FillAndExpand" />
+                                        </Frame>
+                                        <controls:FontAwesomeIcon
+                                            Margin="8"
+                                            FontAttributes="Bold"
+                                            FontSize="25"
+                                            HorizontalOptions="End"
+                                            Text="{x:Static fontawesome:FontAwesomeIcons.Zoom}"
+                                            TextColor="{DynamicResource WhiteColor}"
+                                            VerticalOptions="Start">
+                                            <controls:FontAwesomeIcon.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding TabImageCommand}" />
+                                            </controls:FontAwesomeIcon.GestureRecognizers>
+                                        </controls:FontAwesomeIcon>
+                                    </Grid>
                                 </DataTemplate>
                             </sfPopup:PopupView.ContentTemplate>
                         </sfPopup:PopupView>
                     </sfPopup:SfPopupLayout.PopupView>
-                </sfPopup:SfPopupLayout>
+                </sfPopup:SfPopupLayout>-->
             </Grid>
             <StackLayout
                 Grid.Row="2"
@@ -471,14 +541,13 @@
                 <buttons:SfButton
                     x:Name="sfButtonAddExpense"
                     BackgroundColor="#FFA502"
-                    Command="{Binding NavigateCommand}"
+                    Command="{Binding PushImportExpensePage}"
                     CornerRadius="20"
                     HorizontalOptions="CenterAndExpand"
                     Text="Thêm chi phí"
                     VerticalOptions="StartAndExpand"
                     WidthRequest="200" />
             </StackLayout>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

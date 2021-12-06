@@ -686,7 +686,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             try
             {
-                while (isLoadingCamera && loopIndex <= 7 && IsActive && !cts.IsCancellationRequested)
+                while (isLoadingCamera && loopIndex <= 20 && IsActive && !cts.IsCancellationRequested)
                 {
                     var deviceStatus = await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                     {
@@ -709,7 +709,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                         loopIndex++;
-                        if (isLoadingCamera && loopIndex <= 7)
+                        if (isLoadingCamera && loopIndex <= 20)
                         {
                             await Task.Delay(3000, cts.Token);
                         }

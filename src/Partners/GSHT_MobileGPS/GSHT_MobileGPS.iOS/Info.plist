@@ -21,11 +21,11 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>GSHT</string>
+	<string>VN GPS</string>
 	<key>CFBundleIdentifier</key>
 	<string>vn.gsht.gpsmobile</string>
 	<key>CFBundleName</key>
-	<string>GISVIET</string>
+	<string>VN GPS</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
@@ -73,9 +73,9 @@
 		<true/>
 	</dict>
 	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
+	<string>1.2.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.0</string>
+	<string>1.2.0</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>

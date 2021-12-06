@@ -210,7 +210,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         TryExecute(async () =>
                         {
-                            GetNofitication();
                             await ConnectSignalR();
                         });
 
@@ -953,36 +952,6 @@ namespace BA_MobileGPS.Core.ViewModels
             (result) =>
             {
                 if (result != null && result.Success && result.Data)
-                {
-                }
-            });
-        }
-
-        private void GetNofitication()
-        {
-            RunOnBackground(async () =>
-            {
-                return await notificationService.GetNotification(UserInfo.UserId);
-            }, (result) =>
-            {
-                if (result != null && result.Success)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        switch (result.Data)
-                        {
-                            case NotificationTypeEnum.None:
-
-                                break;
-
-                            case NotificationTypeEnum.ChangePassword:
-                                DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
-                                Logout();
-                                break;
-                        }
-                    });
-                }
-                else
                 {
                 }
             });

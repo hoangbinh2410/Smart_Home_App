@@ -120,6 +120,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ApiEndpointTypes.ServerUNITEL:
                         return ApiEndpointTypes.ServerUNITEL.ToDescription();
 
+                    case ApiEndpointTypes.ServerGSHT:
+                        return ApiEndpointTypes.ServerGSHT.ToDescription();
+                        
                     default:
                         return ApiEndpointTypes.ServerTest.ToDescription();
                 }
@@ -156,6 +159,9 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     case ServerIdentityHubTypes.ServerUNITEL:
                         return ServerIdentityHubTypes.ServerUNITEL.ToDescription();
+
+                    case ServerIdentityHubTypes.ServerGSHT:
+                        return ServerIdentityHubTypes.ServerGSHT.ToDescription();
 
                     case ServerIdentityHubTypes.ServerVMS:
                         return ServerIdentityHubTypes.ServerVMS.ToDescription();
@@ -200,6 +206,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ServerVehicleOnlineHubTypes.ServerUNITEL:
                         return ServerVehicleOnlineHubTypes.ServerUNITEL.ToDescription();
 
+                    case ServerVehicleOnlineHubTypes.ServerGSHT:
+                        return ServerVehicleOnlineHubTypes.ServerGSHT.ToDescription();
+
                     case ServerVehicleOnlineHubTypes.ServerVMS:
                         return ServerVehicleOnlineHubTypes.ServerVMS.ToDescription();
 
@@ -243,6 +252,9 @@ namespace BA_MobileGPS.Utilities.Constant
                     case ServerAlertHubTypes.ServerUNITEL:
                         return ServerAlertHubTypes.ServerUNITEL.ToDescription();
 
+                    case ServerAlertHubTypes.ServerGSHT:
+                        return ServerVehicleOnlineHubTypes.ServerGSHT.ToDescription();
+
                     case ServerAlertHubTypes.ServerVMS:
                         return ServerAlertHubTypes.ServerVMS.ToDescription();
 
@@ -278,6 +290,9 @@ namespace BA_MobileGPS.Utilities.Constant
 
                     case ServerUserBehaviorHubTypes.ServerUNITEL:
                         return ServerUserBehaviorHubTypes.ServerUNITEL.ToDescription();
+
+                    case ServerUserBehaviorHubTypes.ServerGSHT:
+                        return ServerUserBehaviorHubTypes.ServerGSHT.ToDescription();
 
                     case ServerUserBehaviorHubTypes.ServerVMS:
                         return ServerUserBehaviorHubTypes.ServerVMS.ToDescription();

@@ -53,13 +53,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView>
-            <Grid
-                RowDefinitions="Auto,*"
-                RowSpacing="0"
-                VerticalOptions="FillAndExpand">
+
+        <Grid
+            RowDefinitions="*,60"
+            RowSpacing="0"
+            VerticalOptions="FillAndExpand">
+            <ScrollView Grid.Row="0">
                 <StackLayout
-                    Grid.Row="0"
                     Padding="10"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     HorizontalOptions="FillAndExpand"
@@ -72,7 +72,7 @@
                         TextColor="{DynamicResource ColorText}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Loại chị phí " />
+                                <Span Text="Loại chi phí " />
                                 <Span Text="*" TextColor="Red" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -116,6 +116,7 @@
                                 Foreground="{DynamicResource PrimaryColor}"
                                 HeightRequest="17.5"
                                 HorizontalOptions="End"
+                                IsVisible="{Binding IsHasCombobox}"
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
@@ -126,7 +127,7 @@
                     <Label HorizontalOptions="Start" TextColor="{DynamicResource ColorText}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Số tiền (VND) " />
+                                <Span Text="Số tiền (VNĐ) " />
                                 <Span Text="*" TextColor="Red" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -219,7 +220,7 @@
                                         InputTransparent="True"
                                         Placeholder="Chọn điểm"
                                         PlaceholderColor="{DynamicResource ColorText}"
-                                        Text="{Binding SelectedLocation.Address}"
+                                        Text="{Binding SelectedLocation.Name}"
                                         TextColor="{DynamicResource ColorText}"
                                         VerticalOptions="Center">
                                         <Entry.Effects>
@@ -270,11 +271,15 @@
                         </StackLayout>
                     </StackLayout>
 
-                    <!--  Thêm hình ảnh  -->
+                    <!--  Thêm hình ảnh    IsVisible="{Binding IsHasImg}"  -->
                     <!--  , Converter={StaticResource HasDataConverter}  -->
-                    <StackLayout IsVisible="{Binding SelectedExpense.HasPhoto}">
+                    <!--<StackLayout >-->
+                    <!--<StackLayout>-->
+                    <!--<Grid>-->
+                    <StackLayout>
                         <StackLayout
                             HorizontalOptions="Start"
+                            IsVisible="{Binding SelectedExpense.HasPhoto}"
                             Orientation="Horizontal"
                             Spacing="0">
                             <StackLayout.GestureRecognizers>
@@ -294,7 +299,47 @@
                             <Frame
                                 Padding="0"
                                 BackgroundColor="Transparent"
-                                HeightRequest="300">
+                                HeightRequest="300"
+                                WidthRequest="300">
+                                <Image
+                                    Margin="0"
+                                    Aspect="AspectFill"
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding ImagePathLocal}"
+                                    VerticalOptions="FillAndExpand" />
+                            </Frame>
+                            <!--  , Converter={StaticResource HasDataConverter}  -->
+                            <Frame
+                                Margin="0,5,5,0"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                CornerRadius="10"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding ImagePathLocal, Converter={StaticResource HasDataConverter}}"
+                                VerticalOptions="Start"
+                                WidthRequest="20">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ResetImageCommand}" />
+                                </Frame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="Black"
+                                    HeightRequest="20"
+                                    Source="ic_close.png"
+                                    WidthRequest="20" />
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+                    <!--<Grid
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding ImagePathLocal, Converter={StaticResource HasDataConverter}}"
+                            VerticalOptions="FillAndExpand">
+                            <Frame
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                HeightRequest="300"
+                                WidthRequest="300">
                                 <Image
                                     Margin="0"
                                     Aspect="AspectFill"
@@ -309,6 +354,7 @@
                                 CornerRadius="10"
                                 HeightRequest="20"
                                 HorizontalOptions="End"
+                                IsVisible="{Binding ImagePathLocal, Converter={StaticResource HasDataConverter}}"
                                 VerticalOptions="Start"
                                 WidthRequest="20">
                                 <Frame.GestureRecognizers>
@@ -320,56 +366,61 @@
                                     Source="ic_close.png"
                                     WidthRequest="20" />
                             </Frame>
+                        </Grid>-->
+                    <!--</Grid>-->
+                </StackLayout>
+            </ScrollView>
+            <!--</StackLayout>-->
+
+
+            <Grid Grid.Row="1" BackgroundColor="{DynamicResource WhiteColor}">
+                <StackLayout
+                    HeightRequest="60"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="10"
+                    VerticalOptions="EndAndExpand">
+                    <BoxView
+                        Grid.Column="1"
+                        HeightRequest="1"
+                        StyleClass="SlimLine" />
+                    <Grid>
+                        <Grid
+                            Padding="20,0,20,0"
+                            ColumnDefinitions="0.5*,0.5*"
+                            ColumnSpacing="10"
+                            HorizontalOptions="FillAndExpand">
+                            <buttons:SfButton
+                                Grid.Column="0"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding SaveExpenseCommand}"
+                                CornerRadius="20"
+                                Text="Lưu" />
+                            <buttons:SfButton
+                                Grid.Column="1"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding SaveAndCountinuteCommand}"
+                                CornerRadius="20"
+                                Text="Lưu và tiếp tục" />
                         </Grid>
-                    </StackLayout>
+                        <Grid
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            HorizontalOptions="FillAndExpand"
+                            IsVisible="{Binding ExpenseDetail.Name, Converter={StaticResource HasDataConverter}}">
+                            <buttons:SfButton
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding ChangeExpenseCommand}"
+                                CornerRadius="20"
+                                HorizontalOptions="CenterAndExpand"
+                                Text="Lưu"
+                                VerticalOptions="StartAndExpand"
+                                WidthRequest="200" />
+                        </Grid>
+                    </Grid>
                 </StackLayout>
 
-                <Grid Grid.Row="1" BackgroundColor="{DynamicResource WhiteColor}">
-                    <StackLayout
-                        HeightRequest="60"
-                        HorizontalOptions="FillAndExpand"
-                        Spacing="10"
-                        VerticalOptions="EndAndExpand">
-                        <BoxView
-                            Grid.Column="1"
-                            HeightRequest="1"
-                            StyleClass="SlimLine" />
-                        <Grid>
-                            <Grid
-                                Padding="20,0,20,0"
-                                ColumnDefinitions="0.5*,0.5*"
-                                ColumnSpacing="10"
-                                HorizontalOptions="FillAndExpand">
-                                <buttons:SfButton
-                                    Grid.Column="0"
-                                    BackgroundColor="{DynamicResource PrimaryColor}"
-                                    Command="{Binding SaveExpenseCommand}"
-                                    CornerRadius="20"
-                                    Text="Lưu" />
-                                <buttons:SfButton
-                                    Grid.Column="1"
-                                    BackgroundColor="{DynamicResource PrimaryColor}"
-                                    Command="{Binding SaveAndCountinuteCommand}"
-                                    CornerRadius="20"
-                                    Text="Lưu và tiếp tục" />
-                            </Grid>
-                            <Grid
-                                BackgroundColor="{DynamicResource WhiteColor}"
-                                HorizontalOptions="FillAndExpand"
-                                IsVisible="{Binding ExpenseDetail.Name, Converter={StaticResource HasDataConverter}}">
-                                <buttons:SfButton
-                                    BackgroundColor="{DynamicResource PrimaryColor}"
-                                    Command="{Binding SaveExpenseCommand}"
-                                    CornerRadius="20"
-                                    HorizontalOptions="CenterAndExpand"
-                                    Text="Lưu"
-                                    VerticalOptions="StartAndExpand"
-                                    WidthRequest="200" />
-                            </Grid>
-                        </Grid>
-                    </StackLayout>
-                </Grid>
             </Grid>
-        </ScrollView>
+
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>

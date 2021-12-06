@@ -50,15 +50,16 @@
                 <pancake:PancakeView BackgroundColor="{DynamicResource BlackColor}" HeightRequest="250">
                     <Grid>
                         <vlc:MediaPlayerElement
+                            EnableRendererDiscovery="True"
                             HorizontalOptions="Fill"
                             LibVLC="{Binding LibVLC}"
                             MediaPlayer="{Binding MediaPlayer}"
                             VerticalOptions="Fill">
                             <vlc:MediaPlayerElement.PlaybackControls>
-                                <vlc:PlaybackControls IsSeekBarVisible="True">
+                                <vlc:PlaybackControls IsSeekBarVisible="True" ShowAndHideAutomatically="True">
                                     <vlc:PlaybackControls.ControlTemplate>
                                         <ControlTemplate>
-                                            <StackLayout IsVisible="{TemplateBinding MediaPlayer, Converter={StaticResource ObjectToBoolConverter}}" Spacing="0">
+                                            <StackLayout Spacing="0">
                                                 <StackLayout
                                                     x:Name="ControlsPanel"
                                                     Spacing="0"

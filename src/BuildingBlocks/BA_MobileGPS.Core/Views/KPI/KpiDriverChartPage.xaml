@@ -38,13 +38,14 @@
                 <ColumnDefinition Width="35" />
             </Grid.ColumnDefinitions>
 
+            <!--  Text="Đánh giá tiêu chí lái xe"  -->
             <Label
                 Grid.Column="1"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Đánh giá tiêu chí lái xe"
+                Text="{i18n:TranslateResource Text_Assess}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
@@ -65,9 +66,9 @@
                         StrokeThickness="10"
                         Color="{DynamicResource WhiteColor}" />
                 </tabView:SfTabView.SelectionIndicatorSettings>
-
+                <!--  Title="AN TOÀN"  -->
                 <tabView:SfTabItem
-                    Title="AN TOÀN"
+                    Title="{i18n:TranslateResource Title_Tabview}"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     SelectionColor="{DynamicResource PrimaryColor}"
                     StyleClass="BoldText"
@@ -103,9 +104,10 @@
                                                 Source="ic_sortdown.png"
                                                 VerticalOptions="Center"
                                                 WidthRequest="15" />
+                                            <!--  Text="Ngày trước"  -->
                                             <Label
                                                 LineBreakMode="TailTruncation"
-                                                Text="Ngày trước"
+                                                Text="{i18n:TranslateResource Before_Day_lb}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>
                                     </pancake:PancakeView>
@@ -161,9 +163,10 @@
                                             <pancake:Border Thickness="1" Color="#CED6E0" />
                                         </pancake:PancakeView.Border>
                                         <StackLayout Orientation="Horizontal">
+                                            <!--  Text="Ngày sau"  -->
                                             <Label
                                                 LineBreakMode="TailTruncation"
-                                                Text="Ngày sau"
+                                                Text="{i18n:TranslateResource Next_Day_lb}"
                                                 VerticalOptions="Center" />
                                             <controls:IconView
                                                 Foreground="{StaticResource PrimaryColor}"
@@ -194,13 +197,14 @@
                                                 Text="{Binding EvaluationType1.TotalScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
+                                            <!--  Text="Tổng điểm"  -->
                                             <Label
                                                 Grid.Column="1"
                                                 FontAttributes="Bold"
                                                 FontSize="16"
                                                 HorizontalOptions="CenterAndExpand"
                                                 LineBreakMode="TailTruncation"
-                                                Text="Tổng điểm"
+                                                Text="{i18n:TranslateResource Sum_Point_lb}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>
@@ -222,13 +226,14 @@
                                                 Text="{Binding EvaluationType1.TotalRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
+                                            <!--  Text="Xếp hạng"  -->
                                             <Label
                                                 Grid.Column="1"
                                                 FontAttributes="Bold"
                                                 FontSize="16"
                                                 HorizontalOptions="CenterAndExpand"
                                                 LineBreakMode="TailTruncation"
-                                                Text="Xếp hạng"
+                                                Text="{i18n:TranslateResource Rank_lb}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>
@@ -289,6 +294,7 @@
                                     </chart:SfChart>
                                 </Grid>
                                 <Grid Grid.Row="3" RowDefinitions="Auto,*">
+                                    <!--  Text="Bảng tiêu chí an toàn"  -->
                                     <Label
                                         Grid.Row="0"
                                         FontSize="20"
@@ -296,7 +302,7 @@
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
                                         StyleClass="BoldText"
-                                        Text="Bảng tiêu chí an toàn"
+                                        Text="{i18n:TranslateResource Table_lb}"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
 
@@ -321,29 +327,32 @@
                                                     BackgroundColor="#F7F7FA"
                                                     ColumnDefinitions="*,70,70"
                                                     ColumnSpacing="1">
+                                                    <!--  Text="Tiêu chí"  -->
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="Tiêu chí"
+                                                        Text="{i18n:TranslateResource Criteria_lb}"
                                                         VerticalOptions="Center" />
+                                                    <!--  Text="Điểm"  -->
                                                     <Label
                                                         Grid.Column="1"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="Điểm"
+                                                        Text="{i18n:TranslateResource Point_lb}"
                                                         VerticalOptions="Center" />
+                                                    <!--  Text="XH"  -->
                                                     <Label
                                                         Grid.Column="2"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="XH"
+                                                        Text="{i18n:TranslateResource Rank_lb}"
                                                         VerticalOptions="Center" />
                                                 </Grid>
                                                 <Grid
@@ -352,13 +361,14 @@
                                                     BackgroundColor="#CED6E0"
                                                     ColumnDefinitions="*,70,70"
                                                     VerticalOptions="CenterAndExpand">
+                                                    <!--  Text="Tiêu chí an toàn"  -->
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="Tiêu chí an toàn"
+                                                        Text="{i18n:TranslateResource Safe_Criteria_lb}"
                                                         VerticalOptions="Center" />
                                                     <Label
                                                         Grid.Column="1"
@@ -450,8 +460,9 @@
                     </tabView:SfTabItem.Content>
                 </tabView:SfTabItem>
 
+                <!--  Title="TIẾT KIỆM"  -->
                 <tabView:SfTabItem
-                    Title="TIẾT KIỆM"
+                    Title="{i18n:TranslateResource Economical_Tabview}"
                     BackgroundColor="{DynamicResource WhiteColor}"
                     SelectionColor="{DynamicResource PrimaryColor}"
                     StyleClass="BoldText"
@@ -487,9 +498,10 @@
                                                 Source="ic_sortdown.png"
                                                 VerticalOptions="Center"
                                                 WidthRequest="15" />
+                                            <!--  Text="Ngày trước"  -->
                                             <Label
                                                 LineBreakMode="TailTruncation"
-                                                Text="Ngày trước"
+                                                Text="{i18n:TranslateResource Before_Day_lb}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>
                                     </pancake:PancakeView>
@@ -545,9 +557,10 @@
                                             <pancake:Border Thickness="1" Color="#CED6E0" />
                                         </pancake:PancakeView.Border>
                                         <StackLayout Orientation="Horizontal">
+                                            <!--  Text="Ngày sau"  -->
                                             <Label
                                                 LineBreakMode="TailTruncation"
-                                                Text="Ngày sau"
+                                                Text="{i18n:TranslateResource Next_Day_lb}"
                                                 VerticalOptions="Center" />
                                             <controls:IconView
                                                 Foreground="{StaticResource PrimaryColor}"
@@ -578,13 +591,14 @@
                                                 Text="{Binding EvaluationType2.TotalScore}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
+                                            <!--  Text="Tổng điểm"  -->
                                             <Label
                                                 Grid.Column="1"
                                                 FontAttributes="Bold"
                                                 FontSize="16"
                                                 HorizontalOptions="CenterAndExpand"
                                                 LineBreakMode="TailTruncation"
-                                                Text="Tổng điểm"
+                                                Text="{i18n:TranslateResource Sum_Point_lb}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>
@@ -606,13 +620,14 @@
                                                 Text="{Binding EvaluationType2.TotalRank}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
+                                            <!--  Text="Xếp hạng"  -->
                                             <Label
                                                 Grid.Column="1"
                                                 FontAttributes="Bold"
                                                 FontSize="16"
                                                 HorizontalOptions="CenterAndExpand"
                                                 LineBreakMode="TailTruncation"
-                                                Text="Xếp hạng"
+                                                Text="{i18n:TranslateResource Rank_lb}"
                                                 TextColor="{DynamicResource PrimaryColor}"
                                                 VerticalOptions="Center" />
                                         </StackLayout>
@@ -671,6 +686,7 @@
                                     </chart:SfChart>
                                 </Grid>
                                 <Grid Grid.Row="3" RowDefinitions="Auto,*">
+                                    <!--  Text="Bảng tiêu chí tiết kiệm"  -->
                                     <Label
                                         Grid.Row="0"
                                         FontSize="20"
@@ -678,7 +694,7 @@
                                         HorizontalTextAlignment="Start"
                                         LineBreakMode="WordWrap"
                                         StyleClass="BoldText"
-                                        Text="Bảng tiêu chí tiết kiệm"
+                                        Text="{i18n:TranslateResource Table_Criteria_lb}"
                                         TextColor="{DynamicResource PrimaryColor}"
                                         VerticalOptions="Center" />
 
@@ -703,29 +719,32 @@
                                                     BackgroundColor="#F7F7FA"
                                                     ColumnDefinitions="*,70,70"
                                                     ColumnSpacing="1">
+                                                    <!--  Text="Tiêu chí"  -->
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="Tiêu chí"
+                                                        Text="{i18n:TranslateResource Criteria_lb}"
                                                         VerticalOptions="Center" />
+                                                    <!--  Text="Điểm"  -->
                                                     <Label
                                                         Grid.Column="1"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="Điểm"
+                                                        Text="{i18n:TranslateResource Point_lb}"
                                                         VerticalOptions="Center" />
+                                                    <!--  Text="XH"  -->
                                                     <Label
                                                         Grid.Column="2"
                                                         HorizontalOptions="CenterAndExpand"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="XH"
+                                                        Text="{i18n:TranslateResource Rank_lb}"
                                                         VerticalOptions="Center" />
                                                 </Grid>
                                                 <Grid
@@ -734,13 +753,14 @@
                                                     BackgroundColor="#CED6E0"
                                                     ColumnDefinitions="*,70,70"
                                                     VerticalOptions="CenterAndExpand">
+                                                    <!--  Text="Tiêu chí tiết kiệm"  -->
                                                     <Label
                                                         Grid.Column="0"
                                                         HorizontalOptions="Start"
                                                         HorizontalTextAlignment="Start"
                                                         LineBreakMode="WordWrap"
                                                         StyleClass="BoldText"
-                                                        Text="Tiêu chí tiết kiệm"
+                                                        Text="{i18n:TranslateResource Economical_Criteria_lb}"
                                                         VerticalOptions="Center" />
                                                     <Label
                                                         Grid.Column="1"

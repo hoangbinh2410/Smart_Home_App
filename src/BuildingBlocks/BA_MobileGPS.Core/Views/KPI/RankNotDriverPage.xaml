@@ -176,12 +176,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Ngày"  -->
                                 <Label
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Ngày"
+                                    Text="{i18n:TranslateResource Date_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -191,12 +192,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Tháng"  -->
                                 <Label
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Tháng"
+                                    Text="{i18n:TranslateResource Month_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </StackLayout>
@@ -211,12 +213,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Ngày"  -->
                                 <Label
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Ngày"
+                                    Text="{i18n:TranslateResource Date_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                             <pancake:PancakeView
@@ -226,12 +229,13 @@
                                 HorizontalOptions="CenterAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 WidthRequest="50">
+                                <!--  Text="Tháng"  -->
                                 <Label
                                     Grid.Column="0"
                                     HorizontalOptions="Center"
                                     HorizontalTextAlignment="Center"
                                     LineBreakMode="WordWrap"
-                                    Text="Tháng"
+                                    Text="{i18n:TranslateResource Month_lb}"
                                     VerticalOptions="Center" />
                             </pancake:PancakeView>
                         </StackLayout>
@@ -255,7 +259,7 @@
                         <StackLayout
                             Grid.Row="0"
                             Padding="10"
-                            BackgroundColor="#E4E4E4"
+                            BackgroundColor="#D6F3FF"
                             HorizontalOptions="FillAndExpand"
                             Spacing="0"
                             VerticalOptions="FillAndExpand">
@@ -289,7 +293,7 @@
                             <pancake:PancakeView
                                 Grid.Column="0"
                                 Padding="10"
-                                BackgroundColor="#E4E4E4"
+                                BackgroundColor="#D6F3FF"
                                 HorizontalOptions="FillAndExpand">
                                 <Label
                                     Grid.Column="1"
@@ -305,7 +309,7 @@
                             <pancake:PancakeView
                                 Grid.Column="1"
                                 Padding="10"
-                                BackgroundColor="#E4E4E4"
+                                BackgroundColor="#D6F3FF"
                                 HorizontalOptions="FillAndExpand">
                                 <Label
                                     Grid.Column="1"
@@ -366,7 +370,7 @@
                             <pancake:PancakeView
                                 Grid.Column="0"
                                 Padding="10"
-                                BackgroundColor="#D6F3FF"
+                                BackgroundColor="#A1C4FD"
                                 HorizontalOptions="FillAndExpand">
                                 <Label
                                     Grid.Column="1"
@@ -382,7 +386,7 @@
                             <pancake:PancakeView
                                 Grid.Column="1"
                                 Padding="10"
-                                BackgroundColor="#D6F3FF"
+                                BackgroundColor="#A1C4FD"
                                 HorizontalOptions="FillAndExpand">
                                 <Label
                                     Grid.Column="1"
@@ -409,7 +413,7 @@
                         <StackLayout
                             Grid.Row="0"
                             Padding="10"
-                            BackgroundColor="#E4E4E4"
+                            BackgroundColor="#D6F3FF"
                             HorizontalOptions="FillAndExpand"
                             Spacing="0"
                             VerticalOptions="FillAndExpand">
@@ -443,7 +447,7 @@
                             <pancake:PancakeView
                                 Grid.Column="0"
                                 Padding="10"
-                                BackgroundColor="#E4E4E4"
+                                BackgroundColor="#D6F3FF"
                                 HorizontalOptions="FillAndExpand">
                                 <Label
                                     Grid.Column="1"
@@ -459,7 +463,7 @@
                             <pancake:PancakeView
                                 Grid.Column="1"
                                 Padding="10"
-                                BackgroundColor="#E4E4E4"
+                                BackgroundColor="#D6F3FF"
                                 HorizontalOptions="FillAndExpand">
                                 <Label
                                     Grid.Column="1"
@@ -503,11 +507,12 @@
                                 Foreground="{DynamicResource WhiteColor}"
                                 Source="ic_search.png" />
                         </pancake:PancakeView>
+                        <!--  Placeholder="Tìm kiếm lái xe"  -->
                         <Entry
                             x:Name="entrySearchVehicle"
                             HeightRequest="40"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Tìm kiếm lái xe"
+                            Placeholder="{i18n:TranslateResource SearchVehicle}"
                             Text="{Binding SearchedText}">
                             <Entry.Behaviors>
                                 <prismbehaviors:EventToCommandBehavior
@@ -528,37 +533,49 @@
                     BackgroundColor="{StaticResource PrimaryColor}"
                     CornerRadius="5"
                     HorizontalOptions="FillAndExpand">
-                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
+                    <Grid ColumnDefinitions=".1*,.4*,.2*,.2*,.2*">
                         <Label
                             Grid.Column="0"
                             HorizontalOptions="Center"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="STT"
+                            Text="{i18n:TranslateResource Ordinal_Number_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
+                        <!--  Text="Lái xe"  -->
                         <Label
                             Grid.Column="1"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Lái xe"
+                            Text="{i18n:TranslateResource Driver_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
+                        <!--  Text="Điểm"  -->
                         <Label
                             Grid.Column="2"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Điểm"
+                            Text="{i18n:TranslateResource Point_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
+                        <!--  Text="Xếp hạng"  -->
                         <Label
                             Grid.Column="3"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Start"
                             LineBreakMode="WordWrap"
-                            Text="Xếp hạng"
+                            Text="{i18n:TranslateResource Rank_lb}"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                        <!--  Text="Chi tiết"  -->
+                        <Label
+                            Grid.Column="4"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="WordWrap"
+                            Text="{i18n:TranslateResource Detail_Text_lb}"
                             TextColor="{DynamicResource WhiteColor}"
                             VerticalOptions="Center" />
                     </Grid>
@@ -585,7 +602,7 @@
                                     BackgroundColor="{Binding BacgroundYourDriver}"
                                     CornerRadius="5"
                                     HorizontalOptions="FillAndExpand">
-                                    <Grid ColumnDefinitions=".1*,.6*,.2*,.2*">
+                                    <Grid ColumnDefinitions=".1*,.4*,.2*,.2*,.2*">
                                         <Label
                                             Grid.Column="0"
                                             HorizontalOptions="Center"
@@ -594,7 +611,7 @@
                                             Text="{Binding STT}"
                                             VerticalOptions="Center" />
                                         <StackLayout Grid.Column="1" Orientation="Horizontal">
-                                            <ffImage:CachedImage
+                                            <!--<ffImage:CachedImage
                                                 HeightRequest="20"
                                                 HorizontalOptions="Start"
                                                 Source="ic_accountsolid.png"
@@ -603,7 +620,7 @@
                                                 <ffImage:CachedImage.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
                                                 </ffImage:CachedImage.GestureRecognizers>
-                                            </ffImage:CachedImage>
+                                            </ffImage:CachedImage>-->
                                             <Label
                                                 HorizontalOptions="Start"
                                                 HorizontalTextAlignment="Start"
@@ -626,6 +643,19 @@
                                             LineBreakMode="WordWrap"
                                             Text="{Binding AverageRank}"
                                             VerticalOptions="Center" />
+                                        <!--  Text="Xem"  -->
+                                        <Label
+                                            Grid.Column="4"
+                                            HorizontalOptions="CenterAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="WordWrap"
+                                            Text="{i18n:TranslateResource View_lb}"
+                                            TextDecorations="Underline"
+                                            VerticalOptions="Center">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference listViewUser}, Path=BindingContext.NavigateRankUserCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
                                     </Grid>
                                 </pancake:PancakeView>
                             </DataTemplate>

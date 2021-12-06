@@ -98,9 +98,15 @@ namespace BA_MobileGPS.Core.ViewModels
             base.OnNavigatedTo(parameters);
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
+                if (parameters.ContainsKey("ReportDate"))
+                {
+                    var selectDate = parameters.GetValue<Tuple<DateTime, DateTime>>("ReportDate");
+                    TimeFrom = new TimeSpan(selectDate.Item1.Hour, selectDate.Item1.Minute, selectDate.Item1.Second);
+                    TimeEnd =new TimeSpan(selectDate.Item2.Hour, selectDate.Item2.Minute, selectDate.Item2.Second);
+                }
                 ValidateVehicleCamera(vehiclePlate);
 
-                GetListCamera(true);
+                GetListCamera(true); 
             }
         }
 

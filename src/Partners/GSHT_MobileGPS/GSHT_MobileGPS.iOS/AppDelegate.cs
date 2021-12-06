@@ -1,6 +1,7 @@
 ﻿using BA_MobileGPS.Core.iOS;
 using BA_MobileGPS.Core.iOS.Setup;
 using Foundation;
+using GSHT_MobileGPS;
 using UIKit;
 using Xamarin.Forms;
 
@@ -37,7 +38,7 @@ namespace GISVIET_MobileGPS.iOS
             UIApplication.SharedApplication.IdleTimerDisabled = true;
             RequestNotificationPermissions(app);
 
-            LoadApplication(new GISVIETApp(new IOSInitializer()));
+            LoadApplication(new GSHTApp(new IOSInitializer()));
 
             return base.FinishedLaunching(app, options);
         }
