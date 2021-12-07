@@ -68,7 +68,7 @@
                                         Keyboard="Telephone"
                                         MaxLength="6"
                                         Placeholder="Nhập mã xác thực"
-                                        Text="{Binding OtpValue.Value}">
+                                        Text="{Binding Code.Value}">
                                         <Entry.Effects>
                                             <effects:ClearEntryEffect />
                                         </Entry.Effects>
@@ -85,7 +85,8 @@
                             <Label
                                 HorizontalOptions="Center"
                                 Text="Gửi lại mã khác?"
-                                TextColor="{DynamicResource WhiteColor}" />
+                                TextColor="{DynamicResource WhiteColor}"
+                                TextDecorations="Underline" />
                         </StackLayout>
                         <StackLayout Grid.Row="2">
                             <!--  Button  -->
