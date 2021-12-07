@@ -112,7 +112,7 @@
         /// Name     Date         Comments
         /// Namth  16/1/2018   created
         /// </Modified>
-        public const string OneSignalKey_GSHT = "b4ac86ec-203e-457c-9616-82d0fa9a375c";
+        public const string OneSignalKey_GSHT = "0863709c-e1a3-467b-a409-9bce56a091b7";
 
 
         /// <summary>
