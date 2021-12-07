@@ -157,17 +157,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private bool isShowRegisterSupport;
-
-        public bool IsShowRegisterSupport
-        {
-            get => isShowRegisterSupport;
-            set
-            {
-                SetProperty(ref isShowRegisterSupport, value);
-                RaisePropertyChanged();
-            }
-        }
 
         #endregion Property
 

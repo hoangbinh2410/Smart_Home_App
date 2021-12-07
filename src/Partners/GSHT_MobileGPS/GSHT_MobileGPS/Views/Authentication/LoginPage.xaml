@@ -201,6 +201,7 @@
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
                             </controls:IconView.GestureRecognizers>
                         </controls:IconView>
+
                         <controls:IconView
                             Foreground="{DynamicResource PrimaryColor}"
                             HeightRequest="30"
@@ -209,16 +210,6 @@
                             WidthRequest="30">
                             <controls:IconView.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
-                            </controls:IconView.GestureRecognizers>
-                        </controls:IconView>
-
-                        <controls:IconView
-                            Foreground="{DynamicResource PrimaryColor}"
-                            HeightRequest="30"
-                            Source="ic_chatsupport.png"
-                            WidthRequest="30">
-                            <controls:IconView.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding PushtoRegisterSupportCommand}" NumberOfTapsRequired="1" />
                             </controls:IconView.GestureRecognizers>
                         </controls:IconView>
                     </StackLayout>

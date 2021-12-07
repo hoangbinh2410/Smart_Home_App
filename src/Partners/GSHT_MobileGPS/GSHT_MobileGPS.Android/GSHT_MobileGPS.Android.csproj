@@ -61,7 +61,7 @@
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <BundleAssemblies>true</BundleAssemblies>
-    <AndroidPackageFormat>aab</AndroidPackageFormat>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
