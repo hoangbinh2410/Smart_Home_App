@@ -79,12 +79,12 @@
                     <tabView:SelectionIndicatorSettings
                         Position="Fill"
                         StrokeThickness="10"
-                        Color="#00ABE1" />
+                        Color="White" />
                 </tabView:SfTabView.SelectionIndicatorSettings>
 
                 <tabView:SfTabItem
                     Title="{i18n:TranslateResource Camera_Title_Downloadedvideo}"
-                    SelectionColor="{DynamicResource WhiteColor}"
+                    SelectionColor="{DynamicResource PrimaryColor}"
                     TitleFontAttributes="Bold"
                     TitleFontColor="White"
                     TitleFontSize="14">
@@ -386,7 +386,7 @@
 
                 <tabView:SfTabItem
                     Title="{i18n:TranslateResource Camera_Title_Downloadingvideo}"
-                    SelectionColor="{DynamicResource WhiteColor}"
+                    SelectionColor="{DynamicResource PrimaryColor}"
                     TitleFontAttributes="Bold"
                     TitleFontColor="White"
                     TitleFontSize="14">
