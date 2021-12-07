@@ -151,7 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = Settings.AppLinkDownload,
                 MenuType = MenuType.UpgradeVersion,
-                IsEnable = Settings.AppVersionDB != AppVersion ? true : false,
+                IsEnable = Settings.AppVersionDB != AppVersion && Settings.IsUpdateApp==true ? true : false,
                 IconColor = (Color)App.Current.Resources["PrimaryColor"]
             });
             // Đăng xuất
