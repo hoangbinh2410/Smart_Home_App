@@ -21,6 +21,11 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ValidatableObject<string> NumberPhone { get; set; }
 
+        private LoginResponse _user = new LoginResponse();
+        private bool _rememberme = false;
+        private string _userName = string.Empty;
+        private string _password = string.Empty;
+
         #endregion Property
 
         #region Constructor
@@ -43,7 +48,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void Initialize(INavigationParameters parameters)
         {
-            base.Initialize(parameters);          
+            base.Initialize(parameters);
+            if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
+            {
+                _user = user;
+                NumberPhone.Value = user.PhoneNumber;
+            }
+            if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
+            {
+                _rememberme = rememberme;
+            }
+            if (parameters.ContainsKey("UserName") && parameters.GetValue<string>("UserName") is string userName)
+            {
+                _userName = userName;
+            }
+            if (parameters.ContainsKey("Password") && parameters.GetValue<string>("Password") is string password)
+            {
+                _password = password;
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -84,6 +106,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!", 5000);
                 return false;
+            }
+            if (NumberPhone.Value.Trim() != _user.PhoneNumber.Trim())
+            {
+                DisplayMessage.ShowMessageInfo("Vui lòng nhập số điện thoại đã đăng ký tài khoản", 5000);
+                return false;
             }    
             return true;
         }
@@ -122,6 +149,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     var parameters = new NavigationParameters
                     {
                         { "OTPZalo", objResponse },
+                        { "User", _user },
+                        { "Rememberme", _rememberme },
+                        { "UserName", _userName },
+                        { "Password", _password },
                     };
                     await NavigationService.NavigateAsync("/VerifyOTPCodePage", parameters);
                 }

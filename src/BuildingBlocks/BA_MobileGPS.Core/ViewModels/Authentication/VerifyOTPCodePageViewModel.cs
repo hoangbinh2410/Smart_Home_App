@@ -1,8 +1,11 @@
-﻿using BA_MobileGPS.Entities.ResponeEntity.OTP;
+﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity.OTP;
+using Com.OneSignal;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Timer = System.Timers.Timer;
 
 namespace BA_MobileGPS.Core.ViewModels
@@ -17,6 +20,12 @@ namespace BA_MobileGPS.Core.ViewModels
             get => _textGetOTPAgain;
             set => SetProperty(ref _textGetOTPAgain, value);
         }
+
+        private LoginResponse _user = new LoginResponse();
+        private bool _rememberme = false;
+        private string _userName = string.Empty;
+        private string _password = string.Empty;
+
         public ValidatableObject<string> OtpValue { get; set; }
         private bool _isGetOTPAgain;
         private OtpResultResponse _objOtp;
@@ -52,6 +61,22 @@ namespace BA_MobileGPS.Core.ViewModels
                     SetTimerGetOTPAgain();
                     SetTimerCountDown();
                     _objOtp = objOtp;
+                }
+                if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
+                {
+                    _user = user;
+                }
+                if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
+                {
+                    _rememberme = rememberme;
+                }
+                if (parameters.ContainsKey("UserName") && parameters.GetValue<string>("UserName") is string userName)
+                {
+                    _userName = userName;
+                }
+                if (parameters.ContainsKey("Password") && parameters.GetValue<string>("Password") is string password)
+                {
+                    _password = password;
                 }
             }
         }
@@ -115,10 +140,31 @@ namespace BA_MobileGPS.Core.ViewModels
         // Xác thực OTP
         private void PushMainPage()
         {
+
             if(!CheckVerifyOtp())
             {
                 return;
-            }    
+            }
+            //nếu nhớ mật khẩu thì lưu lại thông tin username và password
+            if (_rememberme)
+            {
+                Settings.Rememberme = true;
+            }
+            //Nếu đăng nhập tài khoản khác thì xóa CurrentCompany đi
+            if (!string.IsNullOrEmpty(Settings.UserName) && Settings.UserName != _userName && Settings.CurrentCompany != null)
+            {
+                Settings.CurrentCompany = null;
+            }
+
+            Settings.UserName = _userName;
+            Settings.Password = _password;
+
+            StaticSettings.Token = _user.AccessToken;
+            StaticSettings.User = _user;
+            StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
+            OneSignal.Current.SendTag("UserID", _user.UserId.ToString().ToUpper());
+            OneSignal.Current.SendTag("UserName", _user.UserName.ToString().ToUpper());
+
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("/MainPage");
@@ -163,10 +209,17 @@ namespace BA_MobileGPS.Core.ViewModels
             if(!_isGetOTPAgain)
             {
                 return;
-            }    
+            }
+            var parameters = new NavigationParameters
+                {
+                    { "User", _user },
+                    { "Rememberme", _rememberme },
+                    { "UserName", _userName },
+                    { "Password", _password },
+                };
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NavigationPage/QRCodeLogin");
+                await NavigationService.NavigateAsync("NavigationPage/QRCodeLogin", parameters);
             });
         }
         #endregion PrivateMethod
