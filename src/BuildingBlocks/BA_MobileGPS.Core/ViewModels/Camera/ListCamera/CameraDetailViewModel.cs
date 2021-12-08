@@ -59,53 +59,62 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.TryGetValue(ParameterKey.ListImageCamera, out List<CaptureImageData> listCameraImage)
                && parameters.TryGetValue(ParameterKey.ImageCamera, out CaptureImageData imageCamera) && parameters.TryGetValue(ParameterKey.VehiclePlate, out string vehiclePlate))
             {
-                VehiclePlate = vehiclePlate;
-                ListCameraImage = listCameraImage;
-                ImageCamera = imageCamera;
-
-                Position = ListCameraImage.IndexOf(ImageCamera);
-                PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
-
-                Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                SafeExecute(() =>
                 {
-                    Pins.Clear();
-                    Pins.Add(new Pin()
+                    if (listCameraImage ==null || listCameraImage.Count==0)
                     {
-                        Type = PinType.Place,
-                        Label = VehiclePlate,
-                        Anchor = new Point(.5, .5),
-                        Address = ListCameraImage[Position].CurrentAddress,
-                        Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
-                        Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                        IsDraggable = false,
-                        Tag = "CAMERA" + VehiclePlate
-                    });
-                    _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
-                    SelectedPin = Pins[0];
-                    return false;
+                        return;
+                    }
+                    VehiclePlate = vehiclePlate;
+                    ListCameraImage = listCameraImage;
+                    ImageCamera = imageCamera;
+
+                    Position = ListCameraImage.IndexOf(ImageCamera);
+                    PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
+                    if (imageCamera.Lat!=0 && imageCamera.Lng!=0)
+                    {
+                        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                        {
+                            Pins.Clear();
+                            Pins.Add(new Pin()
+                            {
+                                Type = PinType.Place,
+                                Label = VehiclePlate,
+                                Anchor = new Point(.5, .5),
+                                Address = imageCamera.CurrentAddress,
+                                Position = new Position(imageCamera.Lat, imageCamera.Lng),
+                                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                                IsDraggable = false,
+                                Tag = "CAMERA" + VehiclePlate
+                            });
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                            SelectedPin = Pins[0];
+                            return false;
+                        });
+                    }
+
+                    //Add vào zoom slide
+
+                    var tempListData = new ObservableCollection<Photo>();
+                    foreach (var item in ListCameraImage)
+                    {
+                        tempListData.Add(new Photo()
+                        {
+                            URL = item.Url,
+                            Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
+                            Title = item.CurrentAddress
+                        });
+                    }
+
+                    if (tempListData != null && tempListData.Count > 0)
+                    {
+                        ListphotoImages = new ObservableCollection<Photo>(tempListData);
+                    }
+                    else
+                    {
+                        ListphotoImages = new ObservableCollection<Photo>();
+                    }
                 });
-
-                //Add vào zoom slide
-
-                var tempListData = new ObservableCollection<Photo>();
-                foreach (var item in ListCameraImage)
-                {
-                    tempListData.Add(new Photo()
-                    {
-                        URL = item.Url,
-                        Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
-                        Title = item.CurrentAddress
-                    });
-                }
-
-                if (tempListData != null && tempListData.Count > 0)
-                {
-                    ListphotoImages = new ObservableCollection<Photo>(tempListData);
-                }
-                else
-                {
-                    ListphotoImages = new ObservableCollection<Photo>();
-                }
             }
         }
 
@@ -120,16 +129,18 @@ namespace BA_MobileGPS.Core.ViewModels
                         ImageCamera = ListCameraImage[Position];
 
                         PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
-
-                        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                        if (ListCameraImage[Position].Lat !=0 && ListCameraImage[Position].Lng !=0)
                         {
-                            var Pin = Pins[0];
-                            Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
-                            Pin.Address = ListCameraImage[Position].CurrentAddress;
-                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng), 14), TimeSpan.FromMilliseconds(10));
-                            SelectedPin = Pins[0];
-                            return false;
-                        });
+                            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                            {
+                                var Pin = Pins[0];
+                                Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
+                                Pin.Address = ListCameraImage[Position].CurrentAddress;
+                                _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng), 14), TimeSpan.FromMilliseconds(10));
+                                SelectedPin = Pins[0];
+                                return false;
+                            });
+                        }
                     }
                 }
             }

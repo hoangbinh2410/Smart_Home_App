@@ -4,7 +4,6 @@ using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
 using System;
@@ -162,24 +161,27 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
 
-                    Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                    if (ImageCamera.Lat!=0 && ImageCamera.Lng!=0)
                     {
-                        Pins.Clear();
-                        Pins.Add(new Pin()
+                        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                         {
-                            Type = PinType.Place,
-                            Label = VehiclePlate,
-                            Anchor = new Point(.5, .5),
-                            Address = ListCameraImage[Position].CurrentAddress,
-                            Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng),
-                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                            IsDraggable = false,
-                            Tag = "CAMERA" + VehiclePlate
+                            Pins.Clear();
+                            Pins.Add(new Pin()
+                            {
+                                Type = PinType.Place,
+                                Label = VehiclePlate,
+                                Anchor = new Point(.5, .5),
+                                Address = ImageCamera.CurrentAddress,
+                                Position = new Position(ImageCamera.Lat, ImageCamera.Lng),
+                                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                                IsDraggable = false,
+                                Tag = "CAMERA" + VehiclePlate
+                            });
+                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                            SelectedPin = Pins[0];
+                            return false;
                         });
-                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
-                        SelectedPin = Pins[0];
-                        return false;
-                    });
+                    }
 
                     //Add vào zoom slide
 
@@ -218,14 +220,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
 
-                        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                        if (ListCameraImage[Position].Lat !=0 && ListCameraImage[Position].Lng !=0)
                         {
-                            var Pin = Pins[0];
-                            Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
-                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(Pin.Position, 14), TimeSpan.FromMilliseconds(10));
-                            SelectedPin = Pins[0];
-                            return false;
-                        });
+                            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                            {
+                                var Pin = Pins[0];
+                                Pin.Position = new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng);
+                                Pin.Address = ListCameraImage[Position].CurrentAddress;
+                                _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ListCameraImage[Position].Lat, ListCameraImage[Position].Lng), 14), TimeSpan.FromMilliseconds(10));
+                                SelectedPin = Pins[0];
+                                return false;
+                            });
+                        }
                     }
                 }
             }
