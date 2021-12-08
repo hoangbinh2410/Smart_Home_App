@@ -126,6 +126,10 @@ namespace BA_MobileGPS.Service.Service
                 {
                     result = respone;
                 }
+                else
+                {
+                    result=respone;
+                }
             }
             catch (Exception ex)
             {
