@@ -53,10 +53,10 @@
                             <!--  Nhập mã OTP  -->
                             <input:SfTextInputLayout
                                 ContainerType="Outlined"
-                                ErrorText="{Binding OtpValue.ErrorFirst}"
+                                ErrorText="{Binding OtpSms.ErrorFirst}"
                                 FocusedColor="Transparent"
                                 FocusedStrokeWidth="0"
-                                HasError="{Binding OtpValue.IsNotValid}"
+                                HasError="{Binding OtpSms.IsNotValid}"
                                 StyleClass="LoginEntry"
                                 UnfocusedColor="Transparent"
                                 UnfocusedStrokeWidth="0">
@@ -68,7 +68,7 @@
                                         Keyboard="Telephone"
                                         MaxLength="6"
                                         Placeholder="Nhập mã xác thực"
-                                        Text="{Binding Code.Value}">
+                                        Text="{Binding OtpSms.Value}">
                                         <Entry.Effects>
                                             <effects:ClearEntryEffect />
                                         </Entry.Effects>

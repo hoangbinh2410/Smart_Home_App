@@ -13,8 +13,27 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class NumberPhoneLoginPageViewModel : ViewModelBaseLogin
     {
+        #region Property
+
+        public ValidatableObject<string> NumberPhone { get; set; }
+
+        private bool isOTPZalo = false;
+        public bool IsOTPZalo { get { return isOTPZalo; } set { SetProperty(ref isOTPZalo, value); } }
+
+        private LoginResponse _user = new LoginResponse();
+        private bool _rememberme = false;
+        private string _userName = string.Empty;
+        private string _password = string.Empty;
+
+        private LoginResponse userInfo;
+        public LoginResponse UserInfo
+        { get { if (StaticSettings.User != null) { UserInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
+
+        #endregion Property
+
         #region Contructor
-         public ICommand PushOTPSMSPageCommand { get; private set; }
+
+        public ICommand PushOTPSMSPageCommand { get; private set; }
         public ICommand PushOTPPageCommand { get; private set; }
         public ICommand PushZaloPageCommand { get; private set; }
         private readonly IAuthenticationService _iAuthenticationService;
@@ -34,6 +53,22 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
+            if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
+            {
+                _user = user;
+            }
+            if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
+            {
+                _rememberme = rememberme;
+            }
+            if (parameters.ContainsKey("UserName") && parameters.GetValue<string>("UserName") is string userName)
+            {
+                _userName = userName;
+            }
+            if (parameters.ContainsKey("Password") && parameters.GetValue<string>("Password") is string password)
+            {
+                _password = password;
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -56,16 +91,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Lifecycle
-        #region Property
-        public ValidatableObject<string> NumberPhone { get; set; }
-
-        private bool isOTPZalo = false;
-        public bool IsOTPZalo { get { return isOTPZalo; }set { SetProperty(ref isOTPZalo, value);} } 
-
-        private LoginResponse userInfo;
-        public LoginResponse UserInfo
-        { get { if (StaticSettings.User != null) { UserInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
-        #endregion Property
+        
         #region PrivateMethod
         private void InitValidations()
         {
@@ -78,19 +104,19 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return false;
             }
-            //if(NumberPhone.Value != UserInfo.PhoneNumber)
-            //{
-            //    DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!", 5000);
-            //    return false;
-            //}
             if (!StringHelper.ValidPhoneNumer(NumberPhone.Value, MobileSettingHelper.LengthAndPrefixNumberPhone))
             {
                 DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!", 5000);
                 return false;
             }
+            if (NumberPhone.Value.Trim() != _user.PhoneNumber.Trim())
+            {
+                DisplayMessage.ShowMessageInfo("Vui lòng nhập số điện thoại đã đăng ký tài khoản", 5000);
+                return false;
+            }
             return true;
         }
-        //Nhập OTP cho sms
+        //Gửi lấy mã OTP cho sms
         private void PushOTPSMSPage()
         {
             var objResponse = new SendCodeSMSResponse();
@@ -103,13 +129,11 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 if (IsConnected)
-
                 {
                     var inputSendCodeSMS = new ForgotPasswordRequest
                     {
                         phoneNumber = NumberPhone.Value,
-                        userName = "linhvtt106",
-                        //UserInfo.UserName
+                        userName = _user.UserName,
                         AppID = (int)App.AppType
                     };
                     using (new HUDService(MobileResource.Common_Message_Processing))
@@ -122,15 +146,18 @@ namespace BA_MobileGPS.Core.ViewModels
                     DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
                     return;
                 }
-                // Sau khi gọi API
+                // Sau khi gọi API 
                 if (objResponse != null && !string.IsNullOrEmpty(objResponse.SecurityCodeSMS))
                 {
                     var parameters = new NavigationParameters
                     {
                         { "OTPSms", objResponse },
-                        {"Numberphone",NumberPhone.Value}
+                        { "User", _user },
+                        { "Rememberme", _rememberme },
+                        { "UserName", _userName },
+                        { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                    await NavigationService.NavigateAsync("/VerifyOTPSmsPage", parameters);
                 }
                 else
                 {
@@ -173,7 +200,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     var parameters = new NavigationParameters
                     {
                         { "OTPZalo", objResponse },
-                        {"Numberphone",NumberPhone.Value}
+                        { "User", _user },
+                        { "Rememberme", _rememberme },
+                        { "UserName", _userName },
+                        { "Password", _password },
                     };
                     await NavigationService.NavigateAsync("VerifyOTPCodePage", parameters);
                 }

@@ -52,7 +52,6 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
             {
                 _user = user;
-                NumberPhone.Value = user.PhoneNumber;
             }
             if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
             {

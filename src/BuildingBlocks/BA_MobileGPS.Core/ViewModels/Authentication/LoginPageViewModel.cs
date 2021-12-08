@@ -575,44 +575,20 @@ namespace BA_MobileGPS.Core.ViewModels
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
 
-                // Kiểm tra tài khoản có bảo mất 2 lớp không
-                if (!user.Has2FactorAuthentication)
+                // Kiểm tra tài khoản có bảo mất 2 lớp otp qua sms
+                if (user.IsNeededOtp)
                 {
-                    //nếu nhớ mật khẩu thì lưu lại thông tin username và password
-                    if (Rememberme)
+                    var parameters = new NavigationParameters
                     {
-                        Settings.Rememberme = true;
-                    }
-                    else
-                    {
-                        Settings.Rememberme = false;
-                    }
-                    //Nếu đăng nhập tài khoản khác thì xóa CurrentCompany đi
-                    if (!string.IsNullOrEmpty(Settings.UserName) && Settings.UserName != UserName.Value && Settings.CurrentCompany != null)
-                    {
-                        Settings.CurrentCompany = null;
-                    }
-                    
-                    Settings.UserName = UserName.Value;
-                    Settings.Password = Password.Value;
-
-                    StaticSettings.Token = user.AccessToken;
-                    StaticSettings.User = user;
-                    StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
-                    OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
-                    OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
-                    
-                    //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
-                    if (user.IsNeedChangePassword)
-                    {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", null, useModalNavigation: true, true);
-                    }
-                    else
-                    {
-                        await NavigationService.NavigateAsync("/MainPage");
-                    }
-                }    
-                else
+                        { "User", user },
+                        { "Rememberme", Rememberme },
+                        { "UserName", UserName.Value },
+                        { "Password", Password.Value },
+                    };
+                    await NavigationService.NavigateAsync("/NumberPhoneLoginPage", parameters);
+                }
+                // Kiểm tra tài khoản có bảo mất 2 lớp otp qua zalo
+                else if (user.Has2FactorAuthentication)
                 {
                     var parameters = new NavigationParameters
                     {
@@ -623,7 +599,38 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     await NavigationService.NavigateAsync("/QRCodeLogin", parameters);
                 }    
-                
+                else
+                {
+                    //nếu nhớ mật khẩu thì lưu lại thông tin username và password
+                    if (Rememberme)
+                    {
+                        Settings.Rememberme = true;
+                    }
+                    //Nếu đăng nhập tài khoản khác thì xóa CurrentCompany đi
+                    if (!string.IsNullOrEmpty(Settings.UserName) && Settings.UserName != UserName.Value && Settings.CurrentCompany != null)
+                    {
+                        Settings.CurrentCompany = null;
+                    }
+
+                    Settings.UserName = UserName.Value;
+                    Settings.Password = Password.Value;
+
+                    StaticSettings.Token = user.AccessToken;
+                    StaticSettings.User = user;
+                    StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
+                    OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
+                    OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
+
+                    //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
+                    if (user.IsNeedChangePassword)
+                    {
+                        await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", null, useModalNavigation: true, true);
+                    }
+                    else
+                    {
+                        await NavigationService.NavigateAsync("/MainPage");
+                    }
+                }    
             }
             catch (Exception ex)
             {

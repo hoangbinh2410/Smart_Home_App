@@ -150,6 +150,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Settings.Rememberme = true;
             }
+            else
+            {
+                Settings.Rememberme = false;
+            }
             //Nếu đăng nhập tài khoản khác thì xóa CurrentCompany đi
             if (!string.IsNullOrEmpty(Settings.UserName) && Settings.UserName != _userName && Settings.CurrentCompany != null)
             {
