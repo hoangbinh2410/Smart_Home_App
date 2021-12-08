@@ -345,15 +345,16 @@ namespace BA_MobileGPS.Core.ViewModels
                        });
                        if (isSuccess)
                        {
+                           
                            GlobalResources.Current.TotalAlert--;
                            ListAlert.Remove(alertSelected);
                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Success);
                        }
                        else
                        {
-                           DependencyService.Get<IHUDProvider>().Dismiss();
                            DisplayMessage.ShowMessageInfo(MobileResource.Alert_Message_Alert_Fail);
                        }
+                       DependencyService.Get<IHUDProvider>().Dismiss();
                    });
                });
             }
