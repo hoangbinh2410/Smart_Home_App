@@ -111,7 +111,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     DriverID = driverID,
                     FromDate = DateSearch.ToString("dd/MM/yyyy"),
                     ToDate = DateSearch.ToString("dd/MM/yyyy"),
-                    Culture= Settings.CurrentLanguage
+                    LanguageID= Settings.CurrentLanguage==CultureCountry.Vietnamese ? 1 : 2
                 });
             }, (result) =>
             {
