@@ -610,5 +610,55 @@ namespace BA_MobileGPS.Core.Resources
         public static string ChartFuel_Label_PourTotal => Get(MobileResourceNames.ChartFuel_Label_PourTotal, "Nap: ", "Pour Total: ");
         public static string ChartFuel_Label_SuckTotal => Get(MobileResourceNames.ChartFuel_Label_SuckTotal, "Hút: ", "Suck Total: ");
         public static string ChartFuel_Label_LastLits => Get(MobileResourceNames.ChartFuel_Label_LastLits, "Còn lại: ", "Last Lits: ");
+
+        #region Báo cáo ra vào trạm
+
+        public static string ReportStation_Label_TitlePage => Get(MobileResourceNames.ReportStation_Label_TitlePage, "Báo cáo ra vào trạm", "Report station");
+        public static string ReportStation_Combobox_Vehicle => Get(MobileResourceNames.ReportStation_Combobox_Vehicle, "Phương tiện", "Vehicle");
+        public static string ReportStation_Text_PlaceHolder_CountMinutes => Get(MobileResourceNames.ReportStation_Text_PlaceHolder_CountMinutes, "Số phút >=", "Minutes >=");
+        public static string ReportStation_Header_TitleSerial => Get(MobileResourceNames.ReportStation_Header_TitleSerial, "STT", "No.");
+        public static string ReportStation_Header_TitleIntoStation => Get(MobileResourceNames.ReportStation_Header_TitleIntoStation, "Vào trạm", "Enter station");
+        public static string ReportStation_Header_TitleUottoStation => Get(MobileResourceNames.ReportStation_Header_TitleUottoStation, "Ra trạm", "Exit station");
+        public static string ReportStation_Header_TitleStationName => Get(MobileResourceNames.ReportStation_Header_TitleStationName, "Tên trạm", "Station name");
+        public static string ReportStation_Header_TitleMinutesInStatione => Get(MobileResourceNames.ReportStation_Header_TitleMinutesInStatione, "Số phút trong trạm", "Minutes in the station");
+        public static string ReportStation_Header_Router => Get(MobileResourceNames.ReportStation_Header_Router, "Lộ trình", "Router");
+        public static string ReportStation_Header_VidioLink => Get(MobileResourceNames.ReportStation_Header_VidioLink, "Link video", "Vidio link");
+        public static string ReportStation_Label_DataSettings => Get(MobileResourceNames.ReportStation_Label_DataSettings, "CÀI ĐẶT ẨN HIỆN THÔNG TIN", "DATA DISPLAY SETTINGS");
+
+        #endregion
+
+        #region Báo cáo chuyến kinh doanh
+        public static string ReportBusiness_Label_TitlePage => Get(MobileResourceNames.ReportBusiness_Label_TitlePage, "Báo cáo chuyến kinh doanh", "Transport business report");
+        public static string ReportBusiness_Combobox_Vehicle => Get(MobileResourceNames.ReportBusiness_Combobox_Vehicle, "Phương tiện", "Vehicle");
+        public static string ReportBusiness_Header_TitleSerial => Get(MobileResourceNames.ReportBusiness_Header_TitleSerial, "STT", "No.");
+        public static string ReportBusiness_Header_TitleStartAddress => Get(MobileResourceNames.ReportBusiness_Header_TitleStartAddress, "Điểm đi", "StartAddress");
+        public static string ReportBusiness_Header_TitleEndAddress => Get(MobileResourceNames.ReportBusiness_Header_TitleEndAddress, "Điểm đến", "EndAddress");
+        public static string ReportBusiness_Header_TitleStartTime => Get(MobileResourceNames.ReportBusiness_Header_TitleStartTime, "Giờ đi", "Start Time");
+        public static string ReportBusiness_Header_TitleEndTime => Get(MobileResourceNames.ReportBusiness_Header_TitleEndTime, "Giờ đến", "End Time");
+        public static string ReportBusiness_Header_TitleTotalMinutes => Get(MobileResourceNames.ReportBusiness_Header_TitleTotalMinutes, "Số phút hoạt động", "Total active minutes");
+        public static string ReportBusiness_Header_TotalKmGps => Get(MobileResourceNames.ReportBusiness_Header_TotalKmGps, "Km GPS", "Km GPS");
+        public static string ReportBusiness_Header_KmCO => Get(MobileResourceNames.ReportBusiness_Header_KmCO, "Km cơ", "KmCO");
+        public static string ReportBusiness_Header_FuelConsume => Get(MobileResourceNames.ReportBusiness_Header_FuelConsume, "NL tiêu thụ", "Fuel Consume");
+        public static string ReportBusiness_Header_QuotaFuel => Get(MobileResourceNames.ReportBusiness_Header_QuotaFuel, "Định mức NL trên km", "Quota Fuel on km");
+        public static string ReportBusiness_Header_QuotaFuelConsume => Get(MobileResourceNames.ReportBusiness_Header_QuotaFuelConsume, "NL tiêu thụ định mức", "Quota Fuel Consume");
+        public static string ReportBusiness_Header_Router => Get(MobileResourceNames.ReportBusiness_Header_Router, "Lộ trình", "Router");
+        public static string ReportBusiness_Header_Photo => Get(MobileResourceNames.ReportBusiness_Header_Photo, "Hình ảnh", "Photo");
+        public static string ReportBusiness_Total => Get(MobileResourceNames.ReportBusiness_Total, "Tổng", "Total");
+
+        public static string ReportDetailedFilter_Label_TitlePage => Get(MobileResourceNames.ReportDetailedFilter_Label_TitlePage, "Tìm kiếm nâng cao", "Advanced search");
+        public static string ReportDetailedFilter_Label_Departure => Get(MobileResourceNames.ReportDetailedFilter_Label_Departure, "Địa chỉ đi", "Departure");
+        public static string ReportDetailedFilter_Combobox_ChoosingDeparture => Get(MobileResourceNames.ReportDetailedFilter_Combobox_ChoosingDeparture, "Chọn điểm đi", "Choosing departure");
+        public static string ReportDetailedFilter_Label_Arrival => Get(MobileResourceNames.ReportDetailedFilter_Label_Arrival, "Địa chỉ đến", "Arrival");
+        public static string ReportDetailedFilter_Combobox_ChoosingArrival => Get(MobileResourceNames.ReportDetailedFilter_Combobox_ChoosingArrival, "Chọn điểm đến", "Choosing arrival");
+        public static string ReportDetailedFilter_Label_MinimumDistance => Get(MobileResourceNames.ReportDetailedFilter_Label_MinimumDistance, "Số km tối thiểu", "Minimum distance");
+        public static string ReportDetailedFilter_Label_MaximumDistance => Get(MobileResourceNames.ReportDetailedFilter_Label_MaximumDistance, "Số km tối đa", "Maximum distance");
+        public static string ReportDetailedFilter_CheckBox_NoChoosing => Get(MobileResourceNames.ReportDetailedFilter_CheckBox_NoChoosing, "Không đi qua điểm nào", "Don't go to any destination");
+        public static string ReportDetailedFilter_btn_Apply => Get(MobileResourceNames.ReportDetailedFilter_btn_Apply, "Áp dụng", "Apply");
+
+        public static string ReportSetting_Label_DataSettings => Get(MobileResourceNames.ReportSetting_Label_DataSettings, "CÀI ĐẶT ẨN HIỆN THÔNG TIN", "DATA DISPLAY SETTINGS");
+        public static string ReportSetting_Label_TableFormat => Get(MobileResourceNames.ReportSetting_Label_TableFormat, "Dạng bảng", "Table format");
+        public static string ReportSetting_Label_ListFormat => Get(MobileResourceNames.ReportSetting_Label_ListFormat, "Dạng danh sách", "List format");
+
+        #endregion
     }
 }

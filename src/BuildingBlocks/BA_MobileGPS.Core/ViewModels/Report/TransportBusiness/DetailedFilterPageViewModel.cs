@@ -1,19 +1,16 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
 using BA_MobileGPS.Service.Report.Station;
+using BA_MobileGPS.Service.Report.TransportBusiness;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Windows.Input;
 using System.Linq;
-using BA_MobileGPS.Service.Report.TransportBusiness;
-using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
-using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness;
+using System.Reflection;
+using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
 {

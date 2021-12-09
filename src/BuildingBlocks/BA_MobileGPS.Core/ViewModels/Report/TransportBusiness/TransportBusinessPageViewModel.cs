@@ -252,70 +252,70 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Gán lại tên file
-                ReportTitle = ReportHelper.GetFileName("Báo cáo chuyến kinh doanh");
+                ReportTitle = ReportHelper.GetFileName(MobileResource.ReportBusiness_Label_TitlePage);
                 int numberrow = 4;
                 int numbercolum = 1;
                 // STT
-                worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_Serial;
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TitleSerial;
                 // Điểm đi
                 if (ShowStartAddress)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Điểm đi";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TitleStartAddress;
                 }
                 // Điểm đến
                 if (ShowEndAddress)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Điểm đến";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TitleEndAddress;
                 }
                 // Giờ đi
                 if (ShowStartTime)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Giờ đi";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TitleStartTime;
                 }
                 // Giờ đến
                 if (ShowEndTime)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Giờ đến";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TitleEndTime;
                 }
                 // Số phút hoạt động
                 if (ShowTimeActive)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Số phút hoạt động";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TitleTotalMinutes;
                 }
                 // Km GPS
                 if (ShowKmGPS)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Km GPS";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_TotalKmGps;
                 }
                 // Km cơ
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Km cơ";
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_KmCO;
                 // NL tiêu thụ
                 if (ShowUseFuel)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "NL tiêu thụ";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_FuelConsume;
                 }
                 // Định mức NL trên 1km
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = "Định mức NL trên 1km";
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_QuotaFuel;
                 // NL tiêu thụ định mức
                 if (ShowNorms)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "NL tiêu thụ định mức";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportBusiness_Header_QuotaFuelConsume;
                 }
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
 
                 //head
-                worksheet.Range[1, 1].Text = "Báo cáo chuyến kinh doanh";
+                worksheet.Range[1, 1].Text = MobileResource.ReportBusiness_Label_TitlePage;
                 worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
                 worksheet.Range[1, 1].CellStyle.Font.Bold = true;
                 worksheet.Range[1, 1].CellStyle.Font.Size = 16;
