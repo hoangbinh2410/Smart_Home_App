@@ -1280,6 +1280,8 @@
         Economical_Tabview,
         Table_Criteria_lb,
         Economical_Criteria_lb,
+        Chart_Title_ScoreDisplay,
+        Chart_Title_ScoreActual,
         Criteria_lb,
         Text_Assess, 
         My_Point_TabView_Title,
