@@ -20,6 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         #region Property
 
         private Vehicle _vehicle;
+
         public Vehicle Vehicle
         {
             get => _vehicle;
@@ -27,6 +28,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private DateTime fromDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+
         public virtual DateTime FromDate
         {
             get => fromDate;
@@ -34,13 +36,15 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private DateTime toDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);
-        public virtual DateTime ToDate 
-        { 
-            get => toDate; 
-            set => SetProperty(ref toDate, value); 
+
+        public virtual DateTime ToDate
+        {
+            get => toDate;
+            set => SetProperty(ref toDate, value);
         }
 
         private List<ExpenseRespone> _menuItems = new List<ExpenseRespone>();
+
         public List<ExpenseRespone> MenuItems
         {
             get { return _menuItems; }
@@ -48,6 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private decimal _totalMoney = 0;
+
         public decimal TotalMoney
         {
             get { return _totalMoney; }
@@ -105,7 +110,11 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             if (_isCall)
             {
-                SearchDataClicked();
+                if (Vehicle == null)
+                {
+                    return;
+                }
+                GetListExpense();
             }
             _isCall = true;
         }
@@ -176,7 +185,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
 
         private void GetListExpense()
-        {           
+        {
             var companyID = CurrentComanyID;
             var vehicleID = Vehicle.VehicleId;
             var request = new ExpenseRequest()
@@ -193,7 +202,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         MenuItems = await _ExpenseService.GetListExpense(request);
-                        
+
                         SumMoney();
                     }
                 }
@@ -308,7 +317,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
             if (item != null && item.ItemData != null)
             {
-
                 parameters.Add("ExpenseDetails", item.ItemData);
             }
 
@@ -316,14 +324,13 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
             });
-
         }
+
         public void NewNavigateClicked(ItemTappedEventArgs item)
         {
             var parameters = new NavigationParameters();
             if (item != null && item.ItemData != null)
             {
-
                 parameters.Add("ExpenseDetails", item.ItemData);
             }
 
@@ -331,8 +338,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             {
                 await NavigationService.NavigateAsync("ExpenseDetailsPage", parameters);
             });
+        }
 
-        }      
         #endregion PrivateMethod
     }
 }
