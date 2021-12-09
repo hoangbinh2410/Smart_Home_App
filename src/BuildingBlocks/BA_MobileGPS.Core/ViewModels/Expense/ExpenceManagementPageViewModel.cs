@@ -105,7 +105,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             }
             if (_isCall)
             {
-                GetListExpense();
+                SearchDataClicked();
             }
             _isCall = true;
         }
@@ -193,10 +193,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         MenuItems = await _ExpenseService.GetListExpense(request);
-                        //if(MenuItems == null || MenuItems.Count ==0)
-                        //{
-                        //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Lable_NotFound, 1500);
-                        //}    
+                        
                         SumMoney();
                     }
                 }
@@ -304,12 +301,6 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
 
         public void NavigateClicked(ItemTappedEventArgs item)
         {
-            //if (Vehicle == null || Vehicle.PrivateCode == null)
-            //{
-            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-            //    return;
-            //}
-
             var parameters = new NavigationParameters
             {
                 { ParameterKey.Vehicle, Vehicle }
@@ -329,17 +320,7 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         }
         public void NewNavigateClicked(ItemTappedEventArgs item)
         {
-            //if(Vehicle == null || Vehicle.PrivateCode == null)
-            //{
-            //    DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_NoSelectVehiclePlate, 5000);
-            //    return;
-            //}    
-
             var parameters = new NavigationParameters();
-            //{
-            //    { ParameterKey.Vehicle, Vehicle }
-            //};
-
             if (item != null && item.ItemData != null)
             {
 
