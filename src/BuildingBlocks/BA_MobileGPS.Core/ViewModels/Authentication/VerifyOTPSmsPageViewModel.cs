@@ -32,7 +32,6 @@ namespace BA_MobileGPS.Core.ViewModels
         private static Timer _timerCountDown;
         public int index = 300;
         private OtpResultResponse _objOtp;
-        private SendCodeSMSResponse _objOtpSms;
 
         public ValidatableObject<string> OtpSms { get; set; }
 
@@ -62,11 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<OtpResultResponse>("OTPZalo") is OtpResultResponse objOtp)
             {
                 _objOtp = objOtp;
-            }
-            if (parameters.ContainsKey("OTPSms") && parameters.GetValue<SendCodeSMSResponse>("OTPSms") is SendCodeSMSResponse objOtpSms)
-            {
-                _objOtpSms = objOtpSms;
-            }
+            }           
             if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
             {
                 _user = user;
@@ -142,34 +137,41 @@ namespace BA_MobileGPS.Core.ViewModels
         {  // Kiểm tra lấy lại mã otp
             SafeExecute(async () =>
             {
-                string customerID = String.Empty;
-                if (IsConnected)
+                if(index == 0)
                 {
-                    if (_objOtp != null)
+                    string customerID = String.Empty;
+                    if (IsConnected)
                     {
-                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        if (_objOtp != null)
                         {
-                            _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
+                            }
+                        }
+                        // Nếu không lấy lại mã sms
+                        else
+                        {
+                            var inputSendCodeSMS = new ForgotPasswordRequest
+                            {
+                                phoneNumber = _user.PhoneNumber,
+                                userName = _user.UserName,
+                                AppID = (int)App.AppType
+                            };
+                            using (new HUDService(MobileResource.Common_Message_Processing))
+                            {
+                                var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                            }
                         }
                     }
-                    // Nếu không lấy lại mã sms
-                    else
-                    {
-                        var inputSendCodeSMS = new ForgotPasswordRequest
-                        {
-                            phoneNumber = _user.PhoneNumber,
-                            userName = _user.UserName,
-                            AppID = (int)App.AppType
-                        };
-                        using (new HUDService(MobileResource.Common_Message_Processing))
-                        {
-                            var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
-                        }
-                    }                
-                }        
+                }
+                else
+                {
+                    DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại, mã OTP đã được gửi!", 5000);
+                }             
             });
             index = 300;
-            _timerCountDown.Close();
+           _timerCountDown.Close();
             SetTimerCountDown();
         }
         // check OTP

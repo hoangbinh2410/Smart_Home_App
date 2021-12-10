@@ -56,6 +56,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
             {
                 _user = user;
+                if (!user.IsNeededOtp)
+                {
+                    IsOTPZalo = true;
+                }
             }
             if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
             {
@@ -68,7 +72,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("Password") && parameters.GetValue<string>("Password") is string password)
             {
                 _password = password;
-            }
+            }         
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -151,13 +155,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var parameters = new NavigationParameters
                     {
-                        { "OTPSms", objResponse },
                         { "User", _user },
                         { "Rememberme", _rememberme },
                         { "UserName", _userName },
                         { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("/VerifyOTPSmsPage", parameters);
+                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
                 }
                 else
                 {
@@ -205,7 +208,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", _userName },
                         { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPCodePage", parameters);
+                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
                 }
                 else
                 {
