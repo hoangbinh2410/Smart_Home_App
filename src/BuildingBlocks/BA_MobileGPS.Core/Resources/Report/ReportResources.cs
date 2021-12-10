@@ -431,6 +431,11 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string DetailsReport_CheckBox_EndAddress => Get(MobileResourceNames.DetailsReport_CheckBox_EndAddress, "Địa chỉ đến", "End Address");
 
+        public static string DetailsReport_Combobox_Title_ChooseAddress => Get(MobileResourceNames.DetailsReport_Combobox_Title_ChooseAddress, "Chọn địa chỉ", "Choose address");
+
+        public static string DetailsReport_Status_permission => Get(MobileResourceNames.DetailsReport_Status_permission, "Bạn không có quyền truy cập chức năng này", "You don't have permission to access this function");
+
+
         #endregion Báo cáo chi tiết
 
         #region Báo cáo dừng đỗ
@@ -613,7 +618,7 @@ namespace BA_MobileGPS.Core.Resources
 
         #region Báo cáo ra vào trạm
 
-        public static string ReportStation_Label_TitlePage => Get(MobileResourceNames.ReportStation_Label_TitlePage, "Báo cáo ra vào trạm", "Report station");
+        public static string ReportStation_Label_TitlePage => Get(MobileResourceNames.ReportStation_Label_TitlePage, "Báo cáo ra vào trạm", "Station report ");
         public static string ReportStation_Combobox_Vehicle => Get(MobileResourceNames.ReportStation_Combobox_Vehicle, "Phương tiện", "Vehicle");
         public static string ReportStation_Text_PlaceHolder_CountMinutes => Get(MobileResourceNames.ReportStation_Text_PlaceHolder_CountMinutes, "Số phút >=", "Minutes >=");
         public static string ReportStation_Header_TitleSerial => Get(MobileResourceNames.ReportStation_Header_TitleSerial, "STT", "No.");
@@ -622,7 +627,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportStation_Header_TitleStationName => Get(MobileResourceNames.ReportStation_Header_TitleStationName, "Tên trạm", "Station name");
         public static string ReportStation_Header_TitleMinutesInStatione => Get(MobileResourceNames.ReportStation_Header_TitleMinutesInStatione, "Số phút trong trạm", "Minutes in the station");
         public static string ReportStation_Header_Router => Get(MobileResourceNames.ReportStation_Header_Router, "Lộ trình", "Router");
-        public static string ReportStation_Header_VidioLink => Get(MobileResourceNames.ReportStation_Header_VidioLink, "Link video", "Vidio link");
+        public static string ReportStation_Header_VideoLink => Get(MobileResourceNames.ReportStation_Header_VideoLink, "Link video", "Video link");
+        public static string ReportStation_Item_View => Get(MobileResourceNames.ReportStation_Item_View, "Xem", "View");
         public static string ReportStation_Label_DataSettings => Get(MobileResourceNames.ReportStation_Label_DataSettings, "CÀI ĐẶT ẨN HIỆN THÔNG TIN", "DATA DISPLAY SETTINGS");
 
         #endregion
@@ -631,8 +637,8 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportBusiness_Label_TitlePage => Get(MobileResourceNames.ReportBusiness_Label_TitlePage, "Báo cáo chuyến kinh doanh", "Transport business report");
         public static string ReportBusiness_Combobox_Vehicle => Get(MobileResourceNames.ReportBusiness_Combobox_Vehicle, "Phương tiện", "Vehicle");
         public static string ReportBusiness_Header_TitleSerial => Get(MobileResourceNames.ReportBusiness_Header_TitleSerial, "STT", "No.");
-        public static string ReportBusiness_Header_TitleStartAddress => Get(MobileResourceNames.ReportBusiness_Header_TitleStartAddress, "Điểm đi", "StartAddress");
-        public static string ReportBusiness_Header_TitleEndAddress => Get(MobileResourceNames.ReportBusiness_Header_TitleEndAddress, "Điểm đến", "EndAddress");
+        public static string ReportBusiness_Header_TitleStartAddress => Get(MobileResourceNames.ReportBusiness_Header_TitleStartAddress, "Điểm đi", "Start Address");
+        public static string ReportBusiness_Header_TitleEndAddress => Get(MobileResourceNames.ReportBusiness_Header_TitleEndAddress, "Điểm đến", "End Address");
         public static string ReportBusiness_Header_TitleStartTime => Get(MobileResourceNames.ReportBusiness_Header_TitleStartTime, "Giờ đi", "Start Time");
         public static string ReportBusiness_Header_TitleEndTime => Get(MobileResourceNames.ReportBusiness_Header_TitleEndTime, "Giờ đến", "End Time");
         public static string ReportBusiness_Header_TitleTotalMinutes => Get(MobileResourceNames.ReportBusiness_Header_TitleTotalMinutes, "Số phút hoạt động", "Total active minutes");
@@ -643,7 +649,11 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportBusiness_Header_QuotaFuelConsume => Get(MobileResourceNames.ReportBusiness_Header_QuotaFuelConsume, "NL tiêu thụ định mức", "Quota Fuel Consume");
         public static string ReportBusiness_Header_Router => Get(MobileResourceNames.ReportBusiness_Header_Router, "Lộ trình", "Router");
         public static string ReportBusiness_Header_Photo => Get(MobileResourceNames.ReportBusiness_Header_Photo, "Hình ảnh", "Photo");
+        public static string ReportBusiness_Item_View => Get(MobileResourceNames.ReportBusiness_Item_View, "Xem", "View");
         public static string ReportBusiness_Total => Get(MobileResourceNames.ReportBusiness_Total, "Tổng", "Total");
+
+        public static string ReportBusiness_Error_MinimumDistance=> Get(MobileResourceNames.ReportBusiness_Error_MinimumDistance, "Giá trị km tối thiểu phải lơn hơn 0", "Minimum distance value must be greater than 0");
+        public static string ReportBusiness_Error_MinimumLessMaximum => Get(MobileResourceNames.ReportBusiness_Error_MinimumLessMaximum, "Giá trị km tối thiểu phải nhỏ hơn giá trị km tối đa", "Minimum distance value must be less than Maximum distance value");
 
         public static string ReportDetailedFilter_Label_TitlePage => Get(MobileResourceNames.ReportDetailedFilter_Label_TitlePage, "Tìm kiếm nâng cao", "Advanced search");
         public static string ReportDetailedFilter_Label_Departure => Get(MobileResourceNames.ReportDetailedFilter_Label_Departure, "Địa chỉ đi", "Departure");
@@ -660,5 +670,6 @@ namespace BA_MobileGPS.Core.Resources
         public static string ReportSetting_Label_ListFormat => Get(MobileResourceNames.ReportSetting_Label_ListFormat, "Dạng danh sách", "List format");
 
         #endregion
+
     }
 }

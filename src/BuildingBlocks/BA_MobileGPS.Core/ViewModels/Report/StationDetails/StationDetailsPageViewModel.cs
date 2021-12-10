@@ -216,7 +216,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { "dataCombobox", ListLocationStation },
                     { "ComboboxType", ComboboxType.First },
-                    { "Title", "Chọn điểm" }
+                    { "Title", MobileResource.DetailsReport_Combobox_Title_ChooseAddress }
                 };
                 await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
@@ -367,13 +367,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowTimeInStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.ToString("HH:mm dd/MM/yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.FormatDateTime(); 
                     }
                     // Ra trạm
                     if (ShowTimeOutStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.ToString("HH:mm dd/MM/yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.FormatDateTime();
                     }
                     // Tên trạm
                     if (ShowNameStation)
@@ -538,7 +538,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                    DisplayMessage.ShowMessageInfo(MobileResource.DetailsReport_Status_permission);
                 }
             });
         }
@@ -571,7 +571,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                    DisplayMessage.ShowMessageInfo(MobileResource.DetailsReport_Status_permission);
                 }
             });
         }
