@@ -28,7 +28,7 @@
 		<PackageReference Include="Prism.DryIoc.Forms" Version="8.1.97" />
 		<PackageReference Include="Prism.Plugin.Popups" Version="8.0.76" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
-		<PackageReference Include="LibVLCSharp.Forms" Version="3.6.3" />
+		<PackageReference Include="LibVLCSharp.Forms" Version="3.5.1" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.3.0.57" />
 		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.3.0.57" />
 		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.3.0.57" />

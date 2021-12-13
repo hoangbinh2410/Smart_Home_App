@@ -115,7 +115,7 @@
       <Version>4.0.11</Version>
     </PackageReference>
     <PackageReference Include="LibVLCSharp.Forms">
-      <Version>3.6.3</Version>
+      <Version>3.5.1</Version>
     </PackageReference>
     <PackageReference Include="PhotoBrowser.Forms">
       <Version>0.1.4</Version>
