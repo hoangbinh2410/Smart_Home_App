@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -234,6 +233,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
+                    for (int i = 0; i < result.Count; i++)
+                    {
+                        result[i].STT = i + 1;
+                        result[i].BacgroundYourDriver = Color.FromHex("#D6F3FF");
+                    }
                     ListRankUserOrigin = result;
                     RankUserSource = result.ToObservableCollection();
                     var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
