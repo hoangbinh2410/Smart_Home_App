@@ -216,7 +216,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     { "dataCombobox", ListLocationStation },
                     { "ComboboxType", ComboboxType.First },
-                    { "Title", "Chọn điểm" }
+                    { "Title", MobileResource.DetailsReport_Combobox_Title_ChooseAddress }
                 };
                 await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
@@ -310,41 +310,41 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 //Gán lại tên file
-                ReportTitle = ReportHelper.GetFileName("Báo cáo ra vào trạm");
+                ReportTitle = ReportHelper.GetFileName(MobileResource.ReportStation_Label_TitlePage);
                 int numberrow = 4;
                 int numbercolum = 1;
                 // STT
-                worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_Serial;
+                worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportStation_Header_TitleSerial;
                 // Vào trạm
                 if (ShowTimeInStation)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Vào trạm";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportStation_Header_TitleIntoStation;
                 }
                 // Ra trạm
                 if (ShowTimeOutStation)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Ra trạm";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportStation_Header_TitleUottoStation;
                 }
                 // Tên trạm
                 if (ShowNameStation)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Tên trạm";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportStation_Header_TitleStationName;
                 }
                 // Số phút trong trạm
                 if (ShowNumberMinuteOfStation)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = "Số phút trong trạm";
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.ReportStation_Header_TitleMinutesInStatione;
                 }
 
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.Font.Bold = true;
                 worksheet.Range[numberrow, 1, numberrow, numbercolum].CellStyle.ColorIndex = ExcelKnownColors.Sky_blue;
 
                 //head
-                worksheet.Range[1, 1].Text = "Báo cáo ra vào trạm";
+                worksheet.Range[1, 1].Text = MobileResource.ReportStation_Label_TitlePage;
                 worksheet.Range[1, 1].HorizontalAlignment = ExcelHAlign.HAlignCenter;
                 worksheet.Range[1, 1].CellStyle.Font.Bold = true;
                 worksheet.Range[1, 1].CellStyle.Font.Size = 16;
@@ -367,13 +367,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowTimeInStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.ToString("HH:mm dd/MM/yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.FormatDateTime(); 
                     }
                     // Ra trạm
                     if (ShowTimeOutStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.ToString("HH:mm dd/MM/yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeOutStation.FormatDateTime();
                     }
                     // Tên trạm
                     if (ShowNameStation)
@@ -538,7 +538,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                    DisplayMessage.ShowMessageInfo(MobileResource.DetailsReport_Status_permission);
                 }
             });
         }
@@ -571,7 +571,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                    DisplayMessage.ShowMessageInfo(MobileResource.DetailsReport_Status_permission);
                 }
             });
         }

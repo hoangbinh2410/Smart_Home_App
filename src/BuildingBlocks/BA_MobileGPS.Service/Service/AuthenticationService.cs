@@ -158,5 +158,26 @@ namespace BA_MobileGPS.Service
             }
             return respone;
         }
+
+        public async Task<OtpResultResponse> GetsmsOTp(string targetNumber, string Namecustomer)
+        {
+            var respone = new OtpResultResponse();
+            try
+            {
+                var temp = await _IRequestProvider.GetAsync<BaseResponse<OtpResultResponse>>($"{ApiUri.GETSMSOTP}?targetNumber={targetNumber}&customerID={Namecustomer}");
+                if (temp != null)
+                {
+                    if (temp.Success)
+                    {
+                        respone = temp.Data;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return respone;
+        }
     }
 }

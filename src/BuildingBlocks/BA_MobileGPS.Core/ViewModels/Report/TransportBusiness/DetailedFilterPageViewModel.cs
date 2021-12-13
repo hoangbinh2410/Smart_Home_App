@@ -1,19 +1,16 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
 using BA_MobileGPS.Service.Report.Station;
+using BA_MobileGPS.Service.Report.TransportBusiness;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Windows.Input;
 using System.Linq;
-using BA_MobileGPS.Service.Report.TransportBusiness;
-using BA_MobileGPS.Entities.RequestEntity.Report.TransportBusiness;
-using BA_MobileGPS.Core.Constant;
-using BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness;
+using System.Reflection;
+using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
 {
@@ -178,7 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
                 {
                     { "dataCombobox", _listLocation },
                     { "ComboboxType", ComboboxType.First },
-                    { "Title", "Chọn điểm" }
+                    { "Title", MobileResource.DetailsReport_Combobox_Title_ChooseAddress }
                 };
                 await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
@@ -204,7 +201,7 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
                 {
                     { "dataCombobox", _listLocation },
                     { "ComboboxType", ComboboxType.Second },
-                    { "Title", "Chọn điểm" }
+                    { "Title", MobileResource.DetailsReport_Combobox_Title_ChooseAddress }
                 };
                 await NavigationService.NavigateAsync("BaseNavigationPage/ComboboxPage", p, useModalNavigation: true, true);
             }
@@ -270,12 +267,12 @@ namespace BA_MobileGPS.Core.ViewModels.Report.TransportBusiness
         {
             if (MinKm < 0)
             {
-                DisplayMessage.ShowMessageInfo("Giá trị km tối thiểu phải lơn hơn 0", 3000);
+                DisplayMessage.ShowMessageInfo(MobileResource.ReportBusiness_Error_MinimumDistance, 3000);
                 return false;
             }
             if (MinKm >= MaxKm)
             {
-                DisplayMessage.ShowMessageInfo("Giá trị km tối thiểu phải nhỏ hơn giá trị km tối đa", 3000);
+                DisplayMessage.ShowMessageInfo(MobileResource.ReportBusiness_Error_MinimumLessMaximum, 3000);
                 return false;
             }
             return true;

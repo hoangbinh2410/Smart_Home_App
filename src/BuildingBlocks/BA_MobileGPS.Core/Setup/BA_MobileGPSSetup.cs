@@ -248,6 +248,8 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<VerifyOTPCodePage, VerifyOTPCodePageViewModel>("VerifyOTPCodePage");
             containerRegistry.RegisterForNavigation<TransportBusinessPage, TransportBusinessPageViewModel>("TransportBusinessPage");
             containerRegistry.RegisterForNavigation<DetailedFilterPage, DetailedFilterPageViewModel>("DetailedFilterPage");
+            containerRegistry.RegisterForNavigation<NumberPhoneLoginPage, NumberPhoneLoginPageViewModel>("NumberPhoneLoginPage");
+            containerRegistry.RegisterForNavigation<VerifyOTPSmsPage, VerifyOTPSmsPageViewModel>("VerifyOTPSmsPage");
         }
     }
 }

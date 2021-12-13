@@ -17,7 +17,7 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
     x:Name="this"
-    Title="Báo cáo chuyến kinh doanh"
+    Title="{i18n:TranslateResource ReportBusiness_Label_TitlePage}"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
@@ -56,7 +56,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Báo cáo chuyến kinh doanh"
+                Text="{i18n:TranslateResource ReportBusiness_Label_TitlePage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
@@ -251,7 +251,7 @@
                                     FontSize="{DynamicResource FontSizeTextPut11}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
-                                    Placeholder="Phương tiện"
+                                    Placeholder="{i18n:TranslateResource ReportBusiness_Combobox_Vehicle}"
                                     Text="{Binding VehicleSelect.PrivateCode}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
@@ -380,7 +380,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="STT"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TitleSerial}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -414,7 +414,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Điểm đi"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartAddress}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -448,7 +448,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Điểm đến"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndAddress}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -482,7 +482,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Giờ đi"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartTime}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -516,7 +516,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Giờ đến"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndTime}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -550,7 +550,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Số phút hoạt động"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TitleTotalMinutes}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -584,7 +584,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Km GPS"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_TotalKmGps}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -618,7 +618,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Km cơ"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_KmCO}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -652,7 +652,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="NL tiêu thụ"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_FuelConsume}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -686,7 +686,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Định mức NL trên 1km"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_QuotaFuel}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -720,7 +720,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="NL tiêu thụ định mức"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_QuotaFuelConsume}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -753,7 +753,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Lộ trình"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_Router}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -772,7 +772,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="Lộ trình"
+                                            Text="{i18n:TranslateResource ReportBusiness_Header_Router}"
                                             TextColor="{DynamicResource colorDataColumn}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
@@ -792,7 +792,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Hình ảnh"
+                                        Text="{i18n:TranslateResource ReportBusiness_Header_Photo}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -814,7 +814,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="Xem"
+                                            Text="{i18n:TranslateResource ReportBusiness_Item_View}"
                                             TextColor="{DynamicResource colorDataColumn}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
@@ -843,7 +843,7 @@
                                                     HorizontalOptions="FillAndExpand"
                                                     HorizontalTextAlignment="Center"
                                                     LineBreakMode="NoWrap"
-                                                    Text="Tổng"
+                                                    Text="{i18n:TranslateResource ReportBusiness_Total}"
                                                     TextColor="Black"
                                                     VerticalOptions="FillAndExpand"
                                                     VerticalTextAlignment="Center" />
@@ -944,7 +944,7 @@
                         <Label
                             HorizontalOptions="Start"
                             Style="{DynamicResource LabelItem}"
-                            Text="CÀI ĐẶT ẨN HIỆN THÔNG TIN"
+                            Text="{i18n:TranslateResource ReportSetting_Label_DataSettings}"
                             TextColor="{DynamicResource PrimaryColor}" />
                         <Grid
                             Margin="10,0,10,0"
@@ -970,7 +970,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowStartTime}"
-                                Text="Giờ đi" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartTime}" />
 
                             <!--  Số phút hoạt động  -->
                             <checkbox:SfCheckBox
@@ -980,7 +980,7 @@
                                 CornerRadius="5.0"
                                 FontSize="13"
                                 IsChecked="{Binding ShowTimeActive}"
-                                Text="Thời gian" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_TitleTotalMinutes}" />
 
                             <!--  Giờ đến  -->
                             <checkbox:SfCheckBox
@@ -990,7 +990,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowEndTime}"
-                                Text="Giờ đến" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndTime}" />
 
                             <!--  Km GPS  -->
                             <checkbox:SfCheckBox
@@ -1000,7 +1000,7 @@
                                 CornerRadius="5.0"
                                 FontSize="13"
                                 IsChecked="{Binding ShowKmGPS}"
-                                Text="Km GPS" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_TotalKmGps}" />
 
                             <!--  Điểm đi  -->
                             <checkbox:SfCheckBox
@@ -1010,7 +1010,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowStartAddress}"
-                                Text="Điểm đi" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartAddress}" />
 
                             <!--  Tiêu thụ  -->
                             <checkbox:SfCheckBox
@@ -1020,7 +1020,7 @@
                                 CornerRadius="5.0"
                                 FontSize="13"
                                 IsChecked="{Binding ShowUseFuel}"
-                                Text="Tiêu thụ" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_FuelConsume}" />
 
                             <!--  Điểm đến  -->
                             <checkbox:SfCheckBox
@@ -1030,7 +1030,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowEndAddress}"
-                                Text="Điểm đến" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndAddress}" />
 
                             <!--  Định mức tiêu thụ  -->
                             <checkbox:SfCheckBox
@@ -1040,7 +1040,7 @@
                                 CornerRadius="5.0"
                                 FontSize="13"
                                 IsChecked="{Binding ShowNorms}"
-                                Text="Định mức tiêu thụ" />
+                                Text="{i18n:TranslateResource ReportBusiness_Header_QuotaFuelConsume}" />
 
                             <!--  button save  -->
                             <StackLayout

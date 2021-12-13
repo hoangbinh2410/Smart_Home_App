@@ -8,8 +8,9 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
-    Title="Tìm kiếm nâng cao"
+    Title="{i18n:TranslateResource ReportDetailedFilter_Label_TitlePage}"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
@@ -80,7 +81,7 @@
                             FontSize="{DynamicResource FontSizeHeader}"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
-                            Text="Địa chỉ đi"
+                            Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartAddress}"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <Frame
@@ -107,7 +108,7 @@
                                     FontSize="{DynamicResource FontSizeTextPut11}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
-                                    Placeholder="Chọn điểm đi"
+                                    Placeholder="{i18n:TranslateResource ReportDetailedFilter_Combobox_ChoosingDeparture}"
                                     Text="{Binding SelectedLocationStart.Value}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
@@ -131,7 +132,7 @@
                             FontSize="{DynamicResource FontSizeHeader}"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
-                            Text="Địa chỉ đến"
+                            Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndAddress}"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <Frame
@@ -158,7 +159,7 @@
                                     FontSize="{DynamicResource FontSizeTextPut11}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
-                                    Placeholder="Chọn điểm đến"
+                                    Placeholder="{i18n:TranslateResource ReportDetailedFilter_Combobox_ChoosingArrival}"
                                     Text="{Binding SelectedLocationEnd.Value}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
@@ -182,7 +183,7 @@
                             FontSize="{DynamicResource FontSizeHeader}"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
-                            Text="Số km tối thiểu"
+                            Text="{i18n:TranslateResource ReportDetailedFilter_Label_MinimumDistance}"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <Frame
@@ -218,7 +219,7 @@
                             FontSize="{DynamicResource FontSizeHeader}"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
-                            Text="Số km tối đa"
+                            Text="{i18n:TranslateResource ReportDetailedFilter_Label_MaximumDistance}"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <Frame
@@ -259,7 +260,7 @@
                             FontSize="16"
                             HorizontalOptions="Start"
                             IsChecked="{Binding ISCheckAddress}"
-                            Text="Không đi qua điểm nào"
+                            Text="{i18n:TranslateResource ReportDetailedFilter_CheckBox_NoChoosing}"
                             TextColor="Black" />
                     </StackLayout>
                 </StackLayout>
@@ -275,7 +276,7 @@
                         Command="{Binding ExcuteFilterCommand}"
                         CornerRadius="20"
                         HorizontalOptions="CenterAndExpand"
-                        Text="Áp dụng"
+                        Text="{i18n:TranslateResource ReportDetailedFilter_btn_Apply}"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="200" />
                 </StackLayout>

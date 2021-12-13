@@ -520,6 +520,7 @@
         #endregion datetimepicker
 
         #region report
+
         Common_Combobox_TitleCompany,
         Common_Combobox_TitleVehicle,
         Common_Button_Search,
@@ -749,6 +750,8 @@
         DetailsReport_CheckBox_QuotaFuelConsume,
         DetailsReport_CheckBox_StartAddress,
         DetailsReport_CheckBox_EndAddress,
+        DetailsReport_Combobox_Title_ChooseAddress,
+        DetailsReport_Status_permission,
 
         StopParkingReport_Label_TilePage,
         StopParkingReport_Label_TitlePageDetail,
@@ -845,9 +848,7 @@
         ChartFuel_Label_PourTotal,
         ChartFuel_Label_SuckTotal,
         ChartFuel_Label_LastLits,
-        #endregion report
-
-        #region
+        
         ReportTemperature_Label_Temperature,
         ReportTemperature_Label_TitlePage,
         ReportTemperature_Label_Grid_Kilomet,
@@ -870,6 +871,7 @@
         ReportTemperature_Label_TitlePageDetail,
         ReportMachine_TitleStatusMachine,
         ReportMachine_Label_PlaceHolder_CountMinutes,
+        ReportStation_Text_PlaceHolder_CountMinutes,
         ReportMachine_Label_PlaceHolder_StatusMachine,
         ReportMachine_Label_Grid_Minutes,
         ReportMachine_Label_TitlePage,
@@ -890,7 +892,51 @@
         ReportMachine_Label_EngineTurnOn,
         ReportMachine_Label_EngineTurnOff,
 
-        #endregion
+        ReportStation_Label_TitlePage,
+        ReportStation_Combobox_Vehicle,
+        ReportStation_Header_TitleSerial,
+        ReportStation_Header_TitleIntoStation,
+        ReportStation_Header_TitleUottoStation,
+        ReportStation_Header_TitleStationName,
+        ReportStation_Header_TitleMinutesInStatione,
+        ReportStation_Header_Router,
+        ReportStation_Header_VideoLink,
+        ReportStation_Item_View,
+        ReportStation_Label_DataSettings,
+
+        ReportBusiness_Label_TitlePage,
+        ReportBusiness_Combobox_Vehicle,
+        ReportBusiness_Header_TitleSerial,
+        ReportBusiness_Header_TitleStartAddress,
+        ReportBusiness_Header_TitleEndAddress,
+        ReportBusiness_Header_TitleStartTime,
+        ReportBusiness_Header_TitleEndTime,
+        ReportBusiness_Header_TitleTotalMinutes,
+        ReportBusiness_Header_TotalKmGps,
+        ReportBusiness_Header_KmCO,
+        ReportBusiness_Header_FuelConsume,
+        ReportBusiness_Header_QuotaFuel,
+        ReportBusiness_Header_QuotaFuelConsume,
+        ReportBusiness_Header_Router,
+        ReportBusiness_Header_Photo,
+        ReportBusiness_Item_View,
+        ReportBusiness_Total,
+        ReportBusiness_Error_MinimumDistance,
+        ReportBusiness_Error_MinimumLessMaximum,
+        ReportDetailedFilter_Label_TitlePage,
+        ReportDetailedFilter_Label_Departure,
+        ReportDetailedFilter_Combobox_ChoosingDeparture,
+        ReportDetailedFilter_Label_Arrival,
+        ReportDetailedFilter_Combobox_ChoosingArrival,
+        ReportDetailedFilter_Label_MinimumDistance,
+        ReportDetailedFilter_Label_MaximumDistance,
+        ReportDetailedFilter_CheckBox_NoChoosing,
+        ReportDetailedFilter_btn_Apply,
+        ReportSetting_Label_DataSettings,
+        ReportSetting_Label_TableFormat,
+        ReportSetting_Label_ListFormat,
+
+        #endregion report
 
         #region Camera
         Camera_Label_MenuTitle,
