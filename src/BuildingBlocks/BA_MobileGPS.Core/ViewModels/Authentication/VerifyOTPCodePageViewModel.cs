@@ -29,8 +29,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public ValidatableObject<string> OtpValue { get; set; }
         private bool _isGetOTPAgain;
         private OtpResultResponse _objOtp;
-        private static Timer _timerGetOTPAgain;
-        private static Timer _timerCountDown;
+        private Timer _timerGetOTPAgain;
+        private Timer _timerCountDown;
         private int index = 60;
 
         #endregion Property

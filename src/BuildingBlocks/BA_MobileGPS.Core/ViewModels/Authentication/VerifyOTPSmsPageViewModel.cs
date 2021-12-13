@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private string _userName = string.Empty;
         private string _password = string.Empty;
 
-        private static Timer _timerCountDown;
+        private Timer _timerCountDown;
         public int index = 300;
         private OtpResultResponse _objOtp;
 
@@ -49,6 +49,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PushMainPageCommand = new DelegateCommand(PushMainPage);
             InitValidations();
             _iAuthenticationService = iAuthenticationService;
+            SetTimerCountDown();
         }
 
         #endregion Contructor
@@ -78,7 +79,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 _password = password;
             }
-            SetTimerCountDown();
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -113,12 +113,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void SetTimerCountDown()
         {
-            _timerCountDown = new Timer();
+            _timerCountDown = new Timer(1000);
+            _timerCountDown.Elapsed += OnTimedEventCountDown;
             _timerCountDown.AutoReset = true;
             _timerCountDown.Enabled = true;
-            _timerCountDown.Elapsed += OnTimedEventCountDown;
-            _timerCountDown.Interval = 1000;
-            _timerCountDown.Start();
         }
 
         private void OnTimedEventCountDown(Object source, System.Timers.ElapsedEventArgs e)
@@ -130,8 +128,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 TimeRequest = index.ToString();
                 _timerCountDown.Close();
             }
-
-            index--;
+            if(index > 0)
+            {
+                index--;
+            }    
+            
         }
 
         // lấy lại mã OTP
@@ -149,6 +150,10 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
+                                if(_objOtp != null)
+                                {
+                                    DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
+                                }    
                             }
                         }
                         // Nếu không lấy lại mã sms
@@ -163,11 +168,14 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                                if (objsbsResponse != null)
+                                {
+                                    DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
+                                }
                             }
                         }
                     }
                     index = 300;
-                    _timerCountDown.Close();
                     SetTimerCountDown();
                 }
                 else

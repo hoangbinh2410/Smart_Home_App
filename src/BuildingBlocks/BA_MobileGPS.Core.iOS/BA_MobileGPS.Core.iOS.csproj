@@ -2753,6 +2753,9 @@
     <BundleResource Include="Resources\ic_qrzalo.jpg" />
     <BundleResource Include="Resources\ic_qrzalo%402x.jpg" />
     <BundleResource Include="Resources\ic_qrzalo%403x.jpg" />
+    <BundleResource Include="Resources\ic_helpcustomer2.png" />
+    <BundleResource Include="Resources\ic_helpcustomer2%402x.png" />
+    <BundleResource Include="Resources\ic_helpcustomer2%403x.png" />
     <Content Include="Resources\ic_rank1%402x.png" />
     <Content Include="Resources\ic_rank1%403x.png" />
     <Content Include="Resources\ic_rank1.png" />

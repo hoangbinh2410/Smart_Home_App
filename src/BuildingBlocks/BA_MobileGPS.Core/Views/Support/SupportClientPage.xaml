@@ -120,6 +120,7 @@
                     </StackLayout>
                     <Grid>
                         <syncfusion:SfListView
+                            HeightRequest="220"
                             ItemSize="60"
                             ItemSpacing="0,0,0,15"
                             ItemsSource="{Binding MenuItems, Mode=TwoWay}"
@@ -187,7 +188,31 @@
                                 Text="Không có dữ liệu" />
                         </StackLayout>
                     </Grid>
-                    <StackLayout />
+                    <Grid ColumnDefinitions="Auto,*" VerticalOptions="StartAndExpand">
+                        <controls:IconView
+                            Grid.Column="0"
+                            Foreground="#00ADE5"
+                            HeightRequest="16"
+                            HorizontalOptions="CenterAndExpand"
+                            Source="ic_phone.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="16" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Italic"
+                            FontSize="13"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{DynamicResource LabelItem}"
+                            TextColor="#00ADE5"
+                            VerticalOptions="CenterAndExpand">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Gọi điện tới hotline CSKH 1900 6464" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
                 </StackLayout>
             </pancake:PancakeView>
         </Grid>
