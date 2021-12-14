@@ -12,7 +12,7 @@
     <ScrollView>
         <Grid RowSpacing="0">
             <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
-            <Grid RowDefinitions="*,2.5*" RowSpacing="0">
+            <Grid RowDefinitions="*,3*" RowSpacing="0">
                 <ff:CachedImage
                     Grid.Row="0"
                     HeightRequest="90"
@@ -41,7 +41,7 @@
                                     TextColor="{DynamicResource WhiteColor}">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="Thời gian hiệu lực mã OPT còn " />
+                                            <Span Text="Thời gian hiệu lực mã OTP còn " />
                                             <Span Text="{Binding TimeRequest}" />
                                             <Span Text="s" />
                                         </FormattedString>
@@ -53,10 +53,8 @@
                             <!--  Nhập mã OTP  -->
                             <input:SfTextInputLayout
                                 ContainerType="Outlined"
-                                ErrorText="{Binding OtpSms.ErrorFirst}"
                                 FocusedColor="Transparent"
                                 FocusedStrokeWidth="0"
-                                HasError="{Binding OtpSms.IsNotValid}"
                                 StyleClass="LoginEntry"
                                 UnfocusedColor="Transparent"
                                 UnfocusedStrokeWidth="0">
@@ -64,7 +62,7 @@
                                     <Entry
                                         HeightRequest="{OnPlatform Android=40,
                                                                    iOS=30}"
-                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalTextAlignment="Center"
                                         Keyboard="Telephone"
                                         MaxLength="6"
                                         Placeholder="Nhập mã xác thực"

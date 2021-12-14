@@ -115,7 +115,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             if (NumberPhone.Value.Trim() != _user.PhoneNumber.Trim())
             {
-                DisplayMessage.ShowMessageInfo("Vui lòng nhập số điện thoại đã đăng ký tài khoản", 5000);
+                DisplayMessage.ShowMessageInfo("Quý khách chưa nhập đúng số điện thoại đăng ký. Vui lòng thử lại.", 5000);
                 return false;
             }
             return true;

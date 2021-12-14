@@ -597,7 +597,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", UserName.Value },
                         { "Password", Password.Value },
                     };
-                    await NavigationService.NavigateAsync("/NumberPhoneLoginPage", parameters);
+                    await NavigationService.NavigateAsync("BaseNavigationPage/NumberPhoneLoginPage", parameters);
                 }    
                 else
                 {
