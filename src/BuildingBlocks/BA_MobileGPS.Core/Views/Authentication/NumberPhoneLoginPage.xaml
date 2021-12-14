@@ -40,7 +40,10 @@
         <Grid>
             <Grid RowSpacing="0">
                 <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
-                <Grid RowDefinitions="*,2.5*" RowSpacing="0">
+                <Grid
+                    HorizontalOptions="Center"
+                    RowDefinitions="*,2.5*"
+                    RowSpacing="0">
                     <ff:CachedImage
                         Grid.Row="0"
                         HeightRequest="90"
@@ -52,14 +55,24 @@
                         Grid.Row="1"
                         HorizontalOptions="Center"
                         Spacing="40">
-                        <Grid RowDefinitions="Auto,*" RowSpacing="20">
-                            <StackLayout Grid.Row="0" Spacing="40">
+                        <Grid
+                            HorizontalOptions="Center"
+                            RowDefinitions="Auto,*"
+                            RowSpacing="20"
+                            VerticalOptions="FillAndExpand">
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="20,0,20,0"
+                                HorizontalOptions="Center"
+                                Spacing="30">
                                 <!--  Text hướng dẫn  -->
                                 <Label
-                                    Padding="50,0,50,0"
                                     FontSize="14"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
                                     Text="Để tăng cường bảo mật, quý khách vui lòng nhập số điện thoại của mình để xác nhận. Tin nhắn mã OTP sẽ được gửi về số điện thoại của quý khách."
-                                    TextColor="{DynamicResource WhiteColor}" />
+                                    TextColor="{DynamicResource WhiteColor}"
+                                    VerticalOptions="FillAndExpand" />
                                 <!--  Entry  -->
                                 <!--  Nhập số điện thoại  -->
                                 <input:SfTextInputLayout
@@ -162,13 +175,21 @@
                         Source="logo_Login.png"
                         VerticalOptions="CenterAndExpand"
                         WidthRequest="180" />
-                    <StackLayout Grid.Row="1" Spacing="20">
+                    <StackLayout
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        Spacing="20">
                         <Grid RowDefinitions="Auto,Auto,*" RowSpacing="20">
-                            <StackLayout Grid.Row="0" Spacing="20">
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="20,0,20,0"
+                                HorizontalOptions="Center"
+                                Spacing="20">
                                 <!--  Text hướng dẫn  -->
                                 <Label
-                                    Padding="50,0,50,0"
                                     FontSize="14"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
                                     Text="Vui lòng nhập số điện thoại đã đăng ký tài khoản và nhấn quan tâm kênh Zalo Bình Anh để nhận mã OTP"
                                     TextColor="{DynamicResource WhiteColor}" />
                                 <!--  Entry  -->
@@ -238,10 +259,10 @@
                             <StackLayout Grid.Row="1" Spacing="5">
                                 <ff:CachedImage
                                     BitmapOptimizations="True"
-                                    HeightRequest="150"
+                                    HeightRequest="120"
                                     Source="ic_qrzalo.png"
                                     VerticalOptions="Center"
-                                    WidthRequest="150" />
+                                    WidthRequest="120" />
                                 <Label
                                     HorizontalOptions="Center"
                                     Text="Quét mã QR Zalo Bình Anh"
