@@ -124,13 +124,13 @@ namespace BA_MobileGPS.Core.ViewModels
         private void OnTimedEventCountDown(Object source, System.Timers.ElapsedEventArgs e)
         {
             TimeRequest = index.ToString();
-
+            
             if (index == 0)
             {
                 TimeRequest = index.ToString();
                 _timerCountDown.Close();
+                return;
             }
-
             index--;
         }
 
