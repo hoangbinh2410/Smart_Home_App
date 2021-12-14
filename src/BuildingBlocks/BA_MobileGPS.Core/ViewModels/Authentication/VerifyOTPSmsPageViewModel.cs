@@ -149,6 +149,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
+                                DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công.", 5000);
                             }
                         }
                         // Nếu không lấy lại mã sms
@@ -163,6 +164,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                                DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công.", 5000);
                             }
                         }
                     }
