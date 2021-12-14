@@ -575,20 +575,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
 
-                // Kiểm tra tài khoản có bảo mất 2 lớp otp qua sms
-                //if (user.IsNeededOtp)
-                //{
-                //    var parameters = new NavigationParameters
-                //    {
-                //        { "User", user },
-                //        { "Rememberme", Rememberme },
-                //        { "UserName", UserName.Value },
-                //        { "Password", Password.Value },
-                //    };
-                //    await NavigationService.NavigateAsync("/NumberPhoneLoginPage", parameters);
-                //}
-                // Kiểm tra tài khoản có bảo mất 2 lớp otp qua zalo
-                if (user.Has2FactorAuthentication)
+                // Kiểm tra tài khoản có bảo mất 2 lớp otp sms
+                if (user.IsNeededOtp)
                 {
                     var parameters = new NavigationParameters
                     {
@@ -597,7 +585,19 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", UserName.Value },
                         { "Password", Password.Value },
                     };
-                    await NavigationService.NavigateAsync("BaseNavigationPage/NumberPhoneLoginPage", parameters);
+                    await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
+                }
+                // Kiểm tra tài khoản có bảo mất 2 lớp otp zalo
+                else if (user.Has2FactorAuthentication)
+                {
+                    var parameters = new NavigationParameters
+                    {
+                        { "User", user },
+                        { "Rememberme", Rememberme },
+                        { "UserName", UserName.Value },
+                        { "Password", Password.Value },
+                    };
+                    await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
                 }    
                 else
                 {

@@ -350,13 +350,13 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowStartTime)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].StartTime.ToString("HH:mm dd/MM/yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].StartTime.FormatDateTime();
                     }
                     // Giờ đến
                     if (ShowEndTime)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].EndTime.ToString("HH:mm dd/MM/yyyy");
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].EndTime.FormatDateTime();
                     }
                     // Số phút hoạt động
                     if (ShowTimeActive)
@@ -632,7 +632,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                    DisplayMessage.ShowMessageInfo(MobileResource.DetailsReport_Status_permission);
                 }
             });
         }
@@ -685,7 +685,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Bạn không có quyền truy cập chức năng này");
+                    DisplayMessage.ShowMessageInfo(MobileResource.DetailsReport_Status_permission);
                 }
             });
         }

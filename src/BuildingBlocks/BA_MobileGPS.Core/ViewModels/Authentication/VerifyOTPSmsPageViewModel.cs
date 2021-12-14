@@ -17,7 +17,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Property
 
-        private string timeRequest = String.Empty;
+        private string timeRequest = "300";
         public string TimeRequest
         { 
             get { return timeRequest; } 
@@ -123,13 +123,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void OnTimedEventCountDown(Object source, System.Timers.ElapsedEventArgs e)
         {
-            index--;
+            TimeRequest = index.ToString();
+
             if (index == 0)
             {
                 TimeRequest = index.ToString();
                 _timerCountDown.Close();
             }
-            TimeRequest = index.ToString();
+
+            index--;
         }
 
         // lấy lại mã OTP
@@ -164,15 +166,16 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
+                    index = 300;
+                    _timerCountDown.Close();
+                    SetTimerCountDown();
                 }
                 else
                 {
                     DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại, mã OTP đã được gửi!", 5000);
                 }             
             });
-            index = 300;
-           _timerCountDown.Close();
-            SetTimerCountDown();
+            
         }
         // check OTP
         private bool CheckVerifyOtpZalo()

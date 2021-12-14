@@ -81,7 +81,7 @@
                             FontSize="{DynamicResource FontSizeHeader}"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
-                            Text="{i18n:TranslateResource ReportDetailedFilter_Label_Departure}"
+                            Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartAddress}"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <Frame
@@ -132,7 +132,7 @@
                             FontSize="{DynamicResource FontSizeHeader}"
                             HorizontalOptions="StartAndExpand"
                             LineBreakMode="MiddleTruncation"
-                            Text="{i18n:TranslateResource ReportDetailedFilter_Label_Arrival}"
+                            Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndAddress}"
                             TextColor="Black"
                             VerticalOptions="Center" />
                         <Frame
@@ -276,7 +276,7 @@
                         Command="{Binding ExcuteFilterCommand}"
                         CornerRadius="20"
                         HorizontalOptions="CenterAndExpand"
-                        Text="Áp dụng"
+                        Text="{i18n:TranslateResource ReportDetailedFilter_btn_Apply}"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="200" />
                 </StackLayout>

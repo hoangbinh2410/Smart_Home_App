@@ -172,7 +172,7 @@
                                 <Label
                                     Padding="50,0,50,0"
                                     FontSize="14"
-                                    Text="Vui lòng nhập số điện thoại đã đăng ký tài khoản và nhấn like kênh Zalo Bình Anh để nhận mã OTP"
+                                    Text="Vui lòng nhập số điện thoại đã đăng ký tài khoản và nhấn quan tâm kênh Zalo Bình Anh để nhận mã OTP"
                                     TextColor="{DynamicResource WhiteColor}" />
                                 <!--  Entry  -->
                                 <!--  Nhập số điện thoại  -->
@@ -242,7 +242,7 @@
                                 <ff:CachedImage
                                     BitmapOptimizations="True"
                                     HeightRequest="150"
-                                    Source="ic_bounded_area.png"
+                                    Source="ic_qrzalo.png"
                                     VerticalOptions="Center"
                                     WidthRequest="150" />
                                 <Label

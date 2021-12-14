@@ -601,7 +601,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="Lộ trình"
+                                            Text="{i18n:TranslateResource ReportStation_Header_Router}"
                                             TextColor="{DynamicResource colorDataColumn}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
@@ -621,7 +621,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="{i18n:TranslateResource ReportStation_Header_VidioLink}"
+                                        Text="{i18n:TranslateResource ReportStation_Header_VideoLink}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -643,7 +643,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="Xem"
+                                            Text="{i18n:TranslateResource ReportStation_Item_View}"
                                             TextColor="{DynamicResource colorDataColumn}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
