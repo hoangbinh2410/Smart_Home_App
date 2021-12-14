@@ -46,13 +46,13 @@
                         HeightRequest="90"
                         HorizontalOptions="Center"
                         Source="logo_Login.png"
-                        VerticalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
                         WidthRequest="180" />
-                    <StackLayout Grid.Row="1" Spacing="40">
-                        <Grid
-                            RowDefinitions="Auto,*"
-                            RowSpacing="20"
-                            VerticalOptions="CenterAndExpand">
+                    <StackLayout
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        Spacing="40">
+                        <Grid RowDefinitions="Auto,*" RowSpacing="20">
                             <StackLayout Grid.Row="0" Spacing="40">
                                 <!--  Text hướng dẫn  -->
                                 <Label
@@ -154,19 +154,16 @@
             <!--  IsOTPZalo  -->
             <Grid IsVisible="{Binding IsOTPZalo}" RowSpacing="0">
                 <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
-                <Grid RowDefinitions="*,2.7*" RowSpacing="0">
+                <Grid RowDefinitions="*,2.5*" RowSpacing="0">
                     <ff:CachedImage
                         Grid.Row="0"
                         HeightRequest="90"
                         HorizontalOptions="Center"
                         Source="logo_Login.png"
-                        VerticalOptions="EndAndExpand"
+                        VerticalOptions="CenterAndExpand"
                         WidthRequest="180" />
                     <StackLayout Grid.Row="1" Spacing="20">
-                        <Grid
-                            RowDefinitions="Auto,Auto,*"
-                            RowSpacing="20"
-                            VerticalOptions="CenterAndExpand">
+                        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="20">
                             <StackLayout Grid.Row="0" Spacing="20">
                                 <!--  Text hướng dẫn  -->
                                 <Label
