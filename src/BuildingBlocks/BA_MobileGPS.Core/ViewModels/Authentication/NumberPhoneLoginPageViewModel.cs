@@ -56,10 +56,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
             {
                 _user = user;
-                //if (!user.IsNeededOtp)
-                //{
-                //    IsOTPZalo = true;
-                //}
+                if (!user.IsNeededOtp)
+                {
+                    IsOTPZalo = true;
+                }
             }
             if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
             {
