@@ -122,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private void OnTimedEventCountDown(Object source, System.Timers.ElapsedEventArgs e)
         {
             TimeRequest = index.ToString();
-
+            
             if (index == 0)
             {
                 TimeRequest = index.ToString();
@@ -213,6 +213,11 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (IsConnected)
             {
+                if (string.IsNullOrEmpty(OtpSms.Value))
+                {
+                    DisplayMessage.ShowMessageInfo("Mã OTP không được để trống", 5000);
+                    return;
+                }
                 SafeExecute(async () =>
                 {
                     if (IsConnected)

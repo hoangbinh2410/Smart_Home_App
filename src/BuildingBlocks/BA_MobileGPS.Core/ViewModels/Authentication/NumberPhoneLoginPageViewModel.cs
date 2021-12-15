@@ -56,10 +56,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
             {
                 _user = user;
-                if (!user.IsNeededOtp)
-                {
-                    IsOTPZalo = true;
-                }
+                //if (!user.IsNeededOtp)
+                //{
+                //    IsOTPZalo = true;
+                //}
             }
             if (parameters.ContainsKey("Rememberme") && parameters.GetValue<bool>("Rememberme") is bool rememberme)
             {
@@ -115,7 +115,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             if (NumberPhone.Value.Trim() != _user.PhoneNumber.Trim())
             {
-                DisplayMessage.ShowMessageInfo("Qúy khách nhập chưa đúng số điện thoại đăng ký tài khoản", 5000);
+                DisplayMessage.ShowMessageInfo("Quý khách chưa nhập đúng số điện thoại đăng ký tài khoản. Vui lòng thử lại.", 5000);
                 return false;
             }
             return true;
@@ -142,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
-                       objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                       objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);                    
                     }
                 }
                 else
@@ -160,11 +160,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", _userName },
                         { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);                 
                 }
                 else
                 {
                     DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại số điện thoại", 5000);
+                    return;
                 }
             });
         }
