@@ -142,7 +142,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     };
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
-                       objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                       objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);                    
                     }
                 }
                 else
@@ -160,11 +160,12 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", _userName },
                         { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);                 
                 }
                 else
                 {
                     DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại số điện thoại", 5000);
+                    return;
                 }
             });
         }
