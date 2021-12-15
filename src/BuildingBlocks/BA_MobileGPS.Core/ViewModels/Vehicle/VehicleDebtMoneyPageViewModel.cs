@@ -90,13 +90,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     InitVehicleFree(StaticSettings.ListVehilceFree.ToList());
                 }
             }
-            else if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
-            {
-                isLoginAnnountment = init;
-            }
         }
-
-        private bool isLoginAnnountment { get; set; }
 
         public override void OnPageAppearingFirstTime()
         {
@@ -105,10 +99,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public override void OnNavigatedFrom(INavigationParameters parameters)
         {
-            if (isLoginAnnountment)
-            {
-                parameters.Add(ParameterKey.IsLoginAnnouncement, true);
-            }
             base.OnNavigatedFrom(parameters);
         }
 

@@ -58,6 +58,26 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+
+        public async Task<bool> DevicesStartMultiple(CameraStartMultipleRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_DEVICESTARTMULTIPLE}";
+                var respone = await requestProvider.PostAsync<CameraStartMultipleRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<bool> DevicesStop(CameraStopRequest request)
         {
             var result = false;
@@ -103,6 +123,25 @@ namespace BA_MobileGPS.Service.Service
             {
                 string url = $"{ApiUri.POST_DEVICEPING}";
                 var respone = await requestProvider.PostAsync<CameraStartRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<bool> DevicesPingMultiple(CameraStartMultipleRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_DEVICEPINGMULTIPLE}";
+                var respone = await requestProvider.PostAsync<CameraStartMultipleRequest, ResponseStreamBase<bool>>(url, request);
                 if (respone != null && respone.Data)
                 {
                     result = respone.Data;

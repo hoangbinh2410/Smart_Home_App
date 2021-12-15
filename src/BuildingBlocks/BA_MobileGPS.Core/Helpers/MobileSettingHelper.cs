@@ -248,6 +248,8 @@ namespace BA_MobileGPS.Core
 
         public static string UrlBackgroudBottomHomePage => Get(MobileConfigurationNames.UrlBackgroudBottomHomePage, "bg_HomeBot");
 
+        public static string XNStartStreamAfterLogin => Get(MobileConfigurationNames.XNStartStreamAfterLogin, "71288,390");
+
 
     }
 }
