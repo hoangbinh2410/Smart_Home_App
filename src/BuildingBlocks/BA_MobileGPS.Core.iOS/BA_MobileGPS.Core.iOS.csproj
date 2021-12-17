@@ -2750,9 +2750,9 @@
     <BundleResource Include="Resources\ic_notmask.png" />
     <BundleResource Include="Resources\ic_notmask%402x.png" />
     <BundleResource Include="Resources\ic_notmask%403x.png" />
-    <BundleResource Include="Resources\ic_qrzalo.jpg" />
-    <BundleResource Include="Resources\ic_qrzalo%402x.jpg" />
-    <BundleResource Include="Resources\ic_qrzalo%403x.jpg" />
+    <Content Include="Resources\ic_qrzalo.png" />
+    <Content Include="Resources\ic_qrzalo%402x.png" />
+    <Content Include="Resources\ic_qrzalo%403x.png" />
     <BundleResource Include="Resources\ic_helpcustomer2.png" />
     <BundleResource Include="Resources\ic_helpcustomer2%402x.png" />
     <BundleResource Include="Resources\ic_helpcustomer2%403x.png" />
