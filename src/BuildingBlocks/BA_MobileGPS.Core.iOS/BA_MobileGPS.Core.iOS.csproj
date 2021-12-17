@@ -2750,9 +2750,6 @@
     <BundleResource Include="Resources\ic_notmask.png" />
     <BundleResource Include="Resources\ic_notmask%402x.png" />
     <BundleResource Include="Resources\ic_notmask%403x.png" />
-    <Content Include="Resources\ic_qrzalo.png" />
-    <Content Include="Resources\ic_qrzalo%402x.png" />
-    <Content Include="Resources\ic_qrzalo%403x.png" />
     <BundleResource Include="Resources\ic_helpcustomer2.png" />
     <BundleResource Include="Resources\ic_helpcustomer2%402x.png" />
     <BundleResource Include="Resources\ic_helpcustomer2%403x.png" />
@@ -2771,6 +2768,9 @@
     <BundleResource Include="Resources\ic_usernotdistance.png" />
     <BundleResource Include="Resources\ic_usernotdistance%402x.png" />
     <BundleResource Include="Resources\ic_usernotdistance%403x.png" />
+    <BundleResource Include="Resources\ic_zaloqr%403x.png" />
+    <BundleResource Include="Resources\ic_zaloqr.png" />
+    <BundleResource Include="Resources\ic_zaloqr%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_btnyes.png" />
