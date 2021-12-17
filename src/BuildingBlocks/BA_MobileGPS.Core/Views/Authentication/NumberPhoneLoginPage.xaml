@@ -260,7 +260,7 @@
                                 <ff:CachedImage
                                     BitmapOptimizations="True"
                                     HeightRequest="120"
-                                    Source="ic_qrzalo.png"
+                                    Source="ic_zaloqr.png"
                                     VerticalOptions="Center"
                                     WidthRequest="120" />
                                 <Label
