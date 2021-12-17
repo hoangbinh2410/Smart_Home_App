@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Helpers;
+using BA_MobileGPS.Entities;
 using BA_MobileGPS.Utilities;
 using Prism;
 using Prism.AppModel;
@@ -248,9 +249,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void CallHotLine()
         {
-            if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+            try
             {
-                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                var phoneNumber = MobileSettingHelper.HotlineGps;
+                if (GlobalResources.Current.PartnerConfig != null && !string.IsNullOrEmpty(GlobalResources.Current.PartnerConfig.Email))
+                {
+                    phoneNumber = GlobalResources.Current.PartnerConfig.Hotline;
+                }
+                if (!string.IsNullOrEmpty(phoneNumber))
+                {
+                    PhoneDialer.Open(phoneNumber);
+                }
+            }
+            catch
+            {
+                if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+                {
+                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                }
             }
         }
     }

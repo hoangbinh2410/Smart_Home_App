@@ -455,7 +455,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var parameters = new NavigationParameters
                     {
-                        { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
+                        { ParameterKey.KPIRankDriverID,obj.DriverId },
                          { ParameterKey.KPIRankPage,DateRank },
                     };
                     await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);

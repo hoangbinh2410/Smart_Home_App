@@ -234,18 +234,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (result != null && result.Count > 0)
                 {
-                    for (int i = 0; i < result.Count; i++)
-                    {
-                        result[i].STT = i + 1;
-                        if (result[i].DriverId == AverageRankPoint.DriverId)
-                        {
-                            result[i].BacgroundYourDriver = Color.FromHex("#6FDCFF");
-                        }
-                        else
-                        {
-                            result[i].BacgroundYourDriver = Color.FromHex("#D6F3FF");
-                        }
-                    }
                     ListRankUserOrigin = result;
                     RankUserSource = result.ToObservableCollection();
                     var lstUserShowRank = result.OrderByDescending(x => x.AverageScore).Take(3).ToList();
@@ -345,7 +333,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     var parameters = new NavigationParameters
                     {
-                        { ParameterKey.KPIRankDriverID,AverageRankPoint.DriverId },
+                        { ParameterKey.KPIRankDriverID,obj.DriverId },
                          { ParameterKey.KPIRankPage,DateRank },
                     };
                     await NavigationService.NavigateAsync("KpiDriverChartPage", parameters);

@@ -33,7 +33,6 @@ namespace BA_MobileGPS.Core.ViewModels
             this.authenticationService = authenticationService;
             this.mobileSettingService = mobileSettingService;
             InitValidations();
-            isShowRegisterSupport = false;
         }
 
         #endregion Constructor
@@ -44,7 +43,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             if (parameters.TryGetValue(ParameterKey.Logout, out bool isLogout))
             {
-                IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
                 if (!isLogout)
                 {
                     GetMobileVersion();
@@ -157,17 +155,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private bool isShowRegisterSupport;
-
-        public bool IsShowRegisterSupport
-        {
-            get => isShowRegisterSupport;
-            set
-            {
-                SetProperty(ref isShowRegisterSupport, value);
-                RaisePropertyChanged();
-            }
-        }
 
         #endregion Property
 
@@ -467,7 +454,6 @@ namespace BA_MobileGPS.Core.ViewModels
                if (result != null && result.Count > 0)
                {
                    MobileSettingHelper.SetData(result);
-                   IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
                }
            });
         }

@@ -553,7 +553,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     return await streamCameraService.StartPlayback(start);
                 }, async (result) =>
                 {
-                    if (result != null && result.StatusCode == 0)
+                    if (result != null && result.StatusCode == 0 && result.Data !=null)
                     {
                         var model = result.Data.FirstOrDefault();
                         if (model != null)
