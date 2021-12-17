@@ -8256,229 +8256,229 @@ namespace BA_MobileGPS.Core.Droid
 			public static int ic_point_warehouse = 2131165788;
 			
 			// aapt resource value: 0x7F07025D
-			public static int ic_qrzalo = 2131165789;
+			public static int ic_rada = 2131165789;
 			
 			// aapt resource value: 0x7F07025E
-			public static int ic_rada = 2131165790;
+			public static int ic_radius = 2131165790;
 			
 			// aapt resource value: 0x7F07025F
-			public static int ic_radius = 2131165791;
+			public static int ic_rank1 = 2131165791;
 			
 			// aapt resource value: 0x7F070260
-			public static int ic_rank1 = 2131165792;
+			public static int ic_rank2 = 2131165792;
 			
 			// aapt resource value: 0x7F070261
-			public static int ic_rank2 = 2131165793;
+			public static int ic_rank3 = 2131165793;
 			
 			// aapt resource value: 0x7F070262
-			public static int ic_rank3 = 2131165794;
+			public static int ic_ratingstar = 2131165794;
 			
 			// aapt resource value: 0x7F070263
-			public static int ic_ratingstar = 2131165795;
+			public static int ic_redlocation = 2131165795;
 			
 			// aapt resource value: 0x7F070264
-			public static int ic_redlocation = 2131165796;
+			public static int ic_refresh = 2131165796;
 			
 			// aapt resource value: 0x7F070265
-			public static int ic_refresh = 2131165797;
+			public static int ic_reload = 2131165797;
 			
 			// aapt resource value: 0x7F070266
-			public static int ic_reload = 2131165798;
-			
-			// aapt resource value: 0x7F070267
-			public static int ic_route = 2131165799;
-			
-			// aapt resource value: 0x7F070269
-			public static int ic_routesolid = 2131165801;
+			public static int ic_route = 2131165798;
 			
 			// aapt resource value: 0x7F070268
-			public static int ic_route_time = 2131165800;
+			public static int ic_routesolid = 2131165800;
+			
+			// aapt resource value: 0x7F070267
+			public static int ic_route_time = 2131165799;
+			
+			// aapt resource value: 0x7F070269
+			public static int ic_save = 2131165801;
 			
 			// aapt resource value: 0x7F07026A
-			public static int ic_save = 2131165802;
+			public static int ic_save_driver = 2131165802;
 			
 			// aapt resource value: 0x7F07026B
-			public static int ic_save_driver = 2131165803;
+			public static int ic_search = 2131165803;
 			
 			// aapt resource value: 0x7F07026C
-			public static int ic_search = 2131165804;
+			public static int ic_settingfavorites = 2131165804;
 			
 			// aapt resource value: 0x7F07026D
-			public static int ic_settingfavorites = 2131165805;
+			public static int ic_settings = 2131165805;
 			
 			// aapt resource value: 0x7F07026E
-			public static int ic_settings = 2131165806;
+			public static int ic_share = 2131165806;
 			
 			// aapt resource value: 0x7F07026F
-			public static int ic_share = 2131165807;
+			public static int ic_sharecircle = 2131165807;
 			
 			// aapt resource value: 0x7F070270
-			public static int ic_sharecircle = 2131165808;
+			public static int ic_ship = 2131165808;
 			
 			// aapt resource value: 0x7F070271
-			public static int ic_ship = 2131165809;
+			public static int ic_shipsolid = 2131165809;
 			
 			// aapt resource value: 0x7F070272
-			public static int ic_shipsolid = 2131165810;
+			public static int ic_shortlogo = 2131165810;
 			
 			// aapt resource value: 0x7F070273
-			public static int ic_shortlogo = 2131165811;
+			public static int ic_sortdown = 2131165811;
 			
 			// aapt resource value: 0x7F070274
-			public static int ic_sortdown = 2131165812;
+			public static int ic_speed = 2131165812;
 			
 			// aapt resource value: 0x7F070275
-			public static int ic_speed = 2131165813;
+			public static int ic_star = 2131165813;
 			
 			// aapt resource value: 0x7F070276
-			public static int ic_star = 2131165814;
+			public static int ic_start = 2131165814;
 			
 			// aapt resource value: 0x7F070277
-			public static int ic_start = 2131165815;
+			public static int ic_stop = 2131165815;
 			
 			// aapt resource value: 0x7F070278
-			public static int ic_stop = 2131165816;
+			public static int ic_stop_light = 2131165816;
 			
 			// aapt resource value: 0x7F070279
-			public static int ic_stop_light = 2131165817;
+			public static int ic_stop_white = 2131165817;
 			
 			// aapt resource value: 0x7F07027A
-			public static int ic_stop_white = 2131165818;
+			public static int ic_storage = 2131165818;
 			
 			// aapt resource value: 0x7F07027B
-			public static int ic_storage = 2131165819;
+			public static int ic_successstatus = 2131165819;
 			
 			// aapt resource value: 0x7F07027C
-			public static int ic_successstatus = 2131165820;
+			public static int ic_support = 2131165820;
 			
 			// aapt resource value: 0x7F07027D
-			public static int ic_support = 2131165821;
+			public static int ic_telephone = 2131165821;
 			
 			// aapt resource value: 0x7F07027E
-			public static int ic_telephone = 2131165822;
+			public static int ic_temperature = 2131165822;
 			
 			// aapt resource value: 0x7F07027F
-			public static int ic_temperature = 2131165823;
+			public static int ic_thumbnailupload = 2131165823;
 			
 			// aapt resource value: 0x7F070280
-			public static int ic_thumbnailupload = 2131165824;
+			public static int ic_tiktok = 2131165824;
 			
 			// aapt resource value: 0x7F070281
-			public static int ic_tiktok = 2131165825;
-			
-			// aapt resource value: 0x7F070282
-			public static int ic_time24 = 2131165826;
-			
-			// aapt resource value: 0x7F070285
-			public static int ic_timeline = 2131165829;
-			
-			// aapt resource value: 0x7F070283
-			public static int ic_time_black = 2131165827;
+			public static int ic_time24 = 2131165825;
 			
 			// aapt resource value: 0x7F070284
-			public static int ic_time_running = 2131165828;
+			public static int ic_timeline = 2131165828;
+			
+			// aapt resource value: 0x7F070282
+			public static int ic_time_black = 2131165826;
+			
+			// aapt resource value: 0x7F070283
+			public static int ic_time_running = 2131165827;
+			
+			// aapt resource value: 0x7F070285
+			public static int ic_trackingcar = 2131165829;
 			
 			// aapt resource value: 0x7F070286
-			public static int ic_trackingcar = 2131165830;
+			public static int ic_turnon_time_on_day = 2131165830;
 			
 			// aapt resource value: 0x7F070287
-			public static int ic_turnon_time_on_day = 2131165831;
+			public static int ic_unchecked_checkbox = 2131165831;
 			
 			// aapt resource value: 0x7F070288
-			public static int ic_unchecked_checkbox = 2131165832;
+			public static int ic_upgrade = 2131165832;
 			
 			// aapt resource value: 0x7F070289
-			public static int ic_upgrade = 2131165833;
+			public static int ic_uploadsucces = 2131165833;
 			
 			// aapt resource value: 0x7F07028A
-			public static int ic_uploadsucces = 2131165834;
+			public static int ic_user = 2131165834;
 			
 			// aapt resource value: 0x7F07028B
-			public static int ic_user = 2131165835;
+			public static int ic_userdistance = 2131165835;
 			
 			// aapt resource value: 0x7F07028C
-			public static int ic_userdistance = 2131165836;
+			public static int ic_usernotdistance = 2131165836;
 			
 			// aapt resource value: 0x7F07028D
-			public static int ic_usernotdistance = 2131165837;
+			public static int ic_userwhite = 2131165837;
 			
 			// aapt resource value: 0x7F07028E
-			public static int ic_userwhite = 2131165838;
+			public static int ic_vector = 2131165838;
 			
 			// aapt resource value: 0x7F07028F
-			public static int ic_vector = 2131165839;
+			public static int ic_vehicle = 2131165839;
 			
 			// aapt resource value: 0x7F070290
-			public static int ic_vehicle = 2131165840;
+			public static int ic_vehicleplate = 2131165840;
 			
 			// aapt resource value: 0x7F070291
-			public static int ic_vehicleplate = 2131165841;
+			public static int ic_vehiclesolid = 2131165841;
 			
 			// aapt resource value: 0x7F070292
-			public static int ic_vehiclesolid = 2131165842;
+			public static int ic_velocity = 2131165842;
 			
 			// aapt resource value: 0x7F070293
-			public static int ic_velocity = 2131165843;
+			public static int ic_version = 2131165843;
 			
 			// aapt resource value: 0x7F070294
-			public static int ic_version = 2131165844;
+			public static int ic_video = 2131165844;
 			
 			// aapt resource value: 0x7F070295
-			public static int ic_video = 2131165845;
+			public static int ic_videofill = 2131165845;
 			
 			// aapt resource value: 0x7F070296
-			public static int ic_videofill = 2131165846;
+			public static int ic_videolive = 2131165846;
 			
 			// aapt resource value: 0x7F070297
-			public static int ic_videolive = 2131165847;
+			public static int ic_videoplaceholder = 2131165847;
 			
 			// aapt resource value: 0x7F070298
-			public static int ic_videoplaceholder = 2131165848;
-			
-			// aapt resource value: 0x7F070299
-			public static int ic_vin = 2131165849;
-			
-			// aapt resource value: 0x7F0702A2
-			public static int ic_volumespeaker = 2131165858;
-			
-			// aapt resource value: 0x7F07029A
-			public static int ic_vol_mute = 2131165850;
-			
-			// aapt resource value: 0x7F07029B
-			public static int ic_vol_type_speaker_dark = 2131165851;
-			
-			// aapt resource value: 0x7F07029C
-			public static int ic_vol_type_speaker_group_dark = 2131165852;
-			
-			// aapt resource value: 0x7F07029D
-			public static int ic_vol_type_speaker_group_light = 2131165853;
-			
-			// aapt resource value: 0x7F07029E
-			public static int ic_vol_type_speaker_light = 2131165854;
-			
-			// aapt resource value: 0x7F07029F
-			public static int ic_vol_type_tv_dark = 2131165855;
-			
-			// aapt resource value: 0x7F0702A0
-			public static int ic_vol_type_tv_light = 2131165856;
+			public static int ic_vin = 2131165848;
 			
 			// aapt resource value: 0x7F0702A1
-			public static int ic_vol_unmute = 2131165857;
+			public static int ic_volumespeaker = 2131165857;
+			
+			// aapt resource value: 0x7F070299
+			public static int ic_vol_mute = 2131165849;
+			
+			// aapt resource value: 0x7F07029A
+			public static int ic_vol_type_speaker_dark = 2131165850;
+			
+			// aapt resource value: 0x7F07029B
+			public static int ic_vol_type_speaker_group_dark = 2131165851;
+			
+			// aapt resource value: 0x7F07029C
+			public static int ic_vol_type_speaker_group_light = 2131165852;
+			
+			// aapt resource value: 0x7F07029D
+			public static int ic_vol_type_speaker_light = 2131165853;
+			
+			// aapt resource value: 0x7F07029E
+			public static int ic_vol_type_tv_dark = 2131165854;
+			
+			// aapt resource value: 0x7F07029F
+			public static int ic_vol_type_tv_light = 2131165855;
+			
+			// aapt resource value: 0x7F0702A0
+			public static int ic_vol_unmute = 2131165856;
+			
+			// aapt resource value: 0x7F0702A2
+			public static int ic_Voyage = 2131165858;
 			
 			// aapt resource value: 0x7F0702A3
-			public static int ic_Voyage = 2131165859;
+			public static int ic_voyagesolid = 2131165859;
 			
 			// aapt resource value: 0x7F0702A4
-			public static int ic_voyagesolid = 2131165860;
+			public static int ic_warning_ben = 2131165860;
 			
 			// aapt resource value: 0x7F0702A5
-			public static int ic_warning_ben = 2131165861;
+			public static int ic_youtube = 2131165861;
 			
 			// aapt resource value: 0x7F0702A6
-			public static int ic_youtube = 2131165862;
+			public static int ic_zalo = 2131165862;
 			
 			// aapt resource value: 0x7F0702A7
-			public static int ic_zalo = 2131165863;
+			public static int ic_zaloqr = 2131165863;
 			
 			// aapt resource value: 0x7F0702A9
 			public static int info_shape = 2131165865;
