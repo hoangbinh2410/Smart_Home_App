@@ -170,11 +170,11 @@
                 <Grid RowDefinitions="*,2.6*" RowSpacing="0">
                     <ff:CachedImage
                         Grid.Row="0"
-                        HeightRequest="90"
+                        HeightRequest="80"
                         HorizontalOptions="Center"
                         Source="logo_Login.png"
                         VerticalOptions="CenterAndExpand"
-                        WidthRequest="180" />
+                        WidthRequest="160" />
                     <StackLayout
                         Grid.Row="1"
                         HorizontalOptions="Center"
@@ -260,7 +260,7 @@
                                 <ff:CachedImage
                                     BitmapOptimizations="True"
                                     HeightRequest="120"
-                                    Source="ic_qrzalo.png"
+                                    Source="ic_zaloqr.png"
                                     VerticalOptions="Center"
                                     WidthRequest="120" />
                                 <Label
