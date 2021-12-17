@@ -167,7 +167,7 @@
             <!--  IsOTPZalo  -->
             <Grid IsVisible="{Binding IsOTPZalo}" RowSpacing="0">
                 <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
-                <Grid RowDefinitions="*,2.5*" RowSpacing="0">
+                <Grid RowDefinitions="*,2.6*" RowSpacing="0">
                     <ff:CachedImage
                         Grid.Row="0"
                         HeightRequest="90"
@@ -178,13 +178,13 @@
                     <StackLayout
                         Grid.Row="1"
                         HorizontalOptions="Center"
-                        Spacing="20">
-                        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="20">
+                        Spacing="0">
+                        <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
                             <StackLayout
                                 Grid.Row="0"
                                 Padding="20,0,20,0"
                                 HorizontalOptions="Center"
-                                Spacing="20">
+                                Spacing="5">
                                 <!--  Text hướng dẫn  -->
                                 <Label
                                     FontSize="14"
@@ -272,7 +272,7 @@
                                     Text="hoặc"
                                     TextColor="{DynamicResource WhiteColor}" />
                             </StackLayout>
-                            <StackLayout Grid.Row="2" Spacing="20">
+                            <StackLayout Grid.Row="2" Spacing="10">
                                 <!--  Button 1  -->
                                 <sh:Shadows CornerRadius="20">
                                     <sh:Shadows.Shades>
