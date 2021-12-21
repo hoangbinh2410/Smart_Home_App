@@ -100,6 +100,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterSingleton<IStationLocationService, StationLocationService>();
             containerRegistry.RegisterSingleton<IExpenseService, ExpenseService>();
             containerRegistry.RegisterSingleton<ITransportBusinessService, TransportBusinessService>();
+            containerRegistry.RegisterSingleton<IVerifysmsService, VerifysmsService>();
         }
 
         public static void RegisterPages(IContainerRegistry containerRegistry)
