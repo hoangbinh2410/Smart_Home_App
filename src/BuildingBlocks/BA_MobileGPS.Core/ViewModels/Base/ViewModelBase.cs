@@ -81,6 +81,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleGroupCommand = new DelegateCommand(SelectVehicleGroup);
             PushToAleartPageCommand = new DelegateCommand(PushToAlertPage);
             CallHotLineCommand = new DelegateCommand(CallHotLine);
+            PushSupportPageCommand = new DelegateCommand(PushSupportPage);
         }
 
         ~ViewModelBase()
@@ -392,6 +393,13 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
+        private void PushSupportPage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("NavigationPage/SupportClientPage");
+            });
+        }
         public ICommand PushToAleartPageCommand { get; }
 
         public ICommand PushToNoticePageCommand
@@ -409,6 +417,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand CallHotLineCommand { get; }
+        public ICommand PushSupportPageCommand { get; }
 
         private LoginResponse userInfo;
 

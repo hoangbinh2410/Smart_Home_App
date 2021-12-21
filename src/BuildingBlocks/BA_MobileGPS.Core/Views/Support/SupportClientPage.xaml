@@ -212,6 +212,9 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </StackLayout>
             </pancake:PancakeView>

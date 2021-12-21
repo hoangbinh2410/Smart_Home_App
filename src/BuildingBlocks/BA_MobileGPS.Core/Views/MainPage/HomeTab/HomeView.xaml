@@ -74,12 +74,15 @@
                     Orientation="Horizontal"
                     Spacing="10"
                     VerticalOptions="EndAndExpand">
-                    <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
+                    <controls:IconView
+                        HeightRequest="27"
+                        Source="ic_helpcustomer2.png"
+                        StyleClass="TopIconView">
                         <controls:IconView.Behaviors>
                             <animation:ViewTappedBehavior AnimationType="Scale" />
                         </controls:IconView.Behaviors>
                         <controls:IconView.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
+                            <TapGestureRecognizer Command="{Binding PushSupportPageCommand}" />
                         </controls:IconView.GestureRecognizers>
                     </controls:IconView>
                     <controls:IconView
