@@ -1099,57 +1099,51 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             TryExecute(() =>
             {
-                var xnCodeStart = MobileSettingHelper.XNStartStreamAfterLogin;
-                if (!string.IsNullOrEmpty(xnCodeStart))
-                {
-                    var lstXN = xnCodeStart.Split(',');
-                    var isStart = lstXN.FirstOrDefault(x => int.Parse(x)== UserInfo.XNCode);
-                    if (isStart !=null && StaticSettings.ListVehilceCamera !=null
+                if (MobileUserSettingHelper.PingLiveStream && StaticSettings.ListVehilceCamera !=null
                     && StaticSettings.ListVehilceCamera.Count > 0
                     && StaticSettings.ListVehilceOnline != null
                     && StaticSettings.ListVehilceOnline.Count >0)
+                {
+                    var lstCamera = new List<string>();
+                    var lstvehicle = StaticSettings.ListVehilceOnline;
+                    foreach (var item in StaticSettings.ListVehilceCamera.Where(x => x.HasVideo).ToList())
                     {
-                        var lstCamera = new List<string>();
-                        var lstvehicle = StaticSettings.ListVehilceOnline;
-                        foreach (var item in StaticSettings.ListVehilceCamera.Where(x => x.HasVideo).ToList())
+                        var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
+                        var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
+                        if (model != null)
                         {
-                            var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
-                            var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
-                            if (model != null)
+                            lstCamera.Add(item.VehiclePlate);
+                        }
+                        else
+                        {
+                            var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
+                            if (model_c != null)
                             {
                                 lstCamera.Add(item.VehiclePlate);
                             }
-                            else
-                            {
-                                var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
-                                if (model_c != null)
-                                {
-                                    lstCamera.Add(item.VehiclePlate);
-                                }
-                            }
                         }
-                        var request = new CameraStartMultipleRequest()
-                        {
-                            VehicleNames = lstCamera,
-                            CustomerID = UserInfo.XNCode,
-                            Source = (int)CameraSourceType.App,
-                            User = UserInfo.UserName,
-                            SessionID = StaticSettings.SessionID
-                        };
-
-                        RunOnBackground(async () =>
-                        {
-                            return await streamCameraService.DevicesStartMultiple(request);
-                        },
-                        (result) =>
-                        {
-                            if (result)
-                            {
-                                VehicleNames=lstCamera;
-                                StartTimmerPingStream();
-                            }
-                        });
                     }
+                    var request = new CameraStartMultipleRequest()
+                    {
+                        VehicleNames = lstCamera,
+                        CustomerID = UserInfo.XNCode,
+                        Source = (int)CameraSourceType.App,
+                        User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
+                    };
+
+                    RunOnBackground(async () =>
+                    {
+                        return await streamCameraService.DevicesStartMultiple(request);
+                    },
+                    (result) =>
+                    {
+                        if (result)
+                        {
+                            VehicleNames=lstCamera;
+                            StartTimmerPingStream();
+                        }
+                    });
                 }
             });
         }

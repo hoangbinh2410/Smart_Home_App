@@ -20,8 +20,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class LoginPageViewModel : ViewModelBaseLogin
     {
-        #region Constructor
-
         private readonly IAuthenticationService authenticationService;
         private readonly IMobileSettingService mobileSettingService;
 
@@ -34,10 +32,6 @@ namespace BA_MobileGPS.Core.ViewModels
             this.mobileSettingService = mobileSettingService;
             InitValidations();
         }
-
-        #endregion Constructor
-
-        #region Init
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -123,10 +117,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        #endregion Init
-
-        #region Property
-
         public ValidatableObject<string> UserName { get; set; }
 
         public ValidatableObject<string> Password { get; set; }
@@ -155,89 +145,80 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-
-        #endregion Property
-
-        #region ICommand
-
         public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
-             {
-                 SafeExecute(async () =>
-                 {
-                     await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
-                 });
-             });
+              {
+                  SafeExecute(async () =>
+                  {
+                      await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+                  });
+              });
 
         public ICommand PushtoRegisterSupportCommand => new DelegateCommand(() =>
-             {
-                 SafeExecute(async () =>
-                 {
-                     _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
-                 });
-             });
+              {
+                  SafeExecute(async () =>
+                  {
+                      _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
+                  });
+              });
 
         public ICommand ForgotPasswordCommand => new DelegateCommand(() =>
-             {
-                 SafeExecute(async () =>
-                 {
-                     if (MobileSettingHelper.IsUseForgotpassword)
-                     {
-                         await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
-                     }
-                     else
-                     {
-                         await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
-                     }
-                 });
-             });
+              {
+                  SafeExecute(async () =>
+                  {
+                      if (MobileSettingHelper.IsUseForgotpassword)
+                      {
+                          await NavigationService.NavigateAsync("NavigationPage/ForgotPasswordPage", null, useModalNavigation: true, true);
+                      }
+                      else
+                      {
+                          await PopupNavigation.Instance.PushAsync(new ForgotPasswordPopup());
+                      }
+                  });
+              });
 
         public ICommand OpenLoginFragmentCommand => new DelegateCommand(() =>
-             {
-                 SafeExecute(async () =>
-                 {
-                     await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
-                 });
-             });
+              {
+                  SafeExecute(async () =>
+                  {
+                      await NavigationService.NavigateAsync("LoginPreviewFeaturesPage");
+                  });
+              });
 
         public ICommand OpenWebGPSCommand => new DelegateCommand(() =>
-             {
-                 SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
-             });
+              {
+                  SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
+              });
 
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
-                                                     {
-                                                         try
-                                                         {
-                                                             if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
-                                                             {
-                                                                 string shareurl = String.Empty;
-                                                                 if (Device.RuntimePlatform == Device.iOS)
-                                                                 {
-                                                                     var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
-                                                                     shareurl = "mailto:" + email;
-                                                                 }
-                                                                 else
-                                                                 {
-                                                                     shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
-                                                                 }
-                                                                 Device.OpenUri(new Uri(shareurl));
-                                                             }
-                                                         }
-                                                         catch
-                                                         {
-                                                             Device.OpenUri(new Uri("https://accounts.google.com/"));
-                                                         }
-                                                     });
+                                                              {
+                                                                  try
+                                                                  {
+                                                                      if (!string.IsNullOrEmpty(MobileSettingHelper.EmailSupport))
+                                                                      {
+                                                                          string shareurl = String.Empty;
+                                                                          if (Device.RuntimePlatform == Device.iOS)
+                                                                          {
+                                                                              var email = Regex.Replace(MobileSettingHelper.EmailSupport, @"[^\u0000-\u00FF]", string.Empty);
+                                                                              shareurl = "mailto:" + email;
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              shareurl = "mailto:" + MobileSettingHelper.EmailSupport;
+                                                                          }
+                                                                          Device.OpenUri(new Uri(shareurl));
+                                                                      }
+                                                                  }
+                                                                  catch
+                                                                  {
+                                                                      Device.OpenUri(new Uri("https://accounts.google.com/"));
+                                                                  }
+                                                              });
 
         public ICommand LoginCommand => new DelegateCommand(() =>
-             {
-                 Login();
-             });
-
-        #endregion ICommand
-
-        #region PrivateMethod
+              {
+                  Login();
+              });
 
         private void AddLanguage()
         {
@@ -560,7 +541,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
-
+                StaticSettings.User = user;
                 // Kiểm tra tài khoản có bảo mất 2 lớp otp sms
                 if (user.IsNeededOtp)
                 {
@@ -574,7 +555,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
                 }
                 // Kiểm tra tài khoản có bảo mất 2 lớp otp zalo
-                else if (user.Has2FactorAuthentication)
+                else if (MobileUserSettingHelper.Has2FactorAuthentication)
                 {
                     var parameters = new NavigationParameters
                     {
@@ -584,7 +565,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "Password", Password.Value },
                     };
                     await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
-                }    
+                }
                 else
                 {
                     //nếu nhớ mật khẩu thì lưu lại thông tin username và password
@@ -600,9 +581,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Settings.UserName = UserName.Value;
                     Settings.Password = Password.Value;
-
                     StaticSettings.Token = user.AccessToken;
-                    StaticSettings.User = user;
                     StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
                     OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
                     OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
@@ -616,7 +595,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         await NavigationService.NavigateAsync("/MainPage");
                     }
-                }    
+                }
             }
             catch (Exception ex)
             {
@@ -658,7 +637,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             }
         }
-
-        #endregion PrivateMethod
     }
 }
