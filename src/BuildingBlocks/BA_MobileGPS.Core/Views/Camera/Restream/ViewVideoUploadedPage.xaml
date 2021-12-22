@@ -56,7 +56,7 @@
                             MediaPlayer="{Binding MediaPlayer}"
                             VerticalOptions="Fill">
                             <vlc:MediaPlayerElement.PlaybackControls>
-                                <vlc:PlaybackControls IsSeekBarVisible="True" ShowAndHideAutomatically="True">
+                                <vlc:PlaybackControls IsSeekBarVisible="True" ShowAndHideAutomatically="False">
                                     <vlc:PlaybackControls.ControlTemplate>
                                         <ControlTemplate>
                                             <StackLayout Spacing="0">
