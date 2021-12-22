@@ -49,25 +49,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        public override void OnPageAppearingFirstTime()
-        {
-            base.OnPageAppearingFirstTime();
-
-            if (Settings.Rememberme)
-            {
-                UserName.Value = Settings.UserName;
-                Password.Value = Settings.Password;
-                Rememberme = true;
-            }
-            else
-            {
-                UserName.Value = string.Empty;
-                Password.Value = string.Empty;
-                Rememberme = false;
-            }
-            AddLanguage();
-        }
-
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
@@ -122,6 +103,17 @@ namespace BA_MobileGPS.Core.ViewModels
         public ValidatableObject<string> Password { get; set; }
 
         private LanguageRespone language;
+        private bool rememberme;
+
+        public bool IsShowRegisterSupport
+        {
+            get => isShowRegisterSupport;
+            set
+            {
+                SetProperty(ref isShowRegisterSupport, value);
+                RaisePropertyChanged();
+            }
+        }
 
         public LanguageRespone Language
         {
@@ -133,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private bool rememberme;
+        public ValidatableObject<string> Password { get; set; }
 
         public bool Rememberme
         {
@@ -188,6 +180,22 @@ namespace BA_MobileGPS.Core.ViewModels
               {
                   SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkBAGPS)));
               });
+
+        public ICommand PushtoLanguageCommand => new DelegateCommand(() =>
+                                               {
+                                                   SafeExecute(async () =>
+                                                   {
+                                                       await NavigationService.NavigateAsync("BaseNavigationPage/LanguagePage", null, useModalNavigation: true, true);
+                                                   });
+                                               });
+
+        public ICommand PushtoRegisterSupportCommand => new DelegateCommand(() =>
+               {
+                   SafeExecute(async () =>
+                   {
+                       _ = await NavigationService.NavigateAsync("BaseNavigationPage/RegisterConsultPage", null, useModalNavigation: true, true);
+                   });
+               });
 
         [Obsolete]
         public ICommand SendEmailCommand => new DelegateCommand(() =>
@@ -254,9 +262,116 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private bool Validate()
+        private void GetMobileSetting()
         {
-            return UserName.Validate() && Password.Validate();
+            RunOnBackground(async () =>
+            {
+                return await mobileSettingService.GetAllMobileConfigs(App.AppType);
+            },
+           (result) =>
+           {
+               if (result != null && result.Count > 0)
+               {
+                   MobileSettingHelper.SetData(result);
+                   IsShowRegisterSupport = MobileSettingHelper.IsUseRegisterSupport;
+               }
+           });
+        }
+
+        private void GetMobileVersion()
+        {
+            if (Settings.IsUpdateApp)
+            {
+                RunOnBackground(async () =>
+                {
+                    return await mobileSettingService.GetMobileVersion(Device.RuntimePlatform.ToString(), (int)App.AppType);
+                },
+                   (versionDB) =>
+                   {
+                       var appVersion = VersionTracking.CurrentVersion;
+                       if (string.IsNullOrEmpty(Settings.TempVersionName)) // nếu lần đầu cài app
+                       {
+                           Settings.TempVersionName = appVersion;
+                           Settings.AppVersionDB = appVersion;
+                       }
+                       if (versionDB != null && !string.IsNullOrEmpty(versionDB.VersionName) && !string.IsNullOrEmpty(versionDB.LinkDownload))
+                       {
+                           // Nếu giá trị bị null hoặc giá trị đường link thay đổi => cập nhật lại
+                           if (string.IsNullOrEmpty(Settings.AppLinkDownload) || !versionDB.LinkDownload.Equals(Settings.AppLinkDownload, StringComparison.InvariantCultureIgnoreCase))
+                           {
+                               Settings.AppLinkDownload = versionDB.LinkDownload;
+                           }
+
+                           if (!versionDB.VersionName.Equals(appVersion, StringComparison.InvariantCultureIgnoreCase))
+                           {
+                               Settings.AppVersionDB = versionDB.VersionName;
+                               string title = MobileResource.Login_Message_UpdateVersionNew;
+                               //string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
+                               string accept = MobileResource.Common_Button_Update;
+                               string later = MobileResource.Common_Button_Update_Later;
+                               string cancel = MobileResource.Common_Button_No;
+
+                               // Nếu yêu cầu cài lại app
+                               if (versionDB.IsMustUpdate)
+                               {
+                                   Device.BeginInvokeOnMainThread(async () =>
+                                   {
+                                       await NavigationService.NavigateAsync("UpdateVersion");
+                                   });
+                               }
+                               else
+                               {
+                                   if (Settings.TempVersionName != versionDB.VersionName) // khác phiên bản hiện tại khi bỏ qua
+                                   {
+                                       Device.BeginInvokeOnMainThread(async () =>
+                                       {
+                                           var action = await PageDialog.DisplayActionSheetAsync(title, null, null, accept, later, cancel);
+
+                                           if (action == accept) // cập nhật
+                                           {
+                                               await Launcher.OpenAsync(new Uri(versionDB.LinkDownload));
+                                           }
+                                           else if (action == later) // cập nhật sau
+                                           {
+                                               return;
+                                           }
+                                           else if (action == cancel)
+                                           {
+                                               Settings.TempVersionName = versionDB.VersionName;
+                                               return;
+                                           }
+                                           else //bỏ qua
+                                           {
+                                               // lưu biến vào đây
+                                               return;
+                                           }
+                                       });
+                                   }
+                                   else
+                                   {
+                                       Relogin();
+                                   }
+                               }
+                           }
+                           else
+                           {
+                               // lưu version DB hiện tại
+                               Settings.TempVersionName = versionDB.VersionName;
+                               Settings.AppVersionDB = versionDB.VersionName;
+                               Settings.IsUpdateApp = false;
+                               Relogin();
+                           }
+                       }
+                       else
+                       {
+                           Relogin();
+                       }
+                   });
+            }
+            else
+            {
+                Relogin();
+            }
         }
 
         private void InitValidations()
@@ -393,7 +508,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        public void UpdateLanguage(LanguageRespone param)
+        private async void OnLoginFailed()
         {
             if (param == null)
                 return;
@@ -463,78 +578,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                Settings.AppLinkDownload = versionDB.LinkDownload;
                            }
 
-                           if (!versionDB.VersionName.Equals(appVersion, StringComparison.InvariantCultureIgnoreCase))
-                           {
-                               Settings.AppVersionDB = versionDB.VersionName;
-                               string title = MobileResource.Login_Message_UpdateVersionNew;
-                               //string message = !string.IsNullOrEmpty(versionDB.Description) ? versionDB.Description : "Cập nhập phiên bản mới";
-                               string accept = MobileResource.Common_Button_Update;
-                               string later = MobileResource.Common_Button_Update_Later;
-                               string cancel = MobileResource.Common_Button_No;
-
-                               // Nếu yêu cầu cài lại app
-                               if (versionDB.IsMustUpdate)
-                               {
-                                   Device.BeginInvokeOnMainThread(async () =>
-                                   {
-                                       await NavigationService.NavigateAsync("UpdateVersion");
-                                   });
-                               }
-                               else
-                               {
-                                   if (Settings.TempVersionName != versionDB.VersionName) // khác phiên bản hiện tại khi bỏ qua
-                                   {
-                                       Device.BeginInvokeOnMainThread(async () =>
-                                       {
-                                           var action = await PageDialog.DisplayActionSheetAsync(title, null, null, accept, later, cancel);
-
-                                           if (action == accept) // cập nhật
-                                           {
-                                               await Launcher.OpenAsync(new Uri(versionDB.LinkDownload));
-                                           }
-                                           else if (action == later) // cập nhật sau
-                                           {
-                                               return;
-                                           }
-                                           else if (action == cancel)
-                                           {
-                                               Settings.TempVersionName = versionDB.VersionName;
-                                               return;
-                                           }
-                                           else //bỏ qua
-                                           {
-                                               // lưu biến vào đây
-                                               return;
-                                           }
-                                       });
-                                   }
-                                   else
-                                   {
-                                       Relogin();
-                                   }
-                               }
-                           }
-                           else
-                           {
-                               // lưu version DB hiện tại
-                               Settings.TempVersionName = versionDB.VersionName;
-                               Settings.AppVersionDB = versionDB.VersionName;
-                               Settings.IsUpdateApp = false;
-                               Relogin();
-                           }
-                       }
-                       else
-                       {
-                           Relogin();
-                       }
-                   });
-            }
-            else
-            {
-                Relogin();
-            }
-        }
-
         private async void OnLoginSuccess(LoginResponse user)
         {
             try
@@ -543,6 +586,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
                 StaticSettings.User = user;
                 // Kiểm tra tài khoản có bảo mất 2 lớp otp sms
+               
                 if (user.IsNeededOtp)
                 {
                     var parameters = new NavigationParameters
@@ -603,27 +647,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private async void OnLoginFailed()
-        {
-            await NavigationService.NavigateAsync("LoginFailedPopup");
-        }
-
-        /// <summary>Kiểm tra mạng lấy lại thông tin khi có mạng</summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="ConnectivityChangedEventArgs"/> instance containing the event data.</param>
-        /// <Modified>
-        /// Name     Date         Comments
-        /// linhlv  2/27/2020   created
-        /// </Modified>
-        public override void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
-        {
-            base.OnConnectivityChanged(sender, e);
-            if (e.NetworkAccess == NetworkAccess.Internet)
-            {
-                GetMobileSetting();
-            }
-        }
-
         private void Relogin()
         {
             if (!string.IsNullOrEmpty(Settings.UserName) && !string.IsNullOrEmpty(Settings.Password))
@@ -636,6 +659,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                 }
             }
+        }
+
+        private bool Validate()
+        {
+            return UserName.Validate() && Password.Validate();
         }
     }
 }
