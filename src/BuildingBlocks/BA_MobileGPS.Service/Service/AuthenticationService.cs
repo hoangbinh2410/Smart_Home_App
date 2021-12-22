@@ -188,7 +188,7 @@ namespace BA_MobileGPS.Service
             VehiclePhoneRespone result = new VehiclePhoneRespone();
             try
             {
-                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, BaseResponse<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
+                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, ResponseBaseV2<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
