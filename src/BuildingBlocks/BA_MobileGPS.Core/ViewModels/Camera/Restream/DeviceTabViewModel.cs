@@ -215,7 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
             get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
         }
 
-        private string titleLoading = String.Empty;
+        private string titleLoading = MobileResource.Camera_Message_CameraLoading;
 
         public string TitleLoading
         {
@@ -702,7 +702,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         if (deviceStatus.Net == (int)NetworkDataType.NETWORK_TYPE_LTE || deviceStatus.Net == (int)NetworkDataType.NETWORK_TYPE_IWLAN)
                         {
-                            TitleLoading=String.Empty;
+                            TitleLoading=MobileResource.Camera_Message_CameraLoading;
                         }
                         else
                         {
