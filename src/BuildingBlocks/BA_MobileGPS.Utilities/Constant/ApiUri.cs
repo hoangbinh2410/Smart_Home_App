@@ -366,7 +366,7 @@
         public const string Delete_Multiple = "api/expenses/deletemultiple";
         #endregion Expense
         #region OTP
-        public const string GET_Has_OTP_SMS = "api/sms/sendvehiclephoneotp";
+        public const string GET_Vehicle_OTP_SMS = "api/sms/sendvehiclephoneotp";
         #endregion
     }
 }

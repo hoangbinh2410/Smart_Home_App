@@ -1,5 +1,6 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities.Enums;
@@ -250,8 +251,24 @@ namespace BA_MobileGPS.Core.ViewModels
                             responseSendCodeSMS = await _iAuthenticationService.CheckVerifyCode(inputVerifyCode);
                             if ((int)responseSendCodeSMS.StateVerifyCode == (int)StateVerifyCode.Success)
                             {
-                                RememberSettings();
-                                await NavigationService.NavigateAsync("/MainPage");
+                                // Xác nhận mã OTp thành công gửi danh sách xe được xác nhận
+                                VehiclePhoneRequest item = new VehiclePhoneRequest()
+                                {
+                                    UserName = _user.UserName,
+                                    XNcode = _user.XNCode,
+                                    PhoneNumber = _user.PhoneNumber,
+                                    VehiclePlate = _user.VehiclePlateOTP
+                                };
+                                var result = await _iAuthenticationService.CheckVehicleOtpsms(item);
+                                if (result.state)
+                                {
+                                    RememberSettings();
+                                    await NavigationService.NavigateAsync("/MainPage");
+                                }
+                                else
+                                {
+                                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                                }                            
                             }
                             else
                             {

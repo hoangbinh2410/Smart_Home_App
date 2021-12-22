@@ -2,9 +2,7 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Core.Views.Authentication;
 using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Com.OneSignal;
 using Prism.Commands;
@@ -26,16 +24,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private readonly IAuthenticationService authenticationService;
         private readonly IMobileSettingService mobileSettingService;
-        private readonly IVerifysmsService verifysmsServervice;
 
         public LoginPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
-            IMobileSettingService mobileSettingService, IVerifysmsService _verifysmsServervice)
+            IMobileSettingService mobileSettingService)
             : base(navigationService)
         {
             this.authenticationService = authenticationService;
             this.mobileSettingService = mobileSettingService;
-            verifysmsServervice = _verifysmsServervice;
             InitValidations();
             isShowRegisterSupport = false;
         }
@@ -594,14 +590,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
 
                 // Kiểm tra tài khoản có bảo mất 2 lớp otp sms
-                VehiclePhoneRequest item = new VehiclePhoneRequest()
-                {
-                    UserName = user.UserName,
-                    XNcode = user.XNCode,
-                    PhoneNumber = user.PhoneNumber,
-                    VehiclePlate = user.VehiclePlateOTP
-                };
-                var result = await verifysmsServervice.CheckHasOtpsms(item);
+               
                 if (user.IsNeededOtp)
                 {
                     var parameters = new NavigationParameters
