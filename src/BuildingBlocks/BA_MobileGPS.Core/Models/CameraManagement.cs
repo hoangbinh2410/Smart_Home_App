@@ -5,6 +5,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
@@ -184,6 +185,18 @@ namespace BA_MobileGPS.Core.Models
             set
             {
                 SetProperty(ref errorMessenger, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private string titleLoading = String.Empty;
+
+        public string TitleLoading
+        {
+            get { return titleLoading; }
+            set
+            {
+                SetProperty(ref titleLoading, value);
                 RaisePropertyChanged();
             }
         }
@@ -431,6 +444,14 @@ namespace BA_MobileGPS.Core.Models
                         });
                         if (device != null && device.Channels != null)
                         {
+                            if (device.Net == (int)NetworkDataType.NETWORK_TYPE_LTE || device.Net == (int)NetworkDataType.NETWORK_TYPE_IWLAN)
+                            {
+                                TitleLoading=String.Empty;
+                            }
+                            else
+                            {
+                                TitleLoading=" Video có thể load chậm do phương tiện không sử dụng mạng 4G, quý khách vui lòng đợi";
+                            }
                             var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Channel);
 
                             if (streamDevice != null && streamDevice.Stream)
