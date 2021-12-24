@@ -487,10 +487,11 @@ namespace BA_MobileGPS.Core.Models
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         IsError = false;
-                        var url = string.Empty;
-                        url = Link;
-                        MediaPlayer.Media = new Media(libVLC, new Uri(url));
-                        MediaPlayer.Play();
+                        if(MediaPlayer !=null)
+                        {
+                            MediaPlayer.Media = new Media(libVLC, new Uri(Link));
+                            MediaPlayer.Play();
+                        }
                     });
                 }
             }
