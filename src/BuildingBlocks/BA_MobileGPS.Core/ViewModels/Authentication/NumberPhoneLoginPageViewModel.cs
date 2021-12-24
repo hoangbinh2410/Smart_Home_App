@@ -191,17 +191,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         objResponse = await _iAuthenticationService.GetOTP(NumberPhone.Value, customerID);
-                    }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                    return;
-                }
-                // Sau khi gọi API
-                if (objResponse != null && !string.IsNullOrEmpty(objResponse.OTP))
-                {
-                    var parameters = new NavigationParameters
+                        // Sau khi gọi API
+                        if (objResponse != null && !string.IsNullOrEmpty(objResponse.OTP))
+                        {
+                            var parameters = new NavigationParameters
                     {
                         { "OTPZalo", objResponse },
                         { "User", _user },
@@ -209,12 +202,19 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", _userName },
                         { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                            await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo("Quý khách Vui lòng kiểm tra like Zalo Bình Anh ?", 5000);
+                        }
+                    }
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Quý khách Vui lòng kiểm tra like Zalo Bình Anh ?", 5000);
-                }
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    return;
+                }              
             });
 
         }
