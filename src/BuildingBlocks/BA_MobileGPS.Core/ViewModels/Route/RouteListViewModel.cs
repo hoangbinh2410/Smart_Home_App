@@ -42,24 +42,28 @@ namespace BA_MobileGPS.Core.ViewModels
                                      .ToList();
                     foreach (var item in lst)
                     {
-                        switch (item.StateType?.State)
+                        if (item.StateType !=null)
                         {
-                            case StateType.Normal:
-                                item.StateType.StateText= MobileResource.Online_Label_StatusCarMoving;
-                                break;
+                            switch (item.StateType?.State)
+                            {
+                                case StateType.Normal:
+                                    item.StateType.StateText= MobileResource.Online_Label_StatusCarMoving;
+                                    break;
 
-                            case StateType.Stop:
-                                item.StateType.StateText= MobileResource.Online_Label_StatusCarStoping;
-                                break;
+                                case StateType.Stop:
+                                    item.StateType.StateText= MobileResource.Online_Label_StatusCarStoping;
+                                    break;
 
-                            case StateType.Loss:
-                                item.StateType.StateText= MobileResource.Online_Label_StatusCarLostGSM;
-                                break;
+                                case StateType.Loss:
+                                    item.StateType.StateText= MobileResource.Online_Label_StatusCarLostGSM;
+                                    break;
 
-                            default:
-                                item.StateType.StateText= MobileResource.Online_Label_StatusCarMoving;
-                                break;
+                                default:
+                                    item.StateType.StateText= MobileResource.Online_Label_StatusCarMoving;
+                                    break;
+                            }
                         }
+
                     }
                     ListRoute=lst;
                 }
