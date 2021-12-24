@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 
@@ -36,9 +37,31 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (parameters.TryGetValue(ParameterKey.VehicleRoute, out List<VehicleRoute> listRoute))
                 {
-                    ListRoute = listRoute.GroupBy(x => x.Time)
-                                  .Select(g => g.First())
-                                  .ToList();
+                    var lst = listRoute.GroupBy(x => x.Time)
+                                     .Select(g => g.First())
+                                     .ToList();
+                    foreach (var item in lst)
+                    {
+                        switch (item.StateType?.State)
+                        {
+                            case StateType.Normal:
+                                item.StateType.StateText= MobileResource.Online_Label_StatusCarMoving;
+                                break;
+
+                            case StateType.Stop:
+                                item.StateType.StateText= MobileResource.Online_Label_StatusCarStoping;
+                                break;
+
+                            case StateType.Loss:
+                                item.StateType.StateText= MobileResource.Online_Label_StatusCarLostGSM;
+                                break;
+
+                            default:
+                                item.StateType.StateText= MobileResource.Online_Label_StatusCarMoving;
+                                break;
+                        }
+                    }
+                    ListRoute=lst;
                 }
             }
         }

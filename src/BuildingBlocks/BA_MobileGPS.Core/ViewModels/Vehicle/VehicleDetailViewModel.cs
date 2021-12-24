@@ -268,7 +268,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             list.Add(new MenuItem
             {
-                Title = "Hình Ảnh",
+                Title = MobileResource.Image_Lable_Image,
                 Icon = "ic_cameraonline.png",
                 Url = "NavigationPage/ImageManagingPage",
                 IsEnable = CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView),
