@@ -198,6 +198,7 @@
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="16" />
                         <Label
+                            x:Name="callhotline"
                             Grid.Column="1"
                             FontAttributes="Italic"
                             FontSize="13"
@@ -205,13 +206,7 @@
                             HorizontalTextAlignment="Start"
                             Style="{DynamicResource LabelItem}"
                             TextColor="#00ADE5"
-                            VerticalOptions="CenterAndExpand">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Gọi điện tới hotline CSKH 1900 6464" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
+                            VerticalOptions="CenterAndExpand" />
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
                         </Grid.GestureRecognizers>

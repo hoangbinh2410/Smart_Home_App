@@ -9,10 +9,10 @@ namespace BA_MobileGPS.Core.Views
     {
         public SupportClientPage()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             this.supportCategory.Text = MobileResource.SupportClient_Label_SupportCategory;
             this.textSupport.Text = MobileResource.SupportClient_Label_TextSupport;
-            //this.entrySearch.Placeholder = "Chọn phương tiện";
+            callhotline.Text=$"Gọi điện tới hotline CSKH {MobileSettingHelper.HotlineGps}";
         }
     }
 }
