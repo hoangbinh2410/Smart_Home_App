@@ -397,7 +397,14 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NavigationPage/SupportClientPage");
+                if (App.AppType==AppType.BinhAnh || App.AppType==AppType.CNN)
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/SupportClientPage");
+                }
+                else
+                {
+                    CallHotLine();
+                }
             });
         }
         public ICommand PushToAleartPageCommand { get; }
