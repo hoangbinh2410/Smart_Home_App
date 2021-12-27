@@ -58,6 +58,26 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+
+        public async Task<bool> DevicesStartMultiple(CameraStartMultipleRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_DEVICESTARTMULTIPLE}";
+                var respone = await requestProvider.PostAsync<CameraStartMultipleRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<bool> DevicesStop(CameraStopRequest request)
         {
             var result = false;
@@ -115,6 +135,25 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
+        public async Task<bool> DevicesPingMultiple(CameraStartMultipleRequest request)
+        {
+            var result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_DEVICEPINGMULTIPLE}";
+                var respone = await requestProvider.PostAsync<CameraStartMultipleRequest, ResponseStreamBase<bool>>(url, request);
+                if (respone != null && respone.Data)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
         public async Task<ResponseStreamBase<List<PlaybackStartRespone>>> StartPlayback(PlaybackStartRequest request)
         {
             var result = new ResponseStreamBase<List<PlaybackStartRespone>>();
@@ -125,6 +164,10 @@ namespace BA_MobileGPS.Service.Service
                 if (respone != null && respone.Data != null)
                 {
                     result = respone;
+                }
+                else
+                {
+                    result=respone;
                 }
             }
             catch (Exception ex)
@@ -288,7 +331,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request)
+        public async Task<List<CameraRestreamUploadInfo>> GetListVideoDowload(CameraRestreamRequest request)
         {
             var result = new List<CameraRestreamUploadInfo>();
             try
@@ -423,6 +466,25 @@ namespace BA_MobileGPS.Service.Service
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return respone;
+        }
+
+        public async Task<CameraCloudRespone> GetListCameraCloud(GetCameraCloudRequest request)
+        {
+            var result = new CameraCloudRespone();
+            try
+            {
+                string url = string.Format(ApiUri.GET_LISTCAMERACLOUD);
+                var response = await requestProvider.PostAsync<GetCameraCloudRequest, ResponseBaseV2<CameraCloudRespone>>(url, request);
+                if (response != null && response.Data != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
         }
     }
 }

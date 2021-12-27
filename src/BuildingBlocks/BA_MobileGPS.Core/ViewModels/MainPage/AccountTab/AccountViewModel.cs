@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = "NavigationPage/ListIssuePage",
                 MenuType = MenuType.DeviceManual,
-                IsEnable = true,
+                IsEnable = App.AppType==AppType.BinhAnh || App.AppType==AppType.CNN ? true : false,
                 IconColor = Color.FromHex("#FF9900")
             });
             // Hướng dẫn sử dụng
@@ -118,7 +118,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = MobileSettingHelper.LinkShareApp,
                 MenuType = MenuType.Share,
-                IsEnable = true,
+                IsEnable = App.AppType==AppType.BinhAnh || App.AppType==AppType.CNN ? true : false,
                 IconColor = Color.FromHex("#8BC34A")
             });
             // Đánh giá
@@ -151,7 +151,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 UseModalNavigation = true,
                 Url = Settings.AppLinkDownload,
                 MenuType = MenuType.UpgradeVersion,
-                IsEnable = Settings.AppVersionDB != AppVersion ? true : false,
+                IsEnable = Settings.AppVersionDB != AppVersion && Settings.IsUpdateApp==true ? true : false,
                 IconColor = (Color)App.Current.Resources["PrimaryColor"]
             });
             // Đăng xuất

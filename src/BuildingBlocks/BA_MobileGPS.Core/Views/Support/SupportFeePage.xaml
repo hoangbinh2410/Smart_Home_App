@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.SupportFeePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{Binding Title}"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="LabelNaviga" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="Text14B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text14" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <Style x:Key="Text16B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text16" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style x:Key="Text18B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+            <Style x:Key="Text20B" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontFamily" Value="myFontFamilyBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid
+                BackgroundColor="{DynamicResource WhiteColor}"
+                HorizontalOptions="FillAndExpand"
+                RowDefinitions="Auto,Auto,*"
+                VerticalOptions="FillAndExpand">
+
+                <StackLayout
+                    Grid.Row="0"
+                    BackgroundColor="#0474D8"
+                    HorizontalOptions="FillAndExpand">
+                    <Label
+                        Margin="0,10,0,10"
+                        HorizontalOptions="Center"
+                        Style="{DynamicResource Text16B}"
+                        Text="{Binding Data.Name}"
+                        TextColor="{DynamicResource WhiteColor}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <StackLayout
+                    Grid.Row="1"
+                    Padding="20,0,20,0"
+                    Spacing="30">
+                    <StackLayout Spacing="20">
+                        <Label
+                            HorizontalTextAlignment="Start"
+                            Style="{DynamicResource Text16B}"
+                            Text="Quý khách vui lòng kiểm tra xe có xảy ra tình huống sau không và làm theo hướng dẫn"
+                            TextColor="{DynamicResource PrimaryColor}"
+                            VerticalTextAlignment="Center" />
+                        <BoxView StyleClass="SlimLine" VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+                        <controls:IconView
+                            Foreground="#E63C2B"
+                            HeightRequest="40"
+                            HorizontalOptions="Start"
+                            Source="ic_info_outline_white.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="40" />
+                        <Label
+                            Style="{DynamicResource Text16B}"
+                            Text="{Binding SupportContent.Questions}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <!--  Hiển thị thông báo hướng dẫn  -->
+                    <pancake:PancakeView
+                        Padding="15"
+                        BackgroundColor="#DCFDFF"
+                        CornerRadius="10"
+                        HeightRequest="200">
+                        <StackLayout Spacing="15">
+                            <Grid ColumnDefinitions="50,*">
+                                <controls:IconView
+                                    Grid.Column="0"
+                                    Foreground="{DynamicResource PrimaryColor}"
+                                    HeightRequest="25"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="ic_fixsupport_.png"
+                                    VerticalOptions="CenterAndExpand"
+                                    WidthRequest="25" />
+                                <Label
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    FontFamily="Lobster-Regular"
+                                    FontSize="16"
+                                    HorizontalOptions="StartAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    TextColor="{DynamicResource PrimaryColor}"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Hướng dẫn xử lý" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="FillAndExpand"
+                                HorizontalTextAlignment="Start"
+                                Text="{Binding SupportContent.Guides}"
+                                TextType="Html"
+                                VerticalOptions="FillAndExpand">
+                                <Label.IsVisible>
+                                    <OnPlatform
+                                        x:TypeArguments="x:Boolean"
+                                        Android="False"
+                                        iOS="True" />
+                                </Label.IsVisible>
+                            </Label>
+                            <WebView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <WebView.IsVisible>
+                                    <OnPlatform
+                                        x:TypeArguments="x:Boolean"
+                                        Android="True"
+                                        iOS="False" />
+                                </WebView.IsVisible>
+                                <WebView.Source>
+                                    <HtmlWebViewSource Html="{Binding SupportContent.Guides}" />
+                                </WebView.Source>
+                            </WebView>
+                        </StackLayout>
+                    </pancake:PancakeView>
+                </StackLayout>
+
+                <!--  Nút  -->
+                <Grid Grid.Row="2">
+                    <StackLayout
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="10"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView
+                            Grid.Column="1"
+                            HeightRequest="1"
+                            StyleClass="SlimLine" />
+                        <Grid
+                            Padding="20,0,20,0"
+                            ColumnDefinitions="0.5*,0.5*"
+                            ColumnSpacing="10"
+                            HorizontalOptions="FillAndExpand">
+                            <buttons:SfButton
+                                Grid.Column="0"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding BackPageCommand}"
+                                CornerRadius="20"
+                                Text="Đóng" />
+                            <buttons:SfButton
+                                Grid.Column="1"
+                                BackgroundColor="{DynamicResource PrimaryColor}"
+                                Command="{Binding PushMessageSuportPageCommand}"
+                                CornerRadius="20"
+                                Text="Nhập hỗ trợ" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        IsVisible="{Binding IsSupportDisconnectView}"
+                        Spacing="0"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                        <buttons:SfButton
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            Command="{Binding BackPageCommand}"
+                            CornerRadius="20"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Đóng"
+                            VerticalOptions="StartAndExpand"
+                            WidthRequest="200" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
+            <ContentView
+                BackgroundColor="{DynamicResource WhiteColor}"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="{Binding MessageData}"
+                VerticalOptions="FillAndExpand">
+                <Grid
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    RowDefinitions="Auto,*,*"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout
+                        Grid.Row="0"
+                        BackgroundColor="#0474D8"
+                        HorizontalOptions="FillAndExpand">
+                        <Label
+                            Margin="0,10,0,10"
+                            HorizontalOptions="Center"
+                            Style="{DynamicResource Text16B}"
+                            Text="{Binding NamePage}"
+                            TextColor="{DynamicResource WhiteColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout
+                        Grid.Row="1"
+                        BackgroundColor="{DynamicResource WhiteColor}"
+                        HorizontalOptions="Center"
+                        Orientation="Vertical"
+                        Spacing="0"
+                        VerticalOptions="CenterAndExpand">
+                        <!--  Image for display svg image  -->
+                        <ffsvg:SvgCachedImage
+                            Margin="{x:OnIdiom Phone='0,0,0,0',
+                                               Desktop='0',
+                                               Tablet='0'}"
+                            HeightRequest="200"
+                            HorizontalOptions="Center"
+                            Source="NoItem.svg"
+                            VerticalOptions="Center"
+                            WidthRequest="200" />
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="{i18n:TranslateResource ListVehicle_Label_NotFound}" />
+                    </StackLayout>
+
+                    <StackLayout
+                        Grid.Row="2"
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Spacing="0"
+                        VerticalOptions="EndAndExpand">
+                        <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                        <buttons:SfButton
+                            BackgroundColor="{DynamicResource PrimaryColor}"
+                            Command="{Binding BackPageCommand}"
+                            CornerRadius="20"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="Đóng"
+                            VerticalOptions="StartAndExpand"
+                            WidthRequest="200" />
+                    </StackLayout>
+                </Grid>
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -58,7 +58,11 @@ namespace BA_MobileGPS.Core.Views
 
         private void SeekBar_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

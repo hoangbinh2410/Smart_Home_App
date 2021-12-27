@@ -1,9 +1,11 @@
-﻿using BA_MobileGPS.Core.Helpers;
+﻿using BA_MobileGPS.Core.Extensions;
+using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using LibVLCSharp.Shared;
 using Prism.Events;
 using Prism.Mvvm;
@@ -31,11 +33,16 @@ namespace BA_MobileGPS.Core.Models
         private CancellationTokenSource cts = new CancellationTokenSource();
         private readonly IEventAggregator _eventAggregator;
 
-        public CameraManagement(int maxTimeLoadingMedia, LibVLC libVLC,
-            IStreamCameraService streamCameraService, CameraStartRequest startRequest, IEventAggregator eventAggregator)
+        public CameraManagement(int maxTimeLoadingMedia,
+            LibVLC libVLC,
+            IStreamCameraService streamCameraService,
+            CameraStartRequest startRequest,
+            CameraLookUpVehicleModel vehicle,
+            IEventAggregator eventAggregator)
         {
             this.streamCameraService = streamCameraService;
             maxLoadingTime = maxTimeLoadingMedia;
+            Vehicle = vehicle;
             this.LibVLC = libVLC;
             InitMediaPlayer();
             totalTime = 1;
@@ -100,6 +107,21 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
+        private bool isPlayback = false;
+
+        public bool IsPlayback
+        {
+            get { return isPlayback; }
+            set
+            {
+                SetProperty(ref isPlayback, value);
+                RaisePropertyChanged();
+            }
+        }
+
+        private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
+        public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
 
         private MediaPlayer mediaPlayer;
 
@@ -167,9 +189,22 @@ namespace BA_MobileGPS.Core.Models
             }
         }
 
+        private string titleLoading = String.Empty;
+
+        public string TitleLoading
+        {
+            get { return titleLoading; }
+            set
+            {
+                SetProperty(ref titleLoading, value);
+                RaisePropertyChanged();
+            }
+        }
+
         public bool AutoRequestPing { get; set; }
 
         public int channel;
+
         public int Channel
         {
             get { return channel; }
@@ -179,6 +214,7 @@ namespace BA_MobileGPS.Core.Models
                 RaisePropertyChanged();
             }
         }
+
         public string Link { get; set; }
 
         private void CountLoadingTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -217,8 +253,7 @@ namespace BA_MobileGPS.Core.Models
                     TotalTime -= 1;
                     if (internalError)
                     {
-                        var err = MobileResource.Camera_Label_Connection_Error;
-                        SetError(err);
+                        ReloadCameraError();
                     }
                 }
             }
@@ -316,17 +351,77 @@ namespace BA_MobileGPS.Core.Models
                             countLoadingTimer.Start();
                         }
                         IsLoaded = false;
+                        IsPlayback = false;
                         //Check status:
                         StartTrackDeviceStatus(vehicle);
                     }
                 }
                 else
                 {
-                    Link = string.Empty;
-                    _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
-                    SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                    if (StateVehicleExtension.IsLostGSM(Vehicle.VehicleTime))
+                    {
+                        Link = string.Empty;
+                        _eventAggregator.GetEvent<SendErrorCameraEvent>().Publish(Channel);
+                        SetError(MobileResource.Camera_Message_DeviceNotOnline);
+                    }
+                    else
+                    {
+                        await Task.Delay(3000);
+                        ReloadCameraError();
+                    }
                 }
             });
+        }
+
+        /// <summary>
+        /// start via trace current device,which has camera
+        /// this func work after a request start sent successfully
+        /// </summary>
+        /// <param name="url">cam url</param>
+        /// <param name="vehicle">vehicle Plate</param>
+        public void ReloadCameraError()
+        {
+            if (IsPlayback)
+            {
+                var err = MobileResource.Camera_Label_Connection_Error;
+                SetError(err);
+            }
+            else
+            {
+                Task.Run(async () =>
+                {
+                    //startRequest.Channel = (int)Math.Pow(2, startRequest.Channel - 1);
+                    var result = await streamCameraService.DevicesStart(startRequest);
+                    if (result != null && result.Data != null)
+                    {
+                        var data = result.Data.FirstOrDefault();
+                        if (data.PlaybackRequests != null
+                        && data.PlaybackRequests.Count > 0
+                        && result.StatusCode == StatusCodeCamera.ERROR_STREAMING_BY_PLAYBACK)
+                        {
+                            var user = data.PlaybackRequests.FirstOrDefault(x => x.User.ToUpper() != StaticSettings.User.UserName.ToUpper());
+                            if (user != null)
+                            {
+                                _eventAggregator.GetEvent<SendErrorDoubleStremingCameraEvent>().Publish(result.Data);
+                            }
+                            result.UserMessage = MobileResource.Camera_Message_DeviceIsPlayback;
+                            SetError(result.UserMessage);
+                        }
+                        else
+                        {
+                            Link = data.Link;
+                            SetUrlMedia();
+                            internalError = false;
+                            IsPlayback = false;
+                        }
+                    }
+                    else
+                    {
+                        await Task.Delay(3000);
+                        ReloadCameraError();
+                    }
+                });
+            }
         }
 
         private void StartTrackDeviceStatus(string vehicle)
@@ -349,6 +444,14 @@ namespace BA_MobileGPS.Core.Models
                         });
                         if (device != null && device.Channels != null)
                         {
+                            if (device.Net == (int)NetworkDataType.NETWORK_TYPE_LTE || device.Net == (int)NetworkDataType.NETWORK_TYPE_IWLAN)
+                            {
+                                TitleLoading=String.Empty;
+                            }
+                            else
+                            {
+                                TitleLoading=" Video có thể load chậm do phương tiện không sử dụng mạng 4G, quý khách vui lòng đợi";
+                            }
                             var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Channel);
 
                             if (streamDevice != null && streamDevice.Stream)
@@ -384,17 +487,11 @@ namespace BA_MobileGPS.Core.Models
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         IsError = false;
-                        var url = string.Empty;
-                        if (MobileSettingHelper.UseCameraRTMP)
+                        if(MediaPlayer !=null)
                         {
-                            url = Link.Replace("rtsp", "rtmp");
+                            MediaPlayer.Media = new Media(libVLC, new Uri(Link));
+                            MediaPlayer.Play();
                         }
-                        else
-                        {
-                            url = Link;
-                        }
-                        MediaPlayer.Media = new Media(libVLC, new Uri(url));
-                        MediaPlayer.Play();
                     });
                 }
             }

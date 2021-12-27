@@ -7,7 +7,6 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Service.Utilities;
 using BA_MobileGPS.Utilities;
 using Newtonsoft.Json;
@@ -26,44 +25,38 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        #region Contructor
-
         private readonly IVehicleOnlineService vehicleOnlineService;
         private readonly IAlertService alertService;
         private readonly IVehicleDebtMoneyService vehicleDebtMoneyService;
         private readonly IAppDeviceService appDeviceService;
-        private readonly IAppVersionService appVersionService;
         private readonly INotificationService notificationService;
         private readonly IIdentityHubService identityHubService;
         private readonly IVehicleOnlineHubService vehicleOnlineHubService;
         private readonly IUserBahaviorHubService userBahaviorHubService;
         private readonly IPingServerService pingServerService;
         private readonly IMapper _mapper;
-        private readonly IPapersInforService papersInforService;
         private readonly IStreamCameraService streamCameraService;
         private readonly IUserService userService;
         private Timer timer;
         private Timer timerSyncData;
         private Timer timerSyncUploadStatus;
+        private Timer timerPingStreamCamera;
         private System.Threading.CancellationTokenSource cts = new System.Threading.CancellationTokenSource();
 
         public MainPageViewModel(INavigationService navigationService, IVehicleOnlineService vehicleOnlineService,
             IAlertService alertService,
             IVehicleDebtMoneyService vehicleDebtMoneyService,
-            IAppVersionService appVersionService,
             IAppDeviceService appDeviceService,
             INotificationService notificationService,
             IIdentityHubService identityHubService,
             IVehicleOnlineHubService vehicleOnlineHubService,
             IPingServerService pingServerService,
             IUserBahaviorHubService userBahaviorHubService, IMapper mapper,
-            IPapersInforService papersInforService, IStreamCameraService streamCameraService, IUserService userService)
+            IStreamCameraService streamCameraService, IUserService userService)
             : base(navigationService)
         {
-            this.papersInforService = papersInforService;
             this.vehicleOnlineService = vehicleOnlineService;
             this.alertService = alertService;
-            this.appVersionService = appVersionService;
             this.vehicleDebtMoneyService = vehicleDebtMoneyService;
             this.appDeviceService = appDeviceService;
             this.notificationService = notificationService;
@@ -89,10 +82,6 @@ namespace BA_MobileGPS.Core.ViewModels
             InitSystemType();
         }
 
-        #endregion Contructor
-
-        #region Lifecycle
-
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
@@ -116,17 +105,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
-            {
-                if (init)
-                {
-                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        GetPaperAlert();
-                    }
-                    else isWaitingVehicleOnline = true;
-                }
-            }
         }
 
         public override void OnDestroy()
@@ -140,6 +118,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 timerSyncUploadStatus.Stop();
                 timerSyncUploadStatus.Dispose();
+            }
+            if (timerPingStreamCamera != null)
+            {
+                timerPingStreamCamera.Stop();
+                timerPingStreamCamera.Dispose();
             }
             if (cts != null)
             {
@@ -210,7 +193,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         TryExecute(async () =>
                         {
-                            GetNofitication();
                             await ConnectSignalR();
                         });
 
@@ -256,15 +238,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        #endregion Lifecycle
-
-        #region Property
-
         private int SystemType { get; set; } = 51;
-
-        #endregion Property
-
-        #region PrivateMethod
 
         private void InitSystemType()
         {
@@ -595,70 +569,73 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void GetListVehicleOnline()
         {
-            var userID = UserInfo.UserId;
-            var companyID = UserInfo.CompanyId;
-            var xnCode = UserInfo.XNCode;
-            var userType = UserInfo.UserType;
-            var companyType = UserInfo.CompanyType;
+            try
+            {
+                var userID = UserInfo.UserId;
+                var companyID = UserInfo.CompanyId;
+                var xnCode = UserInfo.XNCode;
+                var userType = UserInfo.UserType;
+                var companyType = UserInfo.CompanyType;
 
-            if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
-            {
-                userID = Settings.CurrentCompany.UserId;
-                companyID = Settings.CurrentCompany.FK_CompanyID;
-                xnCode = Settings.CurrentCompany.XNCode;
-                userType = Settings.CurrentCompany.UserType;
-                companyType = Settings.CurrentCompany.CompanyType;
-            }
-            int vehicleGroup = 0;
-
-            RunOnBackground(async () =>
-            {
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
-            }, (result) =>
-            {
-                if (result != null && result.Count > 0)
+                if (Settings.CurrentCompany != null && Settings.CurrentCompany.FK_CompanyID > 0)
                 {
-                    result.ForEach(x =>
+                    userID = Settings.CurrentCompany.UserId;
+                    companyID = Settings.CurrentCompany.FK_CompanyID;
+                    xnCode = Settings.CurrentCompany.XNCode;
+                    userType = Settings.CurrentCompany.UserType;
+                    companyType = Settings.CurrentCompany.CompanyType;
+                }
+                int vehicleGroup = 0;
+                RunOnBackground(async () =>
+                {
+                    return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                }, (result) =>
+                {
+                    if (result != null && result.Count > 0)
                     {
-                        x.IconImage = IconCodeHelper.GetMarkerResource(x);
-                        x.StatusEngineer = StateVehicleExtension.EngineState(x);
-
-                        if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                        result.ForEach(x =>
                         {
-                            x.SortOrder = 1;
-                        }
-                        else
+                            x.IconImage = IconCodeHelper.GetMarkerResource(x);
+                            x.StatusEngineer = StateVehicleExtension.EngineState(x);
+
+                            if (!StateVehicleExtension.IsLostGPS(x.GPSTime, x.VehicleTime) && !StateVehicleExtension.IsLostGSM(x.VehicleTime))
+                            {
+                                x.SortOrder = 1;
+                            }
+                            else
+                            {
+                                x.SortOrder = 0;
+                            }
+                        });
+
+                        StaticSettings.ListVehilceOnline = result;
+
+                        StartTimmerSynData();
+
+                        Device.BeginInvokeOnMainThread(async () =>
                         {
-                            x.SortOrder = 0;
-                        }
-                    });
+                            EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
 
-                    StaticSettings.ListVehilceOnline = result;
+                            await ConnectSignalROnline();
+                            //Join vào nhóm signalR để nhận dữ liệu online
+                            JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
+                        });
 
-                    StartTimmerSynData();
+                        // Lấy danh sách cảnh báo
+                        GetCountAlert();
 
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        EventAggregator.GetEvent<OnReloadVehicleOnline>().Publish(false);
-
-                        await ConnectSignalROnline();
-                        //Join vào nhóm signalR để nhận dữ liệu online
-                        JoinGroupSignalRCar(result.Select(x => x.VehicleId.ToString()).ToList());
-                    });
-
-                    // Lấy danh sách cảnh báo
-                    GetCountAlert();
-
-                    if (isWaitingVehicleOnline && StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        GetPaperAlert();
+                        StartStreamMultiple();
                     }
-                }
-                else
-                {
-                    StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
-                }
-            });
+                    else
+                    {
+                        StaticSettings.ListVehilceOnline = new List<VehicleOnline>();
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.WriteLog("GetListVehicleOnline", $"Start Error API :{ex.Message}");
+            }
         }
 
         private void GetVehicleIsCamera()
@@ -871,51 +848,6 @@ namespace BA_MobileGPS.Core.ViewModels
                             return;
                         }
                     }
-
-                    //Nếu không hiện nợ phí => check luôn hiện giáy tờ
-                    if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
-                    {
-                        GetPaperAlert();
-                    }
-                    else isWaitingVehicleOnline = true;
-                });
-            }
-        }
-
-        private bool isWaitingVehicleOnline { get; set; }
-
-        private void GetPaperAlert()
-        {
-            var userPer = UserInfo.Permissions.Distinct();
-            var viewPaperPermission = (int)PermissionKeyNames.PaperView;
-
-            if (userPer.Contains(viewPaperPermission))
-            {
-                RunOnBackground(async () =>
-                {
-                    return await papersInforService.GetListPaper(StaticSettings.User.CompanyId);
-                }, async (result) =>
-                {
-                    var dueDatePaper = result.Where(x => !string.IsNullOrEmpty(x.VehiclePlate))
-                    .FirstOrDefault(s =>
-                    {
-                        var day = (s.ExpireDate - new TimeSpan(CompanyConfigurationHelper.DayAllowRegister, 0, 0, 0)).Date;
-                        if (s.ExpireDate.Date > DateTime.Now.Date && DateTime.Now.Date >= day)
-                        {
-                            return true;
-                        }
-                        return false;
-                    });
-
-                    if (dueDatePaper != null)
-                    {
-                        //Gọi sang trang danh sách giấy tờ
-                        var param = new NavigationParameters
-                        {
-                            { "AlertType", Utilities.Enums.PaperAlertTypeEnum.DueAlert }
-                        };
-                        var temp = await NavigationService.NavigateAsync("NavigationPage/ListPapersPage", param, useModalNavigation: true, true);
-                    }
                 });
             }
         }
@@ -930,7 +862,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 FK_AppID = (int)App.AppType,
                 FK_UserID = UserInfo.UserId,
                 DeviceName = DeviceInfo.Model,
-                AppVersion = appVersionService.GetAppVersion(),
+                AppVersion = VersionTracking.CurrentVersion,
                 Idiom = DeviceInfo.Idiom.ToString(),
                 Manufacturer = DeviceInfo.Manufacturer,
                 Platform = DeviceInfo.Platform.ToString(),
@@ -946,36 +878,6 @@ namespace BA_MobileGPS.Core.ViewModels
             (result) =>
             {
                 if (result != null && result.Success && result.Data)
-                {
-                }
-            });
-        }
-
-        private void GetNofitication()
-        {
-            RunOnBackground(async () =>
-            {
-                return await notificationService.GetNotification(UserInfo.UserId);
-            }, (result) =>
-            {
-                if (result != null && result.Success)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        switch (result.Data)
-                        {
-                            case NotificationTypeEnum.None:
-
-                                break;
-
-                            case NotificationTypeEnum.ChangePassword:
-                                DisplayMessage.ShowMessageInfo("Phiên làm việc đã hết hạn bạn vui lòng đăng nhập lại");
-                                Logout();
-                                break;
-                        }
-                    });
-                }
-                else
                 {
                 }
             });
@@ -1179,35 +1081,6 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        private void InsertLogVideo(VideoUpload video)
-        {
-            var request = new SaveVideoByUserRequest()
-            {
-                Channel = (byte)video.Channel,
-                FK_VehicleID = video.VehicleID,
-                FK_CompanyID = CurrentComanyID,
-                StartTime = video.StartTime,
-                EndTime = video.EndTime,
-                Description = "",
-                IsFavorite = false,
-                IsSave = true,
-                Thumbnail = "",
-                VideoName = "",
-                CreatedUser = UserInfo.UserId,
-            };
-
-            RunOnBackground(async () =>
-            {
-                return await streamCameraService.InsertLogVideo(request);
-            },
-            (result) =>
-            {
-                if (result)
-                {
-                }
-            });
-        }
-
         private void StartTimmerUploadVideo()
         {
             if (timerSyncUploadStatus == null || !timerSyncUploadStatus.Enabled)
@@ -1222,6 +1095,99 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        #endregion PrivateMethod
+        private void StartStreamMultiple()
+        {
+            TryExecute(() =>
+            {
+                if (MobileUserSettingHelper.PingLiveStream && StaticSettings.ListVehilceCamera !=null
+                    && StaticSettings.ListVehilceCamera.Count > 0
+                    && StaticSettings.ListVehilceOnline != null
+                    && StaticSettings.ListVehilceOnline.Count >0)
+                {
+                    var lstCamera = new List<string>();
+                    var lstvehicle = StaticSettings.ListVehilceOnline;
+                    foreach (var item in StaticSettings.ListVehilceCamera.Where(x => x.HasVideo).ToList())
+                    {
+                        var plate = item.VehiclePlate.Contains("_C") ? item.VehiclePlate.Replace("_C", "") : item.VehiclePlate;
+                        var model = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == plate.ToUpper());
+                        if (model != null)
+                        {
+                            lstCamera.Add(item.VehiclePlate);
+                        }
+                        else
+                        {
+                            var model_c = lstvehicle.FirstOrDefault(x => x.VehiclePlate.ToUpper() == item.VehiclePlate.ToUpper());
+                            if (model_c != null)
+                            {
+                                lstCamera.Add(item.VehiclePlate);
+                            }
+                        }
+                    }
+                    var request = new CameraStartMultipleRequest()
+                    {
+                        VehicleNames = lstCamera,
+                        CustomerID = UserInfo.XNCode,
+                        Source = (int)CameraSourceType.App,
+                        User = UserInfo.UserName,
+                        SessionID = StaticSettings.SessionID
+                    };
+
+                    RunOnBackground(async () =>
+                    {
+                        return await streamCameraService.DevicesStartMultiple(request);
+                    },
+                    (result) =>
+                    {
+                        if (result)
+                        {
+                            VehicleNames=lstCamera;
+                            StartTimmerPingStream();
+                        }
+                    });
+                }
+            });
+        }
+
+        private List<string> VehicleNames { get; set; } = new List<string>();
+
+        private void PingStreamMultiple(object sender, ElapsedEventArgs e)
+        {
+            if (VehicleNames !=null && VehicleNames.Count >0)
+            {
+                var request = new CameraStartMultipleRequest()
+                {
+                    VehicleNames = VehicleNames,
+                    CustomerID = UserInfo.XNCode,
+                    Source = (int)CameraSourceType.App,
+                    User = UserInfo.UserName,
+                    SessionID = StaticSettings.SessionID
+                };
+
+                RunOnBackground(async () =>
+                {
+                    return await streamCameraService.DevicesPingMultiple(request);
+                },
+                (result) =>
+                {
+                    if (result)
+                    {
+                    }
+                });
+            }
+        }
+
+        private void StartTimmerPingStream()
+        {
+            if (timerPingStreamCamera == null || !timerPingStreamCamera.Enabled)
+            {
+                timerPingStreamCamera = new Timer
+                {
+                    Interval = 60000
+                };
+                timerPingStreamCamera.Elapsed += PingStreamMultiple;
+
+                timerPingStreamCamera.Start();
+            }
+        }
     }
 }

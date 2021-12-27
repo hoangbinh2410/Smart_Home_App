@@ -16,6 +16,7 @@ namespace BA_MobileGPS.Core.Views
             lblCarDoor.Text = MobileResource.Online_Label_Cardoor.Trim().ToUpper();
             lblRoute.Text = MobileResource.Route_Label_Title.Trim().ToUpper();
             lblButtonDetail.Text = MobileResource.Online_Button_Detail.Trim().ToUpper();
+            viewmore.Text=MobileResource.Online_Lable_ViewMore;
         }
     }
 }

@@ -196,5 +196,9 @@ namespace BA_MobileGPS.Core
         public static bool IsShowPhoneNumber => Get(MobileUserConfigurationNames.IsShowPhoneNumber, false);
 
         public static bool UseViewAllCar => Get(MobileUserConfigurationNames.UseViewAllCar, true);
+
+        public static bool Has2FactorAuthentication => Get(MobileUserConfigurationNames.Has2FactorAuthentication, false);
+
+        public static bool PingLiveStream => Get(MobileUserConfigurationNames.PingLiveStream, CompanyConfigurationHelper.PingLiveStream);
     }
 }

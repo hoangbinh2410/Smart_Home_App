@@ -1,0 +1,805 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.Report.StationDetails.StationDetailsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+    xmlns:behaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:local="clr-namespace:BA_MobileGPS.Core"
+    xmlns:local1="clr-namespace:BA_MobileGPS.Core.Views"
+    xmlns:locals="clr-namespace:BA_MobileGPS.Controls"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    xmlns:syncDataGrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DateTimeViewConverter x:Key="DateTimeViewConverter" />
+            <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
+            <local:TableSummaryConverter x:Key="SummaryTotalKmConverter" ColName="TotalKm" />
+            <local:TableSummaryConverter x:Key="SummaryTotalKmMechanicalConverter" ColName="TotalKmMechanical" />
+            <local1:CustomActivityDetailsAggregate x:Key="CustomActivityDetailsConverter" />
+            <x:Double x:Key="FontSizeTextPut11">11</x:Double>
+            <Color x:Key="colorDataColumn">#00ADE5</Color>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!--  Phần tiêu đề  -->
+    <NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="{i18n:TranslateResource ReportStation_Label_TitlePage}"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+            <StackLayout
+                Grid.Column="2"
+                HorizontalOptions="End"
+                Orientation="Horizontal">
+                <controls:FontAwesomeIcon
+                    Margin="5,0,5,0"
+                    IsVisible="{Binding UserInfo.CompanyType, Converter={StaticResource IsCompanyConverter}}"
+                    StyleClass="TopFontIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Building}">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCompanyCommand}" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+                <controls:FontAwesomeIcon
+                    Margin="5,0,10,0"
+                    StyleClass="TopFontIconView"
+                    Text="{x:Static fontawesome:FontAwesomeIcons.Cog}"
+                    TextColor="White">
+                    <controls:FontAwesomeIcon.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="HideableToolbarItem_Clicked" />
+                    </controls:FontAwesomeIcon.GestureRecognizers>
+                </controls:FontAwesomeIcon>
+            </StackLayout>
+        </Grid>
+    </NavigationPage.TitleView>
+    <!--  Phần content  -->
+    <ContentPage.Content>
+        <AbsoluteLayout
+            BackgroundColor="{DynamicResource WhiteColor}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <!--  Nội dung dạng bảng  -->
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <!--  Phần tìm kiếm  -->
+                <StackLayout
+                    Grid.Row="0"
+                    Padding="10"
+                    HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--  từ ngày  -->
+                        <Frame
+                            x:Name="txtfromdate"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <StackLayout
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToFromDateTimePageCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    FontSize="{DynamicResource FontSize11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder=""
+                                    Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="End"
+                                    Source="ic_date_range_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </StackLayout>
+                        </Frame>
+                        <!--  đến ngày  -->
+                        <Frame
+                            x:Name="txttodate"
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <StackLayout
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                VerticalOptions="Center">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushToEndDateTimePageCommand}" />
+                                </StackLayout.GestureRecognizers>
+                                <Entry
+                                    FontSize="{DynamicResource FontSize11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder=""
+                                    Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="End"
+                                    Source="ic_date_range_black.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </StackLayout>
+                        </Frame>
+                        <!--  button tìm kiếm  -->
+                        <StackLayout Grid.Column="2" Orientation="Horizontal">
+                            <sharpnado:MaterialFrame
+                                x:Name="btnKeySearch"
+                                Padding="0"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="CenterAndExpand"
+                                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="35">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SearchDataCommand}" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_search.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </sharpnado:MaterialFrame>
+                        </StackLayout>
+                    </Grid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--  biển số xe  -->
+                        <Frame
+                            x:Name="cmbVihicle"
+                            Grid.Column="0"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="{i18n:TranslateResource ReportStation_Combobox_Vehicle}"
+                                    Text="{Binding VehicleSelect.PrivateCode}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="End"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                        <!--  Chọn điểm  -->
+                        <Frame
+                            x:Name="cmbLandmark"
+                            Grid.Column="1"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushLandmarkCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="Chọn điểm"
+                                    Text="{Binding SelectedLocation.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                        <!--  ecxel  -->
+                        <StackLayout
+                            Grid.Column="2"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <!--  Chọn số phút  -->
+                            <Frame
+                                x:Name="cmbMin"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource WhiteColor}"
+                                BorderColor="{DynamicResource GrayColor2}"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="FillAndExpand"
+                                IsClippedToBounds="True"
+                                VerticalOptions="Center">
+                                <StackLayout
+                                    Padding="5,0,5,0"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <Entry
+                                        FontSize="{DynamicResource FontSizeTextPut11}"
+                                        HorizontalOptions="FillAndExpand"
+                                        Keyboard="Numeric"
+                                        Placeholder="{i18n:TranslateResource ReportStation_Text_PlaceHolder_CountMinutes}"
+                                        Text="{Binding NumberOfMinute}"
+                                        VerticalOptions="Center">
+                                        <Entry.Effects>
+                                            <effects:BorderlessEffect />
+                                        </Entry.Effects>
+                                    </Entry>
+                                </StackLayout>
+                            </Frame>
+                            <!--  button ecxel  -->
+                            <sharpnado:MaterialFrame
+                                Padding="0"
+                                CornerRadius="5"
+                                HasShadow="False"
+                                HeightRequest="35"
+                                HorizontalOptions="CenterAndExpand"
+                                IsVisible="{Binding IsExportExcel}"
+                                LightThemeBackgroundColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="CenterAndExpand"
+                                WidthRequest="35">
+                                <sharpnado:MaterialFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ExportExcellCommand}" />
+                                </sharpnado:MaterialFrame.GestureRecognizers>
+                                <controls:IconView
+                                    Foreground="{DynamicResource WhiteColor}"
+                                    HeightRequest="20"
+                                    HorizontalOptions="Center"
+                                    Source="ic_excel.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="20" />
+                            </sharpnado:MaterialFrame>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <!--  Phần gird data  -->
+                <syncDataGrid:SfDataGrid
+                    x:Name="dataGrid"
+                    Grid.Row="1"
+                    AllowLoadMore="True"
+                    AllowResizingColumn="False"
+                    AutoGenerateColumns="False"
+                    ColumnSizer="Auto"
+                    GridStyle="{StaticResource CustomDataGridStyle}"
+                    HorizontalOptions="FillAndExpand"
+                    IsBusy="{Binding IsBusy}"
+                    IsVisible="{Binding HasData}"
+                    ItemsSource="{Binding ListDataSearch}"
+                    LoadMoreCommand="{Binding LoadMoreDataCommand}"
+                    LoadMorePosition="Bottom"
+                    LoadMoreText="{i18n:TranslateResource Common_Message_LoadMore}"
+                    VerticalOptions="FillAndExpand"
+                    VerticalOverScrollMode="None">
+
+                    <syncDataGrid:SfDataGrid.Columns>
+                        <!--  Số thứ tự  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="30"
+                            MappingName="RowNumber"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleSerial}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{Binding RowNumber}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Vào trạm  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="120"
+                            IsHidden="{Binding ShowTimeInStation, Converter={StaticResource ShowHideColumnConverter}}"
+                            MappingName="TimeInStation"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleIntoStation}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontSize="{StaticResource FontSize10}"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding TimeInStation, Converter={StaticResource DateTimeViewConverter}}"
+                                        VerticalOptions="FillAndExpand"
+                                        VerticalTextAlignment="Center"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Ra trạm  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="120"
+                            IsHidden="{Binding ShowTimeOutStation, Converter={StaticResource ShowHideColumnConverter}}"
+                            MappingName="TimeOutStation"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleUottoStation}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontSize="{StaticResource FontSize10}"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding TimeOutStation, Converter={StaticResource DateTimeViewConverter}}"
+                                        VerticalOptions="FillAndExpand"
+                                        VerticalTextAlignment="Center"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Tên trạm  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="120"
+                            IsHidden="{Binding ShowNameStation, Converter={StaticResource ShowHideColumnConverter}}"
+                            MappingName="Name"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleStationName}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Số phút trong trạm  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="80"
+                            IsHidden="{Binding ShowNumberMinuteOfStation, Converter={StaticResource ShowHideColumnConverter}}"
+                            MappingName="PeriodInOutStation"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleMinutesInStatione}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{Binding PeriodInOutStation}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Lộ trình  -->
+
+                        <syncDataGrid:GridTemplateColumn
+                            Width="80"
+                            MappingName="FK_VehicleID"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_Router}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Path=BindingContext.PushToViewRouteCommand, Source={x:Reference Name=dataGrid}}"
+                                                CommandParameter="{Binding RowNumber}"
+                                                NumberOfTapsRequired="1" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{i18n:TranslateResource ReportStation_Header_Router}"
+                                            TextColor="{DynamicResource colorDataColumn}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Link video  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="80"
+                            MappingName="IsVideoCam"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource ReportStation_Header_VideoLink}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackLayout
+                                        HorizontalOptions="CenterAndExpand"
+                                        IsVisible="{Binding IsVideoCam}"
+                                        VerticalOptions="CenterAndExpand">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Path=BindingContext.PushToViewVidioCommand, Source={x:Reference Name=dataGrid}}"
+                                                CommandParameter="{Binding RowNumber}"
+                                                NumberOfTapsRequired="1" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Label
+                                            FontSize="{StaticResource FontSize10}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Text="{i18n:TranslateResource ReportStation_Item_View}"
+                                            TextColor="{DynamicResource colorDataColumn}"
+                                            VerticalOptions="FillAndExpand"
+                                            XAlign="Center"
+                                            YAlign="Center" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+                    </syncDataGrid:SfDataGrid.Columns>
+                </syncDataGrid:SfDataGrid>
+                <StackLayout
+                    Grid.Row="1"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasData, Converter={StaticResource InvertBooleanConverter}}"
+                    Spacing="10"
+                    VerticalOptions="Center">
+                    <ffsvg:SvgCachedImage
+                        Margin="{x:OnIdiom Phone='0,0,0,0',
+                                           Desktop='0',
+                                           Tablet='0'}"
+                        HeightRequest="200"
+                        Source="NoItem.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="200" />
+                    <Label
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{i18n:TranslateResource Common_Message_NoData}"
+                        TextColor="{DynamicResource TextPrimaryColor}" />
+                </StackLayout>
+            </Grid>
+            <!--  Cài đặt ẩn hiện cột  -->
+            <Grid
+                x:Name="showhideColumn"
+                AbsoluteLayout.LayoutBounds="0,1,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackLayout
+                    Grid.Row="0"
+                    BackgroundColor="Gray"
+                    HorizontalOptions="Fill"
+                    Opacity="0.2"
+                    VerticalOptions="Fill">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                <Frame
+                    Grid.Row="1"
+                    Padding="10"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    CornerRadius="0"
+                    HasShadow="False"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Spacing="10">
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{DynamicResource LabelItem}"
+                            Text="{i18n:TranslateResource ReportStation_Label_DataSettings}"
+                            TextColor="{DynamicResource PrimaryColor}" />
+                        <Grid
+                            Margin="10,0,10,0"
+                            HorizontalOptions="FillAndExpand"
+                            RowSpacing="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".5*" />
+                                <ColumnDefinition Width=".5*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Tên trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5"
+                                FontSize="13"
+                                IsChecked="{Binding ShowNameStation}"
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleStationName}" />
+
+                            <!--  Số phút trong trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5.0"
+                                FontSize="13"
+                                IsChecked="{Binding ShowNumberMinuteOfStation}"
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleMinutesInStatione}" />
+
+                            <!--  Vào trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5"
+                                FontSize="13"
+                                IsChecked="{Binding ShowTimeInStation}"
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleIntoStation}" />
+
+                            <!--  Ra trạm  -->
+                            <checkbox:SfCheckBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                CheckedColor="{DynamicResource PrimaryColor}"
+                                CornerRadius="5.0"
+                                FontSize="13"
+                                IsChecked="{Binding ShowTimeOutStation}"
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleUottoStation}" />
+
+                            <!--  button save  -->
+                            <StackLayout
+                                Grid.Row="2"
+                                Grid.ColumnSpan="2"
+                                Padding="40,20,40,20"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <Button
+                                    BackgroundColor="{DynamicResource WhiteColor}"
+                                    BorderColor="{DynamicResource PrimaryColor}"
+                                    BorderRadius="0"
+                                    BorderWidth="1"
+                                    Clicked="HideableToolbarItem_Clicked"
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{i18n:TranslateResource Common_Button_Close,
+                                                                  Converter={StaticResource UpperCaseConverter}}"
+                                    TextColor="{DynamicResource PrimaryColor}" />
+
+                                <Button
+                                    BackgroundColor="{DynamicResource PrimaryColor}"
+                                    BorderRadius="0"
+                                    Clicked="Button_Clicked"
+                                    Command="{Binding SaveComlumnHideCommand}"
+                                    FontAttributes="Bold"
+                                    FontSize="12"
+                                    HeightRequest="40"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="{i18n:TranslateResource Common_Button_SaveShowHideColumn,
+                                                                  Converter={StaticResource UpperCaseConverter}}"
+                                    TextColor="{DynamicResource WhiteColor}" />
+                            </StackLayout>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

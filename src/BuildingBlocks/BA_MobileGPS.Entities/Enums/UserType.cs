@@ -6,6 +6,7 @@
         CustomerAdmin = 1,//Người dùng Admin
         SupportUser = 2,
         BusinessUser = 3,
-        CustomerUser = 4//Người dùng Thường
+        CustomerUser = 4,
+        Driver = 10,//Người dùng Thường
     }
 }

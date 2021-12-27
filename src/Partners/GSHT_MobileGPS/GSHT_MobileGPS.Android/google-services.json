@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1032763136293",
+    "project_id": "vngps-a9638",
+    "storage_bucket": "vngps-a9638.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032763136293:android:b34e615d9a20f5a08b62cc",
+        "android_client_info": {
+          "package_name": "vn.gsht.gpsmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032763136293-v23q0pj2kgnis5h2lsv475mfekmn7rn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9A24zZt-lpt6MEBpqLF1NsHWhmDK8yUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032763136293-v23q0pj2kgnis5h2lsv475mfekmn7rn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

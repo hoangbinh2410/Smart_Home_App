@@ -1,567 +1,561 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-		<ProductVersion>8.0.30703</ProductVersion>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectGuid>{146C2BC6-A664-4554-B2EC-D5A7C770E04B}</ProjectGuid>
-		<ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>VMS_MobileGPS.Droid</RootNamespace>
-		<AssemblyName>VMS_MobileGPS.Android</AssemblyName>
-		<FileAlignment>512</FileAlignment>
-		<TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
-		<AndroidApplication>True</AndroidApplication>
-		<AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
-		<GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-		<AndroidResgenClass>Resource</AndroidResgenClass>
-		<AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-		<MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
-		<MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-		<AndroidStoreUncompressedFileExtensions />
-		<MandroidI18n />
-		<JavaMaximumHeapSize />
-		<JavaOptions />
-		<NuGetPackageImportStamp>
-		</NuGetPackageImportStamp>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug</OutputPath>
-		<DefineConstants>DEBUG;</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<AndroidLinkMode>None</AndroidLinkMode>
-		<AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-		<AndroidDexTool>d8</AndroidDexTool>
-		<AndroidUseAapt2>true</AndroidUseAapt2>
-		<AndroidEnableMultiDex>false</AndroidEnableMultiDex>
-		<JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
-		<AndroidSupportedAbis>
-		</AndroidSupportedAbis>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugSymbols>false</DebugSymbols>
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release</OutputPath>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<AndroidManagedSymbols>true</AndroidManagedSymbols>
-		<AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-		<AndroidDexTool>d8</AndroidDexTool>
-		<AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
-		<AndroidUseAapt2>true</AndroidUseAapt2>
-		<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-		<AndroidEnableMultiDex>true</AndroidEnableMultiDex>
-		<AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
-		<AotAssemblies>true</AotAssemblies>
-		<EnableLLVM>true</EnableLLVM>
-		<AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
-		<JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
-		<BundleAssemblies>true</BundleAssemblies>
-	</PropertyGroup>
-	<ItemGroup>
-		<Reference Include="Mono.Android" />
-		<Reference Include="Plugin.BLE">
-			<HintPath>..\..\..\BuildingBlocks\Library\Android\Plugin.BLE.dll</HintPath>
-		</Reference>
-		<Reference Include="Plugin.BLE.Abstractions">
-			<HintPath>..\..\..\BuildingBlocks\Library\Android\Plugin.BLE.Abstractions.dll</HintPath>
-		</Reference>
-		<Reference Include="System" />
-		<Reference Include="System.Core" />
-		<Reference Include="System.Xml.Linq" />
-		<Reference Include="System.Xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Prism.DryIoc.Extensions">
-			<Version>8.0.48</Version>
-		</PackageReference>
-		<PackageReference Include="Shiny.Locations">
-			<Version>1.2.0.1755</Version>
-		</PackageReference>
-		<PackageReference Include="Shiny.Prism">
-			<Version>8.0.48</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.AndroidX.Core">
-			<Version>1.6.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
-		<PackageReference Include="Realm" Version="10.4.1" />
-		<PackageReference Include="Xamarin.Build.Download">
-			<Version>0.10.0</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.GooglePlayServices.Basement">
-			<Version>117.6.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.AndroidX.RecyclerView">
-			<Version>1.2.1.1</Version>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Include="MainActivity.cs" />
-		<Compile Include="MainApplication.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="SplashScreenActivity.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidAsset Include="Assets\bluetooth.json" />
-		<AndroidAsset Include="Assets\FontAwesome5Brands.otf" />
-		<AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
-		<AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
-		<AndroidAsset Include="Assets\internetconnection.json" />
-		<AndroidAsset Include="Assets\Roboto-Regular.ttf" />
-		<AndroidAsset Include="Assets\Roboto-Bold.ttf" />
-		<GoogleServicesJson Include="google-services.json" />
-		<AndroidAsset Include="Assets\Roboto-Italic.ttf" />
-		<None Include="Resources\AboutResources.txt" />
-		<None Include="Assets\AboutAssets.txt" />
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="Properties\AndroidManifest.xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\values\styles.xml">
-			<SubType>Designer</SubType>
-		</AndroidResource>
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core.Droid\BA_MobileGPS.Core.Droid.csproj">
-			<Project>{c936199a-57c9-44c2-9671-82c1bf971dcd}</Project>
-			<Name>BA_MobileGPS.Core.Droid</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
-			<Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
-			<Name>BA_MobileGPS.Core</Name>
-		</ProjectReference>
-		<ProjectReference Include="..\VMS_MobileGPS\VMS_MobileGPS.csproj">
-			<Project>{C971F261-39AC-42DF-85AC-4C707AB06A54}</Project>
-			<Name>VMS_MobileGPS</Name>
-		</ProjectReference>
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidAsset Include="Assets\z_sos.mp3" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\mipmap-ldpi\ic_launcher.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\values\Strings.xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\Launch_Screen.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\xml\file_paths.xml" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\bg_Login.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\ic_logo.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\ic_vehicleplate.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\ic_devicestate.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\ic_alarmsos.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\ic_devicename.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\avatar.jpg" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\bg_HomeTop.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\bg_HomeBot.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\avatar_default.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\bg_app.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\car_blue.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\car_grey.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\car_orange.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\car_red.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\car_warn.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\DeviceBKS.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\DeviceName.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_bluetooth.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_caption.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_car_play.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_fishingNet.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_mailoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_map.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_mappoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_meluoi.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_port.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_sos.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_vmsdevice.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\car_blue.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\car_grey.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\car_orange.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\car_red.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\car_warn.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\DeviceBKS.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\DeviceName.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_bluetooth.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_caption.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_car_play.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_fishingnet.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_mailoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_map.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_mappoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_meluoi.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_port.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_sos.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_vmsdevice.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\car_blue.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\car_grey.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\car_orange.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\car_red.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\car_warn.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\DeviceBKS.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\DeviceName.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_bluetooth.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_caption.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_car_play.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_fishingnet.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_mailoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_map.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_mappoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_meluoi.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_port.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_sos.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_vmsdevice.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\car_blue.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\car_grey.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\car_orange.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\car_red.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\car_warn.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\DeviceBKS.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\DeviceName.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_bluetooth.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_caption.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_car_play.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_fishingnet.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_mailoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_map.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_mappoffline.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_meluoi.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_port.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_sos.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_vmsdevice.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_vmsdevice_off.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_vmsdevice_off.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoringsolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_vmsdevice_off.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_vmsdevice_off.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_vehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_vehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_vehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoring.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoring.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoringsolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoring.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoringsolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_mornitoring.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_mornitoringsolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_vehiclesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_vehiclesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_vehiclesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehiclesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_routesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_route.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_route.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_routesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_route.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_routesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_route.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_routesolid.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_doublevehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_doublevehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_doublevehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_doublevehicle.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\logo_Login.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\bg_Account.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\NoPhotos.svg" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable\NoItem.svg" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_trackingcar.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_trackingcar.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_trackingcar.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_trackingcar.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-hdpi\ic_errorgps.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xhdpi\ic_errorgps.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxhdpi\ic_errorgps.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<AndroidResource Include="Resources\drawable-xxxhdpi\ic_errorgps.png" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Resources\layout\" />
-	</ItemGroup>
-	<Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-	<ProjectExtensions>
-		<VisualStudio>
-			<UserProperties XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
-		</VisualStudio>
-	</ProjectExtensions>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{146C2BC6-A664-4554-B2EC-D5A7C770E04B}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VMS_MobileGPS.Droid</RootNamespace>
+    <AssemblyName>VMS_MobileGPS.Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
+    <JavaMaximumHeapSize />
+    <JavaOptions />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <AndroidSupportedAbis>
+    </AndroidSupportedAbis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
+    <AotAssemblies>true</AotAssemblies>
+    <EnableLLVM>true</EnableLLVM>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <BundleAssemblies>true</BundleAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="Plugin.BLE">
+      <HintPath>..\..\..\BuildingBlocks\Library\Android\Plugin.BLE.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.BLE.Abstractions">
+      <HintPath>..\..\..\BuildingBlocks\Library\Android\Plugin.BLE.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Prism.DryIoc.Extensions">
+      <Version>8.0.48</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Locations">
+      <Version>1.2.0.1755</Version>
+    </PackageReference>
+    <PackageReference Include="Shiny.Prism">
+      <Version>8.0.48</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
+    <PackageReference Include="Realm" Version="10.7.1" />
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.11.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Basement">
+      <Version>117.6.0.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="MainApplication.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashScreenActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\bluetooth.json" />
+    <AndroidAsset Include="Assets\FontAwesome5Brands.otf" />
+    <AndroidAsset Include="Assets\FontAwesome5Regular.otf" />
+    <AndroidAsset Include="Assets\FontAwesome5Solid.otf" />
+    <AndroidAsset Include="Assets\internetconnection.json" />
+    <AndroidAsset Include="Assets\Roboto-Regular.ttf" />
+    <AndroidAsset Include="Assets\Roboto-Bold.ttf" />
+    <GoogleServicesJson Include="google-services.json" />
+    <AndroidAsset Include="Assets\Roboto-Italic.ttf" />
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core.Droid\BA_MobileGPS.Core.Droid.csproj">
+      <Project>{c936199a-57c9-44c2-9671-82c1bf971dcd}</Project>
+      <Name>BA_MobileGPS.Core.Droid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BA_MobileGPS.Core\BA_MobileGPS.Core.csproj">
+      <Project>{55e2fe34-997f-4771-a5d7-8114b5fb7899}</Project>
+      <Name>BA_MobileGPS.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VMS_MobileGPS\VMS_MobileGPS.csproj">
+      <Project>{C971F261-39AC-42DF-85AC-4C707AB06A54}</Project>
+      <Name>VMS_MobileGPS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\z_sos.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-ldpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Launch_Screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_vehicleplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_devicestate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_alarmsos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_devicename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\avatar.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_HomeTop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_HomeBot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\avatar_default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_app.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\car_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\car_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\car_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\car_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\car_warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\DeviceBKS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\DeviceName.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_caption.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_car_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_fishingNet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_port.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\car_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\car_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\car_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\car_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\car_warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\DeviceBKS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\DeviceName.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_caption.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_car_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_fishingnet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_port.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\car_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\car_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\car_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\car_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\car_warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\DeviceBKS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\DeviceName.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_caption.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_car_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_fishingnet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_port.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\car_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\car_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\car_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\car_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\car_warn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\DeviceBKS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\DeviceName.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_bluetooth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_caption.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_car_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_fishingnet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mailoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mappoffline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_meluoi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_port.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_sos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vmsdevice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vmsdevice_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vmsdevice_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vmsdevice_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vmsdevice_off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mornitoring.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_mornitoringsolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_vehiclesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_routesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_route.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_route.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_routesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_route.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_routesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_route.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_routesolid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_doublevehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_doublevehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_doublevehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_doublevehicle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo_Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_Account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\NoPhotos.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\NoItem.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_trackingcar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_errorgps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_errorgps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_errorgps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_errorgps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\layout\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadUnhandledDeviceExceptionVMS_MobileGPSAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionVMS_MobileGPSAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

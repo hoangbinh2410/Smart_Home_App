@@ -32,6 +32,8 @@
         ShowKmInMonth,
         DayAllowRegister,
         UseNewSummaryIconOnline,
-        ChangeColorIconStopParking
+        ChangeColorIconStopParking,
+        LostConnectIncludeLostGPSOnline,
+        PingLiveStream
     }
 }

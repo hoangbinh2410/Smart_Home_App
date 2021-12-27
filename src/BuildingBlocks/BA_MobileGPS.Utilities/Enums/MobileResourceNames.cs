@@ -107,6 +107,7 @@
         Login_Message_AccountAllowedSystem,
         Login_Message_AccountLocked,
         Login_Message_LoginWebOnly,
+        Login_Message_LoginLicenseAppFailed,
         Login_Message_UpdateVersionNew,
         Login_Message_UpdateVersionMessage,
         Login_ForgotPassword_PopupTitle,
@@ -331,6 +332,7 @@
         Online_Label_StatusCarDebtMoney,
         Online_Label_StatusCarMoving,
         Online_Label_StatusCarStoping,
+        Online_Label_StatusCarStop,
         Online_Label_StatusCarEngineOff,
         Online_Label_StatusCarEngineOn,
         Online_Label_StatusCarStopOn,
@@ -362,6 +364,7 @@
         Online_Lable_SetupBoundary,
         Online_Button_Option,
         Online_CheckBox_Distance,
+        Online_Lable_ViewMore,
 
         #endregion Online
 
@@ -467,6 +470,7 @@
         DetailVehicle_Label_ParkingTurnOnVehecle,
         DetailVehicle_Label_AirCondition,
         DetailVehicle_Label_CountOpenDoor,
+        DetailVehicle_Label_Count,
         DetailVehicle_Label_Crane,
         DetailVehicle_Label_Ben,
         DetailVehicle_Label_Ben_Crane,
@@ -519,6 +523,7 @@
         #endregion datetimepicker
 
         #region report
+
         Common_Combobox_TitleCompany,
         Common_Combobox_TitleVehicle,
         Common_Button_Search,
@@ -551,6 +556,7 @@
         Common_Label_All,
         Common_Message_Success,
         Common_Message_SaveError,
+        Common_Message_NoSelectLocation,
 
         PourFuelReport_Label_TitlePage,
         PourFuelReport_Label_TitleDetailPage,
@@ -747,6 +753,8 @@
         DetailsReport_CheckBox_QuotaFuelConsume,
         DetailsReport_CheckBox_StartAddress,
         DetailsReport_CheckBox_EndAddress,
+        DetailsReport_Combobox_Title_ChooseAddress,
+        DetailsReport_Status_permission,
 
         StopParkingReport_Label_TilePage,
         StopParkingReport_Label_TitlePageDetail,
@@ -843,9 +851,7 @@
         ChartFuel_Label_PourTotal,
         ChartFuel_Label_SuckTotal,
         ChartFuel_Label_LastLits,
-        #endregion report
-
-        #region
+        
         ReportTemperature_Label_Temperature,
         ReportTemperature_Label_TitlePage,
         ReportTemperature_Label_Grid_Kilomet,
@@ -868,6 +874,7 @@
         ReportTemperature_Label_TitlePageDetail,
         ReportMachine_TitleStatusMachine,
         ReportMachine_Label_PlaceHolder_CountMinutes,
+        ReportStation_Text_PlaceHolder_CountMinutes,
         ReportMachine_Label_PlaceHolder_StatusMachine,
         ReportMachine_Label_Grid_Minutes,
         ReportMachine_Label_TitlePage,
@@ -888,7 +895,51 @@
         ReportMachine_Label_EngineTurnOn,
         ReportMachine_Label_EngineTurnOff,
 
-        #endregion
+        ReportStation_Label_TitlePage,
+        ReportStation_Combobox_Vehicle,
+        ReportStation_Header_TitleSerial,
+        ReportStation_Header_TitleIntoStation,
+        ReportStation_Header_TitleUottoStation,
+        ReportStation_Header_TitleStationName,
+        ReportStation_Header_TitleMinutesInStatione,
+        ReportStation_Header_Router,
+        ReportStation_Header_VideoLink,
+        ReportStation_Item_View,
+        ReportStation_Label_DataSettings,
+
+        ReportBusiness_Label_TitlePage,
+        ReportBusiness_Combobox_Vehicle,
+        ReportBusiness_Header_TitleSerial,
+        ReportBusiness_Header_TitleStartAddress,
+        ReportBusiness_Header_TitleEndAddress,
+        ReportBusiness_Header_TitleStartTime,
+        ReportBusiness_Header_TitleEndTime,
+        ReportBusiness_Header_TitleTotalMinutes,
+        ReportBusiness_Header_TotalKmGps,
+        ReportBusiness_Header_KmCO,
+        ReportBusiness_Header_FuelConsume,
+        ReportBusiness_Header_QuotaFuel,
+        ReportBusiness_Header_QuotaFuelConsume,
+        ReportBusiness_Header_Router,
+        ReportBusiness_Header_Photo,
+        ReportBusiness_Item_View,
+        ReportBusiness_Total,
+        ReportBusiness_Error_MinimumDistance,
+        ReportBusiness_Error_MinimumLessMaximum,
+        ReportDetailedFilter_Label_TitlePage,
+        ReportDetailedFilter_Label_Departure,
+        ReportDetailedFilter_Combobox_ChoosingDeparture,
+        ReportDetailedFilter_Label_Arrival,
+        ReportDetailedFilter_Combobox_ChoosingArrival,
+        ReportDetailedFilter_Label_MinimumDistance,
+        ReportDetailedFilter_Label_MaximumDistance,
+        ReportDetailedFilter_CheckBox_NoChoosing,
+        ReportDetailedFilter_btn_Apply,
+        ReportSetting_Label_DataSettings,
+        ReportSetting_Label_TableFormat,
+        ReportSetting_Label_ListFormat,
+
+        #endregion report
 
         #region Camera
         Camera_Label_MenuTitle,
@@ -911,6 +962,7 @@
         Camera_Label_Video_Event_Numbers,
         Camera_Label_Start_Watch,
         Camera_ChildTab_Device,
+        Camera_ChildTab_Dowload,
         Camera_ChildTab_BACloud,
         Camera_Lable_ListVideo,
         Camera_ChildTab_MyVideo,
@@ -1245,5 +1297,57 @@
         CabSignInfor_Label_RegisterDate,
         CabSignInfor_Label_DaysNumberForAlertAppear,
         CabSignInfor_Label_Insert,
+
+        #region SupportClient
+        SupportClient_Label_Title,
+        SupportClient_Label_VehicleProcessing,
+        SupportClient_Label_SupportCategory,
+        SupportClient_Label_TextSupport,
+        SupportClient_Label_textSupportError,
+        SupportClient_Text_Yes,
+        SupportClient_Text_No,
+        SupportClient_Text_Unfinished,
+        SupportClient_Text_Accomplished,
+        SupportClient_Button_Close,
+        SupportClient_Label_TextSupportFeedbackError,
+        SupportClient_Label_LbSupportFeedbackName,
+        SupportClient_Label_LbSupportFeedbackVehicle,
+        SupportClient_Label_LbSupportFeedbackPhoneNumber,
+        SupportClient_Label_TextSupportFeedbackContent,
+        SupportClient_Button_BtnSupportFeedbackSend,
+        #endregion
+        #region KPI
+        Title_Tabview,
+        Title_Kpi_Page,
+        Before_Day_lb,
+        Sum_Point_lb,
+        Rank_lb,
+        Next_Day_lb,
+        Point_lb,
+        Rank_lb2,
+        Safe_Criteria_lb,
+        Economical_Tabview,
+        Table_Criteria_lb,
+        Economical_Criteria_lb,
+        Chart_Title_ScoreDisplay,
+        Chart_Title_ScoreActual,
+        Criteria_lb,
+        Text_Assess, 
+        My_Point_TabView_Title,
+        Comment_Span,
+        Date_lb,
+        Month_lb, 
+        Ordinal_Number_lb,
+        Detail_Text_lb,
+        Rank_Table_Tabview,
+        SearchVehicle, 
+        Month_Point_Medium, 
+        Driver_lb,
+        View_lb,
+        Table_lb,
+        Common_Message_Search_Month,
+        Common_Message_Search_Day,
+        Common_Message_Support_View,
+        #endregion KPI
     }
 }

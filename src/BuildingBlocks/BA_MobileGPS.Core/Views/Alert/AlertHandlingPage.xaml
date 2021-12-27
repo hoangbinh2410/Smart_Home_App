@@ -66,10 +66,13 @@
                     VerticalOptions="StartAndExpand">
                     <inputLayout:SfTextInputLayout
                         Hint="{i18n:TranslateResource Alert_Label_AlertDetail}"
-                        OutlineCornerRadius="16"
+                        IsEnabled="False"
+                        IsHintAlwaysFloated="True"
+                        OutlineCornerRadius="18"
                         UnfocusedColor="{DynamicResource PrimaryColor}">
-                        <Editor IsReadOnly="True" Text="{Binding Alert.Content}" />
+                        <Editor IsEnabled="False" Text="{Binding Alert.Content}" />
                     </inputLayout:SfTextInputLayout>
+
                     <inputLayout:SfTextInputLayout
                         ErrorText="{Binding HandlingContent.ErrorFirst}"
                         HasError="{Binding HandlingContent.IsNotValid}"

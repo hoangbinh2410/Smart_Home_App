@@ -94,6 +94,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 if (parameters.ContainsKey(ParameterKey.VehicleRoute) && parameters.GetValue<Vehicle>(ParameterKey.VehicleRoute) is Vehicle vehicle)
                 {
+                    if (parameters.ContainsKey("ReportDate"))
+                    {
+                        var selectDate = parameters.GetValue<Tuple<DateTime, DateTime>>("ReportDate");
+                        DateStart = selectDate.Item1.AddMinutes(-5);
+                        DateEnd = selectDate.Item2.AddMinutes(5);
+                    }
                     if (StaticSettings.ListVehilceOnline != null && StaticSettings.ListVehilceOnline.Count > 0)
                     {
                         var model = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate == vehicle.VehiclePlate);
@@ -394,35 +400,38 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ValidateUserConfigGetHistoryRoute()
         {
-            var currentCompany = Settings.CurrentCompany;
-            RunOnBackground(async () =>
+            if (Vehicle !=null && Vehicle.VehicleId >0)
             {
-                return await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
+                var currentCompany = Settings.CurrentCompany;
+                RunOnBackground(async () =>
                 {
-                    UserId = currentCompany?.UserId ?? UserInfo.UserId,
-                    CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
-                    VehiclePlate = Vehicle.VehiclePlate,
-                    FromDate = DateStart,
-                    ToDate = DateEnd,
-                    AppID = (int)App.AppType
+                    return await vehicleRouteService.ValidateUserConfigGetHistoryRoute(new ValidateUserConfigGetHistoryRouteRequest
+                    {
+                        UserId = currentCompany?.UserId ?? UserInfo.UserId,
+                        CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
+                        VehiclePlate = Vehicle.VehiclePlate,
+                        FromDate = DateStart,
+                        ToDate = DateEnd,
+                        AppID = (int)App.AppType
+                    });
+                }, (result) =>
+                {
+                    if (result != null && result.Success && result.State == ValidatedHistoryRouteState.Success)
+                    {
+                        StopRoute();
+                        if (ctsAddress != null)
+                            ctsAddress.Cancel();
+
+                        GetHistoryRoute();
+                    }
+                    else
+                    {
+                        ClearRoute();
+
+                        ProcessUserConfigGetHistoryRoute(result);
+                    }
                 });
-            }, (result) =>
-            {
-                if (result != null && result.Success && result.State == ValidatedHistoryRouteState.Success)
-                {
-                    StopRoute();
-                    if (ctsAddress != null)
-                        ctsAddress.Cancel();
-
-                    GetHistoryRoute();
-                }
-                else
-                {
-                    ClearRoute();
-
-                    ProcessUserConfigGetHistoryRoute(result);
-                }
-            });
+            }
         }
 
         private void ProcessUserConfigGetHistoryRoute(ValidateUserConfigGetHistoryRouteResponse result)

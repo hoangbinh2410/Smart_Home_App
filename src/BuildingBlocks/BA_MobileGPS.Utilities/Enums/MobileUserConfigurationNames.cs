@@ -24,6 +24,8 @@
         MBMapType,
         MBMapZoom,
         IsShowPhoneNumber,
-        UseViewAllCar
+        UseViewAllCar,
+        Has2FactorAuthentication,
+        PingLiveStream
     }
 }

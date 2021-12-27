@@ -9,6 +9,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:local="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
+    xmlns:localstatic="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <ContentView.Content>
@@ -17,7 +18,7 @@
                 Margin="0,0,0,5"
                 HeightRequest="25"
                 HorizontalOptions="StartAndExpand"
-                Source="ic_logo.png"
+                Source="{Binding PartnerConfig.InAppLogo, Source={x:Static localstatic:GlobalResources.Current}}"
                 VerticalOptions="EndAndExpand" />
             <StackLayout
                 Margin="0"
@@ -25,12 +26,15 @@
                 Orientation="Horizontal"
                 Spacing="8"
                 VerticalOptions="EndAndExpand">
-                <controls:IconView Source="ic_phone.png" StyleClass="TopIconView">
+                <controls:IconView
+                    HeightRequest="27"
+                    Source="ic_helpcustomer2.png"
+                    StyleClass="TopIconView">
                     <controls:IconView.Behaviors>
                         <animation:ViewTappedBehavior AnimationType="Scale" />
                     </controls:IconView.Behaviors>
                     <controls:IconView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding CallHotLineCommand}" />
+                        <TapGestureRecognizer Command="{Binding PushSupportPageCommand}" />
                     </controls:IconView.GestureRecognizers>
                 </controls:IconView>
                 <controls:IconView

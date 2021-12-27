@@ -15,7 +15,7 @@ namespace UNITEL_MobileGPS
         {
         }
 
-        public override string OneSignalKey => base.OneSignalKey;
+        public override string OneSignalKey => Config.OneSignalKey_UNITEL;
 
         protected async override void OnInitialized()
         {

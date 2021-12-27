@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailVehicle_Label_ParkingVehicleNow => Get(MobileResourceNames.DetailVehicle_Label_ParkingVehicleNow, "Đang đỗ", "Parking");
         public static string DetailVehicle_Label_ParkingTurnOnVehecle => Get(MobileResourceNames.DetailVehicle_Label_ParkingTurnOnVehecle, "Dừng đỗ nổ máy", "Parking TurnOn");
         public static string DetailVehicle_Label_AirCondition => Get(MobileResourceNames.DetailVehicle_Label_AirCondition, "Điều hoà", "Air conditioner");
-
+        public static string DetailVehicle_Label_Count => Get(MobileResourceNames.DetailVehicle_Label_CountOpenDoor, "lần", "count");
         public static string DetailVehicle_Label_CountOpenDoor => Get(MobileResourceNames.DetailVehicle_Label_CountOpenDoor, "Số lần mở cửa", "Count Open Door");
         public static string DetailVehicle_Label_Crane => Get(MobileResourceNames.DetailVehicle_Label_Crane, "Cẩu", "Crane");
         public static string DetailVehicle_Label_Ben => Get(MobileResourceNames.DetailVehicle_Label_Ben, "Ben", "Ben");

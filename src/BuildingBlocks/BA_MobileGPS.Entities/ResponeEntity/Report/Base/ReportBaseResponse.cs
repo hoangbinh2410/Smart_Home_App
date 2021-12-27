@@ -26,6 +26,8 @@ namespace BA_MobileGPS.Entities
         public string StartAddress { get; set; }
 
         public string EndAddress { get; set; }
+
+        public bool IsVideoCam { get; set; }
     }
 
     public class ReportBasePaging

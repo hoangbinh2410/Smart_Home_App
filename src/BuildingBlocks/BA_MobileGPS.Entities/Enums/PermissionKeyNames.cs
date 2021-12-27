@@ -4444,6 +4444,7 @@
         ViewMessageOnline = 2001,
 
         TrackingVideosView = 1346,
+
         TrackingOnlineByImagesView = 1345,
         /// <summary>
         /// Thêm mới giấy tờ phương tiện
@@ -4458,6 +4459,22 @@
         /// </summary>
         PaperUpdate = 2023,
 
-        UploadVideoStream = 1373
+        UploadVideoStream = 1373,
+        /// <summary>
+        /// Xem quản lý chi phí xe
+        /// </summary>
+        ViewExpense = 1397,
+        /// <summary>
+        /// Thêm mới chi phí xe
+        /// </summary>
+        AddExpense = 1398,
+        /// <summary>
+        /// Sửa chi phí xe
+        /// </summary>
+        ChangeExpense = 1399 ,
+        /// <summary>
+        /// Xóa quản lý chi phí
+        /// </summary>
+        DeleteExpense = 1400
     }
 }

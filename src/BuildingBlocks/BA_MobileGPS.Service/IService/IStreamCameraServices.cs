@@ -1,6 +1,4 @@
 ﻿using BA_MobileGPS.Entities;
-using BA_MobileGPS.Entities.ResponeEntity.Camera;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,16 +6,19 @@ namespace BA_MobileGPS.Service
 {
     public interface IStreamCameraService
     {
-        #region Device
         Task<StreamDevice> GetDevicesInfo(StreamDeviceRequest request);
 
         Task<ResponseStreamBase<List<CameraStartRespone>>> DevicesStart(CameraStartRequest request);
+
+        Task<bool> DevicesStartMultiple(CameraStartMultipleRequest request);
 
         Task<bool> DevicesStop(CameraStopRequest request);
 
         Task<bool> DevicesStopSession(CameraStopRequest request);
 
         Task<bool> DevicesPing(CameraStartRequest request);
+
+        Task<bool> DevicesPingMultiple(CameraStartMultipleRequest request);
 
         Task<ResponseStreamBase<List<PlaybackStartRespone>>> StartPlayback(PlaybackStartRequest request);
 
@@ -32,13 +33,12 @@ namespace BA_MobileGPS.Service
         Task<List<UploadStatusRespone>> GetUploadingProgressInfor(UploadStatusRequest request);
 
         Task<bool> SetHotspot(SetHotspotRequest request);
-        #endregion
 
         Task<List<CaptureImageData>> GetCaptureImageLimit(int xncode, string vehiclePlate, int limit);
 
         Task<List<CaptureImageData>> GetListCaptureImage(StreamImageRequest request);
 
-        Task<List<CameraRestreamUploadInfo>> GetListVideoOnCloud(CameraRestreamRequest request);
+        Task<List<CameraRestreamUploadInfo>> GetListVideoDowload(CameraRestreamRequest request);
 
         Task<VideoRestreamInfo> GetListVideoNotUpload(CameraUploadRequest request);
 
@@ -51,6 +51,8 @@ namespace BA_MobileGPS.Service
         Task<bool> InsertLogVideo(SaveVideoByUserRequest request);
 
         Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode);
+
+        Task<CameraCloudRespone> GetListCameraCloud(GetCameraCloudRequest request);
     }
 
     public enum ConditionType

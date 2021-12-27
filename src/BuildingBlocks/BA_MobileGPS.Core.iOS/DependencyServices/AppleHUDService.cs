@@ -12,11 +12,11 @@ namespace BA_MobileGPS.Core.iOS.DependencyServices
         {
             if (string.IsNullOrWhiteSpace(message))
             {
-                BTProgressHUD.Show(null, -1, ProgressHUD.MaskType.Black);
+                BTProgressHUD.Show(null, -1, MaskType.Black);
             }
             else
             {
-                BTProgressHUD.Show(message, -1, ProgressHUD.MaskType.Black);
+                BTProgressHUD.Show(message, -1, MaskType.Black);
             }
         }
 

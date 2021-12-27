@@ -164,6 +164,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Message_SaveError => Get(MobileResourceNames.Common_Message_SaveError, "Lưu không thành công bạn vui lòng kiểm tra lại", "Save failed, please check again");
 
+        public static string Common_Message_PleaseSelectLocation => Get(MobileResourceNames.Common_Message_NoSelectLocation, "Bạn chưa chọn địa điểm", "Please select a location");
+
         #endregion Report Common
 
         #region datetime picker
@@ -221,5 +223,10 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Message_LoadMore => Get(MobileResourceNames.Common_Message_LoadMore, " Xem thêm", "Load more");
 
         #endregion Vehicle
+        #region
+        public static string Common_Message_Search_Month => Get(MobileResourceNames.Common_Message_Search_Month, "Tháng tìm kiếm không được lớn hơn ngày hiện tại", "Search month cannot be greater than current date");
+        public static string Common_Message_Search_Day => Get(MobileResourceNames.Common_Message_Search_Day, "Ngày tìm kiếm không được lớn hơn ngày hiện tại", "Search month cannot be greater than current date");
+        public static string Common_Message_Support_View => Get(MobileResourceNames.Common_Message_Support_View, "Chỉ hỗ trợ xem biểu đồ theo ngày", " Only support daily chart viewing");     
+        #endregion
     }
 }

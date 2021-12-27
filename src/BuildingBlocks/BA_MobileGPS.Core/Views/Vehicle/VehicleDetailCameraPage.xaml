@@ -62,12 +62,12 @@
                 <tabView:SelectionIndicatorSettings
                     Position="Fill"
                     StrokeThickness="10"
-                    Color="#00ABE1" />
+                    Color="White" />
             </tabView:SfTabView.SelectionIndicatorSettings>
 
             <tabView:SfTabItem
                 Title="{i18n:TranslateResource DetailVehicle_Label_Status}"
-                SelectionColor="{DynamicResource WhiteColor}"
+                SelectionColor="{DynamicResource PrimaryColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"
                 TitleFontSize="14">
@@ -78,7 +78,7 @@
 
             <tabView:SfTabItem
                 Title="BACAM"
-                SelectionColor="{DynamicResource WhiteColor}"
+                SelectionColor="{DynamicResource PrimaryColor}"
                 TitleFontAttributes="Bold"
                 TitleFontColor="White"
                 TitleFontSize="14">

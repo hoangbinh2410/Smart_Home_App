@@ -16,7 +16,7 @@
             <Frame
                 Margin="0,0,0,70"
                 Padding="15"
-               BackgroundColor="{DynamicResource WhiteColor}"
+                BackgroundColor="{DynamicResource WhiteColor}"
                 CornerRadius="10"
                 HeightRequest="320"
                 HorizontalOptions="CenterAndExpand"
@@ -86,7 +86,7 @@
                             <Label
                                 FontAttributes="Bold"
                                 HorizontalOptions="CenterAndExpand"
-                                Text="CHO PHÉP "
+                                Text="TIẾP TỤC"
                                 TextColor="White"
                                 VerticalOptions="Center" />
                         </StackLayout>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.RouteReportPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{i18n:TranslateResource ReportStation_Header_Router}"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <busyindicator:SfBusyIndicator
+        Title="Loading..."
+        AnimationType="Cupertino"
+        HorizontalOptions="Center"
+        TextColor="Black"
+        TextSize="12"
+        VerticalOptions="Center"
+        ViewBoxHeight="50"
+        ViewBoxWidth="50"
+        Duration="3" />
+</ContentPage>

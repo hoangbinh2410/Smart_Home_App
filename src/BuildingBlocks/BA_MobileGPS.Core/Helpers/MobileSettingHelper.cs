@@ -191,6 +191,8 @@ namespace BA_MobileGPS.Core
 
         public static string LinkBAGPS => Get(MobileConfigurationNames.LinkBAGPS, "https://bagps.vn/");
 
+        public static string LinkZaloBA => Get(MobileConfigurationNames.LinkBAGPS, "https://zalo.me/1958838581480438876");
+
         public static string LinkAdvertising => Get(MobileConfigurationNames.LinkAdvertising, "");
 
         public static int TimeVehicleSync => Get(MobileConfigurationNames.TimeVehicleSync, 2);
@@ -232,7 +234,7 @@ namespace BA_MobileGPS.Core
 
         public static int MinZoomLevelGoogleMap => Get(MobileConfigurationNames.MinZoomLevelGoogleMap, 5);
 
-        public static bool UseCameraRTMP => Get(MobileConfigurationNames.UseUserBehavior, false);
+        public static bool UseCameraRTMP => Get(MobileConfigurationNames.UseCameraRTMP, false);
 
         public static string LinkFacebook => Get(MobileConfigurationNames.LinkFacebook, "https://www.facebook.com/bagps.vn");
 
@@ -245,6 +247,8 @@ namespace BA_MobileGPS.Core
         public static string LinkHelpExportVideoCamera => Get(MobileConfigurationNames.LinkHelpExportVideoCamera, "https://www.youtube.com/watch?v=3KHS015dexo");
 
         public static string UrlBackgroudBottomHomePage => Get(MobileConfigurationNames.UrlBackgroudBottomHomePage, "bg_HomeBot");
+
+        public static string XNStartStreamAfterLogin => Get(MobileConfigurationNames.XNStartStreamAfterLogin, "71288,390");
 
 
     }

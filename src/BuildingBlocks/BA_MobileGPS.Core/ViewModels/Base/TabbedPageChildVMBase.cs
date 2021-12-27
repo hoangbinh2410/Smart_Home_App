@@ -43,14 +43,6 @@ namespace BA_MobileGPS.Core.ViewModels.Base
         public override void OnNavigatedTo(INavigationParameters parameters)
         {           
             base.OnNavigatedTo(parameters);
-            if (parameters.TryGetValue(ParameterKey.IsLoginAnnouncement, out bool init))
-            {
-                if (init)
-                {
-                    var currentPage = App.Current.MainPage;
-                    PageUtilities.OnNavigatedTo(currentPage, parameters);
-                }
-            }
         }
     }
 }

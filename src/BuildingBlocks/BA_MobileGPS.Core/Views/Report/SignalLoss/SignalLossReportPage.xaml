@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:converter="clr-namespace:BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
@@ -20,6 +21,7 @@
     prism:ViewModelLocator.AutowireViewModel="True">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converter:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
             <local1:CustomSignalLossAggregate x:Key="CustomSignalLossConverter" />
         </ResourceDictionary>
@@ -113,9 +115,9 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <!--  từ ngày  -->
@@ -137,7 +139,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -172,7 +174,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />

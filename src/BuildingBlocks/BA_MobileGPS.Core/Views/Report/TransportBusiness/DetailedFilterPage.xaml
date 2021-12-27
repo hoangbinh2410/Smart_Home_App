@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BA_MobileGPS.Core.Views.Report.TransportBusiness.DetailedFilterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:checkbox="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
+    xmlns:prism="http://prismlibrary.com"
+    Title="{i18n:TranslateResource ReportDetailedFilter_Label_TitlePage}"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.BackButtonTitle="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="FontSizeHeader">16</x:Double>
+            <Color x:Key="colorDataColumn">#00ADE5</Color>
+            <Style x:Key="LabelHeader" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+            <Style x:Key="LabelItem" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="Lobster-Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!--  Tiêu đề  -->
+    <!--<NavigationPage.TitleView>
+        <Grid
+            ColumnSpacing="10"
+            HeightRequest="44"
+            HorizontalOptions="FillAndExpand">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="35" />
+            </Grid.ColumnDefinitions>
+            <ffImage:CachedImage
+                Grid.Column="0"
+                Margin="0,0,5,0"
+                HeightRequest="27"
+                HorizontalOptions="Start"
+                Source="ic_close.png"
+                VerticalOptions="Center">
+                <ffImage:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ClosePageCommand}" />
+                </ffImage:CachedImage.GestureRecognizers>
+            </ffImage:CachedImage>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                LineBreakMode="TailTruncation"
+                Text="Tìm kiếm nâng cao"
+                TextColor="{DynamicResource WhiteColor}"
+                VerticalOptions="Center" />
+        </Grid>
+    </NavigationPage.TitleView>-->
+    <!--  Nội dung  -->
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid
+                RowDefinitions="*,Auto"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Grid.Row="0"
+                    Padding="10"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="15"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="{i18n:TranslateResource ReportBusiness_Header_TitleStartAddress}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="cmbStartAddress"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushLandmarkCommandStart}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="{i18n:TranslateResource ReportDetailedFilter_Combobox_ChoosingDeparture}"
+                                    Text="{Binding SelectedLocationStart.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="{i18n:TranslateResource ReportBusiness_Header_TitleEndAddress}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="cmbEndAddress"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushLandmarkCommandEnd}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    Grid.Column="0"
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    InputTransparent="True"
+                                    Placeholder="{i18n:TranslateResource ReportDetailedFilter_Combobox_ChoosingArrival}"
+                                    Text="{Binding SelectedLocationEnd.Value}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                                <controls:IconView
+                                    Grid.Column="1"
+                                    Margin="0,0,5,0"
+                                    Foreground="{DynamicResource BlackColor}"
+                                    HeightRequest="15"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="ic_sortdown.png"
+                                    VerticalOptions="Center"
+                                    WidthRequest="15" />
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="{i18n:TranslateResource ReportDetailedFilter_Label_MinimumDistance}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="inputMinimum"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Entry
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Numeric"
+                                    Text="{Binding MinKm}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <Label
+                            FontSize="{DynamicResource FontSizeHeader}"
+                            HorizontalOptions="StartAndExpand"
+                            LineBreakMode="MiddleTruncation"
+                            Text="{i18n:TranslateResource ReportDetailedFilter_Label_MaximumDistance}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Frame
+                            x:Name="inputMaximum"
+                            Padding="0,5,0,0"
+                            BackgroundColor="{DynamicResource WhiteColor}"
+                            BorderColor="{DynamicResource GrayColor2}"
+                            CornerRadius="5"
+                            HasShadow="False"
+                            HeightRequest="35"
+                            HorizontalOptions="FillAndExpand"
+                            IsClippedToBounds="True"
+                            VerticalOptions="Center">
+                            <Grid
+                                Padding="5,0,5,0"
+                                ColumnDefinitions="*"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Center">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PushEndAddressCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Entry
+                                    FontSize="{DynamicResource FontSizeTextPut11}"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Numeric"
+                                    Text="{Binding MaxKm}"
+                                    VerticalOptions="Center">
+                                    <Entry.Effects>
+                                        <effects:BorderlessEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
+                        <checkbox:SfCheckBox
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            IsChecked="{Binding ISCheckAddress}"
+                            Text="{i18n:TranslateResource ReportDetailedFilter_CheckBox_NoChoosing}"
+                            TextColor="Black" />
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout
+                    Grid.Row="1"
+                    BackgroundColor="{DynamicResource WhiteColor}"
+                    HeightRequest="60"
+                    Spacing="0">
+                    <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                    <buttons:SfButton
+                        x:Name="sfButtonAddExpense"
+                        BackgroundColor="{DynamicResource PrimaryColor}"
+                        Command="{Binding ExcuteFilterCommand}"
+                        CornerRadius="20"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{i18n:TranslateResource ReportDetailedFilter_btn_Apply}"
+                        VerticalOptions="StartAndExpand"
+                        WidthRequest="200" />
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

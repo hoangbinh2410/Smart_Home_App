@@ -7,7 +7,6 @@ using Prism.Navigation;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -22,10 +21,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public ICommand TabImageCommand { get; private set; }
 
-        public ObservableCollection<Pin> Pins { get; set; } = new ObservableCollection<Pin>();
-        private Pin selectedPin;
-        public Pin SelectedPin { get => selectedPin; set => SetProperty(ref selectedPin, value); }
-
         public AnimateCameraRequest AnimateCameraRequest { get; } = new AnimateCameraRequest();
 
         private ImageSource _sourceImage;
@@ -39,7 +34,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDownloader downloader;
         private readonly IAlertService alertService;
 
-        public AlertMaskDetailPageViewModel(INavigationService navigationService, IAlertService alertService, IDownloader downloader) : base(navigationService)
+        public AlertMaskDetailPageViewModel(INavigationService navigationService,
+            IAlertService alertService,
+            IDownloader downloader) : base(navigationService)
         {
             this.alertService = alertService;
             this.downloader = downloader;
@@ -51,6 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            //GetAlertMaskDetail(new Guid());
             if (parameters.TryGetValue(ParameterKey.AlertMask, out Guid id))
             {
                 GetAlertMaskDetail(id);
@@ -67,25 +65,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (result != null && !string.IsNullOrEmpty(result.Url))
                 {
                     AlertMaskModel = result;
-                    DrawLine(result.Url, result.ListMask, result.ListNoMask);
-                    Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
-                    {
-                        Pins.Clear();
-                        Pins.Add(new Pin()
-                        {
-                            Type = PinType.Place,
-                            Label = result.VehiclePlate,
-                            Anchor = new Point(.5, .5),
-                            Address = result.CurrentAddress,
-                            Position = new Position(result.Latitude, result.Longitude),
-                            Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                            IsDraggable = false,
-                            Tag = "CAMERA" + result.VehiclePlate
-                        });
-                        _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(result.Latitude, result.Longitude), 14), TimeSpan.FromMilliseconds(10));
-                        SelectedPin = Pins[0];
-                        return false;
-                    });
+                    DrawLine(result);
                 }
             }, showLoading: true);
         }
@@ -178,16 +158,17 @@ namespace BA_MobileGPS.Core.ViewModels
             downloader.OnFileDownloaded -= Downloader_OnFileDownloaded;
         }
 
-        private async void DrawLine(string url, List<int> listMask, List<int> listNoMask)
+        private async void DrawLine(AlertMaskModel alert)
         {
-            var stream = await ImageService.Instance.LoadUrl(url).AsJPGStreamAsync();
+            var stream = await ImageService.Instance.LoadUrl(alert.Url).AsJPGStreamAsync();
             var bitmap = SKBitmap.Decode(stream);
             var canvas = new SKCanvas(bitmap);
-            if (listMask != null && listMask.Count > 0 && listMask.Count % 4 == 0)
+
+            if (alert.UseMask && alert.ListMask != null && alert.ListMask.Count > 0 && alert.ListMask.Count % 4 == 0)
             {
-                for (int i = 0; i < listMask.Count; i = i + 4)
+                for (int i = 0; i < alert.ListMask.Count; i = i + 4)
                 {
-                    var rect = SKRect.Create(listMask[i], listMask[i + 1], listMask[i + 2], listMask[i + 3]);
+                    var rect = SKRect.Create(alert.ListMask[i], alert.ListMask[i + 1], alert.ListMask[i + 2], alert.ListMask[i + 3]);
                     // the brush (fill with blue)
                     var paint = new SKPaint
                     {
@@ -199,17 +180,34 @@ namespace BA_MobileGPS.Core.ViewModels
                     canvas.DrawRect(rect, paint);
                 }
             }
-            if (listNoMask != null && listNoMask.Count > 0 && listNoMask.Count % 4 == 0)
+            if (alert.UseMask && alert.ListNoMask != null && alert.ListNoMask.Count > 0 && alert.ListNoMask.Count % 4 == 0)
             {
-                for (int i = 0; i < listNoMask.Count; i = i + 4)
+                for (int i = 0; i < alert.ListNoMask.Count; i = i + 4)
                 {
-                    var rect = SKRect.Create(listNoMask[i], listNoMask[i + 1], listNoMask[i + 2], listNoMask[i + 3]);
+                    var rect = SKRect.Create(alert.ListNoMask[i], alert.ListNoMask[i + 1], alert.ListNoMask[i + 2], alert.ListNoMask[i + 3]);
                     // the brush (fill with blue)
                     var paint = new SKPaint
                     {
                         Style = SKPaintStyle.Stroke,
                         StrokeWidth = 2,
                         Color = SKColor.Parse("#ff0000")
+                    };
+                    // draw stroke
+                    canvas.DrawRect(rect, paint);
+                }
+            }
+
+            if (alert.UseDistance && alert.DistanceViolation != null && alert.DistanceViolation.Count > 0 && alert.DistanceViolation.Count % 4 == 0)
+            {
+                for (int i = 0; i < alert.DistanceViolation.Count; i = i + 4)
+                {
+                    var rect = SKRect.Create(alert.DistanceViolation[i], alert.DistanceViolation[i + 1], alert.DistanceViolation[i + 2], alert.DistanceViolation[i + 3]);
+                    // the brush (fill with blue)
+                    var paint = new SKPaint
+                    {
+                        Style = SKPaintStyle.Stroke,
+                        StrokeWidth = 2,
+                        Color = SKColor.Parse("#9a12b3")
                     };
                     // draw stroke
                     canvas.DrawRect(rect, paint);

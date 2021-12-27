@@ -81,6 +81,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleGroupCommand = new DelegateCommand(SelectVehicleGroup);
             PushToAleartPageCommand = new DelegateCommand(PushToAlertPage);
             CallHotLineCommand = new DelegateCommand(CallHotLine);
+            PushSupportPageCommand = new DelegateCommand(PushSupportPage);
         }
 
         ~ViewModelBase()
@@ -371,12 +372,41 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void CallHotLine()
         {
-            if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+            try
             {
-                PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                var phoneNumber = MobileSettingHelper.HotlineGps;
+                if (GlobalResources.Current.PartnerConfig != null && !string.IsNullOrEmpty(GlobalResources.Current.PartnerConfig.Email))
+                {
+                    phoneNumber = GlobalResources.Current.PartnerConfig.Hotline;
+                }
+                if (!string.IsNullOrEmpty(phoneNumber))
+                {
+                    PhoneDialer.Open(phoneNumber);
+                }
+            }
+            catch
+            {
+                if (!string.IsNullOrEmpty(MobileSettingHelper.HotlineGps))
+                {
+                    PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                }
             }
         }
 
+        private void PushSupportPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (App.AppType==AppType.BinhAnh || App.AppType==AppType.CNN)
+                {
+                    await NavigationService.NavigateAsync("NavigationPage/SupportClientPage");
+                }
+                else
+                {
+                    CallHotLine();
+                }
+            });
+        }
         public ICommand PushToAleartPageCommand { get; }
 
         public ICommand PushToNoticePageCommand
@@ -394,6 +424,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         public ICommand CallHotLineCommand { get; }
+        public ICommand PushSupportPageCommand { get; }
 
         private LoginResponse userInfo;
 

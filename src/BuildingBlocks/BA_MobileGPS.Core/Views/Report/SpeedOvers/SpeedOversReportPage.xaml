@@ -19,6 +19,7 @@
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <local:DateTimeViewConverter x:Key="DateTimeViewConverter" />
             <local:TableSummaryConverter x:Key="SummarySpeedOverTotalTimeConverter" ColName="SpeedOverTotalTime" />
             <local:TableSummaryConverter x:Key="SummarySpeedOverTotalDistanceConverter" ColName="SpeedOverDistance" />
             <locals:CustomDataGridStyle x:Key="CustomDataGridStyle" />
@@ -95,9 +96,9 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <!--  từ ngày  -->
@@ -127,7 +128,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_FromDate}"
-                                Text="{Binding FromDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding FromDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />
@@ -169,7 +170,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
                                 Placeholder="{i18n:TranslateResource Common_Label_PlaceHolder_ToDate}"
-                                Text="{Binding ToDate, Converter={StaticResource DateTimeConverter}}"
+                                Text="{Binding ToDate, Converter={StaticResource DateTimeViewConverter}}"
                                 VerticalOptions="Center">
                                 <Entry.Effects>
                                     <effects:BorderlessEffect />

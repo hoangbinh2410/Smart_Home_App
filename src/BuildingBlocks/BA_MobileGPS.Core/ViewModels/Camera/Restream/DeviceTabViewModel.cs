@@ -8,6 +8,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.Enums;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using LibVLCSharp.Shared;
 using Prism.Commands;
 using Prism.Navigation;
@@ -64,8 +65,6 @@ namespace BA_MobileGPS.Core.ViewModels
             selectedChannel = listChannel[0];
         }
 
-        #region Lifecycle
-
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
@@ -95,6 +94,16 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GotoMyVideoPage();
             }
+            if (parameters.ContainsKey("ReportDate")
+                  && (parameters.ContainsKey(ParameterKey.VehiclePlate)))
+            {
+                var selectDate = parameters.GetValue<Tuple<DateTime, DateTime>>("ReportDate");
+                var vehicleDetail = parameters.GetValue<CameraLookUpVehicleModel>(ParameterKey.VehiclePlate);
+                ValidateVehicleCamera(vehicleDetail);
+                DateStart = selectDate.Item1;
+                DateEnd = selectDate.Item2;
+                SearchData();
+            }
         }
 
         public override void OnDestroy()
@@ -115,12 +124,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 CloseVideo();
             }
         }
-
-        #endregion Lifecycle
-
-        #region Property
-
-        public string BusyIndicatorText { get; set; }
 
         private CameraLookUpVehicleModel vehicle = new CameraLookUpVehicleModel();
         public CameraLookUpVehicleModel Vehicle { get => vehicle; set => SetProperty(ref vehicle, value); }
@@ -212,9 +215,17 @@ namespace BA_MobileGPS.Core.ViewModels
             get => mediaPlayer; set => SetProperty(ref mediaPlayer, value);
         }
 
-        #endregion Property
+        private string titleLoading = MobileResource.Camera_Message_CameraLoading;
 
-        #region PrivateMethod
+        public string TitleLoading
+        {
+            get { return titleLoading; }
+            set
+            {
+                SetProperty(ref titleLoading, value);
+                RaisePropertyChanged();
+            }
+        }
 
         private void ValidateVehicleCamera(CameraLookUpVehicleModel vehicle)
         {
@@ -543,13 +554,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     return await streamCameraService.StartPlayback(start);
                 }, async (result) =>
                 {
-                    if (result != null && result.StatusCode == 0)
+                    if (result != null && result.StatusCode == 0 && result.Data !=null)
                     {
                         var model = result.Data.FirstOrDefault();
                         if (model != null)
                         {
                             if (!string.IsNullOrEmpty(model.Link))
                             {
+                                TitleLoading = MobileResource.Camera_Message_CameraLoading;
                                 var isSteaming = await CheckDeviceStatus();
                                 if (isSteaming)
                                 {
@@ -676,7 +688,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             try
             {
-                while (isLoadingCamera && loopIndex <= 7 && IsActive && !cts.IsCancellationRequested)
+                while (isLoadingCamera && loopIndex <= 20 && IsActive && !cts.IsCancellationRequested)
                 {
                     var deviceStatus = await streamCameraService.GetDevicesInfo(new StreamDeviceRequest()
                     {
@@ -688,6 +700,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     if (deviceStatus != null && deviceStatus.Channels != null)
                     {
+                        if (deviceStatus.Net == (int)NetworkDataType.NETWORK_TYPE_LTE || deviceStatus.Net == (int)NetworkDataType.NETWORK_TYPE_IWLAN)
+                        {
+                            TitleLoading=MobileResource.Camera_Message_CameraLoading;
+                        }
+                        else
+                        {
+                            TitleLoading=" Video có thể load chậm do phương tiện không sử dụng mạng 4G, quý khách vui lòng đợi";
+                        }
                         var streamDevice = deviceStatus.Channels.FirstOrDefault(x => x.Channel == videoSlected.Channel);
                         if (streamDevice?.Status != null)
                         {
@@ -699,7 +719,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                         loopIndex++;
-                        if (isLoadingCamera && loopIndex <= 7)
+                        if (isLoadingCamera && loopIndex <= 20)
                         {
                             await Task.Delay(3000, cts.Token);
                         }
@@ -939,7 +959,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, message, MobileResource.Common_Button_Close);
             });
         }
-
-        #endregion PrivateMethod
     }
 }

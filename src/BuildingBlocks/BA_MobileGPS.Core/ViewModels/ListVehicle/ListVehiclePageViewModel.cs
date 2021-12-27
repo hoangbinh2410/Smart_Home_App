@@ -820,6 +820,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     break;
 
                 case MenuKeyType.HelpCustomer:
+                    GotoSupportPage(currentVehicle);
                     break;
 
                 case MenuKeyType.ExportVideo:
@@ -862,6 +863,14 @@ namespace BA_MobileGPS.Core.ViewModels
                     GotoVideoPlaybackPage(currentVehicle);
                     break;
 
+                case "ImageManagingPage":
+                    GotoCameraPage(currentVehicle);
+                    break;
+
+                case "ListCameraVehicle":
+                    GotoCameraV1Page(currentVehicle);
+                    break;
+
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -880,6 +889,58 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     break;
             }
+        }
+
+        public void GotoCameraV1Page(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasImage(selected.VehiclePlate))
+                {
+                    var param = new Vehicle()
+                    {
+                        VehiclePlate = selected.VehiclePlate,
+                        VehicleId = selected.VehicleId,
+                        Imei = selected.Imei,
+                        PrivateCode = selected.PrivateCode
+                    };
+                    var parameters = new NavigationParameters
+                    {
+                        { ParameterKey.Vehicle, param }
+                    };
+
+                    await NavigationService.NavigateAsync("NavigationPage/ListCameraVehicle", parameters, true, true);
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng hình ảnh. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              selected.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
+
+
+        public void GotoSupportPage(VehicleOnlineViewModel selected)
+        {
+            SafeExecute(async () =>
+            {
+                var param = _mapper.MapProperties<Vehicle>(selected);
+                var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                var a = await NavigationService.NavigateAsync("NavigationPage/SupportClientPage", parameters, true, true);
+            });
         }
 
         #endregion Navigation

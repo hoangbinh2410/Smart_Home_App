@@ -132,6 +132,7 @@
         LinkTiktok,
         LinkExportVideoCamera,
         LinkHelpExportVideoCamera,
-        UrlBackgroudBottomHomePage
+        UrlBackgroudBottomHomePage,
+        XNStartStreamAfterLogin
     }
 }

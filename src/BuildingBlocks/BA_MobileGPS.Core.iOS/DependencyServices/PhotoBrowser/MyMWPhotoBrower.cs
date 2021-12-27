@@ -50,7 +50,7 @@ namespace BA_MobileGPS.Core.iOS.DependencyService
             {
                 vc = vc.PresentedViewController;
             }
-
+            vc.ModalPresentationStyle =UIModalPresentationStyle.FullScreen;
             vc.PresentViewController(new UINavigationController(browser), true, null);
         }
 

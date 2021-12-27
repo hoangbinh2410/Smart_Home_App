@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="GSHT_MobileGPS.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animation="clr-namespace:BA_MobileGPS.Core.Behaviors;assembly=BA_MobileGPS.Core"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
+    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:input="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:localstatic="clr-namespace:BA_MobileGPS.Entities;assembly=BA_MobileGPS.Entities"
+    xmlns:prism="http://prismlibrary.com"
+    xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
+    prism:ViewModelLocator.AutowireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ColorText">#000000</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowSpacing="0">
+        <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
+        <Grid RowDefinitions="*,2.8*">
+            <StackLayout
+                Grid.Row="0"
+                Margin="0,35,0,0"
+                Padding="20,0"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PushtoLanguageCommand}" />
+                </StackLayout.GestureRecognizers>
+                <ff:CachedImage
+                    BitmapOptimizations="True"
+                    HeightRequest="25"
+                    Source="{Binding Language.Icon}"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
+                <Label Text="{Binding Language.Description}" VerticalOptions="Center" />
+            </StackLayout>
+            <ff:CachedImage
+                x:Name="logo"
+                Grid.Row="0"
+                HeightRequest="100"
+                HorizontalOptions="Center"
+                Source="{Binding PartnerConfig.LoginLogo, Source={x:Static localstatic:GlobalResources.Current}}"
+                VerticalOptions="EndAndExpand"
+                WidthRequest="180" />
+            <StackLayout Grid.Row="1" Spacing="10">
+                <Grid
+                    Padding="30,0,30,0"
+                    RowDefinitions="Auto,40"
+                    RowSpacing="40"
+                    VerticalOptions="CenterAndExpand">
+                    <StackLayout Grid.Row="0" Spacing="30">
+                        <!--  Entry  -->
+                        <!--  user  -->
+                        <input:SfTextInputLayout
+                            ContainerType="Filled"
+                            ErrorText="{Binding UserName.ErrorFirst}"
+                            HasError="{Binding UserName.IsNotValid}"
+                            HorizontalOptions="FillAndExpand"
+                            StyleClass="LoginEntry">
+                            <input:SfTextInputLayout.LeadingView>
+                                <controls:IconView
+                                    Margin="9"
+                                    Foreground="{DynamicResource ColorText}"
+                                    HorizontalOptions="Center"
+                                    Source="ic_account.png"
+                                    VerticalOptions="CenterAndExpand" />
+                            </input:SfTextInputLayout.LeadingView>
+                            <input:SfTextInputLayout.InputView>
+                                <Entry
+                                    x:Name="account"
+                                    HeightRequest="{OnPlatform Android=40,
+                                                               iOS=30}"
+                                    Text="{Binding UserName.Value}">
+                                    <Entry.Effects>
+                                        <effects:ClearEntryEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </input:SfTextInputLayout.InputView>
+                        </input:SfTextInputLayout>
+
+                        <!--  Pass  -->
+                        <input:SfTextInputLayout
+                            x:Name="textPass"
+                            Grid.Row="1"
+                            ContainerType="Filled"
+                            ErrorText="{Binding Password.ErrorFirst}"
+                            HasError="{Binding Password.IsNotValid}"
+                            HorizontalOptions="FillAndExpand"
+                            StyleClass="LoginEntry">
+                            <input:SfTextInputLayout.LeadingView>
+                                <controls:IconView
+                                    Margin="9"
+                                    Foreground="{DynamicResource ColorText}"
+                                    HorizontalOptions="Center"
+                                    Source="ic_lock_light.png"
+                                    VerticalOptions="CenterAndExpand" />
+                            </input:SfTextInputLayout.LeadingView>
+                            <input:SfTextInputLayout.InputView>
+                                <Entry
+                                    x:Name="pass"
+                                    HeightRequest="{OnPlatform Android=40,
+                                                               iOS=30}"
+                                    IsPassword="True"
+                                    Text="{Binding Password.Value}">
+                                    <Entry.Effects>
+                                        <effects:ClearEntryEffect />
+                                    </Entry.Effects>
+                                </Entry>
+                            </input:SfTextInputLayout.InputView>
+                        </input:SfTextInputLayout>
+
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="0"
+                            WidthRequest="300">
+                            <Grid TranslationX="-5">
+                                <buttons:SfCheckBox
+                                    BorderWidth="1"
+                                    CornerRadius="0"
+                                    FontFamily="{StaticResource myFontFamily}"
+                                    IsChecked="False"
+                                    ScaleX="0.8"
+                                    ScaleY="0.8"
+                                    UncheckedColor="{DynamicResource ColorText}" />
+                                <buttons:SfCheckBox
+                                    BorderWidth="0.5"
+                                    CheckedColor="Transparent"
+                                    CornerRadius="0"
+                                    IsChecked="{Binding Rememberme}"
+                                    ScaleX="0.8"
+                                    ScaleY="0.8"
+                                    TickColor="{DynamicResource ColorText}"
+                                    UncheckedColor="Transparent" />
+                            </Grid>
+                            <Label
+                                x:Name="checkautologin"
+                                TextColor="{DynamicResource ColorText}"
+                                TranslationX="-7"
+                                VerticalOptions="Center" />
+                            <Label
+                                x:Name="forgotpassword"
+                                HorizontalOptions="EndAndExpand"
+                                TextColor="{DynamicResource ColorText}"
+                                VerticalOptions="Center">
+                                <Label.Behaviors>
+                                    <animation:ViewTappedBehavior AnimationType="Scale" />
+                                </Label.Behaviors>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <Button
+                        x:Name="btnLogin"
+                        Grid.Row="1"
+                        Padding="0"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        Command="{Binding LoginCommand}"
+                        CornerRadius="20"
+                        HeightRequest="38"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="White"
+                        WidthRequest="300" />
+                </Grid>
+                <!--  Footer  -->
+                <Grid
+                    Margin="0,0,0,20"
+                    HeightRequest="40"
+                    VerticalOptions="EndAndExpand">
+                    <StackLayout
+                        Margin="20,0,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="20">
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
+                            HeightRequest="30"
+                            Source="ic_phone.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30">
+                            <controls:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding CallHotLineCommand}" NumberOfTapsRequired="1" />
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
+                            HeightRequest="30"
+                            Source="ic_mail.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30">
+                            <controls:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SendEmailCommand}" NumberOfTapsRequired="1" />
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+
+                        <controls:IconView
+                            Foreground="{DynamicResource PrimaryColor}"
+                            HeightRequest="30"
+                            Source="ic_global.png"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30">
+                            <controls:IconView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenWebGPSCommand}" NumberOfTapsRequired="1" />
+                            </controls:IconView.GestureRecognizers>
+                        </controls:IconView>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

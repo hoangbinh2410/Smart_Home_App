@@ -8,6 +8,7 @@
         UpdateRequired = 3,
         Locked = 4,
         WrongAppType = 5,
-        UserLoginOnlyWeb = 6
+        UserLoginOnlyWeb = 6,
+        LicenseAppFailed = 7
     }
 }

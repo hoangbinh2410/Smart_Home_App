@@ -238,6 +238,11 @@ namespace BA_MobileGPS.Core.Extensions
             return (messageID == 1 || messageID == 2 || messageID == 3 || (messageID == 128 && (DataExt & 5) > 0)) ? true : false;
         }
 
+        public static bool IsVehicleDebtMoneyViviewOnline(int messageID, int DataExt)
+        {
+            return (messageID == 3 || (messageID == 128 && (DataExt & 5) > 0)) ? true : false;
+        }
+
         /* Xe dừng dịch vụ */
 
         public static bool IsVehicleStopService(int messageID)
@@ -555,10 +560,24 @@ namespace BA_MobileGPS.Core.Extensions
                             break;
 
                         case VehicleStatusGroup.LostGSM:
-                            if (IsLostGSM(x.VehicleTime))
+
+                            if (CompanyConfigurationHelper.LostConnectIncludeLostGPSOnline)
                             {
-                                result += 1;
+                                if ((IsLostGSM(x.VehicleTime)
+                                  || StaticSettings.TimeServer.Subtract(x.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+                                  && !x.IsPowerOff)
+                                {
+                                    result += 1;
+                                }
                             }
+                            else
+                            {
+                                if (IsLostGSM(x.VehicleTime))
+                                {
+                                    result += 1;
+                                }
+                            }
+
                             break;
 
                         case VehicleStatusGroup.VehicleDebtMoney:
@@ -669,9 +688,21 @@ namespace BA_MobileGPS.Core.Extensions
                         break;
 
                     case VehicleStatusGroup.LostGSM:
-                        if (IsLostGSM(x.VehicleTime))
+                        if (CompanyConfigurationHelper.LostConnectIncludeLostGPSOnline)
                         {
-                            result.Add(x);
+                            if ((IsLostGSM(x.VehicleTime)
+                              || StaticSettings.TimeServer.Subtract(x.GPSTime).TotalMinutes > CompanyConfigurationHelper.DefaultMaxTimeLossGPS)
+                              && !x.IsPowerOff)
+                            {
+                                result.Add(x);
+                            }
+                        }
+                        else
+                        {
+                            if (IsLostGSM(x.VehicleTime))
+                            {
+                                result.Add(x);
+                            }
                         }
                         break;
 

@@ -12,6 +12,10 @@ namespace BA_MobileGPS.Core
     {
     }
 
+    public class SelectMonthEvent : PubSubEvent<PickerDateResponse>
+    {
+    }
+
     public class SelectTimeEvent : PubSubEvent<PickerDateTimeResponse>
     {
     }

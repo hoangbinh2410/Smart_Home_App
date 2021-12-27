@@ -128,7 +128,6 @@ namespace BA_MobileGPS.Core.Droid
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }

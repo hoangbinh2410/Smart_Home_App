@@ -22,6 +22,8 @@
 
         public const string GET_MOBILECONFIG = "api/mobileconfigurations/getall";
 
+        public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
+
         public const string GET_SENTOTP = "api/v2/authentcation/sentotp";
         public const string GET_VERIFYOTP = "api/v2/authentcation/verifyotp";
 
@@ -72,7 +74,6 @@
         public const string GET_LIST_POLYGON = "api/landmark/polygon";
 
         public const string GET_LIST_POLYGONPARACELISLANDS = "api/landmark/polygonparacelislands";
-        
 
         #endregion vehicle
 
@@ -135,6 +136,9 @@
 
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
+        public const string GETOTP = "api/sms/getotp";
+        public const string GETSMSOTP = "api/sms/getsms"; 
+
         public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
 
         #endregion ForgotPassword
@@ -181,6 +185,7 @@
         #endregion Vehicle detail
 
         #region report
+
         public const string GET_VALIDATEDATETIME = "api/reports/validatedatetimereport";
         public const string GET_REPORTTEMPERATURE = "api/reports/temperature";
         public const string GET_REPORTADDRESS = "api/reports/address";
@@ -199,6 +204,9 @@
         public const string GET_SHIP_PACKAGE = "api/fishingvesselsms/shippackage";
         public const string GET_GetQCVN31SpeedReport = "api/reports/getqcvn31report";
 
+        public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
+        public const string GET_GetStationDetails = "api/reports/station";
+        public const string GET_GetTransportBusiness = "api/reports/transportbusiness";
         #endregion report
 
         #region Camera
@@ -226,12 +234,15 @@
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
         public const string SET_HOSTSPOT = "api/stream/sethospot";
         public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
+        public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
 
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";
+        public const string POST_DEVICESTARTMULTIPLE = "api/v2/stream/startmultiple";
         public const string POST_DEVICESTOP = "api/v2/stream/stop";
         public const string POST_DEVICESTOPSESSION = "api/v2/stream/stopsession";
         public const string POST_DEVICEPING = "api/v2/stream/ping";
+        public const string POST_DEVICEPINGMULTIPLE = "api/v2/stream/pingmultiple";
         public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
         public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
         public const string POST_PLAYBACKSTOPALL = "api/v2/stream/playbackstopall";
@@ -239,6 +250,7 @@
         public const string POST_UPLOADSTOP = "api/v2/stream/uploadstop";
         public const string POST_UPLOADPROGRESS = "api/v2/stream/uploadprogress";
         public const string POST_HOSTSPOT = "api/v2/stream/sethospot";
+
         #endregion Camera
 
         #region Guide
@@ -297,15 +309,19 @@
         public const string GET_SIM_MONEY = "api/vehicles/getsimmoney";
 
         #endregion MOTO
+
         #region DriverInformation
+
         public const string GET_LIST_DRIVER = "api/driverinfor/getall";
 
         public const string POST_ADDORUPDATE_DRIVER = "api/driverinfor/insertorupdate";
 
         public const string POST_DELETE_DRIVER = "api/driverinfor/deletedriverbyid";
-        #endregion
+
+        #endregion DriverInformation
 
         #region PapersInformation
+
         public const string GET_LIST_PAPER_CATEGORY = "api/paperinfor/getpapercategory";
         public const string GET_LIST_INSURANCE_CATEGORY = "api/paperinfor/getinsurancecategories";
         public const string GET_LAST_PAPER_INSURANCE = "api/paperinfor/getpaperinsurance";
@@ -320,15 +336,39 @@
         public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
         public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/paperinfor/getlastpaperdatebyvehicle";
-        #endregion
 
+        #endregion PapersInformation
 
         #region Issue
+
         public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
 
         public const string GET_ISSUE_BYUSERID = "api/issue/getissuebyuserid";
 
         public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
+
+        #endregion Issue
+
+        #region KPI
+
+        public const string GET_DRIVERKPI_CHART = "api/kpidriver/getdriverkpichart";
+        public const string GET_DRIVERKPI_RANKING = "api/kpidriver/getdriverranking";
+
+        #endregion KPI
+
+        #region Support
+        public const string GET_List_SupportCategory = "api/support/getlistsupportcategory";
+        public const string GET_List_SupportContent = "api/support/getlistsupportcontentbyid";
+        public const string POST_MessageSupport = "api/support/insertsupportbap";
+        #endregion
+        #region Expense
+        public const string GET_List_ExpensesCategory = "api/expenses/getlistexpensescategorybycompany";
+        public const string POST_Import_Expense = "api/expenses/insert";
+        public const string GET_List_Expenses = "api/expenses/searchexpenses";
+        public const string Delete_Multiple = "api/expenses/deletemultiple";
+        #endregion Expense
+        #region OTP
+        public const string GET_Vehicle_OTP_SMS = "api/sms/sendvehiclephoneotp";
         #endregion
     }
 }

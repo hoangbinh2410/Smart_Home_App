@@ -324,6 +324,23 @@ namespace BA_MobileGPS.Core.ViewModels
                     });
                     break;
 
+                case "RankDriverPage":
+                    SafeExecute(async () =>
+                    {
+                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        {
+                            if (UserInfo.UserType == UserType.Driver)
+                            {
+                                _ = await NavigationService.NavigateAsync("NavigationPage/" + seletedMenu.MenuKey, null, useModalNavigation: true, true);
+                            }
+                            else
+                            {
+                                _ = await NavigationService.NavigateAsync("NavigationPage/RankNotDriverPage", null, useModalNavigation: true, true);
+                            }
+                        }
+                    });
+                    break;
+
                 default:
                     Device.BeginInvokeOnMainThread(() =>
                     {
