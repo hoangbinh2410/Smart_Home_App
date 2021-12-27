@@ -34,6 +34,6 @@
         UseNewSummaryIconOnline,
         ChangeColorIconStopParking,
         LostConnectIncludeLostGPSOnline,
-        Has2FactorAuthentication
+        PingLiveStream
     }
 }

@@ -16,6 +16,8 @@ namespace BA_MobileGPS.Core.Views
             lblFeatures.Text = MobileResource.Common_Label_Features;
             lblReport.Text = MobileResource.Common_Label_Report;
             lblCamera.Text = MobileResource.Camera_Label_MenuTitle;
+            viewmore.Text=MobileResource.Online_Lable_ViewMore;
+            close.Text=MobileResource.Common_Label_Close;
         }
 
         protected override void OnAppearing()

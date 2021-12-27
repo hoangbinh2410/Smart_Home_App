@@ -70,7 +70,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Báo cáo ra vào trạm"
+                Text="{i18n:TranslateResource ReportStation_Label_TitlePage}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
             <StackLayout
@@ -266,7 +266,7 @@
                                     FontSize="{DynamicResource FontSizeTextPut11}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
-                                    Placeholder="Phương tiện"
+                                    Placeholder="{i18n:TranslateResource ReportStation_Combobox_Vehicle}"
                                     Text="{Binding VehicleSelect.PrivateCode}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
@@ -353,7 +353,7 @@
                                         FontSize="{DynamicResource FontSizeTextPut11}"
                                         HorizontalOptions="FillAndExpand"
                                         Keyboard="Numeric"
-                                        Placeholder="Số phút &gt;="
+                                        Placeholder="{i18n:TranslateResource ReportStation_Text_PlaceHolder_CountMinutes}"
                                         Text="{Binding NumberOfMinute}"
                                         VerticalOptions="Center">
                                         <Entry.Effects>
@@ -417,7 +417,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="STT"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleSerial}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -450,7 +450,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Vào trạm"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleIntoStation}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -483,7 +483,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Ra trạm"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleUottoStation}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -516,7 +516,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Tên trạm"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleStationName}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -549,7 +549,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Số phút trong trạm"
+                                        Text="{i18n:TranslateResource ReportStation_Header_TitleMinutesInStatione}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -582,7 +582,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Lộ trình"
+                                        Text="{i18n:TranslateResource ReportStation_Header_Router}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -601,7 +601,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="Lộ trình"
+                                            Text="{i18n:TranslateResource ReportStation_Header_Router}"
                                             TextColor="{DynamicResource colorDataColumn}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
@@ -621,7 +621,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="Link video"
+                                        Text="{i18n:TranslateResource ReportStation_Header_VideoLink}"
                                         TextColor="{DynamicResource WhiteColor}"
                                         VerticalOptions="FillAndExpand"
                                         XAlign="Center"
@@ -643,7 +643,7 @@
                                         <Label
                                             FontSize="{StaticResource FontSize10}"
                                             HorizontalOptions="FillAndExpand"
-                                            Text="Xem"
+                                            Text="{i18n:TranslateResource ReportStation_Item_View}"
                                             TextColor="{DynamicResource colorDataColumn}"
                                             VerticalOptions="FillAndExpand"
                                             XAlign="Center"
@@ -707,7 +707,7 @@
                         <Label
                             HorizontalOptions="Start"
                             Style="{DynamicResource LabelItem}"
-                            Text="CÀI ĐẶT ẨN HIỆN THÔNG TIN"
+                            Text="{i18n:TranslateResource ReportStation_Label_DataSettings}"
                             TextColor="{DynamicResource PrimaryColor}" />
                         <Grid
                             Margin="10,0,10,0"
@@ -730,7 +730,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowNameStation}"
-                                Text="Tên trạm" />
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleStationName}" />
 
                             <!--  Số phút trong trạm  -->
                             <checkbox:SfCheckBox
@@ -740,7 +740,7 @@
                                 CornerRadius="5.0"
                                 FontSize="13"
                                 IsChecked="{Binding ShowNumberMinuteOfStation}"
-                                Text="Số phút trong trạm" />
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleMinutesInStatione}" />
 
                             <!--  Vào trạm  -->
                             <checkbox:SfCheckBox
@@ -750,7 +750,7 @@
                                 CornerRadius="5"
                                 FontSize="13"
                                 IsChecked="{Binding ShowTimeInStation}"
-                                Text="Vào trạm" />
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleIntoStation}" />
 
                             <!--  Ra trạm  -->
                             <checkbox:SfCheckBox
@@ -760,7 +760,7 @@
                                 CornerRadius="5.0"
                                 FontSize="13"
                                 IsChecked="{Binding ShowTimeOutStation}"
-                                Text="Ra trạm" />
+                                Text="{i18n:TranslateResource ReportStation_Header_TitleUottoStation}" />
 
                             <!--  button save  -->
                             <StackLayout

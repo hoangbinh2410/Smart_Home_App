@@ -137,6 +137,7 @@
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
         public const string GETOTP = "api/sms/getotp";
+        public const string GETSMSOTP = "api/sms/getsms"; 
 
         public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
 
@@ -237,9 +238,11 @@
 
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";
+        public const string POST_DEVICESTARTMULTIPLE = "api/v2/stream/startmultiple";
         public const string POST_DEVICESTOP = "api/v2/stream/stop";
         public const string POST_DEVICESTOPSESSION = "api/v2/stream/stopsession";
         public const string POST_DEVICEPING = "api/v2/stream/ping";
+        public const string POST_DEVICEPINGMULTIPLE = "api/v2/stream/pingmultiple";
         public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
         public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
         public const string POST_PLAYBACKSTOPALL = "api/v2/stream/playbackstopall";
@@ -364,5 +367,8 @@
         public const string GET_List_Expenses = "api/expenses/searchexpenses";
         public const string Delete_Multiple = "api/expenses/deletemultiple";
         #endregion Expense
+        #region OTP
+        public const string GET_Vehicle_OTP_SMS = "api/sms/sendvehiclephoneotp";
+        #endregion
     }
 }

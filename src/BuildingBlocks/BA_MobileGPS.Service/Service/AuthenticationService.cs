@@ -1,4 +1,6 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
@@ -6,6 +8,7 @@ using BA_MobileGPS.Utilities.Constant;
 using Newtonsoft.Json;
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -157,6 +160,24 @@ namespace BA_MobileGPS.Service
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return respone;
+        }
+
+        public async Task<VehiclePhoneRespone> CheckVehicleOtpsms(VehiclePhoneRequest request)
+        {
+            VehiclePhoneRespone result = new VehiclePhoneRespone();
+            try
+            {
+                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, ResponseBaseV2<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
+                if (respone != null && respone.Data != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return result;
         }
     }
 }

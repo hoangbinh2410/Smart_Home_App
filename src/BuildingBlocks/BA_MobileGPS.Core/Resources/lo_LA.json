@@ -2740,6 +2740,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "DetailVehicle_Label_Count",
+    "Value": "ຄັ້ງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "DetailVehicle_Label_Crane",
     "Value": "ເຄນ"
   },
@@ -5211,6 +5218,13 @@
     "PK_ResourcesID": 0,
     "FK_LanguageID": 3,
     "CodeName": "lo-LA",
+    "Name": "Online_Label_StatusCarStop",
+    "Value": "ຢຸດຈອດ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
     "Name": "Online_Label_StatusCarStopOn",
     "Value": "ຢຸດ - ເປີດ"
   },
@@ -6144,6 +6158,13 @@
     "CodeName": "lo-LA",
     "Name": "Route_Label_Title",
     "Value": "ເສັ້ນທາງ"
+  },
+  {
+    "PK_ResourcesID": 0,
+    "FK_LanguageID": 3,
+    "CodeName": "lo-LA",
+    "Name": "Online_Lable_ViewMore",
+    "Value": "ເບິ່ງເພີ່ມຕື່ມ"
   },
   {
     "PK_ResourcesID": 0,

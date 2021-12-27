@@ -341,6 +341,7 @@
 
                                 <indicator:SfBusyIndicator
                                     x:Name="sfbusy"
+                                    Title="{Binding TitleLoading}"
                                     IsBusy="{Binding BusyIndicatorActive}"
                                     TextColor="{DynamicResource WhiteColor}"
                                     TextSize="10" />

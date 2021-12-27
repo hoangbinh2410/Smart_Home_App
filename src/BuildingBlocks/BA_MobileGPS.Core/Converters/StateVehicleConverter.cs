@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core
             {
                 return string.Empty;
             }
-            return $"{value} Lần";
+            return $"{value} {MobileResource.DetailVehicle_Label_Count}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

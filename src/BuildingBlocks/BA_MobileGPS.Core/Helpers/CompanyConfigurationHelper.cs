@@ -118,7 +118,7 @@ namespace BA_MobileGPS.Core
 
         public static bool LostConnectIncludeLostGPSOnline => Get(CompanyConfigurationNames.LostConnectIncludeLostGPSOnline, false);
 
-        public static bool Has2FactorAuthentication => Get(CompanyConfigurationNames.Has2FactorAuthentication, false);
+        public static bool PingLiveStream => Get(CompanyConfigurationNames.PingLiveStream, false);
         
 
     }

@@ -2,9 +2,9 @@
 
 namespace BA_MobileGPS.Core.Views
 {
-    public partial class VerifyOTPCodePage : ContentPage
+    public partial class NumberPhoneLoginPage : ContentPage
     {
-        public VerifyOTPCodePage()
+        public NumberPhoneLoginPage()
         {
             InitializeComponent();
         }

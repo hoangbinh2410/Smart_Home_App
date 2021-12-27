@@ -5,5 +5,6 @@
         public string FromDate { get; set; }
         public string ToDate { get; set; }
         public int DriverID { get; set; }
+        public int LanguageID { get; set; }
     }
 }

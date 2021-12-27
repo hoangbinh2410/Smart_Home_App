@@ -4,8 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
-    Title="Lộ trình"
+    Title="{i18n:TranslateResource ReportStation_Header_Router}"
     prism:ViewModelLocator.AutowireViewModel="True">
     <busyindicator:SfBusyIndicator
         Title="Loading..."

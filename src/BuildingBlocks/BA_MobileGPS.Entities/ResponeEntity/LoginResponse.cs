@@ -68,5 +68,7 @@ namespace BA_MobileGPS.Entities
 
         [JsonProperty("19")]
         public UserType UserType { get; set; }
+        [JsonProperty("20")]
+        public List<string> VehiclePlateOTP { get; set; }
     }
 }

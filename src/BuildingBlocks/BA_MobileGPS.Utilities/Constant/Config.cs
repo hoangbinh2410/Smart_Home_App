@@ -37,7 +37,7 @@
         /// Name     Date         Comments
         /// Namth  16/1/2018   created
         /// </Modified>
-        public const string SyncfusionKey = "NTEyODM1QDMxMzkyZTMzMmUzMFZhdjM4K3NhUUo4TUFFVlhkL3YvaE9wenFwT25ZZm5Zbm5jazF5dkF0Tkk9";
+        public const string SyncfusionKey = "NTUyMzY4QDMxMzkyZTM0MmUzMGJRb0srb2FGaGp3ZW9TMk9qWG5lOWpnRVJSUXpFT3hDVStQWXhHRFI3TlU9";
 
         /// <summary>
         /// Key cho OneSignal
@@ -112,7 +112,7 @@
         /// Name     Date         Comments
         /// Namth  16/1/2018   created
         /// </Modified>
-        public const string OneSignalKey_GSHT = "b4ac86ec-203e-457c-9616-82d0fa9a375c";
+        public const string OneSignalKey_GSHT = "0863709c-e1a3-467b-a409-9bce56a091b7";
 
 
         /// <summary>

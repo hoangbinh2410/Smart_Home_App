@@ -147,7 +147,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     if (task.Result)
                     {
-                        await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_BAGPS,
+                        await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                           MobileResource.ChangePassword_Message_UpdateSuccess,
                           MobileResource.Common_Button_Close);
 

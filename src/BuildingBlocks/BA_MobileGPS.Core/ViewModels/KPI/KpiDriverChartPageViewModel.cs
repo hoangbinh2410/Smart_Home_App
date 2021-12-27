@@ -110,7 +110,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     DriverID = driverID,
                     FromDate = DateSearch.ToString("dd/MM/yyyy"),
-                    ToDate = DateSearch.ToString("dd/MM/yyyy")
+                    ToDate = DateSearch.ToString("dd/MM/yyyy"),
+                    LanguageID= Settings.CurrentLanguage==CultureCountry.Vietnamese ? 1 : 2
                 });
             }, (result) =>
             {
@@ -157,13 +158,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var rank = GetTilteRank(item.OrderDisPlay);
                         ChartDataSource.Add(new ChartDataModel(item.Name, rank.Value));
-                        if (item.OrderDisPlayActual != null)
+                        var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
+                        if (rankactual != null)
                         {
-                            var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
-                            if (rankactual != null)
-                            {
-                                ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
-                            }
+                            ChartDataSourceActual.Add(new ChartDataModel(item.Name, rankactual.Value));
                         }
                     }
                     DrawChartSeries();
@@ -185,13 +183,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var rank = GetTilteRank(item.OrderDisPlay);
                         ChartDataSource2.Add(new ChartDataModel(item.Name, rank.Value));
-                        if (item.OrderDisPlayActual != null)
+                        var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
+                        if (rankactual != null)
                         {
-                            var rankactual = GetTilteRank(item.OrderDisPlayActual.GetValueOrDefault());
-                            if (rankactual != null)
-                            {
-                                ChartDataSourceActual2.Add(new ChartDataModel(item.Name, rankactual.Value));
-                            }
+                            ChartDataSourceActual2.Add(new ChartDataModel(item.Name, rankactual.Value));
                         }
                     }
                     DrawChartSeries2();
@@ -205,7 +200,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var chart = new ChartSeriesCollection();
             var series = new RadarSeries()
             {
-                Label = "Điểm tiêu chuẩn",
+                Label = MobileResource.Chart_Title_ScoreDisplay,
                 Opacity = .6,
                 StrokeWidth = 2,
                 DrawType = PolarRadarSeriesDrawType.Line,
@@ -216,7 +211,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             var series2 = new RadarSeries()
             {
-                Label = "Điểm thực tế",
+                Label = MobileResource.Chart_Title_ScoreActual,
                 Opacity = .6,
                 StrokeWidth = 2,
                 DrawType = PolarRadarSeriesDrawType.Line,
@@ -237,7 +232,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var chart = new ChartSeriesCollection();
             var series = new RadarSeries()
             {
-                Label = "Điểm tiêu chuẩn",
+                Label = MobileResource.Chart_Title_ScoreDisplay,
                 Opacity = .6,
                 StrokeWidth = 2,
                 DrawType = PolarRadarSeriesDrawType.Line,
@@ -248,7 +243,7 @@ namespace BA_MobileGPS.Core.ViewModels
             };
             var series2 = new RadarSeries()
             {
-                Label = "Điểm thực tế",
+                Label = MobileResource.Chart_Title_ScoreActual,
                 Opacity = .6,
                 StrokeWidth = 2,
                 DrawType = PolarRadarSeriesDrawType.Line,
@@ -296,6 +291,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     Name="E",
                     Value=1,
                     OrderDisPlay=1
+                },
+                    new KPIRank()
+                {
+                    Name="0",
+                    Value=0,
+                    OrderDisPlay=0
                 }
             };
 
