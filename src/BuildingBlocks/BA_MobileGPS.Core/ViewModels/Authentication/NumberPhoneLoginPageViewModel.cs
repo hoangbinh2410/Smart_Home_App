@@ -132,7 +132,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var objResponse = new SendCodeSMSResponse();
             //Kiểm tra số điện thoại nhập vào
-            bool isValid = false;
             SafeExecute(async () =>
             {
                 if (IsConnected)
@@ -144,7 +143,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         CompanyID = _user.CompanyId,
                         PhoneNumber = NumberPhone.Value
                     };
-                    isValid = await _iAuthenticationService.VerifyPhoneNumberOtp(resquest);
+                    var isValid = await _iAuthenticationService.VerifyPhoneNumberOtp(resquest);
                     if (isValid)
                     {
                         var inputSendCodeSMS = new ForgotPasswordRequest
