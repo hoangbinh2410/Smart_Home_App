@@ -22,5 +22,7 @@ namespace BA_MobileGPS.Service
 
         Task<OtpResultResponse> GetOTP(string targetNumber, string customerID);
         Task<VehiclePhoneRespone> CheckVehicleOtpsms(VehiclePhoneRequest request);
+        Task<bool> VerifyPhoneNumberOtp(VerifyPhoneRequest request);
+
     }
 }
