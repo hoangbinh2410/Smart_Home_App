@@ -240,7 +240,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehiclePlate = model.VehiclePlate,
                         Imei = model.Imei,
-                        PrivateCode = model.VehiclePlate,
+                        PrivateCode = model.PrivateCode,
                         Channel = model.Channel
                     };
                 }
@@ -706,7 +706,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            TitleLoading=" Video có thể load chậm do phương tiện không sử dụng mạng 4G, quý khách vui lòng đợi";
+                            TitleLoading="Tín hiệu mạng tại thiết bị không tốt, quý khách vui lòng đợi";
                         }
                         var streamDevice = deviceStatus.Channels.FirstOrDefault(x => x.Channel == videoSlected.Channel);
                         if (streamDevice?.Status != null)
