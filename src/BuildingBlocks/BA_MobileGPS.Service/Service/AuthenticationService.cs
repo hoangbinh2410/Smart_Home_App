@@ -162,33 +162,12 @@ namespace BA_MobileGPS.Service
             return respone;
         }
 
-        public async Task<OtpResultResponse> GetsmsOTp(string targetNumber, string Namecustomer)
-        {
-            var respone = new OtpResultResponse();
-            try
-            {
-                var temp = await _IRequestProvider.GetAsync<BaseResponse<OtpResultResponse>>($"{ApiUri.GETSMSOTP}?targetNumber={targetNumber}&customerID={Namecustomer}");
-                if (temp != null)
-                {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return respone;
-        }
-
         public async Task<VehiclePhoneRespone> CheckVehicleOtpsms(VehiclePhoneRequest request)
         {
             VehiclePhoneRespone result = new VehiclePhoneRespone();
             try
             {
-                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, BaseResponse<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
+                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, ResponseBaseV2<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
