@@ -127,7 +127,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_Grid_STT => Get(MobileResourceNames.Common_Label_Grid_STT, "STT", "#");
 
-        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển số phương tiện", "Registration plate");
+        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển kiểm soát", "Registration plate");
 
         public static string Common_Label_Grid_FromDate => Get(MobileResourceNames.Common_Label_Grid_FromDate, "Giờ bắt đầu", "From date");
 
