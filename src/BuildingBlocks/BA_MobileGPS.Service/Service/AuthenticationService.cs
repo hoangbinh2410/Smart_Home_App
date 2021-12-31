@@ -179,5 +179,23 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
+
+        public async Task<bool> VerifyPhoneNumberOtp(VerifyPhoneRequest request)
+        {
+            bool respone = false;
+            try
+            {
+                var result = await _IRequestProvider.PostAsync<VerifyPhoneRequest, BaseResponse<bool>>(ApiUri.Post_Numberphone_OTP_SMS, request);
+                if (result.Data)
+                {
+                    respone = result.Data;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(MethodBase.GetCurrentMethod().Name, e);
+            }
+            return respone;
+        }
     }
 }

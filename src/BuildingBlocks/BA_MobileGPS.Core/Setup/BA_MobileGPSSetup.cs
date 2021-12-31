@@ -243,7 +243,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<ExpenceManagementPage, ExpenceManagementPageViewModel>("ExpenceManagementPage");
             containerRegistry.RegisterForNavigation<ExpenseDetailsPage, ExpenseDetailsPageViewModel>("ExpenseDetailsPage");
             containerRegistry.RegisterForNavigation<ImportExpensePage, ImportExpensePageViewModel>("ImportExpensePage");
-            containerRegistry.RegisterForNavigation<ListVehicleSupportPage, ListVehicleSupportPageViewModel>("ListVehicleSupportPage");
+            containerRegistry.RegisterForNavigation<ListVehicleSupportPage, ListVehicleSupportPageViewModel>("ListVehicleSupportPage");            
             containerRegistry.RegisterForNavigation<TransportBusinessPage, TransportBusinessPageViewModel>("TransportBusinessPage");
             containerRegistry.RegisterForNavigation<DetailedFilterPage, DetailedFilterPageViewModel>("DetailedFilterPage");
             containerRegistry.RegisterForNavigation<NumberPhoneLoginPage, NumberPhoneLoginPageViewModel>("NumberPhoneLoginPage");

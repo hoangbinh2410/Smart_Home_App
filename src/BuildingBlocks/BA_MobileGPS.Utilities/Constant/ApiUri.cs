@@ -369,6 +369,7 @@
         #endregion Expense
         #region OTP
         public const string GET_Vehicle_OTP_SMS = "api/sms/sendvehiclephoneotp";
+        public const string Post_Numberphone_OTP_SMS = "api/sms/verifyphonenymberotp";
         #endregion
     }
 }
