@@ -314,8 +314,8 @@
                 <syncDataGrid:SfDataGrid
                     x:Name="dataGrid"
                     Grid.Row="1"
-                    AllowLoadMore="True"
-                    AllowResizingColumn="True"
+                    AllowLoadMore="False"
+                    AllowResizingColumn="False"
                     AutoGenerateColumns="False"
                     ColumnSizer="Auto"
                     GridStyle="{StaticResource CustomDataGridStyle}"
@@ -331,7 +331,7 @@
                     <syncDataGrid:SfDataGrid.Columns>
                         <!--  số thứ tự  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="30"
+                            Width="40"
                             MappingName="OrderNumber"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -363,7 +363,7 @@
 
                         <!--  thời gian  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="130"
+                            Width="160"
                             MappingName="DT"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -396,7 +396,7 @@
 
                         <!--  Số Lít ShowLiters  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="200"
+                            Width="330"
                             HeaderFontAttribute="Bold"
                             MappingName="Velocities"
                             TextAlignment="Center">
