@@ -155,6 +155,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
+                                else
+                                {
+                                    DisplayMessage.ShowMessageSuccess("Thất bại! Kiểm tra lại đường truyền", 3000);
+                                }
                             }
                         }
                         // Nếu không lấy lại mã sms
@@ -169,9 +173,13 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
-                                if (objsbsResponse != null)
+                                if (objsbsResponse != null && !string.IsNullOrEmpty(objsbsResponse.SecurityCodeSMS))
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
+                                }
+                                else
+                                {
+                                    DisplayMessage.ShowMessageSuccess("Thất bại! Kiểm tra lại đường truyền", 3000);
                                 }
                             }
                         }
