@@ -19,6 +19,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ValidatableObject<string> NumberPhone { get; set; }
 
         private bool isOTPZalo = false;
+
         public bool IsOTPZalo
         { get { return isOTPZalo; } set { SetProperty(ref isOTPZalo, value); } }
 
@@ -162,6 +163,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             var parameters = new NavigationParameters
                     {
                         { "User", _user },
+                        { "Numberphone", NumberPhone.Value.ToString() },
                         { "Rememberme", _rememberme },
                         { "UserName", _userName },
                         { "Password", _password },
@@ -186,6 +188,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
+
         /// <summary>Get mã OTP</summary>
         /// <Modified>
         /// Name     Date         Comments
