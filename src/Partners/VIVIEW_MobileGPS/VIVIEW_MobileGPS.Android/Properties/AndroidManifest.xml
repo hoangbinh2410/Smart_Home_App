@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="53" android:versionName="5.2.0" package="vn.viviewgps.gpsmobile" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="31" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="54" android:versionName="5.3.0" package="vn.viviewgps.gpsmobile" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="30" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
