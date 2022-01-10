@@ -172,6 +172,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_TimePicker => Get(MobileResourceNames.Common_Label_TimePicker, "Chọn Giờ", "Time Picker");
         public static string Common_Label_DatePicker => Get(MobileResourceNames.Common_Label_DatePicker, "Chọn Ngày", "Date Picker");
+        public static string Common_Label_SelectMonth => Get(MobileResourceNames.Common_Label_SelectMonth, "Chọn tháng", "Month Picker");
         public static string Common_Label_DateTimePicker => Get(MobileResourceNames.Common_Label_CameraTitle, "Chọn Ngày Giờ", "Date Time Picker");
         public static string Common_Label_Year => Get(MobileResourceNames.Common_Label_Year, "Năm", "Year");
         public static string Common_Label_Month => Get(MobileResourceNames.Common_Label_Month, "Tháng", "Month");

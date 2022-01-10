@@ -520,6 +520,7 @@
         #region datetimepicker
         Common_Label_TimePicker,
         Common_Label_DatePicker,
+        Common_Label_SelectMonth,
         #endregion datetimepicker
 
         #region report
