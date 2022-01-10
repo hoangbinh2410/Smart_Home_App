@@ -372,13 +372,13 @@ namespace BA_MobileGPS.Core.ViewModels
             var input = new MachineVehcleRequest
             {
                 CompanyID = (UserHelper.isCompanyPartner(UserInfo.CompanyType) || (UserHelper.isCompanyEndUserWithPermisstion(UserInfo.CompanyType))) ? CurrentComanyID : StaticSettings.User.CompanyId,
-                ListVehicleID = VehicleSelect.VehicleId.ToString(),
+                VehicleIDs = VehicleSelect.VehicleId.ToString(),
                 NumberOfMinutes = string.IsNullOrEmpty(MinutesCondition) ? 0 : int.Parse(MinutesCondition),
                 State = StatusMachineSelected.Key == 0 ? (bool?)null : (StatusMachineSelected.Key == 1 ? true : false),
                 PageIndex = PagedNext,
                 PageSize = PageSize,
-                DateStart = FromDate,
-                DateEnd = ToDate,
+                FromDate = FromDate,
+                ToDate = ToDate,
                 IsAddress = ShowStartAddress || ShowEndAddress,
             };
             return input;

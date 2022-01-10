@@ -359,11 +359,11 @@ namespace BA_MobileGPS.Core.ViewModels
             var input = new TemperartureVehicleRequest
             {
                 CompanyID = (UserHelper.isCompanyPartner(UserInfo.CompanyType) || (UserHelper.isCompanyEndUserWithPermisstion(UserInfo.CompanyType))) ? CurrentComanyID : StaticSettings.User.CompanyId,
-                ListVehicleID = VehicleSelect.VehicleId.ToString(),
+                VehicleIDs = VehicleSelect.VehicleId.ToString(),
                 PageIndex = PagedNext,
                 PageSize = PageSize,
-                DateStart = FromDate,
-                DateEnd = ToDate,
+                FromDate = FromDate,
+                ToDate = ToDate,
                 Temperature = string.IsNullOrEmpty(TemperatureCondition) ? "-1000" : TemperatureCondition,
                 IsAddress = ShowEndAddress || ShowStartAddress,
             };

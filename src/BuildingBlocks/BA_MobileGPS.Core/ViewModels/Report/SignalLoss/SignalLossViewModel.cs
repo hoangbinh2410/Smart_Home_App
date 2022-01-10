@@ -120,8 +120,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CompanyID = CurrentComanyID,
                 VehicleID = VehicleSelect.VehicleId.ToString(),
-                DateStart = base.FromDate,
-                DateEnd = base.ToDate,
+                FromDate = base.FromDate,
+                ToDate = base.ToDate,
                 MinuteLossSignal = string.IsNullOrEmpty(MinTimeLosing) ? 5 : int.Parse(MinTimeLosing),
                 PageIndex = base.PagedNext,
                 PageSize = base.PageSize,

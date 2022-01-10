@@ -43,8 +43,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 XnCode = UserInfo.XNCode,
                 VehiclePlate = VehicleSelect.VehiclePlate.ToString(),
-                DateStart = base.FromDate,
-                DateEnd = base.ToDate,
+                FromDate = base.FromDate,
+                ToDate = base.ToDate,
                 OptionData = IsOptionData,
                 Imei = VehicleSelect.Imei
             };

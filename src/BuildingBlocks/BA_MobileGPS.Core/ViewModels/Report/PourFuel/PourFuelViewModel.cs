@@ -126,8 +126,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CompanyID = CurrentComanyID,
                 ListVehicleID = VehicleSelect.VehicleId.ToString(),
-                DateStart = base.FromDate,
-                DateEnd = base.ToDate,
+                FromDate = base.FromDate,
+                ToDate = base.ToDate,
                 PageIndex = base.PagedNext,
                 PageSize = base.PageSize,
                 IsAddress = ShowStartAddress || ShowEndAddress,

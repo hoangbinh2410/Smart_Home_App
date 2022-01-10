@@ -2,17 +2,11 @@
 
 namespace BA_MobileGPS.Entities
 {
-    public class FuelReportRequest
+    public class FuelReportRequest : ReportBaseModel
     {
-        public int CompanyID { get; set; }
         public string ListVehicleID { get; set; }
-        public DateTime DateStart { get; set; }
-        public DateTime DateEnd { get; set; }
         public FuelStatusEnum SearchType { get; set; }
         public float NumberOfLitter { get; set; }
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
-        public bool IsAddress { get; set; }
     }
 
     public enum FuelStatusEnum
