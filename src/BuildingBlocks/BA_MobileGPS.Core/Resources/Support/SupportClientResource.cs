@@ -19,7 +19,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string SupportClient_Label_TextSupport => Get(MobileResourceNames.SupportClient_Label_TextSupport, "Quý khách vui lòng chọn mục cần hỗ trợ dưới đây", "Please select the item you need support below");
         public static string SupportClient_Button_Close => Get(MobileResourceNames.SupportClient_Button_Close, "Đóng", "Close");
-        public static string SupportClient_Label_CallToHotline => Get(MobileResourceNames.SupportClient_Label_CallToHotline, "Gọi điện tới hotline CSKH 1900 6464", "Please call the support hotline 1900 6464");
+        public static string SupportClient_Label_CallToHotline => Get(MobileResourceNames.SupportClient_Label_CallToHotline, "Gọi điện tới hotline CSKH ", "Please call the support hotline ");
         public static string SupportClient_Label_ContentChangePlateNumber1 => Get(MobileResourceNames.SupportClient_Label_ContentChangePlateNumber1, "Phương tiện đủ điều kiện cho phép đổi biển.", "Your vehicle is eligible for a license plate exchange.");
         public static string SupportClient_Label_ContentChangePlateNumber2 => Get(MobileResourceNames.SupportClient_Label_ContentChangePlateNumber2, "Qúy khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu.", "Please enter your new license plate in the box below and submit your request.");
         public static string SupportClient_Label_ContentChangePlateNumber3 => Get(MobileResourceNames.SupportClient_Label_ContentChangePlateNumber3, "Đổi biển sẽ làm thay đổi dữ liệu của phương tiện được chọn, quý khách cần lưu ý trước khi đổi biển.", "Changing the license plate will change the data of the selected vehicle, you need to be aware before changing the license plate.");
