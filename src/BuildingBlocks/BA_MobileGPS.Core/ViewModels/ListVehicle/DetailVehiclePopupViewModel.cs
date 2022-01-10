@@ -175,13 +175,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var list = new List<MenuPageItem>();
 
-            list.Add(new MenuPageItem
+            if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
             {
-                Title = MobileResource.Camera_Lable_ExportVideo,
-                Icon = "ic_exportvideo.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.UploadVideoStream),
-                MenuType = MenuKeyType.ExportVideo
-            });
+                list.Add(new MenuPageItem
+                {
+                    Title = MobileResource.Camera_Lable_ExportVideo,
+                    Icon = "ic_exportvideo.png",
+                    IsEnable = true,
+                    MenuType = MenuKeyType.ExportVideo
+                });
+            }
+
             list.Add(new MenuPageItem
             {
                 Title = "Hỗ trợ khách hàng",
