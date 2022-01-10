@@ -6,6 +6,7 @@
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     Title="{Binding Title}"
@@ -67,14 +68,14 @@
                         <Label
                             HorizontalTextAlignment="Start"
                             Style="{DynamicResource Text14B}"
-                            Text="Quý khách đã thực hiện tất cả các bước theo hướng dẫn, vui lòng gửi phản hồi nếu lỗi chưa được khắc phục!"
+                            Text="{i18n:TranslateResource SupportClient_Label_MessageContent}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
 
                         <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Danh mục cần hỗ trợ: " />
+                                    <Span Text="{i18n:TranslateResource SupportClient_Label_LbSupportFeedbackName}" />
                                     <Span Text="{Binding Item.Name}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -86,7 +87,7 @@
                             VerticalTextAlignment="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Phương tiện: " />
+                                    <Span Text="{i18n:TranslateResource SupportClient_Label_LbSupportFeedbackVehicle}" />
                                     <Span Text="{Binding LicensePlateNow}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -96,7 +97,7 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Họ và tên"
+                                Text="{i18n:TranslateResource SupportClient_Label_MessageFullName}"
                                 TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
@@ -110,7 +111,7 @@
                                 <Entry
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
-                                    Placeholder="Nhập họ tên"
+                                    Placeholder="{i18n:TranslateResource SupportClient_Entry_MessageEnterFullName}"
                                     Text="{Binding UserFullName}"
                                     TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
@@ -125,7 +126,7 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Số điện thoại"
+                                Text="{i18n:TranslateResource SupportClient_Label_LbSupportFeedbackPhoneNumber}"
                                 TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
@@ -141,7 +142,7 @@
                                     HorizontalOptions="FillAndExpand"
                                     Keyboard="Numeric"
                                     MaxLength="10"
-                                    Placeholder="Nhập số điện thoại"
+                                    Placeholder="{i18n:TranslateResource SupportClient_Entry_MessageEnterPhoneNumber}"
                                     Text="{Binding Phonenumber}"
                                     TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
@@ -156,7 +157,7 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Nội dung phản hồi"
+                                Text="{i18n:TranslateResource SupportClient_Label_TextSupportFeedbackContent}"
                                 TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
@@ -171,7 +172,7 @@
                                     AutoSize="TextChanges"
                                     FontSize="14"
                                     MaxLength="1000"
-                                    Placeholder="Nhập nội dung hỗ trợ"
+                                    Placeholder="{i18n:TranslateResource SupportClient_Entry_MessageEnterFeedbackContent}"
                                     Text="{Binding Feedack}"
                                     TextColor="{DynamicResource ColorText}">
                                     <Editor.Effects>
@@ -195,7 +196,7 @@
                             Command="{Binding PushNotificationSupportPageCommand}"
                             CornerRadius="20"
                             HorizontalOptions="CenterAndExpand"
-                            Text="Gửi phản hồi"
+                            Text="{i18n:TranslateResource SupportClient_Button_BtnSupportFeedbackSend}"
                             VerticalOptions="StartAndExpand"
                             WidthRequest="200" />
                     </StackLayout>
@@ -260,7 +261,7 @@
                                 HorizontalOptions="StartAndExpand"
                                 HorizontalTextAlignment="Start"
                                 Style="{DynamicResource Text16B}"
-                                Text="Cảm ơn quý khách đã gửi phản hồi cho BA GPS!"
+                                Text="{i18n:TranslateResource SupportClient_Label_ContentNotify1}"
                                 TextColor="#0474D8" />
                             <Label
                                 HorizontalOptions="Start"
@@ -269,13 +270,13 @@
                                 VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khách vui lòng truy cập tính năng " />
+                                        <Span Text="{i18n:TranslateResource SupportClient_Label_ContentNotify2}" />
                                         <Span
                                             CharacterSpacing="1"
                                             Style="{DynamicResource Text14B}"
-                                            Text="Tài khoản &gt; Phản hồi khách hàng "
+                                            Text="{i18n:TranslateResource SupportClient_Label_ContentNotify3}"
                                             TextColor="#0474D8" />
-                                        <Span Text="để theo dõi phản hồi của CSKH." />
+                                        <Span Text="{i18n:TranslateResource SupportClient_Label_ContentNotify4}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -293,7 +294,7 @@
                                 Command="{Binding BackPageCommand}"
                                 CornerRadius="20"
                                 HorizontalOptions="CenterAndExpand"
-                                Text="Đóng"
+                                Text="{i18n:TranslateResource SupportClient_Button_Close}"
                                 VerticalOptions="StartAndExpand"
                                 WidthRequest="200" />
                         </StackLayout>

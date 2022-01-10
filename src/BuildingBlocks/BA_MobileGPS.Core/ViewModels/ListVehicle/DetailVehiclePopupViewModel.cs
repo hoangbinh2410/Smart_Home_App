@@ -185,7 +185,7 @@ namespace BA_MobileGPS.Core.ViewModels
             list.Add(new MenuPageItem
             {
                 Title = "Hỗ trợ khách hàng",
-                Icon = "ic_helpcustomer.png",
+                Icon = "ic_helpcustomer2.png",
                 IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer
             });

@@ -9,6 +9,7 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
@@ -177,7 +178,7 @@
                         FontSize="Large"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text="Không có dữ liệu" />
+                        Text="{i18n:TranslateResource Common_Message_NoData}" />
                 </StackLayout>
             </Grid>
             <StackLayout
@@ -192,7 +193,7 @@
                     Command="{Binding NavigateCommand}"
                     CornerRadius="20"
                     HorizontalOptions="CenterAndExpand"
-                    Text="Tiếp tục"
+                    Text="{i18n:TranslateResource SupportClient_Button_Text_Next}"
                     VerticalOptions="StartAndExpand"
                     WidthRequest="200" />
             </StackLayout>

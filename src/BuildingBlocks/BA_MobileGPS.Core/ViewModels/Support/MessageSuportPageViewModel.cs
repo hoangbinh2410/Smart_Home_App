@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public MessageSuportPageViewModel(INavigationService navigationService, IPageDialogService pageDialog, IDisplayMessage displayMessage, ISupportCategoryService iSupportCategoryService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
-            Title = "Hỗ trợ khách hàng";
+            Title = MobileResource.SupportClient_Label_Title;
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
             _pageDialog = pageDialog;
             _displayMessage = displayMessage;
