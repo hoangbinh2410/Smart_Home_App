@@ -183,7 +183,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 }
                                 else
                                 {
-                                    DisplayMessage.ShowMessageSuccess("Thất bại! Kiểm tra lại đường truyền", 3000);
+                                    DisplayMessage.ShowMessageInfo("Thất bại! Kiểm tra lại đường truyền", 3000);
                                 }
                             }
                         }
