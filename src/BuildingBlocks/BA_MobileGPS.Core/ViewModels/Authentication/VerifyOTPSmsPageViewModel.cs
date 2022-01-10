@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool _rememberme = false;
         private string _userName = string.Empty;
         private string _password = string.Empty;
-
+        public string Numberphone = string.Empty;
         private Timer _timerCountDown;
         public int index = 300;
         private OtpResultResponse _objOtp;
@@ -63,6 +63,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<OtpResultResponse>("OTPZalo") is OtpResultResponse objOtp)
             {
                 _objOtp = objOtp;
+            }
+            if (parameters.ContainsKey("Numberphone") && parameters.GetValue<string>("Numberphone") is string numberphone)
+            {
+                Numberphone = numberphone;
             }
             if (parameters.ContainsKey("User") && parameters.GetValue<LoginResponse>("User") is LoginResponse user)
             {
@@ -155,6 +159,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
+                                else
+                                {
+                                    DisplayMessage.ShowMessageSuccess("Thất bại! Kiểm tra lại đường truyền", 3000);
+                                }
                             }
                         }
                         // Nếu không lấy lại mã sms
@@ -162,16 +170,20 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var inputSendCodeSMS = new ForgotPasswordRequest
                             {
-                                phoneNumber = _user.PhoneNumber,
+                                phoneNumber = Numberphone,
                                 userName = _user.UserName,
                                 AppID = (int)App.AppType
                             };
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
-                                if (objsbsResponse != null)
+                                if (objsbsResponse != null && !string.IsNullOrEmpty(objsbsResponse.SecurityCodeSMS))
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
+                                }
+                                else
+                                {
+                                    DisplayMessage.ShowMessageSuccess("Thất bại! Kiểm tra lại đường truyền", 3000);
                                 }
                             }
                         }
@@ -219,6 +231,11 @@ namespace BA_MobileGPS.Core.ViewModels
                     DisplayMessage.ShowMessageInfo("Mã OTP không được để trống", 5000);
                     return;
                 }
+                if (index == 0)
+                {
+                    DisplayMessage.ShowMessageInfo("Quá thời gian nhập mã xác thực", 5000);
+                    return;
+                }
                 SafeExecute(async () =>
                 {
                     if (IsConnected)
@@ -244,7 +261,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 }
                                 var inputVerifyCode = new VerifyCodeRequest
                                 {
-                                    phoneNumber = _user.PhoneNumber,
+                                    phoneNumber = Numberphone,
                                     verifyCode = OtpSms.Value,
                                     AppID = (int)App.AppType
                                 };
@@ -258,7 +275,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                     {
                                         UserName = _user.UserName,
                                         XNcode = _user.XNCode,
-                                        PhoneNumber = _user.PhoneNumber,
+                                        PhoneNumber = Numberphone,
                                         VehiclePlate = _user.VehiclePlateOTP
                                     };
                                     var result = await _iAuthenticationService.CheckVehicleOtpsms(item);
