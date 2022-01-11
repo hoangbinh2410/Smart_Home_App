@@ -163,6 +163,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             // Sau khi gọi API
                             var parameters = new NavigationParameters
                             {
+                              {"OTPsms",objResponse },
                               { "User", _user },
                               { "Numberphone", NumberPhone.Value.ToString() },
                               { "Rememberme", _rememberme },

@@ -21,7 +21,7 @@ namespace BA_MobileGPS.Service
         Task<bool> ChangePassWordForget(ChangePasswordForgotRequest input);
 
         Task<OtpResultResponse> GetOTP(string targetNumber, string customerID);
-        Task<VehiclePhoneRespone> CheckVehicleOtpsms(VehiclePhoneRequest request);
+        Task<CheckVerifyCodeResponse> CheckVehicleOtpsms(VerifyOtpRequest request);
         Task<bool> VerifyPhoneNumberOtp(VerifyPhoneRequest request);
 
     }

@@ -19,6 +19,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Property
 
         private string timeRequest = "300";
+
         public string TimeRequest
         {
             get { return timeRequest; }
@@ -34,6 +35,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public int index = 300;
         private OtpResultResponse _objOtp;
 
+        public SendCodeSMSResponse objsbsResponse { get; set; }
         public ValidatableObject<string> OtpSms { get; set; }
 
         #endregion Property
@@ -63,6 +65,10 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<OtpResultResponse>("OTPZalo") is OtpResultResponse objOtp)
             {
                 _objOtp = objOtp;
+            }
+            if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<SendCodeSMSResponse>("OTPZalo") is SendCodeSMSResponse objOtpsms)
+            {
+                objsbsResponse = objOtpsms;
             }
             if (parameters.ContainsKey("Numberphone") && parameters.GetValue<string>("Numberphone") is string numberphone)
             {
@@ -107,7 +113,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         #endregion Lifecycle
 
-
         #region PrivateMethod
 
         private void InitValidations()
@@ -137,7 +142,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 index--;
             }
-
         }
 
         // lấy lại mã OTP
@@ -176,7 +180,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
-                                var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                                objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
                                 if ((int)objsbsResponse.StateRegister == (int)StatusRegisterSMS.Success)
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
@@ -217,8 +221,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại, mã OTP đã được gửi!", 5000);
                 }
             });
-
         }
+
         // check OTP
         private bool CheckVerifyOtpZalo()
         {
@@ -243,6 +247,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             return true;
         }
+
         private void PushMainPage()
         {
             if (IsConnected)
@@ -280,53 +285,39 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     return;
                                 }
-                                var inputVerifyCode = new VerifyCodeRequest
+                                VerifyOtpRequest inputVerifyCode = new VerifyOtpRequest()
                                 {
-                                    phoneNumber = Numberphone,
-                                    verifyCode = OtpSms.Value,
-                                    AppID = (int)App.AppType
+                                    UserName = _user.UserName,
+                                    XNcode = _user.XNCode,
+                                    PhoneNumber = Numberphone,
+                                    VehiclePlate = _user.VehiclePlateOTP,
+                                    SecurityCode = OtpSms.Value,
+                                    UserSecuritySMSLogID = objsbsResponse.SecurityCodeSMSLogID
                                 };
                                 // kiểm tra mã otp
-                                CheckVerifyCodeResponse responseSendCodeSMS = new CheckVerifyCodeResponse();
-                                responseSendCodeSMS = await _iAuthenticationService.CheckVerifyCode(inputVerifyCode);
-                                if ((int)responseSendCodeSMS.StateVerifyCode == (int)StateVerifyCode.Success)
+                                var responseSendCodeSMS = await _iAuthenticationService.CheckVehicleOtpsms(inputVerifyCode);
+                                if ((int)responseSendCodeSMS.StateVerifyCode == (int)ResultVerifyOtp.Success)
                                 {
-                                    // Xác nhận mã OTp thành công gửi danh sách xe được xác nhận
-                                    VehiclePhoneRequest item = new VehiclePhoneRequest()
-                                    {
-                                        UserName = _user.UserName,
-                                        XNcode = _user.XNCode,
-                                        PhoneNumber = Numberphone,
-                                        VehiclePlate = _user.VehiclePlateOTP
-                                    };
-                                    var result = await _iAuthenticationService.CheckVehicleOtpsms(item);
-                                    if (result.state)
-                                    {
-                                        RememberSettings();
-                                        await NavigationService.NavigateAsync("/MainPage");
-                                    }
-                                    else
-                                    {
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                                    }
+                                    RememberSettings();
+                                    await NavigationService.NavigateAsync("/MainPage");
                                 }
                                 else
                                 {
                                     switch ((int)responseSendCodeSMS.StateVerifyCode)
                                     {
-                                        case (int)StateVerifyCode.OverWrongPerCode:
+                                        case (int)ResultVerifyOtp.WrongPerSecurityCode:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorOverWrongPerCode, 5000);
                                             break;
 
-                                        case (int)StateVerifyCode.OverWrongPerDay:
+                                        case (int)ResultVerifyOtp.WrongForUserInDay:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorOverWrongPerDay, 5000);
                                             break;
 
-                                        case (int)StateVerifyCode.TimeOut:
+                                        case (int)ResultVerifyOtp.TimeOut:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorTimeOut, 5000);
                                             break;
 
-                                        case (int)StateVerifyCode.WrongVerifyCode:
+                                        case (int)ResultVerifyOtp.InCorrect:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorWrongVerifyCode, 5000);
                                             break;
 
