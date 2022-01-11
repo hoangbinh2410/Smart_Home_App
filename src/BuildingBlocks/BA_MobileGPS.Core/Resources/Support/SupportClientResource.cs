@@ -30,6 +30,10 @@ namespace BA_MobileGPS.Core.Resources
         public static string SupportClient_Label_MessageFullName => Get(MobileResourceNames.SupportClient_Label_MessageFullName, "Họ và tên", "First and last name");
         public static string SupportClient_Entry_MessageEnterFullName => Get(MobileResourceNames.SupportClient_Entry_MessageEnterFullName, "Nhập họ và tên", "Enter your full name");
 
+        public static string SupportClient_Title_SelectVehicle => Get(MobileResourceNames.SupportClient_Title_SelectVehicle, "Chọn phương tiện xử lý", "Select handling vehicle");
+        public static string SupportClient_Entry_SelectVehicleSearch => Get(MobileResourceNames.SupportClient_Entry_SelectVehicleSearch, "Tìm kiếm phương tiện", "Vehicle search");
+        public static string SupportClient_Label_SelectVehicleContent => Get(MobileResourceNames.SupportClient_Label_SelectVehicleContent, "Quý khách vui lòng chọn phương tiện cần kiểm tra", "Please select the vehicle you need check below");
+
         public static string SupportClient_Label_textSupportError => Get(MobileResourceNames.SupportClient_Label_textSupportError, "Quý khách vui lòng kiểm tra xe có xảy ra các tình huống sau không và làm theo hướng dẫn", "Please check your vehicle for the following situations and follow the instructions");
         public static string SupportClient_Text_Yes => Get(MobileResourceNames.SupportClient_Text_Yes, "Có", "Yes");
         public static string SupportClient_Text_No => Get(MobileResourceNames.SupportClient_Text_No, "Không", "No");
