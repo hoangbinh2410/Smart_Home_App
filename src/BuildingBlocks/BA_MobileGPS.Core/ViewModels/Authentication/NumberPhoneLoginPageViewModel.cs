@@ -158,7 +158,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
                         }
-                        if ((int)objResponse.StateRegister == (int)StatusRegisterSMS.Success)
+                        if (objResponse !=null && (int)objResponse.StateRegister == (int)StatusRegisterSMS.Success)
                         {
                             // Sau khi gọi API
                             var parameters = new NavigationParameters

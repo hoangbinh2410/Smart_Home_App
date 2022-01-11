@@ -18,7 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
     {
         #region Property
 
-        private string timeRequest = "300";
+        private string timeRequest = string.Empty;
 
         public string TimeRequest
         {
@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private string _password = string.Empty;
         public string Numberphone = string.Empty;
         private Timer _timerCountDown;
-        public int index = 300;
+        public int index { get; set; }
         private OtpResultResponse _objOtp;
 
         public SendCodeSMSResponse objsbsResponse { get; set; }
@@ -66,9 +66,11 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 _objOtp = objOtp;
             }
-            if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<SendCodeSMSResponse>("OTPZalo") is SendCodeSMSResponse objOtpsms)
+            if (parameters.ContainsKey("OTPsms") && parameters.GetValue<SendCodeSMSResponse>("OTPsms") is SendCodeSMSResponse objOtpsms)
             {
                 objsbsResponse = objOtpsms;
+                TimeRequest = objOtpsms.SecondCountDown.ToString();
+                index = objOtpsms.SecondCountDown;
             }
             if (parameters.ContainsKey("Numberphone") && parameters.GetValue<string>("Numberphone") is string numberphone)
             {
@@ -159,7 +161,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
-                                if (_objOtp != null)
+                                if (_objOtp != null && !string.IsNullOrEmpty(_objOtp.OTP) )
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
@@ -181,7 +183,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
-                                if ((int)objsbsResponse.StateRegister == (int)StatusRegisterSMS.Success)
+                                if (objsbsResponse!=null && (int)objsbsResponse.StateRegister == (int)StatusRegisterSMS.Success)
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
@@ -213,7 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
-                    index = 300;
+                    index = objsbsResponse.SecondCountDown;
                     SetTimerCountDown();
                 }
                 else
@@ -296,7 +298,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 };
                                 // kiểm tra mã otp
                                 var responseSendCodeSMS = await _iAuthenticationService.CheckVehicleOtpsms(inputVerifyCode);
-                                if ((int)responseSendCodeSMS.StateVerifyCode == (int)ResultVerifyOtp.Success)
+                                if (responseSendCodeSMS !=null && (int)responseSendCodeSMS.StateVerifyCode == (int)ResultVerifyOtp.Success)
                                 {
                                     RememberSettings();
                                     await NavigationService.NavigateAsync("/MainPage");
