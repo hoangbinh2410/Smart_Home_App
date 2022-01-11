@@ -16,8 +16,6 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class VerifyOTPSmsPageViewModel : ViewModelBaseLogin
     {
-        #region Property
-
         private string timeRequest = string.Empty;
 
         public string TimeRequest
@@ -38,10 +36,6 @@ namespace BA_MobileGPS.Core.ViewModels
         public SendCodeSMSResponse objsbsResponse { get; set; }
         public ValidatableObject<string> OtpSms { get; set; }
 
-        #endregion Property
-
-        #region Contructor
-
         public ICommand GetOTPAgainCommand { get; private set; }
         public ICommand PushMainPageCommand { get; private set; }
         private readonly IAuthenticationService _iAuthenticationService;
@@ -54,10 +48,6 @@ namespace BA_MobileGPS.Core.ViewModels
             _iAuthenticationService = iAuthenticationService;
             SetTimerCountDown();
         }
-
-        #endregion Contructor
-
-        #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -113,10 +103,6 @@ namespace BA_MobileGPS.Core.ViewModels
         {
         }
 
-        #endregion Lifecycle
-
-        #region PrivateMethod
-
         private void InitValidations()
         {
             OtpSms = new ValidatableObject<string>();
@@ -161,7 +147,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
-                                if (_objOtp != null && !string.IsNullOrEmpty(_objOtp.OTP) )
+                                if (_objOtp != null && !string.IsNullOrEmpty(_objOtp.OTP))
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
@@ -297,29 +283,29 @@ namespace BA_MobileGPS.Core.ViewModels
                                     UserSecuritySMSLogID = objsbsResponse.SecurityCodeSMSLogID
                                 };
                                 // kiểm tra mã otp
-                                var responseSendCodeSMS = await _iAuthenticationService.CheckVehicleOtpsms(inputVerifyCode);
-                                if (responseSendCodeSMS !=null && (int)responseSendCodeSMS.StateVerifyCode == (int)ResultVerifyOtp.Success)
+                                var result = await _iAuthenticationService.CheckVehicleOtpsms(inputVerifyCode);
+                                if (result==ResultVerifyOtp.Success)
                                 {
                                     RememberSettings();
                                     await NavigationService.NavigateAsync("/MainPage");
                                 }
                                 else
                                 {
-                                    switch ((int)responseSendCodeSMS.StateVerifyCode)
+                                    switch (result)
                                     {
-                                        case (int)ResultVerifyOtp.WrongPerSecurityCode:
+                                        case ResultVerifyOtp.WrongPerSecurityCode:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorOverWrongPerCode, 5000);
                                             break;
 
-                                        case (int)ResultVerifyOtp.WrongForUserInDay:
+                                        case ResultVerifyOtp.WrongForUserInDay:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorOverWrongPerDay, 5000);
                                             break;
 
-                                        case (int)ResultVerifyOtp.TimeOut:
+                                        case ResultVerifyOtp.TimeOut:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorTimeOut, 5000);
                                             break;
 
-                                        case (int)ResultVerifyOtp.InCorrect:
+                                        case ResultVerifyOtp.InCorrect:
                                             DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorWrongVerifyCode, 5000);
                                             break;
 
@@ -365,7 +351,5 @@ namespace BA_MobileGPS.Core.ViewModels
             OneSignal.Current.SendTag("UserID", _user.UserId.ToString().ToUpper());
             OneSignal.Current.SendTag("UserName", _user.UserName.ToString().ToUpper());
         }
-
-        #endregion PrivateMethod
     }
 }
