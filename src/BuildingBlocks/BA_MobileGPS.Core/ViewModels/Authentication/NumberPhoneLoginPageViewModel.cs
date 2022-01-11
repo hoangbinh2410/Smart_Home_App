@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -157,23 +158,44 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
                         }
-                        // Sau khi gọi API
-                        if (objResponse != null && !string.IsNullOrEmpty(objResponse.SecurityCodeSMS))
+                        if ((int)objResponse.StateRegister == (int)StatusRegisterSMS.Success)
                         {
+                            // Sau khi gọi API
                             var parameters = new NavigationParameters
-                    {
-                        { "User", _user },
-                        { "Numberphone", NumberPhone.Value.ToString() },
-                        { "Rememberme", _rememberme },
-                        { "UserName", _userName },
-                        { "Password", _password },
-                    };
+                            {
+                              {"OTPsms",objResponse },
+                              { "User", _user },
+                              { "Numberphone", NumberPhone.Value.ToString() },
+                              { "Rememberme", _rememberme },
+                              { "UserName", _userName },
+                              { "Password", _password },
+                            };
                             await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
                         }
                         else
                         {
-                            DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại số điện thoại", 5000);
-                            return;
+                            switch ((int)objResponse.StateRegister)
+                            {
+                                case (int)StatusRegisterSMS.ErrorLogSMS:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorErrorLogSMS, 5000);
+                                    break;
+
+                                case (int)StatusRegisterSMS.ErrorSendSMS:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorErrorSendSMS, 5000);
+                                    break;
+
+                                case (int)StatusRegisterSMS.OverCountOneDay:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorOverCountOneDay, 5000);
+                                    break;
+
+                                case (int)StatusRegisterSMS.WasRegisterSuccess:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorWasRegisterSuccess, 5000);
+                                    break;
+
+                                default:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorSendSMS, 5000);
+                                    break;
+                            }
                         }
                     }
                     else

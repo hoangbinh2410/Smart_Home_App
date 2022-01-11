@@ -162,12 +162,12 @@ namespace BA_MobileGPS.Service
             return respone;
         }
 
-        public async Task<VehiclePhoneRespone> CheckVehicleOtpsms(VehiclePhoneRequest request)
+        public async Task<CheckVerifyCodeResponse> CheckVehicleOtpsms(VerifyOtpRequest request)
         {
-            VehiclePhoneRespone result = new VehiclePhoneRespone();
+            CheckVerifyCodeResponse result = new CheckVerifyCodeResponse();
             try
             {
-                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, ResponseBaseV2<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
+                var respone = await _IRequestProvider.PostAsync<VerifyOtpRequest, ResponseBaseV2<CheckVerifyCodeResponse>>(ApiUri.GET_Vehicle_OTP_SMS, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
