@@ -177,13 +177,34 @@ namespace BA_MobileGPS.Core.ViewModels
                             using (new HUDService(MobileResource.Common_Message_Processing))
                             {
                                 var objsbsResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
-                                if (objsbsResponse != null && !string.IsNullOrEmpty(objsbsResponse.SecurityCodeSMS))
+                                if ((int)objsbsResponse.StateRegister == (int)StatusRegisterSMS.Success)
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
                                 else
                                 {
-                                    DisplayMessage.ShowMessageInfo("Thất bại! Kiểm tra lại đường truyền", 3000);
+                                    switch ((int)objsbsResponse.StateRegister)
+                                    {
+                                        case (int)StatusRegisterSMS.ErrorLogSMS:
+                                            DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorErrorLogSMS, 5000);
+                                            break;
+
+                                        case (int)StatusRegisterSMS.ErrorSendSMS:
+                                            DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorErrorSendSMS, 5000);
+                                            break;
+
+                                        case (int)StatusRegisterSMS.OverCountOneDay:
+                                            DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorOverCountOneDay, 5000);
+                                            break;
+
+                                        case (int)StatusRegisterSMS.WasRegisterSuccess:
+                                            DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorWasRegisterSuccess, 5000);
+                                            break;
+
+                                        default:
+                                            DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorSendSMS, 5000);
+                                            break;
+                                    }
                                 }
                             }
                         }
