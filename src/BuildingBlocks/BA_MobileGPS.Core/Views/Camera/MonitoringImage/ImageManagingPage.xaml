@@ -91,7 +91,7 @@
                         HorizontalOptions="FillAndExpand"
                         InputTransparent="True"
                         PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                        Text="{Binding CarSearch}"
+                        Text="{Binding CarSearchView}"
                         TextColor="{DynamicResource TextPrimaryColor}"
                         VerticalOptions="Center">
                         <Entry.Effects>

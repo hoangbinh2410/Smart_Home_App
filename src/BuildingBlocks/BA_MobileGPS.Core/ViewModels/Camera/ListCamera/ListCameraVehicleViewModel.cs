@@ -123,7 +123,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehicleId = model.VehicleId,
                         VehiclePlate = model.VehiclePlate,
-                        PrivateCode = model.VehiclePlate,
+                        PrivateCode = model.PrivateCode,
                         Imei = model.Imei
                     };
                 }
