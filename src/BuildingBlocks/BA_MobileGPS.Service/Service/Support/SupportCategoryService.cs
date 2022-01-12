@@ -40,12 +40,13 @@ namespace BA_MobileGPS.Service.Service.Support
             return result;
         }
 
-        public async Task<List<SupportCategoryRespone>> GetListSupportCategory()
+        public async Task<List<SupportCategoryRespone>> GetListSupportCategory(int languageId)
         {
             List<SupportCategoryRespone> result = new List<SupportCategoryRespone>();
+            var url = ApiUri.GET_List_SupportCategory + $"?languageID={languageId}";
             try
             {
-                var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<SupportCategoryRespone>>>(ApiUri.GET_List_SupportCategory);
+                var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<SupportCategoryRespone>>>(url);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -57,12 +58,12 @@ namespace BA_MobileGPS.Service.Service.Support
             }
             return result;
         }
-        public async Task<List<MessageSupportRespone>> GetMessagesSupport(Guid id)
+        public async Task<List<MessageSupportRespone>> GetMessagesSupport(Guid id, int languageId)
         {
             List<MessageSupportRespone> result = new List<MessageSupportRespone>();
             try
             {
-                string uri = string.Format(ApiUri.GET_List_SupportContent + "?id={0}", id);
+                string uri = string.Format(ApiUri.GET_List_SupportContent + "?id={0}&languageID={1}",id,languageId);
                 var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<MessageSupportRespone>>>(uri);
                 if (respone != null && respone.Data != null)
                 {

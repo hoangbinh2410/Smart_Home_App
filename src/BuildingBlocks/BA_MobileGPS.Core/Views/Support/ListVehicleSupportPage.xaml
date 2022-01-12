@@ -15,7 +15,7 @@
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    Title="Chọn phương tiện xử lý"
+    Title="{i18n:TranslateResource SupportClient_Title_SelectVehicle}"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
@@ -81,7 +81,7 @@
                                 HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="False"
-                                Placeholder="Tìm kiếm phương tiện"
+                                Placeholder="{i18n:TranslateResource SupportClient_Entry_SelectVehicleSearch}"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                 Text="{Binding CarSearch}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
@@ -103,7 +103,7 @@
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="MiddleTruncation"
                         Style="{DynamicResource LabelNaviga}"
-                        Text="Quý khách vui lòng chọn phương tiện cần kiểm tra"
+                        Text="{i18n:TranslateResource SupportClient_Label_SelectVehicleContent}"
                         TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
