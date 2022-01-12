@@ -212,7 +212,7 @@
                             <Label
                                 FontSize="12"
                                 HorizontalOptions="Center"
-                                Text="{Binding .}"
+                                Text="{Binding PrivateCode}"
                                 TextColor="{DynamicResource WhiteColor}"
                                 VerticalOptions="Center" />
                         </pancake:PancakeView>

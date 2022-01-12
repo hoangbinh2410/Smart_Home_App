@@ -161,9 +161,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
-        private ObservableCollection<string> listLastView;
+        private ObservableCollection<LastViewVehicleRespone> listLastView;
 
-        public ObservableCollection<string> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+        public ObservableCollection<LastViewVehicleRespone> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
 
         private List<string> mVehicleString { get; set; }
 
@@ -228,7 +228,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 else
                 {
                     var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate==item.VehiclePlate);
-                    if(vehicle !=null)
+                    if (vehicle !=null)
                     {
                         // chuyen dang detail
                         var parameters = new NavigationParameters
@@ -366,7 +366,12 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // truyền key xử lý ở đây
-                CarSearch = (string)listview.ItemData;
+                var item = (LastViewVehicleRespone)listview.ItemData;
+                if (item !=null)
+                {
+                    CarSearchView=item.PrivateCode;
+                    CarSearch=item.VehiclePlate;
+                }
 
                 ShowImageSearch();
             }
@@ -638,10 +643,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 ListHeight = view[1]; // gán chiều cao cho listview
 
-                ListLastView = new ObservableCollection<string>();
+                ListLastView = new ObservableCollection<LastViewVehicleRespone>();
                 for (int i = 0; i < lst.Count; i++)
                 {
-                    ListLastView.Add(lst[i].PrivateCode);
+                    ListLastView.Add(lst[i]);
                 }
             }
             else
