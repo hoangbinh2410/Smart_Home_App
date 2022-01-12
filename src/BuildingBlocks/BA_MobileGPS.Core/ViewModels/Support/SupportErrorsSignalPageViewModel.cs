@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Extensions;
 using Prism.Commands;
 using Prism.Navigation;
@@ -144,7 +145,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 RunOnBackground(async () =>
                 {
-                    return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+                    int languageId = Settings.CurrentLanguage == CultureCountry.Vietnamese ? 1 : 2;
+                    return await _iSupportCategoryService.GetMessagesSupport(obj.ID, languageId);
                 }, (result) =>
                 {
                     MapData(result, obj);
