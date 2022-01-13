@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
             return new ReportQCVN31SpeedRequest
             {
                 XnCode = UserInfo.XNCode,
-                VehiclePlate = VehicleSelect.VehiclePlate.ToString(),
+                VehicleIDs = VehicleSelect.VehiclePlate.ToString(),
                 FromDate = base.FromDate,
                 ToDate = base.ToDate,
                 OptionData = IsOptionData,

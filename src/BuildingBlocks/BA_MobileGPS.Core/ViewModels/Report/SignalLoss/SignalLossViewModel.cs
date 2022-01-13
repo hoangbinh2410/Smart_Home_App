@@ -119,7 +119,7 @@ namespace BA_MobileGPS.Core.ViewModels
             return new SignalLossRequest
             {
                 CompanyID = CurrentComanyID,
-                VehicleID = VehicleSelect.VehicleId.ToString(),
+                VehicleIDs = VehicleSelect.VehicleId.ToString(),
                 FromDate = base.FromDate,
                 ToDate = base.ToDate,
                 MinuteLossSignal = string.IsNullOrEmpty(MinTimeLosing) ? 5 : int.Parse(MinTimeLosing),

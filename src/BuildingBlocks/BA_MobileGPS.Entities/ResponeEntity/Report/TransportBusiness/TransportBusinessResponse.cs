@@ -14,19 +14,11 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
     /// ducpv  19/11/2021   created
     /// </Modified>
     [Serializable]
-    public class TransportBusinessResponse 
+    public class TransportBusinessResponse : ReportBaseResponse
     {
-        public int RowNumber { get; set; }
-        public int FK_VehicleID { get; set; }
-        public int FK_LandMarkID { get; set; }
-        public int FK_CompanyID { get; set; }
-        public string VehiclePlate { get; set; }
+        public int RowNumber { get; set; }       
         public string Name { get; set; }
         public string PrivateCode { get; set; }
-        public string StartAddress { get; set; }
-        public string EndAddress { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
         public int TotalTime { get; set; }
         public double TotalKmGps { get; set; }
         ///// <summary>

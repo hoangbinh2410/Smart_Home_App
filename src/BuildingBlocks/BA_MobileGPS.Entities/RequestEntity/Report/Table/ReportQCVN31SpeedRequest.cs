@@ -6,8 +6,6 @@ namespace BA_MobileGPS.Entities
     {
         public int XnCode { get; set; }
 
-        public string VehiclePlate { get; set; }
-
         public bool OptionData { get; set; }
 
         public string Imei { get; set; }
