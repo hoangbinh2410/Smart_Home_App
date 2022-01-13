@@ -1271,6 +1271,7 @@
 
 
         #endregion
+
         #region Issue
         Issue_Label_TilePage,
         ListIssue_Label_TilePage,
@@ -1347,6 +1348,32 @@
         SupportClient_Entry_MessageEnterFeedbackContent,
         SupportClient_Button_BtnSupportFeedbackSend,
         #endregion
+        ExpenseCar_Text_Vehicle,
+        ExpenseCar_Text_HaveOrNoData,
+        ExpenseCar_ManagePage_Title,
+        ExpenseCar_ManagePage_Lable_ExpensePerDay,
+        ExpenseCar_ManagePage_Lable_ExpenseTotal,
+        ExpenseCar_DetailsPage_Title,
+        ExpenseCar_DetailsPage_Lable_ChooseDate,
+        ExpenseCar_DetailsPage_Lable_TypeOfCost,
+        ExpenseCar_DetailsPage_Lable_AllExpense,
+        ExpenseCar_DetailsPage_Lable_ExpenseTotal,
+        ExpenseCar_DetailsPage_Lable_ExtraFee,
+        ExpenseCar_ImportPage_Title,
+        ExpenseCar_ImportPage_Lable_TypeOfCost,
+        ExpenseCar_ImportPage_Combobox_SelectExpenseType,
+        ExpenseCar_ImportPage_Combobox_MoneyFee,
+        ExpenseCar_ImportPage_Lable_Note,
+        ExpenseCar_ImportPage_Entry_EnterNote,
+        ExpenseCar_ImportPage_Lable_AddPhoto,
+        ExpenseCar_ImportPage_Button_Save,
+        ExpenseCar_ImportPage_Button_SaveAndContinue,
+        ExpenseCar_ImportPage_Lable_ChooseAddress,
+        ExpenseCar_ImportPage_Entry_EnterAddress,
+        #region Expense
+
+        #endregion
+
         #region KPI
         Title_Tabview,
         Title_Kpi_Page,
