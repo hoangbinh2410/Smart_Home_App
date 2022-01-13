@@ -197,7 +197,7 @@
                                             InputTransparent="True"
                                             MediaPlayer="{Binding MediaPlayer}" />
 
-                                        <indicator:SfBusyIndicator IsBusy="{Binding IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
+                                        <indicator:SfBusyIndicator Title="{Binding TitleLoading}" IsBusy="{Binding IsLoaded, Converter={StaticResource ShowHideColumnConverter}}" />
 
                                         <Grid
                                             x:Name="errGrid"

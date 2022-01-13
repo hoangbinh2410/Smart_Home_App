@@ -322,10 +322,10 @@
                             <TapGestureRecognizer Command="{Binding CloseCommand}" />
                         </StackLayout.GestureRecognizers>
                         <Label
+                            x:Name="close"
                             Grid.Column="1"
                             FontSize="13"
                             HorizontalOptions="End"
-                            Text="Đóng"
                             TextColor="{DynamicResource PrimaryColor}" />
                         <controls:IconView
                             Foreground="{DynamicResource PrimaryColor}"

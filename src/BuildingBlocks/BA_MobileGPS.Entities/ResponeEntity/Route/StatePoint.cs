@@ -14,26 +14,7 @@ namespace BA_MobileGPS.Entities
 
         public int Duration { set; get; }
 
-        public string StateText
-        {
-            get
-            {
-                switch (State)
-                {
-                    case StateType.Normal:
-                        return "Di chuyển";
-
-                    case StateType.Stop:
-                        return "Dừng đỗ";
-
-                    case StateType.Loss:
-                        return "Mất tín hiệu";
-
-                    default:
-                        return "Di chuyển";
-                }
-            }
-        }
+        public string StateText { set; get; }
     }
 
     public enum StateType : byte

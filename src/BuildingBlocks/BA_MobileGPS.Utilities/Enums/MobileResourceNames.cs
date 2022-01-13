@@ -332,6 +332,7 @@
         Online_Label_StatusCarDebtMoney,
         Online_Label_StatusCarMoving,
         Online_Label_StatusCarStoping,
+        Online_Label_StatusCarStop,
         Online_Label_StatusCarEngineOff,
         Online_Label_StatusCarEngineOn,
         Online_Label_StatusCarStopOn,
@@ -363,6 +364,7 @@
         Online_Lable_SetupBoundary,
         Online_Button_Option,
         Online_CheckBox_Distance,
+        Online_Lable_ViewMore,
 
         #endregion Online
 
@@ -468,6 +470,7 @@
         DetailVehicle_Label_ParkingTurnOnVehecle,
         DetailVehicle_Label_AirCondition,
         DetailVehicle_Label_CountOpenDoor,
+        DetailVehicle_Label_Count,
         DetailVehicle_Label_Crane,
         DetailVehicle_Label_Ben,
         DetailVehicle_Label_Ben_Crane,

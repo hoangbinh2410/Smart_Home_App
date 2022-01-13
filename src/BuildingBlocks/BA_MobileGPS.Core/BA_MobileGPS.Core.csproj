@@ -29,24 +29,24 @@
 		<PackageReference Include="Prism.Plugin.Popups" Version="8.0.76" />
 		<PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
 		<PackageReference Include="LibVLCSharp.Forms" Version="3.5.1" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.3.0.57" />
-		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.3.0.57" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfCalendar" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfMaps" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfImageEditor" Version="19.4.0.38" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.4.0.38" />
 		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
 		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
 		<PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
 		<PackageReference Include="Com.OneSignal" Version="3.10.6" />
 		<PackageReference Include="Microsoft.AppCenter" Version="4.4.0" />
@@ -214,12 +214,6 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Authentication\NumberPhoneLoginPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\QRCodeLogin.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Authentication\VerifyOTPCodePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Authentication\VerifyOTPSmsPage.xaml">

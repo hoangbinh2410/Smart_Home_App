@@ -15,8 +15,8 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Online_Label_StatusCarDebtMoney => Get(MobileResourceNames.Online_Label_StatusCarDebtMoney, "Nợ phí", "Car DebtMoney");
         public static string Online_Label_StatusCarMoving => Get(MobileResourceNames.Online_Label_StatusCarMoving, "Di chuyển", "Moving");
-
-        public static string Online_Label_StatusCarStoping => Get(MobileResourceNames.Online_Label_StatusCarStoping, "Dừng - Tắt", "Stoping - Off");
+        public static string Online_Label_StatusCarStop => Get(MobileResourceNames.Online_Label_StatusCarStoping, "Dừng - Tắt", "Stoping - Off");
+        public static string Online_Label_StatusCarStoping => Get(MobileResourceNames.Online_Label_StatusCarStop, "Dừng đỗ", "Stop");
 
         public static string Online_Label_StatusCarEngineOff => Get(MobileResourceNames.Online_Label_StatusCarEngineOff, "Tắt máy", "Engine OFF");
 
@@ -65,5 +65,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Online_Button_Option => Get(MobileResourceNames.Online_Button_Option, "Cài đặt", "Option");
         public static string Online_CheckBox_Distance => Get(MobileResourceNames.Online_CheckBox_Distance, "Khoảng cách", "Distance");
+
+        public static string Online_Lable_ViewMore => Get(MobileResourceNames.Online_Lable_ViewMore, "Xem thêm", "View more");
     }
 }

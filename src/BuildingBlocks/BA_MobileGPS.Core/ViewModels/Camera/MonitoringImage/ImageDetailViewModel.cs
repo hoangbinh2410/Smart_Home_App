@@ -137,7 +137,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void ShowDetailImage()
         {
-            TryExecute(async () =>
+            TryExecute(() =>
             {
                 var xnCode = StaticSettings.User.XNCode;
 
@@ -146,20 +146,25 @@ namespace BA_MobileGPS.Core.ViewModels
                     xnCode = Settings.CurrentCompany.XNCode;
                 }
 
-                ListCameraImage = await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
-                if (ListCameraImage != null && ListCameraImage.Count > 0)
+                RunOnBackground(async () =>
                 {
-                    if (ImageCamera != null)
+                    return await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
+                }, (result) =>
+                {
+                    if (result != null && result.Count > 0)
                     {
-                        Position = ListCameraImage.Select(x => x.Url).ToList().IndexOf(ImageCamera.Url);
-                    }
-                    else
-                    {
-                        Position = 0;
-                        ImageCamera = ListCameraImage.FirstOrDefault();
-                    }
+                        ListCameraImage = result;
+                        if (ImageCamera != null)
+                        {
+                            Position = ListCameraImage.Select(x => x.Url).ToList().IndexOf(ImageCamera.Url);
+                        }
+                        else
+                        {
+                            Position = 0;
+                            ImageCamera = ListCameraImage.FirstOrDefault();
+                        }
 
-                    PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
+                        PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
 
                     if (ImageCamera.Lat!=0 && ImageCamera.Lng!=0)
                     {
@@ -183,28 +188,29 @@ namespace BA_MobileGPS.Core.ViewModels
                         });
                     }
 
-                    //Add vào zoom slide
+                        //Add vào zoom slide
 
-                    var tempListData = new ObservableCollection<Photo>();
-                    foreach (var item in ListCameraImage)
-                    {
-                        tempListData.Add(new Photo()
+                        var tempListData = new ObservableCollection<Photo>();
+                        foreach (var item in ListCameraImage)
                         {
-                            URL = item.Url,
-                            Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
-                            Title = item.CurrentAddress
-                        });
-                    }
+                            tempListData.Add(new Photo()
+                            {
+                                URL = item.Url,
+                                Info = "Kênh " + item.Channel + " - " + DateTimeHelper.FormatDateTimeWithoutSecond(item.Time),
+                                Title = item.CurrentAddress
+                            });
+                        }
 
-                    if (tempListData != null && tempListData.Count > 0)
-                    {
-                        ListphotoImages = new ObservableCollection<Photo>(tempListData);
+                        if (tempListData != null && tempListData.Count > 0)
+                        {
+                            ListphotoImages = new ObservableCollection<Photo>(tempListData);
+                        }
+                        else
+                        {
+                            ListphotoImages = new ObservableCollection<Photo>();
+                        }
                     }
-                    else
-                    {
-                        ListphotoImages = new ObservableCollection<Photo>();
-                    }
-                }
+                });
             });
         }
 

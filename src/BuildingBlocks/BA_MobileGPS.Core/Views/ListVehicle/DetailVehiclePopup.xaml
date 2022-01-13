@@ -403,10 +403,10 @@
                     <TapGestureRecognizer Command="{Binding MoreMenuCommand}" />
                 </StackLayout.GestureRecognizers>
                 <Label
+                    x:Name="viewmore"
                     Grid.Column="1"
                     FontSize="13"
                     HorizontalOptions="End"
-                    Text="Xem thêm"
                     TextColor="{DynamicResource PrimaryColor}" />
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"
@@ -428,10 +428,10 @@
                     <TapGestureRecognizer Command="{Binding MoreMenuCommand}" />
                 </StackLayout.GestureRecognizers>
                 <Label
+                    x:Name="close"
                     Grid.Column="1"
                     FontSize="13"
                     HorizontalOptions="End"
-                    Text="Đóng"
                     TextColor="{DynamicResource PrimaryColor}" />
                 <controls:IconView
                     Foreground="{DynamicResource PrimaryColor}"

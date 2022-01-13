@@ -15,7 +15,7 @@ namespace BA_MobileGPS.Core.Views
             title.Text = MobileResource.Camera_Title_Retreaming;
             entrySearch.Placeholder = MobileResource.Online_Label_SeachVehicle2;
             txtlstvideo.Text = MobileResource.Camera_Lable_ListVideo;
-            sfbusy.Title = MobileResource.Camera_Message_CameraLoading;
+            //sfbusy.Title = MobileResource.Camera_Message_CameraLoading;
         }
 
         protected override void OnAppearing()

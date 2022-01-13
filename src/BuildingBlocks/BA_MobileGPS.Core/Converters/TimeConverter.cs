@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BA_MobileGPS.Core.Resources;
+using System;
 using System.Globalization;
 
 using Xamarin.Forms;
@@ -41,10 +42,10 @@ namespace BA_MobileGPS.Core
         {
             if (value == null)
             {
-                return string.Format("{0} {1}", 0, "phút");
+                return string.Format("{0} {1}", 0, MobileResource.Common_Label_Minutes);
             }
             string stringValue = value.ToString();
-            return string.Format("{0} {1}", stringValue, "phút");
+            return string.Format("{0} {1}", stringValue, MobileResource.Common_Label_Minutes);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool IsShowMessageError = false;
         private string currentIMEI { get; set; }
         private const int maxTimeCameraRemain = 600; //second
-        private readonly int maxLoadingTime = 60; //second
+        private readonly int maxLoadingTime = 600; //second
         private readonly IGeocodeService _geocodeService;
         private readonly IStreamCameraService _streamCameraService;
 
