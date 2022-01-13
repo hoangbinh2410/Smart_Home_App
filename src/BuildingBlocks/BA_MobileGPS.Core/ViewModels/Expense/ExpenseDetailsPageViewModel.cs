@@ -351,7 +351,8 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
             RunOnBackground(async () =>
             {
                 var companyID = CurrentComanyID;
-                return await _ExpenseService.GetExpenseCategory(companyID);
+                int languageID = Settings.CurrentLanguage == CultureCountry.Vietnamese ? 1 : 2;
+                return await _ExpenseService.GetExpenseCategory(companyID, languageID);
             },
              (result) =>
              {
