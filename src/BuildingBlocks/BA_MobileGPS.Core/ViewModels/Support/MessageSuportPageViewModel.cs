@@ -272,22 +272,22 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else
                             {
-                                _displayMessage.ShowMessageWarning("Vui lòng nhập phản hồi!");
+                                _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseEnterFeedback);
                             }
                         }
                         else
                         {
-                            _displayMessage.ShowMessageWarning("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!");
+                            _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseCheckPhoneNumber);
                         }
                     }
                     else
                     {
-                        _displayMessage.ShowMessageWarning("Vui lòng nhập số điện thoại!");
+                        _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseEnterPhoneNumber);
                     }
                 }
                 else
                 {
-                    _displayMessage.ShowMessageWarning("Vui lòng nhập họ tên!");
+                    _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseEnterYourName);
                 }
             });
         }

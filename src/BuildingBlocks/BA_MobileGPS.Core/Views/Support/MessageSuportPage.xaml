@@ -252,7 +252,7 @@
                                         FontFamily="myFontFamilyBold"
                                         FontSize="16"
                                         HorizontalOptions="Center"
-                                        Text="BA CSKH"
+                                        Text="{i18n:TranslateResource SupportClient_Label_CustomerCare}"
                                         TextColor="{DynamicResource PrimaryColor}" />
                                 </StackLayout>
 

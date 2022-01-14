@@ -16,6 +16,12 @@ namespace BA_MobileGPS.Core.Resources
         public static string SupportClient_Label_ContentNotify2 => Get(MobileResourceNames.SupportClient_Label_ContentNotify2, "Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khác vui lòng truy cập tính năng", "Your request has been sent to BA GPS customer service department. Please access the feature");
         public static string SupportClient_Label_ContentNotify3 => Get(MobileResourceNames.SupportClient_Label_ContentNotify3, "Tài khoản > Phản hồi khách hàng", "Account-> customer's feedback");
         public static string SupportClient_Label_ContentNotify4 => Get(MobileResourceNames.SupportClient_Label_ContentNotify4, "Để theo dõi phản hồi của CSKH.", "To track the respond of Customer service department.");
+        public static string SupportClient_Label_CustomerCare => Get(MobileResourceNames.SupportClient_Label_CustomerCare, "BA CSKH", "BA Customer Care");
+        public static string SupportClient_Notification_PleaseEnterNewLicensePlate => Get(MobileResourceNames.SupportClient_Notification_PleaseEnterNewLicensePlate, "Vui lòng nhập biển số xe mới!", "Please enter a new license plate!");
+        public static string SupportClient_Notification_PleaseEnterFeedback => Get(MobileResourceNames.SupportClient_Notification_PleaseEnterFeedback, "Vui lòng nhập phản hồi!", "Please enter feedback!");
+        public static string SupportClient_Notification_PleaseCheckPhoneNumber => Get(MobileResourceNames.SupportClient_Notification_PleaseCheckPhoneNumber, "Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!", "Please double check the phone number entered");
+        public static string SupportClient_Notification_PleaseEnterPhoneNumber => Get(MobileResourceNames.SupportClient_Notification_PleaseEnterPhoneNumber, "Vui lòng nhập số điện thoại!", "Please enter the phone number!");
+        public static string SupportClient_Notification_PleaseEnterYourName => Get(MobileResourceNames.SupportClient_Notification_PleaseEnterYourName, "Vui lòng nhập họ tên!", "Please enter your name!");
 
         public static string SupportClient_Label_TextSupport => Get(MobileResourceNames.SupportClient_Label_TextSupport, "Quý khách vui lòng chọn mục cần hỗ trợ dưới đây", "Please select the item you need support below");
         public static string SupportClient_Button_Close => Get(MobileResourceNames.SupportClient_Button_Close, "Đóng", "Close");
