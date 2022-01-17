@@ -7,6 +7,7 @@ using BA_MobileGPS.Utilities.Extensions;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -83,7 +84,8 @@ namespace BA_MobileGPS.Core.ViewModels
             Message = string.Format(MobileResource.Camera_Message_DeviceStreamingErrorDetail,
                    obj.Item1.PrivateCode);
             string listUser = string.Empty;
-            foreach (var item in obj.Item2)
+            var lst = obj.Item2.DistinctBy(x => x.User).ToList();
+            foreach (var item in lst)
             {
                 listUser = listUser + item.User + "(" + ((CameraSourceType)obj.Item2[0].Source).ToDescription() + ")" + ",";
             }
