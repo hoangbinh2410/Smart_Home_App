@@ -84,7 +84,7 @@ namespace BA_MobileGPS.Core.ViewModels
             Message = string.Format(MobileResource.Camera_Message_DeviceStreamingErrorDetail,
                    obj.Item1.PrivateCode);
             string listUser = string.Empty;
-            var lst = obj.Item2.DistinctBy(x => x.User).ToList();
+            var lst = obj.Item2.DistinctBy(x => new { x.User, x.Source }).ToList();
             foreach (var item in lst)
             {
                 listUser = listUser + item.User + "(" + ((CameraSourceType)obj.Item2[0].Source).ToDescription() + ")" + ",";
