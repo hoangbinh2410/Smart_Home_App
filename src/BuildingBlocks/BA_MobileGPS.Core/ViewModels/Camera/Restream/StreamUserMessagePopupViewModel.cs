@@ -87,7 +87,7 @@ namespace BA_MobileGPS.Core.ViewModels
             var lst = obj.Item2.DistinctBy(x => new { x.User, x.Source }).ToList();
             foreach (var item in lst)
             {
-                listUser = listUser + item.User + "(" + (item.Source).ToDescription() + ")" + ",";
+                listUser = listUser + item.User + "(" + ((CameraSourceType)item.Source).ToDescription() + ")" + ",";
             }
             LstUser = listUser;
         }
