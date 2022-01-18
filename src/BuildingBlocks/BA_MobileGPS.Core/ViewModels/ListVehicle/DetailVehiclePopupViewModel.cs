@@ -193,13 +193,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer
             });
-            //list.Add(new MenuPageItem
-            //{
-            //    Title = "SOS",
-            //    Icon = "ic_mail.png",
-            //    IsEnable = true,
-            //    MenuType = MenuKeyType.SOS
-            //});
             AllListfeatures = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 
