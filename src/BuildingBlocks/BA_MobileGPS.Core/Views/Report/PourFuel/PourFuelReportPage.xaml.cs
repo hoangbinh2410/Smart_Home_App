@@ -12,7 +12,16 @@ namespace BA_MobileGPS.Core.Views
 
         public PourFuelReportPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
 
             showhideColumn.TranslateTo(0, (int)Application.Current.MainPage.Height, 250);
             IsShowFilter = !IsShowFilter;

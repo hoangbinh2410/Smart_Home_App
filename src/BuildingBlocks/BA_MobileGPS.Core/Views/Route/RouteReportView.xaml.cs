@@ -29,7 +29,7 @@ namespace BA_MobileGPS.Core.Views
             map.UiSettings.RotateGesturesEnabled = false;
             frVehicleInfo.TranslationX = 0;
             IconInfo.Foreground = (Color)Prism.PrismApplicationBase.Current.Resources["PrimaryColor"];
-            TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? TimeSelectorContainer.HeightRequest + 4 : TimeSelectorContainer.HeightRequest;
+            TimeSelectorContainerHeight = Device.RuntimePlatform == Device.iOS ? 45 + 4 : 45;
             IsExpanded = true;
         }
 

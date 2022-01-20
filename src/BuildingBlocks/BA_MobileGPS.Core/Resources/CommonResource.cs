@@ -136,7 +136,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Message_ErrorSearch => Get(MobileResourceNames.Common_Message_ErrorSearch, "Lỗi tìm kiếm dữ liệu", "Error finding data");
         public static string Common_Message_ErrorExportExcell => Get(MobileResourceNames.Common_Message_ErrorExportExcell, "Lỗi xuất excell", "Error exporting excel");
 
-        public static string Common_Message_SuccessExportExcell => Get(MobileResourceNames.Common_Message_SuccessExportExcell, "Xuất excell thành công", "Success exporting excel");
+        public static string Common_Message_SuccessExportExcell => Get(MobileResourceNames.Common_Message_SuccessExportExcell, "Xuất excel thành công", "Success exporting excel");
 
         public static string Common_Message_ErrorFromDateBiggerToDate => Get(MobileResourceNames.Common_Message_ErrorFromDateBiggerToDate, "Ngày bắt đầu lớn hơn ngày kết thúc", "The start date is greater than the end date");
         public static string Common_Message_ErrorTimeFromToTimeEnd => Get(MobileResourceNames.Common_Message_ErrorTimeFromToTimeEnd, "Giờ bắt đầu lớn hơn giờ kết thúc", "The start time is greater than the end time");
