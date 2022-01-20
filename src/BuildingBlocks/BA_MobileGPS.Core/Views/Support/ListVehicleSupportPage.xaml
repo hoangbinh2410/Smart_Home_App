@@ -9,12 +9,13 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:prismbehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
     xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    Title="Chọn phương tiện xử lý"
+    Title="{i18n:TranslateResource SupportClient_Title_SelectVehicle}"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.BackButtonTitle="">
     <ContentPage.Resources>
@@ -80,7 +81,7 @@
                                 HeightRequest="40"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="False"
-                                Placeholder="Tìm kiếm phương tiện"
+                                Placeholder="{i18n:TranslateResource SupportClient_Entry_SelectVehicleSearch}"
                                 PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                 Text="{Binding CarSearch}"
                                 TextColor="{DynamicResource TextPrimaryColor}"
@@ -102,7 +103,7 @@
                         HorizontalOptions="StartAndExpand"
                         LineBreakMode="MiddleTruncation"
                         Style="{DynamicResource LabelNaviga}"
-                        Text="Quý khách vui lòng chọn phương tiện cần kiểm tra"
+                        Text="{i18n:TranslateResource SupportClient_Label_SelectVehicleContent}"
                         TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="Center" />
                 </StackLayout>
@@ -177,7 +178,7 @@
                         FontSize="Large"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text="Không có dữ liệu" />
+                        Text="{i18n:TranslateResource Common_Message_NoData}" />
                 </StackLayout>
             </Grid>
             <StackLayout
@@ -192,7 +193,7 @@
                     Command="{Binding NavigateCommand}"
                     CornerRadius="20"
                     HorizontalOptions="CenterAndExpand"
-                    Text="Tiếp tục"
+                    Text="{i18n:TranslateResource SupportClient_Button_Text_Next}"
                     VerticalOptions="StartAndExpand"
                     WidthRequest="200" />
             </StackLayout>

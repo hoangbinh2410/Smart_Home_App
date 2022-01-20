@@ -175,27 +175,24 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             var list = new List<MenuPageItem>();
 
-            list.Add(new MenuPageItem
+            if (CheckPermision((int)PermissionKeyNames.TrackingVideosView) || CheckPermision((int)PermissionKeyNames.TrackingOnlineByImagesView))
             {
-                Title = MobileResource.Camera_Lable_ExportVideo,
-                Icon = "ic_exportvideo.png",
-                IsEnable = CheckPermision((int)PermissionKeyNames.UploadVideoStream),
-                MenuType = MenuKeyType.ExportVideo
-            });
+                list.Add(new MenuPageItem
+                {
+                    Title = MobileResource.Camera_Lable_ExportVideo,
+                    Icon = "ic_exportvideo.png",
+                    IsEnable = true,
+                    MenuType = MenuKeyType.ExportVideo
+                });
+            }
+
             list.Add(new MenuPageItem
             {
                 Title = "Hỗ trợ khách hàng",
-                Icon = "ic_helpcustomer.png",
+                Icon = "ic_helpcustomer2.png",
                 IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer
             });
-            //list.Add(new MenuPageItem
-            //{
-            //    Title = "SOS",
-            //    Icon = "ic_mail.png",
-            //    IsEnable = true,
-            //    MenuType = MenuKeyType.SOS
-            //});
             AllListfeatures = list.Where(x => x.IsEnable == true).ToObservableCollection();
         }
 

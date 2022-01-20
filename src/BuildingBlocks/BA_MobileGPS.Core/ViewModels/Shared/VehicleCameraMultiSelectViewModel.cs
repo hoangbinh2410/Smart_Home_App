@@ -104,7 +104,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         GroupIDs = model.GroupIDs,
                         IconImage = model.IconImage,
                         Imei = model.Imei,
-                        PrivateCode = item.VehiclePlate,
+                        PrivateCode = item.PrivateCode,
                         SortOrder = model.SortOrder,
                         VehicleTime = model.VehicleTime,
                         Velocity = model.Velocity
@@ -122,7 +122,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             GroupIDs = model_c.GroupIDs,
                             IconImage = model_c.IconImage,
                             Imei = model_c.Imei,
-                            PrivateCode = item.VehiclePlate,
+                            PrivateCode = item.PrivateCode,
                             SortOrder = model_c.SortOrder,
                             VehicleTime = model_c.VehicleTime,
                             Velocity = model_c.Velocity

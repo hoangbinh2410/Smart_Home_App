@@ -7,6 +7,7 @@
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
@@ -87,7 +88,7 @@
                 FontSize="20"
                 HorizontalOptions="Center"
                 LineBreakMode="TailTruncation"
-                Text="Quản lý chi phí xe"
+                Text="{i18n:TranslateResource ExpenseCar_ManagePage_Title}"
                 TextColor="{DynamicResource WhiteColor}"
                 VerticalOptions="Center" />
         </Grid>
@@ -258,7 +259,7 @@
                                     FontSize="{DynamicResource FontSizeTextPut11}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
-                                    Placeholder="Phương tiện"
+                                    Placeholder="{i18n:TranslateResource ExpenseCar_Text_Vehicle}"
                                     Text="{Binding Vehicle.PrivateCode}"
                                     VerticalOptions="Center">
                                     <Entry.Effects>
@@ -303,7 +304,7 @@
                     <Label
                         FontSize="18"
                         HorizontalOptions="Start"
-                        Text="Chi phí theo ngày"
+                        Text="{i18n:TranslateResource ExpenseCar_ManagePage_Lable_ExpensePerDay}"
                         TextColor="{DynamicResource PrimaryColor}"
                         VerticalOptions="FillAndExpand" />
                     <Grid>
@@ -409,7 +410,7 @@
                                 FontSize="14"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="Không có dữ liệu trong khoảng thời gian tìm kiếm" />
+                                Text="{i18n:TranslateResource ExpenseCar_Text_HaveOrNoData}" />
                         </StackLayout>
                     </Grid>
                 </StackLayout>
@@ -452,7 +453,7 @@
                         VerticalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="TỔNG CHI PHÍ" />
+                                <Span Text="{i18n:TranslateResource ExpenseCar_ManagePage_Lable_ExpenseTotal}" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

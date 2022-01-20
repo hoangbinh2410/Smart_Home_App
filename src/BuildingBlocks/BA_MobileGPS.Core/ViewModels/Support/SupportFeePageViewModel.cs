@@ -1,8 +1,10 @@
 ﻿using BA_MobileGPS.Core.Constant;
+using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Syncfusion.Data.Extensions;
@@ -25,7 +27,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             this.vehicleOnlineService = vehicleOnlineService;
             BackPageCommand = new DelegateCommand(BackPage);
-            Title = "Hỗ trợ khách hàng";
+            Title = MobileResource.SupportClient_Label_Title;
             PushMessageSuportPageCommand = new DelegateCommand(PushMessageSuportPage);
             _iSupportCategoryService = iSupportCategoryService;
         }
@@ -166,7 +168,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 RunOnBackground(async () =>
                 {
-                    return await _iSupportCategoryService.GetMessagesSupport(obj.ID);
+                    int languageId = Settings.CurrentLanguage == CultureCountry.Vietnamese ? 1 : 2;
+                    return await _iSupportCategoryService.GetMessagesSupport(obj.ID, languageId);
                 }, (result) =>
                 {
                     MapData(result, obj);

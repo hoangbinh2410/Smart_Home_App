@@ -47,7 +47,7 @@
                             FontAttributes="Bold"
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
-                            Text="Chọn tháng"
+                            Text="{i18n:TranslateResource Common_Label_SelectMonth}"
                             TextColor="White"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>

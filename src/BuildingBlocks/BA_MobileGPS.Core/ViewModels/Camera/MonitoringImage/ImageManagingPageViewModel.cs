@@ -58,6 +58,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SelectVehicleImageCommand = new DelegateCommand(SelectVehicleImage);
             HelpImageCommand = new DelegateCommand(HelpImage);
             CarSearch = string.Empty;
+            CarSearchView=string.Empty;
             PageCount = 5;
             PageIndex = 0;
         }
@@ -110,6 +111,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 VehicleGroups = vehiclegroup;
                 CarSearch = string.Empty;
+                CarSearchView = string.Empty;
                 GetVehicleString();
                 PageIndex = 0;
                 ShowImage();
@@ -121,6 +123,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private int listHeight;
         public int ListHeight { get => listHeight; set => SetProperty(ref listHeight, value); }
+
+        private string carSearchView;
+        public string CarSearchView { get => carSearchView; set => SetProperty(ref carSearchView, value); }
 
         private string carSearch;
         public string CarSearch { get => carSearch; set => SetProperty(ref carSearch, value); }
@@ -156,9 +161,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowLastViewVehicle = true;
         public bool IsShowLastViewVehicle { get => isShowLastViewVehicle; set => SetProperty(ref isShowLastViewVehicle, value); }
 
-        private ObservableCollection<string> listLastView;
+        private ObservableCollection<LastViewVehicleRespone> listLastView;
 
-        public ObservableCollection<string> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
+        public ObservableCollection<LastViewVehicleRespone> ListLastView { get => listLastView; set => SetProperty(ref listLastView, value); }
 
         private List<string> mVehicleString { get; set; }
 
@@ -172,15 +177,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (model != null)
                 {
                     CarSearch = model.VehiclePlate;
+                    CarSearchView=model.PrivateCode;
                 }
                 else
                 {
                     CarSearch = vehicle.VehiclePlate;
+                    CarSearchView=vehicle.PrivateCode;
                 }
             }
             else
             {
                 CarSearch = vehicle.VehiclePlate;
+                CarSearchView=vehicle.PrivateCode;
             }
         }
 
@@ -219,13 +227,17 @@ namespace BA_MobileGPS.Core.ViewModels
                     return;
                 else
                 {
-                    // chuyen dang detail
-                    var parameters = new NavigationParameters
+                    var vehicle = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehiclePlate==item.VehiclePlate);
+                    if (vehicle !=null)
+                    {
+                        // chuyen dang detail
+                        var parameters = new NavigationParameters
                     {
                         { ParameterKey.ImageCamera, item },
-                        { ParameterKey.VehiclePlate, item.VehiclePlate }
+                        { ParameterKey.VehiclePlate, vehicle }
                     };
-                    await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
+                        await NavigationService.NavigateAsync("ImageDetailPage", parameters, useModalNavigation: false, true);
+                    }
                 }
             }
             catch (Exception ex)
@@ -246,7 +258,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehicleId = vehiclecam.VehicleId,
                         VehiclePlate = vehiclecam.VehiclePlate,
-                        PrivateCode = vehiclecam.VehiclePlate,
+                        PrivateCode = vehiclecam.PrivateCode,
                         Imei = vehiclecam.Imei
                     };
 
@@ -354,7 +366,12 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 // truyền key xử lý ở đây
-                CarSearch = (string)listview.ItemData;
+                var item = (LastViewVehicleRespone)listview.ItemData;
+                if (item !=null)
+                {
+                    CarSearchView=item.PrivateCode;
+                    CarSearch=item.VehiclePlate;
+                }
 
                 ShowImageSearch();
             }
@@ -626,10 +643,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 ListHeight = view[1]; // gán chiều cao cho listview
 
-                ListLastView = new ObservableCollection<string>();
+                ListLastView = new ObservableCollection<LastViewVehicleRespone>();
                 for (int i = 0; i < lst.Count; i++)
                 {
-                    ListLastView.Add(lst[i].VehiclePlate);
+                    ListLastView.Add(lst[i]);
                 }
             }
             else

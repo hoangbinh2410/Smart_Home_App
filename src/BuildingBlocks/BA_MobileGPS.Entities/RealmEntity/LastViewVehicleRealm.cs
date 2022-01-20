@@ -14,6 +14,8 @@ namespace BA_MobileGPS.Entities
 
         public string VehiclePlate { get; set; }
 
+        public string PrivateCode { get; set; }
+
         /// <summary>
         /// Giá trị
         /// </summary>

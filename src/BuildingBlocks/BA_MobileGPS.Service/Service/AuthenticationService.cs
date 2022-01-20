@@ -1,10 +1,8 @@
 ﻿using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
-using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
-
 using Newtonsoft.Json;
 
 using System;
@@ -162,13 +160,13 @@ namespace BA_MobileGPS.Service
             return respone;
         }
 
-        public async Task<VehiclePhoneRespone> CheckVehicleOtpsms(VehiclePhoneRequest request)
+        public async Task<ResultVerifyOtp> CheckVehicleOtpsms(VerifyOtpRequest request)
         {
-            VehiclePhoneRespone result = new VehiclePhoneRespone();
+            ResultVerifyOtp result = new ResultVerifyOtp();
             try
             {
-                var respone = await _IRequestProvider.PostAsync<VehiclePhoneRequest, ResponseBaseV2<VehiclePhoneRespone>>(ApiUri.GET_Vehicle_OTP_SMS, request);
-                if (respone != null && respone.Data != null)
+                var respone = await _IRequestProvider.PostAsync<VerifyOtpRequest, ResponseBaseV2<ResultVerifyOtp>>(ApiUri.GET_Vehicle_OTP_SMS, request);
+                if (respone != null)
                 {
                     result = respone.Data;
                 }

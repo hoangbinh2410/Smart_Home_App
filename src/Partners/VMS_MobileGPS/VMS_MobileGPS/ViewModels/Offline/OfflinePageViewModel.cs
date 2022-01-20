@@ -30,8 +30,6 @@ namespace VMS_MobileGPS.ViewModels
 {
     public class OfflinePageViewModel : VMSBaseViewModel
     {
-        #region Contructor
-
         private readonly IEventAggregator eventAggregator;
         private readonly IMessageService messageService;
         private readonly IGpsListener _gpsListener;
@@ -42,6 +40,9 @@ namespace VMS_MobileGPS.ViewModels
 
         public ICommand NavigateToCommand { get; private set; }
         public ICommand ConnectBleCommand { get; private set; }
+
+        public ICommand DowloadFileDocCommand { get; private set; }
+
         private Timer timer;
         private Timer timerGPSTracking;
 
@@ -66,13 +67,10 @@ namespace VMS_MobileGPS.ViewModels
 
             NavigateToCommand = new Command<PageNames>(NavigateTo);
             ConnectBleCommand = new DelegateCommand(PushBlutoothPage);
+            DowloadFileDocCommand=new DelegateCommand(DowloadFileDoc);
 
             stateDeviceMessage = "Chưa kết nối";
         }
-
-        #endregion Contructor
-
-        #region Lifecycle
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -160,10 +158,6 @@ namespace VMS_MobileGPS.ViewModels
             }
         }
 
-        #endregion Lifecycle
-
-        #region Property
-
         private bool isConnectBLE = GlobalResourcesVMS.Current.DeviceManager.State == BleConnectionState.NO_CONNECTION ? false : true;
         public bool IsConnectBLE { get => isConnectBLE; set => SetProperty(ref isConnectBLE, value); }
 
@@ -173,10 +167,6 @@ namespace VMS_MobileGPS.ViewModels
 
         private double heightbox = 300;
         public double HeightBox { get => heightbox; set => SetProperty(ref heightbox, value); }
-
-        #endregion Property
-
-        #region PrivateMethod
 
         private async void SendRequestStateDevice()
         {
@@ -708,6 +698,12 @@ namespace VMS_MobileGPS.ViewModels
             HeightBox = (widthdevice / 2) - 105;
         }
 
-        #endregion PrivateMethod
+        private void DowloadFileDoc()
+        {
+            SafeExecute(async () =>
+            {
+                await Launcher.OpenAsync(new Uri("http://apivms.bagroup.vn/UploadedFiles/IconApp/MAUDONDENGHIHOTROCUOCVETINH.doc"));
+            });
+        }
     }
 }

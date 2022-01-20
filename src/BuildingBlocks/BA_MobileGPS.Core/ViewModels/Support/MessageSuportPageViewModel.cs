@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public MessageSuportPageViewModel(INavigationService navigationService, IPageDialogService pageDialog, IDisplayMessage displayMessage, ISupportCategoryService iSupportCategoryService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
-            Title = "Hỗ trợ khách hàng";
+            Title = MobileResource.SupportClient_Label_Title;
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
             _pageDialog = pageDialog;
             _displayMessage = displayMessage;
@@ -272,22 +272,22 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                             else
                             {
-                                _displayMessage.ShowMessageWarning("Vui lòng nhập phản hồi!");
+                                _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseEnterFeedback);
                             }
                         }
                         else
                         {
-                            _displayMessage.ShowMessageWarning("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!");
+                            _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseCheckPhoneNumber);
                         }
                     }
                     else
                     {
-                        _displayMessage.ShowMessageWarning("Vui lòng nhập số điện thoại!");
+                        _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseEnterPhoneNumber);
                     }
                 }
                 else
                 {
-                    _displayMessage.ShowMessageWarning("Vui lòng nhập họ tên!");
+                    _displayMessage.ShowMessageWarning(MobileResource.SupportClient_Notification_PleaseEnterYourName);
                 }
             });
         }

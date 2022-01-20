@@ -127,7 +127,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_Grid_STT => Get(MobileResourceNames.Common_Label_Grid_STT, "STT", "#");
 
-        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển số phương tiện", "Registration plate");
+        public static string Common_Label_Grid_VehiclePlate => Get(MobileResourceNames.Common_Label_Grid_VehiclePlate, "Biển kiểm soát", "Registration plate");
 
         public static string Common_Label_Grid_FromDate => Get(MobileResourceNames.Common_Label_Grid_FromDate, "Giờ bắt đầu", "From date");
 
@@ -136,7 +136,7 @@ namespace BA_MobileGPS.Core.Resources
         public static string Common_Message_ErrorSearch => Get(MobileResourceNames.Common_Message_ErrorSearch, "Lỗi tìm kiếm dữ liệu", "Error finding data");
         public static string Common_Message_ErrorExportExcell => Get(MobileResourceNames.Common_Message_ErrorExportExcell, "Lỗi xuất excell", "Error exporting excel");
 
-        public static string Common_Message_SuccessExportExcell => Get(MobileResourceNames.Common_Message_SuccessExportExcell, "Xuất excell thành công", "Success exporting excel");
+        public static string Common_Message_SuccessExportExcell => Get(MobileResourceNames.Common_Message_SuccessExportExcell, "Xuất excel thành công", "Success exporting excel");
 
         public static string Common_Message_ErrorFromDateBiggerToDate => Get(MobileResourceNames.Common_Message_ErrorFromDateBiggerToDate, "Ngày bắt đầu lớn hơn ngày kết thúc", "The start date is greater than the end date");
         public static string Common_Message_ErrorTimeFromToTimeEnd => Get(MobileResourceNames.Common_Message_ErrorTimeFromToTimeEnd, "Giờ bắt đầu lớn hơn giờ kết thúc", "The start time is greater than the end time");
@@ -172,6 +172,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Common_Label_TimePicker => Get(MobileResourceNames.Common_Label_TimePicker, "Chọn Giờ", "Time Picker");
         public static string Common_Label_DatePicker => Get(MobileResourceNames.Common_Label_DatePicker, "Chọn Ngày", "Date Picker");
+        public static string Common_Label_SelectMonth => Get(MobileResourceNames.Common_Label_SelectMonth, "Chọn tháng", "Month Picker");
         public static string Common_Label_DateTimePicker => Get(MobileResourceNames.Common_Label_CameraTitle, "Chọn Ngày Giờ", "Date Time Picker");
         public static string Common_Label_Year => Get(MobileResourceNames.Common_Label_Year, "Năm", "Year");
         public static string Common_Label_Month => Get(MobileResourceNames.Common_Label_Month, "Tháng", "Month");

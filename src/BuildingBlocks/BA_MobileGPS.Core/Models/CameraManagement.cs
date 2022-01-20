@@ -450,7 +450,7 @@ namespace BA_MobileGPS.Core.Models
                             }
                             else
                             {
-                                TitleLoading=" Video có thể load chậm do phương tiện không sử dụng mạng 4G, quý khách vui lòng đợi";
+                                TitleLoading="Tín hiệu mạng tại thiết bị không tốt, quý khách vui lòng đợi";
                             }
                             var streamDevice = device.Channels.FirstOrDefault(x => x.Channel == Channel);
 

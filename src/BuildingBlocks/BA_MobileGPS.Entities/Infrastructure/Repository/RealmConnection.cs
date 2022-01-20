@@ -12,7 +12,7 @@ namespace BA_MobileGPS.Entities.Infrastructure.Repository
             _config = new RealmConfiguration
             {
                 //ShouldDeleteIfMigrationNeeded = true,
-                SchemaVersion = 11,
+                SchemaVersion = 12,
                 //https://www.realm.io/docs/dotnet/latest/#encryption
                 //EncryptionKey = new byte[64] // key MUST be exactly this size
                 //{

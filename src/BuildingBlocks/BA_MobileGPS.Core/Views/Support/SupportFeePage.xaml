@@ -76,7 +76,7 @@
                         <Label
                             HorizontalTextAlignment="Start"
                             Style="{DynamicResource Text16B}"
-                            Text="Quý khách vui lòng kiểm tra xe có xảy ra tình huống sau không và làm theo hướng dẫn"
+                            Text="{i18n:TranslateResource SupportClient_Label_TextPleaseCheckYourVehicle}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalTextAlignment="Center" />
                         <BoxView StyleClass="SlimLine" VerticalOptions="FillAndExpand" />
@@ -123,7 +123,7 @@
                                     VerticalOptions="CenterAndExpand">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="Hướng dẫn xử lý" />
+                                            <Span Text="{i18n:TranslateResource SupportClient_Label_PerformSendSupport}" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
@@ -179,13 +179,13 @@
                                 BackgroundColor="{DynamicResource PrimaryColor}"
                                 Command="{Binding BackPageCommand}"
                                 CornerRadius="20"
-                                Text="Đóng" />
+                                Text="{i18n:TranslateResource SupportClient_Button_Close}" />
                             <buttons:SfButton
                                 Grid.Column="1"
                                 BackgroundColor="{DynamicResource PrimaryColor}"
                                 Command="{Binding PushMessageSuportPageCommand}"
                                 CornerRadius="20"
-                                Text="Nhập hỗ trợ" />
+                                Text="{i18n:TranslateResource SupportClient_Button_Text_EnterSupport}" />
                         </Grid>
                     </StackLayout>
                     <StackLayout
@@ -201,7 +201,7 @@
                             Command="{Binding BackPageCommand}"
                             CornerRadius="20"
                             HorizontalOptions="CenterAndExpand"
-                            Text="Đóng"
+                            Text="{i18n:TranslateResource SupportClient_Button_Close}"
                             VerticalOptions="StartAndExpand"
                             WidthRequest="200" />
                     </StackLayout>
@@ -266,7 +266,7 @@
                             Command="{Binding BackPageCommand}"
                             CornerRadius="20"
                             HorizontalOptions="CenterAndExpand"
-                            Text="Đóng"
+                            Text="{i18n:TranslateResource SupportClient_Button_Close}"
                             VerticalOptions="StartAndExpand"
                             WidthRequest="200" />
                     </StackLayout>

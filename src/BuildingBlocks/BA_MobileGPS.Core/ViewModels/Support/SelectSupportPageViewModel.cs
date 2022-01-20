@@ -4,6 +4,7 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public SelectSupportPageViewModel(INavigationService navigationService, ISupportCategoryService iSupportCategoryService, IDisplayMessage displayMessage) : base(navigationService)
         {
-            Title = "Hỗ trợ khách hàng";
+            Title = MobileResource.SupportClient_Label_Title;
             CommandPushSelectSupportPage = new DelegateCommand(PushSelectSupportPage);
             CommandPushMessageSuportPage = new DelegateCommand(PushMessageSuportPage);
             _iSupportCategoryService = iSupportCategoryService;

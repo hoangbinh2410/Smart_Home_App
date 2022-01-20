@@ -4,6 +4,7 @@ using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity.Support;
 using BA_MobileGPS.Entities.ResponeEntity.Support;
 using BA_MobileGPS.Service.IService.Support;
+using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -25,7 +26,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ChangeLicensePlateViewModel(INavigationService navigationService, IPageDialogService pageDialog, IDisplayMessage displayMessage, ISupportCategoryService iSupportCategoryService) : base(navigationService)
         {
             BackPageCommand = new DelegateCommand(BackPage);
-            Title = "Hỗ trợ khách hàng";
+            Title = MobileResource.SupportClient_Label_Title;
             PushNotificationSupportPageCommand = new DelegateCommand(PushNotificationSupportPage);
             _pageDialog = pageDialog;
             _displayMessage = displayMessage;
@@ -170,7 +171,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 else
                 {
-                    _displayMessage.ShowMessageInfo("Vui lòng nhập biển số xe mới!");
+                    _displayMessage.ShowMessageInfo(MobileResource.SupportClient_Notification_PleaseEnterNewLicensePlate);
                 }
             });
         }
