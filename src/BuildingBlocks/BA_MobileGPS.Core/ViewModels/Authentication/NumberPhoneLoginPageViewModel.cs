@@ -1,8 +1,10 @@
 ﻿using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 using System;
@@ -18,7 +20,9 @@ namespace BA_MobileGPS.Core.ViewModels
         public ValidatableObject<string> NumberPhone { get; set; }
 
         private bool isOTPZalo = false;
-        public bool IsOTPZalo { get { return isOTPZalo; } set { SetProperty(ref isOTPZalo, value); } }
+
+        public bool IsOTPZalo
+        { get { return isOTPZalo; } set { SetProperty(ref isOTPZalo, value); } }
 
         private LoginResponse _user = new LoginResponse();
         private bool _rememberme = false;
@@ -26,6 +30,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private string _password = string.Empty;
 
         private LoginResponse userInfo;
+
         public LoginResponse UserInfo
         { get { if (StaticSettings.User != null) { UserInfo = StaticSettings.User; } return userInfo; } set => SetProperty(ref userInfo, value); }
 
@@ -37,6 +42,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public ICommand PushOTPPageCommand { get; private set; }
         public ICommand PushZaloPageCommand { get; private set; }
         private readonly IAuthenticationService _iAuthenticationService;
+
         public NumberPhoneLoginPageViewModel(INavigationService navigationService, IAuthenticationService iAuthenticationService) : base(navigationService)
         {
             PushOTPSMSPageCommand = new DelegateCommand(PushOTPSMSPage);
@@ -72,7 +78,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("Password") && parameters.GetValue<string>("Password") is string password)
             {
                 _password = password;
-            }         
+            }
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -95,13 +101,15 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         #endregion Lifecycle
-        
+
         #region PrivateMethod
+
         private void InitValidations()
         {
             NumberPhone = new ValidatableObject<string>();
             NumberPhone.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = "Số điện thoại không được để trống" });
         }
+
         private bool ValidateNumberPhone()
         {
             if (!NumberPhone.Validate())
@@ -113,36 +121,86 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại thông tin số điện thoại đã nhập!", 5000);
                 return false;
             }
-            if (NumberPhone.Value.Trim() != _user.PhoneNumber.Trim())
+            if (NumberPhone.Value.Trim() != _user.PhoneNumber.Trim() && IsOTPZalo)
             {
                 DisplayMessage.ShowMessageInfo("Quý khách chưa nhập đúng số điện thoại đăng ký tài khoản. Vui lòng thử lại.", 5000);
                 return false;
             }
             return true;
         }
+
         //Gửi lấy mã OTP cho sms
         private void PushOTPSMSPage()
         {
             var objResponse = new SendCodeSMSResponse();
             //Kiểm tra số điện thoại nhập vào
-            bool isValid = ValidateNumberPhone();
-            if (!isValid)
-            {
-                return;
-            }
             SafeExecute(async () =>
             {
                 if (IsConnected)
                 {
-                    var inputSendCodeSMS = new ForgotPasswordRequest
+                    // kiểm tra số điện thoại cho nhiều tài khoản
+                    var resquest = new VerifyPhoneRequest()
                     {
-                        phoneNumber = NumberPhone.Value,
-                        userName = _user.UserName,
-                        AppID = (int)App.AppType
+                        UserID = _user.UserId,
+                        CompanyID = _user.CompanyId,
+                        PhoneNumber = NumberPhone.Value
                     };
-                    using (new HUDService(MobileResource.Common_Message_Processing))
+                    var isValid = await _iAuthenticationService.VerifyPhoneNumberOtp(resquest);
+                    if (isValid)
                     {
-                       objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);                    
+                        var inputSendCodeSMS = new ForgotPasswordRequest
+                        {
+                            phoneNumber = NumberPhone.Value,
+                            userName = _user.UserName,
+                            AppID = (int)App.AppType
+                        };
+                        using (new HUDService(MobileResource.Common_Message_Processing))
+                        {
+                            objResponse = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);
+                        }
+                        if (objResponse !=null && (int)objResponse.StateRegister == (int)StatusRegisterSMS.Success)
+                        {
+                            // Sau khi gọi API
+                            var parameters = new NavigationParameters
+                            {
+                              {"OTPsms",objResponse },
+                              { "User", _user },
+                              { "Numberphone", NumberPhone.Value.ToString() },
+                              { "Rememberme", _rememberme },
+                              { "UserName", _userName },
+                              { "Password", _password },
+                            };
+                            await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                        }
+                        else
+                        {
+                            switch ((int)objResponse.StateRegister)
+                            {
+                                case (int)StatusRegisterSMS.ErrorLogSMS:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorErrorLogSMS, 5000);
+                                    break;
+
+                                case (int)StatusRegisterSMS.ErrorSendSMS:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorErrorSendSMS, 5000);
+                                    break;
+
+                                case (int)StatusRegisterSMS.OverCountOneDay:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorOverCountOneDay, 5000);
+                                    break;
+
+                                case (int)StatusRegisterSMS.WasRegisterSuccess:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorWasRegisterSuccess, 5000);
+                                    break;
+
+                                default:
+                                    DisplayMessage.ShowMessageInfo(MobileResource.ForgotPassword_Message_ErrorSendSMS, 5000);
+                                    break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        DisplayMessage.ShowMessageInfo("Số điện thoại đã được sử dụng cho tài khoản khác.", 5000);
                     }
                 }
                 else
@@ -150,25 +208,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
                     return;
                 }
-                // Sau khi gọi API 
-                if (objResponse != null && !string.IsNullOrEmpty(objResponse.SecurityCodeSMS))
-                {
-                    var parameters = new NavigationParameters
-                    {
-                        { "User", _user },
-                        { "Rememberme", _rememberme },
-                        { "UserName", _userName },
-                        { "Password", _password },
-                    };
-                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);                 
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo("Vui lòng kiểm tra lại số điện thoại", 5000);
-                    return;
-                }
             });
         }
+
         /// <summary>Get mã OTP</summary>
         /// <Modified>
         /// Name     Date         Comments
@@ -191,17 +233,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     using (new HUDService(MobileResource.Common_Message_Processing))
                     {
                         objResponse = await _iAuthenticationService.GetOTP(NumberPhone.Value, customerID);
-                    }
-                }
-                else
-                {
-                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
-                    return;
-                }
-                // Sau khi gọi API
-                if (objResponse != null && !string.IsNullOrEmpty(objResponse.OTP))
-                {
-                    var parameters = new NavigationParameters
+                        // Sau khi gọi API
+                        if (objResponse != null && !string.IsNullOrEmpty(objResponse.OTP))
+                        {
+                            var parameters = new NavigationParameters
                     {
                         { "OTPZalo", objResponse },
                         { "User", _user },
@@ -209,19 +244,27 @@ namespace BA_MobileGPS.Core.ViewModels
                         { "UserName", _userName },
                         { "Password", _password },
                     };
-                    await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                            await NavigationService.NavigateAsync("VerifyOTPSmsPage", parameters);
+                        }
+                        else
+                        {
+                            DisplayMessage.ShowMessageInfo("Quý khách Vui lòng kiểm tra like Zalo Bình Anh ?", 5000);
+                        }
+                    }
                 }
                 else
                 {
-                    DisplayMessage.ShowMessageInfo("Quý khách Vui lòng kiểm tra like Zalo Bình Anh ?", 5000);
+                    DisplayMessage.ShowMessageInfo(MobileResource.Common_ConnectInternet_Error, 5000);
+                    return;
                 }
             });
-
         }
+
         private void PushZaloPage()
         {
             SafeExecute(async () => await Launcher.OpenAsync(new Uri(MobileSettingHelper.LinkZaloBA)));
         }
+
         #endregion PrivateMethod
     }
 }

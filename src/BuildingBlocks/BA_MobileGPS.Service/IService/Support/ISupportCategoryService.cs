@@ -10,8 +10,8 @@ namespace BA_MobileGPS.Service.IService.Support
 {
     public interface ISupportCategoryService
     {
-        Task<List<SupportCategoryRespone>> GetListSupportCategory();
-        Task<List<MessageSupportRespone>> GetMessagesSupport(Guid id);
+        Task<List<SupportCategoryRespone>> GetListSupportCategory(int languageId);
+        Task<List<MessageSupportRespone>> GetMessagesSupport(Guid id, int languageId);
         Task<SupportBapRespone> Getfeedback(SupportBapRequest request );
     }
 }

@@ -520,6 +520,7 @@
         #region datetimepicker
         Common_Label_TimePicker,
         Common_Label_DatePicker,
+        Common_Label_SelectMonth,
         #endregion datetimepicker
 
         #region report
@@ -1270,6 +1271,7 @@
 
 
         #endregion
+
         #region Issue
         Issue_Label_TilePage,
         ListIssue_Label_TilePage,
@@ -1299,6 +1301,10 @@
         CabSignInfor_Label_Insert,
 
         #region SupportClient
+        SupportClient_Label_TextTouristsSupport,
+        SupportClient_Label_PerformChecks,
+        SupportClient_Label_PerformSendSupport,
+        SupportClient_Label_HandlingInstructions,
         SupportClient_Label_Title,
         SupportClient_Label_VehicleProcessing,
         SupportClient_Label_SupportCategory,
@@ -1306,16 +1312,74 @@
         SupportClient_Label_textSupportError,
         SupportClient_Text_Yes,
         SupportClient_Text_No,
+        SupportClient_Button_Text_Next,
         SupportClient_Text_Unfinished,
         SupportClient_Text_Accomplished,
+        SupportClient_Button_Text_EnterSupport,
         SupportClient_Button_Close,
+        SupportClient_Label_CallToHotline,
+        SupportClient_Label_ContentChangePlateNumber1,
+        SupportClient_Label_ContentChangePlateNumber2,
+        SupportClient_Label_ContentChangePlateNumber3,
+        SupportClient_Label_OldPlate,
+        SupportClient_Label_NewPlate,
+        SupportClient_Label_EnterNewPlate,
+        SupportClient_Label_ContentNotify1,
+        SupportClient_Label_ContentNotify2,
+        SupportClient_Label_ContentNotify3,
+        SupportClient_Label_ContentNotify4,
+        SupportClient_Label_CustomerCare,
+        SupportClient_Notification_PleaseEnterNewLicensePlate,
+        SupportClient_Notification_PleaseEnterFeedback,
+        SupportClient_Notification_PleaseCheckPhoneNumber,
+        SupportClient_Notification_PleaseEnterPhoneNumber,
+        SupportClient_Notification_PleaseEnterYourName,
+        SupportClient_Label_MessageContent,
+        SupportClient_Label_MessageTheSupportList,
+        SupportClient_Label_MessageFullName,
+        SupportClient_Entry_MessageEnterFullName,
+        SupportClient_Label_SelectVehicleContent,
+        SupportClient_Title_SelectVehicle,
+        SupportClient_Entry_SelectVehicleSearch,
+        SupportClient_Label_TextNosignal,
+        SupportClient_Label_TextChangePlates,
+        SupportClient_Label_TextCameraError,
+        SupportClient_Label_TextPleaseCheckYourVehicle,
         SupportClient_Label_TextSupportFeedbackError,
         SupportClient_Label_LbSupportFeedbackName,
         SupportClient_Label_LbSupportFeedbackVehicle,
         SupportClient_Label_LbSupportFeedbackPhoneNumber,
+        SupportClient_Entry_MessageEnterPhoneNumber,
         SupportClient_Label_TextSupportFeedbackContent,
+        SupportClient_Entry_MessageEnterFeedbackContent,
         SupportClient_Button_BtnSupportFeedbackSend,
         #endregion
+        ExpenseCar_Text_Vehicle,
+        ExpenseCar_Text_HaveOrNoData,
+        ExpenseCar_ManagePage_Title,
+        ExpenseCar_ManagePage_Lable_ExpensePerDay,
+        ExpenseCar_ManagePage_Lable_ExpenseTotal,
+        ExpenseCar_DetailsPage_Title,
+        ExpenseCar_DetailsPage_Lable_ChooseDate,
+        ExpenseCar_DetailsPage_Lable_TypeOfCost,
+        ExpenseCar_DetailsPage_Lable_AllExpense,
+        ExpenseCar_DetailsPage_Lable_ExpenseTotal,
+        ExpenseCar_DetailsPage_Lable_ExtraFee,
+        ExpenseCar_ImportPage_Title,
+        ExpenseCar_ImportPage_Lable_TypeOfCost,
+        ExpenseCar_ImportPage_Combobox_SelectExpenseType,
+        ExpenseCar_ImportPage_Combobox_MoneyFee,
+        ExpenseCar_ImportPage_Lable_Note,
+        ExpenseCar_ImportPage_Entry_EnterNote,
+        ExpenseCar_ImportPage_Lable_AddPhoto,
+        ExpenseCar_ImportPage_Button_Save,
+        ExpenseCar_ImportPage_Button_SaveAndContinue,
+        ExpenseCar_ImportPage_Lable_ChooseAddress,
+        ExpenseCar_ImportPage_Entry_EnterAddress,
+        #region Expense
+
+        #endregion
+
         #region KPI
         Title_Tabview,
         Title_Kpi_Page,

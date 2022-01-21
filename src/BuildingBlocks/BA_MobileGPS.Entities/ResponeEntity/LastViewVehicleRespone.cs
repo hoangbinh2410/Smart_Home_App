@@ -7,5 +7,7 @@
         public string UserId { get; set; }
 
         public string VehiclePlate { get; set; }
+
+        public string PrivateCode { get; set; }
     }
 }

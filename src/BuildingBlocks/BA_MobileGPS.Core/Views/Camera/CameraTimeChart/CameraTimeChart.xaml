@@ -93,7 +93,7 @@
                             InputTransparent="True"
                             Placeholder="{i18n:TranslateResource Online_Label_SeachVehicle2}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
-                            Text="{Binding SelectedVehiclePlates}"
+                            Text="{Binding LstVehicleView}"
                             TextColor="{DynamicResource TextPrimaryColor}"
                             VerticalOptions="Center">
                             <Entry.Effects>

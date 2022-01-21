@@ -392,41 +392,38 @@ namespace VMS_MobileGPS.ViewModels
                     switch (result.State)
                     {
                         case ValidatedHistoryRouteState.OverTotalDateMobile:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_TotalTimeLimit(result.TotalDayConfig), MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_TotalTimeLimit, result.TotalDayConfig), MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.Expired:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_AccountIsExpired, MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.OverDateConfig:
                             if (result.MinDate != null && result.MaxDate != null)
                             {
-                                if (result.MinDate > result.MaxDate)
-                                    PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateFromDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
-                                else
-                                    PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateToDateLimit(result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_FromDateToDateLimit, result.MinDate.FormatDate(), result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MinDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_FromDateLimit(result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_FromDateLimit, result.MinDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else if (result.MaxDate != null)
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_ToDateLimit(result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, string.Format(MobileResource.Route_Label_ToDateLimit, result.MaxDate.FormatDate()), MobileResource.Common_Button_OK);
                             }
                             else
                             {
-                                PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
+                                PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_OverDateLimit, MobileResource.Common_Button_OK);
                             }
                             break;
 
                         case ValidatedHistoryRouteState.DateFuture:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_EndDateLimit, MobileResource.Common_Button_OK);
                             break;
 
                         case ValidatedHistoryRouteState.FromDateOverToDate:
-                            PageDialog.DisplayAlertAsync("", MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
+                            PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Route_Label_StartDateMustSmallerThanEndDate, MobileResource.Common_Button_OK);
                             break;
                     }
                 });
@@ -523,7 +520,7 @@ namespace VMS_MobileGPS.ViewModels
                         Index = index,
                         Latitude = listLatLng[index].Latitude,
                         Longitude = listLatLng[index].Longitude,
-                        State = RouteHistory.StatePoints.FirstOrDefault(stp => stp.StartIndex <= index && index <= stp.EndIndex),
+                        State = RouteHistory.StateGPSPoints[index],
                         Velocity = RouteHistory.VelocityPoints[index],
                         Time = startTime
                     };
@@ -565,9 +562,9 @@ namespace VMS_MobileGPS.ViewModels
         private string PinLabel(VehicleRoute vehicle)
         {
             if (Device.RuntimePlatform == Device.iOS)
-                return string.Format("{0} {1}", vehicle.State.StartTime.FormatDateTimeWithSecond(), vehicle.State.Duration.SecondsToString());
+                return string.Format("{0} {1}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), vehicle.StateType.Duration.SecondsToString());
             else
-                return string.Format("{0} {1}: {2}", vehicle.State.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.State.Duration.SecondsToStringShort());
+                return string.Format("{0} {1}: {2}", vehicle.StateType.StartTime.FormatDateTimeWithSecond(), MobileResource.Common_Label_Duration2, vehicle.StateType.Duration.SecondsToStringShort());
         }
 
         private void DrawStopPoint(VehicleRoute vehicle)
@@ -591,7 +588,7 @@ namespace VMS_MobileGPS.ViewModels
         {
             var MarkerCar = new DoubleMarkerRoute().InitDoubleMarkerRoute(
                         ListRoute[0].Latitude, ListRoute[0].Longitude, ListRoute[1].Latitude, ListRoute[1].Longitude, Vehicle.PrivateCode);
-            MarkerCar.DrawMarker();
+            MarkerCar.DrawMarker(ListRoute[0]);
             Pins.Add(MarkerCar.Car);
             Pins.Add(MarkerCar.Plate);
         }
@@ -635,7 +632,7 @@ namespace VMS_MobileGPS.ViewModels
             for (int i = 0; i < ListRoute.Count; i++)
             {
                 line.Positions.Add(new Position(ListRoute[i].Latitude, ListRoute[i].Longitude));
-                if (ListRoute[i].State != null && ListRoute[i].State.State == StateType.Stop)
+                if (ListRoute[i].StateType != null && ListRoute[i].StateType.State == StateType.Stop)
                 {
                     DrawStopPoint(ListRoute[i]);
                 }

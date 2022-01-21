@@ -188,12 +188,14 @@ namespace BA_MobileGPS.Core.ViewModels.Expense
         {
             var companyID = CurrentComanyID;
             var vehicleID = Vehicle.VehicleId;
+            int languageID = Settings.CurrentLanguage == CultureCountry.Vietnamese ? 1 : 2;
             var request = new ExpenseRequest()
             {
                 CompanyID = companyID,
                 VehicleID = vehicleID,
                 ToDate = ToDate,
-                FromDate = FromDate
+                FromDate = FromDate,
+                LanguageID = languageID
             };
             SafeExecute(async () =>
             {

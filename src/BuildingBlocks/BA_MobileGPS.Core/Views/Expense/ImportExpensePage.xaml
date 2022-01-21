@@ -9,6 +9,7 @@
     xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:prism="http://prismlibrary.com"
     xmlns:syncfusion="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     Title="{Binding Title}"
@@ -72,7 +73,7 @@
                         TextColor="{DynamicResource ColorText}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Loại chi phí " />
+                                <Span Text="{i18n:TranslateResource ExpenseCar_ImportPage_Lable_TypeOfCost}" />
                                 <Span Text="*" TextColor="Red" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -101,7 +102,7 @@
                                 HeightRequest="45"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
-                                Placeholder="Chọn loại chi phí"
+                                Placeholder="{i18n:TranslateResource ExpenseCar_ImportPage_Combobox_SelectExpenseType}"
                                 PlaceholderColor="{DynamicResource ColorText}"
                                 Text="{Binding SelectedExpense.Name}"
                                 TextColor="{DynamicResource ColorText}"
@@ -127,7 +128,7 @@
                     <Label HorizontalOptions="Start" TextColor="{DynamicResource ColorText}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Số tiền (VNĐ) " />
+                                <Span Text="{i18n:TranslateResource ExpenseCar_ImportPage_Combobox_MoneyFee}" />
                                 <Span Text="*" TextColor="Red" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -159,7 +160,7 @@
                     <!--  Ghi chú  -->
                     <Label
                         HorizontalOptions="Start"
-                        Text="Ghi chú"
+                        Text="{i18n:TranslateResource ExpenseCar_ImportPage_Lable_Note}"
                         TextColor="{DynamicResource ColorText}" />
                     <Frame
                         Padding="5,0,0,0"
@@ -175,7 +176,7 @@
                             FontSize="14"
                             HeightRequest="45"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Nhập ghi chú"
+                            Placeholder="{i18n:TranslateResource ExpenseCar_ImportPage_Entry_EnterNote}"
                             PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                             Text="{Binding ExpenseDetail.Note}"
                             TextColor="{DynamicResource ColorText}"
@@ -218,7 +219,7 @@
                                         HeightRequest="45"
                                         HorizontalOptions="FillAndExpand"
                                         InputTransparent="True"
-                                        Placeholder="Chọn điểm"
+                                        Placeholder="{i18n:TranslateResource ExpenseCar_ImportPage_Lable_ChooseAddress}"
                                         PlaceholderColor="{DynamicResource ColorText}"
                                         Text="{Binding SelectedLocation.Name}"
                                         TextColor="{DynamicResource ColorText}"
@@ -258,7 +259,7 @@
                                     FontSize="14"
                                     HeightRequest="45"
                                     HorizontalOptions="FillAndExpand"
-                                    Placeholder="Nhập địa chỉ"
+                                    Placeholder="{i18n:TranslateResource ExpenseCar_ImportPage_Entry_EnterAddress}"
                                     PlaceholderColor="{DynamicResource TextPlaceHolderColor}"
                                     Text="{Binding ExpenseDetail.OtherAddress}"
                                     TextColor="{DynamicResource ColorText}"
@@ -293,7 +294,7 @@
                                 Source="ic_plus.png"
                                 VerticalOptions="Center"
                                 WidthRequest="20" />
-                            <Label Text="Thêm hình ảnh" TextColor="#0474D8" />
+                            <Label Text="{i18n:TranslateResource ExpenseCar_ImportPage_Lable_AddPhoto}" TextColor="#0474D8" />
                         </StackLayout>
                         <Grid>
                             <Frame
@@ -394,13 +395,13 @@
                                 BackgroundColor="{DynamicResource PrimaryColor}"
                                 Command="{Binding SaveExpenseCommand}"
                                 CornerRadius="20"
-                                Text="Lưu" />
+                                Text="{i18n:TranslateResource ExpenseCar_ImportPage_Button_Save}" />
                             <buttons:SfButton
                                 Grid.Column="1"
                                 BackgroundColor="{DynamicResource PrimaryColor}"
                                 Command="{Binding SaveAndCountinuteCommand}"
                                 CornerRadius="20"
-                                Text="Lưu và tiếp tục" />
+                                Text="{i18n:TranslateResource ExpenseCar_ImportPage_Button_SaveAndContinue}" />
                         </Grid>
                         <Grid
                             BackgroundColor="{DynamicResource WhiteColor}"
@@ -411,7 +412,7 @@
                                 Command="{Binding ChangeExpenseCommand}"
                                 CornerRadius="20"
                                 HorizontalOptions="CenterAndExpand"
-                                Text="Lưu"
+                                Text="{i18n:TranslateResource ExpenseCar_ImportPage_Button_Save}"
                                 VerticalOptions="StartAndExpand"
                                 WidthRequest="200" />
                         </Grid>

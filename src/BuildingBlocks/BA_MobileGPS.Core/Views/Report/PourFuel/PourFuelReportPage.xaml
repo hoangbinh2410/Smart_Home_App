@@ -231,15 +231,16 @@
                             HorizontalOptions="FillAndExpand"
                             IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <StackLayout
+                            <Grid
                                 Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
                                 HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
                                 VerticalOptions="Center">
-                                <StackLayout.GestureRecognizers>
+                                <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
-                                </StackLayout.GestureRecognizers>
+                                </Grid.GestureRecognizers>
                                 <Entry
+                                    Grid.Column="0"
                                     FontSize="{StaticResource FontSize12}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
@@ -251,13 +252,14 @@
                                     </Entry.Effects>
                                 </Entry>
                                 <controls:IconView
+                                    Grid.Column="1"
                                     Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
                                     HorizontalOptions="End"
                                     Source="ic_sortdown.png"
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
-                            </StackLayout>
+                            </Grid>
                         </Frame>
 
                         <!--  Trạng Thái  -->

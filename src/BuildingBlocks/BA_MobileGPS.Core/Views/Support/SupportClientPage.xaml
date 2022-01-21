@@ -3,9 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.SupportClientPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
-    xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
@@ -93,7 +91,7 @@
                             TextColor="{DynamicResource PrimaryColor}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Phương tiện xử lý: " />
+                                    <Span Text="{i18n:TranslateResource SupportClient_Label_VehicleProcessing}" />
                                     <Span Text="{Binding Vehicle.VehiclePlate}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -185,7 +183,7 @@
                                 FontSize="Large"
                                 HorizontalOptions="Center"
                                 HorizontalTextAlignment="Center"
-                                Text="Không có dữ liệu" />
+                                Text="{i18n:TranslateResource Common_Message_NoData}" />
                         </StackLayout>
                     </Grid>
                     <Grid ColumnDefinitions="Auto,*" VerticalOptions="StartAndExpand">

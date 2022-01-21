@@ -1,4 +1,5 @@
-﻿using Syncfusion.SfPicker.XForms;
+﻿using BA_MobileGPS.Core.Resources;
+using Syncfusion.SfPicker.XForms;
 using System.Collections.ObjectModel;
 
 namespace BA_MobileGPS.Controls
@@ -38,8 +39,8 @@ namespace BA_MobileGPS.Controls
             // Column header text collection
             ColumnHeaderText = new ObservableCollection<string>
             {
-                "Tháng",
-                "Năm"
+                MobileResource.Common_Label_Month,
+                MobileResource.Common_Label_Year
             };
 
             PopulateTimeCollection();

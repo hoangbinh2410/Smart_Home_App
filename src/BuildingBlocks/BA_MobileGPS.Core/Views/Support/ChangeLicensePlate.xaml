@@ -6,6 +6,7 @@
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls;assembly=BA_MobileGPS.Core"
     xmlns:effects="clr-namespace:BA_MobileGPS.Core.Effects;assembly=BA_MobileGPS.Core"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     Title="{Binding Title}"
@@ -66,13 +67,13 @@
                                 HorizontalOptions="Start"
                                 HorizontalTextAlignment="Start"
                                 Style="{DynamicResource Text16B}"
-                                Text="Phương tiện đủ điều kiện cho phép đổi biển."
+                                Text="{i18n:TranslateResource SupportClient_Label_ContentChangePlateNumber1}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalTextAlignment="Start" />
                             <Label
                                 HorizontalTextAlignment="Start"
                                 Style="{DynamicResource Text16B}"
-                                Text="Quý khách vui lòng nhập biển số mới vào ô dưới đây và gửi yêu cầu."
+                                Text="{i18n:TranslateResource SupportClient_Label_ContentChangePlateNumber2}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalTextAlignment="Start" />
                         </StackLayout>
@@ -83,13 +84,13 @@
                             FontSize="14"
                             HorizontalOptions="Start"
                             HorizontalTextAlignment="Start"
-                            Text="Đổi biển sẽ làm thay đổi dữ liệu của phương tiện được chọn, quý khách cần lưu ý trước khi đổi biển."
+                            Text="{i18n:TranslateResource SupportClient_Label_ContentChangePlateNumber3}"
                             TextColor="#E63C2B" />
 
                         <Label HorizontalOptions="Start" Style="{DynamicResource Text14B}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Biển số cũ: " />
+                                    <Span Text="{i18n:TranslateResource SupportClient_Label_OldPlate}" />
                                     <Span Text="{Binding LicensePlateNow}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -99,7 +100,7 @@
                             <Label
                                 FontSize="14"
                                 HorizontalOptions="Start"
-                                Text="Biển số mới"
+                                Text="{i18n:TranslateResource SupportClient_Label_NewPlate}"
                                 TextColor="{DynamicResource ColorText}" />
                             <Frame
                                 Padding="5,0"
@@ -114,7 +115,7 @@
                                     x:Name="LicensePlateEntry"
                                     FontSize="14"
                                     HorizontalOptions="FillAndExpand"
-                                    Placeholder="Nhập biển kiểm soát mới"
+                                    Placeholder="{i18n:TranslateResource SupportClient_Label_EnterNewPlate}"
                                     Text="{Binding LicensePlateNew}"
                                     TextColor="{DynamicResource ColorText}"
                                     VerticalOptions="Center">
@@ -139,7 +140,7 @@
                         Command="{Binding PushNotificationSupportPageCommand}"
                         CornerRadius="20"
                         HorizontalOptions="CenterAndExpand"
-                        Text="Đổi biển"
+                        Text="{i18n:TranslateResource SupportClient_Label_TextChangePlates}"
                         VerticalOptions="StartAndExpand"
                         WidthRequest="200" />
 
@@ -197,7 +198,7 @@
                                         FontFamily="myFontFamilyBold"
                                         FontSize="16"
                                         HorizontalOptions="Center"
-                                        Text="BA CSKH"
+                                        Text="{i18n:TranslateResource SupportClient_Label_CustomerCare}"
                                         TextColor="{DynamicResource PrimaryColor}" />
                                 </StackLayout>
                             </StackLayout>
@@ -206,7 +207,7 @@
                                 HorizontalOptions="StartAndExpand"
                                 HorizontalTextAlignment="Start"
                                 Style="{DynamicResource Text16B}"
-                                Text="Cảm ơn quý khách đã gửi phản hồi cho BA GPS!"
+                                Text="{i18n:TranslateResource SupportClient_Label_ContentNotify1}"
                                 TextColor="#0474D8" />
                             <Label
                                 HorizontalOptions="Start"
@@ -215,13 +216,13 @@
                                 VerticalTextAlignment="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="Yêu cầu của quý khách đã được gửi đến bộ phận chăm sóc khách hàng của BA GPS. Quý khác vui lòng truy cập tính năng " />
+                                        <Span Text="{i18n:TranslateResource SupportClient_Label_ContentNotify2}" />
                                         <Span
                                             CharacterSpacing="1"
                                             Style="{DynamicResource Text14B}"
-                                            Text="Tài khoản &gt; Phản hồi khách hàng "
+                                            Text="{i18n:TranslateResource SupportClient_Label_ContentNotify3}"
                                             TextColor="#0474D8" />
-                                        <Span Text="Để theo dõi phản hồi của CSKH." />
+                                        <Span Text="{i18n:TranslateResource SupportClient_Label_ContentNotify4}" />
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -239,7 +240,7 @@
                                 Command="{Binding BackPageCommand}"
                                 CornerRadius="20"
                                 HorizontalOptions="CenterAndExpand"
-                                Text="Đóng"
+                                Text="{i18n:TranslateResource SupportClient_Button_Close}"
                                 VerticalOptions="StartAndExpand"
                                 WidthRequest="200" />
                         </StackLayout>
