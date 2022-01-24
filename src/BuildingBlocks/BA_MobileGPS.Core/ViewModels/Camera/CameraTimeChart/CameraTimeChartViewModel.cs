@@ -1,7 +1,6 @@
 ﻿using BA_MobileGPS.Core.Constant;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
-using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
 using Prism.Navigation;
@@ -17,14 +16,10 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class CameraTimeChartViewModel : ViewModelBase
     {
-        #region internal variable
-
         protected int pageIndex { get; set; } = 0;
         protected int pageCount { get; } = 5;
         private readonly IStreamCameraService cameraService;
         private List<RestreamChartData> ChartItemsSourceOrigin { get; set; } = new List<RestreamChartData>();
-
-        #endregion internal variable
 
         public CameraTimeChartViewModel(INavigationService navigationService,
             IStreamCameraService cameraService) : base(navigationService)
@@ -39,8 +34,6 @@ namespace BA_MobileGPS.Core.ViewModels
             MaxTime = selectedDate.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
             MinTime = selectedDate.Date;
         }
-
-        #region life cycle
 
         public override void Initialize(INavigationParameters parameters)
         {
@@ -68,18 +61,17 @@ namespace BA_MobileGPS.Core.ViewModels
                            && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
             {
                 var listVehiclePlate = new List<string>();
+                var listPrivateCode = new List<string>();
                 foreach (var item in list)
                 {
                     listVehiclePlate.Add(item.VehiclePlate);
+                    listPrivateCode.Add(item.PrivateCode);
                 }
                 SelectedVehiclePlates = string.Join(", ", listVehiclePlate);
-                GetChartData(selectedVehiclePlates);
+                LstVehicleView = string.Join(", ", listPrivateCode);
+                GetChartData(SelectedVehiclePlates);
             }
         }
-
-        #endregion life cycle
-
-        #region Binding
 
         public ICommand SelectVehicleCameraCommand { get; }
         public ICommand LoadMoreItemsCommand { get; }
@@ -95,6 +87,17 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             get { return selectedVehiclePlates; }
             set { SetProperty(ref selectedVehiclePlates, value); }
+        }
+
+        private string lstVehicleView;
+
+        /// <summary>
+        /// Danh sách xe được chọn ở entry tìm kiếm xe
+        /// </summary>
+        public string LstVehicleView
+        {
+            get { return lstVehicleView; }
+            set { SetProperty(ref lstVehicleView, value); }
         }
 
         private ObservableCollection<RestreamChartData> chartItemsSource;
@@ -138,10 +141,6 @@ namespace BA_MobileGPS.Core.ViewModels
             get { return minTime; }
             set { SetProperty(ref minTime, value); }
         }
-
-        #endregion Binding
-
-        #region function
 
         /// <summary>
         /// Load dữ liệu tất cả biểu dồ của xe có trên hệ thống, infinite scroll
@@ -457,7 +456,5 @@ namespace BA_MobileGPS.Core.ViewModels
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-
-        #endregion function
     }
 }

@@ -36,12 +36,12 @@ namespace BA_MobileGPS.Service.Service.Expense
             }
             return result;
         }     
-        public async Task<List<ListExpenseCategoryByCompanyRespone>> GetExpenseCategory(int FK_CompanyID)
+        public async Task<List<ListExpenseCategoryByCompanyRespone>> GetExpenseCategory(int FK_CompanyID, int languageID)
         {
             List<ListExpenseCategoryByCompanyRespone> result = new List<ListExpenseCategoryByCompanyRespone>();
             try
             {
-                string uri = string.Format(ApiUri.GET_List_ExpensesCategory + "?companyid={0}", FK_CompanyID);
+                string uri = string.Format(ApiUri.GET_List_ExpensesCategory + "?companyid={0}&languageID={1}", FK_CompanyID, languageID);
                 var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<ListExpenseCategoryByCompanyRespone>>>(uri);
                 if (respone != null && respone.Data != null)
                 {

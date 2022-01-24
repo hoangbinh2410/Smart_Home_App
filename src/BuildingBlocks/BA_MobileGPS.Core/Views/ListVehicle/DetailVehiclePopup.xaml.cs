@@ -70,7 +70,7 @@ namespace BA_MobileGPS.Core.Views
                 Title = MobileResource.Camera_Title_Retreaming,
                 Icon = "ic_videolive.png",
                 MenuType = MenuKeyType.VideoPlayback,
-                IsEnable = CheckPermision((int)PermissionKeyNames.TrackingVideosView),
+                IsEnable = CheckPermision((int)PermissionKeyNames.PlaybackVideo),
             });
 
             var lstresource = list.Where(x => x.IsEnable == true).ToList();

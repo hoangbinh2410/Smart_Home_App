@@ -176,8 +176,9 @@
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
                         </Frame.GestureRecognizers>
-                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Grid ColumnDefinitions="*,Auto" HorizontalOptions="FillAndExpand">
                             <Entry
+                                Grid.Column="0"
                                 FontSize="{StaticResource FontSize12}"
                                 HorizontalOptions="FillAndExpand"
                                 InputTransparent="True"
@@ -189,6 +190,7 @@
                                 </Entry.Effects>
                             </Entry>
                             <controls:IconView
+                                Grid.Column="1"
                                 Margin="0,0,5,0"
                                 Foreground="DimGray"
                                 HeightRequest="15"
@@ -196,7 +198,7 @@
                                 Source="ic_sortdown.png"
                                 VerticalOptions="Center"
                                 WidthRequest="15" />
-                        </StackLayout>
+                        </Grid>
                     </Frame>
                     <buttons:SfCheckBox
                         Grid.Row="1"

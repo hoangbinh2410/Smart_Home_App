@@ -16,9 +16,10 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
     [Serializable]
     public class TransportBusinessResponse : ReportBaseResponse
     {
-        public int RowNumber { get; set; }       
+        public int RowNumber { get; set; }      
+        public int FK_LandMarkID { get; set; }      
         public string Name { get; set; }
-        public string PrivateCode { get; set; }
+        public string PrivateCode { get; set; }     
         public int TotalTime { get; set; }
         public double TotalKmGps { get; set; }
         ///// <summary>

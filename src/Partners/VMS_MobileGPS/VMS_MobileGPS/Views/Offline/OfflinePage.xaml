@@ -243,6 +243,21 @@
                     HeightRequest="45"
                     Text="ĐĂNG NHẬP"
                     VerticalOptions="StartAndExpand" />
+
+
+                <Label
+                    Grid.Row="2"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="1"
+                    StyleClass="BoldText"
+                    Text="Tải mẫu đơn hỗ trợ cước vệ tinh"
+                    TextColor="{StaticResource PrimaryColor}"
+                    TextDecorations="Underline"
+                    VerticalOptions="EndAndExpand">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding DowloadFileDocCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
             </Grid>
         </Grid>
     </ContentPage.Content>

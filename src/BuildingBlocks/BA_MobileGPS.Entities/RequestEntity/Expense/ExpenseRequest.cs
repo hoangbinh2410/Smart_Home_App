@@ -9,6 +9,7 @@ namespace BA_MobileGPS.Entities.RequestEntity.Expense
         public int CompanyID { get; set; }
         public long VehicleID { get; set; }
         public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }       
+        public DateTime ToDate { get; set; }
+        public int LanguageID { get; set; }
     }
 }

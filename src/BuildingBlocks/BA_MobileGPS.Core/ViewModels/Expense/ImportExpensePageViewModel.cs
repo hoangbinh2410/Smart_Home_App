@@ -52,7 +52,7 @@ namespace BA_MobileGPS.Core.ViewModels
             _PageDialog = PageDialog;
             _displayMessage = displayMessage;
             _StationLocation = StationLocation;
-            Title = "Nhập chi phí";
+            Title = MobileResource.ExpenseCar_ImportPage_Title;
         }
 
         #endregion Contructor

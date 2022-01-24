@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BA_MobileGPS.Core.Controls"
     xmlns:ffsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:fontawesome="clr-namespace:FontAwesome;assembly=BA_MobileGPS.Utilities"
+    xmlns:i18n="clr-namespace:BA_MobileGPS.Core.Helpers;assembly=BA_MobileGPS.Core"
     xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:prism="http://prismlibrary.com"
     x:Name="root"
@@ -259,7 +260,7 @@
                                                         VerticalOptions="CenterAndExpand">
                                                         <Label.FormattedText>
                                                             <FormattedString>
-                                                                <Span Text="Hướng dẫn xử lý" />
+                                                                <Span Text="{i18n:TranslateResource SupportClient_Label_PerformSendSupport}" />
                                                             </FormattedString>
                                                         </Label.FormattedText>
                                                     </Label>
@@ -320,7 +321,7 @@
                         FontSize="Large"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text="Không có dữ liệu" />
+                        Text="{i18n:TranslateResource Common_Message_NoData}" />
                 </StackLayout>
             </Grid>
             <!--  StackLayout  2  -->

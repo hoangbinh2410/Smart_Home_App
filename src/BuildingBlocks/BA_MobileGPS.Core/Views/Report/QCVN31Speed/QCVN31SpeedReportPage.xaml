@@ -225,15 +225,16 @@
                             HorizontalOptions="FillAndExpand"
                             IsClippedToBounds="True"
                             VerticalOptions="Center">
-                            <StackLayout
+                            <Grid
                                 Padding="5,0,5,0"
+                                ColumnDefinitions="*,Auto"
                                 HorizontalOptions="FillAndExpand"
-                                Orientation="Horizontal"
                                 VerticalOptions="Center">
-                                <StackLayout.GestureRecognizers>
+                                <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SelectVehicleReportCommand}" />
-                                </StackLayout.GestureRecognizers>
+                                </Grid.GestureRecognizers>
                                 <Entry
+                                    Grid.Column="0"
                                     FontSize="{StaticResource FontSize12}"
                                     HorizontalOptions="FillAndExpand"
                                     InputTransparent="True"
@@ -245,13 +246,14 @@
                                     </Entry.Effects>
                                 </Entry>
                                 <controls:IconView
+                                    Grid.Column="1"
                                     Foreground="{DynamicResource BlackColor}"
                                     HeightRequest="15"
                                     HorizontalOptions="End"
                                     Source="ic_sortdown.png"
                                     VerticalOptions="Center"
                                     WidthRequest="15" />
-                            </StackLayout>
+                            </Grid>
                         </Frame>
 
                         <checkbox:SfCheckBox
@@ -293,7 +295,7 @@
                     </StackLayout>
                 </Grid>
 
-                <syncDataGrid:SfDataGrid
+                <!--
                     x:Name="dataGrid"
                     Grid.Row="1"
                     AllowLoadMore="False"
@@ -307,12 +309,29 @@
                     ItemsSource="{Binding ListDataSearch}"
                     ScrollingMode="PixelLine"
                     VerticalOptions="FillAndExpand"
+                    VerticalOverScrollMode="None"
+                -->
+                <syncDataGrid:SfDataGrid
+                    x:Name="dataGrid"
+                    Grid.Row="1"
+                    AllowLoadMore="False"
+                    AllowResizingColumn="False"
+                    AutoGenerateColumns="False"
+                    ColumnSizer="Auto"
+                    GridStyle="{StaticResource CustomDataGridStyle}"
+                    HorizontalOptions="FillAndExpand"
+                    IsBusy="{Binding IsBusy}"
+                    IsVisible="{Binding HasData}"
+                    ItemsSource="{Binding ListDataSearch}"
+                    LoadMorePosition="Bottom"
+                    ScrollingMode="PixelLine"
+                    VerticalOptions="FillAndExpand"
                     VerticalOverScrollMode="None">
 
                     <syncDataGrid:SfDataGrid.Columns>
                         <!--  số thứ tự  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="30"
+                            Width="40"
                             MappingName="OrderNumber"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -344,7 +363,7 @@
 
                         <!--  thời gian  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="130"
+                            Width="160"
                             MappingName="DT"
                             TextAlignment="Center">
                             <syncDataGrid:GridTemplateColumn.HeaderTemplate>
@@ -377,7 +396,7 @@
 
                         <!--  Số Lít ShowLiters  -->
                         <syncDataGrid:GridTemplateColumn
-                            Width="250"
+                            Width="330"
                             HeaderFontAttribute="Bold"
                             MappingName="Velocities"
                             TextAlignment="Center">

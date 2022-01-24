@@ -367,7 +367,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowTimeInStation)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.FormatDateTime(); 
+                        worksheet.Range[numberrow, numbercolum].Text = data[i].TimeInStation.FormatDateTime();
                     }
                     // Ra trạm
                     if (ShowTimeOutStation)
@@ -560,6 +560,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         VehiclePlate = model.VehiclePlate,
                         VehicleId = model.FK_VehicleID,
+                        PrivateCode=model.PrivateCode,
                     };
                     var p = new NavigationParameters()
                         {

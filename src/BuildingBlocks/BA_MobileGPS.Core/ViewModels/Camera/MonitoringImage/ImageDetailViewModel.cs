@@ -26,6 +26,9 @@ namespace BA_MobileGPS.Core.ViewModels
         private string vehiclePlate;
         public string VehiclePlate { get => vehiclePlate; set => SetProperty(ref vehiclePlate, value); }
 
+        private string privateCode;
+        public string PrivateCode { get => privateCode; set => SetProperty(ref privateCode, value); }
+
         private string positionString;
         public string PositionString { get => positionString; set => SetProperty(ref positionString, value); }
 
@@ -78,9 +81,10 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             base.Initialize(parameters);
 
-            if (parameters.GetValue<string>(ParameterKey.VehiclePlate) is string vehiclePlate)
+            if (parameters.GetValue<VehicleOnline>(ParameterKey.VehiclePlate) is VehicleOnline vehicle)
             {
-                VehiclePlate = vehiclePlate;
+                VehiclePlate = vehicle.VehiclePlate;
+                PrivateCode=vehicle.PrivateCode;
             }
 
             if (parameters.TryGetValue(ParameterKey.ImageCamera, out CaptureImageData imageCamera))
@@ -120,7 +124,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         Id = index + 1,
                         UserId = userId.ToString(),
-                        VehiclePlate = VehiclePlate
+                        VehiclePlate = VehiclePlate,
+                        PrivateCode=PrivateCode
                     });
                 }
             }
@@ -130,7 +135,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     Id = 1,
                     UserId = userId.ToString(),
-                    VehiclePlate = VehiclePlate
+                    VehiclePlate = VehiclePlate,
+                    PrivateCode=PrivateCode
                 });
             }
         }
@@ -166,27 +172,27 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         PositionString = string.Format("{0}/{1}", Position + 1, ListCameraImage.Count);
 
-                    if (ImageCamera.Lat!=0 && ImageCamera.Lng!=0)
-                    {
-                        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+                        if (ImageCamera.Lat!=0 && ImageCamera.Lng!=0)
                         {
-                            Pins.Clear();
-                            Pins.Add(new Pin()
+                            Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
                             {
-                                Type = PinType.Place,
-                                Label = VehiclePlate,
-                                Anchor = new Point(.5, .5),
-                                Address = ImageCamera.CurrentAddress,
-                                Position = new Position(ImageCamera.Lat, ImageCamera.Lng),
-                                Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
-                                IsDraggable = false,
-                                Tag = "CAMERA" + VehiclePlate
+                                Pins.Clear();
+                                Pins.Add(new Pin()
+                                {
+                                    Type = PinType.Place,
+                                    Label = VehiclePlate,
+                                    Anchor = new Point(.5, .5),
+                                    Address = ImageCamera.CurrentAddress,
+                                    Position = new Position(ImageCamera.Lat, ImageCamera.Lng),
+                                    Icon = BitmapDescriptorFactory.FromResource("car_blue.png"),
+                                    IsDraggable = false,
+                                    Tag = "CAMERA" + VehiclePlate
+                                });
+                                _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
+                                SelectedPin = Pins[0];
+                                return false;
                             });
-                            _ = AnimateCameraRequest.AnimateCamera(CameraUpdateFactory.NewPositionZoom(new Position(ImageCamera.Lat, ImageCamera.Lng), 14), TimeSpan.FromMilliseconds(10));
-                            SelectedPin = Pins[0];
-                            return false;
-                        });
-                    }
+                        }
 
                         //Add vào zoom slide
 

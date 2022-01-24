@@ -4446,6 +4446,8 @@
         TrackingVideosView = 1346,
 
         TrackingOnlineByImagesView = 1345,
+
+        PlaybackVideo = 1355,
         /// <summary>
         /// Thêm mới giấy tờ phương tiện
         /// </summary>

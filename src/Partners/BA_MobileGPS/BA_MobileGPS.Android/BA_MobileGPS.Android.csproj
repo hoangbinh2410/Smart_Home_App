@@ -13,7 +13,7 @@
     <RootNamespace>BA_MobileGPS.Droid</RootNamespace>
     <AssemblyName>BA_MobileGPS.Android</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v12.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -184,19 +184,14 @@
     <AndroidResource Include="Resources\drawable\ic_reload.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\Launch_Screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\Launch_Screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\Launch_Screen.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Launch_Screen.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Resources\layout\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Launch_Screen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
