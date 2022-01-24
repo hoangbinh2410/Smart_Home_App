@@ -97,7 +97,7 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://alertgps.bagroup.vn")]
         ServerThat,
 
-        [Description("10.1.11.131")]
+        [Description("10.1.11.110")]
         ServerNamth,
 
         [Description("http://125.212.226.154:6656")]
