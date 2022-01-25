@@ -186,27 +186,27 @@
 
         #region report
 
-        public const string GET_VALIDATEDATETIME = "api/reports/validatedatetimereport";
-        public const string GET_REPORTTEMPERATURE = "api/reports/temperature";
-        public const string GET_REPORTADDRESS = "api/reports/address";
-        public const string GET_MACHINEVEHICLE = "api/reports/machine";
-        public const string GET_FUELVEHICLE = "api/reports/fuel";
-        public const string GET_FUELCHART = "api/reports/fuelchart";
-        public const string GET_SPEEDOVERS = "api/reports/speedover";
-        public const string GET_STOPPARKING = "api/reports/stop";
-        public const string GET_DETAILS = "api/reports/activitydetail";
-        public const string GET_SIGNALLOSS = "api/reports/signalloss";
-        public const string GET_ACTIVITYSUMMARIES = "api/reports/activitysummary";
-        public const string GET_FUELSSUMMARIES = "api/reports/fuelconsumptiondaily";
-        public const string GET_FUELSSUMMARIESTOTAL = "api/reports/fuelconsumptiontotal";
+        public const string GET_VALIDATEDATETIME = "api/v2/reports/validatedatetimereport";
+        public const string GET_REPORTTEMPERATURE = "api/v2/reports/temperature";
+        public const string GET_REPORTADDRESS = "api/v2/reports/address";
+        public const string GET_MACHINEVEHICLE = "api/v2/reports/machine";
+        public const string GET_FUELVEHICLE = "api/v2/reports/fuel";
+        public const string GET_FUELCHART = "api/v2/reports/fuelchart";
+        public const string GET_SPEEDOVERS = "api/v2/reports/speedover";
+        public const string GET_STOPPARKING = "api/v2/reports/stop";
+        public const string GET_DETAILS = "api/v2/reports/activitydetail";
+        public const string GET_SIGNALLOSS = "api/v2/reports/signalloss";
+        public const string GET_ACTIVITYSUMMARIES = "api/v2/reports/activitysummary";
+        public const string GET_FUELSSUMMARIES = "api/v2/reports/fuelconsumptiondaily";
+        public const string GET_FUELSSUMMARIESTOTAL = "api/v2/reports/fuelconsumptiontotal";
         public const string GET_HISTORY_PACKAGE = "api/fishingvesselsms/historypackage";
         public const string GET_CURRENT_PACKAGE = "api/fishingvesselsms/packageinfor";
         public const string GET_SHIP_PACKAGE = "api/fishingvesselsms/shippackage";
-        public const string GET_GetQCVN31SpeedReport = "api/reports/getqcvn31report";
+        public const string GET_GetQCVN31SpeedReport = "api/v2/reports/getqcvn31report";
 
         public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
-        public const string GET_GetStationDetails = "api/reports/station";
-        public const string GET_GetTransportBusiness = "api/reports/transportbusiness";
+        public const string GET_GetStationDetails = "api/v2/reports/station";
+        public const string GET_GetTransportBusiness = "api/v2/reports/transportbusiness";
         #endregion report
 
         #region Camera
