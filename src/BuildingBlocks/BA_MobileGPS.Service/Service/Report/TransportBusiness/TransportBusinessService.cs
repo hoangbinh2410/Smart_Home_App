@@ -22,13 +22,11 @@ namespace BA_MobileGPS.Service.Service.Report.TransportBusiness
             var respone = new List<TransportBusinessResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<TransportBusinessRequest, BaseResponse<List<TransportBusinessResponse>>>(ApiUri.GET_GetTransportBusiness, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<TransportBusinessRequest, ResponseBaseV2<List<TransportBusinessResponse>>>(ApiUri.GET_GetTransportBusiness, input);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
+
                 }
             }
             catch (Exception ex)

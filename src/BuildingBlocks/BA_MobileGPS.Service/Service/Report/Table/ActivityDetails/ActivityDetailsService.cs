@@ -20,13 +20,11 @@ namespace BA_MobileGPS.Service
             var respone = new List<ActivityDetailsModel>();
             try
             {
-                var temp = await RequestProvider.PostAsync<ActivityDetailsRequest, BaseResponse<List<ActivityDetailsModel>>>(ApiUri.GET_DETAILS, input);
-                if (temp != null)
-                {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                var temp = await RequestProvider.PostAsync<ActivityDetailsRequest, ResponseBaseV2<List<ActivityDetailsModel>>>(ApiUri.GET_DETAILS, input);
+                if (temp != null && temp.Data !=null)
+                {                  
+                   respone = temp.Data;
+                    
                 }
             }
             catch (Exception ex)

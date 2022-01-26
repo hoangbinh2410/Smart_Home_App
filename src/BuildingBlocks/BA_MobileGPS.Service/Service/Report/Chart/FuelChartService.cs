@@ -24,13 +24,12 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var temp = await RequestProvider.PostAsync<FuelChartRequest, FuelChartResponse>(ApiUri.GET_FUELCHART, Request);
-                if (temp != null)
+                var respone = new List<FuelChartReport>();
+                var temp = await RequestProvider.PostAsync<FuelChartRequest, ResponseBaseV2<List<FuelChartReport >>>(ApiUri.GET_FUELCHART, Request);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.State)
-                    {
-                        return temp.ListFuelChartReport;
-                    }
+                    respone = temp.Data;
+
                 }
             }
             catch (Exception ex)

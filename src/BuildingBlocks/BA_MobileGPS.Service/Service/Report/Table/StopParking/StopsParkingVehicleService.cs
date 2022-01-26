@@ -20,13 +20,11 @@ namespace BA_MobileGPS.Service
             var respone = new List<StopParkingVehicleModel>();
             try
             {
-                var temp = await RequestProvider.PostAsync<StopParkingVehicleRequest, BaseResponse<List<StopParkingVehicleModel>>>(ApiUri.GET_STOPPARKING, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<StopParkingVehicleRequest, ResponseBaseV2<List<StopParkingVehicleModel>>>(ApiUri.GET_STOPPARKING, input);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
+
                 }
             }
             catch (Exception ex)
