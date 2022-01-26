@@ -16,7 +16,6 @@ namespace BA_MobileGPS.Entities
         public List<FuelVehicleModel> ListFuelReport { get; set; }
     }
 
-    [Serializable]
     public class FuelVehicleModel : ReportBaseResponse
     {
         /// <summary>

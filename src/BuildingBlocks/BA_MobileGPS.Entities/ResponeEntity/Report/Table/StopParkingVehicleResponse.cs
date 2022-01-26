@@ -2,7 +2,6 @@
 
 namespace BA_MobileGPS.Entities
 {
-    [Serializable]
     public class StopParkingVehicleModel : ReportBaseResponse
     {
         public string PrivateCode { get; set; } // Biển số xe

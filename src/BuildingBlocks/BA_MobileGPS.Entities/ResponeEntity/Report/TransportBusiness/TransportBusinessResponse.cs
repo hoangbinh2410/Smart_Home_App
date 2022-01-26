@@ -13,7 +13,6 @@ namespace BA_MobileGPS.Entities.ResponeEntity.Report.TransportBusiness
     /// Name     Date         Comments
     /// ducpv  19/11/2021   created
     /// </Modified>
-    [Serializable]
     public class TransportBusinessResponse : ReportBaseResponse
     {
         public int RowNumber { get; set; }      
