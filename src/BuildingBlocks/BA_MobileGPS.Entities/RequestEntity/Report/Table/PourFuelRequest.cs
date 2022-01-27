@@ -3,8 +3,7 @@
 namespace BA_MobileGPS.Entities
 {
     public class FuelReportRequest : ReportBaseModel
-    {
-        public string ListVehicleID { get; set; }
+    {       
         public FuelStatusEnum SearchType { get; set; }
         public float NumberOfLitter { get; set; }
     }

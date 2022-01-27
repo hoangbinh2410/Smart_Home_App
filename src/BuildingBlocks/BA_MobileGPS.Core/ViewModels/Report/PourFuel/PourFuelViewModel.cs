@@ -125,7 +125,7 @@ namespace BA_MobileGPS.Core.ViewModels
             return new FuelReportRequest
             {
                 CompanyID = CurrentComanyID,
-                ListVehicleID = VehicleSelect.VehicleId.ToString(),
+                VehicleIDs = VehicleSelect.VehicleId.ToString(),
                 FromDate = base.FromDate,
                 ToDate = base.ToDate,
                 PageIndex = base.PagedNext,
