@@ -112,7 +112,7 @@
                                     EventArgsConverter="{StaticResource SelectedComboxEventArgsConverter}"
                                     EventName="SelectionChanged" />
                             </combobox:SfComboBox.Behaviors>
-                            <combobox:SfComboBox.DropDownButtonSettings>
+                            <!--<combobox:SfComboBox.DropDownButtonSettings>
                                 <combobox:DropDownButtonSettings Width="40" Height="40">
                                     <combobox:DropDownButtonSettings.View>
                                         <Label
@@ -121,7 +121,7 @@
                                             WidthRequest="40" />
                                     </combobox:DropDownButtonSettings.View>
                                 </combobox:DropDownButtonSettings>
-                            </combobox:SfComboBox.DropDownButtonSettings>
+                            </combobox:SfComboBox.DropDownButtonSettings>-->
                             <combobox:SfComboBox.ComboBoxSource>
                                 <ListCollection:List x:TypeArguments="x:String">
                                     <x:String>1h</x:String>
