@@ -48,17 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = UserBehaviorType.End
             });
         }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-            if (String.IsNullOrEmpty(VehicleSelect.PrivateCode))
-            {
-                return;
-            }
-            ExcuteSearchData();
-        }
-
+     
         public override void OnDestroy()
         {
             base.Dispose();
