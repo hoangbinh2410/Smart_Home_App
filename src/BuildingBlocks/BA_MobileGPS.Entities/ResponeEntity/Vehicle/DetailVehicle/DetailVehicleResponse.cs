@@ -201,7 +201,7 @@ namespace BA_MobileGPS.Entities
         /// Trạng thái bật tắt của máy
         /// </summary>
         [JsonProperty("16")]
-        public int? StatusEngineer { set; get; }
+        public int? State { set; get; }
 
         /// <summary>
         /// Tổng số knm tích lũy từ lúc lắp GPS
@@ -279,7 +279,7 @@ namespace BA_MobileGPS.Entities
         /// Trạng thái ACC
         /// </summary>
         [JsonProperty("29")]
-        public bool? AccStatus { set; get; }
+        public bool? IsEnableAcc { set; get; }
 
         [JsonProperty("30")]
         public bool? Door { set; get; }
