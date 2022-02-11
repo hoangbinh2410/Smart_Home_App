@@ -2,7 +2,6 @@
 
 namespace BA_MobileGPS.Entities
 {
-    [Serializable]
     public class SpeedOversModel : ReportBaseResponse
     {
         public string PrivateCode { get; set; }

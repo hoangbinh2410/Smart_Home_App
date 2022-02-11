@@ -2,14 +2,10 @@
 
 namespace BA_MobileGPS.Entities
 {
-    public class ServicePackHistoryRequest
+    public class ServicePackHistoryRequest :ReportBaseModel
     {
         public int XNCode { get; set; }
 
         public string VehiclePlate { get; set; }
-
-        public DateTime DateStart { get; set; }
-
-        public DateTime DateEnd { get; set; }
     }
 }

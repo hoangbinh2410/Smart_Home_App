@@ -20,13 +20,11 @@ namespace BA_MobileGPS.Service
             var respone = new List<SpeedOversModel>();
             try
             {
-                var temp = await RequestProvider.PostAsync<SpeedOversRequest, BaseResponse<List<SpeedOversModel>>>(ApiUri.GET_SPEEDOVERS, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<SpeedOversRequest, ResponseBaseV2<List<SpeedOversModel>>>(ApiUri.GET_SPEEDOVERS, input);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
+
                 }
             }
             catch (Exception ex)

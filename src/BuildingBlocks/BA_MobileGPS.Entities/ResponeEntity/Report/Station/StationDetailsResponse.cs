@@ -4,7 +4,6 @@ using System.Text;
 
 namespace BA_MobileGPS.Entities.ResponeEntity.Report.Station
 {
-    [Serializable]
     public class StationDetailsResponse : ReportBaseResponse
     {
         //STT Dòng

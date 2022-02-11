@@ -20,13 +20,11 @@ namespace BA_MobileGPS.Service
             var respone = new List<MachineVehicleResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<MachineVehcleRequest, MachingResponseResponseReport>(ApiUri.GET_MACHINEVEHICLE, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<MachineVehcleRequest, ResponseBaseV2<List<MachineVehicleResponse>>>(ApiUri.GET_MACHINEVEHICLE, input);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.State)
-                    {
-                        respone = temp.ListMachingReport;
-                    }
+                    respone = temp.Data;
+
                 }
             }
             catch (Exception ex)
