@@ -858,6 +858,47 @@ namespace BA_MobileGPS.Core.ViewModels
                 var a = await NavigationService.NavigateAsync("NavigationPage/SupportClientPage", parameters, true, true);
             });
         }
+        public void GotoCameraTimeChartPage()
+        {
+            SafeExecute(async () =>
+            {
+                if (CheckVehcleHasVideo(CarActive.VehiclePlate))
+                {
+                    var photoPermission = await PermissionHelper.CheckPhotoPermissions();
+                    var storagePermission = await PermissionHelper.CheckStoragePermissions();
+                    if (photoPermission && storagePermission)
+                    {
+                        var param = new CameraLookUpVehicleModel()
+                        {
+                            VehiclePlate = CarActive.VehiclePlate,
+                            VehicleId = CarActive.VehicleId,
+                            Imei = CarActive.Imei,
+                            PrivateCode = CarActive.PrivateCode
+                        };
+                        var parameters = new NavigationParameters
+                      {
+                          { ParameterKey.Vehicle, param }
+                     };
+
+                        await NavigationService.NavigateAsync("NavigationPage/CameraTimeChart", parameters, true, true);
+                    }
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        var action = await PageDialog.DisplayAlertAsync("Thông báo",
+                              string.Format("Tính năng này không được hỗ trợ. Vì Xe {0} sử dụng gói cước không tích hợp tính năng video. \nQuý khách vui liên hệ tới số {1} để được hỗ trợ",
+                              CarActive.PrivateCode, MobileSettingHelper.HotlineGps),
+                              "Liên hệ", "Bỏ qua");
+                        if (action)
+                        {
+                            PhoneDialer.Open(MobileSettingHelper.HotlineGps);
+                        }
+                    });
+                }
+            });
+        }
 
         private void SelectedMenu(MenuPageItem obj)
         {
@@ -953,6 +994,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 case "CameraRestream":
                     GotoVideoPlaybackPage();
+                    break;
+                case "CameraTimeChart":
+                    GotoCameraTimeChartPage();
                     break;
 
                 default:
