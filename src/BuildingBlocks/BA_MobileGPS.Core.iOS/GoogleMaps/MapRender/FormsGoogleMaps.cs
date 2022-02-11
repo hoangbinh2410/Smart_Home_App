@@ -8,7 +8,7 @@ namespace BA_MobileGPS.Core.iOS
 
         public static void Init(string apiKey, PlatformConfig config = null)
         {
-            MapServices.ProvideAPIKey(apiKey);
+            MapServices.ProvideApiKey(apiKey);
             MapRenderer.Config = config ?? new PlatformConfig();
             IsInitialized = true;
         }

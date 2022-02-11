@@ -424,10 +424,10 @@ namespace BA_MobileGPS.Core.ViewModels
                     EngineState = StateVehicleExtension.EngineState(new VehicleOnline
                     {
                         VehicleTime = response.VehicleTime,
-                        State = response.StatusEngineer.GetValueOrDefault(),
+                        State = response.State.GetValueOrDefault(),
                         Velocity = response.VelocityGPS,
                         GPSTime = response.GPSTime,
-                        IsEnableAcc = response.AccStatus.GetValueOrDefault()
+                        IsEnableAcc = response.IsEnableAcc.GetValueOrDefault()
                     });
                     Address = response.Address;
                     // hiện thị lên là xe đang nợ cần đóng tiền thu phí
