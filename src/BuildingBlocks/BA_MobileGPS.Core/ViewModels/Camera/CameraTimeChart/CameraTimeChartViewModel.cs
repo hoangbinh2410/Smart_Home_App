@@ -61,6 +61,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
             {
                 LstVehicleView = vehiclePlate.PrivateCode;
+                GetChartData(LstVehicleView);
             }
             if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
                        && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
