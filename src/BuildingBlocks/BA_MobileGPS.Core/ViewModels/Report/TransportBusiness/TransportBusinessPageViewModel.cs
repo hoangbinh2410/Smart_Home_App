@@ -236,31 +236,11 @@ namespace BA_MobileGPS.Core.ViewModels
             foreach (var item in data)
             {
                 item.RowNumber = ++stt;
-                item.IsVideoCam = ValidateVehicleCamera(item.VehiclePlate);
+                item.IsVideoCam = true;
             }
             return data;
         }
-        private bool ValidateVehicleCamera(string vehiclePlate)
-        {
-            var listVehicleCamera = StaticSettings.ListVehilceCamera;
-            if (listVehicleCamera != null)
-            {
-                var plate = vehiclePlate.Contains("_C") ? vehiclePlate : vehiclePlate + "_C";
-                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
-                if (model != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
+
         /// <summary>Put dữ liệu vào excel</summary>
         /// <param name="data">The data.</param>
         /// <param name="worksheet">The worksheet.</param>
