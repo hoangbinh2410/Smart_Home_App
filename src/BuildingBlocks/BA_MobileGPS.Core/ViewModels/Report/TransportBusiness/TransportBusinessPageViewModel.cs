@@ -236,10 +236,31 @@ namespace BA_MobileGPS.Core.ViewModels
             foreach (var item in data)
             {
                 item.RowNumber = ++stt;
+                item.IsVideoCam = ValidateVehicleCamera(item.VehiclePlate);
             }
             return data;
         }
-
+        private bool ValidateVehicleCamera(string vehiclePlate)
+        {
+            var listVehicleCamera = StaticSettings.ListVehilceCamera;
+            if (listVehicleCamera != null)
+            {
+                var plate = vehiclePlate.Contains("_C") ? vehiclePlate : vehiclePlate + "_C";
+                var model = StaticSettings.ListVehilceCamera.FirstOrDefault(x => x.VehiclePlate == plate);
+                if (model != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
         /// <summary>Put dữ liệu vào excel</summary>
         /// <param name="data">The data.</param>
         /// <param name="worksheet">The worksheet.</param>
@@ -377,7 +398,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowUseFuel)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].UseFuel, 2).ToString(); 
+                        worksheet.Range[numberrow, numbercolum].Text = Math.Round(data[i].UseFuel, 2).ToString();
                     }
                     // Định mức NL trên 1km
                     numbercolum += 1;
@@ -432,12 +453,12 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
                 // Km Cơ
                 numbercolum += 1;
-                worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.KmOfPulseMechanical), 2)); 
+                worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.KmOfPulseMechanical), 2));
                 // NL tiêu thụ
                 if (ShowUseFuel)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.UseFuel), 2)); 
+                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.UseFuel), 2));
                 }
                 // Định mức NL trên 1km
                 numbercolum += 1;
@@ -445,7 +466,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (ShowNorms)
                 {
                     numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.Norms), 2)); 
+                    worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:n}", Math.Round(data.Sum(x => x.Norms), 2));
                 }
             }
             catch (Exception ex)
