@@ -51,7 +51,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnPageAppearingFirstTime()
         {
             base.OnPageAppearingFirstTime();
-            GetAllChartData();
+            
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LstVehicleView = vehiclePlate.PrivateCode;
                 GetChartData(LstVehicleView);
-            }
+            }else
             if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
                        && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
             {
@@ -76,6 +76,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 SelectedVehiclePlates = string.Join(", ", listVehiclePlate);
                 LstVehicleView = string.Join(", ", listPrivateCode);
                 GetChartData(SelectedVehiclePlates);
+            }
+            else
+            {
+                GetAllChartData();
             }
         }
 
