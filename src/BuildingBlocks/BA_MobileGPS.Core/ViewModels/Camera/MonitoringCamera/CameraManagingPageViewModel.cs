@@ -896,7 +896,7 @@ namespace BA_MobileGPS.Core.ViewModels
         {
             try
             {
-                if (obj != null && obj is ChannelCamera item)
+                if (obj != null && obj is ChannelCamera item && Vehicle !=null && Vehicle.VehicleId >0)
                 {
                     if (item.Channel <= Vehicle.Channel)
                     {
