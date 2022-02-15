@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             IsBusy = true;
+
         }
 
         public override void OnDestroy()
@@ -62,7 +63,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 LstVehicleView = vehiclePlate.PrivateCode;
                 GetChartData(LstVehicleView);
-            }else
+            }
             if (parameters.ContainsKey(ParameterKey.ListVehicleSelected)
                        && parameters.GetValue<List<CameraLookUpVehicleModel>>(ParameterKey.ListVehicleSelected) is List<CameraLookUpVehicleModel> list)
             {
@@ -77,10 +78,10 @@ namespace BA_MobileGPS.Core.ViewModels
                 LstVehicleView = string.Join(", ", listPrivateCode);
                 GetChartData(SelectedVehiclePlates);
             }
-            else
+            if(String.IsNullOrEmpty(LstVehicleView))
             {
                 GetAllChartData();
-            }
+            }                       
         }
 
         public ICommand SelectVehicleCameraCommand { get; }
