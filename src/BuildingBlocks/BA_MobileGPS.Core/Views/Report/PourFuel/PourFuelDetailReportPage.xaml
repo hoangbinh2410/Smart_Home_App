@@ -94,7 +94,7 @@
                                         Foreground="{DynamicResource PrimaryColor}"
                                         HeightRequest="30"
                                         HorizontalOptions="Center"
-                                        Source="camera.png"
+                                        Source="ic_chart.png"
                                         VerticalOptions="Center"
                                         WidthRequest="30" />
                                 </Grid>
