@@ -429,26 +429,7 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
-
-        public async Task<bool> InsertLogVideo(SaveVideoByUserRequest request)
-        {
-            var result = false;
-            try
-            {
-                string url = $"{ApiUri.INSERT_LOG_VIDEO}";
-                var respone = await requestProvider.PostAsync<SaveVideoByUserRequest, ResponseBaseV2<bool>>(url, request);
-                if (respone != null && respone.Data)
-                {
-                    result = respone.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
+        
         public async Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode)
         {
             var respone = new List<VehicleCamera>();

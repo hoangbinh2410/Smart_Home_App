@@ -48,8 +48,6 @@ namespace BA_MobileGPS.Service
 
         Task<PackageBACameraRespone> GetPackageByXnPlate(PackageBACameraRequest request);
 
-        Task<bool> InsertLogVideo(SaveVideoByUserRequest request);
-
         Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode);
 
         Task<CameraCloudRespone> GetListCameraCloud(GetCameraCloudRequest request);
