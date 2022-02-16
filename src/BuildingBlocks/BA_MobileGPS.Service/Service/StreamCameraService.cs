@@ -298,7 +298,7 @@ namespace BA_MobileGPS.Service.Service
             var result = new List<CaptureImageData>();
             try
             {
-                string url = string.Format(ApiUri.GET_IMAGESLIMIT + "?xncode={0}&vehiclePlate={1}&limit={2}", xncode, vehiclePlate, limit);
+                string url = string.Format(ApiUri.GET_CAMERAIMAGE + "?xncode={0}&vehiclePlate={1}&limit={2}", xncode, vehiclePlate, limit);
                 var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
                 if (response != null && response.Data.Count > 0)
                 {

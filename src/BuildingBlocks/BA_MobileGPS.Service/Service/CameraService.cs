@@ -20,13 +20,13 @@ namespace BA_MobileGPS.Service
             this.requestProvider = requestProvider;
         }
 
-        public async Task<List<CaptureImageData>> GetListCaptureImage(CameraImageRequest request)
+        public async Task<List<CaptureImageData>> GetListCaptureImage(GetListImageInfoQuery request)
         {
             var result = new List<CaptureImageData>();
             try
             {
                 string url = $"{ApiUri.GET_CAMERAIMAGE}";
-                var response = await requestProvider.PostAsync<CameraImageRequest, CaptureImageResponse>(url, request);
+                var response = await requestProvider.PostAsync<GetListImageInfoQuery, CaptureImageResponse>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;

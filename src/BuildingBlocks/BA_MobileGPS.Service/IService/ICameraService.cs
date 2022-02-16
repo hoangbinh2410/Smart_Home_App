@@ -7,6 +7,6 @@ namespace BA_MobileGPS.Service
 {
     public interface ICameraService
     {
-        Task<List<CaptureImageData>> GetListCaptureImage(CameraImageRequest request);
+        Task<List<CaptureImageData>> GetListCaptureImage(GetListImageInfoQuery request);
     }
 }

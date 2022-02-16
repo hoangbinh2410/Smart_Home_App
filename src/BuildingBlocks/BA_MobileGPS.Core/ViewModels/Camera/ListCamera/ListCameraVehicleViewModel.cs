@@ -201,14 +201,14 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             RunOnBackground(async () =>
             {
-                var request = new CameraImageRequest
+                var request = new GetListImageInfoQuery
                 {
                     VehiclePlate = VehiclePlate,
-                    XNCode = UserInfo.XNCode,
-                    PageIndex = PageIndex,
-                    PageSize = PageSize,
-                    FromDate = new DateTime(DayBefore.Year, DayBefore.Month, DayBefore.Day, TimeFrom.Hours, TimeFrom.Minutes, TimeFrom.Seconds),
-                    ToDate = new DateTime(DayBefore.Year, DayBefore.Month, DayBefore.Day, TimeEnd.Hours, TimeEnd.Minutes, TimeEnd.Seconds)
+                    XNcode = UserInfo.XNCode,
+                    //PageIndex = PageIndex,
+                    //PageSize = PageSize,
+                    FromTime = new DateTime(DayBefore.Year, DayBefore.Month, DayBefore.Day, TimeFrom.Hours, TimeFrom.Minutes, TimeFrom.Seconds),
+                    ToTime = new DateTime(DayBefore.Year, DayBefore.Month, DayBefore.Day, TimeEnd.Hours, TimeEnd.Minutes, TimeEnd.Seconds)
                 };
                 return await cameraService.GetListCaptureImage(request);
             }, (result) =>

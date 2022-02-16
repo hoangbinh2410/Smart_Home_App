@@ -210,7 +210,7 @@
         #endregion report
         #region Camera
 
-        public const string GET_CAMERAIMAGE = "api/cameras/getcameraimage";
+        public const string GET_CAMERAIMAGE = "api/v3/image/getimageinfo";
         public const string GET_IMAGESLIMIT = "api/stream/imagelimit";
         public const string GET_IMAGES = "api/stream/image";
         public const string POST_LISTVIDEONOTUPLOAD = "api/stream/getvideonotupload";

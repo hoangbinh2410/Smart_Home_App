@@ -3,6 +3,7 @@ using BA_MobileGPS.Core.GoogleMap.Behaviors;
 using BA_MobileGPS.Core.Interfaces;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 using Prism.Navigation;
@@ -22,6 +23,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> _lastViewVehicleRepository;
 
         private readonly IStreamCameraService _streamCameraService;
+        private readonly ICameraService _cameraService;
 
         private string vehiclePlate;
         public string VehiclePlate { get => vehiclePlate; set => SetProperty(ref vehiclePlate, value); }
@@ -61,11 +63,12 @@ namespace BA_MobileGPS.Core.ViewModels
         public ImageDetailViewModel(INavigationService navigationService,
             IStreamCameraService streamCameraService,
             IRealmBaseService<LastViewVehicleRealm, LastViewVehicleRespone> lastViewVehicleRepository,
-            IDownloader downloader) : base(navigationService)
+            IDownloader downloader, ICameraService cameraService) : base(navigationService)
         {
             Title = MobileResource.CameraImage_Label_TitleDetailPage;
             _streamCameraService = streamCameraService;
             _lastViewVehicleRepository = lastViewVehicleRepository;
+            _cameraService = cameraService;
             this.downloader = downloader;
             downloader.OnFileDownloaded += Downloader_OnFileDownloaded;
             DownloadImageCommand = new Command(DownloadImage);
@@ -154,7 +157,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 RunOnBackground(async () =>
                 {
-                    return await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
+                    GetListImageInfoQuery request = new GetListImageInfoQuery
+                    {
+                        XNcode = xnCode,
+                        VehiclePlate = VehiclePlate,
+                        Limit = 50
+                    };
+                    return await _cameraService.GetListCaptureImage(request);
+                   // return await _streamCameraService.GetCaptureImageLimit(xnCode, VehiclePlate, 50);
                 }, (result) =>
                 {
                     if (result != null && result.Count > 0)
