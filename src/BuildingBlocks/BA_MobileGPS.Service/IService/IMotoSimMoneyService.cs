@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 namespace BA_MobileGPS.Service
 {
     public interface IMotoSimMoneyService
-    {
-        Task<BaseResponse<SimMoneyRespone>> GetSimMoney(long vehicleID);
+    {       
     }
 }

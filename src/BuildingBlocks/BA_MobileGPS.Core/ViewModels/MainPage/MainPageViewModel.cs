@@ -515,7 +515,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
             RunOnBackground(async () =>
             {
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                VehicleOnlineRequest item = new VehicleOnlineRequest
+                {
+                    UserID = userID,
+                    CompanyID = companyID,
+                    XnCode = xnCode,
+                    UserType = userType,
+                    CompanyType = companyType
+                };
+                return await vehicleOnlineService.GetListVehicleOnline(item);
             }, (result) =>
             {
                 if (StaticSettings.IsUnauthorized)
@@ -588,7 +596,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 int vehicleGroup = 0;
                 RunOnBackground(async () =>
                 {
-                    return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                    VehicleOnlineRequest item = new VehicleOnlineRequest
+                    {
+                        UserID = userID,
+                        CompanyID = companyID,
+                        XnCode = xnCode,
+                        UserType = userType,
+                        CompanyType = companyType
+                    };
+                    return await vehicleOnlineService.GetListVehicleOnline(item);
                 }, (result) =>
                 {
                     if (result != null && result.Count > 0)
@@ -704,8 +720,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         var request = new VehicleOnlineRequest()
                         {
                             CompanyID = companyID,
-                            LastSync = StaticSettings.LastSyncTime,
-                            UserId = userID,
+                            LastTime = StaticSettings.LastSyncTime,
+                            UserID = userID,
                             VehicelIDs = vehicelIDs,
                             XnCode = UserInfo.XNCode
                         };

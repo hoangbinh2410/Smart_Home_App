@@ -383,7 +383,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 XnCode = StaticSettings.User.XNCode,
                 VehiclePlate = VehiclePlate,
-                CompanyId = StaticSettings.User.CompanyId
+                CompanyID = StaticSettings.User.CompanyId
             };
             RunOnBackground(async () =>
             {

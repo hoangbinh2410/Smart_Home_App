@@ -29,11 +29,13 @@ namespace BA_MobileGPS.Service
             var respone = new VehicleDetailViewModel();
             try
             {
-                var URL = string.Format(ApiUri.GET_VEHICLEDETAIL + "/?xnCode={0}&vehiclePlate={1}&companyId={2}", input.XnCode, input.VehiclePlate, input.CompanyId);
-                var temp = await _IRequestProvider.GetAsync<ResponseBaseV2<VehicleDetailViewModel>>(URL);
-                if (temp != null && temp.Data != null)
+                var temp = await _IRequestProvider.PostAsync<DetailVehicleRequest, BaseResponse<VehicleDetailViewModel>>(ApiUri.GET_VEHICLEDETAIL, input);
+                if (temp != null)
                 {
-                    respone = temp.Data;
+                    if (temp.Success)
+                    {
+                        respone = temp.Data;
+                    }
                 }
             }
             catch (Exception ex)

@@ -53,19 +53,17 @@
 
         #endregion Notification
 
-        #region vehicle
-
-        public const string GET_VEHICLE_LIST = "api/vehicles/getlistvehicleplate";
+        #region vehicle       
 
         public const string GET_VEHICLEONLINE = "api/v3/vehicles/getlistvehicleonline";
 
         public const string GET_VEHICLEONLINESYNC = "api/v2/vehicles/syncvehicleonline";
 
-        public const string GET_VEHICLE_GROUP = "api/vehicles/getlistgroups";
+        public const string GET_VEHICLE_GROUP = "api/v3/vehicles/getlistgroups";
 
-        public const string GET_VEHICLE_COMPANY = "api/v2/vehicles/getlistcompanyid";
+        public const string GET_VEHICLE_COMPANY = "api/v3/vehicles/getlistcompanyid";
 
-        public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/vehicles/getlistcompanyidbybusinessuser";
+        public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/v3/vehicles/getlistcompanyidbybusinessuser";
 
         public const string GET_VEHICLE_ROUTE_HISTORY = "api/route/gethistoryroute";
 
@@ -168,11 +166,10 @@
         #endregion User
 
         #region vehicledebtmoney
-
-        public const string GET_VEHICLEPLATEDEBTMONEY_AUTOCOMPLETE = "api/vehicles/getlistexpired";
-        public const string GET_LISTVEHICLEDEBTMONEY = "api/vehicles/getlistexpired";
-        public const string GET_COUNTVEHICLEDEBTMONEY = "/api/vehicles/countexpired";
-        public const string GET_LISTVEHICLEFREE = "api/vehicles/getallvehiclefree";
+        
+        public const string GET_LISTVEHICLEDEBTMONEY = "api/v3/vehicles/getlistexpired";
+        public const string GET_COUNTVEHICLEDEBTMONEY = "api/v3/vehicles/countexpired";
+        public const string GET_LISTVEHICLEFREE = "api/v3/vehicles/getallvehiclefree";
 
         #endregion vehicledebtmoney
 
@@ -210,15 +207,14 @@
         #endregion report
         #region Camera
 
-        public const string GET_CAMERAIMAGE = "api/v3/image/getimageinfo";
-        public const string GET_IMAGESLIMIT = "api/stream/imagelimit";
+        public const string GET_CAMERAIMAGE = "api/v3/image/getimageinfo";       
         public const string GET_IMAGES = "api/stream/image";
         public const string POST_LISTVIDEONOTUPLOAD = "api/stream/getvideonotupload";
         public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";
         public const string POST_CHART_DATA = "api/stream/chartdata";
         public const string POST_LISTPLAYBACKINFO = "api/v2/stream/getlistvideoplayback";
         public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";      
-        public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
+        public const string GET_LISTVEHICLECAMERA = "api/v3/image/listvideocamera";
         public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";
@@ -282,14 +278,11 @@
         #endregion ping
 
         #region MOTO
-
-        public const string GET_MOTO_DETAIL = "api/vehicles/getmotodetail";
+       
 
         public const string GET_MOTO_PROPERTIES = "api/engine/getmotoproperties";
 
-        public const string SEND_CONFIG_MOTO = "api/engine/sendconfigmoto";
-
-        public const string GET_SIM_MONEY = "api/vehicles/getsimmoney";
+        public const string SEND_CONFIG_MOTO = "api/engine/sendconfigmoto";      
 
         #endregion MOTO
 

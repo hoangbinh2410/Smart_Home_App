@@ -107,7 +107,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     groupid = string.Join(",", VehicleGroups);
                 }
 
-                return await vehicleOnlineService.GetListVehicle(currentCompany?.UserId ?? UserInfo.UserId, groupid, currentCompany?.FK_CompanyID ?? CurrentComanyID, LookUpType);
+                return StaticSettings.ListVehilceOnline;
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)

@@ -8,6 +8,6 @@
         public int XnCode { get; set; }
 
         public string VehiclePlate { get; set; }
-        public int CompanyId { get; set; }
+        public int CompanyID { get; set; }
     }
 }

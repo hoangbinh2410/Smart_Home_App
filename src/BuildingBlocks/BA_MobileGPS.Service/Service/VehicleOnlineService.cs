@@ -55,37 +55,19 @@ namespace BA_MobileGPS.Service
             }
             return result;
         }
-
-        public async Task<List<Vehicle>> GetListVehicle(Guid userId, string groupIDs, int companyID, VehicleLookUpType type)
-        {
-            List<Vehicle> result = new List<Vehicle>();
-            try
-            {
-                var url = $"{ApiUri.GET_VEHICLE_LIST}?userID={userId}&vehicleGroupIDs={groupIDs}&companyID={companyID}&type={type}";
-                var data = await requestProvider.GetHandleOutputAsync<List<Vehicle>>(url);
-                if (data != null)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
-        public async Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId, int companyID, int xnCode, UserType userType, CompanyType companyType)
+        public async Task<List<VehicleOnline>> GetListVehicleOnline(VehicleOnlineRequest request)
         {
             List<VehicleOnline> result = new List<VehicleOnline>();
             try
             {
-                string url = $"{ApiUri.GET_VEHICLEONLINE}?userId={userId}&groupID={groupId}&companyID={companyID}&xnCode={xnCode}&userType={(int)userType}&companyType={(int)companyType}";
-                var data = await requestProvider.GetAsync<ResponseBaseV2<List<VehicleOnline>>>(url);
-                if (data != null)
+                var temp = await requestProvider.PostAsync<VehicleOnlineRequest, BaseResponse<List<VehicleOnline>>>(ApiUri.GET_VEHICLEONLINE, request);
+                if (temp != null)
                 {
-                    result = data.Data;
-                }
+                    if (temp.Success)
+                    {
+                        result = temp.Data;
+                    }
+                }              
             }
             catch (Exception ex)
             {
@@ -156,9 +138,8 @@ namespace BA_MobileGPS.Service
         {
             List<VehicleOnlineMessage> result = new List<VehicleOnlineMessage>();
             try
-            {
-                string url = ApiUri.GET_VEHICLEONLINESYNC;
-                result = await requestProvider.PostAsync<VehicleOnlineRequest, List<VehicleOnlineMessage>>(url, vehiclerequest);
+            {               
+                result = await requestProvider.PostAsync<VehicleOnlineRequest, List<VehicleOnlineMessage>>(ApiUri.GET_VEHICLEONLINESYNC, vehiclerequest);
             }
             catch (Exception ex)
             {
