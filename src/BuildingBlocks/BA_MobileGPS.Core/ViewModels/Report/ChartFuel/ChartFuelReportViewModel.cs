@@ -102,7 +102,11 @@ namespace BA_MobileGPS.Core.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-
+            if (parameters.ContainsKey(ParameterKey.Vehicle) && parameters.GetValue<Vehicle>(ParameterKey.Vehicle) is Vehicle vehiclePlate)
+            {
+                Vehicle = vehiclePlate;
+                GetDataChart();
+            }
             if (parameters.TryGetValue(ParameterKey.ReportFuelsSummariesSelected, out FuelsSummariesModel fuel))
             {
                 if (fuel != null)
