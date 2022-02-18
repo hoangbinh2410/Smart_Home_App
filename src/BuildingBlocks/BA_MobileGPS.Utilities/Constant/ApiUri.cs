@@ -208,12 +208,12 @@
         #region Camera
 
         public const string GET_CAMERAIMAGE = "api/v3/image/getimageinfo";       
-        public const string GET_IMAGES = "api/stream/image";
-        public const string POST_LISTVIDEONOTUPLOAD = "api/stream/getvideonotupload";
-        public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";
-        public const string POST_CHART_DATA = "api/stream/chartdata";
-        public const string POST_LISTPLAYBACKINFO = "api/v2/stream/getlistvideoplayback";
-        public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";      
+        public const string GET_IMAGES = "api/v3/image/getimagepreview";
+        public const string POST_LISTVIDEONOTUPLOAD = "api/v3/image/getvideonotupload";
+        public const string POST_RESTREAM_LISTUPLOAD = "api/v3/image/getvideouploaded";
+        public const string POST_CHART_DATA = "api/v3/image/chartdata";
+        public const string POST_LISTPLAYBACKINFO = "api/v3/image/getlistvideoplayback";
+        public const string POST_GetPACKETBYXNPLATE = "api/v3/image/getpackagebyxnplate";      
         public const string GET_LISTVEHICLECAMERA = "api/v3/image/listvideocamera";
         public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
