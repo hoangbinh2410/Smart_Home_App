@@ -654,7 +654,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         VehiclePlate = model.VehiclePlate,
                         Imei = model.Imei,
                         PrivateCode = model.PrivateCode,
-                        Channel = model.Channel
+                        Channel = model.Channel,
+                        VehicleId = model.VehicleId,
                     };
                 }
                 else
