@@ -21,19 +21,19 @@ namespace BA_MobileGPS.Service
         public async Task<List<IssuesRespone>> GetIssueByCompanyID(int companyID)
         {
             List<IssuesRespone> result = new List<IssuesRespone>();
-            try
-            {
-                string url = $"{ApiUri.GET_ISSUE_BYCOMPANYID}?companyID={companyID}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
-                if (response != null && response.Data != null)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
+            //try
+            //{
+            //    string url = $"{ApiUri.GET_ISSUE_BYCOMPANYID}?companyID={companyID}";
+            //    var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
+            //    if (response != null && response.Data != null)
+            //    {
+            //        result = response.Data;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            //}
             return result;
         }
 

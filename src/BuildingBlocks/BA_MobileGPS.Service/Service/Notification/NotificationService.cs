@@ -21,20 +21,20 @@ namespace BA_MobileGPS.Service
         public async Task<BaseResponse<NotificationTypeEnum>> GetNotification(Guid userID)
         {
             BaseResponse<NotificationTypeEnum> result = new BaseResponse<NotificationTypeEnum>();
-            try
-            {
-                string url = $"{ApiUri.GET_NOTIFICATION}?userId={userID}";
-                var data = await requestProvider.GetAsync<BaseResponse<NotificationTypeEnum>>(url);
+            //try
+            //{
+            //    string url = $"{ApiUri.GET_NOTIFICATION}?userId={userID}";
+            //    var data = await requestProvider.GetAsync<BaseResponse<NotificationTypeEnum>>(url);
 
-                if (data != null)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data != null)
+            //    {
+            //        result = data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
 
@@ -158,23 +158,23 @@ namespace BA_MobileGPS.Service
         public async Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationWhenLogin(AppType appType)
         {
             ResponseBaseV2<NoticeDetailRespone> result = new ResponseBaseV2<NoticeDetailRespone>();
-            try
-            {
-                int appID = (int)appType;
+            //try
+            //{
+            //    int appID = (int)appType;
 
-                var url = string.Format(ApiUri.GET_NOTIFICATION_WHEN_LOGIN + "?appID={0}", appID);
+            //    var url = string.Format(ApiUri.GET_NOTIFICATION_WHEN_LOGIN + "?appID={0}", appID);
 
-                var data = await requestProvider.GetAsync<ResponseBaseV2<NoticeDetailRespone>>(url);
+            //    var data = await requestProvider.GetAsync<ResponseBaseV2<NoticeDetailRespone>>(url);
 
-                if (data != null)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data != null)
+            //    {
+            //        result = data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
 

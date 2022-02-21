@@ -23,38 +23,38 @@ namespace BA_MobileGPS.Service
         public async Task<List<LanguageRespone>> GetAllLanguageType()
         {
             List<LanguageRespone> result = new List<LanguageRespone>();
-            try
-            {
-                var data = await requestProvider.GetAsync<List<LanguageRespone>>(ApiUri.GET_LANGUAGETYPE);
+            //try
+            //{
+            //    var data = await requestProvider.GetAsync<List<LanguageRespone>>(ApiUri.GET_LANGUAGETYPE);
 
-                if (data != null)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data != null)
+            //    {
+            //        result = data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
 
         public async Task<bool> UpdateLanguageByUser(RequestUpdateLanguage model)
         {
             bool result = false;
-            try
-            {
-                var data = await requestProvider.PostAsync<RequestUpdateLanguage, bool>(ApiUri.POST_UPDATELANGUAGEUSER, model);
+            //try
+            //{
+            //    var data = await requestProvider.PostAsync<RequestUpdateLanguage, bool>(ApiUri.POST_UPDATELANGUAGEUSER, model);
 
-                if (data)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data)
+            //    {
+            //        result = data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
     }

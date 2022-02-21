@@ -40,20 +40,20 @@ namespace BA_MobileGPS.Service
         public async Task<List<string>> GetAddressesByLatLng(string lats, string lngs)
         {
             var respone = new List<string>();
-            try
-            {
-                var URL = string.Format(ApiUri.GET_ADDRESSESBYLATLNG + "?lat={0}&lng={1}", lats, lngs);
+            //try
+            //{
+            //    var URL = string.Format(ApiUri.GET_ADDRESSESBYLATLNG + "?lat={0}&lng={1}", lats, lngs);
 
-                var result = await requestProvider.GetAsync<List<string>>(URL);
-                if (result != null)
-                {
-                    respone = result;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
+            //    var result = await requestProvider.GetAsync<List<string>>(URL);
+            //    if (result != null)
+            //    {
+            //        respone = result;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            //}
             return respone;
         }
     }

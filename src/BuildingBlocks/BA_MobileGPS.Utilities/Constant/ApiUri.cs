@@ -8,30 +8,26 @@
 
         public const string POST_CHANGE_PASS = "api/v2/authentcation/changepassword";
 
-        public const string POST_LOGOUT = "api/authentcation/logout";
-
         public const string GET_MOBILEVERSION = "api/v2/version/getbyos";
 
         public const string GET_DATABASEVERSION = "api/v2/menu/getdatabaseversions";
 
         public const string GET_MOBILERESOURCE = "api/menu/getresourcebyculture";
 
-        public const string GET_LANGUAGETYPE = "api/language/getalllanguage";
+       // public const string GET_LANGUAGETYPE = "api/language/getalllanguage";
 
-        public const string POST_UPDATELANGUAGEUSER = "api/language/updatelanguagebyuser";
+       // public const string POST_UPDATELANGUAGEUSER = "api/language/updatelanguagebyuser";
 
         public const string GET_MOBILECONFIG = "api/mobileconfigurations/getall";
 
-        public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
-
-        public const string GET_SENTOTP = "api/v2/authentcation/sentotp";
-        public const string GET_VERIFYOTP = "api/v2/authentcation/verifyotp";
+      //  public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
+       
 
         #endregion authorization
 
         #region Notification
 
-        public const string GET_NOTIFICATION = "api/v2/notification/getnotification";
+       //public const string GET_NOTIFICATION = "api/v2/notification/getnotification";
 
         public const string GET_LIST_NOTIFICATION = "api/v2/notification/listnotification";
 
@@ -45,7 +41,7 @@
 
         public const string POST_DELETERANGE_NOTIFICATION_BYUSER = "api/v2/notification/deleterangenoticebyuser";
 
-        public const string GET_NOTIFICATION_WHEN_LOGIN = "api/v2/notification/notificationwhenlogin";
+       // public const string GET_NOTIFICATION_WHEN_LOGIN = "api/v2/notification/notificationwhenlogin";
 
         public const string GET_NOTIFICATION_AFTER_LOGIN = "api/v2/notification/notificationafterlogin";
 
@@ -87,7 +83,7 @@
 
         public const string POST_ALERT_HANDLE = "api/v2/alerts/handlealert";
 
-        public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
+       // public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
 
         public const string GET_ALERT_USER_CONFIGURATIONS = "api/v2/alerts/getalertuserconfigurationbyuserid";
 
@@ -105,8 +101,8 @@
 
         #region Feedback
 
-        public const string POST_SAVE_FEEDBACK = "api/admin/feedback";
-        public const string GET_FEEDBACK_TYPE = "api/category/getcategoryfeedbacktype";
+       // public const string POST_SAVE_FEEDBACK = "api/admin/feedback";
+       // public const string GET_FEEDBACK_TYPE = "api/category/getcategoryfeedbacktype";
 
         #endregion Feedback
 
@@ -135,7 +131,6 @@
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
         public const string GETOTP = "api/sms/getotp";
-        public const string GETSMSOTP = "api/sms/getsms"; 
 
         public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
 
@@ -177,7 +172,7 @@
 
         public const string GET_VEHICLEDETAIL = "api/v3/vehicles/getvehicledetail";
 
-        public const string GET_ADDRESSESBYLATLNG = "api/geocode/batchaddress";
+       // public const string GET_ADDRESSESBYLATLNG = "api/geocode/batchaddress";
 
         #endregion Vehicle detail
 
@@ -240,7 +235,7 @@
 
         #region FishShip
 
-        public const string GET_LIST_FISH = "api/fishingvessel/getlistkindoffish";
+        
         public const string SEND_FISH_TRIP = "api/fishingvessel/insertdatatofishtrip";
         public const string GET_SHIPDETAIL = "api/fishingvessel/getshipdetail";
         public const string POST_SMSPACKAGE = "api/fishingvesselsms/smspackage";
@@ -272,7 +267,7 @@
 
         #region ping
 
-        public const string GET_PING_SERVER_STATUS = "api/ping/serverstatus";
+       // public const string GET_PING_SERVER_STATUS = "api/ping/serverstatus";
         public const string GET_TIMESERVER = "api/ping/timeserver";
 
         #endregion ping
@@ -320,7 +315,7 @@
 
         #region Issue
 
-        public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+       // public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
 
         public const string GET_ISSUE_BYUSERID = "api/issue/getissuebyuserid";
 

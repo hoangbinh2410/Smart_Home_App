@@ -66,20 +66,20 @@ namespace BA_MobileGPS.Service
         public async Task<PartnersConfiguration> GetPartnerConfigByCompanyID(int companyID)
         {
             PartnersConfiguration result = new PartnersConfiguration();
-            try
-            {
-                string uri = string.Format(ApiUri.GET_PARTNERCONFIG + "/?companyID={0}", companyID);
+            //try
+            //{
+            //    string uri = string.Format(ApiUri.GET_PARTNERCONFIG + "/?companyID={0}", companyID);
 
-                var data = await requestProvider.GetAsync<ResponseBaseV2<PartnersConfiguration>>(uri);
-                if (data != null && data.Data != null)
-                {
-                    result = data.Data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    var data = await requestProvider.GetAsync<ResponseBaseV2<PartnersConfiguration>>(uri);
+            //    if (data != null && data.Data != null)
+            //    {
+            //        result = data.Data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
     }

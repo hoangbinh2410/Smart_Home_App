@@ -134,21 +134,21 @@ namespace BA_MobileGPS.Service
         public async Task<List<AlertCompanyConfigRespone>> GetAlertCompanyConfig(int companyID)
         {
             var result = new List<AlertCompanyConfigRespone>();
-            try
-            {
-                var url = string.Format(ApiUri.GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID + "?companyID={0}", companyID);
+            //try
+            //{
+            //    var url = string.Format(ApiUri.GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID + "?companyID={0}", companyID);
 
-                var data = await _IRequestProvider.GetAsync<BaseResponse<List<AlertCompanyConfigRespone>>>(url);
+            //    var data = await _IRequestProvider.GetAsync<BaseResponse<List<AlertCompanyConfigRespone>>>(url);
 
-                if (data != null)
-                {
-                    result = data.Data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data != null)
+            //    {
+            //        result = data.Data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
 

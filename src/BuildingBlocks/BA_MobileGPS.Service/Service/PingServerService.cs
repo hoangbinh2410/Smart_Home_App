@@ -20,21 +20,21 @@ namespace BA_MobileGPS.Service
         public async Task<BaseResponse<bool>> PingServerStatus()
         {
             BaseResponse<bool> result = new BaseResponse<bool>();
-            try
-            {
-                var url = string.Format(ApiUri.GET_PING_SERVER_STATUS);
+            //try
+            //{
+            //    var url = string.Format(ApiUri.GET_PING_SERVER_STATUS);
 
-                var data = await requestProvider.GetAsync<BaseResponse<bool>>(url);
+            //    var data = await requestProvider.GetAsync<BaseResponse<bool>>(url);
 
-                if (data != null)
-                {
-                    result = data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data != null)
+            //    {
+            //        result = data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
 
