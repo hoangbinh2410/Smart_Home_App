@@ -169,7 +169,6 @@
 
         #region vehicledebtmoney
 
-        public const string GET_VEHICLEPLATEDEBTMONEY_AUTOCOMPLETE = "api/vehicles/getlistexpired";
         public const string GET_LISTVEHICLEDEBTMONEY = "api/vehicles/getlistexpired";
         public const string GET_COUNTVEHICLEDEBTMONEY = "/api/vehicles/countexpired";
         public const string GET_LISTVEHICLEFREE = "api/vehicles/getallvehiclefree";
@@ -211,31 +210,17 @@
 
         #region Camera
 
-        public const string GET_CAMERAIMAGE = "api/cameras/getcameraimage";
-        public const string POST_READYFORSTREAM = "api/stream/start";
-        public const string POST_ENDSTREAM = "api/stream/stop";
-        public const string POST_GETMORETIMESTREAM = "api/stream/ping";
-        public const string GET_DEVICESTREAMINFOR = "api/stream/devices";
-        public const string GET_IMAGESLIMIT = "api/stream/imagelimit";
-        public const string GET_IMAGESTIME = "api/stream/imagetime";
-        public const string GET_IMAGES = "api/stream/image";
-        public const string POST_RESTREAM_INFOR = "api/stream/restreaminfo";
+        public const string GET_CAMERAIMAGE = "api/cameras/getcameraimage";              
+        public const string GET_IMAGESLIMIT = "api/stream/imagelimit";       
+        public const string GET_IMAGES = "api/stream/image";        
         public const string POST_LISTVIDEONOTUPLOAD = "api/stream/getvideonotupload";
-        public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";
-        public const string POST_RESTREAM_START = "api/stream/restreamstart";
-        public const string POST_RESTREAM_STOP = "api/stream/restreamstop";
-        public const string GET_RESTREAM_IMAGES = "api/stream/restreamimage";
-        public const string POST_RESTREAM_UPLOAD = "api/stream/uploadcloud";
-        public const string POST_RESTREAM_CANCELUPLOAD = "api/stream/canceluploadcloud";
-        public const string POST_RESTREAM_UPLOADPROGRESS = "api/stream/uploadprogress";
+        public const string POST_RESTREAM_LISTUPLOAD = "api/stream/restreamuploadinfo";                                        
         public const string POST_CHART_DATA = "api/stream/chartdata";
         public const string POST_LISTPLAYBACKINFO = "api/v2/stream/getlistvideoplayback";
         public const string POST_GetPACKETBYXNPLATE = "api/stream/getpackagebyxnplate";
         public const string INSERT_LOG_VIDEO = "api/stream/insertlogvideo";
-        public const string SET_HOSTSPOT = "api/stream/sethospot";
         public const string GET_LISTVEHICLECAMERA = "api/stream/listvideocamera";
         public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
-
         public const string GET_DEVICESINFO = "api/v2/stream/devices";
         public const string POST_DEVICESTART = "api/v2/stream/start";
         public const string POST_DEVICESTARTMULTIPLE = "api/v2/stream/startmultiple";
