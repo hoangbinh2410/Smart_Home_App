@@ -278,11 +278,14 @@
         #endregion ping
 
         #region MOTO
-       
+
+        public const string GET_MOTO_DETAIL = "api/vehicles/getmotodetail";
 
         public const string GET_MOTO_PROPERTIES = "api/engine/getmotoproperties";
 
-        public const string SEND_CONFIG_MOTO = "api/engine/sendconfigmoto";      
+        public const string SEND_CONFIG_MOTO = "api/engine/sendconfigmoto";
+
+        public const string GET_SIM_MONEY = "api/vehicles/getsimmoney";
 
         #endregion MOTO
 
