@@ -23,25 +23,15 @@ namespace BA_MobileGPS.Service
             this._IRequestProvider = IRequestProvider;
         }
 
-        public async Task<LoginResponse> LoginStreamAsync(LoginRequest request)
+        public async Task<LoginResponse> Login(LoginRequest request)
         {
             LoginResponse user = null;
             try
             {
-                MsgRequest msg = new MsgRequest();
-
-                msg.Param = Message.EncodeMessage(request.ConvertToByteArray().ToArray());
-
-                string data = JsonConvert.SerializeObject(msg);
-
-                byte[] ImageBuffer = Encoding.UTF8.GetBytes(data);
-
-                Stream stream = new MemoryStream(ImageBuffer);
-
-                var result = await _IRequestProvider.PostStreamAsync<LoginResponse>(ApiUri.POST_LOGIN, stream);
-                if (result != null)
+                var result = await _IRequestProvider.PostAsync<LoginRequest, ResponseBaseV2<LoginResponse>>(ApiUri.POST_LOGIN, request);
+                if (result != null && result.Data !=null)
                 {
-                    user = result;
+                    user = result.Data;
                 }
             }
             catch (Exception ex)

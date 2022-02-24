@@ -8,7 +8,7 @@ namespace BA_MobileGPS.Service
 {
     public interface IAuthenticationService
     {
-        Task<LoginResponse> LoginStreamAsync(LoginRequest request);
+        Task<LoginResponse> Login(LoginRequest request);
 
         Task<bool> ChangePassword(ChangePassRequest request);
 

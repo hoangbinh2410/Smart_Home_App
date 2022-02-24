@@ -470,7 +470,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 AppType = App.AppType
                             };
                             // Lấy thông tin token
-                            var user = await authenticationService.LoginStreamAsync(request);
+                            var user = await authenticationService.Login(request);
                             if (user != null)
                             {
                                 switch (user.Status)

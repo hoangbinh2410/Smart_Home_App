@@ -317,7 +317,7 @@ namespace GSHT_MobileGPS.ViewModels
                                 AppType = App.AppType
                             };
                             // Lấy thông tin token
-                            var user = await authenticationService.LoginStreamAsync(request);
+                            var user = await authenticationService.Login(request);
                             if (user != null)
                             {
                                 switch (user.Status)
