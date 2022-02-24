@@ -986,7 +986,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource AirConditionerConverter}}"
+                                            Text="{Binding InforDetail.State, Converter={StaticResource AirConditionerConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1086,7 +1086,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource CraneConverter}}"
+                                            Text="{Binding InforDetail.State, Converter={StaticResource CraneConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1246,7 +1246,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource ConcreteConverter}}"
+                                            Text="{Binding InforDetail.State, Converter={StaticResource ConcreteConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 
@@ -1343,7 +1343,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.StatusEngineer, Converter={StaticResource DoorOpenConverter}}"
+                                            Text="{Binding InforDetail.State, Converter={StaticResource DoorOpenConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 

@@ -98,6 +98,7 @@
                                                        iOS=55}"
                             HeightRequest="40"
                             IsEditableMode="False"
+                            ShowClearButton="False"
                             SelectedDropDownItemColor="Transparent"
                             SelectedItem="{Binding SelectedTime}"
                             ShowBorder="False"
