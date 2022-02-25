@@ -27,11 +27,11 @@ namespace BA_MobileGPS.Service
             {
                 string uri = string.Format(ApiUri.GET_DATABASEVERSION + "?appID={0}", appID);
 
-                var data = await RequestProvider.GetAsync<List<DatabaseVersionsResponse>>(uri);
+                var data = await RequestProvider.GetAsync<ResponseBase<List<DatabaseVersionsResponse>>>(uri);
 
-                if (data != null && data.Count > 0)
+                if (data != null && data.Data.Count > 0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception e)

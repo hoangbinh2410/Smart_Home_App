@@ -1,6 +1,6 @@
 ﻿namespace BA_MobileGPS.Entities
 {
-    public class VerifyOtpResponse : BaseResponse<ResultVerifyOtp>
+    public class VerifyOtpResponse : ResponseBase<ResultVerifyOtp>
     {
         public long NewUserSecuritySMSLogID { get; set; }
     }

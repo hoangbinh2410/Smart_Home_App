@@ -39,7 +39,7 @@ namespace VMS_MobileGPS.ViewModels
             },
             result =>
             {
-                if (result.Success && result.Data != null)
+                if (result.Data != null)
                 {
                     ListData1 = result.Data.FindAll(p => p.PackageTypeID == 1);
                     ListData2 = result.Data.FindAll(p => p.PackageTypeID == 2);

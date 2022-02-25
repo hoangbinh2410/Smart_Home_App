@@ -6,6 +6,6 @@ namespace BA_MobileGPS.Service
 {
     public interface IMotoDetailService
     {
-        Task<BaseResponse<MotoDetailRespone>> GetMotoDetail(int xnCode, string vehiclePlate);
+        Task<ResponseBase<MotoDetailRespone>> GetMotoDetail(int xnCode, string vehiclePlate);
     }
 }

@@ -146,7 +146,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             IsVisible = item.IsVisible
                         };
                         var result = await userLandmarkGroupService.SendUpdate(input);
-                        if (result != null && result.Success && result.Data)
+                        if (result != null && result.Data)
                         {
                         }
                     }
@@ -177,7 +177,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             IsVisible = item.IsVisible
                         };
                         var result = await userLandmarkGroupService.SendUpdate(input);
-                        if (result != null && result.Success && result.Data)
+                        if (result != null && result.Data)
                         {
                         }
                     }

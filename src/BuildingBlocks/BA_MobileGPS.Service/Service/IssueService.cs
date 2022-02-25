@@ -43,7 +43,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_ISSUE_BYUSERID}?UserID={userID}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<List<IssuesRespone>>>(url);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_ISSUE_BYISSUECODE}?issueCode={issueCode}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<IssuesDetailRespone>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<IssuesDetailRespone>>(url);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;

@@ -27,17 +27,11 @@ namespace BA_MobileGPS.Service
             {
                 string url = $"{ApiUri.GET_VEHICLE_ROUTE_HISTORY}";
 
-                var data = await requestProvider.PostGetStreamAsync(url, request);
+                var data = await requestProvider.PostAsync<RouteHistoryRequest,ResponseBase<RouteHistoryResponse>>(url, request);
 
-                if (data != null)
+                if (data != null&& data.Data != null)
                 {
-                    var msg = JsonConvert.DeserializeObject<MsgRequest>(Message.ConvertStreamToArray(data));
-                    var decoded = Message.DecodeMessage(msg.Param);
-
-                    if (result.FromByteArray32(decoded))
-                    {
-                        return result;
-                    }
+                   result = data.Data;
                 }
                 return result;
             }

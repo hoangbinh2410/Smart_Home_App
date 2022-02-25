@@ -6,6 +6,6 @@ namespace BA_MobileGPS.Service
 {
     public interface IAppDeviceService
     {
-        Task<BaseResponse<bool>> InsertOrUpdateAppDevice(AppDeviceRequest request);
+        Task<bool> InsertOrUpdateAppDevice(AppDeviceRequest request);
     }
 }

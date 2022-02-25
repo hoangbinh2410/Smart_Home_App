@@ -29,13 +29,10 @@ namespace BA_MobileGPS.Service
             var respone = new VehicleDetailViewModel();
             try
             {
-                var temp = await _IRequestProvider.PostAsync<DetailVehicleRequest, BaseResponse<VehicleDetailViewModel>>(ApiUri.GET_VEHICLEDETAIL, input);
-                if (temp != null)
+                var temp = await _IRequestProvider.PostAsync<DetailVehicleRequest, ResponseBase<VehicleDetailViewModel>>(ApiUri.GET_VEHICLEDETAIL, input);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -58,10 +55,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 var URL = string.Format(ApiUri.GET_SHIPDETAIL + "/?UserId={0}&vehiclePlate={1}", input.UserId, input.vehiclePlate);
-                var temp = await _IRequestProvider.GetAsync<ShipDetailRespone>(URL);
-                if (temp != null)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<ShipDetailRespone>>(URL);
+                if (temp != null&& temp.Data!=null)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

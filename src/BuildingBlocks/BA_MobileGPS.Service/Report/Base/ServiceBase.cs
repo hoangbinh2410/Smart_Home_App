@@ -42,13 +42,12 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_REPORTADDRESS}?Coordinates={input}";
-                var temp = await RequestProvider.GetAsync<AddressReportResponse>(url);
+                var temp = await RequestProvider.GetAsync<ResponseBase<AddressReportResponse>>(url);
                 if (temp != null)
                 {
-                    if (temp.State)
-                    {
-                        respone = temp.ListAddress;
-                    }
+                   
+                        respone = temp.Data.ListAddress;
+                    
                 }
             }
             catch (Exception ex)
@@ -68,7 +67,7 @@ namespace BA_MobileGPS.Service
             {
                 string url = $"{ApiUri.GET_VALIDATEDATETIME}?UserId={UserId}&FromDate={FromDate.ToString("yyyy-MM-dd HH:mm:ss")}&ToDate={ToDate.ToString("yyyy-MM-dd HH:mm:ss")}";
 
-                var result = await RequestProvider.GetAsync<ResponseBaseV2<ValidatedReportRespone>>(url);
+                var result = await RequestProvider.GetAsync<ResponseBase<ValidatedReportRespone>>(url);
                 if (result != null && result.Data != null)
                 {
                     respone = result.Data;

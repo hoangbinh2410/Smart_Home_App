@@ -24,7 +24,7 @@ namespace BA_MobileGPS.Service.Service.Expense
             bool result = false;
             try
             {
-                var respone = await _iRequestProvider.PostAsync<ImportExpenseRequest, BaseResponse<bool>>(ApiUri.POST_Import_Expense, request);
+                var respone = await _iRequestProvider.PostAsync<ImportExpenseRequest, ResponseBase<bool>>(ApiUri.POST_Import_Expense, request);
                 if (respone != null)
                 {
                     result = respone.Data;
@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Service.Service.Expense
             try
             {
                 string uri = string.Format(ApiUri.GET_List_ExpensesCategory + "?companyid={0}&languageID={1}", FK_CompanyID, languageID);
-                var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<ListExpenseCategoryByCompanyRespone>>>(uri);
+                var respone = await _iRequestProvider.GetAsync<ResponseBase<List<ListExpenseCategoryByCompanyRespone>>>(uri);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -60,7 +60,7 @@ namespace BA_MobileGPS.Service.Service.Expense
             List<ExpenseRespone> result = new List<ExpenseRespone>();
             try
             {
-                var respone = await _iRequestProvider.PostAsync<ExpenseRequest, ResponseBaseV2<List<ExpenseRespone>>>(ApiUri.GET_List_Expenses, request);
+                var respone = await _iRequestProvider.PostAsync<ExpenseRequest, ResponseBase<List<ExpenseRespone>>>(ApiUri.GET_List_Expenses, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -77,7 +77,7 @@ namespace BA_MobileGPS.Service.Service.Expense
             bool result = false;
             try
             {
-                var respone = await _iRequestProvider.PostAsync<DeleteExpenseRequest, ResponseBaseV2<bool>>(ApiUri.Delete_Multiple, request);
+                var respone = await _iRequestProvider.PostAsync<DeleteExpenseRequest, ResponseBase<bool>>(ApiUri.Delete_Multiple, request);
                 if (respone != null)
                 {
                     result = respone.Data;

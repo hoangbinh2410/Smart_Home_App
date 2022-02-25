@@ -24,13 +24,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 var URL = string.Format(ApiUri.GET_ALL_LANDMARK_GROUP_BY_USERID + "?userId={0}", userId);
-                var temp = await requestProvider.GetAsync<BaseResponse<List<UserLandmarkGroupRespone>>>(URL);
-                if (temp != null)
+                var temp = await requestProvider.GetAsync<ResponseBase<List<UserLandmarkGroupRespone>>>(URL);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -46,13 +43,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 var URL = string.Format(ApiUri.GET_ALL_LANDMARK_CATEGORY_BY_USERID + "?userId={0}", userId);
-                var temp = await requestProvider.GetAsync<BaseResponse<List<UserLandmarkGroupRespone>>>(URL);
-                if (temp != null)
+                var temp = await requestProvider.GetAsync<ResponseBase<List<UserLandmarkGroupRespone>>>(URL);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -62,9 +56,9 @@ namespace BA_MobileGPS.Service
             return respone;
         }
 
-        public async Task<BaseResponse<bool>> SendUpdate(UserLandmarkGroupRequest request)
+        public async Task<ResponseBase<bool>> SendUpdate(UserLandmarkGroupRequest request)
         {
-            return await requestProvider.PostAsync<UserLandmarkGroupRequest, BaseResponse<bool>>(ApiUri.INSERT_CONFIG_VISIBLE_GROUP_LANDMARK, request);
+            return await requestProvider.PostAsync<UserLandmarkGroupRequest, ResponseBase<bool>>(ApiUri.INSERT_CONFIG_VISIBLE_GROUP_LANDMARK, request);
         }
 
         public async Task<List<UserLandmarkRespone>> GetDataLandmarkByGroupId(string request)
@@ -73,13 +67,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 var URL = string.Format(ApiUri.GET_LANDMARK_BY_GROUPID + "?listLandmarksGroupID={0}", request);
-                var temp = await requestProvider.GetAsync<BaseResponse<List<UserLandmarkRespone>>>(URL);
-                if (temp != null)
+                var temp = await requestProvider.GetAsync<ResponseBase<List<UserLandmarkRespone>>>(URL);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -95,13 +86,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 var URL = string.Format(ApiUri.GET_LANDMARK_BY_CATEGORY + "?listLandmarksCategory={0}", request);
-                var temp = await requestProvider.GetAsync<BaseResponse<List<UserLandmarkRespone>>>(URL);
-                if (temp != null)
+                var temp = await requestProvider.GetAsync<ResponseBase<List<UserLandmarkRespone>>>(URL);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

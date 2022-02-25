@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Service.Service.Support
             SupportBapRespone result = new SupportBapRespone();
             try
             {
-                var respone = await _iRequestProvider.PostAsync<SupportBapRequest, BaseResponse<SupportBapRespone>>(ApiUri.POST_MessageSupport, request);
+                var respone = await _iRequestProvider.PostAsync<SupportBapRequest, ResponseBase<SupportBapRespone>>(ApiUri.POST_MessageSupport, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -46,7 +46,7 @@ namespace BA_MobileGPS.Service.Service.Support
             var url = ApiUri.GET_List_SupportCategory + $"?languageID={languageId}";
             try
             {
-                var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<SupportCategoryRespone>>>(url);
+                var respone = await _iRequestProvider.GetAsync<ResponseBase<List<SupportCategoryRespone>>>(url);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -64,7 +64,7 @@ namespace BA_MobileGPS.Service.Service.Support
             try
             {
                 string uri = string.Format(ApiUri.GET_List_SupportContent + "?id={0}&languageID={1}",id,languageId);
-                var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<MessageSupportRespone>>>(uri);
+                var respone = await _iRequestProvider.GetAsync<ResponseBase<List<MessageSupportRespone>>>(uri);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;

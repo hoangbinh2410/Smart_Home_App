@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BA_MobileGPS.Entities
 {
-    public class RestreamChartDataResponse : BaseResponse<List<RestreamChartData>>
+    public class RestreamChartDataResponse : ResponseBase<List<RestreamChartData>>
     {
 
     }

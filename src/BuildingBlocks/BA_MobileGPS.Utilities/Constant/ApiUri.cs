@@ -4,21 +4,21 @@
     {
         #region authorization
 
-        public const string POST_LOGIN = "api/v3/authentcation/login";
+        public const string POST_LOGIN = "api/v1/authentication/login";
 
-        public const string POST_CHANGE_PASS = "api/v2/authentcation/changepassword";
+        public const string POST_CHANGE_PASS = "api/v1/authentication/changepassword";
 
-        public const string GET_MOBILEVERSION = "api/v2/version/getbyos";
+        public const string GET_MOBILEVERSION = "api/v1/mobileversion/getbyos";
 
-        public const string GET_DATABASEVERSION = "api/v2/menu/getdatabaseversions";
+        public const string GET_DATABASEVERSION = "api/v1/menu/getdatabaseversions";
 
-        public const string GET_MOBILERESOURCE = "api/menu/getresourcebyculture";
+        public const string GET_MOBILERESOURCE = "api/v1/menu/getresourcebyculture";
 
        // public const string GET_LANGUAGETYPE = "api/language/getalllanguage";
 
        // public const string POST_UPDATELANGUAGEUSER = "api/language/updatelanguagebyuser";
 
-        public const string GET_MOBILECONFIG = "api/mobileconfigurations/getall";
+        public const string GET_MOBILECONFIG = "api/v1/mobileconfigurations/getall";
 
       //  public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
        
@@ -29,45 +29,45 @@
 
        //public const string GET_NOTIFICATION = "api/v2/notification/getnotification";
 
-        public const string GET_LIST_NOTIFICATION = "api/v2/notification/listnotification";
+        public const string GET_LIST_NOTIFICATION = "api/v1/notice/getlistnotice";
 
-        public const string GET_NOTIFICATION_DETAIL = "api/v2/notification/notificationdetail";
+        public const string GET_NOTIFICATION_DETAIL = "api/v1/notice/getnoticedetail";
 
-        public const string GET_NOTIFICATION_BODY = "api/v2/notification/notificationbody";
+        public const string GET_NOTIFICATION_BODY = "api/v1/notice/getnoticebody";
 
-        public const string POST_UPDATEISREAD_NOTIFICATION = "api/v2/notification/updateisread";
+        public const string POST_UPDATEISREAD_NOTIFICATION = "api/v1/notice/insertnoticereadedbyuser";
 
-        public const string POST_DELETE_NOTIFICATION_BYUSER = "api/v2/notification/deletenoticebyuser";
+        public const string POST_DELETE_NOTIFICATION_BYUSER = "api/v1/notice/insertnoticedeletedbyuser";
 
-        public const string POST_DELETERANGE_NOTIFICATION_BYUSER = "api/v2/notification/deleterangenoticebyuser";
+        public const string POST_DELETERANGE_NOTIFICATION_BYUSER = "api/v1/notice/insertrangenoticedeletedbyuser";
 
        // public const string GET_NOTIFICATION_WHEN_LOGIN = "api/v2/notification/notificationwhenlogin";
 
-        public const string GET_NOTIFICATION_AFTER_LOGIN = "api/v2/notification/notificationafterlogin";
+        public const string GET_NOTIFICATION_AFTER_LOGIN = "api/v1/notice/getnoticeafterlogin";
 
-        public const string POST_INSERT_FEEDBACK_NOTIFICATION_BYUSER = "api/notification/insertfeedbackbyuser";
+        public const string POST_INSERT_FEEDBACK_NOTIFICATION_BYUSER = "api/v1/notice/insertfeedbackbyuser";
 
         #endregion Notification
 
         #region vehicle       
 
-        public const string GET_VEHICLEONLINE = "api/v3/vehicles/getlistvehicleonline";
+        public const string GET_VEHICLEONLINE = "api/v1/vehicleonline/getlistvehicleonline";
 
-        public const string GET_VEHICLEONLINESYNC = "api/v2/vehicles/syncvehicleonline";
+        public const string GET_VEHICLEONLINESYNC = "api/v1/vehicleonline/syncvehicleonline";
 
-        public const string GET_VEHICLE_GROUP = "api/v3/vehicles/getlistgroups";
+        public const string GET_VEHICLE_GROUP = "api/v1/vehicles/getlistgroups";
 
-        public const string GET_VEHICLE_COMPANY = "api/v3/vehicles/getlistcompanyid";
+        public const string GET_VEHICLE_COMPANY = "api/v1/vehicles/getlistcompanyid";
 
-        public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/v3/vehicles/getlistcompanyidbybusinessuser";
+        public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/v1/vehicles/getlistcompanyidbybusinessuser";
 
         public const string GET_VEHICLE_ROUTE_HISTORY = "api/route/gethistoryroute";
 
         public const string GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY = "api/route/validationuserconfiggethistoryroute";
 
-        public const string GET_LIST_POLYGON = "api/landmark/polygon";
+        public const string GET_LIST_POLYGON = "api/v1/landmark/polygon";
 
-        public const string GET_LIST_POLYGONPARACELISLANDS = "api/landmark/polygonparacelislands";
+        public const string GET_LIST_POLYGONPARACELISLANDS = "api/v1/landmark/polygonparacelislands";
 
         #endregion vehicle
 
@@ -75,27 +75,27 @@
 
         // Đổi thành post vì quá nhiều xe => url quá dài, dài quá 2000 ký tự thì sẽ ko xử lý được
         // Đổi thành phương thức post
-        public const string GET_ALERT_ONLINE = "api/v2/alerts/getalert";
+        public const string GET_ALERT_ONLINE = "api/v1/alert/getalert";
 
-        public const string GET_COUNT_ALERT_ONLINE = "api/v3/alerts/getcountalert";
+        public const string GET_COUNT_ALERT_ONLINE = "api/v1/alert/getcountalert";
 
-        public const string GET_ALERT_TYPE = "api/v2/alerts/getalerttypebycompanyid";
+        public const string GET_ALERT_TYPE = "api/v1/alert/getalerttypebycompanyid";
 
-        public const string POST_ALERT_HANDLE = "api/v2/alerts/handlealert";
+        public const string POST_ALERT_HANDLE = "api/v1/alert/handlealert";
 
        // public const string GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID = "api/alerts/getalertcompanyconfig";
 
-        public const string GET_ALERT_USER_CONFIGURATIONS = "api/v2/alerts/getalertuserconfigurationbyuserid";
+        public const string GET_ALERT_USER_CONFIGURATIONS = "api/v1/alert/getalertuserconfigurationbyuserid";
 
-        public const string SEND_ALERT_USER_CONFIG = "api/v2/alerts/insertorupdateuseralertconfig";
-        public const string GET_ALERT_MASK_DETAIL = "api/v2/alerts/getalertmaskdetail";
+        public const string SEND_ALERT_USER_CONFIG = "api/v1/alert/insertorupdateuseralertconfig";
+        public const string GET_ALERT_MASK_DETAIL = "api/v1/alert/getalertmaskdetail";
 
         #endregion alert
 
         #region home
 
-        public const string GET_HOME_MENU = "api/v2/menu/getmenubyculture";
-        public const string POST_SAVE_CONFIG_HOME_MENU = "api/menu/insertupdateusersettingmenu";
+        public const string GET_HOME_MENU = "api/v1/menu/getmenubyculture";
+        public const string POST_SAVE_CONFIG_HOME_MENU = "api/v1/menu/insertupdateusersettingmenu";
 
         #endregion home
 
@@ -108,7 +108,7 @@
 
         #region Address
 
-        public const string GET_GETADDRESSBYLATLNG = "api/geocode/getaddresslandmarkbylatlng";
+        public const string GET_GETADDRESSBYLATLNG = "api/v1/geocode/getaddresslandmarkbylatlng";
 
         #endregion Address
 
@@ -124,53 +124,53 @@
 
         #region ForgotPassword
 
-        public const string VALIDATEPHONEBYUSER = "api/authentcation/validatephonebyuser";
+        public const string VALIDATEPHONEBYUSER = "api/v1/authentication/validatephonebyuser";
 
         public const string SENDVERIFYCODE = "api/sms/sendverifycode";
 
         public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
 
-        public const string GETOTP = "api/sms/getotp";
+        public const string GETOTP = "api/v1/otp/getotpzalo";
 
-        public const string CHANGEPASSWORDFORGET = "api/v2/authentcation/changepasswordforget";
+        public const string CHANGEPASSWORDFORGET = "api/v1/authentication/changepasswordforget";
 
         #endregion ForgotPassword
 
         #region Category
 
-        public const string CATEGORY_LIST_GENDER = "api/category/getcategorygender";
-        public const string CATEGORY_LIST_RELIGION = "api/category/getcategoryreligion";
+        public const string CATEGORY_LIST_GENDER = "api/v1/category/getcategorygender";
+        public const string CATEGORY_LIST_RELIGION = "api/v1/category/getcategoryreligion";
 
         #endregion Category
 
         #region AppDevice
 
-        public const string INSERT_UPDATE_APP_DEVICE = "/api/appdevice/insertupdate";
+        public const string INSERT_UPDATE_APP_DEVICE = "api/v1/appdevice/insertupdateappdevice";
 
         #endregion AppDevice
 
         #region User
 
-        public const string GET_USERINFOMATION = "api/user/getuserinfo";
-        public const string GET_USERBYUSERNAME = "api/user/getuserinfobyusername";
+        public const string GET_USERINFOMATION = "api/v1/user/getuserinfor";
+        public const string GET_USERBYUSERNAME = "api/v1/authentication/getuserinfobyusername";
         public const string USER_UPDATE_AVATAR = "api/image/uploadimageuser";
-        public const string USER_UPDATE_INFO = "api/user/updateuserinfor";
-        public const string USER_SET_SETTINGS = "api/user/setusersetting";
-        public const string ADMIN_USER_SET_SETTINGS = "api/user/userconfiguration";
+        public const string USER_UPDATE_INFO = "api/v1/user/updateuserinfor";
+        public const string USER_SET_SETTINGS = "api/v1/mobileusersetting/updatemobileusersetting";
+        public const string ADMIN_USER_SET_SETTINGS = "api/v1/user/userconfiguration";
 
         #endregion User
 
         #region vehicledebtmoney
         
-        public const string GET_LISTVEHICLEDEBTMONEY = "api/v3/vehicles/getlistexpired";
-        public const string GET_COUNTVEHICLEDEBTMONEY = "api/v3/vehicles/countexpired";
-        public const string GET_LISTVEHICLEFREE = "api/v3/vehicles/getallvehiclefree";
+        public const string GET_LISTVEHICLEDEBTMONEY = "api/v1/vehicles/getlistexpired";
+        public const string GET_COUNTVEHICLEDEBTMONEY = "api/v1/vehicles/countexpired";
+        public const string GET_LISTVEHICLEFREE = "api/v1/vehicles/getallvehiclefree";
 
         #endregion vehicledebtmoney
 
         #region Vehicle detail
 
-        public const string GET_VEHICLEDETAIL = "api/v3/vehicles/getvehicledetail";
+        public const string GET_VEHICLEDETAIL = "api/v1/vehicleonline/getvehicledetail";
 
        // public const string GET_ADDRESSESBYLATLNG = "api/geocode/batchaddress";
 
@@ -178,53 +178,53 @@
 
         #region report
 
-        public const string GET_VALIDATEDATETIME = "api/reports/validatedatetimereport";
-        public const string GET_REPORTTEMPERATURE = "api/reports/temperature";
-        public const string GET_REPORTADDRESS = "api/reports/address";
-        public const string GET_MACHINEVEHICLE = "api/reports/machine";
-        public const string GET_FUELVEHICLE = "api/reports/fuel";
-        public const string GET_FUELCHART = "api/reports/fuelchart";
-        public const string GET_SPEEDOVERS = "api/reports/speedover";
-        public const string GET_STOPPARKING = "api/reports/stop";
-        public const string GET_DETAILS = "api/reports/activitydetail";
-        public const string GET_SIGNALLOSS = "api/reports/signalloss";
-        public const string GET_ACTIVITYSUMMARIES = "api/reports/activitysummary";
+        public const string GET_VALIDATEDATETIME = "api/v1/reports/validatedatetimereport";
+        public const string GET_REPORTTEMPERATURE = "api/v1/reports/temperature";
+        public const string GET_REPORTADDRESS = "api/v1/geocode/getaddresslandmarkbylatlng";
+        public const string GET_MACHINEVEHICLE = "api/v1/reports/machine";
+        public const string GET_FUELVEHICLE = "api/v1/reports/fuel";
+        public const string GET_FUELCHART = "api/v1/reports/fuelchart";
+        public const string GET_SPEEDOVERS = "api/v1/reports/speedover";
+        public const string GET_STOPPARKING = "api/v1/reports/stop";
+        public const string GET_DETAILS = "api/v1/reports/activitydetail";
+        public const string GET_SIGNALLOSS = "api/v1/reports/signalloss";
+        public const string GET_ACTIVITYSUMMARIES = "api/v1/reports/activitysummary";
         public const string GET_FUELSSUMMARIES = "api/reports/fuelconsumptiondaily";
-        public const string GET_FUELSSUMMARIESTOTAL = "api/reports/fuelconsumptiontotal";
+        public const string GET_FUELSSUMMARIESTOTAL = "api/v1/reports/fuelconsumptiontotal";
         public const string GET_HISTORY_PACKAGE = "api/fishingvesselsms/historypackage";
         public const string GET_CURRENT_PACKAGE = "api/fishingvesselsms/packageinfor";
         public const string GET_SHIP_PACKAGE = "api/fishingvesselsms/shippackage";
-        public const string GET_GetQCVN31SpeedReport = "api/reports/getqcvn31report";
+        public const string GET_GetQCVN31SpeedReport = "api/v1/reports/getqcvn31report";
 
-        public const string GET_GetListLocationStation = "api/landmark/getlandmarkbycompanyid";
-        public const string GET_GetStationDetails = "api/reports/station";
-        public const string GET_GetTransportBusiness = "api/reports/transportbusiness";
+        public const string GET_GetListLocationStation = "api/v1/landmark/getlandmarkbycompanyid";
+        public const string GET_GetStationDetails = "api/v1/reports/station";
+        public const string GET_GetTransportBusiness = "api/v1/reports/transportbusiness";
         #endregion report
         #region Camera
 
-        public const string GET_CAMERAIMAGE = "api/v3/image/getimageinfo";       
-        public const string GET_IMAGES = "api/v3/image/getimagepreview";
-        public const string POST_LISTVIDEONOTUPLOAD = "api/v3/image/getvideonotupload";
-        public const string POST_RESTREAM_LISTUPLOAD = "api/v3/image/getvideouploaded";
-        public const string POST_CHART_DATA = "api/v3/image/chartdata";
-        public const string POST_LISTPLAYBACKINFO = "api/v3/image/getlistvideoplayback";
-        public const string POST_GetPACKETBYXNPLATE = "api/v3/image/getpackagebyxnplate";      
-        public const string GET_LISTVEHICLECAMERA = "api/v3/image/listvideocamera";
-        public const string GET_LISTCAMERACLOUD = "api/v2/stream/getlistvideocloud";
-        public const string GET_DEVICESINFO = "api/v2/stream/devices";
-        public const string POST_DEVICESTART = "api/v2/stream/start";
-        public const string POST_DEVICESTARTMULTIPLE = "api/v2/stream/startmultiple";
-        public const string POST_DEVICESTOP = "api/v2/stream/stop";
-        public const string POST_DEVICESTOPSESSION = "api/v2/stream/stopsession";
-        public const string POST_DEVICEPING = "api/v2/stream/ping";
-        public const string POST_DEVICEPINGMULTIPLE = "api/v2/stream/pingmultiple";
-        public const string POST_PLAYBACKSTART = "api/v2/stream/playbackstart";
-        public const string POST_PLAYBACKSTOP = "api/v2/stream/playbackstop";
-        public const string POST_PLAYBACKSTOPALL = "api/v2/stream/playbackstopall";
-        public const string POST_UPLOADSTART = "api/v2/stream/uploadstart";
-        public const string POST_UPLOADSTOP = "api/v2/stream/uploadstop";
-        public const string POST_UPLOADPROGRESS = "api/v2/stream/uploadprogress";
-        public const string POST_HOSTSPOT = "api/v2/stream/sethospot";
+        public const string GET_CAMERAIMAGE = "api/v1/camera/getimageinfo";       
+        public const string GET_IMAGES = "api/v1/image/getimagepreview";
+        public const string POST_LISTVIDEONOTUPLOAD = "api/v1/camera/getvideonotupload";
+        public const string POST_RESTREAM_LISTUPLOAD = "api/v1/camera/getvideouploaded";
+        public const string POST_CHART_DATA = "api/v1/camera/videochart";
+        public const string POST_LISTPLAYBACKINFO = "api/v1/camera/getlistvideoplayback";
+        public const string POST_GetPACKETBYXNPLATE = "api/v1/camera/getpackagebyxnplate";      
+        public const string GET_LISTVEHICLECAMERA = "api/v1/camera/listvideocamera";
+        public const string GET_LISTCAMERACLOUD = "api/v1/camera/getlistvideocloud";
+        public const string GET_DEVICESINFO = "api/v1/camera/devices";
+        public const string POST_DEVICESTART = "api/v1/camera/start";
+        public const string POST_DEVICESTARTMULTIPLE = "api/v1/camera/startmultiple";
+        public const string POST_DEVICESTOP = "api/v1/camera/stop";
+        public const string POST_DEVICESTOPSESSION = "api/v1/camera/stopsession";
+        public const string POST_DEVICEPING = "api/v1/camera/ping";
+        public const string POST_DEVICEPINGMULTIPLE = "api/v1/camera/pingmultiple";
+        public const string POST_PLAYBACKSTART = "api/v1/camera/playbackstart";
+        public const string POST_PLAYBACKSTOP = "api/v1/camera/playbackstop";
+        public const string POST_PLAYBACKSTOPALL = "api/v1/camera/playbackstopall";
+        public const string POST_UPLOADSTART = "api/v1/camera/uploadstart";
+        public const string POST_UPLOADSTOP = "api/v1/camera/uploadstop";
+        public const string POST_UPLOADPROGRESS = "api/v1/camera/uploadprogress";
+        public const string POST_HOSTSPOT = "api/v1/camera/sethospot";
 
         #endregion Camera       
         #region Guide
@@ -251,24 +251,24 @@
         #region sendenginecontrol
 
         public const string GET_SEND_ENGINE_CONTROL = "api/engine/sendenginecontrol";
-        public const string GET_LIST_ENGINE = "api/engine/listactiononoffmachine";
+        public const string GET_LIST_ENGINE = "api/v1/engine/listactiononoffmachine";
 
         #endregion sendenginecontrol
 
         #region landmark
 
-        public const string GET_ALL_LANDMARK_GROUP_BY_USERID = "api/userlandmarkgroup/getalllandmarkgroupbyuserid";
-        public const string GET_ALL_LANDMARK_CATEGORY_BY_USERID = "api/landmarkcategory/getalllandmarkcategorybyuserid";
-        public const string INSERT_CONFIG_VISIBLE_GROUP_LANDMARK = "api/configvisiblegrouplandmark/insertconfigvisiblegrouplandmark";
-        public const string GET_LANDMARK_BY_GROUPID = "api/landmark/getlandmarkbygroupid";
-        public const string GET_LANDMARK_BY_CATEGORY = "api/landmark/getlandmarkbycategory";
+        public const string GET_ALL_LANDMARK_GROUP_BY_USERID = "api/v1/userlandmarkgroup/getalllandmarkgroupbyuserid";
+        public const string GET_ALL_LANDMARK_CATEGORY_BY_USERID = "api/v1/landmarkcategory/getalllandmarkcategorybyuserid";
+        public const string INSERT_CONFIG_VISIBLE_GROUP_LANDMARK = "api/v1/configvisiblegrouplandmark/insertconfigvisiblegrouplandmark";
+        public const string GET_LANDMARK_BY_GROUPID = "api/v1/landmark/getlandmarkbygroupid";
+        public const string GET_LANDMARK_BY_CATEGORY = "api/v1/landmark/getlandmarkbycategory";
 
         #endregion landmark
 
         #region ping
 
        // public const string GET_PING_SERVER_STATUS = "api/ping/serverstatus";
-        public const string GET_TIMESERVER = "api/ping/timeserver";
+        public const string GET_TIMESERVER = "api/v1/ping/timeserver";
 
         #endregion ping
 
@@ -286,30 +286,30 @@
 
         #region DriverInformation
 
-        public const string GET_LIST_DRIVER = "api/driverinfor/getall";
+        public const string GET_LIST_DRIVER = "api/v1/hrmemployees/gethrmemployeesbycompanyid";
 
         public const string POST_ADDORUPDATE_DRIVER = "api/driverinfor/insertorupdate";
 
-        public const string POST_DELETE_DRIVER = "api/driverinfor/deletedriverbyid";
+        public const string POST_DELETE_DRIVER = "api/v1/hrmemployees/deletehrmemployees";
 
         #endregion DriverInformation
 
         #region PapersInformation
 
-        public const string GET_LIST_PAPER_CATEGORY = "api/paperinfor/getpapercategory";
-        public const string GET_LIST_INSURANCE_CATEGORY = "api/paperinfor/getinsurancecategories";
-        public const string GET_LAST_PAPER_INSURANCE = "api/paperinfor/getpaperinsurance";
-        public const string GET_LAST_PAPER_REGISTRATION = "api/paperinfor/getpaperregistration";
-        public const string GET_LAST_PAPER_SIGN = "api/paperinfor/getpapersign";
-        public const string POST_INSERT_PAPER_INSURANCE = "api/paperinfor/insertinsurancepaper";
-        public const string POST_INSERT_PAPER_REGISTRATION = "api/paperinfor/insertregistrationpaper";
-        public const string POST_INSERT_PAPER_SIGN = "api/paperinfor/insertsignpaper";
-        public const string POST_UPDATE_PAPER_INSURANCE = "api/paperinfor/updateinsurancepaper";
-        public const string POST_UPDATE_PAPER_REGISTRATION = "api/paperinfor/updateregistrationpaper";
-        public const string POST_UPDATE_PAPER_SIGN = "api/paperinfor/updatesignpaper";
-        public const string GET_LIST_ALL_PAPER = "api/paperinfor/getlistpaper";
-        public const string GET_LIST_ALL_PAPER_HISTORY = "api/paperinfor/getlistpaperhistory";
-        public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/paperinfor/getlastpaperdatebyvehicle";
+        public const string GET_LIST_PAPER_CATEGORY = "api/v1/papercategory/getpapercategory";
+        public const string GET_LIST_INSURANCE_CATEGORY = "api/v1/paperinsurancecategory/getpaperinsurancecategory";
+        public const string GET_LAST_PAPER_INSURANCE = "api/v1/paperinfo/getpaperinfobyvehicle";
+        public const string GET_LAST_PAPER_REGISTRATION = "api/v1/paperinfo/getpaperinfobyvehicle";
+        public const string GET_LAST_PAPER_SIGN = "api/v1/paperinfo/getpaperinfobyvehicle";
+        public const string POST_INSERT_PAPER_INSURANCE = "api/v1/paperinfo/insertpaperinfoinsurrance";
+        public const string POST_INSERT_PAPER_REGISTRATION = "api/v1/paperinfo/insertpaperinforegistry";
+        public const string POST_INSERT_PAPER_SIGN = "api/v1/paperinfo/insertpaperinfosign";
+        public const string POST_UPDATE_PAPER_INSURANCE = "api/v1/paperinfo/updatepaperinfoinsurrance";
+        public const string POST_UPDATE_PAPER_REGISTRATION = "api/v1/paperinfo/updatepaperinforegistry";
+        public const string POST_UPDATE_PAPER_SIGN = "api/v1/paperinfo/updatepaperinfosign";
+        public const string GET_LIST_ALL_PAPER = "api/v1/paperinfo/getpaperinfobycompanyid";
+        public const string GET_LIST_ALL_PAPER_HISTORY = "api/v1/paperinfo/gethistorypaperinfobycompanyid";
+        public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/v1/paperinfo/getexpiredatebyvehicle";
 
         #endregion PapersInformation
 
@@ -317,33 +317,33 @@
 
        // public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
 
-        public const string GET_ISSUE_BYUSERID = "api/issue/getissuebyuserid";
+        public const string GET_ISSUE_BYUSERID = "api/v1/issue/getissuebyuserid";
 
-        public const string GET_ISSUE_BYISSUECODE = "api/issue/getissuebyissuecode";
+        public const string GET_ISSUE_BYISSUECODE = "api/v1/issue/getissuebyissuecode";
 
         #endregion Issue
 
         #region KPI
 
-        public const string GET_DRIVERKPI_CHART = "api/kpidriver/getdriverkpichart";
-        public const string GET_DRIVERKPI_RANKING = "api/kpidriver/getdriverranking";
+        public const string GET_DRIVERKPI_CHART = "api/v1/kpireport/chart-radar-mobile";
+        public const string GET_DRIVERKPI_RANKING = "api/v1/kpireport/rank-driving-mobile";
 
         #endregion KPI
 
         #region Support
-        public const string GET_List_SupportCategory = "api/support/getlistsupportcategory";
-        public const string GET_List_SupportContent = "api/support/getlistsupportcontentbyid";
-        public const string POST_MessageSupport = "api/support/insertsupportbap";
+        public const string GET_List_SupportCategory = "api/v1/supportcategory/getlistsupportcategory";
+        public const string GET_List_SupportContent = "api/v1/supportcategory/getlistsupportcontentbyid";
+        public const string POST_MessageSupport = "tasks/receiver/create";
         #endregion
         #region Expense
-        public const string GET_List_ExpensesCategory = "api/expenses/getlistexpensescategorybycompany";
-        public const string POST_Import_Expense = "api/expenses/insert";
-        public const string GET_List_Expenses = "api/expenses/searchexpenses";
-        public const string Delete_Multiple = "api/expenses/deletemultiple";
+        public const string GET_List_ExpensesCategory = "api/v1/expenses/getlistexpensescategorybycompany";
+        public const string POST_Import_Expense = "api/v1/expenses/insert";
+        public const string GET_List_Expenses = "api/v1/expenses/searchexpenses";
+        public const string Delete_Multiple = "api/v1/expenses/deletemultiple";
         #endregion Expense
         #region OTP
-        public const string GET_Vehicle_OTP_SMS = "api/sms/verifyotp";
-        public const string Post_Numberphone_OTP_SMS = "api/sms/verifyphonenymberotp";
+        public const string GET_Vehicle_OTP_SMS = "api/v1/otp/sendvehiclephoneotp";
+        public const string Post_Numberphone_OTP_SMS = "api/v1/otp/verifyphonenumberotp";
         #endregion
     }
 }

@@ -26,11 +26,11 @@ namespace BA_MobileGPS.Service
             try
             {
                 var url = $"{ApiUri.GET_MOBILERESOURCE}?appID={appID}&culture={Culture}&LastUpdate={LastTime}";
-                var data = await RequestProvider.GetAsync<List<MobileResourceRespone>>(url);
+                var data = await RequestProvider.GetAsync<ResponseBase<List<MobileResourceRespone>>>(url);
 
-                if (data != null)
+                if (data != null&& data.Data.Count>0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception e)

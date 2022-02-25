@@ -24,10 +24,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_VEHICLE_COMPANY}?userId={userId}&companyID={companyID}";
-                var data = await requestProvider.GetHandleOutputAsync<List<Company>>(url);
-                if (data != null)
+                var data = await requestProvider.GetHandleOutputAsync<ResponseBase<List<Company>>>(url);
+                if (data != null && data.Data.Count>0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)
@@ -43,10 +43,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_VEHICLE_COMPANY_BY_BUSINESSUSER}?userId={userId}";
-                var data = await requestProvider.GetHandleOutputAsync<List<Company>>(url);
-                if (data != null)
+                var data = await requestProvider.GetHandleOutputAsync<ResponseBase<List<Company>>>(url);
+                if (data != null&& data.Data.Count>0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)
@@ -60,13 +60,10 @@ namespace BA_MobileGPS.Service
             List<VehicleOnline> result = new List<VehicleOnline>();
             try
             {
-                var temp = await requestProvider.PostAsync<VehicleOnlineRequest, BaseResponse<List<VehicleOnline>>>(ApiUri.GET_VEHICLEONLINE, request);
-                if (temp != null)
+                var temp = await requestProvider.PostAsync<VehicleOnlineRequest, ResponseBase<List<VehicleOnline>>>(ApiUri.GET_VEHICLEONLINE, request);
+                if (temp != null && temp.Data.Count>0)
                 {
-                    if (temp.Success)
-                    {
-                        result = temp.Data;
-                    }
+                   result = temp.Data;
                 }              
             }
             catch (Exception ex)
@@ -83,10 +80,10 @@ namespace BA_MobileGPS.Service
             {
                 string url = $"{ApiUri.GET_VEHICLE_GROUP}?userid={userId}&companyid={companyID}";
 
-                var data = await requestProvider.GetHandleOutputAsync<List<VehicleGroupModel>>(url);
-                if (data != null)
+                var data = await requestProvider.GetHandleOutputAsync<ResponseBase<List<VehicleGroupModel>>>(url);
+                if (data != null && data.Data.Count>0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)
@@ -98,40 +95,42 @@ namespace BA_MobileGPS.Service
 
         public async Task<List<LandmarkResponse>> GetListBoundary()
         {
+            List<LandmarkResponse> result = new List<LandmarkResponse>();
             try
             {
                 string url = $"{ApiUri.GET_LIST_POLYGON}?FK_LandmarkCatalogueID=220";
 
-                var data = await requestProvider.GetHandleOutputAsync<List<LandmarkResponse>>(url);
-                if (data != null)
+                var data = await requestProvider.GetHandleOutputAsync<ResponseBase<List<LandmarkResponse>>>(url);
+                if (data != null && data.Data.Count>0)
                 {
-                    return data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-            return new List<LandmarkResponse>();
+            return result;
         }
 
         public async Task<List<LandmarkResponse>> GetListParacelIslands()
         {
+            List<LandmarkResponse> result = new List<LandmarkResponse>();
             try
             {
                 string url = $"{ApiUri.GET_LIST_POLYGONPARACELISLANDS}?FK_LandmarkCatalogueID=220";
 
-                var data = await requestProvider.GetHandleOutputAsync<List<LandmarkResponse>>(url);
-                if (data != null)
+                var data = await requestProvider.GetHandleOutputAsync<ResponseBase<List<LandmarkResponse>>>(url);
+                if (data != null&& data.Data.Count>0)
                 {
-                    return data;
+                    result = data.Data;
                 }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-            return new List<LandmarkResponse>();
+            return result;
         }
 
         public async Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest)
@@ -139,7 +138,11 @@ namespace BA_MobileGPS.Service
             List<VehicleOnlineMessage> result = new List<VehicleOnlineMessage>();
             try
             {               
-                result = await requestProvider.PostAsync<VehicleOnlineRequest, List<VehicleOnlineMessage>>(ApiUri.GET_VEHICLEONLINESYNC, vehiclerequest);
+               var respone = await requestProvider.PostAsync<VehicleOnlineRequest, ResponseBase<List<VehicleOnlineMessage>>>(ApiUri.GET_VEHICLEONLINESYNC, vehiclerequest);
+               if(respone != null && respone.Data.Count > 0)
+                {
+                    result = respone.Data;
+                }
             }
             catch (Exception ex)
             {

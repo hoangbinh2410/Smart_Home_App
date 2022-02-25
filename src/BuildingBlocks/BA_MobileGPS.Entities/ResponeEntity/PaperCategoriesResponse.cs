@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BA_MobileGPS.Entities.ResponeEntity
 {
-    public class PaperCategoriesResponse : ResponseBaseV2<List<PaperCategory>>
+    public class PaperCategoriesResponse : ResponseBase<List<PaperCategory>>
     {
 
     }
@@ -26,7 +26,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public string Description { get; set; }
     }
 
-    public class InsuranceCategoriesResponse : ResponseBaseV2<List<InsuranceCategory>>
+    public class InsuranceCategoriesResponse : ResponseBase<List<InsuranceCategory>>
     {
 
     }

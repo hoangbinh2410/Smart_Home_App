@@ -23,10 +23,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<VehicleDebtBlockResponse>();
             try
             {
-                var temp = await requestProvider.GetAsync<List<VehicleDebtBlockResponse>>($"{ApiUri.GET_LISTVEHICLEDEBTMONEY}?userID={UserID}");
-                if (temp != null && temp.Count > 0)
+                var temp = await requestProvider.GetAsync<ResponseBase<List<VehicleDebtBlockResponse>>>($"{ApiUri.GET_LISTVEHICLEDEBTMONEY}?userID={UserID}");
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

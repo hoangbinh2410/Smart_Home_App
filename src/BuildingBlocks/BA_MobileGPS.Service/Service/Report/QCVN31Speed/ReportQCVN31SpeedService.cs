@@ -19,7 +19,7 @@ namespace BA_MobileGPS.Service.Service
             var respone = new List<ReportQCVN31SpeedRespone>();
             try
             {
-                var temp = await RequestProvider.PostAsync<ReportQCVN31SpeedRequest, ResponseBaseV2<List<ReportQCVN31SpeedRespone>>>(ApiUri.GET_GetQCVN31SpeedReport, input);
+                var temp = await RequestProvider.PostAsync<ReportQCVN31SpeedRequest, ResponseBase<List<ReportQCVN31SpeedRespone>>>(ApiUri.GET_GetQCVN31SpeedReport, input);
                 if (temp != null && temp.Data != null)
                 {
                     respone = temp.Data;

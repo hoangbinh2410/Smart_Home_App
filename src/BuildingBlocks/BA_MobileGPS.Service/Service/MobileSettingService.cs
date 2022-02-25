@@ -29,10 +29,10 @@ namespace BA_MobileGPS.Service
 
                 string uri = string.Format(ApiUri.GET_MOBILECONFIG + "/?appID={0}", appID);
 
-                var data = await requestProvider.GetAsync<List<MobileConfiguration>>(uri);
-                if (data != null && data.Count > 0)
+                var data = await requestProvider.GetAsync<ResponseBase<List<MobileConfiguration>>>(uri);
+                if (data != null && data.Data.Count > 0)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception e)
@@ -49,11 +49,11 @@ namespace BA_MobileGPS.Service
             {
                 string uri = string.Format(ApiUri.GET_MOBILEVERSION + "?os={0}&appID={1}", operatingSystem, appID);
 
-                var data = await requestProvider.GetAsync<MobileVersionModel>(uri);
+                var data = await requestProvider.GetAsync<ResponseBase<MobileVersionModel>>(uri);
 
-                if (data != null)
+                if (data != null && data.Data != null)
                 {
-                    result = data;
+                    result = data.Data;
                 }
             }
             catch (Exception e)

@@ -7,7 +7,6 @@ using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BA_MobileGPS.Service.Service
@@ -27,8 +26,8 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.GET_LAST_PAPER_INSURANCE}?companyId={companyID}&vehicleId={vehicleId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<PaperInsuranceInsertRequest>>(url);
-                if (response?.Data != null)
+                var response = await _IRequestProvider.GetAsync<ResponseBase<PaperInsuranceInsertRequest>>(url);
+                if (response.Data != null && response != null)
                 {
                     result = response.Data;
                 }
@@ -46,8 +45,8 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.GET_LAST_PAPER_REGISTRATION}?companyId={companyID}&vehicleId={vehicleId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<PaperRegistrationInsertRequest>>(url);
-                if (response?.Data != null)
+                var response = await _IRequestProvider.GetAsync<ResponseBase<PaperRegistrationInsertRequest>>(url);
+                if (response != null && response.Data != null)
                 {
                     result = response.Data;
                 }
@@ -65,7 +64,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.GET_LAST_PAPER_SIGN}?companyId={companyID}&vehicleId={vehicleId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<PaperCabSignInforRequest>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<PaperCabSignInforRequest>>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data;
@@ -85,7 +84,7 @@ namespace BA_MobileGPS.Service.Service
             {
                 string url = $"{ApiUri.GET_LIST_PAPER_CATEGORY}";
                 var response = await _IRequestProvider.GetAsync<PaperCategoriesResponse>(url);
-                if (response?.Data != null)
+                if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
                 }
@@ -104,7 +103,7 @@ namespace BA_MobileGPS.Service.Service
             {
                 string url = $"{ApiUri.GET_LIST_INSURANCE_CATEGORY}?companyId={companyID}";
                 var response = await _IRequestProvider.GetAsync<InsuranceCategoriesResponse>(url);
-                if (response?.Data != null)
+                if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
                 }
@@ -175,7 +174,6 @@ namespace BA_MobileGPS.Service.Service
 
         public async Task<PapersIdResponse> UpdateRegistrationPaper(PaperRegistrationInsertRequest data)
         {
-
             PapersIdResponse result = new PapersIdResponse();
             try
             {
@@ -195,7 +193,6 @@ namespace BA_MobileGPS.Service.Service
 
         public async Task<PapersIdResponse> UpdateInsurancePaper(PaperInsuranceInsertRequest data)
         {
-
             PapersIdResponse result = new PapersIdResponse();
             try
             {
@@ -215,7 +212,6 @@ namespace BA_MobileGPS.Service.Service
 
         public async Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInforRequest data)
         {
-
             PapersIdResponse result = new PapersIdResponse();
             try
             {
@@ -263,12 +259,12 @@ namespace BA_MobileGPS.Service.Service
             List<PaperItemHistoryModel> result = new List<PaperItemHistoryModel>();
             try
             {
-               var url = $"{ApiUri.GET_LIST_ALL_PAPER_HISTORY}?companyId={companyId}&pageSize={pageSize}&pageIndex={pageIndex}&orderBy={orderBy}&sortOrder={sortOrder}";
+                var url = $"{ApiUri.GET_LIST_ALL_PAPER_HISTORY}?companyId={companyId}&pageSize={pageSize}&pageIndex={pageIndex}&orderBy={orderBy}&sortOrder={sortOrder}";
 
-                var response = await _IRequestProvider.GetAsync<PaperHistoriesResponse>(url);
-                if (response?.Data?.Items != null && response.Data.Items.Count > 0)
+                var response = await _IRequestProvider.GetAsync<ResponseBase<List<PaperItemHistoryModel>>>(url);
+                if (response != null &&response?.Data != null && response.Data.Count > 0)
                 {
-                    result = response.Data.Items;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -278,7 +274,7 @@ namespace BA_MobileGPS.Service.Service
             return result;
         }
 
-        public async Task<DateTime?> GetLastPaperDateByVehicle(int companyId, long vehicleId,PaperCategoryTypeEnum paperType)
+        public async Task<DateTime?> GetLastPaperDateByVehicle(int companyId, long vehicleId, PaperCategoryTypeEnum paperType)
         {
             DateTime? result = null;
             try
@@ -286,7 +282,7 @@ namespace BA_MobileGPS.Service.Service
                 var type = (int)paperType;
                 var url = $"{ApiUri.GET_LAST_PAPER_DATE_BY_VEHICLE}?companyId={companyId}&vehicleId={vehicleId}&paperType={type}";
 
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DateTime?>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<DateTime?>>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data;

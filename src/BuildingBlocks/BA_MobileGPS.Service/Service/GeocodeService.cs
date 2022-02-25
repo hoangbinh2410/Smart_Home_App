@@ -1,4 +1,5 @@
-﻿using BA_MobileGPS.Utilities;
+﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 
 using System;
@@ -24,10 +25,10 @@ namespace BA_MobileGPS.Service
             {
                 var URL = string.Format(ApiUri.GET_GETADDRESSBYLATLNG + "/?companyID={0}&lat={1}&lng={2}", companyID, lat, lng);
 
-                var result = await requestProvider.GetAsync<string>(URL);
+                var result = await requestProvider.GetAsync<ResponseBase<string>>(URL);
                 if (result != null)
                 {
-                    respone = result;
+                    respone = result.Data;
                 }
             }
             catch (Exception ex)

@@ -7,24 +7,24 @@ namespace BA_MobileGPS.Service
 {
     public interface INotificationService
     {
-        Task<BaseResponse<NotificationTypeEnum>> GetNotification(Guid userID);
+        Task<ResponseBase<NotificationTypeEnum>> GetNotification(Guid userID);
 
-        Task<ResponseBaseV2<List<NotificationRespone>>> GetListNotification(Guid userID, int pageSize, int pageIndex);
+        Task<ResponseBase<List<NotificationRespone>>> GetListNotification(Guid userID, int pageSize, int pageIndex);
 
-        Task<ResponseBaseV2<NotificationBody>> GetNotificationBody(int id);
+        Task<ResponseBase<NotificationBody>> GetNotificationBody(int id);
 
-        Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationDetail(int id);
+        Task<ResponseBase<NoticeDetailRespone>> GetNotificationDetail(int id);
 
-        Task<ResponseBaseV2<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest);
+        Task<ResponseBase<bool>> UpdateIsReadNotification(UpdateIsReadRequest updateIsReadRequest);
 
-        Task<ResponseBaseV2<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest);
+        Task<ResponseBase<bool>> DeleteNotificationByUser(NoticeDeletedByUserRequest noticeDeletedByUserRequest);
 
-        Task<ResponseBaseV2<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest);
+        Task<ResponseBase<bool>> DeleteRangeNotificationByUser(NoticeDeletedRangeByUserRequest noticeDeletedByUserRequest);
 
-        Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationWhenLogin(AppType appType);
+        Task<ResponseBase<NoticeDetailRespone>> GetNotificationWhenLogin(AppType appType);
 
-        Task<ResponseBaseV2<NoticeDetailRespone>> GetNotificationAfterLogin(Guid userId);
+        Task<ResponseBase<NoticeDetailRespone>> GetNotificationAfterLogin(Guid userId);
 
-        Task<BaseResponse<bool>> SendFeedbackNotification(InsertFeedbackNoticeRequest insertRequest);
+        Task<bool> SendFeedbackNotification(InsertFeedbackNoticeRequest insertRequest);
     }
 }

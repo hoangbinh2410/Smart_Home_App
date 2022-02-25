@@ -19,27 +19,93 @@ namespace BA_MobileGPS.Service
 
         public async Task<string> UpdateUserAvatar(string userName, Stream avatar, string fileName)
         {
-            return await RequestProvider.UploadImageAsync<string>($"{ApiUri.USER_UPDATE_AVATAR}?username={userName}", avatar, fileName);
+            string result = String.Empty;
+            try
+            {
+                var respone = await RequestProvider.UploadImageAsync<ResponseBase<string>>($"{ApiUri.USER_UPDATE_AVATAR}?username={userName}", avatar, fileName);
+                if (respone != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+           return result;
         }
 
         public async Task<bool> UpdateUserInfo(UpdateUserInfoRequest request)
         {
-            return await RequestProvider.PostAsync<UpdateUserInfoRequest, bool>(ApiUri.USER_UPDATE_INFO, request);
+            bool result = false;
+            try
+            {
+                var respone = await RequestProvider.PostAsync<UpdateUserInfoRequest, ResponseBase<bool>>(ApiUri.USER_UPDATE_INFO, request);
+                if (respone != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
         }
 
         public async Task<bool> SetUserSettings(UserSettingsRequest request)
         {
-            return await RequestProvider.PostAsync<UserSettingsRequest, bool>(ApiUri.USER_SET_SETTINGS, request);
+            bool result = false;
+            try
+            {
+                var respone = await RequestProvider.PostAsync<UserSettingsRequest, ResponseBase<bool>>(ApiUri.USER_SET_SETTINGS, request);
+                if (respone != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;          
         }
 
         public async Task<bool> SetAdminUserSettings(AdminUserConfiguration request)
         {
-            return await RequestProvider.PostAsync<AdminUserConfiguration, bool>(ApiUri.ADMIN_USER_SET_SETTINGS, request);
+            bool result = false;
+            try
+            {
+                var respone = await RequestProvider.PostAsync<AdminUserConfiguration, ResponseBase<bool>>(ApiUri.ADMIN_USER_SET_SETTINGS, request);
+                if (respone != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;           
         }
 
-        public Task<UserInfoRespone> GetUserInfomation(Guid pk_userID)
+        public async Task<UserInfoRespone> GetUserInfomation(Guid pk_userID)
         {
-            return RequestProvider.GetAsync<UserInfoRespone>($"{ApiUri.GET_USERINFOMATION}?userId={pk_userID}");
+            UserInfoRespone result = new UserInfoRespone();
+            try
+            {
+                var respone = await RequestProvider.GetAsync<ResponseBase<UserInfoRespone>>($"{ApiUri.GET_USERINFOMATION}?userId={pk_userID}");
+               if(respone != null && respone.Data != null)
+                {
+                    result = respone.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+            
         }
 
         public async Task<UserViewModel> GetUserInfomation(string username)
@@ -48,7 +114,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_USERBYUSERNAME}?username={username}";
-                var response = await RequestProvider.GetAsync<ResponseBaseV2<UserViewModel>>(url);
+                var response = await RequestProvider.GetAsync<ResponseBase<UserViewModel>>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data;

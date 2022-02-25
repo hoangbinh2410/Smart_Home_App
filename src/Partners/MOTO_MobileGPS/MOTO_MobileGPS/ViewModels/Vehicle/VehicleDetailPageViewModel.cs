@@ -70,7 +70,7 @@ namespace MOTO_MobileGPS.ViewModels
                 return await motoPropertiesService.GetMotoProperties(StaticSettings.User.XNCode, carinfo.VehiclePlate);
             }, (temp) =>
             {
-                if (temp != null && temp.Success && temp.Data != null)
+                if (temp != null && temp.Data != null)
                 {
                     MotoStaticSettings.MotoProperties = temp.Data.GetXMPropertiesResult;
 
@@ -90,7 +90,7 @@ namespace MOTO_MobileGPS.ViewModels
                 return await motoDetailService.GetMotoDetail(StaticSettings.User.XNCode, carinfo.VehiclePlate);
             }, (response) =>
             {
-                if (response != null && response.Success)
+                if (response != null && response.Data !=null)
                 {
                     MotoDetail = response.Data.MotoDetailResult;
                     MotoDetail.DevicePhone = MotoStaticSettings.MotoProperties.DevicePhoneNumber;
@@ -141,7 +141,7 @@ namespace MOTO_MobileGPS.ViewModels
                 return await motoSimMoneyService.GetSimMoney(vehicleID);
             }, (temp) =>
             {
-                if (temp != null && temp.Success && temp.Data != null)
+                if (temp != null && temp.Data != null)
                 {
                     SimMoney = String.Format("{0:0,0}", temp.Data.Money) + " VNĐ";
                 }

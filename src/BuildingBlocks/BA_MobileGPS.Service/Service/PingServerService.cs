@@ -17,9 +17,9 @@ namespace BA_MobileGPS.Service
             this.requestProvider = requestProvider;
         }
 
-        public async Task<BaseResponse<bool>> PingServerStatus()
+        public async Task<ResponseBase<bool>> PingServerStatus()
         {
-            BaseResponse<bool> result = new BaseResponse<bool>();
+            ResponseBase<bool> result = new ResponseBase<bool>();
             //try
             //{
             //    var url = string.Format(ApiUri.GET_PING_SERVER_STATUS);
@@ -38,14 +38,14 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<BaseResponse<DateTime>> GetTimeServer()
+        public async Task<ResponseBase<DateTime>> GetTimeServer()
         {
-            BaseResponse<DateTime> result = new BaseResponse<DateTime>();
+            ResponseBase<DateTime> result = new ResponseBase<DateTime>();
             try
             {
                 var url = string.Format(ApiUri.GET_TIMESERVER);
 
-                var data = await requestProvider.GetAsync<BaseResponse<DateTime>>(url);
+                var data = await requestProvider.GetAsync<ResponseBase<DateTime>>(url);
 
                 if (data != null)
                 {

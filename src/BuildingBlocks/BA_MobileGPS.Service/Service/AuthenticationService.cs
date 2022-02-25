@@ -28,8 +28,8 @@ namespace BA_MobileGPS.Service
             LoginResponse user = null;
             try
             {
-                var result = await _IRequestProvider.PostAsync<LoginRequest, ResponseBaseV2<LoginResponse>>(ApiUri.POST_LOGIN, request);
-                if (result != null && result.Data !=null)
+                var result = await _IRequestProvider.PostAsync<LoginRequest, ResponseBase<LoginResponse>>(ApiUri.POST_LOGIN, request);
+                if (result != null && result.Data != null)
                 {
                     user = result.Data;
                 }
@@ -43,13 +43,19 @@ namespace BA_MobileGPS.Service
 
         public async Task<bool> ChangePassword(ChangePassRequest request)
         {
+            bool respone = false;
             MsgRequest msg = new MsgRequest
             {
                 Param = Message.EncodeMessage(request.ConvertToByteArray().ToArray())
             };
             string data = JsonConvert.SerializeObject(msg);
 
-            return await _IRequestProvider.PostStreamAsync<bool>(ApiUri.POST_CHANGE_PASS, new MemoryStream(Encoding.UTF8.GetBytes(data)));
+            var result = await _IRequestProvider.PostStreamAsync<ResponseBase<bool>>(ApiUri.POST_CHANGE_PASS, new MemoryStream(Encoding.UTF8.GetBytes(data)));
+            if (result.Data)
+            {
+                respone = result.Data;
+            }
+            return respone;
         }
 
         public async Task<bool> CheckUserExists(ForgotPasswordRequest input)
@@ -57,10 +63,10 @@ namespace BA_MobileGPS.Service
             bool respone = false;
             try
             {
-                var result = await _IRequestProvider.GetAsync<bool>($"{ApiUri.VALIDATEPHONEBYUSER}?userName={input.userName}&phoneNumber={input.phoneNumber}");
-                if (result)
+                var result = await _IRequestProvider.GetAsync<ResponseBase<bool>>($"{ApiUri.VALIDATEPHONEBYUSER}?userName={input.userName}&phoneNumber={input.phoneNumber}");
+                if (result.Data)
                 {
-                    respone = result;
+                    respone = result.Data;
                 }
             }
             catch (Exception ex)
@@ -75,10 +81,10 @@ namespace BA_MobileGPS.Service
             var result = new SendCodeSMSResponse();
             try
             {
-                var response = await _IRequestProvider.GetAsync<SendCodeSMSResponse>($"{ApiUri.SENDVERIFYCODE}?username={input.userName}&phone={input.phoneNumber}&appID={input.AppID}");
-                if (response != null)
+                var response = await _IRequestProvider.GetAsync<ResponseBase<SendCodeSMSResponse>>($"{ApiUri.SENDVERIFYCODE}?username={input.userName}&phone={input.phoneNumber}&appID={input.AppID}");
+                if (response != null && response.Data != null)
                 {
-                    result = response;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -93,10 +99,10 @@ namespace BA_MobileGPS.Service
             var result = new CheckVerifyCodeResponse();
             try
             {
-                var response = await _IRequestProvider.GetAsync<CheckVerifyCodeResponse>($"{ApiUri.CHECKVERIFYCODE}?verifyCode={input.verifyCode}&phoneNumber={input.phoneNumber}&AppID={input.AppID}");
-                if (response != null)
+                var response = await _IRequestProvider.GetAsync<ResponseBase<CheckVerifyCodeResponse>>($"{ApiUri.CHECKVERIFYCODE}?verifyCode={input.verifyCode}&phoneNumber={input.phoneNumber}&AppID={input.AppID}");
+                if (response != null && response.Data != null)
                 {
-                    result = response;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -116,10 +122,10 @@ namespace BA_MobileGPS.Service
                     Param = Message.EncodeMessage(input.ConvertToByteArray().ToArray())
                 };
                 string data = JsonConvert.SerializeObject(msg);
-                var response = await _IRequestProvider.PostStreamAsync<bool>(ApiUri.CHANGEPASSWORDFORGET, new MemoryStream(Encoding.UTF8.GetBytes(data)));
-                if (response)
+                var response = await _IRequestProvider.PostStreamAsync<ResponseBase<bool>>(ApiUri.CHANGEPASSWORDFORGET, new MemoryStream(Encoding.UTF8.GetBytes(data)));
+                if (response.Data)
                 {
-                    result = response;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -134,13 +140,10 @@ namespace BA_MobileGPS.Service
             var respone = new OtpResultResponse();
             try
             {
-                var temp = await _IRequestProvider.GetAsync<BaseResponse<OtpResultResponse>>($"{ApiUri.GETOTP}?targetNumber={targetNumber}&customerID={customerID}");
-                if (temp != null)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<OtpResultResponse>>($"{ApiUri.GETOTP}?targetNumber={targetNumber}&customerID={customerID}");
+                if (temp != null && temp.Data!=null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -155,7 +158,7 @@ namespace BA_MobileGPS.Service
             ResultVerifyOtp result = new ResultVerifyOtp();
             try
             {
-                var respone = await _IRequestProvider.PostAsync<VerifyOtpRequest, ResponseBaseV2<ResultVerifyOtp>>(ApiUri.GET_Vehicle_OTP_SMS, request);
+                var respone = await _IRequestProvider.PostAsync<VerifyOtpRequest, ResponseBase<ResultVerifyOtp>>(ApiUri.GET_Vehicle_OTP_SMS, request);
                 if (respone != null)
                 {
                     result = respone.Data;
@@ -173,7 +176,7 @@ namespace BA_MobileGPS.Service
             bool respone = false;
             try
             {
-                var result = await _IRequestProvider.PostAsync<VerifyPhoneRequest, BaseResponse<bool>>(ApiUri.Post_Numberphone_OTP_SMS, request);
+                var result = await _IRequestProvider.PostAsync<VerifyPhoneRequest, ResponseBase<bool>>(ApiUri.Post_Numberphone_OTP_SMS, request);
                 if (result.Data)
                 {
                     respone = result.Data;

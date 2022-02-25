@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_DRIVERKPI_RANKING}";
-                var respone = await requestProvider.PostAsync<DriverRankingRequest, ResponseBaseV2<List<DriverRankingRespone>>>(url, request);
+                var respone = await requestProvider.PostAsync<DriverRankingRequest, ResponseBase<List<DriverRankingRespone>>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -44,7 +44,7 @@ namespace BA_MobileGPS.Service
             {
                 string url = $"{ApiUri.GET_DRIVERKPI_CHART}";
 
-                var respone = await requestProvider.PostAsync<DriverKpiChartRequest, ResponseBaseV2<DriverKpiChartRespone>>(url, request);
+                var respone = await requestProvider.PostAsync<DriverKpiChartRequest, ResponseBase<DriverKpiChartRespone>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;

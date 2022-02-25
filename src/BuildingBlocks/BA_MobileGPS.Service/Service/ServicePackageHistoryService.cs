@@ -29,13 +29,10 @@ namespace BA_MobileGPS.Service
         {
             try
             {
-                var temp = await _requestProvider.PostAsync<ServicePackHistoryRequest, BaseResponse<List<ServicePackHistory>>>(ApiUri.GET_HISTORY_PACKAGE, Request);
+                var temp = await _requestProvider.PostAsync<ServicePackHistoryRequest, ResponseBase<List<ServicePackHistory>>>(ApiUri.GET_HISTORY_PACKAGE, Request);
                 if (temp != null)
                 {
-                    if (temp.Success)
-                    {
-                        return temp.Data;
-                    }
+                    return temp.Data;
                 }
             }
             catch (Exception ex)
@@ -50,11 +47,11 @@ namespace BA_MobileGPS.Service
             throw new NotImplementedException();
         }
 
-        public async Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(object request)
+        public async Task<ResponseBase<ServicePackageInfo>> GetCurrentServicePack(object request)
         {
             try
             {
-                return await _requestProvider.PostAsync<object, BaseResponse<ServicePackageInfo>>(ApiUri.GET_CURRENT_PACKAGE, request);
+                return await _requestProvider.PostAsync<object, ResponseBase<ServicePackageInfo>>(ApiUri.GET_CURRENT_PACKAGE, request);
             }
             catch (Exception ex)
             {
@@ -63,11 +60,11 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
-        public async Task<BaseResponse<List<ShipPackage>>> GetShipPackages()
+        public async Task<ResponseBase<List<ShipPackage>>> GetShipPackages()
         {
             try
             {
-                return await _requestProvider.GetAsync<BaseResponse<List<ShipPackage>>>(ApiUri.GET_SHIP_PACKAGE);
+                return await _requestProvider.GetAsync<ResponseBase<List<ShipPackage>>>(ApiUri.GET_SHIP_PACKAGE);
             }
             catch (Exception ex)
             {

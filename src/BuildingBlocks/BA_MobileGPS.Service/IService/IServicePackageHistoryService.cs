@@ -7,8 +7,8 @@ namespace BA_MobileGPS.Service
 {
     public interface IServicePackageHistoryService : IReportBaseService<ServicePackHistoryRequest, List<ServicePackHistory>>
     {
-        Task<BaseResponse<ServicePackageInfo>> GetCurrentServicePack(object request);
+        Task<ResponseBase<ServicePackageInfo>> GetCurrentServicePack(object request);
 
-        Task<BaseResponse<List<ShipPackage>>> GetShipPackages();
+        Task<ResponseBase<List<ShipPackage>>> GetShipPackages();
     }
 }

@@ -204,26 +204,23 @@ namespace BA_MobileGPS.Core.ViewModels
                 },
                (items) =>
                {
-                   if (items != null && items.Data)
+                   if (items)
                    {
-                       if (items.Data)
-                       {
-                           Settings.NoticeIdAfterLogin = pk_NoticeContentID;
+                       Settings.NoticeIdAfterLogin = pk_NoticeContentID;
 
-                           UpdateIsReadNotification(pk_NoticeContentID);
+                       UpdateIsReadNotification(pk_NoticeContentID);
 
-                           PageDialog.DisplayAlertAsync(MobileResource.Feedback_Label_Thanks, MobileResource.Feedback_Notice_SendSuccess,
-                                 MobileResource.Common_Button_Close);
+                       PageDialog.DisplayAlertAsync(MobileResource.Feedback_Label_Thanks, MobileResource.Feedback_Notice_SendSuccess,
+                             MobileResource.Common_Button_Close);
 
-                           NavigationService.GoBackAsync(parameters: new NavigationParameters
+                       NavigationService.GoBackAsync(parameters: new NavigationParameters
                             {
                                 { "IsClosedPopupAfterLogin", true }
                             });
-                       }
-                       else
-                       {
-                           DisplayMessage.ShowMessageError(MobileResource.Feedback_Notice_SendFail);
-                       }
+                   }
+                   else
+                   {
+                       DisplayMessage.ShowMessageError(MobileResource.Feedback_Notice_SendFail);
                    }
                });
             });

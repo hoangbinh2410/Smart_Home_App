@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace BA_MobileGPS.Entities.ResponeEntity
 {
-    public class PapersInforInsertResponse : ResponseBaseV2<PapersIdResponse>
+    public class PapersInforInsertResponse : ResponseBase<PapersIdResponse>
     {
 
     }
@@ -19,7 +19,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
         public string ErrorMessenger { get; set; }
     }
 
-    public class BasePaperInforResponse : ResponseBaseV2<BasePaperInfor>
+    public class BasePaperInforResponse : ResponseBase<BasePaperInfor>
     {
 
     }
@@ -119,7 +119,7 @@ namespace BA_MobileGPS.Entities.ResponeEntity
     /// <summary>
     /// danh sach giay to tra ve
     /// </summary>
-    public class ListPaperResponse : ResponseBaseV2<List<PaperItemInfor>>
+    public class ListPaperResponse : ResponseBase<List<PaperItemInfor>>
     {
 
     }

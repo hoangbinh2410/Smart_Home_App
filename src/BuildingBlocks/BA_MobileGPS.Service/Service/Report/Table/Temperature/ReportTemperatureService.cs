@@ -20,13 +20,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<TemperatureVehicleResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<TemperartureVehicleRequest, TemperatureResponse>(ApiUri.GET_REPORTTEMPERATURE, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<TemperartureVehicleRequest,ResponseBase<List<TemperatureVehicleResponse>>>(ApiUri.GET_REPORTTEMPERATURE, input);
+                if (temp != null && temp.Data.Count>0)
                 {
-                    if (temp.State)
-                    {
-                        respone = temp.ListReportTemperature;
-                    }
+                   respone = temp.Data;
                 }
             }
             catch (Exception ex)

@@ -893,7 +893,7 @@ namespace BA_MobileGPS.Core.ViewModels
             },
             (result) =>
             {
-                if (result != null && result.Success && result.Data)
+                if (result)
                 {
                 }
             });

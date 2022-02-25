@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<int>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<int>>(url, driver);
                 if (response != null )
                 {
                     result = response.Data;
@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.POST_DELETE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBaseV2<int>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBase<int>>(url, driver);
                 if (response != null)
                 {
                     result = response.Data;
@@ -64,10 +64,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_LIST_DRIVER}?companyId={companyId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DataResponseBase<DriverInfor>>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<List<DriverInfor>>>(url);
                 if (response?.Data != null)
                 {
-                    result = response.Data.Items;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<DriverInfor>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<DriverInfor>>(url, driver);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data.PK_EmployeeID;

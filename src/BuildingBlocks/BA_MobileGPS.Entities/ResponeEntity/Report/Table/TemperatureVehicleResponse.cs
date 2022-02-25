@@ -22,13 +22,5 @@ namespace BA_MobileGPS.Entities
         private DateTime? CreatedDate { get; set; }
 
         public float Kilometer { get; set; }
-    }
-
-    public class TemperatureResponse
-    {
-        public bool State { get; set; }
-        public ResponseEnum ErrorCode { get; set; }
-        public List<TemperatureVehicleResponse> ListReportTemperature { get; set; }
-        public int Count { get; set; }
-    }
+    }   
 }

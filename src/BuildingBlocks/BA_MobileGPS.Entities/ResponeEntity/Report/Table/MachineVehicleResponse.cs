@@ -17,14 +17,5 @@ namespace BA_MobileGPS.Entities
         public bool IsMachineOn { get; set; }
         public float FuelConsumed { get; set; }
         public string ShowDateDetailSTR { get; set; }
-    }
-
-    public class MachingResponseResponseReport
-    {
-        public bool State { get; set; }
-        public ResponseEnum ErrorCode { get; set; }
-        public List<MachineVehicleResponse> ListMachingReport { get; set; }
-
-        public int Count { get; set; }
-    }
+    }   
 }

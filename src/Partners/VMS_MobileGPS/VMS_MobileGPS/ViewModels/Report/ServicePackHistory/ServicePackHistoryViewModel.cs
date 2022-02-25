@@ -61,7 +61,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 CurrentServicePack = default;
 
-                if (result.Success)
+                if (String.IsNullOrEmpty(result.Data.VehiclePlate))
                 {
                     CurrentServicePack = result.Data;
                 }
