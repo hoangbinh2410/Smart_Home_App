@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.SEND_CONFIG_MOTO}";
-                var data = await _IRequestProvider.PostAsync<MotoConfigRequest, BaseResponse<MotoConfigRespone>>(url, request);
+                var data = await _IRequestProvider.PostAsync<MotoConfigRequest, ResponseBase<MotoConfigRespone>>(url, request);
                 if (data != null)
                 {
                     result = data.Data;

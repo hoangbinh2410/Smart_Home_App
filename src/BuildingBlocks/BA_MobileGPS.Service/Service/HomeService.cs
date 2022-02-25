@@ -18,12 +18,12 @@ namespace BA_MobileGPS.Service
             _requestProvider = requestProvider;
         }
 
-        public async Task<List<MenuItemRespone>> GetHomeMenuAsync(int appID, string Culture)
+        public async Task<List<MenuItemRespone>> GetHomeMenuAsync(int appID, string culture)
         {
             List<MenuItemRespone> result = null;
             try
             {
-                string url = $"{ApiUri.GET_HOME_MENU}?culture={Culture}&appID={appID}";
+                string url = $"{ApiUri.GET_HOME_MENU}?culture={culture}&appID={appID}";
                 var menu = await _requestProvider.GetAsync<ResponseBase<List<MenuItemRespone>>>(url);
 
                 if (menu != null && menu.Data.Count>0)

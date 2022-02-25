@@ -717,7 +717,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             userID = Settings.CurrentCompany.UserId;
                             companyID = Settings.CurrentCompany.FK_CompanyID;
                         }
-                        var request = new VehicleOnlineRequest()
+                        var request = new VehicleOnlineSyncRequest()
                         {
                             CompanyID = companyID,
                             LastTime = StaticSettings.LastSyncTime,

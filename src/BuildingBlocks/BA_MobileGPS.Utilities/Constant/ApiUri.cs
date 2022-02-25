@@ -10,9 +10,9 @@
 
         public const string GET_MOBILEVERSION = "api/v1/mobileversion/getbyos";
 
-        public const string GET_DATABASEVERSION = "api/v1/menu/getdatabaseversions";
+        public const string GET_DATABASEVERSION = "api/v1/resource/getdatabaseversions";
 
-        public const string GET_MOBILERESOURCE = "api/v1/menu/getresourcebyculture";
+        public const string GET_MOBILERESOURCE = "api/v1/resource/getresourcebyculture";
 
        // public const string GET_LANGUAGETYPE = "api/language/getalllanguage";
 

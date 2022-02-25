@@ -133,12 +133,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest)
+        public async Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineSyncRequest vehiclerequest)
         {
             List<VehicleOnlineMessage> result = new List<VehicleOnlineMessage>();
             try
             {               
-               var respone = await requestProvider.PostAsync<VehicleOnlineRequest, ResponseBase<List<VehicleOnlineMessage>>>(ApiUri.GET_VEHICLEONLINESYNC, vehiclerequest);
+               var respone = await requestProvider.PostAsync<VehicleOnlineSyncRequest, ResponseBase<List<VehicleOnlineMessage>>>(ApiUri.GET_VEHICLEONLINESYNC, vehiclerequest);
                if(respone != null && respone.Data.Count > 0)
                 {
                     result = respone.Data;

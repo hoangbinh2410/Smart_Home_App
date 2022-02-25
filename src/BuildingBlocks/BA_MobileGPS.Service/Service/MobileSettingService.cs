@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Service
             {
                 int appID = (int)appType;
 
-                string uri = string.Format(ApiUri.GET_MOBILECONFIG + "/?appID={0}", appID);
+                string uri = string.Format(ApiUri.GET_MOBILECONFIG + "?appID={0}", appID);
 
                 var data = await requestProvider.GetAsync<ResponseBase<List<MobileConfiguration>>>(uri);
                 if (data != null && data.Data.Count > 0)
