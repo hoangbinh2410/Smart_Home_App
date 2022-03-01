@@ -63,7 +63,7 @@ namespace BA_MobileGPS.Service
             List<DriverInfor> result = new List<DriverInfor>();
             try
             {
-                string url = $"{ApiUri.GET_LIST_DRIVER}?companyId={companyId}";
+                string url = $"{ApiUri.GET_LIST_DRIVER}?Fk_CompanyID={companyId}";
                 var response = await _IRequestProvider.GetAsync<ResponseBase<List<DriverInfor>>>(url);
                 if (response?.Data != null)
                 {
