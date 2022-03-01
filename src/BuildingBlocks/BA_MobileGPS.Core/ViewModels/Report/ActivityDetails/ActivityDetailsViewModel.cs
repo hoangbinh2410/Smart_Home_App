@@ -48,7 +48,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 Type = UserBehaviorType.End
             });
         }
-
+     
         public override void OnDestroy()
         {
             base.Dispose();

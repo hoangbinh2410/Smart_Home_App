@@ -40,6 +40,7 @@ namespace BA_MobileGPS.Core.ViewModels
             base.Initialize(parameters);
             EventAggregator.GetEvent<SelectDateEvent>().Subscribe(UpdateDateTime);
             IsBusy = true;
+
         }
 
         public override void OnDestroy()

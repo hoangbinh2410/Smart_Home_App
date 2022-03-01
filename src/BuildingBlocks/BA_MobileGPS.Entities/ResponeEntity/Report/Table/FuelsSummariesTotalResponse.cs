@@ -2,7 +2,6 @@
 
 namespace BA_MobileGPS.Entities
 {
-    [Serializable]
     public class FuelsSummariesTotalResponse : ReportBaseResponse
     {
         // STT
