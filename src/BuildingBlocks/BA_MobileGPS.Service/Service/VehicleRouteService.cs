@@ -47,11 +47,8 @@ namespace BA_MobileGPS.Service
             ValidateUserConfigGetHistoryRouteResponse result = new ValidateUserConfigGetHistoryRouteResponse();
 
             try
-            {
-                string url = $"{ApiUri.GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY}?UserId={request.UserId}&CompanyId={request.CompanyId}&VehiclePlate={request.VehiclePlate}" +
-                    $"&FromDate={request.FromDate.ToString("yyyy-MM-dd HH:mm:ss")}&ToDate={request.ToDate.ToString("yyyy-MM-dd HH:mm:ss")}&appID={request.AppID}";
-
-                result = await requestProvider.GetAsync<ValidateUserConfigGetHistoryRouteResponse>(url);
+            {           
+                result = await requestProvider.PostAsync<ValidateUserConfigGetHistoryRouteRequest,ValidateUserConfigGetHistoryRouteResponse>(ApiUri.GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY, request);
             }
             catch (Exception ex)
             {

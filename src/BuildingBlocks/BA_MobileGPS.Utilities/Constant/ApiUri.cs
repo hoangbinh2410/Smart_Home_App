@@ -60,9 +60,9 @@
 
         public const string GET_VEHICLE_COMPANY_BY_BUSINESSUSER = "api/v1/vehicles/getlistcompanyidbybusinessuser";
 
-        public const string GET_VEHICLE_ROUTE_HISTORY = "api/route/gethistoryroute";
+        public const string GET_VEHICLE_ROUTE_HISTORY = "api/v1/route/getroutehistory";
 
-        public const string GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY = "api/route/validationuserconfiggethistoryroute";
+        public const string GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY = "api/v1/route/validatehistoryroute";
 
         public const string GET_LIST_POLYGON = "api/v1/landmark/polygon";
 
