@@ -188,7 +188,7 @@
         public const string GET_DETAILS = "api/v1/reports/activitydetail";
         public const string GET_SIGNALLOSS = "api/v1/reports/signalloss";
         public const string GET_ACTIVITYSUMMARIES = "api/v1/reports/activitysummary";
-        public const string GET_FUELSSUMMARIES = "api/reports/fuelconsumptiondaily";
+        public const string GET_FUELSSUMMARIES = "api/v1/reports/fuelconsumptiondaily";
         public const string GET_FUELSSUMMARIESTOTAL = "api/v1/reports/fuelconsumptiontotal";
         public const string GET_HISTORY_PACKAGE = "api/fishingvesselsms/historypackage";
         public const string GET_CURRENT_PACKAGE = "api/fishingvesselsms/packageinfor";
