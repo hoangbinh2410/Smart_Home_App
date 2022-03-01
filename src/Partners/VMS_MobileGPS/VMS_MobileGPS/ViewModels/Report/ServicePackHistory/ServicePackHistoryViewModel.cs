@@ -91,8 +91,8 @@ namespace VMS_MobileGPS.ViewModels
             {
                 XNCode = UserInfo.XNCode,
                 VehiclePlate = Vehicle.VehiclePlate,
-                DateStart = FromDate,
-                DateEnd = ToDate
+                FromDate = FromDate,
+                ToDate = ToDate
             };
         }
 
