@@ -55,6 +55,8 @@ namespace BA_MobileGPS.Core.ViewModels
             if (parameters.ContainsKey("OTPZalo") && parameters.GetValue<OtpResultResponse>("OTPZalo") is OtpResultResponse objOtp)
             {
                 _objOtp = objOtp;
+                TimeRequest ="300";
+                index = 300;
             }
             if (parameters.ContainsKey("OTPsms") && parameters.GetValue<SendCodeSMSResponse>("OTPsms") is SendCodeSMSResponse objOtpsms)
             {
