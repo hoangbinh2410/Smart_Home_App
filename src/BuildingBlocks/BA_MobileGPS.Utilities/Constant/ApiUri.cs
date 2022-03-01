@@ -22,7 +22,6 @@
 
       //  public const string GET_PARTNERCONFIG = "api/mobileconfigurations/getpartnerconfigbycompanyid";
        
-
         #endregion authorization
 
         #region Notification
@@ -288,7 +287,8 @@
 
         public const string GET_LIST_DRIVER = "api/v1/hrmemployees/gethrmemployeesbycompanyid";
 
-        public const string POST_ADDORUPDATE_DRIVER = "api/driverinfor/insertorupdate";
+        public const string POST_ADD_DRIVER = "api/v1/hrmemployees/inserthrmemployees";
+        public const string POST_UPDATE_DRIVER = "api/v1/hrmemployees/updatehrmemployees";
 
         public const string POST_DELETE_DRIVER = "api/v1/hrmemployees/deletehrmemployees";
 
@@ -325,8 +325,8 @@
 
         #region KPI
 
-        public const string GET_DRIVERKPI_CHART = "api/v1/kpireport/chart-radar-mobile";
-        public const string GET_DRIVERKPI_RANKING = "api/v1/kpireport/rank-driving-mobile";
+        public const string GET_DRIVERKPI_CHART = "api/v1/reports/getdriverkpichart";
+        public const string GET_DRIVERKPI_RANKING = "api/v1/reports/getdriverranking";
 
         #endregion KPI
 

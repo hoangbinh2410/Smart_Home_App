@@ -22,7 +22,7 @@ namespace BA_MobileGPS.Service
             int result = -1;
             try
             {
-                string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
+                string url = $"{ApiUri.POST_ADD_DRIVER}";
                 var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<int>>(url, driver);
                 if (response != null )
                 {
@@ -82,7 +82,7 @@ namespace BA_MobileGPS.Service
             int result = -1;
             try
             {
-                string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
+                string url = $"{ApiUri.POST_UPDATE_DRIVER}";
                 var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<DriverInfor>>(url, driver);
                 if (response != null && response.Data != null)
                 {
