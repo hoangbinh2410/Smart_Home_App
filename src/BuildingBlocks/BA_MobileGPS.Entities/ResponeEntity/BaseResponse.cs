@@ -25,5 +25,14 @@ namespace BA_MobileGPS.Entities
         public string usermessage { set; get; }
 
         public string internalmessage { get; set; }
-    } 
+    }
+    public class DataResponseBase<T>
+    {
+        public int Page { get; set; }
+        public int Count { get; set; }
+        public int TotalPages { get; set; }
+        public int TotalCount { get; set; }
+        public int MaxPage { get; set; }
+        public List<T> Items { get; set; }
+    }
 }

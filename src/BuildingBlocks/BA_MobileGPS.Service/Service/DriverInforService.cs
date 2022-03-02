@@ -64,10 +64,10 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_LIST_DRIVER}?Fk_CompanyID={companyId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBase<List<DriverInfor>>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<DataResponseBase<DriverInfor>>>(url);
                 if (response?.Data != null)
                 {
-                    result = response.Data;
+                    result = response.Data.Items;
                 }
             }
             catch (Exception ex)
