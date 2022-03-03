@@ -2,7 +2,7 @@
 {
     public class VehicleGroupModel : BaseModel
     {
-        public int FK_VehicleGroupID { get; set; }
+        public int PK_VehicleGroupID { get; set; }
 
         public string Name { get; set; }
 

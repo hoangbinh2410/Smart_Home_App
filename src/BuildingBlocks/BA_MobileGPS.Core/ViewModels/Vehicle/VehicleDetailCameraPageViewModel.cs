@@ -126,9 +126,9 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public string PrivateCode { get; set; }
 
-        private Entities.VehicleDetailViewModel inforDetail;
+        private Entities.VehicleOnlineDetailViewModel inforDetail;
 
-        public Entities.VehicleDetailViewModel InforDetail
+        public Entities.VehicleOnlineDetailViewModel InforDetail
         {
             get { return inforDetail; }
             set
