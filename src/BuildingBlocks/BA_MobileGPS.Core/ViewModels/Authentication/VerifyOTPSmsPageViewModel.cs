@@ -151,6 +151,8 @@ namespace BA_MobileGPS.Core.ViewModels
                                 _objOtp = await _iAuthenticationService.GetOTP(_user.PhoneNumber, customerID);
                                 if (_objOtp != null && !string.IsNullOrEmpty(_objOtp.OTP))
                                 {
+                                    TimeRequest ="300";
+                                    index = 300;
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
                                 }
                                 else
