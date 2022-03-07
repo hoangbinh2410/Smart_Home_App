@@ -155,36 +155,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 SelectDetailsItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
-                SelectDetailsItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectDetailsItem.StartAddress) && string.IsNullOrEmpty(SelectDetailsItem.EndAddress))
-                {
-                    var startLat = SelectDetailsItem.StartLatitude;
-                    var startLong = SelectDetailsItem.StartLongitude;
-                    var endLat = SelectDetailsItem.EndLatitude;
-                    var endLong = SelectDetailsItem.EndLongitude;
-                    if (string.IsNullOrEmpty(SelectDetailsItem.StartAddress) && string.IsNullOrEmpty(SelectDetailsItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
-                        {
-                            SelectDetailsItem.StartAddress = response[0];
-                            SelectDetailsItem.EndAddress = response[1];
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(SelectDetailsItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectDetailsItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectDetailsItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectDetailsItem.EndAddress = response[0];
-                    }
-                }
+                SelectDetailsItem.VehiclePlate = VehicleSelect.VehiclePlate;              
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportDetailsSelected, SelectDetailsItem }

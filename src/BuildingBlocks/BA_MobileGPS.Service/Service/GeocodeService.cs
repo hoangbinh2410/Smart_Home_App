@@ -23,7 +23,7 @@ namespace BA_MobileGPS.Service
             var respone = string.Empty;
             try
             {
-                var URL = string.Format(ApiUri.GET_GETADDRESSBYLATLNG + "/?companyID={0}&lat={1}&lng={2}", companyID, lat, lng);
+                var URL = string.Format(ApiUri.GET_GETADDRESSBYLATLNG + "?companyID={0}&lat={1}&lng={2}", companyID, lat, lng);
 
                 var result = await requestProvider.GetAsync<ResponseBase<string>>(URL);
                 if (result != null)

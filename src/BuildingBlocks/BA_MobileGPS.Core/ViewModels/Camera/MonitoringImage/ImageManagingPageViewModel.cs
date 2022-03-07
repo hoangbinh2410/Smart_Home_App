@@ -489,8 +489,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 {
                     xnCode = Settings.CurrentCompany.XNCode;
                 }
-                request.xnCode = xnCode;
-                request.VehiclePlates = CarSearch;
+                request.CustomerId = xnCode;
+                request.VehicleNames = CarSearch;
 
                 PageIndex = 0;
                 IsMaxLoadMore = true;
@@ -531,9 +531,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             xnCode = Settings.CurrentCompany.XNCode;
                         }
-                        request.xnCode = xnCode;
+                        request.CustomerId = xnCode;
 
-                        request.VehiclePlates = string.Join(",", lst);
+                        request.VehicleNames = string.Join(",", lst);
                     }
 
                     var response = await _streamCameraService.GetListCaptureImage(request);
@@ -573,9 +573,9 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             xnCode = Settings.CurrentCompany.XNCode;
                         }
-                        request.xnCode = xnCode;
+                        request.CustomerId = xnCode;
 
-                        request.VehiclePlates = string.Join(",", lst);
+                        request.VehicleNames = string.Join(",", lst);
 
                         IsMaxLoadMore = false;
 

@@ -477,7 +477,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 {
                                     case LoginStatus.Success://Đăng nhập thành công
                                         if (!string.IsNullOrEmpty(user.AccessToken))
-                                        {
+                                        {                                       
                                             OnLoginSuccess(user);
                                         }
                                         else

@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
 
@@ -490,24 +491,28 @@ namespace BA_MobileGPS.Core.ViewModels
 
             Task.Run(async () =>
             {
-                IFile file = null;
-                string avatarUrl = null;
-
+                ImageFileInfoResponse avatarUrl = new ImageFileInfoResponse();            
                 if (!string.IsNullOrWhiteSpace(CurrentUser.AvatarPathLocal))
                 {
-                    file = await FileSystem.Current.GetFileFromPathAsync(CurrentUser.AvatarPathLocal);
-
-                    using (Stream stream = await file.OpenAsync(XamStorage.FileAccess.Read))
+                    UploadImageBase64Request data = new UploadImageBase64Request
                     {
-                        avatarUrl = await userService.UpdateUserAvatar(CurrentUser.UserName, stream, file.Name);
+                        Base64String = GetBase64StringForImage(CurrentUser.AvatarPathLocal),
+                        SystemType = App.AppType,
+                        ModuleType= ModuleType.Avatar
+
+                    };
+
+                    avatarUrl = await userService.UploadImageAsync(data);  
+                    if(avatarUrl == null && String.IsNullOrEmpty(avatarUrl.Url))
+                    {
+                        DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTryAgain);
                     }
                 }
-
                 var request = new UpdateUserInfoRequest
                 {
                     UserID = UserInfo.UserId,
                     UserName = UserInfo.UserName,
-                    AvatarUrl = avatarUrl ?? CurrentUser.AvatarUrl,
+                    AvatarUrl = avatarUrl.Url ?? CurrentUser.AvatarUrl,
                     FullName = CurrentUser.FullName?.Trim(),
                     PhoneNumber = CurrentUser.PhoneNumber?.Trim(),
                     Email = CurrentUser.Email?.Trim(),
@@ -524,9 +529,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 if (result && avatarUrl != null)
                 {
-                    StaticSettings.User.AvatarUrl = avatarUrl;
-
-                    file?.DeleteAsync();
+                    StaticSettings.User.AvatarUrl = avatarUrl.Url;                 
                 }
 
                 return result;
@@ -554,6 +557,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     Logger.WriteError(task.Exception);
                 }
             }));
+        }
+        private string GetBase64StringForImage(string imgPath)
+        {
+            if (string.IsNullOrEmpty(imgPath))
+            {
+                return string.Empty;
+            }
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
     }
 }

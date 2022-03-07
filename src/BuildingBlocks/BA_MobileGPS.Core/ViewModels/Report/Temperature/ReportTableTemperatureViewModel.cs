@@ -167,37 +167,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 // gọi service truyền dữ liệu sang bên trang chi tiết
 
                 SelectTemperatureItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
-                SelectTemperatureItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectTemperatureItem.StartAddress) && string.IsNullOrEmpty(SelectTemperatureItem.EndAddress))
-                {
-                    var startLat = SelectTemperatureItem.StartLatitude;
-                    var startLong = SelectTemperatureItem.StartLongitude;
-                    var endLat = SelectTemperatureItem.EndLatitude;
-                    var endLong = SelectTemperatureItem.EndLongitude;
-                    if (string.IsNullOrEmpty(SelectTemperatureItem.StartAddress) && string.IsNullOrEmpty(SelectTemperatureItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
-                        {
-                            SelectTemperatureItem.StartAddress = response[0];
-                            SelectTemperatureItem.EndAddress = response[1];
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(SelectTemperatureItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectTemperatureItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectTemperatureItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectTemperatureItem.EndAddress = response[0];
-                    }
-                }
-
+                SelectTemperatureItem.VehiclePlate = VehicleSelect.VehiclePlate;            
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportTemperatureSelected, SelectTemperatureItem }

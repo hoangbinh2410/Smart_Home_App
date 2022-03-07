@@ -144,36 +144,7 @@ namespace BA_MobileGPS.Core.ViewModels
             try
             {
                 SelectSpeedOversVehicleItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
-                SelectSpeedOversVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectSpeedOversVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectSpeedOversVehicleItem.EndAddress))
-                {
-                    var startLat = SelectSpeedOversVehicleItem.StartLatitude;
-                    var startLong = SelectSpeedOversVehicleItem.StartLongitude;
-                    var endLat = SelectSpeedOversVehicleItem.EndLatitude;
-                    var endLong = SelectSpeedOversVehicleItem.EndLongitude;
-                    if (string.IsNullOrEmpty(SelectSpeedOversVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectSpeedOversVehicleItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
-                        {
-                            SelectSpeedOversVehicleItem.StartAddress = response[0];
-                            SelectSpeedOversVehicleItem.EndAddress = response[1];
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(SelectSpeedOversVehicleItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectSpeedOversVehicleItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectSpeedOversVehicleItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectSpeedOversVehicleItem.EndAddress = response[0];
-                    }
-                }
+                SelectSpeedOversVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;              
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportSpeedOversSelected, SelectSpeedOversVehicleItem }

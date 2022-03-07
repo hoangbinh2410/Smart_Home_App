@@ -1716,7 +1716,7 @@
                                             Grid.Row="0"
                                             Grid.Column="1"
                                             HorizontalOptions="EndAndExpand"
-                                            Text="{Binding InforDetail.SpeedOverCount, Converter={StaticResource CountStopParkingConverter}}"
+                                            Text="{Binding InforDetail.VehicleHtn.SpeedOverCount, Converter={StaticResource CountStopParkingConverter}}"
                                             VerticalOptions="Center"
                                             VerticalTextAlignment="Center" />
 

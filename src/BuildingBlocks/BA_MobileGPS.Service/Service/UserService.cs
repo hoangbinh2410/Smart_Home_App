@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
@@ -16,25 +17,7 @@ namespace BA_MobileGPS.Service
         {
             RequestProvider = requestProvider;
         }
-
-        public async Task<string> UpdateUserAvatar(string userName, Stream avatar, string fileName)
-        {
-            string result = String.Empty;
-            try
-            {
-                var respone = await RequestProvider.UploadImageAsync<ResponseBase<string>>($"{ApiUri.USER_UPDATE_AVATAR}?username={userName}", avatar, fileName);
-                if (respone != null)
-                {
-                    result = respone.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-           return result;
-        }
-
+     
         public async Task<bool> UpdateUserInfo(UpdateUserInfoRequest request)
         {
             bool result = false;
@@ -118,6 +101,24 @@ namespace BA_MobileGPS.Service
                 if (response?.Data != null)
                 {
                     result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
+        }
+
+        public async Task<ImageFileInfoResponse> UploadImageAsync(UploadImageBase64Request request)
+        {
+            ImageFileInfoResponse result = new ImageFileInfoResponse();
+            try
+            {
+                var respone = await RequestProvider.PostAsync<UploadImageBase64Request,ResponseBase<ImageFileInfoResponse>>(ApiUri.USER_UPDATE_AVATAR, request);
+                if (respone != null)
+                {
+                    result = respone.Data;
                 }
             }
             catch (Exception ex)

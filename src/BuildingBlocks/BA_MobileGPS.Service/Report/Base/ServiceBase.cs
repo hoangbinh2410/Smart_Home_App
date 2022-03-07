@@ -36,26 +36,26 @@ namespace BA_MobileGPS.Service
             return null;
         }
 
-        public async Task<IList<string>> GetAddressReport(string input)
-        {
-            var respone = new List<string>();
-            try
-            {
-                string url = $"{ApiUri.GET_REPORTADDRESS}?Coordinates={input}";
-                var temp = await RequestProvider.GetAsync<ResponseBase<AddressReportResponse>>(url);
-                if (temp != null)
-                {
+        //public async Task<IList<string>> GetAddressReport(string input)
+        //{
+        //    var respone = new List<string>();
+        //    try
+        //    {
+        //        string url = $"{ApiUri.GET_REPORTADDRESS}?Coordinates={input}";
+        //        var temp = await RequestProvider.GetAsync<ResponseBase<AddressReportResponse>>(url);
+        //        if (temp != null)
+        //        {
                    
-                        respone = temp.Data.ListAddress;
+        //                respone = temp.Data.ListAddress;
                     
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return respone;
-        }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+        //    }
+        //    return respone;
+        //}
 
         public async Task<ValidatedReportRespone> ValidateDateTimeReport(Guid UserId,
           DateTime FromDate, DateTime ToDate)

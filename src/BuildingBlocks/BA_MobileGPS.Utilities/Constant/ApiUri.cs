@@ -107,7 +107,7 @@
 
         #region Address
 
-        public const string GET_GETADDRESSBYLATLNG = "api/v1/geocode/getaddresslandmarkbylatlng";
+        public const string GET_GETADDRESSBYLATLNG = "api/v1/geocode/getaddresslandmark";
 
         #endregion Address
 
@@ -152,7 +152,7 @@
 
         public const string GET_USERINFOMATION = "api/v1/user/getuserinfor";
         public const string GET_USERBYUSERNAME = "api/v1/authentication/getuserinfobyusername";
-        public const string USER_UPDATE_AVATAR = "api/image/uploadimageuser";
+        public const string USER_UPDATE_AVATAR = "api/v1/upload/uploadimagebase64";
         public const string USER_UPDATE_INFO = "api/v1/user/updateuserinfor";
         public const string USER_SET_SETTINGS = "api/v1/mobileusersetting/updatemobileusersetting";
         public const string ADMIN_USER_SET_SETTINGS = "api/v1/user/userconfiguration";
@@ -179,7 +179,7 @@
 
         public const string GET_VALIDATEDATETIME = "api/v1/reports/validatedatetimereport";
         public const string GET_REPORTTEMPERATURE = "api/v1/reports/temperature";
-        public const string GET_REPORTADDRESS = "api/v1/geocode/getaddresslandmarkbylatlng";
+        public const string GET_REPORTADDRESS = "api/v1/geocode/getaddresslandmark";
         public const string GET_MACHINEVEHICLE = "api/v1/reports/machine";
         public const string GET_FUELVEHICLE = "api/v1/reports/fuel";
         public const string GET_FUELCHART = "api/v1/reports/fuelchart";
@@ -202,7 +202,7 @@
         #region Camera
 
         public const string GET_CAMERAIMAGE = "api/v1/camera/getimageinfo";       
-        public const string GET_IMAGES = "api/v1/image/getimagepreview";
+        public const string GET_IMAGES = "api/v1/camera/getimagepreview";
         public const string POST_LISTVIDEONOTUPLOAD = "api/v1/camera/getvideonotupload";
         public const string POST_RESTREAM_LISTUPLOAD = "api/v1/camera/getvideouploaded";
         public const string POST_CHART_DATA = "api/v1/camera/videochart";
