@@ -134,9 +134,8 @@ namespace BA_MobileGPS.Core.ViewModels
             }
         }
 
-        // lấy lại mã OTP
         private void GetOPTAgain()
-        {  // Kiểm tra lấy lại mã otp
+        {        
             SafeExecute(async () =>
             {
                 if (index == 0)
@@ -161,7 +160,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 }
                             }
                         }
-                        // Nếu không lấy lại mã sms
                         else
                         {
                             var inputSendCodeSMS = new ForgotPasswordRequest
@@ -176,6 +174,7 @@ namespace BA_MobileGPS.Core.ViewModels
                                 if (objsbsResponse!=null && (int)objsbsResponse.StateRegister == (int)StatusRegisterSMS.Success)
                                 {
                                     DisplayMessage.ShowMessageSuccess("Đã gửi lại mã thành công!", 3000);
+                                    index = objsbsResponse.SecondCountDown;
                                 }
                                 else
                                 {
@@ -205,7 +204,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             }
                         }
                     }
-                    index = objsbsResponse.SecondCountDown;
+
                     SetTimerCountDown();
                 }
                 else
@@ -215,7 +214,6 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        // check OTP
         private bool CheckVerifyOtpZalo()
         {
             if (!OtpSms.Validate())
@@ -260,7 +258,6 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
                         {
-                            // nếu mã OTP zalo
                             if (_objOtp != null)
                             {
                                 if (!CheckVerifyOtpZalo())
@@ -270,7 +267,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                 RememberSettings();
                                 await NavigationService.NavigateAsync("/MainPage");
                             }
-                            // nếu mã Otp sms
                             else
                             {
                                 if (!OtpSms.Validate())
@@ -286,7 +282,6 @@ namespace BA_MobileGPS.Core.ViewModels
                                     SecurityCode = OtpSms.Value,
                                     UserSecuritySMSLogID = objsbsResponse.SecurityCodeSMSLogID
                                 };
-                                // kiểm tra mã otp
                                 var result = await _iAuthenticationService.CheckVehicleOtpsms(inputVerifyCode);
                                 if (result==ResultVerifyOtp.Success)
                                 {
@@ -331,7 +326,6 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private void RememberSettings()
         {
-            //nếu nhớ mật khẩu thì lưu lại thông tin username và password
             if (_rememberme)
             {
                 Settings.Rememberme = true;
@@ -340,7 +334,6 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Settings.Rememberme = false;
             }
-            //Nếu đăng nhập tài khoản khác thì xóa CurrentCompany đi
             if (!string.IsNullOrEmpty(Settings.UserName) && Settings.UserName != _userName && Settings.CurrentCompany != null)
             {
                 Settings.CurrentCompany = null;
