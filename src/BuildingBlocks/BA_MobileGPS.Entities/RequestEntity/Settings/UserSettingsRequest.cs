@@ -7,7 +7,7 @@ namespace BA_MobileGPS.Entities
     {
         public Guid UserID { get; set; }
 
-        public List<MobileUserSetting> ListSettings { get; set; }
+        public List<MobileUserSetting> ListUserSettings { get; set; }
 
         public Guid ExecutedByUser { get; set; }
     }
