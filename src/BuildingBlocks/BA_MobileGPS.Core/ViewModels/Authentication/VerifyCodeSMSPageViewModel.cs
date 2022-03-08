@@ -155,8 +155,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var inputVerifyCode = new VerifyCodeRequest
                         {
-                            phoneNumber = PhoneNumber,
-                            verifyCode = Code.Value,
+                            PhoneNumber = PhoneNumber,
+                            VerifyCode = Code.Value,
                             AppID = (int)App.AppType
                         };
                         var responseSendCodeSMS = await _iAuthenticationService.CheckVerifyCode(inputVerifyCode);
@@ -270,8 +270,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var inputSendCodeSMS = new ForgotPasswordRequest
                         {
-                            phoneNumber = PhoneNumber,
-                            userName = AccountName,
+                            PhoneNumber = PhoneNumber,
+                            UserName = AccountName,
                             AppID = (int)App.AppType
                         };
                         var responseSendCodeSMS = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);

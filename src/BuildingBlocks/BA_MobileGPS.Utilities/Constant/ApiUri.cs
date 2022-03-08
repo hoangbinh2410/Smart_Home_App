@@ -125,9 +125,9 @@
 
         public const string VALIDATEPHONEBYUSER = "api/v1/authentication/validatephonebyuser";
 
-        public const string SENDVERIFYCODE = "api/sms/sendverifycode";
+        public const string SENDVERIFYCODE = "api/v1/otp/sendverifycode";
 
-        public const string CHECKVERIFYCODE = "api/sms/checkverifycode";
+        public const string CHECKVERIFYCODE = "api/v1/otp/checkverifycode";
 
         public const string GETOTP = "api/v1/otp/getotpzalo";
 
@@ -342,7 +342,7 @@
         public const string Delete_Multiple = "api/v1/expenses/deletemultiple";
         #endregion Expense
         #region OTP
-        public const string GET_Vehicle_OTP_SMS = "api/v1/otp/sendvehiclephoneotp";
+        public const string GET_Vehicle_OTP_SMS = "api/v1/otp/verifyotp";
         public const string Post_Numberphone_OTP_SMS = "api/v1/otp/verifyphonenumberotp";
         #endregion
     }

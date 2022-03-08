@@ -150,8 +150,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var inputSendCodeSMS = new ForgotPasswordRequest
                         {
-                            phoneNumber = NumberPhone.Value,
-                            userName = _user.UserName,
+                            PhoneNumber = NumberPhone.Value,
+                            UserName = _user.UserName,
                             AppID = (int)App.AppType
                         };
                         using (new HUDService(MobileResource.Common_Message_Processing))

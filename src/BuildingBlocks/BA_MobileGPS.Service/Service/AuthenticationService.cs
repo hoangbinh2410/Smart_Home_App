@@ -63,7 +63,7 @@ namespace BA_MobileGPS.Service
             bool respone = false;
             try
             {
-                var result = await _IRequestProvider.GetAsync<ResponseBase<bool>>($"{ApiUri.VALIDATEPHONEBYUSER}?userName={input.userName}&phoneNumber={input.phoneNumber}");
+                var result = await _IRequestProvider.GetAsync<ResponseBase<bool>>($"{ApiUri.VALIDATEPHONEBYUSER}?userName={input.UserName}&phoneNumber={input.PhoneNumber}");
                 if (result.Data)
                 {
                     respone = result.Data;
@@ -81,7 +81,7 @@ namespace BA_MobileGPS.Service
             var result = new SendCodeSMSResponse();
             try
             {
-                var response = await _IRequestProvider.GetAsync<ResponseBase<SendCodeSMSResponse>>($"{ApiUri.SENDVERIFYCODE}?username={input.userName}&phone={input.phoneNumber}&appID={input.AppID}");
+                var response = await _IRequestProvider.PostAsync<ForgotPasswordRequest,ResponseBase<SendCodeSMSResponse>>(ApiUri.SENDVERIFYCODE,input);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
@@ -99,7 +99,7 @@ namespace BA_MobileGPS.Service
             var result = new CheckVerifyCodeResponse();
             try
             {
-                var response = await _IRequestProvider.GetAsync<ResponseBase<CheckVerifyCodeResponse>>($"{ApiUri.CHECKVERIFYCODE}?verifyCode={input.verifyCode}&phoneNumber={input.phoneNumber}&AppID={input.AppID}");
+                var response = await _IRequestProvider.GetAsync<ResponseBase<CheckVerifyCodeResponse>>($"{ApiUri.CHECKVERIFYCODE}?verifyCode={input.VerifyCode}&phoneNumber={input.PhoneNumber}&AppID={input.AppID}");
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
