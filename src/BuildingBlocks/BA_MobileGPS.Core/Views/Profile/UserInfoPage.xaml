@@ -210,10 +210,7 @@
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding EmailErrorMessage}"
-                        HasError="{Binding EmailHasError}"
+                        ContainerType="Outlined"                      
                         HorizontalOptions="FillAndExpand"
                         LeadingViewPosition="Inside"
                         VerticalOptions="Start">
@@ -240,10 +237,7 @@
                         </Label.FormattedText>
                     </Label>
                     <input:SfTextInputLayout
-                        ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
-                        ErrorText="{Binding AddressErrorMessage}"
-                        HasError="{Binding AddressHasError}"
+                        ContainerType="Outlined"                      
                         HorizontalOptions="FillAndExpand"
                         LeadingViewPosition="Inside"
                         VerticalOptions="Start">

@@ -272,7 +272,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool ValidateInputs()
         {
-            return ValidateDateOfBirth() && ValidateFullName() && ValidatePhoneNumber() && ValidateEmail() && ValidateCareer() && ValidateRole() && ValidateAddress() && ValidateFacebook();
+            return ValidateDateOfBirth() && ValidateFullName() && ValidatePhoneNumber() && ValidateCareer() && ValidateRole() && ValidateFacebook();
         }
 
         private string dateOfBirthErrorMessage;
@@ -366,30 +366,30 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool emailHasError;
         public bool EmailHasError { get => emailHasError; set => SetProperty(ref emailHasError, value); }
 
-        private bool ValidateEmail()
-        {
-            EmailErrorMessage = null;
-            EmailHasError = true;
+        //private bool ValidateEmail()
+        //{
+        //    EmailErrorMessage = null;
+        //    EmailHasError = true;
 
-            if (string.IsNullOrWhiteSpace(CurrentUser.Email))
-            {
-                return true;
-            }
-            if (StringHelper.HasDangerousChars(CurrentUser.Email))
-            {
-                EmailErrorMessage = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_Email);
-                return false;
-            }
-            if (!StringHelper.ValidateEmail(CurrentUser.Email))
-            {
-                EmailErrorMessage = MobileResource.Common_Property_Invalid(MobileResource.UserInfo_Label_Email);
-                return false;
-            }
+        //    if (string.IsNullOrWhiteSpace(CurrentUser.Email))
+        //    {
+        //        return true;
+        //    }
+        //    if (StringHelper.HasDangerousChars(CurrentUser.Email))
+        //    {
+        //        EmailErrorMessage = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_Email);
+        //        return false;
+        //    }
+        //    if (!StringHelper.ValidateEmail(CurrentUser.Email))
+        //    {
+        //        EmailErrorMessage = MobileResource.Common_Property_Invalid(MobileResource.UserInfo_Label_Email);
+        //        return false;
+        //    }
 
-            EmailHasError = false;
+        //    EmailHasError = false;
 
-            return true;
-        }
+        //    return true;
+        //}
 
         private string careerErrorMessage;
         public string CareerErrorMessage { get => careerErrorMessage; set => SetProperty(ref careerErrorMessage, value); }
@@ -441,21 +441,21 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool addressHasError;
         public bool AddressHasError { get => addressHasError; set => SetProperty(ref addressHasError, value); }
 
-        private bool ValidateAddress()
-        {
-            AddressErrorMessage = null;
-            AddressHasError = true;
+        //private bool ValidateAddress()
+        //{
+        //    AddressErrorMessage = null;
+        //    AddressHasError = true;
 
-            if (!StringHelper.ValidateAddress(CurrentUser.Address))
-            {
-                AddressErrorMessage = MobileResource.Common_Property_NotContainChars(MobileResource.UserInfo_Label_Address, "',\",<,>,&");
-                return false;
-            }
+        //    if (!StringHelper.ValidateAddress(CurrentUser.Address))
+        //    {
+        //        AddressErrorMessage = MobileResource.Common_Property_NotContainChars(MobileResource.UserInfo_Label_Address, "',\",<,>,&");
+        //        return false;
+        //    }
 
-            AddressHasError = false;
+        //    AddressHasError = false;
 
-            return true;
-        }
+        //    return true;
+        //}
 
         private string facebookErrorMessage;
         public string FacebookErrorMessage { get => facebookErrorMessage; set => SetProperty(ref facebookErrorMessage, value); }
