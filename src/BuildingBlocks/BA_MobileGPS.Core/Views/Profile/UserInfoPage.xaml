@@ -325,6 +325,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedGender}"
                                 ShowBorder="False"
+                                HeightRequest="40"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>
@@ -420,6 +421,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedReligion}"
                                 ShowBorder="False"
+                                HeightRequest="40"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>

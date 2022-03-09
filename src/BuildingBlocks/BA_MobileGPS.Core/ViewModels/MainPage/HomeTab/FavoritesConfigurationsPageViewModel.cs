@@ -18,6 +18,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private readonly IDisplayMessage _displayMessage;
         private readonly IHomeService _homeService;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
         public DelegateCommand<object> TapMenuCommand { get; set; }
         public DelegateCommand SaveCommand { get; private set; }
         public DelegateCommand SearchBarCommand { get; private set; }
@@ -26,12 +27,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
         public FavoritesConfigurationsPageViewModel(INavigationService navigationService,
             IMapper mapper,
-            IHomeService homeService, IDisplayMessage displayMessage)
+            IHomeService homeService, IDisplayMessage displayMessage,
+            IUserService userService)
             : base(navigationService)
         {
             this._displayMessage = displayMessage;
             this._homeService = homeService;
             this._mapper = mapper;
+            this._userService = userService;
 
             //TapMenuCommand = new DelegateCommand<object>(OnTappedMenuAsync);
             SearchBarCommand = new DelegateCommand(SearchBarExecute);
@@ -52,19 +55,25 @@ namespace BA_MobileGPS.Core.ViewModels
 
             try
             {
-                var listMenu = FavoriteMenuItems.Count > 0 ? string.Join(",", FavoriteMenuItems.ToList().Select(x => x.PK_MenuItemID)) : "";
-
+                 var listMenu = FavoriteMenuItems.Count > 0 ? string.Join(",", FavoriteMenuItems.ToList().Select(x => x.PK_MenuItemID)) : "";
+                
                 using (new HUDService(MobileResource.Common_Message_Processing))
                 {
-                    var req = new MenuConfigRequest()
+                    var data = new List<MobileUserSetting>() 
                     {
-                        FK_UserID = UserInfo.UserId,
-                        NameConfig = MenuConfig.MenuFavorite,
-                        ListMenus = listMenu
-                    };
-
-                    var isSuccess = await _homeService.SaveConfigMenuAsync(req);
-
+                      new MobileUserSetting()
+                      {
+                          Name = MenuConfig.MenuFavorite,
+                          Value = listMenu
+                      }
+                    };                         
+                    var request = new UserSettingsRequest()
+                    {
+                        UserID = UserInfo.UserId,
+                        ListUserSettings = data,
+                        ExecutedByUser = UserInfo.UserId
+                    };                  
+                    var isSuccess = await _userService.SetUserSettings(request);
                     if (isSuccess)
                     {
                         var mbSetting = StaticSettings.User.MobileUserSetting;
@@ -84,11 +93,10 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             mbSetting.Add(new MobileUserSetting
                             {
-                                Name = req.NameConfig,
-                                Value = req.ListMenus
+                                Name = data.FirstOrDefault().Name,
+                                Value = data.FirstOrDefault().Value
                             });
                         }
-
                         _displayMessage.ShowMessageSuccess(MobileResource.Favorites_Message_SaveSuccess);
 
                         var para = new NavigationParameters();
