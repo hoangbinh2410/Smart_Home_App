@@ -35,10 +35,4 @@ namespace BA_MobileGPS.Entities
         // trang thái gửi yêu cầu kích hoạt
         public StatusRegisterSMS StateRegister { set; get; }
     }
-
-    public class CheckVerifyCodeResponse : SendCodeSMSResponse
-    {
-        // trạng thái kiểm tra mã xác thực
-        public StateVerifyCode StateVerifyCode { set; get; }
-    }
 }

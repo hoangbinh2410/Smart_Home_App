@@ -210,7 +210,45 @@ namespace BA_MobileGPS.Core.ViewModels
                 });
             });
         }
+        private bool ValidateEmail()
+        {
+            EmailErrorMessage = null;
+            EmailHasError = false;
+            if (String.IsNullOrEmpty(CurrentUser.Email))
+            {
+                return true;
+            }
 
+            if (StringHelper.HasDangerousChars(CurrentUser.Email))
+            {
+                EmailErrorMessage = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_Email);
+                EmailHasError = true;
+                return false;
+            }
+            if (!StringHelper.ValidateEmail(CurrentUser.Email))
+            {
+                EmailErrorMessage = MobileResource.Common_Property_Invalid(MobileResource.UserInfo_Label_Email);
+                EmailHasError = true;
+                return false;
+            }            
+            return true;
+        }
+        private bool ValidateAddress()
+        {
+            AddressErrorMessage = null;
+            AddressHasError = false;
+            if (String.IsNullOrEmpty(CurrentUser.Address))
+            {
+                return true;
+            }
+            if (!StringHelper.ValidateAddress(CurrentUser.Address))
+            {
+                AddressErrorMessage = MobileResource.Common_Property_NotContainChars(MobileResource.UserInfo_Label_Address, "',\",<,>,&");
+                AddressHasError = true;
+                return false;
+            }        
+            return true;
+        }
         private void PickAvatar()
         {
             TryExecute(async () =>
@@ -272,7 +310,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool ValidateInputs()
         {
-            return ValidateDateOfBirth() && ValidateFullName() && ValidatePhoneNumber() && ValidateCareer() && ValidateRole() && ValidateFacebook();
+            return ValidateDateOfBirth() && ValidateFullName() && ValidatePhoneNumber() && ValidateEmail() && ValidateCareer() && ValidateRole() && ValidateAddress()&& ValidateFacebook();
         }
 
         private string dateOfBirthErrorMessage;

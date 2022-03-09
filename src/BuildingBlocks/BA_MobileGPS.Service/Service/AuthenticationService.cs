@@ -3,6 +3,7 @@ using BA_MobileGPS.Entities.RequestEntity;
 using BA_MobileGPS.Entities.ResponeEntity.OTP;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
+using BA_MobileGPS.Utilities.Enums;
 using Newtonsoft.Json;
 
 using System;
@@ -43,14 +44,8 @@ namespace BA_MobileGPS.Service
 
         public async Task<bool> ChangePassword(ChangePassRequest request)
         {
-            bool respone = false;
-            MsgRequest msg = new MsgRequest
-            {
-                Param = Message.EncodeMessage(request.ConvertToByteArray().ToArray())
-            };
-            string data = JsonConvert.SerializeObject(msg);
-
-            var result = await _IRequestProvider.PostStreamAsync<ResponseBase<bool>>(ApiUri.POST_CHANGE_PASS, new MemoryStream(Encoding.UTF8.GetBytes(data)));
+            bool respone = false;           
+            var result = await _IRequestProvider.PostAsync<ChangePassRequest,ResponseBase<bool>>(ApiUri.POST_CHANGE_PASS, request);
             if (result.Data)
             {
                 respone = result.Data;
@@ -94,13 +89,13 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<CheckVerifyCodeResponse> CheckVerifyCode(VerifyCodeRequest input)
+        public async Task<StateVerifyCode> CheckVerifyCode(VerifyCodeRequest input)
         {
-            var result = new CheckVerifyCodeResponse();
+            var result = new StateVerifyCode();
             try
             {
-                var response = await _IRequestProvider.GetAsync<ResponseBase<CheckVerifyCodeResponse>>($"{ApiUri.CHECKVERIFYCODE}?verifyCode={input.VerifyCode}&phoneNumber={input.PhoneNumber}&AppID={input.AppID}");
-                if (response != null && response.Data != null)
+                var response = await _IRequestProvider.PostAsync<VerifyCodeRequest,ResponseBase<StateVerifyCode>>(ApiUri.CHECKVERIFYCODE, input);
+                if (response != null)
                 {
                     result = response.Data;
                 }
@@ -122,7 +117,7 @@ namespace BA_MobileGPS.Service
                     Param = Message.EncodeMessage(input.ConvertToByteArray().ToArray())
                 };
                 string data = JsonConvert.SerializeObject(msg);
-                var response = await _IRequestProvider.PostStreamAsync<ResponseBase<bool>>(ApiUri.CHANGEPASSWORDFORGET, new MemoryStream(Encoding.UTF8.GetBytes(data)));
+                var response = await _IRequestProvider.PostAsync<ChangePasswordForgotRequest,ResponseBase<bool>>(ApiUri.CHANGEPASSWORDFORGET, input);
                 if (response.Data)
                 {
                     result = response.Data;

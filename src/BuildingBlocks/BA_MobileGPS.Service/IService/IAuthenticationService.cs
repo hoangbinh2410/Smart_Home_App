@@ -16,7 +16,7 @@ namespace BA_MobileGPS.Service
 
         Task<SendCodeSMSResponse> SendCodeSMS(ForgotPasswordRequest input);
 
-        Task<CheckVerifyCodeResponse> CheckVerifyCode(VerifyCodeRequest input);
+        Task<StateVerifyCode> CheckVerifyCode(VerifyCodeRequest input);
 
         Task<bool> ChangePassWordForget(ChangePasswordForgotRequest input);
 
