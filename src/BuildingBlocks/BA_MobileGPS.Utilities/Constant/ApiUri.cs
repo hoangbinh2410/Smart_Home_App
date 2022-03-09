@@ -325,8 +325,8 @@
 
         #region KPI
 
-        public const string GET_DRIVERKPI_CHART = "api/v1/reports/getdriverkpichart";
-        public const string GET_DRIVERKPI_RANKING = "api/v1/reports/getdriverranking";
+        public const string GET_DRIVERKPI_CHART = "api/v1/kpidriver/getdriverkpichart";
+        public const string GET_DRIVERKPI_RANKING = "api/v1/kpidriver/getdriverranking";
 
         #endregion KPI
 

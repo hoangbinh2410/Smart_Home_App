@@ -55,6 +55,8 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <!--  Loại xe  -->
                             <Grid Grid.Row="0" RowSpacing="0">
@@ -628,6 +630,95 @@
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="Start" />
                             </Grid>
+                             <!--Số lít bắt đầu-->
+                            <Grid Grid.Row="13" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_location_black.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource DetailsReport_Label_StartFuel}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="30,0,0,0"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedDetails.StartFuel}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{DynamicResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+                            <!--Số lít kết thúc-->
+                            <Grid Grid.Row="14" RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="1" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Padding="0,10,0,10"
+                                    HorizontalOptions="FillAndExpand"
+                                    Orientation="Horizontal">
+                                    <controls:IconView
+                                        Foreground="{DynamicResource PrimaryColor}"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_location_black.png"
+                                        VerticalOptions="Center"
+                                        WidthRequest="20" />
+                                    <Label
+                                        Text="{i18n:TranslateResource DetailsReport_Label_EndFuel}"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="30,0,0,0"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="{Binding SelectedDetails.EndFuel}"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center" />
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BackgroundColor="{DynamicResource GrayColor}"
+                                    HeightRequest="0.5"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start" />
+                            </Grid>
+
                         </Grid>
                     </sharpnado:MaterialFrame.Content>
                 </sharpnado:MaterialFrame>

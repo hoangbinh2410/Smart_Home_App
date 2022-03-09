@@ -423,6 +423,74 @@
                             </syncDataGrid:GridTemplateColumn.CellTemplate>
                         </syncDataGrid:GridTemplateColumn>
 
+                        <!--  Số lít bắt đầu  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="80"
+                            ColumnSizer="Auto"
+                            IsHidden="{Binding ShowStartFuel, Converter={StaticResource ShowHideColumnConverter}}"
+                            MappingName="TotalKm"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource DetailsReport_Table_StartFuel}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontSize="{StaticResource FontSize10}"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding StartFuel, StringFormat='{0:0.##}'}"
+                                        VerticalOptions="FillAndExpand"
+                                        VerticalTextAlignment="Center"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
+                        <!--  Số lít kết thúc  -->
+                        <syncDataGrid:GridTemplateColumn
+                            Width="80"
+                            ColumnSizer="Auto"
+                            IsHidden="{Binding ShowEndFuel, Converter={StaticResource ShowHideColumnConverter}}"
+                            MappingName="TotalKm"
+                            TextAlignment="Center">
+                            <syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{i18n:TranslateResource DetailsReport_Table_EndFuel}"
+                                        TextColor="{DynamicResource WhiteColor}"
+                                        VerticalOptions="FillAndExpand"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.HeaderTemplate>
+                            <syncDataGrid:GridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        FontSize="{StaticResource FontSize10}"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding EndFuel, StringFormat='{0:0.##}'}"
+                                        VerticalOptions="FillAndExpand"
+                                        VerticalTextAlignment="Center"
+                                        XAlign="Center"
+                                        YAlign="Center" />
+                                </DataTemplate>
+                            </syncDataGrid:GridTemplateColumn.CellTemplate>
+                        </syncDataGrid:GridTemplateColumn>
+
                         <!--  Thời gian hoạt động  -->
                         <syncDataGrid:GridTemplateColumn
                             Width="85"
@@ -769,6 +837,19 @@
                             <syncDataGrid:GridTableSummaryRow.SummaryColumns>
 
                                 <syncDataGrid:GridSummaryColumn
+                                    Name="SumStartFuel"
+                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
+                                    Format="{}{SumStartFuel}"
+                                    MappingName="StartFuel"
+                                    SummaryType="Custom" />
+                                <syncDataGrid:GridSummaryColumn
+                                    Name="SumEndFuel"
+                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
+                                    Format="{}{SumEndFuel}"
+                                    MappingName="EndFuel"
+                                    SummaryType="Custom" />
+
+                                <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalTimes"
                                     CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
                                     Format="{}{TotalTime}"
@@ -863,6 +944,7 @@
                     HorizontalOptions="FillAndExpand">
                     <Grid HorizontalOptions="FillAndExpand" RowSpacing="10">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -985,10 +1067,28 @@
                             FontSize="13"
                             IsChecked="{Binding ShowEndAddress}"
                             Text="{i18n:TranslateResource DetailsReport_CheckBox_EndAddress}" />
+                        <!--  Số lít bắt đầu  -->
+                        <checkbox:SfCheckBox
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5.0"
+                            FontSize="13"
+                            IsChecked="{Binding ShowStartFuel}"
+                            Text="{i18n:TranslateResource DetailsReport_CheckBox_StartFuel}" />
+                        <!--  Số lít kết thúc  -->
+                        <checkbox:SfCheckBox
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            CheckedColor="{DynamicResource PrimaryColor}"
+                            CornerRadius="5.0"
+                            FontSize="13"
+                            IsChecked="{Binding ShowEndFuel}"
+                            Text="{i18n:TranslateResource DetailsReport_CheckBox_EndFuel}" />
                         <!--  button save  -->
 
                         <StackLayout
-                            Grid.Row="6"
+                            Grid.Row="7"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
                             Orientation="Horizontal">

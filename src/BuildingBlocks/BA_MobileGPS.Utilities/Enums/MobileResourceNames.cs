@@ -728,6 +728,8 @@
         DetailsReport_Label_StartAddress,
         DetailsReport_Label_EndAddress,
         DetailsReport_Label_TripCompensatory,
+        DetailsReport_Label_StartFuel,
+        DetailsReport_Label_EndFuel,
 
         DetailsReport_Table_Serial,
         DetailsReport_Table_CurrentTime,
@@ -742,6 +744,8 @@
         DetailsReport_Table_StartAddress,
         DetailsReport_Table_EndAddress,
         DetailsReport_Table_TripCompensatory,
+        DetailsReport_Table_StartFuel,
+        DetailsReport_Table_EndFuel,
 
         DetailsReport_CheckBox_VehicleType,
         DetailsReport_CheckBox_VehiclePlate,
@@ -754,6 +758,8 @@
         DetailsReport_CheckBox_QuotaFuelConsume,
         DetailsReport_CheckBox_StartAddress,
         DetailsReport_CheckBox_EndAddress,
+        DetailsReport_CheckBox_StartFuel,
+        DetailsReport_CheckBox_EndFuel,
         DetailsReport_Combobox_Title_ChooseAddress,
         DetailsReport_Status_permission,
 

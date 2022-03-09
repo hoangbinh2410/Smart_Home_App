@@ -383,6 +383,9 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailsReport_Label_EndAddress => Get(MobileResourceNames.DetailsReport_Label_EndAddress, "Địa chỉ đến", "End Address");
 
         public static string DetailsReport_Label_TripCompensatory => Get(MobileResourceNames.DetailsReport_Label_TripCompensatory, "Cuốc bù", "Trip Compensatory");
+        public static string DetailsReport_Label_StartFuel => Get(MobileResourceNames.DetailsReport_Label_StartFuel, "Số lít bắt đầu", "Start Fuel");
+        public static string DetailsReport_Label_EndFuel => Get(MobileResourceNames.DetailsReport_Label_EndFuel, "Số lít kết thúc", "End Fuel");
+
 
         public static string DetailsReport_Table_Serial => Get(MobileResourceNames.DetailsReport_Table_Serial, "STT", "Serial");
 
@@ -409,6 +412,10 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string DetailsReport_Table_TripCompensatory => Get(MobileResourceNames.DetailsReport_Table_TripCompensatory, "Cuốc bù", "Trip Compensatory");
 
+        public static string DetailsReport_Table_StartFuel => Get(MobileResourceNames.DetailsReport_Table_StartFuel, "Số lít bắt đầu", "Start Fuel");
+        public static string DetailsReport_Table_EndFuel => Get(MobileResourceNames.DetailsReport_Table_EndFuel, "Số lít Kết thúc", "End Fuel");
+
+
         public static string DetailsReport_CheckBox_VehicleType => Get(MobileResourceNames.DetailsReport_CheckBox_VehicleType, "Loại xe", "Vehicle Type");
 
         public static string DetailsReport_CheckBox_VehiclePlate => Get(MobileResourceNames.DetailsReport_CheckBox_VehiclePlate, "Biển số xe", "Vehicle Plate");
@@ -430,6 +437,9 @@ namespace BA_MobileGPS.Core.Resources
         public static string DetailsReport_CheckBox_StartAddress => Get(MobileResourceNames.DetailsReport_CheckBox_StartAddress, "Địa chỉ đi", "StartAddress");
 
         public static string DetailsReport_CheckBox_EndAddress => Get(MobileResourceNames.DetailsReport_CheckBox_EndAddress, "Địa chỉ đến", "End Address");
+        public static string DetailsReport_CheckBox_StartFuel => Get(MobileResourceNames.DetailsReport_CheckBox_StartFuel, "Số lít bắt đầu", "Start Fuel");
+        public static string DetailsReport_CheckBox_EndFuel => Get(MobileResourceNames.DetailsReport_CheckBox_EndFuel, "Số lít kết thúc", "End Fuel");
+
 
         public static string DetailsReport_Combobox_Title_ChooseAddress => Get(MobileResourceNames.DetailsReport_Combobox_Title_ChooseAddress, "Chọn địa chỉ", "Choose address");
 
