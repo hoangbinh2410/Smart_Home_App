@@ -176,36 +176,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 // gọi service truyền dữ liệu sang bên trang chi tiết
 
                 SelectMachineVehicleItem = ListDataSearch.Where(x => x.OrderNumber == OrderNumber).FirstOrDefault();
-                SelectMachineVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;
-                if (string.IsNullOrEmpty(SelectMachineVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectMachineVehicleItem.EndAddress))
-                {
-                    var startLat = SelectMachineVehicleItem.StartLatitude;
-                    var startLong = SelectMachineVehicleItem.StartLongitude;
-                    var endLat = SelectMachineVehicleItem.EndLatitude;
-                    var endLong = SelectMachineVehicleItem.EndLongitude;
-                    if (string.IsNullOrEmpty(SelectMachineVehicleItem.StartAddress) && string.IsNullOrEmpty(SelectMachineVehicleItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1};{2} {3}", startLat, startLong, endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        if (response.Count >= 2)
-                        {
-                            SelectMachineVehicleItem.StartAddress = response[0];
-                            SelectMachineVehicleItem.EndAddress = response[1];
-                        }
-                    }
-                    else if (string.IsNullOrEmpty(SelectMachineVehicleItem.StartAddress))
-                    {
-                        var input = string.Format("{0} {1}}", startLat, startLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectMachineVehicleItem.StartAddress = response[0];
-                    }
-                    else if (string.IsNullOrEmpty(SelectMachineVehicleItem.EndAddress))
-                    {
-                        var input = string.Format("{0} {1}}", endLat, endLong);
-                        var response = await BaseServiceReport.GetAddressReport(input);
-                        SelectMachineVehicleItem.EndAddress = response[0];
-                    }
-                }
+                SelectMachineVehicleItem.VehiclePlate = VehicleSelect.VehiclePlate;               
                 var p = new NavigationParameters
                 {
                     { ParameterKey.ReportMachineVehicleSelected, SelectMachineVehicleItem }
@@ -372,13 +343,13 @@ namespace BA_MobileGPS.Core.ViewModels
             var input = new MachineVehcleRequest
             {
                 CompanyID = (UserHelper.isCompanyPartner(UserInfo.CompanyType) || (UserHelper.isCompanyEndUserWithPermisstion(UserInfo.CompanyType))) ? CurrentComanyID : StaticSettings.User.CompanyId,
-                ListVehicleID = VehicleSelect.VehicleId.ToString(),
+                VehicleIDs = VehicleSelect.VehicleId.ToString(),
                 NumberOfMinutes = string.IsNullOrEmpty(MinutesCondition) ? 0 : int.Parse(MinutesCondition),
                 State = StatusMachineSelected.Key == 0 ? (bool?)null : (StatusMachineSelected.Key == 1 ? true : false),
                 PageIndex = PagedNext,
                 PageSize = PageSize,
-                DateStart = FromDate,
-                DateEnd = ToDate,
+                FromDate = FromDate,
+                ToDate = ToDate,
                 IsAddress = ShowStartAddress || ShowEndAddress,
             };
             return input;

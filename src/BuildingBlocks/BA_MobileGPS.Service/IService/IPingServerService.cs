@@ -6,8 +6,8 @@ namespace BA_MobileGPS.Service
 {
     public interface IPingServerService
     {
-        Task<BaseResponse<bool>> PingServerStatus();
+        Task<ResponseBase<bool>> PingServerStatus();
 
-        Task<BaseResponse<DateTime>> GetTimeServer();
+        Task<ResponseBase<DateTime>> GetTimeServer();
     }
 }

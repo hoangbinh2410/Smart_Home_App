@@ -22,22 +22,20 @@ namespace BA_MobileGPS.Service
 
         public async Task<List<FuelChartReport>> GetData()
         {
+            var respone = new List<FuelChartReport>();
             try
             {
-                var temp = await RequestProvider.PostAsync<FuelChartRequest, FuelChartResponse>(ApiUri.GET_FUELCHART, Request);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<FuelChartRequest, ResponseBase<List<FuelChartReport>>>(ApiUri.GET_FUELCHART, Request);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.State)
-                    {
-                        return temp.ListFuelChartReport;
-                    }
+                    respone= temp.Data;
                 }
             }
             catch (Exception ex)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
-            return default;
+            return respone;
         }
 
         public Task<List<FuelChartReport>> GetMoreData()
@@ -60,7 +58,7 @@ namespace BA_MobileGPS.Service
             {
                 string url = $"{ApiUri.GET_VALIDATEDATETIME}?UserId={UserId}&FromDate={FromDate.ToString("yyyy-MM-dd HH:mm:ss")}&ToDate={ToDate.ToString("yyyy-MM-dd HH:mm:ss")}";
 
-                var result = await RequestProvider.GetAsync<ResponseBaseV2<ValidatedReportRespone>>(url);
+                var result = await RequestProvider.GetAsync<ResponseBase<ValidatedReportRespone>>(url);
                 if (result != null && result.Data != null)
                 {
                     respone = result.Data;

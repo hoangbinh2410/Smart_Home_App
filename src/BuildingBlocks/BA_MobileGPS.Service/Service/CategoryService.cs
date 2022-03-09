@@ -15,14 +15,27 @@ namespace BA_MobileGPS.Service
             RequestProvider = requestProvider;
         }
 
-        public Task<List<Gender>> GetListGender(string culture)
+        public async Task<List<Gender>> GetListGender(string culture)
         {
-            return RequestProvider.GetAsync<List<Gender>>($"{ApiUri.CATEGORY_LIST_GENDER}?culture={culture}");
+            List<Gender> result = new List<Gender>();
+          
+            var respone =await RequestProvider.GetAsync<ResponseBase<List<Gender>>>($"{ApiUri.CATEGORY_LIST_GENDER}?culture={culture}");
+            if(respone != null && respone.Data.Count > 0)
+            {
+               result = respone.Data;
+            }
+            return result;
         }
 
-        public Task<List<Religion>> GetListReligion(string culture)
+        public async Task<List<Religion>> GetListReligion(string culture)
         {
-            return RequestProvider.GetAsync<List<Religion>>($"{ApiUri.CATEGORY_LIST_RELIGION}?culture={culture}");
+            List<Religion> result = new List<Religion>();
+            var respone =await RequestProvider.GetAsync<ResponseBase<List<Religion>>>($"{ApiUri.CATEGORY_LIST_RELIGION}?culture={culture}");
+            if (respone != null && respone.Data.Count > 0)
+            {
+                result = respone.Data;
+            }
+            return result;
         }
     }
 }

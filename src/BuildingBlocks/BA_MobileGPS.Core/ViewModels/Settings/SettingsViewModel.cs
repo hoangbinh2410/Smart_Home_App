@@ -102,7 +102,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 return await userService.SetUserSettings(new UserSettingsRequest
                 {
                     UserID = UserInfo.UserId,
-                    ListSettings = MobileUserSettings.ToList().FindAll(s => s.IsChanged),
+                    ListUserSettings = MobileUserSettings.ToList().FindAll(s => s.IsChanged),
                     ExecutedByUser = UserInfo.UserId
                 });
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>

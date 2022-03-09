@@ -771,7 +771,7 @@ namespace MOTO_MobileGPS.Views
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     var temp = task.Result;
-                    if (temp != null && temp.Success && temp.Data != null)
+                    if (temp != null && temp.Data != null)
                     {
                         MotoStaticSettings.MotoProperties = temp.Data.GetXMPropertiesResult;
 
@@ -800,7 +800,7 @@ namespace MOTO_MobileGPS.Views
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     var response = task.Result;
-                    if (response != null && response.Success)
+                    if (response != null && response.Data!= null)
                     {
                         GlobalResourcesMoto.Current.MotoDetail = response.Data.MotoDetailResult;
                         GlobalResourcesMoto.Current.MotoDetail.IsOnline = response.Data.MotoDetailResult.IsOnline;

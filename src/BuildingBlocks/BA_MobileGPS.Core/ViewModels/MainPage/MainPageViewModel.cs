@@ -515,7 +515,15 @@ namespace BA_MobileGPS.Core.ViewModels
 
             RunOnBackground(async () =>
             {
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                VehicleOnlineRequest item = new VehicleOnlineRequest
+                {
+                    UserID = userID,
+                    CompanyID = companyID,
+                    XnCode = xnCode,
+                    UserType = userType,
+                    CompanyType = companyType
+                };
+                return await vehicleOnlineService.GetListVehicleOnline(item);
             }, (result) =>
             {
                 if (StaticSettings.IsUnauthorized)
@@ -588,7 +596,15 @@ namespace BA_MobileGPS.Core.ViewModels
                 int vehicleGroup = 0;
                 RunOnBackground(async () =>
                 {
-                    return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                    VehicleOnlineRequest item = new VehicleOnlineRequest
+                    {
+                        UserID = userID,
+                        CompanyID = companyID,
+                        XnCode = xnCode,
+                        UserType = userType,
+                        CompanyType = companyType
+                    };
+                    return await vehicleOnlineService.GetListVehicleOnline(item);
                 }, (result) =>
                 {
                     if (result != null && result.Count > 0)
@@ -701,11 +717,11 @@ namespace BA_MobileGPS.Core.ViewModels
                             userID = Settings.CurrentCompany.UserId;
                             companyID = Settings.CurrentCompany.FK_CompanyID;
                         }
-                        var request = new VehicleOnlineRequest()
+                        var request = new VehicleOnlineSyncRequest()
                         {
                             CompanyID = companyID,
-                            LastSync = StaticSettings.LastSyncTime,
-                            UserId = userID,
+                            LastTime = StaticSettings.LastSyncTime,
+                            UserID = userID,
                             VehicelIDs = vehicelIDs,
                             XnCode = UserInfo.XNCode
                         };
@@ -877,7 +893,7 @@ namespace BA_MobileGPS.Core.ViewModels
             },
             (result) =>
             {
-                if (result != null && result.Success && result.Data)
+                if (result)
                 {
                 }
             });

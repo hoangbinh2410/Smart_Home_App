@@ -2,18 +2,7 @@
 using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
-{
-    public class BaseResponse<T>
-    {
-        public T Data { get; set; }
-
-        public bool Success { get; set; }
-
-        public StatusCode StatusCode { get; set; }
-
-        public string Message { get; set; }
-    }
-
+{  
     public class ResponseStreamBase<T>
     {
         public T Data { get; set; }
@@ -25,7 +14,7 @@ namespace BA_MobileGPS.Entities
         public string UserMessage { get; set; }
     }
 
-    public class ResponseBaseV2<T>
+    public class ResponseBase<T>
     {
         public T Data { get; set; }
 
@@ -37,7 +26,6 @@ namespace BA_MobileGPS.Entities
 
         public string internalmessage { get; set; }
     }
-
     public class DataResponseBase<T>
     {
         public int Page { get; set; }

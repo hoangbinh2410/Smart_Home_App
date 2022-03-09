@@ -35,10 +35,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<ProvincesRegisterConsult>();
             try
             {
-                var temp = await _IRequestProvider.GetAsync<List<ProvincesRegisterConsult>>($"{ApiUri.GET_LISTTRANSPORTTYPES}?culture={currentLanguage}");
-                if (temp != null && temp.Count > 0)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<List<ProvincesRegisterConsult>>>($"{ApiUri.GET_LISTTRANSPORTTYPES}?culture={currentLanguage}");
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -53,10 +53,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<GisProvince_RegisterConsult>();
             try
             {
-                var temp = await _IRequestProvider.GetAsync<List<GisProvince_RegisterConsult>>($"{ApiUri.GET_LISTPROVINCES}?culture={currentLanguage}");
-                if (temp != null && temp.Count > 0)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<List<GisProvince_RegisterConsult>>>($"{ApiUri.GET_LISTPROVINCES}?culture={currentLanguage}");
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

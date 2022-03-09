@@ -897,8 +897,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 var a = await NavigationService.NavigateAsync("NavigationPage/SupportClientPage", parameters, true, true);
             });
-        }
-
+        }     
         private void SelectedMenu(MenuPageItem obj)
         {
             if (obj == null) return;

@@ -17,19 +17,18 @@ namespace BA_MobileGPS.Service
             this._IRequestProvider = IRequestProvider;
         }
 
-        public async Task<BaseResponse<SimMoneyRespone>> GetSimMoney(long vehicleID)
+        public async Task<ResponseBase<SimMoneyRespone>> GetSimMoney(long vehicleID)
         {
-            BaseResponse<SimMoneyRespone> respone = new BaseResponse<SimMoneyRespone>();
+            ResponseBase<SimMoneyRespone> respone = new ResponseBase<SimMoneyRespone>();
             try
             {
                 var URL = string.Format(ApiUri.GET_SIM_MONEY + "?vehicleID={0}", vehicleID);
-                var temp = await _IRequestProvider.GetAsync<BaseResponse<SimMoneyRespone>>(URL);
-                if (temp != null)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<SimMoneyRespone>>(URL);
+                if (temp != null && temp.Data!=null)
                 {
-                    if (temp.Success)
-                    {
+                   
                         respone = temp;
-                    }
+                    
                 }
             }
             catch (Exception ex)

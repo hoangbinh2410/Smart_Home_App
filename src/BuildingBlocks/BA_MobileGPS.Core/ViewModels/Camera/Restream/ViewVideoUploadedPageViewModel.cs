@@ -208,6 +208,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 return await _vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
                 {
+                    XnCode = StaticSettings.User.XNCode,
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
                     CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
                     VehiclePlate = obj.VehicleName,

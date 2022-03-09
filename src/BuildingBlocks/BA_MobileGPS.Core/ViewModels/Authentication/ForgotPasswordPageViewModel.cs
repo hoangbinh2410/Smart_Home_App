@@ -128,8 +128,8 @@ namespace BA_MobileGPS.Core.ViewModels
                         // gọi service check
                         var inputCheckInfor = new ForgotPasswordRequest
                         {
-                            phoneNumber = PhoneNumber.Value,
-                            userName = AccountName.Value
+                            PhoneNumber = PhoneNumber.Value,
+                            UserName = AccountName.Value
                         };
 
                         var responseCheckInfor = await _authenticationService.CheckUserExists(inputCheckInfor);
@@ -177,8 +177,8 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var inputSendCodeSMS = new ForgotPasswordRequest
                 {
-                    phoneNumber = PhoneNumber.Value,
-                    userName = AccountName.Value,
+                    PhoneNumber = PhoneNumber.Value,
+                    UserName = AccountName.Value,
                     AppID = (int)App.AppType
                 };
                 var responseSendCodeSMS = await _authenticationService.SendCodeSMS(inputSendCodeSMS);

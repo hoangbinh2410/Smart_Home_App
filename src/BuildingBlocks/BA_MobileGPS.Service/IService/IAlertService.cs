@@ -20,7 +20,7 @@ namespace BA_MobileGPS.Service
 
         Task<AlertUserConfigurationsRespone> GetAlertUserConfigurations(Guid userId);
 
-        Task<ResponseBaseV2<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
+        Task<ResponseBase<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request);
 
         Task<AlertMaskModel> GetAlertMaskDetail(Guid id);
     }

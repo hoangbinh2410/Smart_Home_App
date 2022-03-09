@@ -21,19 +21,19 @@ namespace BA_MobileGPS.Service
         public async Task<List<IssuesRespone>> GetIssueByCompanyID(int companyID)
         {
             List<IssuesRespone> result = new List<IssuesRespone>();
-            try
-            {
-                string url = $"{ApiUri.GET_ISSUE_BYCOMPANYID}?companyID={companyID}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
-                if (response != null && response.Data != null)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
+            //try
+            //{
+            //    string url = $"{ApiUri.GET_ISSUE_BYCOMPANYID}?companyID={companyID}";
+            //    var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
+            //    if (response != null && response.Data != null)
+            //    {
+            //        result = response.Data;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            //}
             return result;
         }
 
@@ -43,7 +43,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_ISSUE_BYUSERID}?UserID={userID}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<IssuesRespone>>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<List<IssuesRespone>>>(url);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
@@ -62,7 +62,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_ISSUE_BYISSUECODE}?issueCode={issueCode}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<IssuesDetailRespone>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<IssuesDetailRespone>>(url);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;

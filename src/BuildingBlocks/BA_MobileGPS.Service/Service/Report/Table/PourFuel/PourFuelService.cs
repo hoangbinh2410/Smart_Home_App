@@ -15,18 +15,15 @@ namespace BA_MobileGPS.Service
         {
         }
 
-        public async override Task<IList<FuelVehicleModel>> GetData(FuelReportRequest input)
+        public override async Task<IList<FuelVehicleModel>> GetData(FuelReportRequest input)
         {
             var respone = new List<FuelVehicleModel>();
             try
             {
-                var temp = await RequestProvider.PostAsync<FuelReportRequest, FuelVehicleResponse>(ApiUri.GET_FUELVEHICLE, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<FuelReportRequest, ResponseBase<List<FuelVehicleModel>>>(ApiUri.GET_FUELVEHICLE, input);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.State)
-                    {
-                        respone = temp.ListFuelReport;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

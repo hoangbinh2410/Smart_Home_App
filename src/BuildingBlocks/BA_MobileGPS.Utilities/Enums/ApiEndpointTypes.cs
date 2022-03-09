@@ -7,13 +7,13 @@ namespace BA_MobileGPS.Utilities.Enums
         [Description("http://api.vietnamcnn.vn")]
         ServerCNN,
 
-        [Description("http://api.bagroup.vn")]
+        [Description("http://apigateway.bagroup.vn")]
         ServerThat,
 
-        [Description("http://10.1.11.113:6990")]
+        [Description("http://10.1.11.110:6161")]
         ServerNamth,
 
-        [Description("http://192.168.1.49:8021")]
+        [Description("http://192.168.1.49:8031/")]
         ServerTest,
 
         [Description("http://125.212.226.154:3990")]

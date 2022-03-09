@@ -4,16 +4,16 @@ namespace BA_MobileGPS.Entities
 {
     public class ForgotPasswordRequest
     {
-        public string userName { get; set; }
-        public string phoneNumber { get; set; }
+        public string UserName { get; set; }
+        public string PhoneNumber { get; set; }
 
         public int AppID { get; set; }
     }
 
     public class VerifyCodeRequest
     {
-        public string verifyCode { get; set; }
-        public string phoneNumber { get; set; }
+        public string VerifyCode { get; set; }
+        public string PhoneNumber { get; set; }
 
         public int AppID { get; set; }
     }

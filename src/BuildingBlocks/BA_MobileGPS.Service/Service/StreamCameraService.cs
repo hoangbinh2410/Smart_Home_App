@@ -298,7 +298,7 @@ namespace BA_MobileGPS.Service.Service
             var result = new List<CaptureImageData>();
             try
             {
-                string url = string.Format(ApiUri.GET_IMAGESLIMIT + "?xncode={0}&vehiclePlate={1}&limit={2}", xncode, vehiclePlate, limit);
+                string url = string.Format(ApiUri.GET_CAMERAIMAGE + "?xncode={0}&vehiclePlate={1}&limit={2}", xncode, vehiclePlate, limit);
                 var response = await requestProvider.GetAsync<ResponseStreamBase<List<CaptureImageData>>>(url);
                 if (response != null && response.Data.Count > 0)
                 {
@@ -337,7 +337,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.POST_RESTREAM_LISTUPLOAD}";
-                var response = await requestProvider.PostAsync<CameraRestreamRequest, BaseResponse<List<CameraRestreamUploadInfo>>>(url, request);
+                var response = await requestProvider.PostAsync<CameraRestreamRequest, ResponseBase<List<CameraRestreamUploadInfo>>>(url, request);
                 if (response != null && response.Data.Count > 0)
                 {
                     result = response.Data;
@@ -356,7 +356,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.POST_LISTVIDEONOTUPLOAD}";
-                var response = await requestProvider.PostAsync<CameraUploadRequest, ResponseBaseV2<VideoRestreamInfo>>(url, request);
+                var response = await requestProvider.PostAsync<CameraUploadRequest, ResponseBase<VideoRestreamInfo>>(url, request);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
@@ -417,7 +417,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = $"{ApiUri.POST_GetPACKETBYXNPLATE}";
-                var respone = await requestProvider.PostAsync<PackageBACameraRequest, ResponseBaseV2<PackageBACameraRespone>>(url, request);
+                var respone = await requestProvider.PostAsync<PackageBACameraRequest, ResponseBase<PackageBACameraRespone>>(url, request);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
@@ -429,33 +429,14 @@ namespace BA_MobileGPS.Service.Service
             }
             return result;
         }
-
-        public async Task<bool> InsertLogVideo(SaveVideoByUserRequest request)
-        {
-            var result = false;
-            try
-            {
-                string url = $"{ApiUri.INSERT_LOG_VIDEO}";
-                var respone = await requestProvider.PostAsync<SaveVideoByUserRequest, ResponseBaseV2<bool>>(url, request);
-                if (respone != null && respone.Data)
-                {
-                    result = respone.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
-
+        
         public async Task<List<VehicleCamera>> GetListVehicleHasCamera(int xncode)
         {
             var respone = new List<VehicleCamera>();
             try
             {
                 string url = string.Format(ApiUri.GET_LISTVEHICLECAMERA + "?type={0}&xnCode={1}", (int)ConditionType.MXN, xncode);
-                var result = await requestProvider.GetAsync<ResponseBaseV2<List<VehicleCamera>>>(url);
+                var result = await requestProvider.GetAsync<ResponseBase<List<VehicleCamera>>>(url);
                 if (result != null && result.Data != null)
                 {
                     respone = result.Data;
@@ -474,7 +455,7 @@ namespace BA_MobileGPS.Service.Service
             try
             {
                 string url = string.Format(ApiUri.GET_LISTCAMERACLOUD);
-                var response = await requestProvider.PostAsync<GetCameraCloudRequest, ResponseBaseV2<CameraCloudRespone>>(url, request);
+                var response = await requestProvider.PostAsync<GetCameraCloudRequest, ResponseBase<CameraCloudRespone>>(url, request);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;

@@ -32,6 +32,6 @@ namespace BA_MobileGPS.Service
 
         bool DeleteMessages(string receiver);
 
-        Task<BaseResponse<SmsPackageInfor>> GetPackageDataByte(SmsPackageRequest request);
+        Task<ResponseBase<SmsPackageInfor>> GetPackageDataByte(SmsPackageRequest request);
     }
 }

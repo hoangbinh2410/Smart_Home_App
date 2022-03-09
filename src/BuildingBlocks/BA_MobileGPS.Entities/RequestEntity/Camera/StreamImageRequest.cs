@@ -2,8 +2,8 @@
 {
     public class StreamImageRequest
     {
-        public int xnCode { get; set; }
+        public int CustomerId { get; set; }
 
-        public string VehiclePlates { get; set; }
+        public string VehicleNames { get; set; }
     }
 }

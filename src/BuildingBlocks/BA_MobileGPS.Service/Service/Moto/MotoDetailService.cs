@@ -17,19 +17,16 @@ namespace BA_MobileGPS.Service
             this._IRequestProvider = IRequestProvider;
         }
 
-        public async Task<BaseResponse<MotoDetailRespone>> GetMotoDetail(int xnCode, string vehiclePlate)
+        public async Task<ResponseBase<MotoDetailRespone>> GetMotoDetail(int xnCode, string vehiclePlate)
         {
-            BaseResponse<MotoDetailRespone> respone = new BaseResponse<MotoDetailRespone>();
+            ResponseBase<MotoDetailRespone> respone = new ResponseBase<MotoDetailRespone>();
             try
             {
                 var URL = string.Format(ApiUri.GET_MOTO_DETAIL + "?xncode={0}&vehicleplate={1}", xnCode, vehiclePlate);
-                var temp = await _IRequestProvider.GetAsync<BaseResponse<MotoDetailRespone>>(URL);
-                if (temp != null)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<MotoDetailRespone>>(URL);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp;
-                    }
+                    respone = temp;
                 }
             }
             catch (Exception ex)

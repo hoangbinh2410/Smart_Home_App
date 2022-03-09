@@ -6,6 +6,6 @@ namespace BA_MobileGPS.Service
 {
     public interface IMotoSimMoneyService
     {
-        Task<BaseResponse<SimMoneyRespone>> GetSimMoney(long vehicleID);
+        Task<ResponseBase<SimMoneyRespone>> GetSimMoney(long vehicleID);
     }
 }

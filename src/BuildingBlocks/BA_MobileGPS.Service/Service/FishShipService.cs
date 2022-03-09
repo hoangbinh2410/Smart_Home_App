@@ -346,15 +346,20 @@ namespace BA_MobileGPS.Service
 
         public async Task<int> SendFishStrip(SendFishTripRequest request)
         {
+            int result = 0;
             try
             {
-                return await RequestProvider.PostAsync<SendFishTripRequest, int>(ApiUri.SEND_FISH_TRIP, request);
+                var respone = await RequestProvider.PostAsync<SendFishTripRequest, ResponseBase<int>>(ApiUri.SEND_FISH_TRIP, request);
+                if(respone!=null && respone.Data != null)
+                {
+                  result = respone.Data;
+                }
             }
             catch (Exception e)
             {
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
             }
-            return 0;
+            return result;
         }
     }
 }

@@ -19,13 +19,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<FuelsSummariesTotalResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<FuelsSummariesTotalRequest, BaseResponse<List<FuelsSummariesTotalResponse>>>(ApiUri.GET_FUELSSUMMARIESTOTAL, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<FuelsSummariesTotalRequest, ResponseBase<List<FuelsSummariesTotalResponse>>>(ApiUri.GET_FUELSSUMMARIESTOTAL, input);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

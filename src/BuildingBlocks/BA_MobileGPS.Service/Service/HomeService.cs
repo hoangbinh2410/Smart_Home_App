@@ -18,17 +18,17 @@ namespace BA_MobileGPS.Service
             _requestProvider = requestProvider;
         }
 
-        public async Task<List<MenuItemRespone>> GetHomeMenuAsync(int appID, string Culture)
+        public async Task<List<MenuItemRespone>> GetHomeMenuAsync(int appID, string culture)
         {
             List<MenuItemRespone> result = null;
             try
             {
-                string url = $"{ApiUri.GET_HOME_MENU}?culture={Culture}&appID={appID}";
-                var menu = await _requestProvider.GetAsync<List<MenuItemRespone>>(url);
+                string url = $"{ApiUri.GET_HOME_MENU}?culture={culture}&appID={appID}";
+                var menu = await _requestProvider.GetAsync<ResponseBase<List<MenuItemRespone>>>(url);
 
-                if (menu != null)
+                if (menu != null && menu.Data.Count>0)
                 {
-                    result = menu;
+                    result = menu.Data;
                 }
             }
             catch (Exception ex)
@@ -44,7 +44,11 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = ApiUri.POST_SAVE_CONFIG_HOME_MENU;
-                result = await _requestProvider.PostAsync<MenuConfigRequest, bool>(url, menuConfig);
+                var respone = await _requestProvider.PostAsync<MenuConfigRequest, ResponseBase<bool>>(url, menuConfig);
+                if(respone != null)
+                {
+                    result = respone.Data;
+                }
             }
             catch (Exception ex)
             {

@@ -27,11 +27,11 @@ namespace BA_MobileGPS.Service
             {
                 string url = $"{ApiUri.GET_VEHICLE_ROUTE_HISTORY}";
 
-                var data = await requestProvider.PostGetStreamAsync(url, request);
+                var data = await requestProvider.PostAsync<RouteHistoryRequest, string>(url, request);
 
                 if (data != null)
                 {
-                    var msg = JsonConvert.DeserializeObject<MsgRequest>(Message.ConvertStreamToArray(data));
+                    var msg = JsonConvert.DeserializeObject<MsgRequest>(data);
                     var decoded = Message.DecodeMessage(msg.Param);
 
                     if (result.FromByteArray32(decoded))
@@ -54,10 +54,11 @@ namespace BA_MobileGPS.Service
 
             try
             {
-                string url = $"{ApiUri.GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY}?UserId={request.UserId}&CompanyId={request.CompanyId}&VehiclePlate={request.VehiclePlate}" +
-                    $"&FromDate={request.FromDate.ToString("yyyy-MM-dd HH:mm:ss")}&ToDate={request.ToDate.ToString("yyyy-MM-dd HH:mm:ss")}&appID={request.AppID}";
-
-                result = await requestProvider.GetAsync<ValidateUserConfigGetHistoryRouteResponse>(url);
+                var data = await requestProvider.PostAsync<ValidateUserConfigGetHistoryRouteRequest, ResponseBase<ValidateUserConfigGetHistoryRouteResponse>>(ApiUri.GET_VALIDATE_USER_CONFIG_ROUTE_HISTORY, request);
+                if (data != null && data.Data != null)
+                {
+                    result = data.Data;
+                }
             }
             catch (Exception ex)
             {

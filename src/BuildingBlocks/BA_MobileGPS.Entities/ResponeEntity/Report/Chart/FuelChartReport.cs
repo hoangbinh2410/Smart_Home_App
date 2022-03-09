@@ -7,18 +7,6 @@ using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
 {
-    public class FuelChartResponse
-    {
-        [JsonProperty("State")]
-        public bool State { get; set; }
-
-        [JsonProperty("ErrorCode")]
-        public ResponseEnum ErrorCode { get; set; }
-
-        [JsonProperty("ListFuelChartReport")]
-        public List<FuelChartReport> ListFuelChartReport { get; set; }
-    }
-
     public class FuelChartReport
     {
         public FuelChartReport()

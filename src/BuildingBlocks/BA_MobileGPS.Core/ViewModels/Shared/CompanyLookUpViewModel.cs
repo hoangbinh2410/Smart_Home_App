@@ -266,7 +266,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     companyType = Settings.CurrentCompany.CompanyType;
                 }
                 int vehicleGroup = 0;
-                var list = await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                VehicleOnlineRequest item = new VehicleOnlineRequest
+                {
+                    UserID = userID,
+                    CompanyID = companyID,
+                    XnCode = xnCode,
+                    UserType = userType,
+                    CompanyType = companyType
+                };
+                var list = await vehicleOnlineService.GetListVehicleOnline(item);
                 if (list != null && list.Count > 0)
                 {
                     list.ForEach(x =>

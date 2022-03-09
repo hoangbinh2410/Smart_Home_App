@@ -16,7 +16,7 @@
         public string PhoneNumber { get; set; }
     }
 
-    public class OtpVerifyDataRespone : BaseResponse<OtpSendDataRespone>
+    public class OtpVerifyDataRespone : ResponseBase<OtpSendDataRespone>
     {
     }
 }

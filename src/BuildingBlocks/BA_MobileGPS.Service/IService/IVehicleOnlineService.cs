@@ -14,11 +14,11 @@ namespace BA_MobileGPS.Service
 
         Task<List<VehicleGroupModel>> GetListVehicleGroupAsync(Guid userId, int companyID);
 
-        Task<List<Vehicle>> GetListVehicle(Guid userID, string groupIDs, int companyID, VehicleLookUpType type);
+      //  Task<List<Vehicle>> GetListVehicle(VehicleOnlineRequest request);
 
-        Task<List<VehicleOnline>> GetListVehicleOnline(Guid userId, int groupId, int companyID, int xnCode, UserType userType, CompanyType companyType);
+        Task<List<VehicleOnline>> GetListVehicleOnline(VehicleOnlineRequest request);
 
-        Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineRequest vehiclerequest);
+        Task<List<VehicleOnlineMessage>> GetListVehicleOnlineSync(VehicleOnlineSyncRequest vehiclerequest);
 
         Task<List<LandmarkResponse>> GetListBoundary();
 

@@ -61,7 +61,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 CurrentServicePack = default;
 
-                if (result.Success)
+                if (String.IsNullOrEmpty(result.Data.VehiclePlate))
                 {
                     CurrentServicePack = result.Data;
                 }
@@ -91,8 +91,8 @@ namespace VMS_MobileGPS.ViewModels
             {
                 XNCode = UserInfo.XNCode,
                 VehiclePlate = Vehicle.VehiclePlate,
-                DateStart = FromDate,
-                DateEnd = ToDate
+                FromDate = FromDate,
+                ToDate = ToDate
             };
         }
 

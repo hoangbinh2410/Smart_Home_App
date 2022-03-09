@@ -40,7 +40,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_ALERT_TYPE}?CompanyID={CompanyID}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<List<AlertTypeModel>>>(url);
+                var response = await _IRequestProvider.GetAsync<ResponseBase<List<AlertTypeModel>>>(url);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data;
@@ -59,7 +59,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_COUNT_ALERT_ONLINE}";
-                var result = await _IRequestProvider.PostAsync<GetCountAlertByUserIDRequest, ResponseBaseV2<int>>(url, request);
+                var result = await _IRequestProvider.PostAsync<GetCountAlertByUserIDRequest, ResponseBase<int>>(url, request);
                 if (result != null && result.Data > 0)
                 {
                     response = result.Data;
@@ -91,7 +91,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.GET_ALERT_ONLINE}";
-                var result = await _IRequestProvider.PostAsync<AlertGetRequest, ResponseBaseV2<List<AlertOnlineDetailModel>>>(url, request);
+                var result = await _IRequestProvider.PostAsync<AlertGetRequest, ResponseBase<List<AlertOnlineDetailModel>>>(url, request);
                 if (result != null && result.Data != null)
                 {
                     respone = result.Data;
@@ -118,7 +118,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.POST_ALERT_HANDLE}";
-                var result = await _IRequestProvider.PostAsync<StatusAlertRequestModel, ResponseBaseV2<bool>>(url, rqModel);
+                var result = await _IRequestProvider.PostAsync<StatusAlertRequestModel, ResponseBase<bool>>(url, rqModel);
                 if (result != null && result.Data)
                 {
                     respone = result.Data;
@@ -134,21 +134,21 @@ namespace BA_MobileGPS.Service
         public async Task<List<AlertCompanyConfigRespone>> GetAlertCompanyConfig(int companyID)
         {
             var result = new List<AlertCompanyConfigRespone>();
-            try
-            {
-                var url = string.Format(ApiUri.GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID + "?companyID={0}", companyID);
+            //try
+            //{
+            //    var url = string.Format(ApiUri.GET_LIST_ALERT_COMPANY_CONFIG_BY_COMPANYID + "?companyID={0}", companyID);
 
-                var data = await _IRequestProvider.GetAsync<BaseResponse<List<AlertCompanyConfigRespone>>>(url);
+            //    var data = await _IRequestProvider.GetAsync<BaseResponse<List<AlertCompanyConfigRespone>>>(url);
 
-                if (data != null)
-                {
-                    result = data.Data;
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
-            }
+            //    if (data != null)
+            //    {
+            //        result = data.Data;
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Logger.WriteError(MethodBase.GetCurrentMethod().Name, e);
+            //}
             return result;
         }
 
@@ -159,7 +159,7 @@ namespace BA_MobileGPS.Service
             {
                 var url = string.Format(ApiUri.GET_ALERT_USER_CONFIGURATIONS + "?UserId={0}", userId);
 
-                var data = await _IRequestProvider.GetAsync<ResponseBaseV2<AlertUserConfigurationsRespone>>(url);
+                var data = await _IRequestProvider.GetAsync<ResponseBase<AlertUserConfigurationsRespone>>(url);
 
                 if (data != null)
                 {
@@ -173,12 +173,12 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<ResponseBaseV2<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request)
+        public async Task<ResponseBase<bool>> SendAlertUserConfig(AlertUserConfigurationsRequest request)
         {
-            ResponseBaseV2<bool> result = new ResponseBaseV2<bool>();
+            ResponseBase<bool> result = new ResponseBase<bool>();
             try
             {
-                var data = await _IRequestProvider.PostAsync<AlertUserConfigurationsRequest, ResponseBaseV2<bool>>(ApiUri.SEND_ALERT_USER_CONFIG, request);
+                var data = await _IRequestProvider.PostAsync<AlertUserConfigurationsRequest, ResponseBase<bool>>(ApiUri.SEND_ALERT_USER_CONFIG, request);
 
                 if (data != null && data.Data)
                 {
@@ -199,7 +199,7 @@ namespace BA_MobileGPS.Service
             {
                 var url = string.Format(ApiUri.GET_ALERT_MASK_DETAIL + "?id={0}", id);
 
-                var data = await _IRequestProvider.GetAsync<ResponseBaseV2<AlertMaskModel>>(url);
+                var data = await _IRequestProvider.GetAsync<ResponseBase<AlertMaskModel>>(url);
 
                 if (data != null)
                 {

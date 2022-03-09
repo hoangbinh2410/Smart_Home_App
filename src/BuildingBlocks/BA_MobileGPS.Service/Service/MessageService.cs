@@ -110,7 +110,11 @@ namespace BA_MobileGPS.Service
                     new JProperty("VehiclePlate", message.Receiver),
                     new JProperty("Data", message.Content)
                 };
-                result = await requestProvider.PostAsync<JObject, bool>(ApiUri.POST_SEND_MESSAGE, content);
+                var respone = await requestProvider.PostAsync<JObject, ResponseBase<bool>>(ApiUri.POST_SEND_MESSAGE, content);
+                if(respone != null&& respone.Data)
+                {
+                    result = respone.Data;
+                }
             }
             catch (Exception e)
             {
@@ -150,14 +154,14 @@ namespace BA_MobileGPS.Service
             return true;
         }
 
-        public async Task<BaseResponse<SmsPackageInfor>> GetPackageDataByte(SmsPackageRequest request)
+        public async Task<ResponseBase<SmsPackageInfor>> GetPackageDataByte(SmsPackageRequest request)
         {
-            BaseResponse<SmsPackageInfor> result = new BaseResponse<SmsPackageInfor>();
+            ResponseBase<SmsPackageInfor> result = new ResponseBase<SmsPackageInfor>();
             try
             {
-                var data = await requestProvider.PostAsync<SmsPackageRequest, BaseResponse<SmsPackageInfor>>(ApiUri.POST_SMSPACKAGE, request);
+                var data = await requestProvider.PostAsync<SmsPackageRequest, ResponseBase<SmsPackageInfor>>(ApiUri.POST_SMSPACKAGE, request);
 
-                if (data != null)
+                if (data != null&& data.Data!=null)
                 {
                     result = data;
                 }

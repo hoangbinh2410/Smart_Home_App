@@ -438,6 +438,7 @@ namespace VMS_MobileGPS.ViewModels
             {
                 return await vehicleRouteService.GetHistoryRoute(new RouteHistoryRequest
                 {
+                    XnCode = StaticSettings.User.XNCode,
                     UserId = currentCompany?.UserId ?? UserInfo.UserId,
                     CompanyId = currentCompany?.FK_CompanyID ?? CurrentComanyID,
                     VehiclePlate = Vehicle.VehiclePlate,

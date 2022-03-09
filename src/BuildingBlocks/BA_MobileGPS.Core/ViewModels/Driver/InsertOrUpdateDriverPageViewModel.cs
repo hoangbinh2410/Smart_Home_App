@@ -278,29 +278,24 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Lưu ảnh => lưu thông tin lái xe
         /// </summary>
         private void SaveNewAvartar()
-        {
-            IFile file = null;
-
+        {         
             RunOnBackground(async () =>
             {
-                file = await FileSystem.Current.GetFileFromPathAsync(newAvatarPath);
-                if (file != null)
+                UploadImageBase64Request data = new UploadImageBase64Request
                 {
-                    using (Stream stream = await file.OpenAsync(XamStorage.FileAccess.Read))
-                    {
-                        return await userService.UpdateUserAvatar("DriverAvatar", stream, file.Name);
-                    }
-                }
-                else return null;
-            }, res =>
-            {
-                if (res != null)
+                    Base64String = GetBase64StringForImage(newAvatarPath),
+                    SystemType = App.AppType,
+                    ModuleType = ModuleType.Avatar
+                };
+                
+                var result = await userService.UploadImageAsync(data);
+
+                if (result != null && ! String.IsNullOrEmpty(result.Url))
                 {
-                    Driver.DriverImage = res;
+                    Driver.DriverImage = result.Url;
                 }
                 newAvatarPath = string.Empty;
-                SaveDriver();
-                file?.DeleteAsync();
+                SaveDriver();            
             });
         }
 
@@ -895,6 +890,17 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CanUpdateData = true;
             }
+        }
+        //// Chuyển từ image to base64
+        private string GetBase64StringForImage(string imgPath)
+        {
+            if (string.IsNullOrEmpty(imgPath))
+            {
+                return string.Empty;
+            }
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imgPath);
+            string base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
     }
 }

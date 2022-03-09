@@ -15,13 +15,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<SignalLossResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<SignalLossRequest, BaseResponse<List<SignalLossResponse>>>(ApiUri.GET_SIGNALLOSS, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<SignalLossRequest, ResponseBase<List<SignalLossResponse>>>(ApiUri.GET_SIGNALLOSS, input);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

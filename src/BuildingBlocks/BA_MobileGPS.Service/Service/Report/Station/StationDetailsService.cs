@@ -24,13 +24,10 @@ namespace BA_MobileGPS.Service.Service.Report.Station
             var respone = new List<StationDetailsResponse>();
             try
             {
-                var temp = await RequestProvider.PostAsync<StationDetailsRequest, BaseResponse<List<StationDetailsResponse>>>(ApiUri.GET_GetStationDetails, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<StationDetailsRequest, ResponseBase<List<StationDetailsResponse>>>(ApiUri.GET_GetStationDetails, input);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

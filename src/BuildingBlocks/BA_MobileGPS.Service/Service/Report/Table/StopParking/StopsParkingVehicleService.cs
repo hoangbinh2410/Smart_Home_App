@@ -15,18 +15,15 @@ namespace BA_MobileGPS.Service
         {
         }
 
-        public async override Task<IList<StopParkingVehicleModel>> GetData(StopParkingVehicleRequest input)
+        public override async Task<IList<StopParkingVehicleModel>> GetData(StopParkingVehicleRequest input)
         {
             var respone = new List<StopParkingVehicleModel>();
             try
             {
-                var temp = await RequestProvider.PostAsync<StopParkingVehicleRequest, BaseResponse<List<StopParkingVehicleModel>>>(ApiUri.GET_STOPPARKING, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<StopParkingVehicleRequest, ResponseBase<List<StopParkingVehicleModel>>>(ApiUri.GET_STOPPARKING, input);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

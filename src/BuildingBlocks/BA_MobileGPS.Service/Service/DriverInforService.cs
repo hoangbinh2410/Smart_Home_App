@@ -22,8 +22,8 @@ namespace BA_MobileGPS.Service
             int result = -1;
             try
             {
-                string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<int>>(url, driver);
+                string url = $"{ApiUri.POST_ADD_DRIVER}";
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<int>>(url, driver);
                 if (response != null )
                 {
                     result = response.Data;
@@ -42,7 +42,7 @@ namespace BA_MobileGPS.Service
             try
             {
                 string url = $"{ApiUri.POST_DELETE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBaseV2<int>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBase<int>>(url, driver);
                 if (response != null)
                 {
                     result = response.Data;
@@ -63,8 +63,8 @@ namespace BA_MobileGPS.Service
             List<DriverInfor> result = new List<DriverInfor>();
             try
             {
-                string url = $"{ApiUri.GET_LIST_DRIVER}?companyId={companyId}";
-                var response = await _IRequestProvider.GetAsync<ResponseBaseV2<DataResponseBase<DriverInfor>>>(url);
+                string url = $"{ApiUri.GET_LIST_DRIVER}?Fk_CompanyID={companyId}";
+                var response = await _IRequestProvider.GetAsync<ResponseBase<DataResponseBase<DriverInfor>>>(url);
                 if (response?.Data != null)
                 {
                     result = response.Data.Items;
@@ -82,8 +82,8 @@ namespace BA_MobileGPS.Service
             int result = -1;
             try
             {
-                string url = $"{ApiUri.POST_ADDORUPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBaseV2<DriverInfor>>(url, driver);
+                string url = $"{ApiUri.POST_UPDATE_DRIVER}";
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<DriverInfor>>(url, driver);
                 if (response != null && response.Data != null)
                 {
                     result = response.Data.PK_EmployeeID;

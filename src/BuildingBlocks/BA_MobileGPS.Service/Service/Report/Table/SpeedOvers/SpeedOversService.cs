@@ -15,18 +15,15 @@ namespace BA_MobileGPS.Service
         {
         }
 
-        public async override Task<IList<SpeedOversModel>> GetData(SpeedOversRequest input)
+        public override async Task<IList<SpeedOversModel>> GetData(SpeedOversRequest input)
         {
             var respone = new List<SpeedOversModel>();
             try
             {
-                var temp = await RequestProvider.PostAsync<SpeedOversRequest, BaseResponse<List<SpeedOversModel>>>(ApiUri.GET_SPEEDOVERS, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<SpeedOversRequest, ResponseBase<List<SpeedOversModel>>>(ApiUri.GET_SPEEDOVERS, input);
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

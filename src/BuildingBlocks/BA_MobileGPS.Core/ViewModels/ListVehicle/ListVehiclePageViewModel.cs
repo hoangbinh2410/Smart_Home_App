@@ -981,7 +981,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 }
             });
         }
-
+       
         #endregion Navigation
     }
 }

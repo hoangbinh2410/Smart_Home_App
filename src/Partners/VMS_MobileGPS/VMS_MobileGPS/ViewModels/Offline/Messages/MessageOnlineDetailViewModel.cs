@@ -208,7 +208,7 @@ namespace VMS_MobileGPS.ViewModels
                 {
                     if (result != null)
                     {
-                        if (result.Success)
+                        if (String.IsNullOrEmpty(result.Data.VehicleName))
                         {
                             GlobalResourcesVMS.Current.TotalByteSms = result.Data.LeftData;
                             Message.MaxWords = result.Data.LeftData;

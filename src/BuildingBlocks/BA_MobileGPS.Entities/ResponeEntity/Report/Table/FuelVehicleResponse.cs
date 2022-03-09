@@ -6,16 +6,7 @@ using System;
 using System.Collections.Generic;
 
 namespace BA_MobileGPS.Entities
-{
-    public class FuelVehicleResponse
-    {
-        public bool State { get; set; }
-
-        public ResponseEnum ErrorCode { get; set; }
-
-        public List<FuelVehicleModel> ListFuelReport { get; set; }
-    }
-
+{  
     [Serializable]
     public class FuelVehicleModel : ReportBaseResponse
     {

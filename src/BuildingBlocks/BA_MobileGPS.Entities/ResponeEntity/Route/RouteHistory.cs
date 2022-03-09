@@ -235,6 +235,7 @@ namespace BA_MobileGPS.Entities
 
     public class RouteHistoryRequest
     {
+        public int XnCode { set; get; }
         public Guid UserId { set; get; }
 
         public int CompanyId { set; get; }

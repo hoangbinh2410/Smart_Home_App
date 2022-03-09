@@ -86,6 +86,7 @@
                     Spacing="0"
                     VerticalOptions="Center">
                     <Label
+                        HorizontalTextAlignment="Start"
                         FontAttributes="Bold"
                         Text="{Binding CurrentUser.UserName}"
                         TextColor="{DynamicResource PrimaryColor}"
@@ -211,11 +212,11 @@
                     </Label>
                     <input:SfTextInputLayout
                         ContainerType="Outlined"
-                        ErrorColor="{DynamicResource DangerousColor}"
+                         ErrorColor="{DynamicResource DangerousColor}"
                         ErrorText="{Binding EmailErrorMessage}"
                         HasError="{Binding EmailHasError}"
                         HorizontalOptions="FillAndExpand"
-                        LeadingViewPosition="Inside"
+                        LeadingViewPosition="Inside"                     
                         VerticalOptions="Start">
                         <input:SfTextInputLayout.LeadingView>
                             <controls:FontAwesomeIcon
@@ -319,10 +320,12 @@
                                 DataSource="{Binding ListGender}"
                                 DisplayMemberPath="ValueByLanguage"
                                 DropDownTextColor="{DynamicResource TextPrimaryColor}"
+                                ShowClearButton="False"
                                 EnableSelectionIndicator="True"
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedGender}"
                                 ShowBorder="False"
+                                HeightRequest="40"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>
@@ -412,11 +415,13 @@
                                                     iOS='0'}"
                                 DataSource="{Binding ListReligion}"
                                 DisplayMemberPath="ValueByLanguage"
+                                ShowClearButton="False"
                                 DropDownTextColor="{DynamicResource TextPrimaryColor}"
                                 EnableSelectionIndicator="True"
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedReligion}"
                                 ShowBorder="False"
+                                HeightRequest="40"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>

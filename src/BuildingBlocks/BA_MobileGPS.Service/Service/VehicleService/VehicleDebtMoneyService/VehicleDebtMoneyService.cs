@@ -30,10 +30,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<VehicleDebtMoneyResponse>();
             try
             {
-                var temp = await _IRequestProvider.GetAsync<List<VehicleDebtMoneyResponse>>($"{ApiUri.GET_LISTVEHICLEDEBTMONEY}?userID={UserID}");
-                if (temp != null && temp.Count > 0)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<List<VehicleDebtMoneyResponse>>>($"{ApiUri.GET_LISTVEHICLEDEBTMONEY}?userID={UserID}");
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -55,10 +55,10 @@ namespace BA_MobileGPS.Service
             var respone = new List<VehicleFreeResponse>();
             try
             {
-                var temp = await _IRequestProvider.GetAsync<List<VehicleFreeResponse>>($"{ApiUri.GET_LISTVEHICLEFREE}?userID={UserID}");
-                if (temp != null && temp.Count > 0)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<List<VehicleFreeResponse>>>($"{ApiUri.GET_LISTVEHICLEFREE}?userID={UserID}");
+                if (temp != null && temp.Data.Count > 0)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -80,10 +80,10 @@ namespace BA_MobileGPS.Service
             var respone = 0;
             try
             {
-                var temp = await _IRequestProvider.GetAsync<int>($"{ApiUri.GET_COUNTVEHICLEDEBTMONEY}?userID={UserID}");
-                if (temp > 0)
+                var temp = await _IRequestProvider.GetAsync<ResponseBase<int>>($"{ApiUri.GET_COUNTVEHICLEDEBTMONEY}?userID={UserID}");
+                if (temp.Data > 0)
                 {
-                    respone = temp;
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)

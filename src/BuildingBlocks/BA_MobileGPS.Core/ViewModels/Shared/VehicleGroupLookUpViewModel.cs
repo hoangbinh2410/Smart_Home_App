@@ -97,7 +97,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                             foreach (var g in ListVehicleGroupOrigin)
                             {
-                                g.NumberOfVehicle = StaticSettings.ListVehilceOnline.FindAll(v => v.GroupIDs.Split(',').Contains(g.FK_VehicleGroupID.ToString())).Count;
+                                g.NumberOfVehicle = StaticSettings.ListVehilceOnline.FindAll(v => v.GroupIDs.Split(',').Contains(g.PK_VehicleGroupID.ToString())).Count;
                             }
 
                             // Đánh dấu đã chọn
@@ -105,7 +105,7 @@ namespace BA_MobileGPS.Core.ViewModels
                             {
                                 ListVehicleGroupOrigin.ToList().ForEach(vg =>
                                 {
-                                    if (SelectedVehicleGroups.ToList().Exists(st => st == vg.FK_VehicleGroupID))
+                                    if (SelectedVehicleGroups.ToList().Exists(st => st == vg.PK_VehicleGroupID))
                                     {
                                         vg.IsSelected = true;
                                     }
@@ -132,12 +132,12 @@ namespace BA_MobileGPS.Core.ViewModels
                                     if (level >= 10)
                                         return;
 
-                                    FuckYourSelf(ListVehicleGroupOrigin.FindAll(g => g.ParentVehicleGroupID == group.FK_VehicleGroupID
-                                        && !ListVehicleGroup.ToList().Exists(e => e.FK_VehicleGroupID == g.FK_VehicleGroupID)), level + 1);
+                                    FuckYourSelf(ListVehicleGroupOrigin.FindAll(g => g.ParentVehicleGroupID == group.PK_VehicleGroupID
+                                        && !ListVehicleGroup.ToList().Exists(e => e.PK_VehicleGroupID == g.PK_VehicleGroupID)), level + 1);
                                 }
                             }
 
-                            FuckYourSelf(ListVehicleGroupOrigin.FindAll(g => !ListVehicleGroupOrigin.Exists(g2 => g.FK_VehicleGroupID != g2.FK_VehicleGroupID && g.ParentVehicleGroupID == g2.FK_VehicleGroupID)), 0);
+                            FuckYourSelf(ListVehicleGroupOrigin.FindAll(g => !ListVehicleGroupOrigin.Exists(g2 => g.PK_VehicleGroupID != g2.PK_VehicleGroupID && g.ParentVehicleGroupID == g2.PK_VehicleGroupID)), 0);
 
                             //ListVehicleGroup = new ObservableRangeCollection<VehicleGroupModel>(ListVehicleGroupOrigin);
 
@@ -239,7 +239,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         await NavigationService.GoBackAsync(parameters: new NavigationParameters
                         {
-                            { ParameterKey.VehicleGroups,  listGroupSelected.Select(g => g.FK_VehicleGroupID).ToArray()}
+                            { ParameterKey.VehicleGroups,  listGroupSelected.Select(g => g.PK_VehicleGroupID).ToArray()}
                         }, true, true);
                     }
                     catch (System.Exception ex)

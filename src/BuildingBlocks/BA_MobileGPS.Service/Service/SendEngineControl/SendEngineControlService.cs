@@ -15,19 +15,16 @@ namespace BA_MobileGPS.Service
         {
         }
 
-        public async override Task<IList<ActionOnOffMachineLogViewModel>> GetData(ActionOnOffMachineLogRequest input)
+        public override async Task<IList<ActionOnOffMachineLogViewModel>> GetData(ActionOnOffMachineLogRequest input)
         {
             var respone = new List<ActionOnOffMachineLogViewModel>();
             try
             {
-                string url = $"{ApiUri.GET_LIST_ENGINE}?FK_UserID={input.FK_UserID}&VehiclePlate={input.VehiclePlate}&PageIndex={input.PageIndex}&PageSize={input.PageSize}&StartDate={JsonConvert.SerializeObject(input.StartDate).Replace("\"", string.Empty)}&EndDate={JsonConvert.SerializeObject(input.EndDate).Replace("\"", string.Empty)}";
-                var temp = await RequestProvider.GetAsync<BaseResponse<List<ActionOnOffMachineLogViewModel>>>(url);
-                if (temp != null)
+                //string url = $"{ApiUri.GET_LIST_ENGINE}?FK_UserID={input.FK_UserID}&VehiclePlate={input.VehiclePlate}&PageIndex={input.PageIndex}&PageSize={input.PageSize}&StartDate={JsonConvert.SerializeObject(input.StartDate).Replace("\"", string.Empty)}&EndDate={JsonConvert.SerializeObject(input.EndDate).Replace("\"", string.Empty)}";
+                var temp = await RequestProvider.PostAsync<ActionOnOffMachineLogRequest,ResponseBase<List<ActionOnOffMachineLogViewModel>>>(ApiUri.GET_LIST_ENGINE, input);
+                if (temp != null && temp.Data != null)
                 {
-                    if (temp.Success)
-                    {
-                        respone = temp.Data;
-                    }
+                    respone = temp.Data;
                 }
             }
             catch (Exception ex)
@@ -42,8 +39,8 @@ namespace BA_MobileGPS.Service
             var respone = new SendEngineRespone();
             try
             {
-                var temp = await RequestProvider.PostAsync<SendEngineControlRequest, BaseResponse<SendEngineRespone>>(ApiUri.GET_SEND_ENGINE_CONTROL, input);
-                if (temp != null)
+                var temp = await RequestProvider.PostAsync<SendEngineControlRequest, ResponseBase<SendEngineRespone>>(ApiUri.GET_SEND_ENGINE_CONTROL, input);
+                if (temp != null && temp.Data != null)
                 {
                     respone = temp.Data;
                 }

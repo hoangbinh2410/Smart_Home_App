@@ -11,7 +11,7 @@ namespace BA_MobileGPS.Service
 
         Task<List<UserLandmarkGroupRespone>> GetDataCategoryByUserId(Guid userId);
 
-        Task<BaseResponse<bool>> SendUpdate(UserLandmarkGroupRequest request);
+        Task<ResponseBase<bool>> SendUpdate(UserLandmarkGroupRequest request);
 
         Task<List<UserLandmarkRespone>> GetDataLandmarkByGroupId(string request);
 

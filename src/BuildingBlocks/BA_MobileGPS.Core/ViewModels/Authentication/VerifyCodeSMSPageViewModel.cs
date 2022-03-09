@@ -155,12 +155,12 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var inputVerifyCode = new VerifyCodeRequest
                         {
-                            phoneNumber = PhoneNumber,
-                            verifyCode = Code.Value,
+                            PhoneNumber = PhoneNumber,
+                            VerifyCode = Code.Value,
                             AppID = (int)App.AppType
                         };
                         var responseSendCodeSMS = await _iAuthenticationService.CheckVerifyCode(inputVerifyCode);
-                        if ((int)responseSendCodeSMS.StateVerifyCode == (int)StateVerifyCode.Success)
+                        if (responseSendCodeSMS == StateVerifyCode.Success)
                         {
                             Device.BeginInvokeOnMainThread(async () =>
                             {
@@ -173,21 +173,21 @@ namespace BA_MobileGPS.Core.ViewModels
                         }
                         else
                         {
-                            switch ((int)responseSendCodeSMS.StateVerifyCode)
+                            switch (responseSendCodeSMS)
                             {
-                                case (int)StateVerifyCode.OverWrongPerCode:
+                                case StateVerifyCode.OverWrongPerCode:
                                     DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorOverWrongPerCode, 5000);
                                     break;
 
-                                case (int)StateVerifyCode.OverWrongPerDay:
+                                case StateVerifyCode.OverWrongPerDay:
                                     DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorOverWrongPerDay, 5000);
                                     break;
 
-                                case (int)StateVerifyCode.TimeOut:
+                                case StateVerifyCode.TimeOut:
                                     DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorTimeOut, 5000);
                                     break;
 
-                                case (int)StateVerifyCode.WrongVerifyCode:
+                                case StateVerifyCode.WrongVerifyCode:
                                     DisplayMessage.ShowMessageInfo(MobileResource.VerifyCodeMS_Message_ErrorWrongVerifyCode, 5000);
                                     break;
 
@@ -270,8 +270,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var inputSendCodeSMS = new ForgotPasswordRequest
                         {
-                            phoneNumber = PhoneNumber,
-                            userName = AccountName,
+                            PhoneNumber = PhoneNumber,
+                            UserName = AccountName,
                             AppID = (int)App.AppType
                         };
                         var responseSendCodeSMS = await _iAuthenticationService.SendCodeSMS(inputSendCodeSMS);

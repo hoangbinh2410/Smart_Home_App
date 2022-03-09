@@ -2,7 +2,6 @@
 
 namespace BA_MobileGPS.Entities
 {
-    [Serializable]
     public class ActivitySummariesModel : ReportBaseResponse
     {
         //Loại xe

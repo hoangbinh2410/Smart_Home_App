@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Service.Service.Report.Station
             try
             {
                 string uri = string.Format(ApiUri.GET_GetListLocationStation + "?companyID={0}", id);
-                var respone = await _iRequestProvider.GetAsync<ResponseBaseV2<List<LocationStationResponse>>>(uri);
+                var respone = await _iRequestProvider.GetAsync<ResponseBase<List<LocationStationResponse>>>(uri);
                 if (respone != null && respone.Data != null)
                 {
                     result = respone.Data;
