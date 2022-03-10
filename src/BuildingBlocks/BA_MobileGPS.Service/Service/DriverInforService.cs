@@ -76,25 +76,6 @@ namespace BA_MobileGPS.Service
                 Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
             }
             return result;
-        }
-
-        public async Task<InsertUpdateHRMEmployeesRespone> UpdateDriverInfor(DriverInfor driver)
-        {
-            InsertUpdateHRMEmployeesRespone result = new InsertUpdateHRMEmployeesRespone();
-            try
-            {
-                string url = $"{ApiUri.POST_UPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<InsertUpdateHRMEmployeesRespone>>(url, driver);
-                if (response != null && response.Data != null)
-                {
-                    result = response.Data;
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
-            }
-            return result;
-        }
+        }       
     }
 }

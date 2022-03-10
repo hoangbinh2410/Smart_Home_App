@@ -12,8 +12,7 @@ namespace BA_MobileGPS.Service
     {
         Task<List<DriverInfor>> GetListDriverByCompanyId(int companyId, int pageSize = 0, 
             int pageIndex = 0, DriverOrderByEnum orderBy = DriverOrderByEnum.ASC, DriverSortOderEnum sortOrder = DriverSortOderEnum.DisplayName);
-        Task<InsertUpdateHRMEmployeesRespone> AddDriverInfor(DriverInfor driver); // return Id
-        Task<InsertUpdateHRMEmployeesRespone> UpdateDriverInfor(DriverInfor driver); // return Id
+        Task<InsertUpdateHRMEmployeesRespone> AddDriverInfor(DriverInfor driver); // return Id      
         Task<InsertUpdateHRMEmployeesRespone> DeleteDriverInfor(DriverDeleteRequest driver); // return Id
         
     }

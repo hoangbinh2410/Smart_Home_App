@@ -287,8 +287,7 @@
 
         public const string GET_LIST_DRIVER = "api/v1/hrmemployees/gethrmemployeesbycompanyid";
 
-        public const string POST_ADD_DRIVER = "api/v1/hrmemployees/inserthrmemployees";
-        public const string POST_UPDATE_DRIVER = "api/v1/hrmemployees/updatehrmemployees";
+        public const string POST_ADD_DRIVER = "api/v1/hrmemployees/insertorupdatehrmemployees";       
 
         public const string POST_DELETE_DRIVER = "api/v1/hrmemployees/deletehrmemployees";
 
@@ -333,7 +332,7 @@
         #region Support
         public const string GET_List_SupportCategory = "api/v1/supportcategory/getlistsupportcategory";
         public const string GET_List_SupportContent = "api/v1/supportcategory/getlistsupportcontentbyid";
-        public const string POST_MessageSupport = "tasks/receiver/create";
+        public const string POST_MessageSupport = "api/v1/supportcategory/insertsupportbap";
         #endregion
         #region Expense
         public const string GET_List_ExpensesCategory = "api/v1/expenses/getlistexpensescategorybycompany";
