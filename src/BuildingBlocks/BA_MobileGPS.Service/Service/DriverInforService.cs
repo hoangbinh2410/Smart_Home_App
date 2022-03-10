@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Utilities;
 using BA_MobileGPS.Utilities.Constant;
 using System;
@@ -17,13 +18,13 @@ namespace BA_MobileGPS.Service
         {
             _IRequestProvider = IRequestProvider;
         }
-        public async Task<int> AddDriverInfor(DriverInfor driver)
+        public async Task<InsertUpdateHRMEmployeesRespone> AddDriverInfor(DriverInfor driver)
         {
-            int result = -1;
+            InsertUpdateHRMEmployeesRespone result = new InsertUpdateHRMEmployeesRespone();
             try
             {
                 string url = $"{ApiUri.POST_ADD_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<int>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<InsertUpdateHRMEmployeesRespone>>(url, driver);
                 if (response != null )
                 {
                     result = response.Data;
@@ -36,13 +37,13 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<int> DeleteDriverInfor(DriverDeleteRequest driver)
+        public async Task<InsertUpdateHRMEmployeesRespone> DeleteDriverInfor(DriverDeleteRequest driver)
         {
-            int result = -1;
+            InsertUpdateHRMEmployeesRespone result = new InsertUpdateHRMEmployeesRespone();
             try
             {
                 string url = $"{ApiUri.POST_DELETE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBase<int>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverDeleteRequest, ResponseBase<InsertUpdateHRMEmployeesRespone>>(url, driver);
                 if (response != null)
                 {
                     result = response.Data;
@@ -77,16 +78,16 @@ namespace BA_MobileGPS.Service
             return result;
         }
 
-        public async Task<int> UpdateDriverInfor(DriverInfor driver)
+        public async Task<InsertUpdateHRMEmployeesRespone> UpdateDriverInfor(DriverInfor driver)
         {
-            int result = -1;
+            InsertUpdateHRMEmployeesRespone result = new InsertUpdateHRMEmployeesRespone();
             try
             {
                 string url = $"{ApiUri.POST_UPDATE_DRIVER}";
-                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<DriverInfor>>(url, driver);
+                var response = await _IRequestProvider.PostAsync<DriverInfor, ResponseBase<InsertUpdateHRMEmployeesRespone>>(url, driver);
                 if (response != null && response.Data != null)
                 {
-                    result = response.Data.PK_EmployeeID;
+                    result = response.Data;
                 }
             }
             catch (Exception ex)

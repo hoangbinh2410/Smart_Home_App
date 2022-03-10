@@ -1,4 +1,5 @@
 ﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.ResponeEntity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,9 +12,9 @@ namespace BA_MobileGPS.Service
     {
         Task<List<DriverInfor>> GetListDriverByCompanyId(int companyId, int pageSize = 0, 
             int pageIndex = 0, DriverOrderByEnum orderBy = DriverOrderByEnum.ASC, DriverSortOderEnum sortOrder = DriverSortOderEnum.DisplayName);
-        Task<int> AddDriverInfor(DriverInfor driver); // return Id
-        Task<int> UpdateDriverInfor(DriverInfor driver); // return Id
-        Task<int> DeleteDriverInfor(DriverDeleteRequest driver); // return Id
+        Task<InsertUpdateHRMEmployeesRespone> AddDriverInfor(DriverInfor driver); // return Id
+        Task<InsertUpdateHRMEmployeesRespone> UpdateDriverInfor(DriverInfor driver); // return Id
+        Task<InsertUpdateHRMEmployeesRespone> DeleteDriverInfor(DriverDeleteRequest driver); // return Id
         
     }
 

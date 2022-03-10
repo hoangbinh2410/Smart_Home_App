@@ -244,7 +244,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         await RunOnBackground(async () =>
                         {
                             var temp = await driverInforService.DeleteDriverInfor(req);
-                            return temp;
+                            return temp.PK_EmployeeID;
                         }, result =>
                         {
                             if (result == item.PK_EmployeeID)
