@@ -137,8 +137,7 @@
 
         #region Category
 
-        public const string CATEGORY_LIST_GENDER = "api/v1/category/getcategorygender";
-        public const string CATEGORY_LIST_RELIGION = "api/v1/category/getcategoryreligion";
+        public const string CATEGORY_LIST_GENDER = "api/v1/category/getcategorybyname";
 
         #endregion Category
 
