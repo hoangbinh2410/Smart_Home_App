@@ -113,7 +113,7 @@
 
         #region RegisterConsult
 
-        public const string REGISTERCONSULT = "api/support/register";
+        public const string REGISTERCONSULT = "api/v1/registryadvisory/insertregistryadvisory";
 
         public const string GET_LISTTRANSPORTTYPES = "api/category/getlisttransporttypes";
 

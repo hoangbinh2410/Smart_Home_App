@@ -2,7 +2,7 @@
 {
     public class RegisterConsultRequest
     {
-        public string Fullname { set; get; }
+        public string FullName { set; get; }
 
         public string PhoneNumber { set; get; }
 
