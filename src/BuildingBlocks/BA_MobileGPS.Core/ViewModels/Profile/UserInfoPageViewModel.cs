@@ -525,11 +525,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 var result = await userService.UpdateUserInfo(request);
 
-                if (result && avatarUrl != null && StaticSettings.User.AvatarUrl != avatarUrl.Url)
+                if (result && avatarUrl != null && String.IsNullOrEmpty(avatarUrl.Url))
                 {
-                    StaticSettings.User.AvatarUrl = avatarUrl.Url;                 
+                    StaticSettings.User.AvatarUrl = avatarUrl.Url;
                 }
-
+                else
+                {
+                    StaticSettings.User.AvatarUrl = CurrentUser.AvatarUrl?.Trim();
+                }
                 return result;
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(async () =>
             {
@@ -544,7 +547,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             StaticSettings.User.UserName = CurrentUser.UserName?.Trim();
                             StaticSettings.User.FullName = CurrentUser.FullName?.Trim();
-                            StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();
+                            StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();                          
                             await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                         }
                     }
