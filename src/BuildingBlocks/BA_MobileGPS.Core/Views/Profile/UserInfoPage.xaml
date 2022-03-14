@@ -285,7 +285,7 @@
                         <controls:NullableDatePicker
                             Format="{Binding DateFormat}"
                             NullableDate="{Binding CurrentUser.DateOfBirth}"
-                            PlaceHolder=""
+                            PlaceHolder="{i18n:TranslateResource UserInfo_Label_Gender}"
                             TextColor="{DynamicResource TextPrimaryColor}" />
                     </input:SfTextInputLayout>
                     <Label

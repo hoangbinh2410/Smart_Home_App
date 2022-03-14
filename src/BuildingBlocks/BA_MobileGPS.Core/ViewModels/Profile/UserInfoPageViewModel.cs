@@ -525,7 +525,7 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 var result = await userService.UpdateUserInfo(request);
 
-                if (result && avatarUrl != null)
+                if (result && avatarUrl != null && StaticSettings.User.AvatarUrl != avatarUrl.Url)
                 {
                     StaticSettings.User.AvatarUrl = avatarUrl.Url;                 
                 }

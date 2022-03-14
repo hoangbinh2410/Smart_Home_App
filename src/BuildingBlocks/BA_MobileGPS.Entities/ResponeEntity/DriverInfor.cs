@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Entities
 
     public class DriverInfor : BaseModel
     {
-        public int PK_EmployeeID { get; set; }
+        public int Id { get; set; }
 
         public int FK_CompanyID { get; set; }
 
@@ -65,7 +65,7 @@ namespace BA_MobileGPS.Entities
                 {
                     return "avatar_default.png";
                 }
-                return $"{ServerConfig.ApiEndpoint}{DriverImage}";
+                return $"{DriverImage}";
             }
         }
 
@@ -122,7 +122,7 @@ namespace BA_MobileGPS.Entities
 
     public class DriverDeleteRequest
     {
-        public int PK_EmployeeID { get; set; }
+        public int Id { get; set; }
         public Guid? UpdatedByUser { get; set; }
     }
 
