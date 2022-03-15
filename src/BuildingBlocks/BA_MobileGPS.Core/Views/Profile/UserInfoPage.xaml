@@ -284,8 +284,9 @@
                         </input:SfTextInputLayout.LeadingView>
                         <controls:NullableDatePicker
                             Format="{Binding DateFormat}"
+                            HeightRequest="50"
                             NullableDate="{Binding CurrentUser.DateOfBirth}"
-                            PlaceHolder="{i18n:TranslateResource UserInfo_Label_Gender}"
+                            PlaceHolder="{i18n:TranslateResource UserInfo_Label_DayOfBirth}"                                                   
                             TextColor="{DynamicResource TextPrimaryColor}" />
                     </input:SfTextInputLayout>
                     <Label
@@ -325,7 +326,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedGender}"
                                 ShowBorder="False"
-                                HeightRequest="40"
+                                HeightRequest="50"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>
@@ -421,7 +422,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedReligion}"
                                 ShowBorder="False"
-                                HeightRequest="40"
+                                HeightRequest="50"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>

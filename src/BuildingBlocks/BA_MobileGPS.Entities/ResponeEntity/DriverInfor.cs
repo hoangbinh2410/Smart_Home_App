@@ -10,6 +10,7 @@ namespace BA_MobileGPS.Entities
 
     public class DriverInfor : BaseModel
     {
+        //Id employeid
         public int Id { get; set; }
 
         public int FK_CompanyID { get; set; }

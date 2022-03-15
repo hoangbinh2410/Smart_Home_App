@@ -30,15 +30,16 @@ namespace BA_MobileGPS.Core.Droid.CustomRenderer
             SetNativeControl(new EditText(Context));
 
             if (Control == null || e.NewElement == null)
-                return;
-
+                return;          
             var entry = Element;
-
+            var customPicker = e.NewElement as NullableDatePicker;
             Control.Click += OnPickerClick;
             Control.Text = !entry.NullableDate.HasValue ? entry.PlaceHolder : Element.Date.ToString(Element.Format);
             Control.KeyListener = null;
             Control.FocusChange += OnPickerFocusChange;
             Control.Enabled = Element.IsEnabled;
+           // Control.SetHintTextColor(Android.Graphics.Color.ParseColor(customPicker.PlaceholderColor));
+            //Control.TextColors
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -55,8 +56,7 @@ namespace BA_MobileGPS.Core.Droid.CustomRenderer
             }
 
             base.OnElementPropertyChanged(sender, e);
-        }
-
+        }                                         
         private void OnPickerFocusChange(object sender, FocusChangeEventArgs e)
         {
             if (e.HasFocus)
@@ -124,5 +124,11 @@ namespace BA_MobileGPS.Core.Droid.CustomRenderer
                 Control.Text = Element.Format;
             });
         }
+        private float GetRed(string color)
+        {
+            Color c = Color.FromHex(color);
+            return (float)c.R;
+        }
+
     }
 }

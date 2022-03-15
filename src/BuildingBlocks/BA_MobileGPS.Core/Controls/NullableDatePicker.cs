@@ -86,5 +86,12 @@ namespace BA_MobileGPS.Core.Controls
             NullableDate = Date;
             UpdateDate();
         }
+        public static BindableProperty PlaceholderColorProperty =
+       BindableProperty.Create(nameof(PlaceholderColor), typeof(string), typeof(NullableDatePicker), "#CCCCCC", BindingMode.TwoWay);
+        public string PlaceholderColor
+        {
+            get { return (string)GetValue(PlaceholderColorProperty); }
+            set { SetValue(PlaceholderColorProperty, value); }
+        }
     }
 }
