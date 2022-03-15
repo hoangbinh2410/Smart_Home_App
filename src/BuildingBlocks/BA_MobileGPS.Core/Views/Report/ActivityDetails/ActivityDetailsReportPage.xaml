@@ -835,21 +835,6 @@
                     <syncDataGrid:SfDataGrid.TableSummaryRows>
                         <syncDataGrid:GridTableSummaryRow ShowSummaryInRow="False">
                             <syncDataGrid:GridTableSummaryRow.SummaryColumns>
-
-                                <syncDataGrid:GridSummaryColumn
-                                    Name="SumStartFuel"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
-                                    Format="{}{SumStartFuel}"
-                                    MappingName="StartFuel"
-                                   SummaryType="Custom" />
-                                
-                                <syncDataGrid:GridSummaryColumn
-                                    Name="SumEndFuel"
-                                    CustomAggregate="{StaticResource CustomActivityDetailsConverter}"
-                                    Format="{}{SumEndFuel}"
-                                    MappingName="EndFuel"
-                                    SummaryType="Custom" />
-
                                 <syncDataGrid:GridSummaryColumn
                                     Name="SumTotalTimes"
                                     CustomAggregate="{StaticResource CustomActivityDetailsConverter}"

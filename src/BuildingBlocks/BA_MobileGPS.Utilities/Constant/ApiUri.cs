@@ -296,9 +296,6 @@
 
         public const string GET_LIST_PAPER_CATEGORY = "api/v1/papercategory/getpapercategory";
         public const string GET_LIST_INSURANCE_CATEGORY = "api/v1/paperinsurancecategory/getpaperinsurancecategory";
-        public const string GET_LAST_PAPER_INSURANCE = "api/v1/paperinfo/getpaperinfobyvehicle";
-        public const string GET_LAST_PAPER_REGISTRATION = "api/v1/paperinfo/getpaperinfobyvehicle";
-        public const string GET_LAST_PAPER_SIGN = "api/v1/paperinfo/getpaperinfobyvehicle";
         public const string POST_INSERT_PAPER_INSURANCE = "api/v1/paperinfo/insertpaperinfoinsurrance";
         public const string POST_INSERT_PAPER_REGISTRATION = "api/v1/paperinfo/insertpaperinforegistry";
         public const string POST_INSERT_PAPER_SIGN = "api/v1/paperinfo/insertpaperinfosign";
@@ -308,12 +305,13 @@
         public const string GET_LIST_ALL_PAPER = "api/v1/paperinfo/getpaperinfobycompanyid";
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/v1/paperinfo/gethistorypaperinfobycompanyid";
         public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/v1/paperinfo/getexpiredatebyvehicle";
+        public const string GET_LAST_PAPER_PaperCategory = "api/v1/paperinfo/getpaperinfobyvehicle";
 
         #endregion PapersInformation
 
         #region Issue
 
-       // public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+        // public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
 
         public const string GET_ISSUE_BYUSERID = "api/v1/issue/getissuebyuserid";
 

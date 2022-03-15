@@ -73,16 +73,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public CustomActivityDetailsAggregate()
         {
-        }
-        public double SumStartFuel
-        {
-            get; set;
-        } = 0;
-        public double SumEndFuel
-        {
-            get; set;
-        } = 0;
-
+        }      
         public string TotalTime
         {
             get; set;
@@ -107,8 +98,6 @@ namespace BA_MobileGPS.Core.Views
                 foreach (var p in enumerableItems)
                     if (p.TotalTimes != null)
                         ret = ret + p.TotalTimes;
-                this.SumStartFuel = Math.Round(enumerableItems.Sum(x => x.StartFuel), 2);
-                this.SumEndFuel = Math.Round(enumerableItems.Sum(x => x.EndFuel), 2);
                 this.TotalTime = string.Format("{0:hh\\:mm}", ret);
                 this.SumTotalKm = Math.Round(enumerableItems.Sum(x => x.TotalKm), 2);
                 this.TotalConstantNorms = enumerableItems.FirstOrDefault().ConstantNorms;

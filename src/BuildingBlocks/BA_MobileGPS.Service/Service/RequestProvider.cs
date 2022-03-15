@@ -333,7 +333,7 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
-        public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+        public async Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token = "", string header = "")
         {
             try
             {
@@ -344,18 +344,17 @@ namespace BA_MobileGPS.Service
                         AddHeaderParameter(httpClient, header);
                     }
 
-                    var content = new StringContent(JsonConvert.SerializeObject(data));
-                    content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    var content = JsonConvert.SerializeObject(data);
+
+                    var stringContent = new StringContent(content, Encoding.UTF8);
+                    stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
                     Debug.WriteLine("HTTP-PUT: " + httpClient.BaseAddress + uri);
+                    Debug.WriteLine("HTTP-PUT-CONTENT: " + content);
 
-                    using (var response = await httpClient.PutAsync(uri, content))
+                    using (var response = await httpClient.PutAsync(uri, stringContent))
                     {
-                        await HandleResponse(response);
-
-                        string serialized = await response.Content.ReadAsStringAsync();
-
-                        return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
+                        return await HandleResponseWithResult<TResult>(response);
                     }
                 }
             }
@@ -366,6 +365,40 @@ namespace BA_MobileGPS.Service
 
             return default;
         }
+
+        //public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+        //{
+        //    try
+        //    {
+        //        using (var httpClient = CreateHttpClient(token))
+        //        {
+        //            if (!string.IsNullOrEmpty(header))
+        //            {
+        //                AddHeaderParameter(httpClient, header);
+        //            }
+
+        //            var content = new StringContent(JsonConvert.SerializeObject(data));
+        //            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+        //            Debug.WriteLine("HTTP-PUT: " + httpClient.BaseAddress + uri);
+
+        //            using (var response = await httpClient.PutAsync(uri, content))
+        //            {
+        //                await HandleResponse(response);
+
+        //                string serialized = await response.Content.ReadAsStringAsync();
+
+        //                return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.WriteError($"HandleResponse-error:{ex.Message}");
+        //    }
+
+        //    return default;
+        //}
 
         public async Task DeleteAsync(string uri, string token = "")
         {

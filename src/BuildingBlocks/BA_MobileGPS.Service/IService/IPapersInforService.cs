@@ -15,15 +15,13 @@ namespace BA_MobileGPS.Service.IService
         Task<PapersIdResponse> InsertRegistrationPaper(PaperRegistrationInsertRequest data);
         Task<PapersIdResponse> InsertInsurancePaper(PaperInsuranceInsertRequest data);
         Task<PapersIdResponse> InsertSignPaper(PaperCabSignInforRequest data);
-        Task<List<InsuranceCategory>> GetInsuranceCategories(int companyID);
-        Task<PaperRegistrationInsertRequest> GetLastPaperRegistrationByVehicleId(int companyID, long vehicleId);
-        Task<PaperInsuranceInsertRequest> GetLastPaperInsuranceByVehicleId(int companyID, long vehicleId);
-        Task<PaperCabSignInforRequest> GetLastPaperSignByVehicleId(int companyID, long vehicleId);
+        Task<List<InsuranceCategory>> GetInsuranceCategories(int companyID);                   
         Task<PapersIdResponse> UpdateRegistrationPaper(PaperRegistrationInsertRequest data);
         Task<PapersIdResponse> UpdateInsurancePaper(PaperInsuranceInsertRequest data);
         Task<PapersIdResponse> UpdateSignPaper(PaperCabSignInforRequest data);
         Task<List<PaperItemInfor>> GetListPaper(int companyId,int orderBy =0,int sortOrder=0);
         Task<List<PaperItemHistoryModel>> GetListPaperHistory(int companyId, int pageSize = 0, int pageIndex = 0, int orderBy = 0, int sortOrder = 0);
         Task<DateTime?> GetLastPaperDateByVehicle(int companyID, long vehicleId,PaperCategoryTypeEnum paperType);
+        Task<PaperInfoDetailResponse> GetLastPaperByVehicleId(int companyID, PaperCategoryTypeEnum paperType, long vehicleId);
     }
 }

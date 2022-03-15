@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -425,7 +426,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
         }
 
-        private PaperRegistrationInsertRequest oldInfor { get; set; }
+        private PaperRegistrationInsertRequest oldInfor { get; set; }       
 
         private void UpdateFormData(int companyId, long vehicleId)
         {
@@ -433,33 +434,46 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SafeExecute(async () =>
             {
-                var paper = await paperinforService.GetLastPaperRegistrationByVehicleId(companyId, vehicleId);
+                var paper = await paperinforService.GetLastPaperByVehicleId(companyId,PaperCategoryTypeEnum.Registry, vehicleId);
                 if (paper != null)
                 {
-                    oldInfor = paper;
+                    oldInfor = new PaperRegistrationInsertRequest()
+                    {
+                        PaperInfo = new PaperBasicInfor()
+                        {
+                            Id = paper.Id,
+                            PaperNumber = paper.PaperNumber,
+                            DateOfIssue = paper.DateOfIssue,
+                            ExpireDate = paper.ExpireDate,
+                            DayOfAlertBefore = paper.DayOfAlertBefore,
+                            Description = paper.Description
+                        },
+                        WarrantyCompany = paper.PaperInfoExtend.WarrantyCompany,
+                        Cost = paper.PaperInfoExtend.Cost                      
+                    };
                     IsUpdateForm = true;
                     CanEditPaperNumber = false;
                  
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SaveButtonVisible = CheckPermision((int)PermissionKeyNames.PaperUpdate);
-                        IdentityCode.Value = paper.PaperInfo.PaperNumber;
-                        RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
-                        ExpireDate.Value = paper.PaperInfo.ExpireDate;
-                        DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
-                        Notes.Value = paper.PaperInfo.Description;
-                        UnitName.Value = paper.WarrantyCompany;
-                        RegistrationFee.Value = paper.Cost?.ToString("G0");
+                        IdentityCode.Value = paper.PaperNumber;
+                        RegistrationDate.Value = paper.DateOfIssue;
+                        ExpireDate.Value = paper.ExpireDate;
+                        DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore.ToString();
+                        Notes.Value = paper.Description;
+                        UnitName.Value = paper.PaperInfoExtend.WarrantyCompany;
+                        RegistrationFee.Value = paper.PaperInfoExtend.Cost?.ToString("G0");
 
                         SaveEnable = false;
                     });
-                    if (DateTime.Now.Date > paper.PaperInfo.ExpireDate.Date)
+                    if (DateTime.Now.Date > paper.ExpireDate.Date)
                     {
                         AlertMessenger = MobileResource.PaperInfor_Msg_Expired;
                         AlertMessengerColor = Color.FromHex("#E65353");
                         CreateButtonVisible = true;
                     }
-                    else if (paper.PaperInfo.ExpireDate.Date.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now.Date)
+                    else if (paper.ExpireDate.Date.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now.Date)
                     {
                         AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
                         AlertMessengerColor = Color.FromHex("#F99B09");

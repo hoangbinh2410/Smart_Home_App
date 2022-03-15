@@ -389,19 +389,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                 }
                 // Giờ đi giờ đến
-                numbercolum += 1;
-                //Số lít bắt đầu
-                if (ShowStartFuel)
-                {
-                    numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.StartFuel), 2).ToString();
-                }
-                // Số lít kết thúc
-                if (ShowEndFuel)
-                {
-                    numbercolum += 1;
-                    worksheet.Range[numberrow, numbercolum].Text = Math.Round(data.Sum(x => x.EndFuel), 2).ToString();
-                }
+                numbercolum += 1;               
                 // Thời gian hoạt động
                 if (ShowTimeActive)
                 {

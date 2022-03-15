@@ -480,34 +480,49 @@ namespace BA_MobileGPS.Core.ViewModels
            
             SafeExecute(async () =>
             {
-                var paper = await paperinforService.GetLastPaperInsuranceByVehicleId(companyId, vehicleId);
+                var paper = await paperinforService.GetLastPaperByVehicleId(companyId, PaperCategoryTypeEnum.Insurrance, vehicleId);
                 if (paper != null)
                 {
-                    oldInfor = paper;
+                    oldInfor = new PaperInsuranceInsertRequest()
+                    {
+                        PaperInfo = new PaperBasicInfor()
+                        {
+                            Id = paper.Id,
+                            PaperNumber = paper.PaperNumber,
+                            DateOfIssue = paper.DateOfIssue,
+                            ExpireDate = paper.ExpireDate,
+                            DayOfAlertBefore = paper.DayOfAlertBefore,
+                            Description = paper.Description
+                        },
+                        WarrantyCompany = paper.PaperInfoExtend.WarrantyCompany,
+                        Cost= paper.PaperInfoExtend.Cost,
+                        Contact = paper.PaperInfoExtend.Contact,
+                        FK_InsuranceCategoryID = paper.PaperInfoExtend.FK_InsuranceCategoryID
+                    };
                     IsUpdateForm = true;
                     CanEditPaperNumber = false;
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         SaveButtonVisible = CheckPermision((int)PermissionKeyNames.PaperUpdate);
-                        InsuranceNumber.Value = paper.PaperInfo.PaperNumber;
-                        RegistrationDate.Value = paper.PaperInfo.DateOfIssue;
-                        ExpireDate.Value = paper.PaperInfo.ExpireDate;
-                        DaysNumberForAlertAppear.Value = paper.PaperInfo.DayOfAlertBefore.ToString();
-                        SelectedInsuranceType.Value = listInsuranceType.FirstOrDefault(x => x.Id == paper.FK_InsuranceCategoryID);
-                        InsuranceFee.Value = paper.Cost?.ToString("G0");
-                        Contact.Value = paper.Contact;
-                        Notes.Value = paper.PaperInfo.Description;
-                        UnitName.Value = paper.WarrantyCompany;
+                        InsuranceNumber.Value = paper.PaperNumber;
+                        RegistrationDate.Value = paper.DateOfIssue;
+                        ExpireDate.Value = paper.ExpireDate;
+                        DaysNumberForAlertAppear.Value = paper.DayOfAlertBefore.ToString();
+                        SelectedInsuranceType.Value = listInsuranceType.FirstOrDefault(x => x.Id == paper.PaperInfoExtend.FK_InsuranceCategoryID);
+                        InsuranceFee.Value = paper.PaperInfoExtend.Cost?.ToString("G0");
+                        Contact.Value = paper.PaperInfoExtend.Contact;
+                        Notes.Value = paper.Description;
+                        UnitName.Value = paper.PaperInfoExtend.WarrantyCompany;
 
                         SaveEnable = false;
                     });
-                    if (DateTime.Now > paper.PaperInfo.ExpireDate)
+                    if (DateTime.Now > paper.ExpireDate)
                     {
                         AlertMessenger =  MobileResource.PaperInfor_Msg_Expired;
                         AlertMessengerColor = Color.FromHex("#E65353");
                         CreateButtonVisible = true;
                     }
-                    else if (paper.PaperInfo.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
+                    else if (paper.ExpireDate.AddDays(-CompanyConfigurationHelper.DayAllowRegister) <= DateTime.Now)
                     {
                         AlertMessenger = MobileResource.PaperInfor_Msg_NearExpire;
                         AlertMessengerColor = Color.FromHex("#F99B09");

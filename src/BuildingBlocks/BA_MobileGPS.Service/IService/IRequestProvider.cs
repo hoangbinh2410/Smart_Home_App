@@ -15,9 +15,11 @@ namespace BA_MobileGPS.Service
 
         Task<TResult> PostAsync<TRequest, TResult>(string uri, TRequest data, string token = "", string header = "");
 
+        Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token = "", string header = "");
+
         Task<TResult> PostAsync<TResult>(string uri, string data, string clientId, string clientSecret);
 
-        Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "");
+        //Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "");
 
         Task<TResult> GetHandleOutputAsync<TResult>(string uri, string token = "");
 
