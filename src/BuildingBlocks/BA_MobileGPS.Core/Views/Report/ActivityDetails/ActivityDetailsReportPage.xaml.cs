@@ -73,8 +73,7 @@ namespace BA_MobileGPS.Core.Views
     {
         public CustomActivityDetailsAggregate()
         {
-        }
-
+        }      
         public string TotalTime
         {
             get; set;

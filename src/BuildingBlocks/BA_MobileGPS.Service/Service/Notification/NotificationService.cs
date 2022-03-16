@@ -63,7 +63,7 @@ namespace BA_MobileGPS.Service
             ResponseBase<NotificationBody> result = new ResponseBase<NotificationBody>();
             try
             {
-                string url = $"{ApiUri.GET_NOTIFICATION_BODY}?noticeId={id}";
+                string url = $"{ApiUri.GET_NOTIFICATION_BODY}?Id={id}";
                 var data = await requestProvider.GetAsync<ResponseBase<NotificationBody>>(url);
 
                 if (data != null)
@@ -83,7 +83,7 @@ namespace BA_MobileGPS.Service
             ResponseBase<NoticeDetailRespone> result = new ResponseBase<NoticeDetailRespone>();
             try
             {
-                string url = $"{ApiUri.GET_NOTIFICATION_DETAIL}?noticeId={id}";
+                string url = $"{ApiUri.GET_NOTIFICATION_DETAIL}?Id={id}";
                 var data = await requestProvider.GetAsync<ResponseBase<NoticeDetailRespone>>(url);
 
                 if (data != null)

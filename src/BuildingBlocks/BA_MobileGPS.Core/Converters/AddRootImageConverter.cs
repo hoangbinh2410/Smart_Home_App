@@ -25,7 +25,7 @@ namespace BA_MobileGPS.Core
             }
             else
             {
-                return $"{ServerConfig.ApiEndpoint}{value.ToString()}";
+                return $"{value.ToString()}";
             }
         }
 

@@ -238,16 +238,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     {
                         var req = new DriverDeleteRequest()
                         {
-                            PK_EmployeeID = item.PK_EmployeeID,
+                            Id = item.Id,
                             UpdatedByUser = UserInfo.UserId
                         };
                         await RunOnBackground(async () =>
                         {
                             var temp = await driverInforService.DeleteDriverInfor(req);
-                            return temp;
+                            return temp.PK_EmployeeID;
                         }, result =>
                         {
-                            if (result == item.PK_EmployeeID)
+                            if (result == item.Id)
                             {
                                 GetAllDriverData();
                                 SearchedText = string.Empty;

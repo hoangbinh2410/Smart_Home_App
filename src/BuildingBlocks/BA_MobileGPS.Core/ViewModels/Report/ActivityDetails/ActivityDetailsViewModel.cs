@@ -81,6 +81,11 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool showTimeActive = true;
         public bool ShowTimeActive { get => showTimeActive; set => SetProperty(ref showTimeActive, value); }
 
+        private bool showStartFuel = true;
+        public bool ShowStartFuel { get => showStartFuel; set => SetProperty(ref showStartFuel, value); }
+        private bool showEndFuel = true;
+        public bool ShowEndFuel { get => showEndFuel; set => SetProperty(ref showEndFuel, value); }
+
         private bool showKmGPS = true;
         public bool ShowKmGPS { get => showKmGPS; set => SetProperty(ref showKmGPS, value); }
 
@@ -195,6 +200,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 // Giờ đi giờ đến
                 numbercolum += 1;
                 worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_StartEndTime;
+                // Số lít bắt đầu
+                if (ShowStartFuel)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_StartFuel;
+                }
+                // Số lít kết thúc
+                if (ShowEndFuel)
+                {
+                    numbercolum += 1;
+                    worksheet.Range[numberrow, numbercolum].Text = MobileResource.DetailsReport_Table_EndFuel;
+                }
                 // Thời gian hoạt động
                 if (ShowTimeActive)
                 {
@@ -286,6 +303,18 @@ namespace BA_MobileGPS.Core.ViewModels
                     // Giờ đi giờ đến
                     numbercolum += 1;
                     worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:hh\\:mm}", data[i].StartTimes) + " - " + String.Format("{0:hh\\:mm}", data[i].EndTimes);
+                    //Số lít bắt đầu                   
+                    if (ShowStartFuel)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:0.##}", data[i].StartFuel);
+                    }
+                    // Số lít kết thúc
+                    if (ShowEndFuel)
+                    {
+                        numbercolum += 1;
+                        worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:0.##}", data[i].EndFuel);
+                    }
                     // Thời gian hoạt động
                     if (ShowTimeActive)
                     {
@@ -360,7 +389,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     numbercolum += 1;
                 }
                 // Giờ đi giờ đến
-                numbercolum += 1;
+                numbercolum += 1;               
                 // Thời gian hoạt động
                 if (ShowTimeActive)
                 {
@@ -450,7 +479,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     { 8, ShowKmCO },
                     { 9, ShowQuotaFuelConsume },
                     { 10, ShowStartAddress },
-                    { 11, ShowEndAddress }
+                    { 11, ShowEndAddress },
+                    { 12, ShowStartFuel },
+                    { 13, ShowEndFuel },
                 };
             }
         }
@@ -506,6 +537,12 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         case 11:
                             ShowEndAddress = item.Value;
+                            break;
+                        case 12:
+                            ShowStartFuel = item.Value;
+                            break;
+                        case 13:
+                            ShowEndFuel = item.Value;
                             break;
                     }
                 }

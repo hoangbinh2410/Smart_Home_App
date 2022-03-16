@@ -38,5 +38,9 @@ namespace BA_MobileGPS.Entities
         public short DataType { get; set; }
 
         public string DataTypeStr => DataType == 0 ? "X" : string.Empty;
+        //Số lít bắt đầu
+        public float StartFuel { get; set; }
+        //Số lít kết thúc
+        public float EndFuel { get; set; }
     }
 }

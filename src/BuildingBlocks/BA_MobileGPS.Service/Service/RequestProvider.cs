@@ -333,6 +333,39 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
+        public async Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest data, string token = "", string header = "")
+        {
+            try
+            {
+                using (var httpClient = CreateHttpClient(token))
+                {
+                    if (!string.IsNullOrEmpty(header))
+                    {
+                        AddHeaderParameter(httpClient, header);
+                    }
+
+                    var content = JsonConvert.SerializeObject(data);
+
+                    var stringContent = new StringContent(content, Encoding.UTF8);
+                    stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    Debug.WriteLine("HTTP-PUT: " + httpClient.BaseAddress + uri);
+                    Debug.WriteLine("HTTP-PUT-CONTENT: " + content);
+
+                    using (var response = await httpClient.PutAsync(uri, stringContent))
+                    {
+                        return await HandleResponseWithResult<TResult>(response);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError($"HandleResponse-error:{ex.Message}");
+            }
+
+            return default;
+        }
+
         public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
         {
             try

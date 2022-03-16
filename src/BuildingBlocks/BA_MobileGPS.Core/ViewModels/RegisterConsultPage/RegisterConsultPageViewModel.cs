@@ -190,7 +190,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             var input = new RegisterConsultRequest()
                             {
-                                Fullname = FullName.Value.Trim(),
+                                FullName = FullName.Value.Trim(),
                                 ContentVdvisory = ContentConsult.Value,
                                 PhoneNumber = string.Format("{0}{1}", CountryCode.Value, PhoneNumber.Value),
                                 FK_TransportTypeID = TransportTypeItem.Key,

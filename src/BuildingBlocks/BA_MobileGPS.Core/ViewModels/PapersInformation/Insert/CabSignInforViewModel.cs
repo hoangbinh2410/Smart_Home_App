@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Entities.RequestEntity;
+using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service.IService;
 using BA_MobileGPS.Utilities;
 using Prism.Commands;
@@ -70,6 +71,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool canEditPaperNumber;
+
         public bool CanEditPaperNumber
         {
             get { return canEditPaperNumber; }
@@ -77,6 +79,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private bool isUpdateForm;
+
         public bool IsUpdateForm
         {
             get { return isUpdateForm; }
@@ -170,6 +173,7 @@ namespace BA_MobileGPS.Core.ViewModels
         }
 
         private Color alertMessengerColor;
+
         public Color AlertMessengerColor
         {
             get { return alertMessengerColor; }
@@ -382,10 +386,18 @@ namespace BA_MobileGPS.Core.ViewModels
 
             SafeExecute(async () =>
             {
-                var paper = await paperinforService.GetLastPaperSignByVehicleId(companyId, vehicleId);
+                var paper = await paperinforService.GetLastPaperByVehicleId(companyId, PaperCategoryTypeEnum.Sign, vehicleId);
                 if (paper != null)
                 {
-                    oldInfor = paper;
+                    oldInfor = new PaperCabSignInforRequest()
+                    {
+                        Id = paper.Id,
+                        PaperNumber = paper.PaperNumber,
+                        DateOfIssue = paper.DateOfIssue,
+                        ExpireDate = paper.ExpireDate,
+                        DayOfAlertBefore = paper.DayOfAlertBefore,
+                        Description = paper.Description
+                    };
                     IsUpdateForm = true;
                     CanEditPaperNumber = false;
 
@@ -415,6 +427,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 else ClearData(true);
             });
         }
+
         /// <summary>
         /// Xóa dữ liệu khi xe thay đổi hoặc khi thêm mới thành công
         /// </summary>
@@ -425,7 +438,7 @@ namespace BA_MobileGPS.Core.ViewModels
             if (canEditNumber)
             {
                 SignNumber.Value = string.Empty;
-            }            
+            }
             RegistrationDate.Value = DateTime.Now;
             ExpireDate.Value = DateTime.Now;
             DaysNumberForAlertAppear.Value = "3";
@@ -435,15 +448,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 SaveButtonVisible = true;
             }
-            IsUpdateForm = false;           
+            IsUpdateForm = false;
         }
 
         private void ChangeToInsertForm()
-        {           
+        {
             ExpireDate.Value = DateTime.Now;
             RegistrationDate.Value = oldInfor.ExpireDate.AddDays(1);
             DaysNumberForAlertAppear.Value = "3";
-            Notes.Value = string.Empty;          
+            Notes.Value = string.Empty;
             CreateButtonVisible = false;
             IsUpdateForm = false;
 

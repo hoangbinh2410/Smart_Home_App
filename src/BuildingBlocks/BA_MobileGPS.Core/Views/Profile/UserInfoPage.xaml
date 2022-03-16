@@ -282,10 +282,9 @@
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Calendar}"
                                 TextColor="{DynamicResource PrimaryColor}" />
                         </input:SfTextInputLayout.LeadingView>
-                        <controls:NullableDatePicker
+                        <DatePicker
                             Format="{Binding DateFormat}"
-                            NullableDate="{Binding CurrentUser.DateOfBirth}"
-                            PlaceHolder=""
+                            Date="{Binding CurrentUser.DateOfBirth}"                                                                      
                             TextColor="{DynamicResource TextPrimaryColor}" />
                     </input:SfTextInputLayout>
                     <Label
@@ -325,7 +324,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedGender}"
                                 ShowBorder="False"
-                                HeightRequest="40"
+                                HeightRequest="50"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>
@@ -421,7 +420,7 @@
                                 HorizontalOptions="FillAndExpand"
                                 SelectedItem="{Binding SelectedReligion}"
                                 ShowBorder="False"
-                                HeightRequest="40"
+                                HeightRequest="50"
                                 TextColor="{DynamicResource TextPrimaryColor}"
                                 TextSize="14" />
                         </StackLayout>

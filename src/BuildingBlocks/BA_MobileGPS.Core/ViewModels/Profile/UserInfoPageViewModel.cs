@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Helpers;
 using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
+using BA_MobileGPS.Entities.Constant;
 using BA_MobileGPS.Entities.ResponeEntity;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
@@ -34,17 +35,17 @@ namespace BA_MobileGPS.Core.ViewModels
         private UserInfoRespone currentUser = new UserInfoRespone();
         public UserInfoRespone CurrentUser { get => currentUser; set => SetProperty(ref currentUser, value); }
 
-        private ObservableCollection<Gender> listGender;
-        public ObservableCollection<Gender> ListGender { get => listGender; set => SetProperty(ref listGender, value); }
+        private ObservableCollection<CategoryResponse> listGender;
+        public ObservableCollection<CategoryResponse> ListGender { get => listGender; set => SetProperty(ref listGender, value); }
 
-        private Gender selectedGender;
-        public Gender SelectedGender { get => selectedGender; set => SetProperty(ref selectedGender, value, onChanged: OnGenderChanged); }
+        private CategoryResponse selectedGender;
+        public CategoryResponse SelectedGender { get => selectedGender; set => SetProperty(ref selectedGender, value, onChanged: OnGenderChanged); }
 
-        private ObservableCollection<Religion> listReligion;
-        public ObservableCollection<Religion> ListReligion { get => listReligion; set => SetProperty(ref listReligion, value); }
+        private ObservableCollection<CategoryResponse> listReligion;
+        public ObservableCollection<CategoryResponse> ListReligion { get => listReligion; set => SetProperty(ref listReligion, value); }
 
-        private Religion selectedReligion;
-        public Religion SelectedReligion { get => selectedReligion; set => SetProperty(ref selectedReligion, value, onChanged: OnReligionChanged); }
+        private CategoryResponse selectedReligion;
+        public CategoryResponse SelectedReligion { get => selectedReligion; set => SetProperty(ref selectedReligion, value, onChanged: OnReligionChanged); }
         private bool isShowPhoneNumber;
         public bool IsShowPhoneNumber { get => isShowPhoneNumber; set => SetProperty(ref isShowPhoneNumber, value); }
         public ICommand AvatarTappedCommand { get; private set; }
@@ -74,17 +75,17 @@ namespace BA_MobileGPS.Core.ViewModels
             GetUserInfo();
         }
 
-        private void GetListGender()
+        private void GetListGender(string name)
         {
             Task.Run(async () =>
             {
-                return await categoryService.GetListGender(CultureInfo.CurrentCulture.Name);
+                return await categoryService.GetListCategorybyName(name,CultureInfo.CurrentCulture.Name);
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     ListGender = task.Result.ToObservableCollection();
-                    ListGender.Insert(0, new Gender()
+                    ListGender.Insert(0, new CategoryResponse()
                     {
                         ConfigID = 0,
                         ValueByLanguage = MobileResource.Common_Value_SelectGender
@@ -98,17 +99,17 @@ namespace BA_MobileGPS.Core.ViewModels
             }));
         }
 
-        private void GetListReligion()
+        private void GetListReligion(string name)
         {
             Task.Run(async () =>
             {
-                return await categoryService.GetListReligion(CultureInfo.CurrentCulture.Name);
+                return await categoryService.GetListCategorybyName(name,CultureInfo.CurrentCulture.Name);
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(() =>
             {
                 if (task.Status == TaskStatus.RanToCompletion)
                 {
                     ListReligion = task.Result.ToObservableCollection();
-                    ListReligion.Insert(0, new Religion()
+                    ListReligion.Insert(0, new CategoryResponse()
                     {
                         ConfigID = 0,
                         ValueByLanguage = MobileResource.Common_Value_SelectReligion
@@ -137,8 +138,8 @@ namespace BA_MobileGPS.Core.ViewModels
 
                         StaticSettings.User.AvatarUrl = CurrentUser.AvatarUrl;
 
-                        GetListGender();
-                        GetListReligion();
+                        GetListGender(CategoryKey.CategoryGender);
+                        GetListReligion(CategoryKey.CategoryReligion);
                     }
                     else
                     {
@@ -524,11 +525,14 @@ namespace BA_MobileGPS.Core.ViewModels
 
                 var result = await userService.UpdateUserInfo(request);
 
-                if (result && avatarUrl != null)
+                if (result && avatarUrl != null &&!String.IsNullOrEmpty(avatarUrl.Url))
                 {
-                    StaticSettings.User.AvatarUrl = avatarUrl.Url;                 
+                    StaticSettings.User.AvatarUrl = avatarUrl.Url;
                 }
-
+                else
+                {
+                    StaticSettings.User.AvatarUrl = CurrentUser.AvatarUrl?.Trim();
+                }
                 return result;
             }).ContinueWith(task => Device.BeginInvokeOnMainThread(async () =>
             {
@@ -543,7 +547,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         {
                             StaticSettings.User.UserName = CurrentUser.UserName?.Trim();
                             StaticSettings.User.FullName = CurrentUser.FullName?.Trim();
-                            StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();
+                            StaticSettings.User.PhoneNumber = CurrentUser.PhoneNumber?.Trim();                          
                             await NavigationService.GoBackAsync(null, useModalNavigation: true, true);
                         }
                     }

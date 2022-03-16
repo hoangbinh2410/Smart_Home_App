@@ -320,12 +320,12 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 GetData();
                 var res = await driverInforService.AddDriverInfor(Driver);
-                if (res != 0)
+                if (res.PK_EmployeeID != 0)
                 {
                     var param = new NavigationParameters();
                     param.Add("RefreshData", true);
                     //success khi id trả về  > 0
-                    if (IsInsertpage && res > 0)
+                    if (IsInsertpage && res.PK_EmployeeID > 0)
                     {
                         // add success
                         ShowSuccessScreen = true;
@@ -335,7 +335,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         Driver.FK_CompanyID = UserInfo.CompanyId;
                         SetData(Driver);
                     }
-                    else if (!IsInsertpage && res == Driver.PK_EmployeeID)
+                    else if (!IsInsertpage && res.PK_EmployeeID == Driver.Id)
                     {
                         await NavigationService.GoBackAsync(param, true, true);
                         DisplayMessage.ShowMessageSuccess(MobileResource.ListDriver_Messenger_UpdateSuccess, 5000);
@@ -782,7 +782,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 ExpiredDate.Value = (DateTime)driver.ExpireLicenseDate;
             }
 
-            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{ServerConfig.ApiEndpoint}{driver.DriverImage}";
+            AvartarDisplay = string.IsNullOrEmpty(driver.DriverImage) ? "avatar_default.png" : $"{driver.DriverImage}";
             newAvatarPath = string.Empty;
             if (driver.Sex == null)
             {

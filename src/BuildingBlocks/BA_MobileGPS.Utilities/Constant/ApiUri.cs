@@ -113,7 +113,7 @@
 
         #region RegisterConsult
 
-        public const string REGISTERCONSULT = "api/support/register";
+        public const string REGISTERCONSULT = "api/v1/registryadvisory/insertregistryadvisory";
 
         public const string GET_LISTTRANSPORTTYPES = "api/category/getlisttransporttypes";
 
@@ -137,8 +137,7 @@
 
         #region Category
 
-        public const string CATEGORY_LIST_GENDER = "api/v1/category/getcategorygender";
-        public const string CATEGORY_LIST_RELIGION = "api/v1/category/getcategoryreligion";
+        public const string CATEGORY_LIST_GENDER = "api/v1/category/getcategorybyname";
 
         #endregion Category
 
@@ -287,8 +286,7 @@
 
         public const string GET_LIST_DRIVER = "api/v1/hrmemployees/gethrmemployeesbycompanyid";
 
-        public const string POST_ADD_DRIVER = "api/v1/hrmemployees/inserthrmemployees";
-        public const string POST_UPDATE_DRIVER = "api/v1/hrmemployees/updatehrmemployees";
+        public const string POST_ADD_DRIVER = "api/v1/hrmemployees/insertorupdatehrmemployees";       
 
         public const string POST_DELETE_DRIVER = "api/v1/hrmemployees/deletehrmemployees";
 
@@ -298,9 +296,6 @@
 
         public const string GET_LIST_PAPER_CATEGORY = "api/v1/papercategory/getpapercategory";
         public const string GET_LIST_INSURANCE_CATEGORY = "api/v1/paperinsurancecategory/getpaperinsurancecategory";
-        public const string GET_LAST_PAPER_INSURANCE = "api/v1/paperinfo/getpaperinfobyvehicle";
-        public const string GET_LAST_PAPER_REGISTRATION = "api/v1/paperinfo/getpaperinfobyvehicle";
-        public const string GET_LAST_PAPER_SIGN = "api/v1/paperinfo/getpaperinfobyvehicle";
         public const string POST_INSERT_PAPER_INSURANCE = "api/v1/paperinfo/insertpaperinfoinsurrance";
         public const string POST_INSERT_PAPER_REGISTRATION = "api/v1/paperinfo/insertpaperinforegistry";
         public const string POST_INSERT_PAPER_SIGN = "api/v1/paperinfo/insertpaperinfosign";
@@ -310,12 +305,13 @@
         public const string GET_LIST_ALL_PAPER = "api/v1/paperinfo/getpaperinfobycompanyid";
         public const string GET_LIST_ALL_PAPER_HISTORY = "api/v1/paperinfo/gethistorypaperinfobycompanyid";
         public const string GET_LAST_PAPER_DATE_BY_VEHICLE = "api/v1/paperinfo/getexpiredatebyvehicle";
+        public const string GET_LAST_PAPER_PaperCategory = "api/v1/paperinfo/getpaperinfobyvehicle";
 
         #endregion PapersInformation
 
         #region Issue
 
-       // public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
+        // public const string GET_ISSUE_BYCOMPANYID = "api/issue/getissuebycompanyid";
 
         public const string GET_ISSUE_BYUSERID = "api/v1/issue/getissuebyuserid";
 
@@ -325,15 +321,15 @@
 
         #region KPI
 
-        public const string GET_DRIVERKPI_CHART = "api/v1/reports/getdriverkpichart";
-        public const string GET_DRIVERKPI_RANKING = "api/v1/reports/getdriverranking";
+        public const string GET_DRIVERKPI_CHART = "api/v1/kpidriver/getdriverkpichart";
+        public const string GET_DRIVERKPI_RANKING = "api/v1/kpidriver/getdriverranking";
 
         #endregion KPI
 
         #region Support
         public const string GET_List_SupportCategory = "api/v1/supportcategory/getlistsupportcategory";
         public const string GET_List_SupportContent = "api/v1/supportcategory/getlistsupportcontentbyid";
-        public const string POST_MessageSupport = "tasks/receiver/create";
+        public const string POST_MessageSupport = "api/v1/supportcategory/insertsupportbap";
         #endregion
         #region Expense
         public const string GET_List_ExpensesCategory = "api/v1/expenses/getlistexpensescategorybycompany";
