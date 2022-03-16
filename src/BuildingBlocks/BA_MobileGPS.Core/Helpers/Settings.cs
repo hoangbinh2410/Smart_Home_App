@@ -23,6 +23,9 @@ namespace BA_MobileGPS.Core
         private const string RemembermeKey = "remember_me_key";
         private static readonly bool RemembermeDefault = false;
 
+        private const string RememberotpzaloKey = "remember_otp_zalo_key";
+        private static readonly bool RememberotpzaloDefault = false;
+
         private const string CurrentLanguageKey = "current_language_key";
         private static readonly string CurrentLanguageDefault = CultureCountry.Vietnamese;
 
@@ -132,6 +135,14 @@ namespace BA_MobileGPS.Core
         {
             get => Preferences.Get(RemembermeKey, RemembermeDefault);
             set => Preferences.Set(RemembermeKey, value);
+        }
+        /// <summary>
+        /// Lưu thông tin ghi nho mat khau
+        /// </summary>
+        public static bool RememberotpZalo
+        {
+            get => Preferences.Get(RememberotpzaloKey, RememberotpzaloDefault);
+            set => Preferences.Set(RememberotpzaloKey, value);
         }
 
         /// <summary>

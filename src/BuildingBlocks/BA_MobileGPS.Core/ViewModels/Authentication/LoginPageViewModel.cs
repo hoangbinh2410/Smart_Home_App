@@ -115,12 +115,14 @@ namespace BA_MobileGPS.Core.ViewModels
                 UserName.Value = Settings.UserName;
                 Password.Value = Settings.Password;
                 Rememberme = true;
+                RememberotpZalo = Settings.RememberotpZalo;
             }
             else
             {
                 UserName.Value = string.Empty;
                 Password.Value = string.Empty;
                 Rememberme = false;
+                RememberotpZalo = false;
             }
             AddLanguage();
         }
@@ -132,6 +134,7 @@ namespace BA_MobileGPS.Core.ViewModels
         private bool isShowRegisterSupport;
         private LanguageRespone language;
         private bool rememberme;
+        private bool rememberotpzalo;
 
         public bool IsShowRegisterSupport
         {
@@ -162,6 +165,15 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 Settings.Rememberme = value;
                 SetProperty(ref rememberme, value);
+            }
+        }
+        public bool RememberotpZalo
+        {
+            get => rememberotpzalo;
+            set
+            {
+                Settings.RememberotpZalo = value;
+                SetProperty(ref rememberotpzalo, value);
             }
         }
 
@@ -603,7 +615,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
                 }
                 // Kiểm tra tài khoản có bảo mất 2 lớp otp zalo
-                else if (MobileUserSettingHelper.Has2FactorAuthentication)
+                else if (MobileUserSettingHelper.Has2FactorAuthentication && !RememberotpZalo)
                 {
                     var parameters = new NavigationParameters
                     {
