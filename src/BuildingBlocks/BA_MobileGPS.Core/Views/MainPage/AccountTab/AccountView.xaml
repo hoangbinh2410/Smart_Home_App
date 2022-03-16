@@ -46,7 +46,7 @@
                     IsClippedToBounds="True"
                     VerticalOptions="Center"
                     WidthRequest="80">
-                    <ff:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl,Converter={StaticResource AddRootImageConverter}}" />
+                    <ff:CachedImage Aspect="AspectFill" Source="{Binding UserInfo.AvatarUrl,Converter={StaticResource AddRootImageAvatarCoverter}}" />
                 </pancake:PancakeView>
             </pancake:PancakeView>
             <StackLayout

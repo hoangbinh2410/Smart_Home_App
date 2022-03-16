@@ -1,13 +1,12 @@
-﻿using BA_MobileGPS.Utilities.Constant;
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-
+using System.Text;
 using Xamarin.Forms;
 
 namespace BA_MobileGPS.Core
 {
-    public class AddRootImageConverter : IValueConverter
+    public class AddRootImageAvatarCoverter: IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -25,7 +24,7 @@ namespace BA_MobileGPS.Core
             }
             else
             {
-                return $"{ServerConfig.ApiEndpoint}{value.ToString()}";
+                return $"{value.ToString()}";
             }
         }
 

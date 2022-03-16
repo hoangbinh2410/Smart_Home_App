@@ -6,7 +6,9 @@
     xmlns:converters="clr-namespace:BA_MobileGPS.Core;assembly=BA_MobileGPS.Core">
 
     <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
-
+    
+    <converters:AddRootImageAvatarCoverter x:Key="AddRootImageAvatarCoverter" />
+    
     <converters:AddRootImageConverter x:Key="AddRootImageConverter" />
 
     <converters:UpperCaseConverter x:Key="UpperCaseConverter" />

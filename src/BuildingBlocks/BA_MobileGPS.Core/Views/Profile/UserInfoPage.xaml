@@ -282,9 +282,10 @@
                                 Text="{x:Static fontawesome:FontAwesomeIcons.Calendar}"
                                 TextColor="{DynamicResource PrimaryColor}" />
                         </input:SfTextInputLayout.LeadingView>
-                        <DatePicker
+                        <controls:NullableDatePicker
                             Format="{Binding DateFormat}"
-                            Date="{Binding CurrentUser.DateOfBirth}"                                                                      
+                            NullableDate="{Binding CurrentUser.DateOfBirth}"
+                            PlaceHolder=""
                             TextColor="{DynamicResource TextPrimaryColor}" />
                     </input:SfTextInputLayout>
                     <Label

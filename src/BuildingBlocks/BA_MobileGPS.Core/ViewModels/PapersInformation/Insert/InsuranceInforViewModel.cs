@@ -331,19 +331,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-            Contact.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
+           // Contact.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
             Notes.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-            Notes.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 1000, ValidationMessage = "Không nhập quá 1000 kí tự" });
+           // Notes.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 1000, ValidationMessage = "Không nhập quá 1000 kí tự" });
             UnitName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
             {
                 DangerousChar = "['\"<>/&]",
                 ValidationMessage = "Vui lòng không nhập [,',\",<,>,/, &,]"
             });
-            UnitName.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
+           // UnitName.Validations.Add(new MaxLengthRule<string>() { MaxLenght = 500, ValidationMessage = "Không nhập quá 500 kí tự" });
             SelectedInsuranceType.Validations.Add(new IsNotNullObjectRule<InsuranceCategory>() { ValidationMessage = MobileResource.ListDriver_Messenger_NotSelect + "loại bảo hiểm" });
         }
 
