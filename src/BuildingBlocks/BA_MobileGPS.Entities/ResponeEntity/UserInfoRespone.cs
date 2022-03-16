@@ -32,7 +32,7 @@ namespace BA_MobileGPS.Entities
         [JsonProperty("4")]
         public string Email { get; set; }
 
-        private DateTime? dateOfBirth;
+        private DateTime? dateOfBirth = null;
 
         [JsonProperty("5")]
         public DateTime? DateOfBirth { get => dateOfBirth; set => SetProperty(ref dateOfBirth, value); }

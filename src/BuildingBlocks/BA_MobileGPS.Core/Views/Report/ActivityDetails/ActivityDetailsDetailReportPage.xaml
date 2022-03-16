@@ -663,7 +663,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
-                                    Text="{Binding SelectedDetails.StartFuel}"
+                                    Text="{Binding SelectedDetails.StartFuel, StringFormat='{0:0.##}'}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
                                 <BoxView
@@ -707,7 +707,7 @@
                                     Grid.Column="1"
                                     Margin="30,0,0,0"
                                     HorizontalOptions="EndAndExpand"
-                                    Text="{Binding SelectedDetails.EndFuel}"
+                                    Text="{Binding SelectedDetails.EndFuel, StringFormat='{0:0.##}'}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
                                 <BoxView
