@@ -387,7 +387,7 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 var paper = await paperinforService.GetLastPaperByVehicleId(companyId, PaperCategoryTypeEnum.Sign, vehicleId);
-                if (paper != null)
+                if (paper != null && paper.Id.ToString() !=Guid.Empty.ToString() )
                 {
                     oldInfor = new PaperCabSignInforRequest()
                     {
