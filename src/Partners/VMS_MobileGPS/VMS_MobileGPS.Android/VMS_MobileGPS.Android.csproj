@@ -88,7 +88,7 @@
     <PackageReference Include="Shiny.Prism">
       <Version>8.0.48</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
     <PackageReference Include="Realm" Version="10.9.0" />
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.11.0</Version>
