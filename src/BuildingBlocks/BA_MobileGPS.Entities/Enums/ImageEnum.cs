@@ -33,6 +33,9 @@ namespace BA_MobileGPS.Entities
         [Description("Expenses")]
         Expenses,
 
+        [Description("Paper")]
+        Paper,
+
         [Description("Drivers")]
         Driver
     }
