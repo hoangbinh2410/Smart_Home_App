@@ -184,7 +184,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_ErrorTimeFromToTimeEnd, CountMinutesShowMessageReport);
                 return false;
             }
-
+            if (DayBefore.Date > DateTime.Now.Date)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_EndDateLimit);
+                return false;
+            }
             return true;
         }
 

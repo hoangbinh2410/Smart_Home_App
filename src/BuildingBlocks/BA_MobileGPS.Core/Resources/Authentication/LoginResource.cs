@@ -45,7 +45,7 @@ namespace BA_MobileGPS.Core.Resources
 
         public static string Login_Message_UpdateVersionMessage => Get(MobileResourceNames.Login_Message_UpdateVersionMessage, "Cập nhật lên phiên bản mới nhất sẽ có nhiều cải tiến và nâng cấp bảo mật giúp bạn có trải nghiệm tốt hơn, an toàn và tiện dụng hơn.",
             "Updating to the latest version includes many security enhancements and enhancements that make your experience better, safer, and more convenient.");
-
+        public static string Login_Message_LoginOneKey => Get(MobileResourceNames.Login_Message_LoginOneKey, "Tài khoản và mật khẩu phải có ít nhất 2 kí tự", "Username and password must be at least 2 characters");
         public static string Login_Message_PleaseCall => Get(MobileResourceNames.Login_Message_PleaseCall, "Vui lòng gọi đến số {0} để được hỗ trợ", "Please call {0} for assistance");
     }
 }

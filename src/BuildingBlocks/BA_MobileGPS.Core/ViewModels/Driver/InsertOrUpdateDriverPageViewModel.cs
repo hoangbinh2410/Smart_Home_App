@@ -4,7 +4,6 @@ using BA_MobileGPS.Core.Resources;
 using BA_MobileGPS.Entities;
 using BA_MobileGPS.Service;
 using BA_MobileGPS.Utilities;
-using BA_MobileGPS.Utilities.Constant;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
@@ -12,12 +11,10 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamStorage;
 
 namespace BA_MobileGPS.Core.ViewModels
 {
@@ -101,6 +98,7 @@ namespace BA_MobileGPS.Core.ViewModels
         #region Binding Property
 
         private string selectedVehiclePlates;
+
         public string SelectedVehiclePlates
         {
             get { return selectedVehiclePlates; }
@@ -278,7 +276,7 @@ namespace BA_MobileGPS.Core.ViewModels
         /// Lưu ảnh => lưu thông tin lái xe
         /// </summary>
         private void SaveNewAvartar()
-        {         
+        {
             RunOnBackground(async () =>
             {
                 UploadImageBase64Request data = new UploadImageBase64Request
@@ -287,15 +285,15 @@ namespace BA_MobileGPS.Core.ViewModels
                     SystemType = App.AppType,
                     ModuleType = ModuleType.Avatar
                 };
-                
+
                 var result = await userService.UploadImageAsync(data);
 
-                if (result != null && ! String.IsNullOrEmpty(result.Url))
+                if (result != null && !String.IsNullOrEmpty(result.Url))
                 {
                     Driver.DriverImage = result.Url;
                 }
                 newAvatarPath = string.Empty;
-                SaveDriver();            
+                SaveDriver();
             });
         }
 
@@ -344,7 +342,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 else await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification,
                     MobileResource.ListDriver_Messenger_DuplicateData,
                    MobileResource.Common_Button_OK);
-
             });
         }
 
@@ -435,6 +432,18 @@ namespace BA_MobileGPS.Core.ViewModels
                 BirthDay.ErrorFirst = MobileResource.Common_Property_Invalid(MobileResource.UserInfo_Label_DayOfBirth);
                 birthDay = false;
             }
+            if (!StringHelper.HasDangerousCharsCanNull(DisplayName.Value))
+            {
+                DisplayName.IsNotValid = true;
+                DisplayName.ErrorFirst = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_FullName);
+                name = false;
+            }
+            if (!StringHelper.HasDangerousCharsCanNull(Address.Value))
+            {
+                DisplayName.IsNotValid = true;
+                DisplayName.ErrorFirst = MobileResource.Common_Property_DangerousChars(MobileResource.DetailVehicle_Label_Address);
+                address = false;
+            }
 
             return name && address && mobile && cmt && overdate && licenseType && gender
                 && driverLicense && birthday && issuedate && expriDate && birthDay;
@@ -463,17 +472,17 @@ namespace BA_MobileGPS.Core.ViewModels
             ExpiredDate.OnChanged += ExpiredDate_OnChanged;
 
             DisplayName.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + MobileResource.UserInfo_Label_FullName });
-            DisplayName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
-            {
-                DangerousChar = "['\"<>/&]",
-                ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_FullName)
-            });
+            //DisplayName.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
+            //{
+            //    DangerousChar = "['\"<>/&]",
+            //    ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.UserInfo_Label_FullName)
+            //});
 
-            Address.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
-            {
-                DangerousChar = "['\"<>/&]",
-                ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.DetailVehicle_Label_Address)
-            });
+            //Address.Validations.Add(new ExpressionDangerousCharsUpdateRule<string>
+            //{
+            //    DangerousChar = "['\"<>/&]",
+            //    ValidationMessage = MobileResource.Common_Property_DangerousChars(MobileResource.DetailVehicle_Label_Address)
+            //});
 
             Mobile.Validations.Add(new IsNotNullOrEmptyRule<string> { ValidationMessage = NotEmptyMessenge + MobileResource.UserInfo_Label_PhoneNumber });
             Mobile.Validations.Add(new PhoneNumberRule<string>
@@ -793,10 +802,10 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 var temp = StaticSettings.ListVehilceOnline.FirstOrDefault(x => x.VehicleId == driver.FK_VehicleID);
                 if (temp != null)
-                {                 
+                {
                     selectedVehicle = new Vehicle() { VehicleId = temp.VehicleId, VehiclePlate = temp.VehiclePlate };
                     SelectedVehiclePlates = selectedVehicle.VehiclePlate;
-                }              
+                }
             }
         }
 
@@ -891,6 +900,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 CanUpdateData = true;
             }
         }
+
         //// Chuyển từ image to base64
         private string GetBase64StringForImage(string imgPath)
         {

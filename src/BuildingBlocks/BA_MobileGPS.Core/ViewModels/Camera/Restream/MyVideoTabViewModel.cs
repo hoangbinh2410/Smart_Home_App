@@ -238,6 +238,11 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
             }
+            if (dateStart.Date > DateTime.Now.Date)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_EndDateLimit);
+                return false;
+            }
             else if (Vehicle == null || Vehicle.VehicleId == 0)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
