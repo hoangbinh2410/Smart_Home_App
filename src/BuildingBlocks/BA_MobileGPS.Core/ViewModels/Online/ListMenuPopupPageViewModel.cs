@@ -139,7 +139,7 @@ namespace BA_MobileGPS.Core.ViewModels
             });
             list.Add(new MenuPageItem
             {
-                Title = "Hỗ trợ khách hàng",
+                Title = MobileResource.SupportClient_Label_Title,
                 Icon = "ic_helpcustomer2.png",
                 IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer
@@ -162,7 +162,7 @@ namespace BA_MobileGPS.Core.ViewModels
             }
             list.Add(new MenuPageItem
             {
-                Title = "Hỗ trợ khách hàng",
+                Title = MobileResource.SupportClient_Label_Title,
                 Icon = "ic_helpcustomer2.png",
                 IsEnable = App.AppType == AppType.BinhAnh || App.AppType == AppType.CNN ? true : false,
                 MenuType = MenuKeyType.HelpCustomer

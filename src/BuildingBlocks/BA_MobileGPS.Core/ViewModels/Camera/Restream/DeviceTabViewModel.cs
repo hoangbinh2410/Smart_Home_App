@@ -741,17 +741,22 @@ namespace BA_MobileGPS.Core.ViewModels
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredDateTimeOver);
                 return false;
             }
-            else if (dateStart > dateEnd)
+            if (dateStart > dateEnd)
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_StartDateMustSmallerThanEndDate);
                 return false;
             }
-            else if (Vehicle == null || string.IsNullOrEmpty(Vehicle.VehiclePlate))
+            if (dateStart.Date > DateTime.Now.Date)
+            {
+                DisplayMessage.ShowMessageInfo(MobileResource.Route_Label_EndDateLimit);
+                return false;
+            }
+            if (Vehicle == null || string.IsNullOrEmpty(Vehicle.VehiclePlate))
             {
                 DisplayMessage.ShowMessageInfo(MobileResource.Common_Message_RequiredVehicle);
                 return false;
             }
-            else if (Vehicle != null && SelectedChannel.Value > Vehicle.Channel)
+            if (Vehicle != null && SelectedChannel.Value > Vehicle.Channel)
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -765,11 +770,9 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                 });
                 return false;
-            }
-            else
-            {
-                return true;
-            }
+            }            
+            return true;
+           
         }
 
         /// <summary>

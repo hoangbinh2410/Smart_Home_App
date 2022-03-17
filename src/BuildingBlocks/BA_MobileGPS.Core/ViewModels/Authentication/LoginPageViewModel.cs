@@ -155,8 +155,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        public ValidatableObject<string> Password { get; set; }
+        private ValidatableObject<string> _passWord;
+        public ValidatableObject<string> Password { get { return _passWord; } set { SetProperty(ref _passWord, value); } }
 
         public bool Rememberme
         {
@@ -176,9 +176,8 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref rememberotpzalo, value);
             }
         }
-
-        public ValidatableObject<string> UserName { get; set; }
-
+        private ValidatableObject<string> _userName;
+        public ValidatableObject<string> UserName {get { return _userName; }set { SetProperty(ref _userName, value); }}
         #endregion Property
 
         #region ICommand
@@ -535,6 +534,10 @@ namespace BA_MobileGPS.Core.ViewModels
                                         break;
                                 }
                             }
+                            else
+                            {
+                                DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginOneKey);
+                            }
                         }
                     }
                 }
@@ -679,7 +682,24 @@ namespace BA_MobileGPS.Core.ViewModels
 
         private bool Validate()
         {
-            return UserName.Validate() && Password.Validate();
+            var username = UserName.Validate();
+            var password = Password.Validate();
+            if (string.IsNullOrEmpty(UserName.Value))
+            {
+
+                UserName.IsNotValid = true;
+                UserName.ErrorFirst = MobileResource.Login_UserNameProperty_NullOrEmpty;
+                username = false;    
+            }
+            if (string.IsNullOrEmpty(Password.Value))
+            {
+
+                Password.IsNotValid = true;
+                Password.ErrorFirst = MobileResource.Login_PasswordProperty_NullOrEmpty;
+                username = false;
+            }
+
+            return username && password;
         }
 
         #endregion PrivateMethod

@@ -121,6 +121,7 @@
         Login_Popup_BAGPSExperience,
         Login_UserNameProperty_NullOrEmpty,
         Login_PasswordProperty_NullOrEmpty,
+        Login_Message_LoginOneKey,
         #endregion Login
 
         #region ChangePassword

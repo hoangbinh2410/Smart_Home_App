@@ -77,14 +77,15 @@
 
                         <!--  lấy lại Mã OTP  -->
                         <StackLayout Grid.Row="1">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding GetOTPAgainCommand}" />
-                            </StackLayout.GestureRecognizers>
                             <Label
                                 HorizontalOptions="Center"
                                 Text="Gửi lại mã khác?"
                                 TextColor="{DynamicResource WhiteColor}"
-                                TextDecorations="Underline" />
+                                TextDecorations="Underline">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding GetOTPAgainCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </StackLayout>
                         <StackLayout Grid.Row="2">
                             <!--  Button  -->
