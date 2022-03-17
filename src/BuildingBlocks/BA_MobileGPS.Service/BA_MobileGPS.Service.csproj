@@ -4,8 +4,8 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="IdentityModel" Version="6.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.3" />
+		<PackageReference Include="IdentityModel" Version="5.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.12" />
 		<PackageReference Include="Realm" Version="10.9.0" />
 	</ItemGroup>
 	<ItemGroup>
