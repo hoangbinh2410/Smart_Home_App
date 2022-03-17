@@ -151,7 +151,7 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2337</Version>
+      <Version>5.0.0.2291</Version>
     </PackageReference>
     <PackageReference Include="Com.OneSignal">
       <Version>3.10.6</Version>
