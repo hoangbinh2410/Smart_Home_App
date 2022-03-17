@@ -329,10 +329,16 @@ namespace BA_MobileGPS.Core.ViewModels
             if (_rememberme)
             {
                 Settings.Rememberme = true;
+                //Nếu là xác thực otp thì nhớ đã xác thực zalo
+                if(_objOtp != null)
+                {
+                    Settings.RememberotpZalo = true;
+                }              
             }
             else
             {
                 Settings.Rememberme = false;
+                Settings.RememberotpZalo = false;
             }
             if (!string.IsNullOrEmpty(Settings.UserName) && Settings.UserName != _userName && Settings.CurrentCompany != null)
             {
