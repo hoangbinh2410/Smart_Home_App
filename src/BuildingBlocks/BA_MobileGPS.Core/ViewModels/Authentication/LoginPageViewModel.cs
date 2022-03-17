@@ -176,9 +176,6 @@ namespace BA_MobileGPS.Core.ViewModels
                 SetProperty(ref rememberotpzalo, value);
             }
         }
-
-        public ValidatableObject<string> UserName { get; set; }
-
         private ValidatableObject<string> _userName;
         public ValidatableObject<string> UserName {get { return _userName; }set { SetProperty(ref _userName, value); }}
         #endregion Property
