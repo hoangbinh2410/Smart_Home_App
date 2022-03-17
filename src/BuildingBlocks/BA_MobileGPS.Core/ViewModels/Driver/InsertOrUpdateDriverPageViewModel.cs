@@ -275,26 +275,23 @@ namespace BA_MobileGPS.Core.ViewModels
         /// <summary>
         /// Lưu ảnh => lưu thông tin lái xe
         /// </summary>
-        private void SaveNewAvartar()
+        private async void SaveNewAvartar()
         {
-            RunOnBackground(async () =>
+            UploadImageBase64Request data = new UploadImageBase64Request
             {
-                UploadImageBase64Request data = new UploadImageBase64Request
-                {
-                    Base64String = GetBase64StringForImage(newAvatarPath),
-                    SystemType = App.AppType,
-                    ModuleType = ModuleType.Avatar
-                };
+                Base64String = GetBase64StringForImage(newAvatarPath),
+                SystemType = App.AppType,
+                ModuleType = ModuleType.Driver
+            };
 
-                var result = await userService.UploadImageAsync(data);
+            var result = await userService.UploadImageAsync(data);
 
-                if (result != null && !String.IsNullOrEmpty(result.Url))
-                {
-                    Driver.DriverImage = result.Url;
-                }
-                newAvatarPath = string.Empty;
-                SaveDriver();
-            });
+            if (result != null && !String.IsNullOrEmpty(result.Url))
+            {
+                Driver.DriverImage = result.Url;
+            }
+            newAvatarPath = string.Empty;
+            SaveDriver();
         }
 
         private void SaveDriverInfor()

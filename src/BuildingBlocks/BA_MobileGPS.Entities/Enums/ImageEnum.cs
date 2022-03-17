@@ -31,7 +31,10 @@ namespace BA_MobileGPS.Entities
         Avatar,
 
         [Description("Expenses")]
-        Expenses
+        Expenses,
+
+        [Description("Drivers")]
+        Driver
     }
     public enum FileSizeUnit
     {
