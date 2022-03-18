@@ -69,7 +69,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 TimeSelectorContainer.Animate("invis", new Animation((d) =>
                 {
-                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight * 2, TimeSelectorContainerHeight, d);
+                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight, TimeSelectorContainerHeight/2, d);
                 }),
               length: 200,
               easing: Easing.Linear);
@@ -85,7 +85,7 @@ namespace BA_MobileGPS.Core.Views
             {
                 TimeSelectorContainer.Animate("invis", new Animation((d) =>
                 {
-                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight, TimeSelectorContainerHeight * 2, d);
+                    TimeSelectorContainer.HeightRequest = CalcCurrentValue(TimeSelectorContainerHeight, TimeSelectorContainerHeight, d);
                 }),
                length: 200,
                easing: Easing.Linear);

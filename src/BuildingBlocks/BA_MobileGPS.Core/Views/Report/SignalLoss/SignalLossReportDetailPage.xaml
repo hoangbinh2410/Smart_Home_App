@@ -212,7 +212,7 @@
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     HorizontalOptions="EndAndExpand"
-                                    Text="{Binding SelectedSignalLoss.TotalTimes, StringFormat='{}{0:hh\\:mm}'}"
+                                    Text="{Binding SelectedSignalLoss.TotalTimes,Converter={StaticResource FormatTimeSpan24h}}"
                                     VerticalOptions="Center"
                                     VerticalTextAlignment="Center" />
                                 <BoxView

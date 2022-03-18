@@ -23,6 +23,8 @@
 
     <converters:TimeConverter x:Key="TimeConverter" />
 
+    <converters:FormatTimeSpan24h x:Key="FormatTimeSpan24h" />
+
     <converters:SecondsToStringConverter x:Key="SecondsToStringConverter" />
 
     <converters:MinutesToStringShortConverter x:Key="MinutesToStringShortConverter" />

@@ -394,7 +394,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (ShowTimeLosing)
                     {
                         numbercolum += 1;
-                        worksheet.Range[numberrow, numbercolum].Text = String.Format("{0:hh\\:mm}", data[i].TotalTimes);
+                        worksheet.Range[numberrow, numbercolum].Text = DateTimeHelper.FormatTimeSpan24h(data[i].TotalTimes);
                     }
 
                     // Địa điểm bắt đầu

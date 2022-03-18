@@ -440,4 +440,40 @@ namespace BA_MobileGPS.Core
             return default;
         }
     }
+
+    public class FormatTimeSpan24h : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var res = string.Empty;
+            TimeSpan time = default;
+            try
+            {
+                if (value is TimeSpan timeSpan)
+                {
+                    time = timeSpan;
+                    if (time.Days > 0)
+                    {
+                        var hour = time.Hours;
+                        hour += (time.Days * 24);
+                        res = hour.ToString() + ":" + time.Minutes;
+                    }
+                    else
+                    {
+                        res = time.ToString(@"hh\:mm");
+                    }
+                }              
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+            return res;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return default;
+        }
+    }
 }

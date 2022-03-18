@@ -463,7 +463,7 @@
                                     <Label
                                         FontSize="{StaticResource FontSize10}"
                                         HorizontalTextAlignment="Center"
-                                        Text="{Binding TotalTimes, StringFormat='{}{0:hh\\:mm}'}"
+                                        Text="{Binding TotalTimes,Converter={StaticResource FormatTimeSpan24h}}"
                                         VerticalTextAlignment="Center" />
                                 </DataTemplate>
                             </syncDataGrid:GridTemplateColumn.CellTemplate>

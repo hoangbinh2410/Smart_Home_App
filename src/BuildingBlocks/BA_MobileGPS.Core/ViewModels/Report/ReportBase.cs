@@ -128,8 +128,8 @@ namespace BA_MobileGPS.Core.ViewModels
         private Vehicle vehicleSelect;
         public Vehicle VehicleSelect { get => vehicleSelect; set => SetProperty(ref vehicleSelect, value); }
 
-        private IList<TResult> listSearchData;
-        public IList<TResult> ListDataSearch { get => listSearchData; set => SetProperty(ref listSearchData, value); }
+        private ObservableCollection<TResult> listSearchData;
+        public ObservableCollection<TResult> ListDataSearch { get => listSearchData; set => SetProperty(ref listSearchData, value); }
 
         private IList<ReportBasePaging> listSearchDataPagging;
         public IList<ReportBasePaging> ListSearchDataPagging { get => listSearchDataPagging; set => SetProperty(ref listSearchDataPagging, value); }
@@ -276,8 +276,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         for (int i = 0; i < tempListData.Count; i++)
                         {
                             ListDataSearch.Add(tempListData[i]);
-                        }
-                        ListDataSearch = new ObservableCollection<TResult>(ListDataSearch);
+                        }                       
                     }
                     else
                     {

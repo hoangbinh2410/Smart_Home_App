@@ -203,7 +203,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         ListBeforeJoinDay = new ObservableCollection<ActivitySummariesModel>(ListDataSearch);
                         if (ListDataSearch.Count > 1)
                         {
-                            var respone = new List<ActivitySummariesModel>();
+                            var respone = new ObservableCollection<ActivitySummariesModel>();
                             //Số ngày hoạt động thực tế
                             var count = ListDataSearch.Where(item => item.TotalKmGps > 0).GroupBy(u => u.FK_Date.ToString("dd/MM/yyyy")).ToList().Count;
 

@@ -517,7 +517,15 @@ namespace VMS_MobileGPS.ViewModels
                     companyType = Settings.CurrentCompany.CompanyType;
                 }
                 int vehicleGroup = 0;
-                return await vehicleOnlineService.GetListVehicleOnline(userID, vehicleGroup, companyID, xnCode, userType, companyType);
+                VehicleOnlineRequest request = new VehicleOnlineRequest()
+                {
+                    UserID = userID,
+                    CompanyID = companyID,
+                    XnCode = xnCode,
+                    UserType = userType,
+                    CompanyType = companyType,
+                };
+                return await vehicleOnlineService.GetListVehicleOnline(request);
             },
                    (result) =>
                    {

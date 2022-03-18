@@ -25,7 +25,7 @@
             x:Name="TimeSelectorContainer"
             Padding="8,0,8,0"
             BackgroundColor="{DynamicResource PrimaryColor}"
-            HeightRequest="45"
+            HeightRequest="100"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="Start">
             <Grid
@@ -141,7 +141,7 @@
                     Grid.Column="3"
                     Margin="-1,0,0,0"
                     Padding="5,6"
-                    BackgroundColor="{DynamicResource WhiteColor}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
                     CornerRadius="0"
                     VerticalOptions="Center">
                     <pancake:PancakeView.Border>
@@ -157,13 +157,13 @@
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
                         Text="24H"
-                        TextColor="{DynamicResource PrimaryColor}" />
+                        TextColor="White" />
                 </pancake:PancakeView>
                 <pancake:PancakeView
                     Grid.Column="4"
                     Margin="-1,0,0,0"
                     Padding="5,6"
-                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    BackgroundColor="{DynamicResource WhiteColor}"
                     CornerRadius="0,15,0,15"
                     VerticalOptions="Center">
                     <pancake:PancakeView.Border>
@@ -179,7 +179,7 @@
                         x:Name="lblMore"
                         FontAttributes="Bold"
                         HorizontalOptions="Center"
-                        TextColor="White" />
+                        TextColor="{DynamicResource PrimaryColor}" />
                 </pancake:PancakeView>
             </Grid>
         </Grid>
