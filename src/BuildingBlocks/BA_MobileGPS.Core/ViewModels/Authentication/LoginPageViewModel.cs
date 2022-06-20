@@ -482,62 +482,63 @@ namespace BA_MobileGPS.Core.ViewModels
                             };
                             // Lấy thông tin token
                             var user = await authenticationService.Login(request);
-                            if (user != null)
-                            {
-                                switch (user.Status)
-                                {
-                                    case LoginStatus.Success://Đăng nhập thành công
-                                        if (!string.IsNullOrEmpty(user.AccessToken))
-                                        {                                       
-                                            OnLoginSuccess(user);
-                                        }
-                                        else
-                                        {
-                                            StaticSettings.User = null;
-                                            Device.BeginInvokeOnMainThread(async () =>
-                                            {
-                                                await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Login_Message_AccountPasswordIncorrect, MobileResource.ForgotPassword_Label_TilePage, MobileResource.ForgotAccount_Label_TilePage);
-                                            });
-                                        }
-                                        break;
+                            OnLoginSuccess(user);
+                            //if (user != null)
+                            //{
+                            //    switch (user.Status)
+                            //    {
+                            //        case LoginStatus.Success://Đăng nhập thành công
+                            //            if (!string.IsNullOrEmpty(user.AccessToken))
+                            //            {                                       
+                            //                OnLoginSuccess(user);
+                            //            }
+                            //            else
+                            //            {
+                            //                StaticSettings.User = null;
+                            //                Device.BeginInvokeOnMainThread(async () =>
+                            //                {
+                            //                    await PageDialog.DisplayAlertAsync(MobileResource.Common_Label_Notification, MobileResource.Login_Message_AccountPasswordIncorrect, MobileResource.ForgotPassword_Label_TilePage, MobileResource.ForgotAccount_Label_TilePage);
+                            //                });
+                            //            }
+                            //            break;
 
-                                    case LoginStatus.LoginFailed://Đăng nhập không thành công
-                                        StaticSettings.User = null;
-                                        OnLoginFailed();
-                                        break;
+                            //        case LoginStatus.LoginFailed://Đăng nhập không thành công
+                            //            StaticSettings.User = null;
+                            //            OnLoginFailed();
+                            //            break;
 
-                                    case LoginStatus.UpdateRequired:
-                                        StaticSettings.User = null;
+                            //        case LoginStatus.UpdateRequired:
+                            //            StaticSettings.User = null;
 
-                                        break;
+                            //            break;
 
-                                    case LoginStatus.Locked://Tài khoản đang bị khóa
+                            //        case LoginStatus.Locked://Tài khoản đang bị khóa
 
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountLocked);
+                            //            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountLocked);
 
-                                        StaticSettings.User = null;
+                            //            StaticSettings.User = null;
 
-                                        break;
+                            //            break;
 
-                                    case LoginStatus.WrongAppType:
+                            //        case LoginStatus.WrongAppType:
 
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
-                                        break;
+                            //            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_AccountAllowedSystem);
+                            //            break;
 
-                                    case LoginStatus.UserLoginOnlyWeb:
+                            //        case LoginStatus.UserLoginOnlyWeb:
 
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginWebOnly);
-                                        break;
+                            //            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginWebOnly);
+                            //            break;
 
-                                    case LoginStatus.LicenseAppFailed:
-                                        DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginLicenseAppFailed);
-                                        break;
-                                }
-                            }
-                            else
-                            {
-                                DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginOneKey);
-                            }
+                            //        case LoginStatus.LicenseAppFailed:
+                            //            DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginLicenseAppFailed);
+                            //            break;
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    DisplayMessage.ShowMessageInfo(MobileResource.Login_Message_LoginOneKey);
+                            //}
                         }
                     }
                 }
@@ -604,33 +605,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
                 StaticSettings.User = user;
-                // Kiểm tra tài khoản có bảo mất 2 lớp otp sms
 
-                if (user.IsNeededOtp)
-                {
-                    var parameters = new NavigationParameters
-                    {
-                        { "User", user },
-                        { "Rememberme", Rememberme },
-                        { "UserName", UserName.Value },
-                        { "Password", Password.Value },
-                    };
-                    await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
-                }
-                // Kiểm tra tài khoản có bảo mất 2 lớp otp zalo
-                else if (MobileUserSettingHelper.Has2FactorAuthentication && !RememberotpZalo)
-                {
-                    var parameters = new NavigationParameters
-                    {
-                        { "User", user },
-                        { "Rememberme", Rememberme },
-                        { "UserName", UserName.Value },
-                        { "Password", Password.Value },
-                    };
-                    await NavigationService.NavigateAsync("NavigationPage/NumberPhoneLoginPage", parameters);
-                }
-                else
-                {
                     //nếu nhớ mật khẩu thì lưu lại thông tin username và password
                     if (Rememberme)
                     {
@@ -647,18 +622,8 @@ namespace BA_MobileGPS.Core.ViewModels
                     StaticSettings.Token = user.AccessToken;
                     StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
                     OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
-                    OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());
-
-                    //nếu cần đổi mật khẩu thì mở trang đổi mật khẩu
-                    if (user.IsNeedChangePassword)
-                    {
-                        await NavigationService.NavigateAsync("BaseNavigationPage/ChangePasswordPage", null, useModalNavigation: true, true);
-                    }
-                    else
-                    {
-                        await NavigationService.NavigateAsync("/MainPage");
-                    }
-                }
+                    OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());                  
+                   await NavigationService.NavigateAsync("/HomeViewPage");
             }
             catch (Exception ex)
             {

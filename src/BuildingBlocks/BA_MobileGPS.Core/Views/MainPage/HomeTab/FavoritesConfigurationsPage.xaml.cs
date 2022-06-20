@@ -13,7 +13,7 @@ namespace BA_MobileGPS.Core.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FavoritesConfigurationsPage : ContentPage
     {
-        private FavoritesConfigurationsPageViewModel viewModel = null;
+       // private FavoritesConfigurationsPageViewModel viewModel = null;
 
         public FavoritesConfigurationsPage()
         {
@@ -32,35 +32,35 @@ namespace BA_MobileGPS.Core.Views
 
         private void ListView_ItemTapped(object sender, Syncfusion.ListView.XForms.ItemTappedEventArgs e)
         {
-            viewModel = BindingContext as FavoritesConfigurationsPageViewModel;
-            try
-            {
-                var item = e.ItemData as HomeMenuItemViewModel;
+            //viewModel = BindingContext as FavoritesConfigurationsPageViewModel;
+            //try
+            //{
+            //    var item = e.ItemData as HomeMenuItemViewModel;
 
-                if (item.IsFavorited)
-                {
-                    item.IsFavorited = false;
+            //    if (item.IsFavorited)
+            //    {
+            //        item.IsFavorited = false;
 
-                    if (viewModel.FavoriteMenuItems.ToList().Any(x => x.PK_MenuItemID == item.PK_MenuItemID))
-                    {
-                        viewModel.FavoriteMenuItems.Remove(item);
-                    }
-                }
-                else
-                {
-                    item.IsFavorited = true;
-                    if (!viewModel.FavoriteMenuItems.ToList().Any(x => x.PK_MenuItemID == item.PK_MenuItemID))
-                    {
-                        viewModel.FavoriteMenuItems.Add(item);
-                    }
-                }
+            //        if (viewModel.FavoriteMenuItems.ToList().Any(x => x.PK_MenuItemID == item.PK_MenuItemID))
+            //        {
+            //            viewModel.FavoriteMenuItems.Remove(item);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        item.IsFavorited = true;
+            //        if (!viewModel.FavoriteMenuItems.ToList().Any(x => x.PK_MenuItemID == item.PK_MenuItemID))
+            //        {
+            //            viewModel.FavoriteMenuItems.Add(item);
+            //        }
+            //    }
 
-                viewModel.ReSort();
-            }
-            catch (System.Exception ex)
-            {
-                Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
-            }
+            //    viewModel.ReSort();
+            //}
+            //catch (System.Exception ex)
+            //{
+            //    Logger.WriteError(MethodInfo.GetCurrentMethod().Name, ex);
+            //}
         }
     }
 }

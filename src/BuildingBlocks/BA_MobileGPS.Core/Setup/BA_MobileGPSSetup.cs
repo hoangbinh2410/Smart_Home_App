@@ -2,6 +2,7 @@
 using BA_MobileGPS.Core.Themes;
 using BA_MobileGPS.Core.ViewModels;
 using BA_MobileGPS.Core.ViewModels.Expense;
+using BA_MobileGPS.Core.ViewModels.Home;
 using BA_MobileGPS.Core.ViewModels.Report.TransportBusiness;
 using BA_MobileGPS.Core.Views;
 using BA_MobileGPS.Core.Views.Expense;
@@ -122,8 +123,7 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<LanguagePage, LanguagePageViewModel>("LanguagePage");
             containerRegistry.RegisterForNavigation<ChangeLanguage, ChangeLanguageViewModel>("ChangeLanguage");
             containerRegistry.RegisterForNavigation<InsertLocalDBPage, InsertLocalDBPageViewModel>("InsertLocalDBPage");
-            containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");
-            containerRegistry.RegisterForNavigation<FavoritesConfigurationsPage, FavoritesConfigurationsPageViewModel>("FavoritesConfigurationsPage");
+            containerRegistry.RegisterForNavigation<NotificationPopupWhenLogin, NotificationPopupWhenLoginViewModel>("NotificationPopupWhenLogin");           
             containerRegistry.RegisterForNavigation<ActivityDetailsDetailReportPage, ActivityDetailsDetailViewModel>("ActivityDetailsDetailReportPage");
             containerRegistry.RegisterForNavigation<ActivityDetailsReportPage, ActivityDetailsViewModel>("ActivityDetailsReportPage");
             containerRegistry.RegisterForNavigation<ActivitySummariesDetailReportPage, ActivitySummariesDetailViewModel>("ActivitySummariesDetailReportPage");
@@ -175,7 +175,6 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<BoundaryPage, BoundaryViewModel>("BoundaryPage");
             containerRegistry.RegisterForNavigation<ListVehicleHelpPage, ListVehicleHelpViewModel>("ListVehicleHelpPage");
             containerRegistry.RegisterForNavigation<DetailVehiclePopup, DetailVehiclePopupViewModel>("DetailVehiclePopup");
-            containerRegistry.RegisterForNavigation<Home, HomeViewModel>("Home");
             containerRegistry.RegisterForNavigation<ListVehiclePage, ListVehiclePageViewModel>("ListVehiclePage");
             containerRegistry.RegisterForNavigation<OnlinePage, OnlinePageViewModel>("OnlinePage");
             containerRegistry.RegisterForNavigation<OnlinePageNoCluster, OnlinePageViewModel>("OnlinePageNoCluster");
@@ -248,6 +247,12 @@ namespace BA_MobileGPS.Core
             containerRegistry.RegisterForNavigation<DetailedFilterPage, DetailedFilterPageViewModel>("DetailedFilterPage");
             containerRegistry.RegisterForNavigation<NumberPhoneLoginPage, NumberPhoneLoginPageViewModel>("NumberPhoneLoginPage");
             containerRegistry.RegisterForNavigation<VerifyOTPSmsPage, VerifyOTPSmsPageViewModel>("VerifyOTPSmsPage");
+
+            //smart home
+            containerRegistry.RegisterForNavigation<HomeViewPage, HomeViewModel>("HomeViewPage");
+            containerRegistry.RegisterForNavigation<TurnHeaterView, TurnHeaterViewModel>("TurnHeaterView");
+
+
         }
     }
 }
