@@ -56,7 +56,7 @@
                 <pancake:PancakeView
                     Grid.Row="0"
                     Grid.Column="0"
-                    BackgroundColor="{DynamicResource colorItem}"
+                    BackgroundColor="{Binding TurnWindow, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
@@ -68,21 +68,22 @@
                     </pancake:PancakeView.Border>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <image:CachedImage
+                            <!--<image:CachedImage
                                 Grid.Column="0"
                                 HeightRequest="27"
                                 HorizontalOptions="Start"
                                 Source="ic_close.png"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center" />-->
                             <Label Style="{DynamicResource Text16B}" Text="Cửa sổ" />
                         </StackLayout>
                         <Label
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
                             Style="{DynamicResource Text16B}"
-                            Text="Bật"
+                            Text="{Binding TurnWindow, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand" />
+
                     </StackLayout>
                 </pancake:PancakeView>
 
@@ -90,33 +91,34 @@
                 <pancake:PancakeView
                     Grid.Row="0"
                     Grid.Column="1"
-                    BackgroundColor="{DynamicResource colorItem}"
+                    BackgroundColor="{Binding TurnCurtains, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
                     <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClickWindow1}" />
+                        <TapGestureRecognizer Command="{Binding ClickCurtains}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <pancake:PancakeView.Border>
                         <pancake:Border Thickness="2" Color="#2F80ED" />
                     </pancake:PancakeView.Border>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <image:CachedImage
+                            <!--<image:CachedImage
                                 Grid.Column="0"
                                 HeightRequest="27"
                                 HorizontalOptions="Start"
                                 Source="ic_close.png"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center" />-->
                             <Label Style="{DynamicResource Text16B}" Text="Cửa rèm" />
                         </StackLayout>
                         <Label
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
                             Style="{DynamicResource Text16B}"
-                            Text="Bật"
+                            Text="{Binding TurnCurtains, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand" />
+
                     </StackLayout>
                 </pancake:PancakeView>
 
@@ -124,7 +126,7 @@
                 <pancake:PancakeView
                     Grid.Row="0"
                     Grid.Column="2"
-                    BackgroundColor="{DynamicResource colorItem}"
+                    BackgroundColor="{Binding TurnMaindoor, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
@@ -136,21 +138,22 @@
                     </pancake:PancakeView.Border>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <image:CachedImage
+                            <!--<image:CachedImage
                                 Grid.Column="0"
                                 HeightRequest="27"
                                 HorizontalOptions="Start"
                                 Source="ic_close.png"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center" />-->
                             <Label Style="{DynamicResource Text16B}" Text="Cửa chính" />
                         </StackLayout>
                         <Label
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
                             Style="{DynamicResource Text16B}"
-                            Text="Bật"
+                            Text="{Binding TurnMaindoor, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand" />
+
                     </StackLayout>
                 </pancake:PancakeView>
 
@@ -158,7 +161,7 @@
                 <pancake:PancakeView
                     Grid.Row="1"
                     Grid.Column="0"
-                    BackgroundColor="{DynamicResource colorItem}"
+                    BackgroundColor="{Binding TurnAir, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
@@ -170,21 +173,22 @@
                     </pancake:PancakeView.Border>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <image:CachedImage
+                            <!--<image:CachedImage
                                 Grid.Column="0"
                                 HeightRequest="27"
                                 HorizontalOptions="Start"
                                 Source="ic_close.png"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center" />-->
                             <Label Style="{DynamicResource Text16B}" Text="Điều hòa" />
                         </StackLayout>
                         <Label
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
                             Style="{DynamicResource Text16B}"
-                            Text="Bật"
+                            Text="{Binding TurnAir, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand" />
+
                     </StackLayout>
                 </pancake:PancakeView>
 
@@ -192,38 +196,36 @@
                 <pancake:PancakeView
                     Grid.Row="1"
                     Grid.Column="1"
-                    BackgroundColor="{DynamicResource colorItem}"
+                    BackgroundColor="{Binding TurnHeater, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClickHeater}" />
+                    </pancake:PancakeView.GestureRecognizers>
                     <pancake:PancakeView.Border>
                         <pancake:Border Thickness="2" Color="#2F80ED" />
                     </pancake:PancakeView.Border>
-                    <StackLayout
-                        BackgroundColor="red"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                             <StackLayout Orientation="Horizontal">
-                                <image:CachedImage
+                                <!--<image:CachedImage
                                     Grid.Column="0"
                                     HeightRequest="27"
                                     HorizontalOptions="Start"
                                     Source="ic_close.png"
-                                    VerticalOptions="Center" />
+                                    VerticalOptions="Center" />-->
                                 <Label Style="{DynamicResource Text16B}" Text="Nóng lạnh" />
                             </StackLayout>
                             <Label
                                 FontSize="16"
                                 HorizontalOptions="CenterAndExpand"
                                 Style="{DynamicResource Text16B}"
-                                Text="Bật"
+                                Text="{Binding TurnHeater, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                                 TextColor="{DynamicResource PrimaryColor}"
                                 VerticalOptions="CenterAndExpand" />
                         </StackLayout>
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ClickHeater}" />
-                        </StackLayout.GestureRecognizers>
+
                     </StackLayout>
                 </pancake:PancakeView>
 
@@ -231,31 +233,31 @@
                 <pancake:PancakeView
                     Grid.Row="1"
                     Grid.Column="2"
-                    BackgroundColor="{DynamicResource colorItem}"
+                    BackgroundColor="{Binding TurnLamp, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="FillAndExpand">
                     <pancake:PancakeView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ClickLemp}" />
+                        <TapGestureRecognizer Command="{Binding ClickLamp}" />
                     </pancake:PancakeView.GestureRecognizers>
                     <pancake:PancakeView.Border>
                         <pancake:Border Thickness="2" Color="#2F80ED" />
                     </pancake:PancakeView.Border>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <image:CachedImage
+                            <!--<image:CachedImage
                                 Grid.Column="0"
                                 HeightRequest="27"
                                 HorizontalOptions="Start"
                                 Source="ic_close.png"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center" />-->
                             <Label Style="{DynamicResource Text16B}" Text="Đèn" />
                         </StackLayout>
                         <Label
                             FontSize="16"
                             HorizontalOptions="CenterAndExpand"
                             Style="{DynamicResource Text16B}"
-                            Text="Bật"
+                            Text="{Binding TurnLamp, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                             TextColor="{DynamicResource PrimaryColor}"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>

@@ -59,6 +59,7 @@ namespace BA_MobileGPS.Core.ViewModels
         public DelegateCommand SelectVehicleRouterCommand { get; private set; }
 
         public DelegateCommand SelectVehicleGroupCommand { get; private set; }
+        public DelegateCommand LogoutPageCommand { get; private set; }
 
         public ViewModelBase(INavigationService navigationService)
         {
@@ -82,6 +83,7 @@ namespace BA_MobileGPS.Core.ViewModels
             PushToAleartPageCommand = new DelegateCommand(PushToAlertPage);
             CallHotLineCommand = new DelegateCommand(CallHotLine);
             PushSupportPageCommand = new DelegateCommand(PushSupportPage);
+            LogoutPageCommand = new DelegateCommand(PushLoginPage);
         }
 
         ~ViewModelBase()
@@ -367,6 +369,13 @@ namespace BA_MobileGPS.Core.ViewModels
             SafeExecute(async () =>
             {
                 await NavigationService.NavigateAsync("NavigationPage/AlertOnlinePage", null, animated: true, useModalNavigation: true);
+            });
+        }
+        private void PushLoginPage()
+        {
+            SafeExecute(async () =>
+            {
+                await NavigationService.NavigateAsync("/LoginPage", null, animated: true, useModalNavigation: true);
             });
         }
 

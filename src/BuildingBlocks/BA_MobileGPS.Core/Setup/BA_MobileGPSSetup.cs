@@ -251,6 +251,7 @@ namespace BA_MobileGPS.Core
             //smart home
             containerRegistry.RegisterForNavigation<HomeViewPage, HomeViewModel>("HomeViewPage");
             containerRegistry.RegisterForNavigation<TurnHeaterView, TurnHeaterViewModel>("TurnHeaterView");
+            containerRegistry.RegisterForNavigation<TurnLampView, TurnLampViewModel>("TurnLampView");
 
 
         }

@@ -489,7 +489,10 @@
     <BundleResource Include="Resources\logo_Login.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Launch_Screen.png" />
+    <AndroidResource Include="Resources\Launch_Screen.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\NoItem.svg" />
