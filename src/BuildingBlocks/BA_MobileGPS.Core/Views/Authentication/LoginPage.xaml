@@ -15,7 +15,7 @@
     xmlns:sharpnado="clr-namespace:Sharpnado.MaterialFrame;assembly=Sharpnado.MaterialFrame"
     prism:ViewModelLocator.AutowireViewModel="True">
     <Grid RowSpacing="0">
-        <ff:CachedImage Aspect="AspectFill" Source="Launch_Screen.png" />
+        <ff:CachedImage Aspect="AspectFill" Source="bg_Login.png" />
         <Grid RowDefinitions="*,2.8*">
             <StackLayout
                 Grid.Row="0"
@@ -43,7 +43,7 @@
                 Grid.Row="0"
                 HeightRequest="90"
                 HorizontalOptions="Center"
-                Source="LogoApp.png"
+                Source="logo.png"
                 VerticalOptions="EndAndExpand"
                 WidthRequest="180" />
             <StackLayout Grid.Row="1" Spacing="15">

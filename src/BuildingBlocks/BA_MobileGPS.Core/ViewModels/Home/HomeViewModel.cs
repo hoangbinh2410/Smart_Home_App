@@ -43,6 +43,13 @@ namespace BA_MobileGPS.Core.ViewModels.Home
                     TurnHeater = obj;
                 }
             }
+            if (parameters != null)
+            {
+                if (parameters.ContainsKey("TurnLamp") && parameters.GetValue<Boolean>("TurnLamp") is Boolean obj)
+                {
+                    TurnLamp = obj;
+                }
+            }
         }
 
         public override void OnPageAppearingFirstTime()

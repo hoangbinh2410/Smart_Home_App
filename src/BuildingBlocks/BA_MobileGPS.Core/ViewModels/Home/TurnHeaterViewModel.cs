@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using Prism.Commands;
+using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,8 +16,8 @@ namespace BA_MobileGPS.Core.ViewModels
         public TurnHeaterViewModel(INavigationService navigationService) : base(navigationService)
         {
             DateSelectedCommand = new Command<DateChangedEventArgs>(DateSelected);
-            TurnHeater = new Command(ClickTurnHeater);
-            TurnoffHeater = new Command(ClickTurnoffHeater);
+            TurnHeater = new DelegateCommand(ClickTurnHeater);
+            TurnoffHeater = new DelegateCommand(ClickTurnoffHeater);
         }
         private void DateSelected(DateChangedEventArgs args)
         {

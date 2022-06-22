@@ -473,15 +473,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     if (isValid)
                     {
                         using (new HUDService(MobileResource.Common_Message_Processing))
-                        {
+                        {                            
                             var request = new LoginRequest
                             {
                                 UserName = UserName.Value.Trim(),
                                 Password = Password.Value.Trim(),
                                 AppType = App.AppType
                             };
+                            LoginResponse user = new LoginResponse();
                             // Lấy thông tin token
-                            var user = await authenticationService.Login(request);
+                            // var user = await authenticationService.Login(request);
                             OnLoginSuccess(user);
                             //if (user != null)
                             //{
@@ -604,7 +605,7 @@ namespace BA_MobileGPS.Core.ViewModels
             {
                 CultureInfo.CurrentCulture = new CultureInfo(Language.CodeName);
                 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(Language.CodeName);
-                StaticSettings.User = user;
+                //StaticSettings.User = user;
 
                     //nếu nhớ mật khẩu thì lưu lại thông tin username và password
                     if (Rememberme)
@@ -619,10 +620,10 @@ namespace BA_MobileGPS.Core.ViewModels
 
                     Settings.UserName = UserName.Value;
                     Settings.Password = Password.Value;
-                    StaticSettings.Token = user.AccessToken;
-                    StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
-                    OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
-                    OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());                  
+                    //StaticSettings.Token = user.AccessToken;
+                    //StaticSettings.SessionID = DeviceInfo.Model + "_" + DeviceInfo.Platform + "_" + Guid.NewGuid().ToString();
+                    //OneSignal.Current.SendTag("UserID", user.UserId.ToString().ToUpper());
+                    //OneSignal.Current.SendTag("UserName", user.UserName.ToString().ToUpper());                  
                    await NavigationService.NavigateAsync("/HomeViewPage");
             }
             catch (Exception ex)

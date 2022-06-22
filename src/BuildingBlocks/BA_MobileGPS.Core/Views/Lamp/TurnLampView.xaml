@@ -3,6 +3,7 @@
     x:Class="BA_MobileGPS.Core.Views.TurnLampView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     xmlns:ffImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:prism="http://prismlibrary.com"
     prism:ViewModelLocator.AutowireViewModel="True"
@@ -40,11 +41,48 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <StackLayout>
-            <Label
-                HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <Grid RowDefinitions="Auto,*">
+            <StackLayout
+                Grid.Row="0"
+                Padding="10,0"
+                BindableLayout.ItemsSource="{Binding MobileUserSettings}"
+                Spacing="0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            HeightRequest="40"
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal">
+                            <Label
+                                HorizontalOptions="StartAndExpand"
+                                Text="{Binding Display}"
+                                VerticalOptions="Center" />
+                            <Switch
+                                HorizontalOptions="End"
+                                IsToggled="{Binding Value1}"
+                                OnColor="{DynamicResource PrimaryColor}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                HeightRequest="60"
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="EndAndExpand">
+                <BoxView StyleClass="SlimLine" VerticalOptions="StartAndExpand" />
+                <buttons:SfButton
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Command="{Binding TurnLamp}"
+                    CornerRadius="20"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Lưu"
+                    VerticalOptions="StartAndExpand"
+                    WidthRequest="200" />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -16,5 +16,8 @@ namespace BA_MobileGPS.Entities
 
         [JsonIgnore]
         public bool IsChanged { get; set; }
+
+        private bool _value1;
+        public bool Value1 { get => _value1; set => SetProperty(ref _value1, value); }
     }
 }

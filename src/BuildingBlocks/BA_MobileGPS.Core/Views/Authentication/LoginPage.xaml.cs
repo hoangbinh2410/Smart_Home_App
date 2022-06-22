@@ -27,7 +27,7 @@ namespace BA_MobileGPS.Core.Views
             }
             if (App.AppType == AppType.Moto)
             {
-                logo.HeightRequest = 70;
+                //logo.HeightRequest = 70;
             }
         }
 
