@@ -1,6 +1,10 @@
-﻿using BA_MobileGPS.Service.IService;
+﻿using BA_MobileGPS.Entities;
+using BA_MobileGPS.Service.IService;
+using BA_MobileGPS.Utilities;
+using BA_MobileGPS.Utilities.Constant;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,34 +17,24 @@ namespace BA_MobileGPS.Service.Service
         {
             _requestProvider = requestProvider;
         }
-        public Task<bool> ControlAir(bool onDevice, string NameDevice)
+     
+        public async Task<bool> ControlHome(int id)    
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ControlCurtains(bool onDevice, string NameDevice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ControlHeater(bool onDevice, string NameDevice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ControlLamp(bool onDevice, string NameDevice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ControlMaindoor(bool onDevice, string NameDevice)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ControlWindow(bool onDevice, string NameDevice)
-        {
-            throw new NotImplementedException();
+            bool result = false;
+            try
+            {
+                string url = $"{ApiUri.POST_UPDATE_PAPER_REGISTRATION}";
+                var response = await _requestProvider.PutAsync<int, ResponseBase< bool> >(url, id);
+                if (response != null)
+                {
+                    result = response.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteError(MethodBase.GetCurrentMethod().Name, ex);
+            }
+            return result;
         }
     }
 }

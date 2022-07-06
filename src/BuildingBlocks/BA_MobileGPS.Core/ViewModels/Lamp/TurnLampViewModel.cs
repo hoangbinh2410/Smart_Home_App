@@ -25,19 +25,19 @@ namespace BA_MobileGPS.Core.ViewModels
                 new MobileUserSetting
                 {
                     Name = MobileUserConfigurationNames.EnableShowCluster.ToString(),
-                    Display = "Đèn 1",
+                    Display = "Phòng bếp",
                     Value1 = false
                 },
                 new MobileUserSetting
                 {
                     Name = MobileUserConfigurationNames.ShowNotification.ToString(),
-                    Display = "Đèn2",
+                    Display = "Đền phòng khách",
                     Value1 = false
                 },
                   new MobileUserSetting
                 {
                     Name = MobileUserConfigurationNames.UseViewAllCar.ToString(),
-                    Display = "Đèn 2",
+                    Display = "Đèn phòng ngủ",
                     Value1 = false
                 }
             };

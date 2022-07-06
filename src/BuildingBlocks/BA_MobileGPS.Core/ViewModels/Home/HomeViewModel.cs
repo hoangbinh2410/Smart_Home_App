@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using BA_MobileGPS.Entities.ResponeEntity;
+using BA_MobileGPS.Service.IService;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -9,20 +11,29 @@ namespace BA_MobileGPS.Core.ViewModels.Home
 {
    public class HomeViewModel : ViewModelBase
     {
+        private readonly IGetStatusService _statusService;
+        private readonly IControlSmartHomeService _controllService;
         public ICommand ClickHeater { get; private set; }
         public ICommand ClickLamp { get; private set; }
         public ICommand ClickAir { get; private set; }
         public ICommand ClickMainWindow { get; private set; }
         public ICommand ClickCurtains { get; private set; }
         public ICommand ClickWindow { get; private set; }
-        public HomeViewModel(INavigationService navigationService) : base(navigationService)
+        public ICommand ClickGara { get; private set; }
+        public HomeViewModel(INavigationService navigationService,
+            IGetStatusService statusService,
+            IControlSmartHomeService controllService) : base(navigationService)
         {
+            _statusService = statusService;
+            _controllService = controllService;
             ClickHeater = new DelegateCommand(ClickHeaterPage);
             ClickLamp = new DelegateCommand(ClickLampPage);
             ClickAir = new DelegateCommand(TurnAir1);
             ClickMainWindow = new DelegateCommand(TurnMainWindow);
             ClickCurtains = new DelegateCommand(TurnCurtain);
             ClickWindow = new DelegateCommand(TurnWindow1);
+            ClickGara = new DelegateCommand(Turngara);
+            EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(ReLoadStatus);
         }
 
         #region Lifecycle
@@ -64,12 +75,25 @@ namespace BA_MobileGPS.Core.ViewModels.Home
 
         public override void OnDestroy()
         {
+            EventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(ReLoadStatus) ;
         }
 
         #endregion Lifecycle
+
+        //Nhiệt độ
+        private int temple;
+        public int Temple { get { return temple; } set { SetProperty(ref temple, value); } }
+        //ĐỘ ẩm
+        private int humidity;
+        public int Humidity { get { return humidity; } set { SetProperty(ref humidity, value); } }
+
         // bật cửa chính
         private bool turnWindow = false;
         public bool TurnWindow { get { return turnWindow; } set { SetProperty(ref turnWindow, value); } }
+
+        // bật cửa chính
+        private bool turnGara = false;
+        public bool TurnGara { get { return turnGara; } set { SetProperty(ref turnGara, value); } }
         // Bật rèm
         private bool turnCurtains = false;
         public bool TurnCurtains { get { return turnCurtains; } set { SetProperty(ref turnCurtains, value); } }
@@ -103,14 +127,30 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         {
             SafeExecute(async () =>
             {
-                TurnAir = true;
+                var respone = await _controllService.ControlHome(1);
+                if (respone)
+                {
+                    TurnGara = true;
+                }
+                else
+                {
+                    TurnGara = false;
+                }
             });
         }
         private void TurnMainWindow()
         {
             SafeExecute(async () =>
             {
-                TurnMaindoor = true;
+                var respone = await _controllService.ControlHome(1);
+                if (respone)
+                {
+                    TurnGara = true;
+                }
+                else
+                {
+                    TurnGara = false;
+                }
             });
         }
 
@@ -118,15 +158,65 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         {
             SafeExecute(async () =>
             {
-                TurnCurtains = true;
+                var respone = await _controllService.ControlHome(1);
+                if (respone)
+                {
+                    TurnGara = true;
+                }
+                else
+                {
+                    TurnGara = false;
+                }
             });
         }
         private void TurnWindow1()
         {
             SafeExecute(async () =>
-            {
-                TurnWindow = true;
+            {               
+                var respone = await _controllService.ControlHome(1);
+                if (respone)
+                {
+                    TurnWindow = true;
+                }
+                else
+                {
+                    TurnWindow = false;
+                }
             });
+        }
+        private void Turngara()
+        {
+            SafeExecute(async () =>
+            {
+                var respone = await _controllService.ControlHome(1);
+                if (respone)
+                {
+                    TurnGara = true;
+                }
+                else
+                {
+                    TurnGara = false;
+                }
+            });
+        }
+        private void Getstatus()
+        {
+            SafeExecute(async () =>
+            {
+                List<StastusSmartHomeResponse> result = new List<StastusSmartHomeResponse>();
+                var respone = await _statusService.Getall();
+                if(respone!= null)
+                {
+                    result = respone;
+                }                       
+            });
+        }
+        private void ReLoadStatus(bool arg)
+        {
+            if (arg)
+            {
+                Getstatus();
+            }
         }
     }
 }

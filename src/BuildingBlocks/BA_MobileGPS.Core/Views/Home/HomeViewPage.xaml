@@ -46,13 +46,13 @@
             <viewcore:TitleBarView Grid.Row="0" />
             <Grid
                 Padding="10"
-                ColumnDefinitions="*,*,*"
+                ColumnDefinitions="*,*,*,*"
                 ColumnSpacing="20"
                 HorizontalOptions="FillAndExpand"
                 RowDefinitions="50*,50*"
                 RowSpacing="10"
                 VerticalOptions="FillAndExpand">
-                <!--  Cửa sổ  -->
+                <!--  Cua so  -->
                 <pancake:PancakeView
                     Grid.Row="0"
                     Grid.Column="0"
@@ -68,12 +68,6 @@
                     </pancake:PancakeView.Border>
                     <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                         <StackLayout Orientation="Horizontal">
-                            <!--<image:CachedImage
-                                Grid.Column="0"
-                                HeightRequest="27"
-                                HorizontalOptions="Start"
-                                Source="ic_close.png"
-                                VerticalOptions="Center" />-->
                             <Label Style="{DynamicResource Text16B}" Text="Cửa sổ" />
                         </StackLayout>
                         <Label
@@ -86,10 +80,81 @@
 
                     </StackLayout>
                 </pancake:PancakeView>
+                <!--  Nhiet do  -->
+                <pancake:PancakeView
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="{Binding TurnWindow, Converter={StaticResource BoolToColorCoverter}}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <pancake:PancakeView.Border>
+                        <pancake:Border Thickness="2" Color="#2F80ED" />
+                    </pancake:PancakeView.Border>
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <StackLayout>
+                            <Label Style="{DynamicResource Text16B}" Text="Nhiệt độ" />
+                            <Label Style="{DynamicResource Text16B}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Temple}" />
+                                        <Span Text=" Độ C" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Style="{DynamicResource Text16B}" Text="Độ ẩm" />
+                            <Label Style="{DynamicResource Text16B}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Humidity}" />
+                                        <Span Text=" %" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </StackLayout>
+                </pancake:PancakeView>
+
+                <!--  Cửa gara  -->
+                <pancake:PancakeView
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="{Binding TurnGara, Converter={StaticResource BoolToColorCoverter}}"
+                    CornerRadius="10"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+                    <pancake:PancakeView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClickGara}" />
+                    </pancake:PancakeView.GestureRecognizers>
+                    <pancake:PancakeView.Border>
+                        <pancake:Border Thickness="2" Color="#2F80ED" />
+                    </pancake:PancakeView.Border>
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <StackLayout Orientation="Horizontal">
+                            <!--<image:CachedImage
+                                Grid.Column="0"
+                                HeightRequest="27"
+                                HorizontalOptions="Start"
+                                Source="ic_close.png"
+                                VerticalOptions="Center" />-->
+                            <Label Style="{DynamicResource Text16B}" Text="Cửa Gara" />
+                        </StackLayout>
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{DynamicResource Text16B}"
+                            Text="{Binding TurnGara, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
+                            TextColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="CenterAndExpand" />
+
+                    </StackLayout>
+                </pancake:PancakeView>
 
                 <!--  Cửa rèm  -->
                 <pancake:PancakeView
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Grid.Column="1"
                     BackgroundColor="{Binding TurnCurtains, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
@@ -160,7 +225,7 @@
                 <!--  Điều hòa  -->
                 <pancake:PancakeView
                     Grid.Row="1"
-                    Grid.Column="0"
+                    Grid.Column="2"
                     BackgroundColor="{Binding TurnAir, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
@@ -194,8 +259,8 @@
 
                 <!--  Nóng lạnh  -->
                 <pancake:PancakeView
-                    Grid.Row="1"
-                    Grid.Column="1"
+                    Grid.Row="0"
+                    Grid.Column="3"
                     BackgroundColor="{Binding TurnHeater, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"
@@ -232,7 +297,7 @@
                 <!--  Đèn  -->
                 <pancake:PancakeView
                     Grid.Row="1"
-                    Grid.Column="2"
+                    Grid.Column="3"
                     BackgroundColor="{Binding TurnLamp, Converter={StaticResource BoolToColorCoverter}}"
                     CornerRadius="10"
                     HorizontalOptions="FillAndExpand"

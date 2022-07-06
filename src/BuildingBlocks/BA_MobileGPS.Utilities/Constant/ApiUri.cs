@@ -70,11 +70,15 @@
 
         #endregion vehicle
 
+        #region smarthome
+        public const string GET_ALL_STATUS = "api/v1/alert/getall";
+        #endregion smarthome
+
         #region alert
 
         // Đổi thành post vì quá nhiều xe => url quá dài, dài quá 2000 ký tự thì sẽ ko xử lý được
         // Đổi thành phương thức post
-        public const string GET_ALERT_ONLINE = "api/v1/alert/getalert";
+        public const string GET_ALERT_ONLINE = "api/v1/getalert";
 
         public const string GET_COUNT_ALERT_ONLINE = "api/v1/alert/getcountalert";
 
