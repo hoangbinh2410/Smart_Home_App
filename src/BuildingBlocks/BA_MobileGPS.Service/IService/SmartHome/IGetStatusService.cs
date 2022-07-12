@@ -8,6 +8,6 @@ namespace BA_MobileGPS.Service.IService
 {
    public interface IGetStatusService
     {
-        Task<List<StastusSmartHomeResponse>> Getall() ;
+        Task<StastusSmartHomeResponse> Getall() ;
     }
 }

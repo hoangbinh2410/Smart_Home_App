@@ -20,6 +20,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         public ICommand ClickCurtains { get; private set; }
         public ICommand ClickWindow { get; private set; }
         public ICommand ClickGara { get; private set; }
+        public ICommand ClickFan { get; private set; }
         public HomeViewModel(INavigationService navigationService,
             IGetStatusService statusService,
             IControlSmartHomeService controllService) : base(navigationService)
@@ -33,6 +34,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
             ClickCurtains = new DelegateCommand(TurnCurtain);
             ClickWindow = new DelegateCommand(TurnWindow1);
             ClickGara = new DelegateCommand(Turngara);
+            ClickFan = new DelegateCommand(Turnfan);
             EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(ReLoadStatus);
         }
 
@@ -41,17 +43,18 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         public override void Initialize(INavigationParameters parameters)
         {
             base.Initialize(parameters);
-                 
+            
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
+            Getstatus();
             if (parameters != null)
             {
                 if (parameters.ContainsKey("TurnHeater") && parameters.GetValue<Boolean>("TurnHeater") is Boolean obj)
                 {
-                    TurnHeater = obj;
+                    TurnAir = obj;
                 }
             }
             if (parameters != null)
@@ -79,13 +82,15 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         }
 
         #endregion Lifecycle
-
+        public List<Light> lamp = new List<Light>();
         //Nhiệt độ
-        private int temple;
-        public int Temple { get { return temple; } set { SetProperty(ref temple, value); } }
+        private string temple;
+        public string Temple { get { return temple; } set { SetProperty(ref temple, value); } }//Nhiệt độ
+        private string rain;
+        public string Rain { get { return rain; } set { SetProperty(ref rain, value); } }
         //ĐỘ ẩm
-        private int humidity;
-        public int Humidity { get { return humidity; } set { SetProperty(ref humidity, value); } }
+        private string humidity;
+        public string Humidity { get { return humidity; } set { SetProperty(ref humidity, value); } }
 
         // bật cửa chính
         private bool turnWindow = false;
@@ -108,34 +113,41 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         public bool TurnHeater { get { return turnHeater; } set { SetProperty(ref turnHeater, value); } }
         // đèn
         private bool turnLamp = false;
-        public bool TurnLamp { get { return turnLamp; } set { SetProperty(ref turnLamp, value); } }
+        public bool TurnLamp { get { return turnLamp; } set { SetProperty(ref turnLamp, value); } }// đèn
+        private bool turnFan = false;
+        public bool TurnFan { get { return turnFan; } set { SetProperty(ref turnFan, value); } }
         private void ClickHeaterPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("TurnHeaterView", null, useModalNavigation: true, true);
+                var respone = await _controllService.ControlHome(5);
+                if (respone)
+                {
+                  TurnHeater = true;
+                }
+                else
+                {
+                    TurnHeater = false;
+                }               
             });
         }
         private void ClickLampPage()
         {
             SafeExecute(async () =>
             {
-                await NavigationService.NavigateAsync("NavigationPage/TurnLampView", null, useModalNavigation: true, true);
+                var parameters = new NavigationParameters
+            {
+                { "Lamp", lamp }
+        
+            };
+                await NavigationService.NavigateAsync("NavigationPage/TurnLampView", parameters, useModalNavigation: true, true);
             });
         }
         private void TurnAir1()
         {
             SafeExecute(async () =>
             {
-                var respone = await _controllService.ControlHome(1);
-                if (respone)
-                {
-                    TurnGara = true;
-                }
-                else
-                {
-                    TurnGara = false;
-                }
+                await NavigationService.NavigateAsync("TurnHeaterView", null, useModalNavigation: true, true);
             });
         }
         private void TurnMainWindow()
@@ -145,11 +157,26 @@ namespace BA_MobileGPS.Core.ViewModels.Home
                 var respone = await _controllService.ControlHome(1);
                 if (respone)
                 {
-                    TurnGara = true;
+                    TurnMaindoor = true;
                 }
                 else
                 {
-                    TurnGara = false;
+                    TurnMaindoor = false;
+                }
+            });
+        }
+        private void Turnfan()
+        {
+            SafeExecute(async () =>
+            {
+                var respone = await _controllService.ControlHome(11);
+                if (respone)
+                {
+                    TurnFan = true;
+                }
+                else
+                {
+                    TurnFan = false;
                 }
             });
         }
@@ -158,14 +185,14 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         {
             SafeExecute(async () =>
             {
-                var respone = await _controllService.ControlHome(1);
+                var respone = await _controllService.ControlHome(4);
                 if (respone)
                 {
-                    TurnGara = true;
+                    TurnCurtains = true;
                 }
                 else
                 {
-                    TurnGara = false;
+                    TurnCurtains = false;
                 }
             });
         }
@@ -173,7 +200,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         {
             SafeExecute(async () =>
             {               
-                var respone = await _controllService.ControlHome(1);
+                var respone = await _controllService.ControlHome(3);
                 if (respone)
                 {
                     TurnWindow = true;
@@ -188,7 +215,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         {
             SafeExecute(async () =>
             {
-                var respone = await _controllService.ControlHome(1);
+                var respone = await _controllService.ControlHome(2);
                 if (respone)
                 {
                     TurnGara = true;
@@ -203,12 +230,55 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         {
             SafeExecute(async () =>
             {
-                List<StastusSmartHomeResponse> result = new List<StastusSmartHomeResponse>();
+                StastusSmartHomeResponse result = new StastusSmartHomeResponse();
                 var respone = await _statusService.Getall();
                 if(respone!= null)
                 {
                     result = respone;
-                }                       
+                }  
+                foreach( var item in result.switches)
+                {
+                    switch (item.id)
+                    {
+                        case 1:
+                            TurnMaindoor = item.data;
+                            break;
+                        case 2:
+                            TurnGara = item.data;
+                            break;
+                        case 3:
+                            TurnWindow = item.data;
+                            break;
+                        case 4:
+                            TurnCurtains = item.data;
+                            break;
+                        case 5:
+                            TurnHeater = item.data;
+                            break;
+                        case 11:
+                            TurnWindow = item.data;
+                            break;
+                        case 12:
+                            TurnFan = item.data;
+                            break;
+                    }          
+                };
+                foreach (var item in result.sensors)
+                {
+                    if(item.code_name == "TEMP_SENSOR")
+                    {
+                        Temple = item.data;
+                    }else if(item.code_name == "HUM_SENSOR")
+                    {
+                        Humidity = item.data;
+                    }
+                    else
+                    {
+                        Rain = item.data;
+                    }
+                }
+                lamp = result.lights;
+
             });
         }
         private void ReLoadStatus(bool arg)

@@ -19,15 +19,15 @@ namespace BA_MobileGPS.Service.Service
             _requestProvider = requestProvider;
         }
 
-        public async Task<List<StastusSmartHomeResponse>> Getall()
+        public async Task<StastusSmartHomeResponse> Getall()
         {
-            List<StastusSmartHomeResponse> result = new List<StastusSmartHomeResponse>();
+            StastusSmartHomeResponse result = new StastusSmartHomeResponse();
             try
             {              
-                var response = await _requestProvider.GetAsync<ResponseBase<List<StastusSmartHomeResponse>>>(ApiUri.GET_ALL_STATUS);
-                if (response != null && response.Data != null)
+                var response = await _requestProvider.GetAsync<StastusSmartHomeResponse>("http://192.168.0.104:8000/api/v1");
+                if (response != null )
                 {
-                    result = response.Data;
+                    result = response;
                 }
             }
             catch (Exception ex)

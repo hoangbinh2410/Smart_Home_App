@@ -366,7 +366,7 @@ namespace BA_MobileGPS.Service
             return default;
         }
 
-        public async Task<TResult> PutAsync<TResult>(string uri, TResult data, string token = "", string header = "")
+        public async Task<TResult> PutAsync<TResult>(string uri, string data ="", string token = "", string header = "")
         {
             try
             {
@@ -390,7 +390,7 @@ namespace BA_MobileGPS.Service
 
                         return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized, _serializerSettings));
                     }
-                }
+                }              
             }
             catch (Exception ex)
             {

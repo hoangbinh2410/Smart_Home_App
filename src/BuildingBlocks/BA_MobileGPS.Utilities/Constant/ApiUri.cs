@@ -71,7 +71,7 @@
         #endregion vehicle
 
         #region smarthome
-        public const string GET_ALL_STATUS = "api/v1/alert/getall";
+        public const string GET_ALL_STATUS = "api/v1";
         #endregion smarthome
 
         #region alert

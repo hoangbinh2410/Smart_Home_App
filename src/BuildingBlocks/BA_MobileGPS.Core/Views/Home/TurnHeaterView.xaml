@@ -76,19 +76,20 @@
                             VerticalOptions="Center" />
                     </StackLayout>
                     <StackLayout>
-                        <!--  Chọn ngày  -->
-                        <views:DateTimePickerView
-                            x:Name="dtStart"
-                            Grid.Row="0"
+                        <Entry
                             Grid.Column="0"
-                            Margin="0"
-                            CornerRadius="15"
-                            DateSelectedCommand="{Binding DateSelectedCommand}"
-                            DateTime="{Binding DateStart}"
+                            FontSize="{DynamicResource FontSizeTextPut11}"
                             HorizontalOptions="FillAndExpand"
-                            IconColor="{DynamicResource PrimaryColor}"
-                            PickerMode="Popup"
-                            VerticalOptions="Center" />
+                            InputTransparent="True"
+                            Placeholder="Nhiệt độ"
+                            PlaceholderColor="Black"
+                            Text="{Binding Temple}"
+                            VerticalOptions="Center">
+                            <Entry.Effects>
+                                <effects:BorderlessEffect />
+                            </Entry.Effects>
+                        </Entry>
+
                     </StackLayout>
 
                 </StackLayout>

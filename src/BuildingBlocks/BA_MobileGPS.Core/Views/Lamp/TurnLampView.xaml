@@ -43,30 +43,62 @@
     <ContentPage.Content>
 
         <Grid RowDefinitions="Auto,*">
-            <StackLayout
-                Grid.Row="0"
-                Padding="10,0"
-                BindableLayout.ItemsSource="{Binding MobileUserSettings}"
-                Spacing="0">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout
-                            HeightRequest="40"
-                            HorizontalOptions="FillAndExpand"
-                            Orientation="Horizontal">
-                            <Label
-                                HorizontalOptions="StartAndExpand"
-                                Text="{Binding Display}"
-                                VerticalOptions="Center" />
-                            <Switch
-                                HorizontalOptions="End"
-                                IsToggled="{Binding Value1}"
-                                OnColor="{DynamicResource PrimaryColor}"
-                                VerticalOptions="Center" />
-                        </StackLayout>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
+            <StackLayout Grid.Row="0">
+                <StackLayout Padding="10,0" Spacing="0">
+                    <StackLayout
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="Đèn phòng bếp"
+                            VerticalOptions="Center" />
+                        <Switch
+                            HorizontalOptions="End"
+                            IsToggled="{Binding TurnLamp1}"
+                            OnColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="Đèn phòng ngủ"
+                            VerticalOptions="Center" />
+                        <Switch
+                            HorizontalOptions="End"
+                            IsToggled="{Binding TurnLamp2}"
+                            OnColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                    <StackLayout
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            HorizontalOptions="StartAndExpand"
+                            Text="Đèn phòng khách"
+                            VerticalOptions="Center" />
+                        <Switch
+                            HorizontalOptions="End"
+                            IsToggled="{Binding TurnLamp3}"
+                            OnColor="{DynamicResource PrimaryColor}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout>
+                    <Label HorizontalOptions="StartAndExpand" Text="Độ sáng phòng khách" />
+                    <Slider
+                        BackgroundColor="Pink"
+                        Maximum="100"
+                        Minimum="0"
+                        Value="{Binding ValueLamp}" />
+                </StackLayout>
+
             </StackLayout>
+
             <StackLayout
                 Grid.Row="1"
                 HeightRequest="60"
@@ -79,7 +111,7 @@
                     Command="{Binding TurnLamp}"
                     CornerRadius="20"
                     HorizontalOptions="CenterAndExpand"
-                    Text="Lưu"
+                    Text="Bật"
                     VerticalOptions="StartAndExpand"
                     WidthRequest="200" />
             </StackLayout>
