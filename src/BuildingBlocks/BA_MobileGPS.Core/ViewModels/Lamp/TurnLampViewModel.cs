@@ -11,19 +11,19 @@ namespace BA_MobileGPS.Core.ViewModels
 {
     public class TurnLampViewModel : ViewModelBase
     {
-        private readonly IDisplayMessage _displayMessage;
+       
         private readonly IControlSmartHomeService _controllService;
         private ObservableCollection<MobileUserSetting> mobileUserSettings;
         public ObservableCollection<MobileUserSetting> MobileUserSettings { get => mobileUserSettings; set => SetProperty(ref mobileUserSettings, value); }
         public ICommand TurnLamp { get; }
 
         public TurnLampViewModel(INavigationService navigationService,
-            IControlSmartHomeService controllService, IDisplayMessage displayMessage) : base(navigationService)
+            IControlSmartHomeService controllService) : base(navigationService)
         {
             Title = "Hệ thống đèn";
             TurnLamp = new DelegateCommand(ClickSave);
             _controllService = controllService;
-            _displayMessage = displayMessage;
+           
         }
 
         #region Lifecycle
@@ -41,8 +41,9 @@ namespace BA_MobileGPS.Core.ViewModels
                 if (parameters.ContainsKey("Lamp") && parameters.GetValue<List<Light>>("Lamp") is List<Light> obj)
                 {
                     Lamp = obj;
-                    CheckValueLamp(Lamp);
+                   
                 }
+                CheckValueLamp(Lamp);
             }
         }
 
@@ -86,16 +87,16 @@ namespace BA_MobileGPS.Core.ViewModels
                     switch (item.id)
                     {
                         case 8:
-                            item.data = new Data1 { power = TurnLamp1 };
+                            item.data = new Data1 { power = TurnLamp2 };
                             break;
 
                         case 9:
-                          
-                            item.data = new Data1 { power = TurnLamp3, config = ValueLamp };
+                            item.data.power = TurnLamp3;
+                            item.data.config = ValueLamp;
                             break;
 
                         case 10:
-                            item.data = new Data1 { power = TurnLamp2 };
+                            item.data = new Data1 { power = TurnLamp1 };
                             break;
                     }
                     List<Light> Request = Lamp;
@@ -110,7 +111,7 @@ namespace BA_MobileGPS.Core.ViewModels
                     }
                     else
                     {
-                        _displayMessage.ShowMessageWarning("Lỗi");
+                       
                     }
                 }
             });
@@ -123,7 +124,7 @@ namespace BA_MobileGPS.Core.ViewModels
                 switch (item.id)
                 {
                     case 8:
-                        TurnLamp1 = item.data.power;
+                        TurnLamp2 = item.data.power;
                         break;
 
                     case 9:
@@ -132,7 +133,7 @@ namespace BA_MobileGPS.Core.ViewModels
                         break;
 
                     case 10:
-                        TurnLamp2 = item.data.power;
+                        TurnLamp1 = item.data.power;
                         break;
                 }
             };

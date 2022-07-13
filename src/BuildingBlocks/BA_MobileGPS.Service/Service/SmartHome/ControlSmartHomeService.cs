@@ -19,16 +19,16 @@ namespace BA_MobileGPS.Service.Service
             _requestProvider = requestProvider;
         }
 
-        public async Task<bool> ControlAir(AirControll temp)
+        public async Task<AirControll> ControlAir(AirControll temp)
         {
-            bool result = false;
+            AirControll result = new AirControll();
             try
             {
                 string url = string.Format("http://192.168.0.104:8000/api/v1/config/9/");
-                var response = await _requestProvider.PutAsync<AirControll,ControlResponse>(url,temp);
+                var response = await _requestProvider.PutAsync<AirControll, AirControll>(url,temp);
                 if (response != null)
                 {
-                    result = response.data;
+                    result = response;
                 }
             }
             catch (Exception ex)

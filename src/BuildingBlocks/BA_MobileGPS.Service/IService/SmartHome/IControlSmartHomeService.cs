@@ -10,7 +10,7 @@ namespace BA_MobileGPS.Service.IService
     {
         Task<bool> ControlHome(int id);
         Task<bool> ControlLight(List<Light> list);
-        Task<bool> ControlAir(AirControll temp);
+        Task<AirControll> ControlAir(AirControll temp);
 
     }
 }

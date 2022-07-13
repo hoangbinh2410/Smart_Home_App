@@ -317,7 +317,6 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             Padding="10"
-                            BackgroundColor="{Binding TurnLamp, Converter={StaticResource BoolToColorCoverter}}"
                             CornerRadius="10"
                             HorizontalOptions="FillAndExpand"
                             VerticalOptions="FillAndExpand">
@@ -337,13 +336,13 @@
                                 VerticalOptions="Center" />-->
                                     <Label Style="{DynamicResource Text16B}" Text="Đèn" />
                                 </StackLayout>
-                                <Label
+                                <!--<Label
                                     FontSize="16"
                                     HorizontalOptions="CenterAndExpand"
                                     Style="{DynamicResource Text16B}"
                                     Text="{Binding TurnLamp, Converter={StaticResource BoolToTurnSmartHomeConverter}}"
                                     TextColor="{DynamicResource PrimaryColor}"
-                                    VerticalOptions="CenterAndExpand" />
+                                    VerticalOptions="CenterAndExpand" />-->
                             </StackLayout>
                         </pancake:PancakeView>
 

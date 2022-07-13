@@ -14,7 +14,14 @@ namespace BA_MobileGPS.Core.Views
     {
         public TurnLampView()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+
+            }
         }
     }
 }

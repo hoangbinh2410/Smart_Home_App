@@ -5,6 +5,8 @@ using Prism.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 
 namespace BA_MobileGPS.Core.ViewModels.Home
@@ -35,7 +37,10 @@ namespace BA_MobileGPS.Core.ViewModels.Home
             ClickWindow = new DelegateCommand(TurnWindow1);
             ClickGara = new DelegateCommand(Turngara);
             ClickFan = new DelegateCommand(Turnfan);
-            EventAggregator.GetEvent<OnReloadVehicleOnline>().Subscribe(ReLoadStatus);
+            Timeupdate = new Timer(10000);
+            Timeupdate.Elapsed += new ElapsedEventHandler(ReLoadStatus);
+            Timeupdate.AutoReset = true;
+            Timeupdate.Enabled = true;
         }
 
         #region Lifecycle
@@ -49,7 +54,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
-            Getstatus();
+            
             if (parameters != null)
             {
                 if (parameters.ContainsKey("TurnHeater") && parameters.GetValue<Boolean>("TurnHeater") is Boolean obj)
@@ -64,6 +69,8 @@ namespace BA_MobileGPS.Core.ViewModels.Home
                     TurnLamp = obj;
                 }
             }
+            Getstatus();
+               
         }
 
         public override void OnPageAppearingFirstTime()
@@ -78,10 +85,11 @@ namespace BA_MobileGPS.Core.ViewModels.Home
 
         public override void OnDestroy()
         {
-            EventAggregator.GetEvent<OnReloadVehicleOnline>().Unsubscribe(ReLoadStatus) ;
+            
         }
 
         #endregion Lifecycle
+        private static Timer Timeupdate;
         public List<Light> lamp = new List<Light>();
         //Nhiệt độ
         private string temple;
@@ -118,7 +126,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         public bool TurnFan { get { return turnFan; } set { SetProperty(ref turnFan, value); } }
         private void ClickHeaterPage()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var respone = await _controllService.ControlHome(5);
                 if (respone)
@@ -133,7 +141,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         }
         private void ClickLampPage()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var parameters = new NavigationParameters
             {
@@ -145,14 +153,14 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         }
         private void TurnAir1()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 await NavigationService.NavigateAsync("TurnHeaterView", null, useModalNavigation: true, true);
             });
         }
         private void TurnMainWindow()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var respone = await _controllService.ControlHome(1);
                 if (respone)
@@ -167,7 +175,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         }
         private void Turnfan()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var respone = await _controllService.ControlHome(11);
                 if (respone)
@@ -183,7 +191,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
 
         private void TurnCurtain()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var respone = await _controllService.ControlHome(4);
                 if (respone)
@@ -198,7 +206,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         }
         private void TurnWindow1()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {               
                 var respone = await _controllService.ControlHome(3);
                 if (respone)
@@ -213,7 +221,7 @@ namespace BA_MobileGPS.Core.ViewModels.Home
         }
         private void Turngara()
         {
-            SafeExecute(async () =>
+            TryExecute(async () =>
             {
                 var respone = await _controllService.ControlHome(2);
                 if (respone)
@@ -281,12 +289,9 @@ namespace BA_MobileGPS.Core.ViewModels.Home
 
             });
         }
-        private void ReLoadStatus(bool arg)
+        private void ReLoadStatus(object sender ,ElapsedEventArgs e)
         {
-            if (arg)
-            {
-                Getstatus();
-            }
+                Getstatus();        
         }
     }
 }

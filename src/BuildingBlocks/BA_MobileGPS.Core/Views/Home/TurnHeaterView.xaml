@@ -41,7 +41,10 @@
             HorizontalOptions="Center"
             LightThemeBackgroundColor="White"
             VerticalOptions="Center">
-            <Grid RowDefinitions="Auto,*,*" RowSpacing="0">
+            <Grid
+                Padding="10,0,10,0"
+                RowDefinitions="Auto,*,*"
+                RowSpacing="0">
                 <Grid Margin="5" HeightRequest="40">
                     <Label
                         x:Name="lblNote"
@@ -77,24 +80,24 @@
                     </StackLayout>
                     <StackLayout>
                         <Entry
-                            Grid.Column="0"
-                            FontSize="{DynamicResource FontSizeTextPut11}"
+                            Margin="10"
+                            FontSize="14"
                             HorizontalOptions="FillAndExpand"
-                            InputTransparent="True"
-                            Placeholder="Nhiệt độ"
+                            Keyboard="Numeric"
                             PlaceholderColor="Black"
                             Text="{Binding Temple}"
-                            VerticalOptions="Center">
+                            VerticalOptions="Center"
+                            WidthRequest="100">
                             <Entry.Effects>
                                 <effects:BorderlessEffect />
                             </Entry.Effects>
                         </Entry>
-
                     </StackLayout>
 
                 </StackLayout>
                 <Grid
                     Grid.Row="2"
+                    Padding="10,0,10,0"
                     ColumnDefinitions="50*,50*"
                     HeightRequest="40">
                     <buttons:SfButton
