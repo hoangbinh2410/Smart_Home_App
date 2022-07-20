@@ -75,7 +75,7 @@
                         Orientation="Horizontal">
                         <Label
                             HorizontalOptions="CenterAndExpand"
-                            Text="Bật bình nóng lạnh"
+                            Text="Điều khiển điều hòa"
                             VerticalOptions="Center" />
                     </StackLayout>
                     <StackLayout>

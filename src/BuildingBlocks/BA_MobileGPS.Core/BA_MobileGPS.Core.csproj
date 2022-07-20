@@ -66,96 +66,11 @@
 	  <ProjectReference Include="..\BA_MobileGPS.Utilities\BA_MobileGPS.Utilities.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Compile Update="Views\Camera\Authentication\LoginFailedPopup.xaml.cs">
-	    <DependentUpon>LoginFailedPopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
-	  <Compile Update="Views\Camera\MonitoringImage\ImageManagingPage.xaml.cs">
-	    <DependentUpon>ImageManagingPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Camera\MonitoringImage\Template1Image.xaml.cs">
-	    <DependentUpon>Template1Image.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Camera\MonitoringImage\Template4Image.xaml.cs">
-	    <DependentUpon>Template4Image.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Camera\Restream\PinInfowindowTimeView.xaml.cs">
-	    <DependentUpon>PinInfowindowTimeView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Camera\Restream\StreamUserMessagePopup.xaml.cs">
-	    <DependentUpon>StreamUserMessagePopup.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\Common\SelectDateTime\SelectMonthCalendar.xaml.cs">
 	    <DependentUpon>SelectMonthCalendar.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Views\Driver\AddDriverInforPage.xaml.cs">
-	    <DependentUpon>AddDriverInforPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Issue\TemplateIssueStatus.xaml.cs">
-	    <DependentUpon>TemplateIssueStatus.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Issue\TemplateDueDate.xaml.cs">
-	    <DependentUpon>TemplateDueDate.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\KPI\RankNotDriverPage.xaml.cs">
-	    <DependentUpon>RankNotDriverPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\DetailVehiclePopup.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\ListVehicleHelpPage.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\ListVehiclePage.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleDefaultView.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleExpiredView.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleLostSignalView.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleStopServiceView.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\ListVehicle\VehicleUnpaidView.xaml.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Online\OnlinePageNoCluster.xaml.cs">
-	    <DependentUpon>OnlinePageNoCluster.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\PapersInformation\ListPaperTab\FollowPaperTypeTab.xaml.cs">
-	    <DependentUpon>FollowPaperTypeTab.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\PapersInformation\ListPaperTab\FollowVehiclePlateTab.xaml.cs">
-	    <DependentUpon>FollowVehiclePlateTab.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="Views\Popup\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Report\QCVN31Speed\QCVN31SpeedReportPage.xaml.cs">
-	    <DependentUpon>QCVN31SpeedReportPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Views\Route\RouteListPage.xaml.cs">
 	    <DependentUpon>%(Filename)</DependentUpon>
@@ -168,12 +83,6 @@
 	  </Compile>
 	  <Compile Update="Views\Route\RouteReportView.xaml.cs">
 	    <DependentUpon>RouteReportView.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Vehicle\VehicleDetailPage.xaml.cs">
-	    <DependentUpon>%(Filename)</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\Vehicle\BACamDetailTab.xaml.cs">
-	    <DependentUpon>BACamDetailTab.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
@@ -204,85 +113,10 @@
 	  <EmbeddedResource Update="ViewModels\Authentication\VerifyOTPCodePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Alert\AlertHandlingPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Alert\AlertMaskDetailPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Alert\AlertOnlinePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Authentication\NumberPhoneLoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Authentication\VerifyOTPSmsPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\ChangePasswordPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\ForgotPasswordPopup.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\PlaybackUserMessagePopup.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Package\PackageCameraPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\CameraTimeChart\CameraTimeChart.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\BACloudTab.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\BACloudTab.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\CameraRestream.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraRestreamOverview.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\CameraManagingPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\CameraStream.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RequestMoreTimePopup.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\DeviceTab.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\Tab\MyVideoTab.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\ChangePasswordForgotPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\PinInfowindowTimeView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\StreamUserMessagePopup.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\ViewVideoUploadedPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\UploadVideo\ExportVideoPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\UploadVideo\UploadVideoPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\UploadVideo\UploadVideoProssessPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\ComboboxPage.xaml">
@@ -290,9 +124,6 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\ImageEditorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\LoginPreviewFeaturesPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\PopupHtmlPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
@@ -306,98 +137,13 @@
 	  <EmbeddedResource Update="Views\DetailCamera.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\DeviceTab.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Driver\ListDriverPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\ForgotPasswordPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Expense\ExpenceManagementPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Expense\ExpenseDetailsPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Expense\ImportExpensePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Home\HomeViewPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Home\TurnHeaterView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Issue\IssuesDetailPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Issue\ListIssuePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\KPI\KpiDriverChartPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\KPI\RankDriverPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Lamp\TurnLampView.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\ListMenuPopupPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\ListPaperHistories\PaperHistoriesPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\FollowPaperTypeTab.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\FollowVehiclePlateTab.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\ListPaperTab\ListPapersPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\Insert\CabSignInfor.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\Insert\InsuranceInfor.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\Insert\InvalidPapersPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleHelpPage.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\ListVehiclePage.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\ListVehicleView.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\VehicleDefaultView.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\VehicleExpiredView.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\VehicleLostSignalView.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\VehicleStopServiceView.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\ListVehicle\VehicleUnpaidView.xaml">
-	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\AccountTab\Account.xaml">
@@ -412,62 +158,17 @@
 	  <EmbeddedResource Update="Views\InsertLocalDBPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Language\ChangeLanguage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\PinInfowindowActiveView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Common\PinInfowindowView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\LoginPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Language\LanguagePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\MainPage\MainPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Restream\MyVideoTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Navigation\BaseNavigationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Notification\NotificationDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Notification\NotificationPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Notification\NotificationPopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Notification\NotificationPopupAfterLogin.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Notification\NotificationPopupWhenLogin.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\BoundaryNameInfoWindow.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\BoundaryPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\OnlineCarInfoView.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Online\OnlinePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\Insert\RegistrationInfor.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\SelectAlertTypePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\PartialView\TitleBarView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -484,35 +185,8 @@
 	  <EmbeddedResource Update="Views\ReLogin\ReLoginPage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\ReStreamOverview.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\MonitoringCamera\RestreamOverview.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Report\QCVN31Speed\QCVN31SpeedReportPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Report\StationDetails\StationDetailsPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Report\TransportBusiness\DetailedFilterPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Route\RouteView.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\PapersInformation\SelectPaperTypePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Settings\AlertConfigSettingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Settings\AlertTimeSettingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Settings\AlertVehicleSettingPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\SettingThemePage.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -521,44 +195,6 @@
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	  <EmbeddedResource Update="Views\Shared\VehicleCameraMultiSelect.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Driver\AddDriverInforPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\ListVehicleSupportPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\SelectSupportPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\SupportClientPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\SupportErrorsSignalPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\ChangeLicensePlate.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\MessageSuportPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Support\SupportFeePage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Update="Views\Vehicle\VehicleDebtMoneyPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Camera\Authentication\VerifyCodeSMSPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailCameraPage.xaml">
-	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	  </EmbeddedResource>
-	  <EmbeddedResource Update="Views\Vehicle\VehicleDetailTab.xaml">
 	    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	  </EmbeddedResource>
 	</ItemGroup>
